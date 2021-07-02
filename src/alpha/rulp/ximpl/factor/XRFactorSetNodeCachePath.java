@@ -1,0 +1,50 @@
+package alpha.rulp.ximpl.factor;
+
+import static alpha.rulp.lang.Constant.O_Nan;
+
+import alpha.rulp.lang.IRFrame;
+import alpha.rulp.lang.IRList;
+import alpha.rulp.lang.IRObject;
+import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRModel;
+import alpha.rulp.runtime.IRFactor;
+import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.FileUtil;
+import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.cache.XRStmtFileCacher;
+import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.node.IRReteNode;
+
+public class XRFactorSetNodeCachePath extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+
+	public XRFactorSetNodeCachePath(String factorName) {
+		super(factorName);
+	}
+
+	@Override
+	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
+
+		/********************************************/
+		// Check parameters
+		/********************************************/
+		int argSize = args.size();
+		if (argSize != 4) {
+			throw new RException("Invalid parameters: " + args);
+		}
+
+		IRModel model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
+		IRList filter = RulpUtil.asList(args.get(2));
+		String cachePath = RulpUtil.asString(interpreter.compute(frame, args.get(3))).asString();
+
+		IRReteNode node = model.findNode(RuleUtil.toCondList(filter));
+		String nodeCachePath = FileUtil.toValidPath(cachePath) + XRStmtFileCacher.getNodeCacheName(node);
+
+		XRStmtFileCacher cacher = new XRStmtFileCacher(model.getInterpreter());
+		model.setNodeCache(node, cacher, cacher, RulpFactory.createString(nodeCachePath));
+
+		return O_Nan;
+	}
+
+}

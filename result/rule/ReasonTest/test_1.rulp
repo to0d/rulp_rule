@@ -1,0 +1,19 @@
+(new model m)
+;=>m
+(add-rule m if '(?x ?y ?z) do (-> m '(?y ?z ?x)))
+;=>RU000
+(add-stmt m '(a b c))
+;=>1
+(start m)
+;=>6
+(list-stmt m)
+;=>'('(a b c) '(b c a) '(c a b))
+(print-entry-ref m)
+;out:
+Stmt : name='(a b c), id=1, stats=DEFINED, ref=1
+    ==> Ref: node=R0001, parent=(0)
+Stmt : name='(b c a), id=2, stats=REASONED, ref=1
+    ==> Ref: node=R0001, parent=(0)
+Stmt : name='(c a b), id=3, stats=REASONED, ref=1
+    ==> Ref: node=R0001, parent=(0)
+;eof

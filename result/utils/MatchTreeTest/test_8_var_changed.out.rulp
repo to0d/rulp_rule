@@ -1,0 +1,192 @@
+;;---------------------------------------------------------;;
+;; 1 var, 0 join, 0 expr
+'(?p1 p2 c) (var-changed ?s1 v1 v2) ; input
+'('(?p1 p2 c) (var-changed ?s1 v1 v2)) ; output
+;expr: 
+'(
+    '(?p1 p2 c)
+    (var-changed ?s1 v1 v2)
+ )
+
+
+
+;; 1 var, 0 join, 1 expr
+'(?p1 p2 c) (not-equal ?p1 a) (var-changed ?s1 v1 v2) ; input
+'('('(?p1 p2 c) (not-equal ?p1 a)) (var-changed ?s1 v1 v2)) ; output
+;expr: 
+'(
+    '(
+        '(?p1 p2 c)
+        (not-equal ?p1 a)
+     )
+    (var-changed ?s1 v1 v2)
+ )
+
+
+'(?p1 p2 c) (not-equal ?v1 a) (var-changed ?s1 ?v1 v2) ; input
+'('(?p1 p2 c) ((var-changed ?s1 ?v1 v2) (not-equal ?v1 a))) ; output
+;expr: 
+'(
+    '(?p1 p2 c)
+    ((var-changed ?s1 ?v1 v2) (not-equal ?v1 a))
+ )
+
+
+
+;; 1 var, 1 join, 0 expr
+'(?p1 p2 ?v) (var-changed ?s1 v1 ?v) ; input
+'('(?p1 p2 ?v) (var-changed ?s1 v1 ?v)) ; output
+;expr: 
+'(
+    '(?p1 p2 ?v)
+    (var-changed ?s1 v1 ?v)
+ )
+
+
+
+;; 1 var, 1 join, 1 expr
+'(?p1 p2 ?v) (not-equal ?p1 a) (var-changed ?s1 v1 ?v) ; input
+'('('(?p1 p2 ?v) (var-changed ?s1 v1 ?v)) (not-equal ?p1 a)) ; output
+;expr: 
+'(
+    '(
+        '(?p1 p2 ?v)
+        (var-changed ?s1 v1 ?v)
+     )
+    (not-equal ?p1 a)
+ )
+
+
+
+;; 2 var, 0 join, 0 expr
+'(?p1 p2 c) (var-changed ?s1 v11 v12) (var-changed ?s2 v21 v22) ; input
+'('('(?p1 p2 c) (var-changed ?s1 v11 v12)) (var-changed ?s2 v21 v22)) ; output
+;expr: 
+'(
+    '(
+        '(?p1 p2 c)
+        (var-changed ?s1 v11 v12)
+     )
+    (var-changed ?s2 v21 v22)
+ )
+
+
+
+;; 2 var, 0 join, 1 expr
+'(?p1 p2 c) (not-equal ?p1 a) (var-changed ?s1 v11 v12) (var-changed ?s2 v21 v22) ; input
+'('('('(?p1 p2 c) (not-equal ?p1 a)) (var-changed ?s1 v11 v12)) (var-changed ?s2 v21 v22)) ; output
+;expr: 
+'(
+    '(
+        '(
+            '(?p1 p2 c)
+            (not-equal ?p1 a)
+         )
+        (var-changed ?s1 v11 v12)
+     )
+    (var-changed ?s2 v21 v22)
+ )
+
+
+
+;; 2 var, 1 join, 0 expr
+'(?p1 p2 ?v1) (var-changed ?s1 v11 ?v1) (var-changed ?s2 v21 ?v2) ; input
+'('('(?p1 p2 ?v1) (var-changed ?s1 v11 ?v1)) (var-changed ?s2 v21 ?v2)) ; output
+;expr: 
+'(
+    '(
+        '(?p1 p2 ?v1)
+        (var-changed ?s1 v11 ?v1)
+     )
+    (var-changed ?s2 v21 ?v2)
+ )
+
+
+
+;; 2 var, 1 join, 1 expr
+'(?p1 p2 ?v1) (not-equal ?p1 a) (var-changed ?s1 v11 ?v1) (var-changed ?s2 v21 ?v2) ; input
+'('('('(?p1 p2 ?v1) (var-changed ?s1 v11 ?v1)) (not-equal ?p1 a)) (var-changed ?s2 v21 ?v2)) ; output
+;expr: 
+'(
+    '(
+        '(
+            '(?p1 p2 ?v1)
+            (var-changed ?s1 v11 ?v1)
+         )
+        (not-equal ?p1 a)
+     )
+    (var-changed ?s2 v21 ?v2)
+ )
+
+
+
+;;---------------------------------------------------------;;
+(var-changed ?var ?val1 ?val2) ; input
+(var-changed ?var ?val1 ?val2) ; output
+;expr: 
+(var-changed ?var ?val1 ?val2)
+
+
+
+;;---------------------------------------------------------;;
+(var-changed ?var ?val1 ?val2) (factor ?val2) ; input
+((var-changed ?var ?val1 ?val2) (factor ?val2)) ; output
+;expr: 
+((var-changed ?var ?val1 ?val2) (factor ?val2))
+
+
+
+;;---------------------------------------------------------;;
+(var-changed ?var ?val) ; input
+(var-changed ?var ?val) ; output
+;expr: 
+(var-changed ?var ?val)
+
+
+
+;;---------------------------------------------------------;;
+(var-changed ?var ?val) (factor ?val) ; input
+((var-changed ?var ?val) (factor ?val)) ; output
+;expr: 
+((var-changed ?var ?val) (factor ?val))
+
+
+
+;;---------------------------------------------------------;;
+(var-changed ?parse-url ?url) (str-start-with ?url ?beike_home_url_head) url-entry:'(?url-name ?url) ; input
+'(url-entry:'(?url-name ?url) ((var-changed ?parse-url ?url) (str-start-with ?url ?beike_home_url_head))) ; output
+;expr: 
+'(
+    url-entry:'(?url-name ?url)
+    ((var-changed ?parse-url ?url) (str-start-with ?url ?beike_home_url_head))
+ )
+
+
+
+;;---------------------------------------------------------;;
+(var-changed ?x ?url) (str-start-with ?url ?xurl) ; input
+((var-changed ?x ?url) (str-start-with ?url ?xurl)) ; output
+;expr: 
+((var-changed ?x ?url) (str-start-with ?url ?xurl))
+
+
+
+;;---------------------------------------------------------;;
+(var-changed ?state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasRelatedTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f)))) nm:typeOf nm:tag)) ; input
+'('('('('(?c nm:beClassTagOf ?ins) '(?c nm:hasRelatedTag ?f)) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f)))) nm:typeOf nm:tag))) '(?c nm:typeOf nm:tag)) (var-changed ?state running completed)) ; output
+;expr: 
+'(
+    '(
+        '(
+            '(
+                '(?c nm:beClassTagOf ?ins)
+                '(?c nm:hasRelatedTag ?f)
+             )
+            (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f)))) nm:typeOf nm:tag))
+         )
+        '(?c nm:typeOf nm:tag)
+     )
+    (var-changed ?state running completed)
+ )
+
+

@@ -1,0 +1,147 @@
+
+;;---------------------------------------------------------;;
+'(?a p ?b) '(?b p ?c) (= ?x 1) ; input
+'('('(?b p ?c) (= ?x 1)) '(?a p ?b)) ; output
+;expr: 
+'(
+    '(
+        '(?b p ?c)
+        (= ?x 1)
+     )
+    '(?a p ?b)
+ )
+
+
+
+'(?a p ?b) '(?b p ?c) (> ?x 1) ; input
+'('('(?b p ?c) (> ?x 1)) '(?a p ?b)) ; output
+;expr: 
+'(
+    '(
+        '(?b p ?c)
+        (> ?x 1)
+     )
+    '(?a p ?b)
+ )
+
+
+
+'(?a p ?b) '(?b p ?c) (fun1) ; input
+'('('(?a p ?b) '(?b p ?c)) (fun1)) ; output
+;expr: 
+'(
+    '(
+        '(?a p ?b)
+        '(?b p ?c)
+     )
+    (fun1)
+ )
+
+
+
+'(?a p1 ?b) (not-equal ?c a) ; input
+'('(?a p1 ?b) (not-equal ?c a)) ; output
+;expr: 
+'(
+    '(?a p1 ?b)
+    (not-equal ?c a)
+ )
+
+
+
+'(?a p1 ?b) '(?b p1 ?b) (not-equal ?c a) ; input
+'('('(?a p1 ?b) (not-equal ?c a)) '(?b p1 ?b)) ; output
+;expr: 
+'(
+    '(
+        '(?a p1 ?b)
+        (not-equal ?c a)
+     )
+    '(?b p1 ?b)
+ )
+
+
+
+'(?a p1 ?b) (equal ?a p2) (not-equal ?c a) ; input
+'('('(?a p1 ?b) (not-equal ?c a)) (equal ?a p2)) ; output
+;expr: 
+'(
+    '(
+        '(?a p1 ?b)
+        (not-equal ?c a)
+     )
+    (equal ?a p2)
+ )
+
+
+
+'(?a p1 ?b) (equal ?c p2) (not-equal ?c a) ; input
+'('('(?a p1 ?b) (not-equal ?c a)) (equal ?c p2)) ; output
+;expr: 
+'(
+    '(
+        '(?a p1 ?b)
+        (not-equal ?c a)
+     )
+    (equal ?c p2)
+ )
+
+
+
+'(?a p ?b) '(?b p ?c) (= ?a ?x) ; input
+'('('(?a p ?b) (= ?a ?x)) '(?b p ?c)) ; output
+;expr: 
+'(
+    '(
+        '(?a p ?b)
+        (= ?a ?x)
+     )
+    '(?b p ?c)
+ )
+
+
+
+;;---------------------------------------------------------;;
+'(?a p ?b) '(?b p ?c) (> ?x 1) (< ?x 3) ; input
+'('('('(?b p ?c) (< ?x 3)) (> ?x 1)) '(?a p ?b)) ; output
+;expr: 
+'(
+    '(
+        '(
+            '(?b p ?c)
+            (< ?x 3)
+         )
+        (> ?x 1)
+     )
+    '(?a p ?b)
+ )
+
+
+
+;;---------------------------------------------------------;;
+'(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) ; input
+'('('('(?a p ?b) '(p x y)) '(?b p ?c)) (= 1 2)) ; output
+;expr: 
+'(
+    '(
+        '(
+            '(?a p ?b)
+            '(p x y)
+         )
+        '(?b p ?c)
+     )
+    (= 1 2)
+ )
+
+
+
+;;---------------------------------------------------------;;
+url_visiting:'(?url ?id) (str-start-with ?url ?beike_home_url_head) ; input
+'(url_visiting:'(?url ?id) (str-start-with ?url ?beike_home_url_head)) ; output
+;expr: 
+'(
+    url_visiting:'(?url ?id)
+    (str-start-with ?url ?beike_home_url_head)
+ )
+
+

@@ -1,0 +1,9 @@
+mbr=#ns_domain, name=#ns_domain, type=var, property='(public), value="nd:"
+mbr=#ns_tag, name=#ns_tag, type=var, property='(public), value="nt:"
+mbr=get-field-name, name=(get-field-name nil), type=func, property='(public)
+mbr=get-new-ns, name=get-new-ns, type=macro, property='(public)
+mbr=get-uri-name, name=(get-uri-name nil), type=func, property='(public)
+mbr=main, name=main, type=frame, property='(public)
+mbr=p2d, name=p2d, type=instance, property='(public), instance-class=model
+mbr=root, name=root, type=frame, property='(public)
+mbr=system, name=system, type=frame, property='(public)

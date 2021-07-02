@@ -1,0 +1,4 @@
+capacity=16, max-index=3, use-size=0, free-size=3, free-index=1
+0001: f=0000 n=0002
+0002: f=0001 n=0003
+0003: f=0002 n=0000

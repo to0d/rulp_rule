@@ -1,0 +1,33 @@
+(new model mm)
+
+(add-stmt mm '(guess-1 typeof guess))
+(add-stmt mm '(guess-1 has-hobby 2))
+(add-stmt mm '(guess-1 has-hobby 1))
+(add-stmt mm '(guess-1 has-hobby 3))
+(add-stmt mm '(guess-1 has-sex m))
+
+(add-stmt mm '(guess-2 typeof guess))
+(add-stmt mm '(guess-2 has-hobby 2))
+(add-stmt mm '(guess-2 has-hobby 1))
+(add-stmt mm '(guess-2 has-hobby 3))
+(add-stmt mm '(guess-2 has-sex f))
+;=>mm 1 1 1 1 1 1 1 1 1 1
+
+(query-stmt mm '(?g1 ?g2) ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) (not (equal ?s1 ?s2)) ))
+;=>'('(guess-1 guess-2) '(guess-2 guess-1))
+
+(query-stmt mm '(?s1 ?s2) ('(guess-1 typeof guess) '(guess-2 typeof guess) '(guess-1 has-sex ?s1) '(guess-2 has-sex ?s2) (not (equal guess-1 guess-2)) (not (equal ?s1 ?s2)) ))
+;=>'(m f)
+
+(defun canBeCouple (?g1 ?g2) 
+    (return (> (size-of (query-stmt mm '() 
+                            ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) (not (equal ?s1 ?s2))) 1)) 1)))
+
+(defun canSitTogether (?g1 ?g2) (return (and (canBeCouple ?g1 ?g2) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h))))
+;=>'(canBeCouple nil nil) '(canSitTogether nil nil)
+
+(canBeCouple guess-1 guess-2)
+;=>false
+
+(canSitTogether guess-1 guess-2)
+;=>false

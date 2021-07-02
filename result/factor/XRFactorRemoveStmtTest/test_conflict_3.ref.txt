@@ -1,0 +1,7 @@
+Stmt : name='(a p1 c), id=7, stats=REASONED, ref=1
+    ==> Ref: node=R0001, parent=(0)
+Stmt : name='(b p1 a), id=8, stats=REASONED, ref=1
+    ==> Ref: node=R0001, parent=(0)
+Stmt : name='(c p1 b), id=9, stats=REASONED, ref=1
+    ==> Ref: node=R0001, parent=(0)
+

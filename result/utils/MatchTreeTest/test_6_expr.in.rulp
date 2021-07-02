@@ -1,0 +1,22 @@
+;;---------------------------------------------------------;;
+'(?a p1 ?b) '(?b p2 c) (not-equal ?a a)
+'(?a p1 ?b) (not-equal ?a a) '(?b p2 c)
+
+;;---------------------------------------------------------;;
+'(?a ?p ?b) '(?a ?p ?c) '(?p nm:propertyOf nm:singlePropery) (not (equal ?b ?c))
+
+;;---------------------------------------------------------;;
+'(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) '(?b ?p ?a) (not (equal ?a ?b))
+'(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) (not (equal ?a ?b))
+
+;;---------------------------------------------------------;;
+'(tag nm:beClassTagOf ?t1) '(tag nm:hasFieldTag ?t2) '(?t1 ?p1 ?t3) '(?p1 nm:propertyOf nm:tagRelation) '(?t2 ?p2 ?t3) '(?p2 nm:propertyOf nm:tagRelation) '(domain nm:hasTag ?t3) (not (equal ?t3 tag)) (not (equal ?t3 nt:$TGROUP))
+'(tag nm:beClassTagOf ?t1) '(tag nm:hasFieldTag ?t2) '(?t1 ?p1 ?t3) '(?p1 nm:propertyOf nm:tagRelation) '(?t2 ?p2 ?t3) '(?p2 nm:propertyOf nm:tagRelation) '(domain nm:hasTag ?t3) (not (equal ?t3 tag)) (not (equal ?t3 nt:$TGROUP)) (not (equal ?p2 nm:hasDescendant))
+
+;;---------------------------------------------------------;;
+'(nt:ProgrammingLanguage ?p1 ?t1) '(?p1 nm:propertyOf nm:tagRelation) (not (equal ?p1 nm:hasFieldTag)) '(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t1) '(nd:Global nm:hasTag ?t2)
+'(nt:ProgrammingLanguage ?p1 ?t1) '(?p1 nm:propertyOf nm:tagRelation) (not (equal ?p1 nm:hasFieldTag)) (not (equal ?p1 nm:beClassTagOf)) '(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t1) '(nd:Global nm:hasTag ?t2)
+'(nt:ProgrammingLanguage ?p1 ?t1) '(?p1 nm:propertyOf nm:tagRelation) (not (equal ?p1 nm:hasFieldTag)) (not (equal ?p1 nm:beClassTagOf)) (not (equal ?p1 nm:beParentTagOf)) '(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t1) '(nd:Global nm:hasTag ?t2)
+
+;;---------------------------------------------------------;;
+'(nt:ProgrammingLanguage nm:beParentTagOf ?t1) '(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t1) '(nd:Global nm:hasTag ?t2)

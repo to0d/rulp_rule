@@ -1,0 +1,3 @@
+mbr=main, name=main, type=frame, property='(public)
+mbr=root, name=root, type=frame, property='(public)
+mbr=system, name=system, type=frame, property='(public)

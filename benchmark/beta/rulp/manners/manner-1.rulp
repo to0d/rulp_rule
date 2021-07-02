@@ -1,0 +1,32 @@
+(defarray chairs 16)
+(add-var mm chairs)
+
+; Guesses sit chairs 
+(add-value-scope mm ('(value-at chairs ?n ?g)) '(?g typeof guess)) 
+
+; Guests can only sit in one chair 
+(add-constraint mm ('(array-at chairs ?m ?g) '(chairs at ?n ?g) (not (equal ?m ?n)))) 
+
+; Guest can sit together with same hobbies and opposite sex
+(add-constraint mm ('(array-at chairs ?m ?g1) '(chairs at ?n ?g2) (isNeighbor ?m ?n (size-of chairs)) (canSitTogether ?g1 ?g2))) 
+
+(defun isNeighbor (?m ?n ?total)
+    (return (or (= (+ ?m 1) ?n) (and (= ?m 0) (= ?n (- ?total 1)))))
+)
+
+(defun canSitTogether (?g1 ?g2) 
+    (return (> (size-of (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof guess) (not (equal ?g1 ?g2))   ;; not same guess
+                                            '(?g1 has-sex ?s1)  '(?g2 has-sex ?s2)  (equal ?s1 ?s2))        ;; opposite sex
+                                            '(?g1 has-hobby ?h) '(?g2 has-hobby ?h)                         ;; same hobbies
+                                            1)
+               )
+            1)
+    )
+)
+
+(query-var mm '(chairs))
+
+
+
+(assert-var m (= (% ?age 2) 0))
+(assert-var m if ('(array-at chairs ?m ?g) '(chairs at ?n ?g) then (not (equal ?m ?n))))

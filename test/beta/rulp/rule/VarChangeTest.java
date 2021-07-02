@@ -1,0 +1,170 @@
+package beta.rulp.rule;
+
+import org.junit.jupiter.api.Test;
+
+import alpha.rulp.utils.RuleTestBase;
+
+public class VarChangeTest extends RuleTestBase {
+
+	@Test
+	public void test_1_expr_tree_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(add-rule m if (var-changed ?x ?from ?to) do (-> m '(a b ?to)) )");
+		_test("(setq ?x c)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b c))");
+
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	public void test_1_expr_tree_2() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(add-rule m if (var-changed ?x ?from ?to) (> ?to 1) do (-> m '(a b ?to)) )");
+		_test("(setq ?x 2)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b 2))");
+
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	public void test_1_expr_tree_3() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(add-rule m if (var-changed ?x ?val) do (-> m '(a b ?val)) )");
+		_test("(setq ?x c)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b c))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m", "result/rule/VarChangeTest/test_1_expr_tree_3.txt");
+	}
+
+	@Test
+	public void test_1_expr_tree_4() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(add-rule m if (var-changed ?x ?val) (> ?val 1) do (-> m '(a b ?val)) )");
+		_test("(setq ?x 2)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b 2))");
+
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	public void test_1_expr_tree_5() {
+
+		_setup();
+
+		// XRModel.TRACE_RETE = true;
+
+		_test("(new model m)");
+		_test("(defvar ?x x1)");
+		_test("(defvar ?y y1)");
+		_test("(add-rule m if (var-changed ?x ?xv) (var-changed ?y ?yv) do (-> m '(a ?xv ?yv)) )");
+		_test("(setq ?x x2)");
+		_test("(setq ?x x3)");
+		_test("(setq ?y y2)");
+		_test("(setq ?y y3)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a x3 y3))");
+
+		_mStatus(1, "m");
+		_saveTest();
+
+		_statsInfo("m", "result/rule/VarChangeTest/test_1_expr_tree_5.txt");
+	}
+
+	@Test
+	public void test_1_expr_tree_6() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(add-rule m if (var-changed ?x ?from d) do (-> m '(a b ?from)) )");
+		_test("(setq ?x c)");
+		_test("(setq ?x d)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b c))");
+
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	public void test_1_expr_tree_7() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(add-rule m if (var-changed ?x c ?to) do (-> m '(a b ?to)) )");
+		_test("(setq ?x c)");
+		_test("(setq ?x d)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b d))");
+
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	public void test_1_expr_tree_8() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(defvar ?xurl \"abc\")");
+		_test("(add-rule m if (var-changed ?x ?url) (str-start-with ?url ?xurl) do (-> m '(a b ?url)) )");
+		_test("(setq ?x \"abcd\")");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b \"abcd\"))");
+
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	public void test_1_expr_tree_9() {
+
+		_setup();
+
+//		XRModel.TRACE_RETE = true;
+
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(defvar ?xurl \"abc\")");
+		_test("(add-stmt m url-entry:'(head1 \"abcd\"))");
+		_test("(add-rule m if (var-changed ?x ?url) (str-start-with ?url ?xurl) url-entry:'(?url-name ?url) do (-> m '(a b ?url ?url-name)) )");
+		_test("(setq ?x \"abcd\")");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b \"abcd\" head1) url-entry:'(head1 \"abcd\"))");
+
+		_mStatus(1, "m");
+		_saveTest();
+
+		_statsInfo("m", "result/rule/VarChangeTest/test_1_expr_tree_9.txt");
+	}
+
+	@Test
+	void test_2_scope_1() {
+
+		_setup();
+		_test_script("result/rule/VarChangeTest/test_2_scope_1.rulp");
+	}
+}

@@ -1,0 +1,9 @@
+
+;;---------------------------------------------------------;;
+(stmt-changed '(?x ?y ?z1) '(?x ?y ?z2)) ; input
+(stmt-changed '(?x ?y ?z1) '(?x ?y ?z2)) ; output
+;expr: 
+(stmt-changed '(?x ?y ?z1) '(?x ?y ?z2))
+
+
+

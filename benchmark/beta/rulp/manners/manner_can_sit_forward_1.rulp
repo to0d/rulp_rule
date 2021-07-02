@@ -1,0 +1,22 @@
+(new model mm)
+
+(add-stmt mm '(guess-1 typeof guess))
+(add-stmt mm '(guess-1 has-hobby 2))
+(add-stmt mm '(guess-1 has-hobby 1))
+(add-stmt mm '(guess-1 has-hobby 3))
+(add-stmt mm '(guess-1 has-sex m))
+
+(add-stmt mm '(guess-2 typeof guess))
+(add-stmt mm '(guess-2 has-hobby 2))
+(add-stmt mm '(guess-2 has-hobby 1))
+(add-stmt mm '(guess-2 has-hobby 3))
+(add-stmt mm '(guess-2 has-sex f))
+(add-rule mm if '(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) 
+             do (if (equal ?s1 ?s2) (-> '(canBeCouple ?g1 ?g2 false)) (-> '(canBeCouple ?g1 ?g2 true))))
+(add-rule mm if '(canBeCouple ?g1 ?g2 true) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h) do (-> '(canSitTogether ?g1 ?g2)))
+(start mm)
+;=>mm 1 1 1 1 1 1 1 1 1 1 RU000 RU001 13
+(state-of mm)
+;=>completed
+(list-stmt mm)
+;=>'('(guess-1 typeof guess) '(guess-1 has-hobby 2) '(guess-1 has-hobby 1) '(guess-1 has-hobby 3) '(guess-1 has-sex m) '(guess-2 typeof guess) '(guess-2 has-hobby 2) '(guess-2 has-hobby 1) '(guess-2 has-hobby 3) '(guess-2 has-sex f) '(canSitTogether guess-1 guess-2) '(canSitTogether guess-2 guess-1) '(canBeCouple guess-1 guess-2 true) '(canBeCouple guess-2 guess-1 true))

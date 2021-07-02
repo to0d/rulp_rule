@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+(add-node m name1:'(3))
+;=>1
+(add-constraint m name1:'(? ? ?x) '(type int on ?x))
+;=>1
+(add-constraint m name1:'(? ? ?x) '(type int on ?x))
+;=>0
+(add-constraint m name1:'(? ? ?x) '(type float on ?x))
+;err:
+Unable to add constraint<'(type float on 2)> due to pre-constraints<['(type int on 2)]>
+at main: (add-constraint m name1:'(? ? ?x) '(type float on ?x))
+;eof
+(list-constraint m name1:'(3))
+;=>'('(type int on 2))
