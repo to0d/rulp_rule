@@ -58,6 +58,7 @@ beta.rulp.factor.XRFactorAddStmtTest:test_7_bool:1-mStatus:sc=[2,0,0,0,0,1],
 beta.rulp.factor.XRFactorAddStmtTest:test_8_nil_a:1-mStatus:sc=[1,0,0,0,0,1],
 beta.rulp.factor.XRFactorAddStmtTest:test_8_nil_b:1-mStatus:sc=[1,0,0,0,0,1],
 beta.rulp.factor.XRFactorAddStmtTest:test_8_nil_c:1-mStatus:sc=[], n0=[1, 1, 0, 0, 2],
+beta.rulp.factor.XRFactorFixStmtTest:test_1_no_child:1-mStatus:sc=[1,1], a0=[2,0,1,99,4,0,0,6,2,0,2/1], b3=[1,0,2,99,1,0,0,0,1,0,1/0,1], ru=[1,0,3,99,1,0,0,0,1],
 beta.rulp.factor.XRFactorHasStmtTest:test_1:1-eCount:size=1, max-id=1, dup=0, null=0
 beta.rulp.factor.XRFactorHasStmtTest:test_1:1-mCount:stmt=1, rule=0, match=3, fetch=3, exec=3, idle=0, state=1/1, max-queue=1, uniq-obj=0, entry-cnt=1, entry-maxid=1, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorHasStmtTest:test_1:1-mStatus:sc=[1,0,0,0,0,1], a0=[2,0,2,0,2,0,0,2,2,0,2/2],

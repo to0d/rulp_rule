@@ -1,12 +1,12 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.rule.Constant.A_MODEL;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_ADD_LAZY_STMT;
 import static alpha.rulp.rule.Constant.F_ADD_NODE;
 import static alpha.rulp.rule.Constant.F_ADD_RULE;
-import static alpha.rulp.rule.Constant.F_ADD_STATEMENT;
-import static alpha.rulp.rule.Constant.F_ASSUME_STATEMENT;
+import static alpha.rulp.rule.Constant.F_ADD_STMT;
+import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
 import static alpha.rulp.rule.Constant.F_DUMP_STATUS;
 import static alpha.rulp.rule.Constant.F_GC_MODEL;
 import static alpha.rulp.rule.Constant.F_GET_RULE;
@@ -63,6 +63,7 @@ import alpha.rulp.ximpl.factor.XRFactorAddRule;
 import alpha.rulp.ximpl.factor.XRFactorAddStmt;
 import alpha.rulp.ximpl.factor.XRFactorAssumeStmt;
 import alpha.rulp.ximpl.factor.XRFactorDumpStatus;
+import alpha.rulp.ximpl.factor.XRFactorFixStmt;
 import alpha.rulp.ximpl.factor.XRFactorGcModel;
 import alpha.rulp.ximpl.factor.XRFactorGetRule;
 import alpha.rulp.ximpl.factor.XRFactorHasStmt;
@@ -120,7 +121,7 @@ public class RRuleLoader implements IRObjectLoader {
 
 		RulpUtil.addFrameObject(systemFrame, new XRFactorStateOf(F_STATE_OF));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorStart(F_START));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAddStmt(F_ADD_STATEMENT));
+		RulpUtil.addFrameObject(systemFrame, new XRFactorAddStmt(F_ADD_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddRule(F_ADD_RULE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorRemoveStmt(F_REMOVE_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorListStmt(F_LIST_STMT));
@@ -129,6 +130,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorTraceRule(F_TRACE_RULE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddNode(F_ADD_NODE));
+		RulpUtil.addFrameObject(systemFrame, new XRFactorFixStmt(F_FIX_STMT));
 
 //		RulpUtil.setMember(modelClass, F_ADD_LAZY_STMT, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
 
@@ -160,7 +162,7 @@ public class RRuleLoader implements IRObjectLoader {
 		SQLUtil.init(systemFrame);
 
 		// Assume
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAssumeStmt(F_ASSUME_STATEMENT));
+		RulpUtil.addFrameObject(systemFrame, new XRFactorAssumeStmt(F_ASSUME_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorDumpStatus(F_DUMP_STATUS));
 
 		// Load rule library

@@ -1019,49 +1019,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public int addFixedStatement(IRList stmt) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addFixedStatement: " + stmt);
-		}
-
-		int actualAddStmt = _addReteEntry(stmt, RReteStatus.FIXED_);
-
-		// active stmt listeners
-		if (actualAddStmt > 0) {
-			stmtListenUpdater.update(this);
-		}
-
-		return actualAddStmt;
-	}
-
-	@Override
-	public int addFixedStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addFixedStatements: ");
-		}
-
-		int actualAddStmt = 0;
-		while (stmtIterator.hasNext()) {
-
-			IRList stmt = stmtIterator.next();
-			if (RuleUtil.isModelTrace()) {
-				System.out.println("\t(" + stmt + ")");
-			}
-
-			actualAddStmt += _addReteEntry(stmt, RReteStatus.FIXED_);
-		}
-
-		// active stmt listeners
-		if (actualAddStmt > 0) {
-			stmtListenUpdater.update(this);
-		}
-
-		return actualAddStmt;
-	}
-
-	@Override
 	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
 
 		if (loadNodeListener == null) {
@@ -1409,6 +1366,49 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRReteNode findNode(IRList condList) throws RException {
 		return nodeGraph.getNodeByTree(condList);
+	}
+
+	@Override
+	public int fixStatement(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> addFixedStatement: " + stmt);
+		}
+
+		int actualAddStmt = _addReteEntry(stmt, RReteStatus.FIXED_);
+
+		// active stmt listeners
+		if (actualAddStmt > 0) {
+			stmtListenUpdater.update(this);
+		}
+
+		return actualAddStmt;
+	}
+
+	@Override
+	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> addFixedStatements: ");
+		}
+
+		int actualAddStmt = 0;
+		while (stmtIterator.hasNext()) {
+
+			IRList stmt = stmtIterator.next();
+			if (RuleUtil.isModelTrace()) {
+				System.out.println("\t(" + stmt + ")");
+			}
+
+			actualAddStmt += _addReteEntry(stmt, RReteStatus.FIXED_);
+		}
+
+		// active stmt listeners
+		if (actualAddStmt > 0) {
+			stmtListenUpdater.update(this);
+		}
+
+		return actualAddStmt;
 	}
 
 	@Override

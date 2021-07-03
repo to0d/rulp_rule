@@ -67,9 +67,9 @@ public interface Constant {
 
 	String F_ADD_RULE = "add-rule";
 
-	String F_ADD_STATEMENT = "add-stmt";
+	String F_ADD_STMT = "add-stmt";
 
-	String F_ASSUME_STATEMENT = "assume-stmt";
+	String F_ASSUME_STMT = "assume-stmt";
 
 	String F_CREATE = "create";
 
@@ -82,6 +82,8 @@ public interface Constant {
 	String F_DEFS_S = "->";
 
 	String F_DUMP_STATUS = "dump-status";
+
+	String F_FIX_STMT = "fix-stmt";
 
 	String F_GC_MODEL = "gc-model";
 

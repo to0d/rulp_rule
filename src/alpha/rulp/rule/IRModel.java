@@ -58,10 +58,6 @@ public interface IRModel extends IRInstance, IRRunnable {
 		}
 	}
 
-	public int addFixedStatement(IRList stmt) throws RException;
-
-	public int addFixedStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
-
 	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener);
 
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList) throws RException;
@@ -88,13 +84,17 @@ public interface IRModel extends IRInstance, IRRunnable {
 
 	public IRIterator<? extends IRList> buildStatementIterator(IRList filter) throws RException;
 
-//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
-
 	public int doGC() throws RException;
 
 	public int execute(IRReteNode node) throws RException;
 
+//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
+
 	public IRReteNode findNode(IRList condList) throws RException;
+
+	public int fixStatement(IRList stmt) throws RException;
+
+	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
 
 	public String getCachePath();
 

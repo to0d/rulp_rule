@@ -2,7 +2,8 @@ package beta.rulp.utils;
 
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.FIXED_;
+import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -252,12 +253,12 @@ class ReteUtilTest extends RuleTestBase {
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, REASON));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, ASSUME));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, REMOVE));
-		assertEquals(FIXED_, ReteUtil.getReteStatus(REMOVE, FIXED_));
+		assertEquals(null, ReteUtil.getReteStatus(REMOVE, FIXED_));
 
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, DEFINE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, REASON));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, ASSUME));
-		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, REMOVE));
+		assertEquals(null, ReteUtil.getReteStatus(FIXED_, REMOVE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, FIXED_));
 	}
 

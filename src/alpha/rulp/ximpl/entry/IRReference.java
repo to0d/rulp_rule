@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.entry;
 
-import alpha.rulp.ximpl.entry.XREntryTable.XRReteEntry;
-
 public interface IRReference extends IFixEntry {
 
 	public int getNodeId();

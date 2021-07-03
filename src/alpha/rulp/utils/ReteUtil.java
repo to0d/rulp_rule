@@ -8,7 +8,9 @@ import static alpha.rulp.lang.Constant.S_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.ASSUME;
+import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.FIXED_;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 
@@ -61,8 +63,8 @@ public class ReteUtil {
 			{ DEFINE, DEFINE, DEFINE, REMOVE, FIXED_ }, // DEFINE
 			{ DEFINE, REASON, REASON, REMOVE, FIXED_ }, // REASON
 			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_ }, // ASSUME
-			{ REMOVE, REMOVE, REMOVE, REMOVE, FIXED_ }, // REMOVE
-			{ FIXED_, FIXED_, FIXED_, FIXED_, FIXED_ }, // FIX
+			{ REMOVE, REMOVE, REMOVE, REMOVE, null }, // REMOVE
+			{ FIXED_, FIXED_, FIXED_, null, FIXED_ }, // FIX
 	};
 
 	static void _fillVarList(IRList stmt, Set<String> varSet) throws RException {

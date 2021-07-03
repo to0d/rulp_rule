@@ -204,6 +204,21 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
+	protected void _dumpEntryTable(String modelName, String expectFile) {
+
+		try {
+
+			String outline = OptimizeUtil.dumpAndCheckEntryTable(_model(modelName).getEntryTable());
+			ArrayList<String> lines = new ArrayList<>();
+			lines.add(outline);
+			FileUtil.saveTxtFile(expectFile, lines, "utf-8");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+
 	protected void _eCount(int index, String modelName) {
 
 		try {
@@ -310,6 +325,31 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
+	protected void _refInfo(String modelName, String expectFile) {
+
+		try {
+
+			String outoputInfo = OptimizeUtil.printRefInfo(_model(modelName));
+
+			if (PRIME_MODE) {
+
+				ArrayList<String> lines = new ArrayList<>();
+				lines.add(outoputInfo);
+
+				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
+
+			} else {
+
+				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
+				assertEquals(expectInfo.trim(), outoputInfo.trim());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+
 	protected void _rStatus(int index, String modelName, String ruleName) {
 
 		try {
@@ -398,46 +438,6 @@ public class RuleTestBase extends RulpTestBase {
 		try {
 
 			String outoputInfo = OptimizeUtil.printStatsInfo(_model(modelName));
-
-			if (PRIME_MODE) {
-
-				ArrayList<String> lines = new ArrayList<>();
-				lines.add(outoputInfo);
-
-				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
-
-			} else {
-
-				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
-				assertEquals(expectInfo.trim(), outoputInfo.trim());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
-	}
-
-	protected void _dumpEntryTable(String modelName, String expectFile) {
-
-		try {
-
-			String outline = OptimizeUtil.dumpAndCheckEntryTable(_model(modelName).getEntryTable());
-			ArrayList<String> lines = new ArrayList<>();
-			lines.add(outline);
-			FileUtil.saveTxtFile(expectFile, lines, "utf-8");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
-	}
-
-	protected void _refInfo(String modelName, String expectFile) {
-
-		try {
-
-			String outoputInfo = OptimizeUtil.printRefInfo(_model(modelName));
 
 			if (PRIME_MODE) {
 

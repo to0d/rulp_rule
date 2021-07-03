@@ -21,8 +21,6 @@ public interface IREntryTable {
 
 	public IFixEntryArray<? extends IRReteEntry> getEntryFixArray();
 
-	public IFixEntryArray<? extends IRReference> getReferenceFixArray();
-
 	public int getEntryMaxId();
 
 	public int getETAMaxActionSize();
@@ -35,11 +33,13 @@ public interface IREntryTable {
 
 	public int getETATotalActionSize();
 
+	public IFixEntryArray<? extends IRReference> getReferenceFixArray();
+
 	public List<? extends IRReteEntry> listAllEntries();
 
 	public void removeEntry(IRReteEntry entry) throws RException;
 
-	public void removeEntryReference(int entryId, int nodeId) throws RException;
+	public void removeEntryReference(IRReteEntry entry, IRReteNode node) throws RException;
 
-	public void setEntryStatus(int entryId, RReteStatus status) throws RException;
+	public void setEntryStatus(IRReteEntry entry, RReteStatus status) throws RException;
 }

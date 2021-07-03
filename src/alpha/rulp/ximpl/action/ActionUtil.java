@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.action;
 
 import static alpha.rulp.lang.Constant.F_DO;
-import static alpha.rulp.rule.Constant.F_ADD_STATEMENT;
+import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
 
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class ActionUtil {
 		}
 
 		switch (factorName) {
-		case F_ADD_STATEMENT:
+		case F_ADD_STMT:
 		case F_DEFS_S:
 
 			IRIterator<? extends IRObject> it1 = expr.listIterator(1);
@@ -166,7 +166,7 @@ public class ActionUtil {
 			throws RException {
 
 		switch (factorName) {
-		case F_ADD_STATEMENT:
+		case F_ADD_STMT:
 		case F_DEFS_S:
 
 			IRIterator<? extends IRObject> stmtIt = XRFactorAddStmt.getStmtList(expr);

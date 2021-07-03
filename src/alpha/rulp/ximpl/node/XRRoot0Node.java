@@ -81,29 +81,26 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 			RReteStatus oldStatus = oldEntry.getStatus();
 			RReteStatus finalStatus = ReteUtil.getReteStatus(oldStatus, newStatus);
 
-			if (finalStatus != oldStatus) {
+			// Invalid status
+			if (finalStatus == null) {
+				if (RuleUtil.isModelTrace()) {
+					System.out.println(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
+					return false;
+				}
+			}
 
-				int oldEntryId = oldEntry.getEntryId();
+			if (finalStatus != oldStatus) {
 
 				switch (finalStatus) {
 				case ASSUME:
-					entryTable.setEntryStatus(oldEntryId, finalStatus);
-//					entryTable.setEntryLife(oldEntryId, 0);
-					break;
-
 				case DEFINE:
-					entryTable.setEntryStatus(oldEntryId, finalStatus);
-//					entryTable.setEntryLife(oldEntryId, 1);
+				case REASON:
+				case FIXED_:
+					entryTable.setEntryStatus(oldEntry, finalStatus);
 					break;
 
 				case REMOVE:
-					entryTable.removeEntryReference(oldEntryId, getNodeId());
-					break;
-
-				case REASON:
-					// TODO
-					entryTable.setEntryStatus(oldEntryId, finalStatus);
-//					entryTable.setEntryLife(oldEntryId, 0);
+					entryTable.removeEntryReference(oldEntry, this);
 					break;
 				default:
 					throw new RException("Unknown status: " + finalStatus);

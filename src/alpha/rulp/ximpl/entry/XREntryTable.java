@@ -287,6 +287,11 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
+		public IRReteEntry getChildEntry() {
+			return childEntry;
+		}
+
+		@Override
 		public int getEntryId() {
 			return refId;
 		}
@@ -297,13 +302,13 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public int getParentEntryCount() {
-			return parentEntryCount;
+		public IRReteEntry getParentEntry(int index) {
+			return parentEntrys[index];
 		}
 
 		@Override
-		public IRReteEntry getParentEntry(int index) {
-			return parentEntrys[index];
+		public int getParentEntryCount() {
+			return parentEntryCount;
 		}
 
 		@Override
@@ -314,11 +319,6 @@ public class XREntryTable implements IREntryTable {
 		@Override
 		public void setEntryId(int id) {
 			this.refId = id;
-		}
-
-		@Override
-		public IRReteEntry getChildEntry() {
-			return childEntry;
 		}
 	}
 
@@ -498,6 +498,10 @@ public class XREntryTable implements IREntryTable {
 
 	public static boolean TRACE = false;
 
+	static boolean _isFix(XRReteEntry entry) {
+		return entry != null && entry.getStatus() == RReteStatus.FIXED_;
+	}
+
 	static boolean _isValidEntry(XRReteEntry entry) {
 		return entry != null && entry.status != REMOVE;
 	}
@@ -526,7 +530,9 @@ public class XREntryTable implements IREntryTable {
 		// Add links to parent
 		if (parentEntrys != null) {
 			for (XRReteEntry parent : parentEntrys) {
-				parent.addChild(ref);
+				if (!_isFix(parent)) {
+					parent.addChild(ref);
+				}
 			}
 		}
 
@@ -577,6 +583,10 @@ public class XREntryTable implements IREntryTable {
 	protected void _processRemoveEntry(XRReteEntry entry) throws RException {
 
 		if (!_isValidEntry(entry)) {
+			return;
+		}
+
+		if (_isFix(entry)) {
 			return;
 		}
 
@@ -656,15 +666,18 @@ public class XREntryTable implements IREntryTable {
 			XRReteEntry parentEntry = ref.parentEntrys[i];
 			if (parentEntry != null) {
 
-				Iterator<XRReference> it = parentEntry.childList.iterator();
-				while (it.hasNext()) {
-					if (it.next() == ref) {
-						it.remove();
-					}
-				}
+				if (!_isFix(parentEntry)) {
 
-				if (parentEntry.childList.isEmpty()) {
-					parentEntry.childList = null;
+					Iterator<XRReference> it = parentEntry.childList.iterator();
+					while (it.hasNext()) {
+						if (it.next() == ref) {
+							it.remove();
+						}
+					}
+
+					if (parentEntry.childList.isEmpty()) {
+						parentEntry.childList = null;
+					}
 				}
 
 				// Break the link between reference and parent entry
@@ -678,6 +691,11 @@ public class XREntryTable implements IREntryTable {
 	}
 
 	protected void _pushRemoveEntry(XRReteEntry entry) throws RException {
+
+		if (_isFix(entry)) {
+			throw new RException("Can't remove fix entry: " + entry);
+		}
+
 		etaQueue.push(ETA_Type.REMOVE_ENTRY, entry);
 	}
 
@@ -690,14 +708,7 @@ public class XREntryTable implements IREntryTable {
 		etaQueue.push(ETA_Type.REMOVE_REF, ref);
 	}
 
-	protected void _setEntryStatus(int entryId, XRReteEntry entry, RReteStatus status) throws RException {
-
-		if (entry == null) {
-			entry = getEntry(entryId);
-			if (entry == null) {
-				return;
-			}
-		}
+	protected void _setEntryStatus(XRReteEntry entry, RReteStatus status) throws RException {
 
 		entry.setStatus(status);
 	}
@@ -863,28 +874,25 @@ public class XREntryTable implements IREntryTable {
 			System.out.println("==> removeEntry: entry=" + entry);
 		}
 
-		XRReteEntry xEntry = _toEntry(entry);
-		_pushRemoveEntry(xEntry);
+		_pushRemoveEntry(_toEntry(entry));
 		_processEtaQueue();
 	}
 
 	@Override
-	public void removeEntryReference(int entryId, int nodeId) throws RException {
+	public void removeEntryReference(IRReteEntry entry, IRReteNode node) throws RException {
 
 		if (XREntryTable.TRACE) {
-			System.out.println("==> removeEntryReference: entryId=" + entryId + ", nodeId" + nodeId);
+			System.out.println("==> removeEntryReference: entry=" + entry + ", node=" + node);
 		}
 
-		XRReteEntry entry = getEntry(entryId);
-		if (!_isValidEntry(entry)) {
-			return;
-		}
+		XRReteEntry xEntry = _toEntry(entry);
+		int nodeId = node.getNodeId();
 
 		int find = 0;
 
-		if (entry.referenceList != null) {
+		if (xEntry.referenceList != null) {
 
-			Iterator<XRReference> it = entry.referenceList.iterator();
+			Iterator<XRReference> it = xEntry.referenceList.iterator();
 			while (it.hasNext()) {
 
 				XRReference ref = it.next();
@@ -905,20 +913,21 @@ public class XREntryTable implements IREntryTable {
 			throw new RException("no ref found");
 		}
 
-		if (entry.referenceList == null || entry.referenceList.isEmpty()) {
-			_pushRemoveEntry(entry);
+		if (xEntry.referenceList == null || xEntry.referenceList.isEmpty()) {
+			_pushRemoveEntry(xEntry);
 			_processEtaQueue();
 		}
 	}
 
 	@Override
-	public void setEntryStatus(int entryId, RReteStatus status) throws RException {
+	public void setEntryStatus(IRReteEntry entry, RReteStatus status) throws RException {
 
 		if (XREntryTable.TRACE) {
-			System.out.println("==> setEntryStatus: entryId=" + entryId + ", status" + status);
+			System.out.println("==> setEntryStatus: entry=" + entry + ", status=" + status);
 		}
 
-		_setEntryStatus(entryId, null, status);
+		_setEntryStatus(_toEntry(entry), status);
+
 	}
 
 }
