@@ -14,7 +14,6 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRIterator;
-import alpha.rulp.utils.FixIndexArray;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
@@ -182,7 +181,7 @@ public class XREntryTable implements IREntryTable {
 		}
 	}
 
-	static class FixEntryArray<T extends IFixEntry> {
+	static class FixEntryArray<T extends IFixEntry> implements IFixEntryArray<T> {
 
 		protected ArrayList<T> entryArray = new ArrayList<>();
 
@@ -246,6 +245,10 @@ public class XREntryTable implements IREntryTable {
 			return entryCount;
 		}
 
+		public int getEntryMaxId() {
+			return entryArray.size();
+		}
+
 		public void removeEntry(T entry) throws RException {
 
 			int entryId = entry.getEntryId();
@@ -261,15 +264,6 @@ public class XREntryTable implements IREntryTable {
 		public int size() {
 			return entryArray.size();
 		}
-	}
-
-	static interface IFixEntry {
-
-		public int getEntryId();
-
-		public boolean isDroped();
-
-		public void setEntryId(int id);
 	}
 
 	static class XRReference implements IRReference {
@@ -793,8 +787,13 @@ public class XREntryTable implements IREntryTable {
 	}
 
 	@Override
+	public IFixEntryArray<? extends IRReteEntry> getEntryFixArray() {
+		return entryFixArray;
+	}
+
+	@Override
 	public int getEntryMaxId() {
-		return entryFixArray.size();
+		return entryFixArray.getEntryMaxId();
 	}
 
 	@Override

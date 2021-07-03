@@ -6,7 +6,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.rule.RReteStatus;
 
-public interface IRReteEntry extends IRList {
+public interface IRReteEntry extends IRList, IFixEntry {
 
 	public void addEntryRemovedListener(IRRListener1<IRReteEntry> listener);
 

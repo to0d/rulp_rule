@@ -68,6 +68,8 @@ import alpha.rulp.rule.IRRuleCounter;
 import alpha.rulp.rule.RCountType;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.entry.IFixEntry;
+import alpha.rulp.ximpl.entry.IFixEntryArray;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
 import alpha.rulp.ximpl.entry.IREntryTable;
@@ -676,6 +678,65 @@ public class OptimizeUtil {
 		sb.append(SEP_LINE1);
 	}
 
+	private static void _printFixArrayBitMap(StringBuffer sb, String name, IFixEntryArray<? extends IFixEntry> fixArray)
+			throws RException {
+
+		int maxId = fixArray.getEntryMaxId();
+
+		int groupSize = (maxId - 1) / 1000 + 1;
+
+		if (groupSize >= 1 && groupSize < 10) {
+			groupSize = 10;
+		} else {
+			groupSize = ((groupSize - 1) / 100 + 1) * 100;
+		}
+
+		int groupCount = (maxId - 1) / groupSize + 1;
+		int groupSize2 = groupSize / 10;
+
+		sb.append(SEP_LINE1);
+		sb.append(String.format("%s Bit Map: group-size=%d, group-count=%d\n", name, groupSize, groupCount));
+		sb.append(SEP_LINE2);
+
+		int rowCount = 0;
+
+		for (int groupIndex = 0; groupIndex < groupCount; ++groupIndex) {
+
+			int beginEntryId = groupIndex * groupSize + 1;
+			int endEntryId = beginEntryId + groupSize - 1;
+
+			int entryCount = 0;
+
+			for (int entryId = beginEntryId; entryId <= endEntryId; ++entryId) {
+				IFixEntry entry = fixArray.getEntry(entryId);
+				if (entry != null && !entry.isDroped()) {
+					++entryCount;
+				}
+			}
+
+			int lvl = (entryCount + groupSize2 - 1) / groupSize2;
+			sb.append(lvl == 10 ? "." : "" + lvl);
+
+			if ((groupIndex + 1) % 100 == 0) {
+				sb.append(String.format(" [%d]\n", endEntryId));
+				++rowCount;
+
+			} else if ((groupIndex + 1) == groupCount) {
+
+				if (rowCount > 0) {
+					int left = 100 - groupIndex % 100 - 1;
+					while (left-- > 0) {
+						sb.append(" ");
+					}
+				}
+
+				sb.append(String.format(" [%d]\n", maxId));
+			}
+		}
+
+		sb.append(SEP_LINE1);
+	}
+
 	private static void _printEntryTable(StringBuffer sb, IRModel model, IREntryTable entryTable) throws RException {
 
 		Set<RReteType> typeSet = new HashSet<>();
@@ -693,60 +754,7 @@ public class OptimizeUtil {
 				entryTable.getETAQueueExpendCount()));
 
 		// entry bit map
-		{
-			int groupSize = (maxId - 1) / 1000 + 1;
-
-			if (groupSize >= 1 && groupSize < 10) {
-				groupSize = 10;
-			} else {
-				groupSize = ((groupSize - 1) / 100 + 1) * 100;
-			}
-
-			int groupCount = (maxId - 1) / groupSize + 1;
-			int groupSize2 = groupSize / 10;
-
-			sb.append(SEP_LINE1);
-			sb.append(String.format("Entry Bit Map: group-size=%d, group-count=%d\n", groupSize, groupCount));
-			sb.append(SEP_LINE2);
-
-			int rowCount = 0;
-
-			for (int groupIndex = 0; groupIndex < groupCount; ++groupIndex) {
-
-				int beginEntryId = groupIndex * groupSize + 1;
-				int endEntryId = beginEntryId + groupSize - 1;
-
-				int entryCount = 0;
-
-				for (int entryId = beginEntryId; entryId <= endEntryId; ++entryId) {
-					IRReteEntry entry = entryTable.getEntry(entryId);
-					if (entry != null && !entry.isDroped()) {
-						++entryCount;
-					}
-				}
-
-				int lvl = (entryCount + groupSize2 - 1) / groupSize2;
-				sb.append(lvl == 10 ? "." : "" + lvl);
-
-				if ((groupIndex + 1) % 100 == 0) {
-					sb.append(String.format(" [%d]\n", endEntryId));
-					++rowCount;
-
-				} else if ((groupIndex + 1) == groupCount) {
-
-					if (rowCount > 0) {
-						int left = 100 - groupIndex % 100 - 1;
-						while (left-- > 0) {
-							sb.append(" ");
-						}
-					}
-
-					sb.append(String.format(" [%d]\n", maxId));
-				}
-			}
-
-			sb.append(SEP_LINE1);
-		}
+		_printFixArrayBitMap(sb, "Entry", entryTable.getEntryFixArray());
 
 		// entry length array
 		int entryMaxLen = STMT_MAX_LEN;

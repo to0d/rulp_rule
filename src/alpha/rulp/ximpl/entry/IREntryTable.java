@@ -19,11 +19,15 @@ public interface IREntryTable {
 
 	public int getEntryCount();
 
+	public IFixEntryArray<? extends IRReteEntry> getEntryFixArray();
+
 	public int getEntryMaxId();
 
 	public int getETAMaxActionSize();
 
 	public int getETAQueueCapacity();
+
+	public int getETAQueueExpendCount();
 
 	public int getETAQueueMaxSize();
 
@@ -36,7 +40,4 @@ public interface IREntryTable {
 	public void removeEntryReference(int entryId, int nodeId) throws RException;
 
 	public void setEntryStatus(int entryId, RReteStatus status) throws RException;
-
-	public int getETAQueueExpendCount();
-
 }
