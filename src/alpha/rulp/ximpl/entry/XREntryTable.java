@@ -23,10 +23,6 @@ import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XREntryTable implements IREntryTable {
 
-	static class EntryArray<T> {
-
-	}
-
 	static class ETA_Entry {
 
 		public Object obj;
@@ -186,6 +182,96 @@ public class XREntryTable implements IREntryTable {
 		}
 	}
 
+	static class FixEntryArray<T extends IFixEntry> {
+
+		protected ArrayList<T> entryArray = new ArrayList<>();
+
+		protected int entryCount = 0;
+
+		protected LinkedList<Integer> freeEntryIdList = new LinkedList<>();
+
+		public void addEntry(T entry) {
+
+			int entryId = -1;
+
+			if (REUSE_ENTRY_ID && !freeEntryIdList.isEmpty()) {
+
+				entryId = freeEntryIdList.pollFirst();
+				if (XREntryTable.TRACE) {
+					System.out.println("    reuse entry: id=" + entryId + ", entry=" + entry);
+				}
+
+				entryArray.set(entryId - 1, entry);
+
+			} else {
+
+				entryId = entryArray.size() + 1;
+				if (XREntryTable.TRACE) {
+					System.out.println("    new-entry: id=" + entryId + ", entry=" + entry);
+				}
+
+				entryArray.add(entry);
+			}
+
+			entry.setEntryId(entryId);
+			++entryCount;
+		}
+
+		public int doGC() throws RException {
+
+			int update = 0;
+
+			int size = entryArray.size();
+			for (int i = 0; i < size; ++i) {
+				T entry = entryArray.get(i);
+				if (entry != null && entry.isDroped()) {
+					entryArray.set(i, null);
+					++update;
+				}
+			}
+
+			return update;
+		}
+
+		public T getEntry(int entryId) throws RException {
+
+			if (entryId == 0 || entryId > entryArray.size()) {
+				return null;
+			}
+
+			return entryArray.get(entryId - 1);
+		}
+
+		public int getEntryCount() {
+			return entryCount;
+		}
+
+		public void removeEntry(T entry) throws RException {
+
+			int entryId = entry.getEntryId();
+
+			this.entryArray.set(entryId - 1, null);
+			--entryCount;
+
+			if (REUSE_ENTRY_ID) {
+				this.freeEntryIdList.addLast(entryId);
+			}
+		}
+
+		public int size() {
+			return entryArray.size();
+		}
+	}
+
+	static interface IFixEntry {
+
+		public int getEntryId();
+
+		public boolean isDroped();
+
+		public void setEntryId(int id);
+	}
+
 	static class XRReference implements IRReference {
 
 		public XRReteEntry childEntry;
@@ -228,7 +314,7 @@ public class XREntryTable implements IREntryTable {
 		}
 	}
 
-	static class XRReteEntry extends AbsAtomObject implements IRReteEntry {
+	static class XRReteEntry extends AbsAtomObject implements IRReteEntry, IFixEntry {
 
 		private List<XRReference> childList = null;
 
@@ -407,13 +493,9 @@ public class XREntryTable implements IREntryTable {
 		return ref != null && ref.parentEntryCount != -1;
 	}
 
-	protected ArrayList<XRReteEntry> entryArray = new ArrayList<>();
-
-	protected int entryCount = 0;
+	private FixEntryArray<XRReteEntry> entryFixArray = new FixEntryArray<>();
 
 	protected ETAQueue etaQueue = new ETAQueue(FIX_ETA_DEF_SIZE);
-
-	protected LinkedList<Integer> freeEntryIdList = new LinkedList<>();
 
 	protected int maxActionSize = 0;
 
@@ -523,12 +605,7 @@ public class XREntryTable implements IREntryTable {
 
 		entry.status = REMOVED;
 
-		this.entryArray.set(entryId - 1, null);
-		--entryCount;
-
-		if (REUSE_ENTRY_ID) {
-			this.freeEntryIdList.addLast(entryId);
-		}
+		entryFixArray.removeEntry(entry);
 	}
 
 	protected void _processRemoveRef(XRReference ref) throws RException {
@@ -690,30 +767,7 @@ public class XREntryTable implements IREntryTable {
 
 		XRReteEntry entry = new XRReteEntry(namedName, elements);
 		entry.setStatus(status);
-
-		int entryId = -1;
-
-		if (REUSE_ENTRY_ID && !freeEntryIdList.isEmpty()) {
-
-			entryId = freeEntryIdList.pollFirst();
-			if (XREntryTable.TRACE) {
-				System.out.println("    reuse entry: id=" + entryId + ", entry=" + entry);
-			}
-
-			entryArray.set(entryId, entry);
-
-		} else {
-
-			entryId = entryArray.size() + 1;
-			if (XREntryTable.TRACE) {
-				System.out.println("    new-entry: id=" + entryId + ", entry=" + entry);
-			}
-
-			entryArray.add(entry);
-		}
-
-		entry.setEntryId(entryId);
-		++entryCount;
+		entryFixArray.addEntry(entry);
 
 		return entry;
 	}
@@ -725,38 +779,22 @@ public class XREntryTable implements IREntryTable {
 			System.out.println("==> doGC:");
 		}
 
-		int update = 0;
-
-		int size = entryArray.size();
-		for (int i = 0; i < size; ++i) {
-			XRReteEntry entry = entryArray.get(i);
-			if (entry != null && entry.isDroped()) {
-				entryArray.set(i, null);
-				++update;
-			}
-		}
-
-		return update;
+		return entryFixArray.doGC();
 	}
 
 	@Override
 	public XRReteEntry getEntry(int entryId) throws RException {
-
-		if (entryId == 0 || entryId > entryArray.size()) {
-			return null;
-		}
-
-		return entryArray.get(entryId - 1);
+		return entryFixArray.getEntry(entryId);
 	}
 
 	@Override
 	public int getEntryCount() {
-		return entryCount;
+		return entryFixArray.getEntryCount();
 	}
 
 	@Override
 	public int getEntryMaxId() {
-		return entryArray.size();
+		return entryFixArray.size();
 	}
 
 	@Override
@@ -786,7 +824,7 @@ public class XREntryTable implements IREntryTable {
 
 	@Override
 	public List<? extends IRReteEntry> listAllEntries() {
-		return entryArray;
+		return entryFixArray.entryArray;
 	}
 
 	@Override
