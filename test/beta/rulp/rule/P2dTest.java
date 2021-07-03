@@ -101,6 +101,7 @@ public class P2dTest extends RuleTestBase {
 		_saveTest();
 
 		_statsInfo("p2d", "result/rule/P2dModelTest/p2d_alias_1_full.txt");
+		_dumpEntryTable("p2d", "result/rule/P2dModelTest/p2d_alias_1.entry.dump.txt");
 
 	}
 

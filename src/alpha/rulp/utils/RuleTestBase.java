@@ -418,6 +418,21 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
+	protected void _dumpEntryTable(String modelName, String expectFile) {
+
+		try {
+
+			String outline = OptimizeUtil.dumpAndCheckEntryTable(_model(modelName).getEntryTable());
+			ArrayList<String> lines = new ArrayList<>();
+			lines.add(outline);
+			FileUtil.saveTxtFile(expectFile, lines, "utf-8");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+
 	protected void _refInfo(String modelName, String expectFile) {
 
 		try {

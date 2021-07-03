@@ -678,65 +678,6 @@ public class OptimizeUtil {
 		sb.append(SEP_LINE1);
 	}
 
-	private static void _printFixArrayBitMap(StringBuffer sb, String name, IFixEntryArray<? extends IFixEntry> fixArray)
-			throws RException {
-
-		int maxId = fixArray.getEntryMaxId();
-
-		int groupSize = (maxId - 1) / 1000 + 1;
-
-		if (groupSize >= 1 && groupSize < 10) {
-			groupSize = 10;
-		} else {
-			groupSize = ((groupSize - 1) / 100 + 1) * 100;
-		}
-
-		int groupCount = (maxId - 1) / groupSize + 1;
-		int groupSize2 = groupSize / 10;
-
-		sb.append(SEP_LINE1);
-		sb.append(String.format("%s Bit Map: group-size=%d, group-count=%d\n", name, groupSize, groupCount));
-		sb.append(SEP_LINE2);
-
-		int rowCount = 0;
-
-		for (int groupIndex = 0; groupIndex < groupCount; ++groupIndex) {
-
-			int beginEntryId = groupIndex * groupSize + 1;
-			int endEntryId = beginEntryId + groupSize - 1;
-
-			int entryCount = 0;
-
-			for (int entryId = beginEntryId; entryId <= endEntryId; ++entryId) {
-				IFixEntry entry = fixArray.getEntry(entryId);
-				if (entry != null && !entry.isDroped()) {
-					++entryCount;
-				}
-			}
-
-			int lvl = (entryCount + groupSize2 - 1) / groupSize2;
-			sb.append(lvl == 10 ? "." : "" + lvl);
-
-			if ((groupIndex + 1) % 100 == 0) {
-				sb.append(String.format(" [%d]\n", endEntryId));
-				++rowCount;
-
-			} else if ((groupIndex + 1) == groupCount) {
-
-				if (rowCount > 0) {
-					int left = 100 - groupIndex % 100 - 1;
-					while (left-- > 0) {
-						sb.append(" ");
-					}
-				}
-
-				sb.append(String.format(" [%d]\n", maxId));
-			}
-		}
-
-		sb.append(SEP_LINE1);
-	}
-
 	private static void _printEntryTable(StringBuffer sb, IRModel model, IREntryTable entryTable) throws RException {
 
 		Set<RReteType> typeSet = new HashSet<>();
@@ -754,6 +695,7 @@ public class OptimizeUtil {
 				entryTable.getETAQueueExpendCount()));
 
 		// entry bit map
+		sb.append(SEP_LINE1);
 		_printFixArrayBitMap(sb, "Entry", entryTable.getEntryFixArray());
 
 		// entry length array
@@ -999,6 +941,7 @@ public class OptimizeUtil {
 			sb.append("\n");
 
 			sb.append(SEP_LINE1);
+			_printFixArrayBitMap(sb, "Ref", entryTable.getReferenceFixArray());
 		}
 
 		// entry child count
@@ -1237,6 +1180,64 @@ public class OptimizeUtil {
 			}
 		}
 
+	}
+
+	private static void _printFixArrayBitMap(StringBuffer sb, String name, IFixEntryArray<? extends IFixEntry> fixArray)
+			throws RException {
+
+		int maxId = fixArray.getEntryMaxId();
+
+		int groupSize = (maxId - 1) / 1000 + 1;
+
+		if (groupSize >= 1 && groupSize < 10) {
+			groupSize = 10;
+		} else {
+			groupSize = ((groupSize - 1) / 100 + 1) * 100;
+		}
+
+		int groupCount = (maxId - 1) / groupSize + 1;
+		int groupSize2 = groupSize / 10;
+
+		sb.append(String.format("%s Bit Map: group-size=%d, group-count=%d\n", name, groupSize, groupCount));
+		sb.append(SEP_LINE2);
+
+		int rowCount = 0;
+
+		for (int groupIndex = 0; groupIndex < groupCount; ++groupIndex) {
+
+			int beginEntryId = groupIndex * groupSize + 1;
+			int endEntryId = beginEntryId + groupSize - 1;
+
+			int entryCount = 0;
+
+			for (int entryId = beginEntryId; entryId <= endEntryId; ++entryId) {
+				IFixEntry entry = fixArray.getEntry(entryId);
+				if (entry != null && !entry.isDroped()) {
+					++entryCount;
+				}
+			}
+
+			int lvl = (entryCount + groupSize2 - 1) / groupSize2;
+			sb.append(lvl == 10 ? "." : "" + lvl);
+
+			if ((groupIndex + 1) % 100 == 0) {
+				sb.append(String.format(" [%d]\n", endEntryId));
+				++rowCount;
+
+			} else if ((groupIndex + 1) == groupCount) {
+
+				if (rowCount > 0) {
+					int left = 100 - groupIndex % 100 - 1;
+					while (left-- > 0) {
+						sb.append(" ");
+					}
+				}
+
+				sb.append(String.format(" [%d]\n", maxId));
+			}
+		}
+
+		sb.append(SEP_LINE1);
 	}
 
 	private static void _printFrameCounter(StringBuffer sb, IRFrame frame) throws RException {
@@ -1945,6 +1946,134 @@ public class OptimizeUtil {
 		return str;
 	}
 
+	public static String dumpAndCheckEntryTable(IREntryTable entryTable) throws RException {
+
+		StringBuffer sb = new StringBuffer();
+
+		IFixEntryArray<? extends IRReteEntry> entryFixArray = entryTable.getEntryFixArray();
+		IFixEntryArray<? extends IRReference> refFixArray = entryTable.getReferenceFixArray();
+
+		/****************************************************/
+		// Dump entry fix array
+		/****************************************************/
+		{
+
+			int maxEntryId = entryFixArray.getEntryMaxId();
+
+			sb.append(SEP_LINE1);
+			sb.append(String.format("%-12s: max-id=%d, count=%d\n", "ENTRY ARRAY", maxEntryId,
+					entryFixArray.getEntryCount()));
+			sb.append(SEP_LINE2);
+
+			for (int entryId = 0; entryId < maxEntryId; ++entryId) {
+
+				IRReteEntry entry = entryFixArray.getEntry(entryId);
+				if (entry == null || entry.isDroped()) {
+					continue;
+				}
+
+				sb.append(String.format("%08d: entry=%s, status=%s, child[%d]", entry.getEntryId(), entry,
+						entry.getStatus(), entry.getChildCount()));
+
+				if (entry.getChildCount() > 0) {
+
+					sb.append("=");
+
+					Iterator<? extends IRReference> it = entry.getChildIterator();
+					while (it.hasNext()) {
+
+						IRReference ref = it.next();
+						if (refFixArray.getEntry(ref.getEntryId()) != ref) {
+							throw new RException("Invalid ref: " + ref);
+						}
+
+						sb.append(" " + ref.getEntryId() + ",");
+					}
+
+				} else {
+					sb.append(",");
+				}
+
+				sb.append(String.format(" ref[%d]", entry.getReferenceCount()));
+				if (entry.getReferenceCount() > 0) {
+
+					sb.append("=");
+
+					Iterator<? extends IRReference> it = entry.getReferenceIterator();
+					while (it.hasNext()) {
+
+						IRReference ref = it.next();
+						if (refFixArray.getEntry(ref.getEntryId()) != ref) {
+							throw new RException("Invalid ref: " + ref);
+						}
+
+						sb.append(" " + ref.getEntryId() + ",");
+					}
+
+				} else {
+					sb.append(",");
+				}
+
+				sb.append("\n");
+			}
+
+			sb.append("\n\n");
+		}
+
+		/****************************************************/
+		// Dump ref fix array
+		/****************************************************/
+		{
+
+			int maxEntryId = refFixArray.getEntryMaxId();
+
+			sb.append(SEP_LINE1);
+			sb.append(String.format("%-12s: max-id=%d, count=%d\n", "REF ARRAY", maxEntryId,
+					refFixArray.getEntryCount()));
+			sb.append(SEP_LINE2);
+
+			for (int entryId = 0; entryId < maxEntryId; ++entryId) {
+
+				IRReference ref = refFixArray.getEntry(entryId);
+				if (ref == null || ref.isDroped()) {
+					continue;
+				}
+
+				int parentCount = ref.getParentEntryCount();
+
+				IRReteEntry childEntry = ref.getChildEntry();
+				if (entryFixArray.getEntry(childEntry.getEntryId()) != childEntry) {
+					throw new RException("Invalid entry: " + childEntry);
+				}
+
+				sb.append(String.format("%08d: node=%d, child=%d, parent[%d]", ref.getEntryId(), ref.getNodeId(),
+						childEntry.getEntryId(), parentCount));
+
+				if (parentCount > 0) {
+
+					sb.append("=");
+
+					for (int i = 0; i < parentCount; ++i) {
+
+						IRReteEntry parentEntry = ref.getParentEntry(i);
+						if (entryFixArray.getEntry(parentEntry.getEntryId()) != parentEntry) {
+							throw new RException("Invalid entry: " + parentEntry);
+						}
+
+						sb.append(" " + parentEntry.getEntryId() + ",");
+					}
+
+				} else {
+					sb.append(",");
+				}
+
+				sb.append("\n");
+			}
+		}
+
+		return sb.toString();
+	}
+
 	public static String formatEntryTableCount(IREntryTable entryTable) throws RException {
 
 		String out = "";
@@ -2229,7 +2358,7 @@ public class OptimizeUtil {
 		}
 
 		return obj;
-	}
+	};
 
 	public static Pair<IRList, IRList> optimizeRule(IRList condList, IRList actionList, IRFrame frame)
 			throws RException {
@@ -2247,7 +2376,7 @@ public class OptimizeUtil {
 		} while (false);
 
 		return rule;
-	};
+	}
 
 	public static String printNodeInfo(IRModel model) throws RException {
 
@@ -2263,6 +2392,18 @@ public class OptimizeUtil {
 		return sb.toString();
 	}
 
+	public static String printRefInfo(IRModel model) throws RException {
+
+		StringBuffer sb = new StringBuffer();
+
+		RefPrinter refPrinter = new RefPrinter(model);
+		for (IRList stmt : model.listStatements(null, 0, 0)) {
+			sb.append(refPrinter.printStmt(stmt));
+		}
+
+		return sb.toString();
+	}
+
 	public static String printScopeInfo(IRScope scope) {
 
 		StringBuffer sb = new StringBuffer();
@@ -2271,18 +2412,6 @@ public class OptimizeUtil {
 			_printScopeLists(sb, scope);
 		} catch (RException e) {
 			e.printStackTrace();
-		}
-
-		return sb.toString();
-	}
-
-	public static String printRefInfo(IRModel model) throws RException {
-
-		StringBuffer sb = new StringBuffer();
-
-		RefPrinter refPrinter = new RefPrinter(model);
-		for (IRList stmt : model.listStatements(null, 0, 0)) {
-			sb.append(refPrinter.printStmt(stmt));
 		}
 
 		return sb.toString();

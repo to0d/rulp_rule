@@ -85,7 +85,7 @@ public class RefPrinter {
 					+ String.format("==> Ref: node=%s, parent=(%s)", node(ref.getNodeId()).getNodeName(), pc);
 
 			for (int i = 0; i < pc; ++i) {
-				line += " " + ref.getParentEntryID(i) + ",";
+				line += " " + ref.getParentEntry(i).getEntryId() + ",";
 			}
 
 			sb.append(line + "\n");

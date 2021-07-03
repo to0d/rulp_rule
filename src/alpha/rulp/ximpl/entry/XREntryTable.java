@@ -260,13 +260,9 @@ public class XREntryTable implements IREntryTable {
 				this.freeEntryIdList.addLast(entryId);
 			}
 		}
-
-		public int size() {
-			return entryArray.size();
-		}
 	}
 
-	static class XRReference implements IRReference {
+	static class XRReference implements IRReference, IFixEntry {
 
 		public XRReteEntry childEntry;
 
@@ -286,6 +282,15 @@ public class XREntryTable implements IREntryTable {
 			this.parentEntrys = parentEntrys;
 		}
 
+		public void drop() {
+			this.parentEntryCount = -1;
+		}
+
+		@Override
+		public int getEntryId() {
+			return refId;
+		}
+
 		@Override
 		public int getNodeId() {
 			return nodeId;
@@ -297,14 +302,23 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public int getParentEntryID(int index) {
+		public IRReteEntry getParentEntry(int index) {
+			return parentEntrys[index];
+		}
 
-			XRReteEntry parent = parentEntrys[index];
-			if (parent == null) {
-				return 0;
-			}
+		@Override
+		public boolean isDroped() {
+			return parentEntryCount == -1;
+		}
 
-			return parent.getEntryId();
+		@Override
+		public void setEntryId(int id) {
+			this.refId = id;
+		}
+
+		@Override
+		public IRReteEntry getChildEntry() {
+			return childEntry;
 		}
 	}
 
@@ -376,6 +390,11 @@ public class XREntryTable implements IREntryTable {
 		@Override
 		public int getChildCount() {
 			return childList == null ? 0 : childList.size();
+		}
+
+		@Override
+		public Iterator<? extends IRReference> getChildIterator() {
+			return childList == null ? Collections.emptyIterator() : childList.iterator();
 		}
 
 		@Override
@@ -484,14 +503,16 @@ public class XREntryTable implements IREntryTable {
 	}
 
 	static boolean _isValidReference(XRReference ref) {
-		return ref != null && ref.parentEntryCount != -1;
+		return ref != null && !ref.isDroped();
 	}
 
-	private FixEntryArray<XRReteEntry> entryFixArray = new FixEntryArray<>();
+	protected FixEntryArray<XRReteEntry> entryFixArray = new FixEntryArray<>();
 
 	protected ETAQueue etaQueue = new ETAQueue(FIX_ETA_DEF_SIZE);
 
 	protected int maxActionSize = 0;
+
+	protected FixEntryArray<XRReference> refFixArray = new FixEntryArray<>();
 
 	protected void _addReference(XRReteEntry entry, IRReteNode node, XRReteEntry[] parentEntrys) throws RException {
 
@@ -508,6 +529,8 @@ public class XREntryTable implements IREntryTable {
 				parent.addChild(ref);
 			}
 		}
+
+		refFixArray.addEntry(ref);
 	}
 
 	protected int _indexOf(int[] array, int id) throws RException {
@@ -571,7 +594,8 @@ public class XREntryTable implements IREntryTable {
 				for (int i = 0; i < parentCount; ++i) {
 
 					// Break the link between reference and parent entry
-					if (ref.getParentEntryID(i) == entryId) {
+					IRReteEntry parent = ref.getParentEntry(i);
+					if (parent != null && parent.getEntryId() == entryId) {
 						ref.parentEntrys[i] = null;
 					}
 				}
@@ -649,7 +673,8 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		// mark it as invalid
-		ref.parentEntryCount = -1;
+		ref.drop();
+		refFixArray.removeEntry(ref);
 	}
 
 	protected void _pushRemoveEntry(XRReteEntry entry) throws RException {
@@ -819,6 +844,11 @@ public class XREntryTable implements IREntryTable {
 	@Override
 	public int getETATotalActionSize() {
 		return etaQueue.getActionSize();
+	}
+
+	@Override
+	public IFixEntryArray<? extends IRReference> getReferenceFixArray() {
+		return refFixArray;
 	}
 
 	@Override

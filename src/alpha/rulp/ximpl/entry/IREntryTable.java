@@ -21,6 +21,8 @@ public interface IREntryTable {
 
 	public IFixEntryArray<? extends IRReteEntry> getEntryFixArray();
 
+	public IFixEntryArray<? extends IRReference> getReferenceFixArray();
+
 	public int getEntryMaxId();
 
 	public int getETAMaxActionSize();

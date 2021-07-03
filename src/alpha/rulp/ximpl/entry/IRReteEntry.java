@@ -20,6 +20,8 @@ public interface IRReteEntry extends IRList, IFixEntry {
 
 	public Iterator<? extends IRReference> getReferenceIterator();
 
+	public Iterator<? extends IRReference> getChildIterator();
+
 	public RReteStatus getStatus();
 
 	public boolean isDroped();

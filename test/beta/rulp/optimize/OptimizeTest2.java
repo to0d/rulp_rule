@@ -34,5 +34,6 @@ public class OptimizeTest2 extends RuleTestBase {
 		_saveTest();
 
 		_statsInfo("p2d", "result/optimize/OptimizeTest2/p2d_alias_1_full_single_child_optimize.txt");
+		_dumpEntryTable("p2d", "result/optimize/OptimizeTest2/p2d_alias_1_full_single_child_optimize.entry.dump.txt");
 	}
 }
