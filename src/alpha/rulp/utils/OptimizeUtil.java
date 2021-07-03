@@ -19,10 +19,10 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_SYSTEM;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RCountType.COUNT_TYPE_NUM;
-import static alpha.rulp.rule.RReteStatus.ASSUMED;
-import static alpha.rulp.rule.RReteStatus.DEFINED;
-import static alpha.rulp.rule.RReteStatus.REASONED;
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.ASSUME;
+import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.REASON;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
 import static alpha.rulp.ximpl.node.RReteType.ALPH1;
 import static alpha.rulp.ximpl.node.RReteType.ALPH2;
@@ -1368,9 +1368,9 @@ public class OptimizeUtil {
 			}
 
 			sb.append(String.format("%8s: %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
-					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(DEFINED),
-					entryCounter.getEntryCount(REASONED), entryCounter.getEntryCount(ASSUMED),
-					entryCounter.getEntryCount(REMOVED), entryCounter.getEntryNullCount(),
+					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(DEFINE),
+					entryCounter.getEntryCount(REASON), entryCounter.getEntryCount(ASSUME),
+					entryCounter.getEntryCount(REMOVE), entryCounter.getEntryNullCount(),
 					"" + model.getNodeGraph().getBindFromNodes(node).size() + "/"
 							+ model.getNodeGraph().getBindToNodes(node).size(),
 					node.getNodeMatchCount(), entryQueue.getUpdateCount(), entryQueue.getRedundantCount(),

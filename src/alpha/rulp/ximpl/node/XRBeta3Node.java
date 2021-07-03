@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -24,11 +24,11 @@ public class XRBeta3Node extends XRReteNode2 {
 
 	protected boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
 
-		if (leftEntry == null || leftEntry.getStatus() == REMOVED) {
+		if (leftEntry == null || leftEntry.getStatus() == REMOVE) {
 			return false;
 		}
 
-		if (rightEntry == null || rightEntry.getStatus() == REMOVED) {
+		if (rightEntry == null || rightEntry.getStatus() == REMOVE) {
 			return false;
 		}
 

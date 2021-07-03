@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.rule.RReteStatus.REASONED;
+import static alpha.rulp.rule.RReteStatus.REASON;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -42,7 +42,7 @@ public abstract class XRReteNode2 extends AbsReteNode {
 			newElements[i] = parentEntry.get(inherit.elementIndex);
 		}
 
-		return entryTable.createEntry(null, newElements, REASONED);
+		return entryTable.createEntry(null, newElements, REASON);
 	}
 
 	protected abstract boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException;

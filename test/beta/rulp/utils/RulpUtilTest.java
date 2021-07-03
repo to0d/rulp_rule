@@ -11,7 +11,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 
-class RuleUtilityTest {
+class RulpUtilTest {
 
 	@Test
 	void test_toStmtList() {

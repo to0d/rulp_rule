@@ -8,9 +8,9 @@ import static alpha.rulp.lang.Constant.S_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
-import static alpha.rulp.rule.RReteStatus.DEFINED;
-import static alpha.rulp.rule.RReteStatus.REASONED;
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.REASON;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,38 +55,16 @@ public class ReteUtil {
 			return obj;
 		}
 	};
-	public static boolean equal(IRObject a, IRObject b) {
 
-		if (a == null || a == O_Nil) {
-			return b == null || b == O_Nil;
-		}
+	static RReteStatus reteStatusConvertArray[][] = {
+			// DEFINE,REASON, ASSUME, REMOVE, FIX
+			{ DEFINE, DEFINE, DEFINE, REMOVE, FIXED_ }, // DEFINE
+			{ DEFINE, REASON, REASON, REMOVE, FIXED_ }, // REASON
+			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_ }, // ASSUME
+			{ REMOVE, REMOVE, REMOVE, REMOVE, FIXED_ }, // REMOVE
+			{ FIXED_, FIXED_, FIXED_, FIXED_, FIXED_ }, // FIX
+	};
 
-		if (b == null || b == O_Nil) {
-			return false;
-		}
-
-		RType type = a.getType();
-		if (type != b.getType()) {
-			return false;
-		}
-
-		switch (type) {
-		case INT:
-			return ((IRInteger) a).asInteger() == ((IRInteger) b).asInteger();
-
-		case FLOAT:
-			return ((IRFloat) a).asFloat() == ((IRFloat) b).asFloat();
-
-		case STRING:
-			return ((IRString) a).asString().equals(((IRString) b).asString());
-
-		case ATOM:
-			return ((IRAtom) a).getName().equals(((IRAtom) b).getName());
-
-		default:
-			return false;
-		}
-	}
 	static void _fillVarList(IRList stmt, Set<String> varSet) throws RException {
 
 //		if (stmt.getType() == RType.EXPR) {
@@ -546,6 +524,39 @@ public class ReteUtil {
 		return varList;
 	}
 
+	public static boolean equal(IRObject a, IRObject b) {
+
+		if (a == null || a == O_Nil) {
+			return b == null || b == O_Nil;
+		}
+
+		if (b == null || b == O_Nil) {
+			return false;
+		}
+
+		RType type = a.getType();
+		if (type != b.getType()) {
+			return false;
+		}
+
+		switch (type) {
+		case INT:
+			return ((IRInteger) a).asInteger() == ((IRInteger) b).asInteger();
+
+		case FLOAT:
+			return ((IRFloat) a).asFloat() == ((IRFloat) b).asFloat();
+
+		case STRING:
+			return ((IRString) a).asString().equals(((IRString) b).asString());
+
+		case ATOM:
+			return ((IRAtom) a).getName().equals(((IRAtom) b).getName());
+
+		default:
+			return false;
+		}
+	}
+
 	public static IRNamedNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 
 		String namedName = filter.getNamedName();
@@ -723,30 +734,7 @@ public class ReteUtil {
 	}
 
 	public static RReteStatus getReteStatus(RReteStatus fromStatus, RReteStatus toStatus) {
-
-		if (toStatus == REMOVED) {
-			return REMOVED;
-		}
-
-		if (fromStatus == toStatus) {
-			return fromStatus;
-		}
-
-		switch (fromStatus) {
-
-		case REASONED:
-			return toStatus == DEFINED ? DEFINED : REASONED;
-
-		case ASSUMED:
-			return toStatus;
-
-		case DEFINED:
-		case REMOVED:
-		default:
-			return fromStatus;
-
-		}
-
+		return reteStatusConvertArray[fromStatus.getIndex()][toStatus.getIndex()];
 	}
 
 	public static String getRootUniqName(int stmtLen) {
@@ -1173,7 +1161,7 @@ public class ReteUtil {
 	}
 
 	public static boolean matchReteStatus(RReteStatus status, int mask) {
-		return (status.getIndex() & mask) > 0;
+		return (status.getMask() & mask) > 0;
 	}
 
 	public static boolean matchUniqStmt(IRList srcStmt, IRList dstStmt) throws RException {
@@ -1446,7 +1434,7 @@ public class ReteUtil {
 	}
 
 	public static int updateMask(RReteStatus status, int mask) {
-		return status.getIndex() | mask;
+		return status.getMask() | mask;
 	}
 
 	public static List<String> varList(IRList stmt) throws RException {

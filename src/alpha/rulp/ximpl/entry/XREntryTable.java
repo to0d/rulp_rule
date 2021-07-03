@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.entry;
 
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -336,7 +336,7 @@ public class XREntryTable implements IREntryTable {
 
 		private List<XRReference> referenceList = null;
 
-		private RReteStatus status = RReteStatus.DEFINED;
+		private RReteStatus status = RReteStatus.DEFINE;
 
 		public XRReteEntry(String namedName, IRObject[] elements) {
 			this.namedName = namedName;
@@ -429,7 +429,7 @@ public class XREntryTable implements IREntryTable {
 
 		@Override
 		public boolean isDroped() {
-			return this.status == REMOVED;
+			return this.status == REMOVE;
 		}
 
 		@Override
@@ -499,7 +499,7 @@ public class XREntryTable implements IREntryTable {
 	public static boolean TRACE = false;
 
 	static boolean _isValidEntry(XRReteEntry entry) {
-		return entry != null && entry.status != REMOVED;
+		return entry != null && entry.status != REMOVE;
 	}
 
 	static boolean _isValidReference(XRReference ref) {
@@ -621,7 +621,7 @@ public class XREntryTable implements IREntryTable {
 			entry.entryRemovedlistener = null;
 		}
 
-		entry.status = REMOVED;
+		entry.status = REMOVE;
 
 		entryFixArray.removeEntry(entry);
 	}

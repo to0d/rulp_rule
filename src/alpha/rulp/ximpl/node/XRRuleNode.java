@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -178,7 +178,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 
 	protected boolean _match(IRReteEntry entry) throws RException {
 
-		if (entry == null || entry.getStatus() == REMOVED) {
+		if (entry == null || entry.getStatus() == REMOVE) {
 			return false;
 		}
 
@@ -268,8 +268,8 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 
 					IREntryCounter entryCounter = node.getEntryQueue().getEntryCounter();
 
-					count += entryCounter.getEntryCount(RReteStatus.DEFINED)
-							+ entryCounter.getEntryCount(RReteStatus.REASONED);
+					count += entryCounter.getEntryCount(RReteStatus.DEFINE)
+							+ entryCounter.getEntryCount(RReteStatus.REASON);
 				}
 
 				return count;
@@ -297,7 +297,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 				for (IRReteNode node : getNodeUpdater().getNodeList()) {
 					if (node.getReteType() == RReteType.ROOT0) {
 						IREntryCounter entryCounter = node.getEntryQueue().getEntryCounter();
-						count += entryCounter.getEntryCount(RReteStatus.DEFINED);
+						count += entryCounter.getEntryCount(RReteStatus.DEFINE);
 					}
 				}
 

@@ -10,10 +10,10 @@
 ;=>'('(a b c) '(b c a) '(c a b))
 (print-entry-ref m)
 ;out:
-Stmt : name='(a b c), id=1, stats=DEFINED, ref=1
+Stmt : name='(a b c), id=1, stats=define, ref=1
     ==> Ref: node=R0001, parent=(0)
-Stmt : name='(b c a), id=2, stats=REASONED, ref=1
+Stmt : name='(b c a), id=2, stats=reason, ref=1
     ==> Ref: node=R0001, parent=(0)
-Stmt : name='(c a b), id=3, stats=REASONED, ref=1
+Stmt : name='(c a b), id=3, stats=reason, ref=1
     ==> Ref: node=R0001, parent=(0)
 ;eof

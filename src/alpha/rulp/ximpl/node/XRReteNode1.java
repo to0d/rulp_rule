@@ -91,7 +91,7 @@ public class XRReteNode1 extends AbsReteNode {
 		for (; lastParentVisitIndex < parentEntryCount; ++lastParentVisitIndex) {
 			
 			IRReteEntry entry = parentEntryQueue.getEntryAt(lastParentVisitIndex);
-			if (entry == null || entry.getStatus() == RReteStatus.REMOVED) {
+			if (entry == null || entry.getStatus() == RReteStatus.REMOVE) {
 				continue;
 			}
 

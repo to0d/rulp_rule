@@ -1,10 +1,10 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.rule.RCountType.COUNT_TYPE_NUM;
-import static alpha.rulp.rule.RReteStatus.ASSUMED;
-import static alpha.rulp.rule.RReteStatus.DEFINED;
-import static alpha.rulp.rule.RReteStatus.REASONED;
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.ASSUME;
+import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.REASON;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_NUM;
 
 import java.util.List;
@@ -51,25 +51,25 @@ public class XRReteCounter implements IRReteNodeCounter {
 			switch (countType) {
 			case DefinedCount:
 				for (IRReteNode node : nodeList) {
-					value += node.getEntryQueue().getEntryCounter().getEntryCount(DEFINED);
+					value += node.getEntryQueue().getEntryCounter().getEntryCount(DEFINE);
 				}
 				break;
 
 			case AssumeCount:
 				for (IRReteNode node : nodeList) {
-					value += node.getEntryQueue().getEntryCounter().getEntryCount(ASSUMED);
+					value += node.getEntryQueue().getEntryCounter().getEntryCount(ASSUME);
 				}
 				break;
 
 			case ReasonCount:
 				for (IRReteNode node : nodeList) {
-					value += node.getEntryQueue().getEntryCounter().getEntryCount(REASONED);
+					value += node.getEntryQueue().getEntryCounter().getEntryCount(REASON);
 				}
 				break;
 
 			case DropCount:
 				for (IRReteNode node : nodeList) {
-					value += node.getEntryQueue().getEntryCounter().getEntryCount(REMOVED);
+					value += node.getEntryQueue().getEntryCounter().getEntryCount(REMOVE);
 				}
 				break;
 

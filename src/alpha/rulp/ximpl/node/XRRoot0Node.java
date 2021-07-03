@@ -86,21 +86,21 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 				int oldEntryId = oldEntry.getEntryId();
 
 				switch (finalStatus) {
-				case ASSUMED:
+				case ASSUME:
 					entryTable.setEntryStatus(oldEntryId, finalStatus);
 //					entryTable.setEntryLife(oldEntryId, 0);
 					break;
 
-				case DEFINED:
+				case DEFINE:
 					entryTable.setEntryStatus(oldEntryId, finalStatus);
 //					entryTable.setEntryLife(oldEntryId, 1);
 					break;
 
-				case REMOVED:
+				case REMOVE:
 					entryTable.removeEntryReference(oldEntryId, getNodeId());
 					break;
 
-				case REASONED:
+				case REASON:
 					// TODO
 					entryTable.setEntryStatus(oldEntryId, finalStatus);
 //					entryTable.setEntryLife(oldEntryId, 0);

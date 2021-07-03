@@ -19,7 +19,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 
 	protected RNodeContext defaultNodeConext = new RNodeContext() {
 		public RReteStatus getNewStmtStatus() {
-			return RReteStatus.REASONED;
+			return RReteStatus.REASON;
 		}
 	};
 

@@ -22,7 +22,7 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 
 	protected RNodeContext defaultNodeConext = new RNodeContext() {
 		public RReteStatus getNewStmtStatus() {
-			return RReteStatus.REASONED;
+			return RReteStatus.REASON;
 		}
 	};
 

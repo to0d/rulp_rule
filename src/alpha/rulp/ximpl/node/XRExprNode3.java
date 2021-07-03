@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.rule.RReteStatus.REASONED;
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.REASON;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
@@ -52,7 +52,7 @@ public class XRExprNode3 extends XRReteNode1 {
 			newElements[i] = externalVars[i - leftEnryLength];
 		}
 
-		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements, REASONED);
+		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements, REASON);
 		entryTable.addReference(newEntry, this, entry);
 
 		if (!entryQueue.addEntry(newEntry, this.getModel().getInterpreter(), this.getNodeFrame(true))) {
@@ -116,7 +116,7 @@ public class XRExprNode3 extends XRReteNode1 {
 		for (; lastParentVisitIndex < parentEntryCount; ++lastParentVisitIndex) {
 
 			IRReteEntry entry = parentEntryQueue.getEntryAt(lastParentVisitIndex);
-			if (entry == null || entry.getStatus() == REMOVED) {
+			if (entry == null || entry.getStatus() == REMOVE) {
 				continue;
 			}
 

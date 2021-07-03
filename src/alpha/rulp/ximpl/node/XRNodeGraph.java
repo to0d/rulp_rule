@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.node;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
-import static alpha.rulp.rule.RReteStatus.DEFINED;
+import static alpha.rulp.rule.RReteStatus.DEFINE;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -854,7 +854,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				elements[1] = o;
 				elements[2] = n;
 
-				IRReteEntry reteEntry = model.getEntryTable().createEntry(null, elements, DEFINED);
+				IRReteEntry reteEntry = model.getEntryTable().createEntry(null, elements, DEFINE);
 //				model.getEntryTable().addEntryReference(reteEntry, varNode.getNodeId());
 //				model.getEntryTable().setEntryLife(reteEntry.getEntryId(), 1); // certain entry
 

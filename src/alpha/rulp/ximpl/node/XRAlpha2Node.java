@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.rule.RReteStatus.REASONED;
+import static alpha.rulp.rule.RReteStatus.REASON;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -21,7 +21,7 @@ public class XRAlpha2Node extends XRAlpha1Node {
 			newElements[i] = parentEntry.get(inherit.elementIndex);
 		}
 
-		return entryTable.createEntry(null, newElements, REASONED);
+		return entryTable.createEntry(null, newElements, REASON);
 	}
 
 	@Override

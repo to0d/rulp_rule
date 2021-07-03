@@ -1,8 +1,8 @@
 package alpha.rulp.rule;
 
-import static alpha.rulp.rule.RReteStatus.ASSUMED;
-import static alpha.rulp.rule.RReteStatus.DEFINED;
-import static alpha.rulp.rule.RReteStatus.REASONED;
+import static alpha.rulp.rule.RReteStatus.ASSUME;
+import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.REASON;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,18 +37,18 @@ public interface IRModel extends IRInstance, IRRunnable {
 
 		public RReteStatus getNewStmtStatus() {
 
-			RReteStatus status = DEFINED;
+			RReteStatus status = DEFINE;
 
 			if (currentEntry != null) {
 				switch (currentEntry.getStatus()) {
-				case ASSUMED:
-					status = ASSUMED;
+				case ASSUME:
+					status = ASSUME;
 					break;
-				case DEFINED:
-				case REASONED:
-					status = REASONED;
+				case DEFINE:
+				case REASON:
+					status = REASON;
 					break;
-				case REMOVED:
+				case REMOVE:
 				default:
 					break;
 				}
@@ -57,6 +57,10 @@ public interface IRModel extends IRInstance, IRRunnable {
 			return status;
 		}
 	}
+
+	public int addFixedStatement(IRList stmt) throws RException;
+
+	public int addFixedStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
 
 	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener);
 

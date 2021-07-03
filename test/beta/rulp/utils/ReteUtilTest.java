@@ -1,9 +1,9 @@
 package beta.rulp.utils;
 
-import static alpha.rulp.rule.RReteStatus.ASSUMED;
-import static alpha.rulp.rule.RReteStatus.DEFINED;
-import static alpha.rulp.rule.RReteStatus.REASONED;
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.ASSUME;
+import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -23,7 +23,7 @@ import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 
-class ReteUtilityTest extends RuleTestBase {
+class ReteUtilTest extends RuleTestBase {
 
 	protected void _test_buildVarList(String inputTree, String expectVarList) {
 		try {
@@ -230,26 +230,35 @@ class ReteUtilityTest extends RuleTestBase {
 	@Test
 	void test_getReteStatus() {
 
-		assertEquals(DEFINED, ReteUtil.getReteStatus(DEFINED, DEFINED));
-		assertEquals(DEFINED, ReteUtil.getReteStatus(DEFINED, REASONED));
-		assertEquals(DEFINED, ReteUtil.getReteStatus(DEFINED, ASSUMED));
-		assertEquals(REMOVED, ReteUtil.getReteStatus(DEFINED, REMOVED));
+		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, DEFINE));
+		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, REASON));
+		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, ASSUME));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(DEFINE, REMOVE));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(DEFINE, FIXED_));
 
-		assertEquals(DEFINED, ReteUtil.getReteStatus(REASONED, DEFINED));
-		assertEquals(REASONED, ReteUtil.getReteStatus(REASONED, REASONED));
-		assertEquals(REASONED, ReteUtil.getReteStatus(REASONED, ASSUMED));
-		assertEquals(REMOVED, ReteUtil.getReteStatus(REASONED, REMOVED));
+		assertEquals(DEFINE, ReteUtil.getReteStatus(REASON, DEFINE));
+		assertEquals(REASON, ReteUtil.getReteStatus(REASON, REASON));
+		assertEquals(REASON, ReteUtil.getReteStatus(REASON, ASSUME));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(REASON, REMOVE));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(REASON, FIXED_));
 
-		assertEquals(DEFINED, ReteUtil.getReteStatus(ASSUMED, DEFINED));
-		assertEquals(REASONED, ReteUtil.getReteStatus(ASSUMED, REASONED));
-		assertEquals(ASSUMED, ReteUtil.getReteStatus(ASSUMED, ASSUMED));
-		assertEquals(REMOVED, ReteUtil.getReteStatus(ASSUMED, REMOVED));
+		assertEquals(DEFINE, ReteUtil.getReteStatus(ASSUME, DEFINE));
+		assertEquals(REASON, ReteUtil.getReteStatus(ASSUME, REASON));
+		assertEquals(ASSUME, ReteUtil.getReteStatus(ASSUME, ASSUME));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(ASSUME, REMOVE));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(ASSUME, FIXED_));
 
-		assertEquals(REMOVED, ReteUtil.getReteStatus(REMOVED, DEFINED));
-		assertEquals(REMOVED, ReteUtil.getReteStatus(REMOVED, REASONED));
-		assertEquals(REMOVED, ReteUtil.getReteStatus(REMOVED, ASSUMED));
-		assertEquals(REMOVED, ReteUtil.getReteStatus(REMOVED, REMOVED));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, DEFINE));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, REASON));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, ASSUME));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, REMOVE));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(REMOVE, FIXED_));
 
+		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, DEFINE));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, REASON));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, ASSUME));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, REMOVE));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, FIXED_));
 	}
 
 	@Test
@@ -307,20 +316,23 @@ class ReteUtilityTest extends RuleTestBase {
 
 		_setup();
 
-		assertFalse(ReteUtil.matchReteStatus(DEFINED, 0));
-		assertFalse(ReteUtil.matchReteStatus(REASONED, 0));
-		assertFalse(ReteUtil.matchReteStatus(ASSUMED, 0));
-		assertFalse(ReteUtil.matchReteStatus(REMOVED, 0));
+		assertFalse(ReteUtil.matchReteStatus(DEFINE, 0));
+		assertFalse(ReteUtil.matchReteStatus(REASON, 0));
+		assertFalse(ReteUtil.matchReteStatus(ASSUME, 0));
+		assertFalse(ReteUtil.matchReteStatus(REMOVE, 0));
+		assertFalse(ReteUtil.matchReteStatus(FIXED_, 0));
 
-		assertTrue(ReteUtil.matchReteStatus(DEFINED, 1));
-		assertTrue(ReteUtil.matchReteStatus(REASONED, 2));
-		assertTrue(ReteUtil.matchReteStatus(ASSUMED, 4));
-		assertTrue(ReteUtil.matchReteStatus(REMOVED, 8));
+		assertTrue(ReteUtil.matchReteStatus(DEFINE, 1));
+		assertTrue(ReteUtil.matchReteStatus(REASON, 2));
+		assertTrue(ReteUtil.matchReteStatus(ASSUME, 4));
+		assertTrue(ReteUtil.matchReteStatus(REMOVE, 8));
+		assertTrue(ReteUtil.matchReteStatus(FIXED_, 16));
 
-		assertTrue(ReteUtil.matchReteStatus(DEFINED, 15));
-		assertTrue(ReteUtil.matchReteStatus(REASONED, 15));
-		assertTrue(ReteUtil.matchReteStatus(ASSUMED, 15));
-		assertTrue(ReteUtil.matchReteStatus(REMOVED, 15));
+		assertTrue(ReteUtil.matchReteStatus(DEFINE, 31));
+		assertTrue(ReteUtil.matchReteStatus(REASON, 31));
+		assertTrue(ReteUtil.matchReteStatus(ASSUME, 31));
+		assertTrue(ReteUtil.matchReteStatus(REMOVE, 31));
+		assertTrue(ReteUtil.matchReteStatus(FIXED_, 31));
 	}
 
 	@Test
@@ -393,10 +405,10 @@ class ReteUtilityTest extends RuleTestBase {
 
 	@Test
 	void test_updateMask() {
-		assertEquals(1, ReteUtil.updateMask(DEFINED, 0));
-		assertEquals(2, ReteUtil.updateMask(REASONED, 0));
-		assertEquals(4, ReteUtil.updateMask(ASSUMED, 0));
-		assertEquals(8, ReteUtil.updateMask(REMOVED, 0));
+		assertEquals(1, ReteUtil.updateMask(DEFINE, 0));
+		assertEquals(2, ReteUtil.updateMask(REASON, 0));
+		assertEquals(4, ReteUtil.updateMask(ASSUME, 0));
+		assertEquals(8, ReteUtil.updateMask(REMOVE, 0));
 	}
 
 }

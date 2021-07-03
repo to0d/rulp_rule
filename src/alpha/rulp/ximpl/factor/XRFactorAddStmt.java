@@ -60,8 +60,11 @@ public class XRFactorAddStmt extends AbsRFactorAdapter implements IRuleFactor {
 		{
 			IRObject obj = interpreter.compute(frame, iter.next());
 			if (obj instanceof IRModel) {
+
 				model = (IRModel) obj;
+
 			} else {
+
 				model = RuleUtil.getDefaultModel(frame);
 				if (model == null) {
 					throw new RException("no model be specified");

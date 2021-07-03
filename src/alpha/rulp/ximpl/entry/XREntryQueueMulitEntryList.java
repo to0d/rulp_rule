@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.entry;
 
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import java.util.ArrayList;
 
@@ -52,19 +52,19 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 				}
 
 				switch (entry.getStatus()) {
-				case ASSUMED:
+				case ASSUME:
 					++entryAssumeCount;
 					break;
 
-				case DEFINED:
+				case DEFINE:
 					++entryDefinedCount;
 					break;
 
-				case REMOVED:
+				case REMOVE:
 					++entryDropCount;
 					break;
 
-				case REASONED:
+				case REASON:
 					++entryReasonCount;
 					break;
 
@@ -80,13 +80,13 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 		public int getEntryCount(RReteStatus status) {
 
 			switch (status) {
-			case ASSUMED:
+			case ASSUME:
 				return entryAssumeCount;
-			case DEFINED:
+			case DEFINE:
 				return entryDefinedCount;
-			case REMOVED:
+			case REMOVE:
 				return entryDropCount;
-			case REASONED:
+			case REASON:
 				return entryReasonCount;
 			default:
 				return 0;
@@ -151,7 +151,7 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 			int size = entryList.size();
 			for (int i = 0; i < size; ++i) {
 				IRReteEntry entry = entryList.get(i);
-				if (entry != null && entry.getStatus() == REMOVED) {
+				if (entry != null && entry.getStatus() == REMOVE) {
 					entryList.set(i, null);
 					++removeCount;
 				}

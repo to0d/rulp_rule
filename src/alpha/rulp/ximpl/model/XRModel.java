@@ -6,9 +6,9 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 import static alpha.rulp.rule.Constant.V_M_STATE;
-import static alpha.rulp.rule.RReteStatus.ASSUMED;
-import static alpha.rulp.rule.RReteStatus.DEFINED;
-import static alpha.rulp.rule.RReteStatus.REMOVED;
+import static alpha.rulp.rule.RReteStatus.ASSUME;
+import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RRunState.Completed;
 import static alpha.rulp.rule.RRunState.Failed;
 import static alpha.rulp.rule.RRunState.Halting;
@@ -318,7 +318,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 						stmt = RulpFactory.createNamedList(stmt.iterator(), stmtName);
 					}
 
-					if (node.addStmt(stmt, DEFINED)) {
+					if (node.addStmt(stmt, DEFINE)) {
 						cacheUpdateCount++;
 						stmtCount++;
 					}
@@ -459,6 +459,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected boolean isProcessing = false;
 
+	protected XRRListener2Adapter<IRReteNode, IRObject> loadNodeListener = null;
+
 	protected String modelCachePath = null;
 
 	protected XRRModelCounter modelCounter = new XRRModelCounter();
@@ -471,10 +473,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final XRRListener1Adapter<IRRule> modelRuleFailedListenerDispatcher = new XRRListener1Adapter<>();
 
-	protected XRRListener2Adapter<IRReteNode, IRObject> saveNodeListener = null;
-
-	protected XRRListener2Adapter<IRReteNode, IRObject> loadNodeListener = null;
-
 	protected RRunState modelRunState = RRunState.Completed; // default
 
 	protected IRVar modelStatsVar;
@@ -486,6 +484,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected IRNodeGraph nodeGraph = new XRNodeGraph(this);
 
 	protected final LinkedList<IRReteNode> restartingNodeList = new LinkedList<>();
+
+	protected XRRListener2Adapter<IRReteNode, IRObject> saveNodeListener = null;
 
 	protected final XRStmtListenUpdater stmtListenUpdater = new XRStmtListenUpdater();
 
@@ -621,7 +621,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected RReteStatus _getNewStmtStatus() {
 
-		RReteStatus status = DEFINED;
+		RReteStatus status = DEFINE;
 
 		if (nodeContext != null) {
 			status = nodeContext.getNewStmtStatus();
@@ -1019,6 +1019,59 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public int addFixedStatement(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> addFixedStatement: " + stmt);
+		}
+
+		int actualAddStmt = _addReteEntry(stmt, RReteStatus.FIXED_);
+
+		// active stmt listeners
+		if (actualAddStmt > 0) {
+			stmtListenUpdater.update(this);
+		}
+
+		return actualAddStmt;
+	}
+
+	@Override
+	public int addFixedStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> addFixedStatements: ");
+		}
+
+		int actualAddStmt = 0;
+		while (stmtIterator.hasNext()) {
+
+			IRList stmt = stmtIterator.next();
+			if (RuleUtil.isModelTrace()) {
+				System.out.println("\t(" + stmt + ")");
+			}
+
+			actualAddStmt += _addReteEntry(stmt, RReteStatus.FIXED_);
+		}
+
+		// active stmt listeners
+		if (actualAddStmt > 0) {
+			stmtListenUpdater.update(this);
+		}
+
+		return actualAddStmt;
+	}
+
+	@Override
+	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
+
+		if (loadNodeListener == null) {
+			loadNodeListener = new XRRListener2Adapter<>();
+		}
+
+		loadNodeListener.addListener(listener);
+	}
+
+	@Override
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
@@ -1082,6 +1135,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public void addRuleFailedListener(IRRListener1<IRRule> listener) {
 		modelRuleFailedListenerDispatcher.addListener(listener);
+	}
+
+	@Override
+	public void addSaveNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
+
+		if (saveNodeListener == null) {
+			saveNodeListener = new XRRListener2Adapter<>();
+		}
+
+		saveNodeListener.addListener(listener);
 	}
 
 	@Override
@@ -1168,7 +1231,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> assumeStatement: " + stmt);
 		}
 
-		return _addReteEntry(stmt, ASSUMED);
+		return _addReteEntry(stmt, ASSUME);
 	}
 
 	@Override
@@ -1186,7 +1249,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				System.out.println("\t(" + stmt + ")");
 			}
 
-			count += _addReteEntry(stmt, ASSUMED);
+			count += _addReteEntry(stmt, ASSUME);
 		}
 
 		return count;
@@ -1298,37 +1361,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return smtGcCount + alpahGcCount + betaGcCount + exprGcCount + ruleGcCount;
-	}
-
-	@Override
-	public IRRule removeRule(String ruleName) throws RException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<? extends IRList> removeStatement(IRList filter) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> dropStatement: " + filter);
-		}
-
-		List<IRReteEntry> dropStmts = new ArrayList<>();
-
-		for (IRReteEntry entry : listStatements(filter, 0, 0)) {
-
-			if (entry != null && !entry.isDroped()) {
-
-				entryTable.removeEntry(entry);
-				if (RuleUtil.isModelTrace()) {
-					System.out.println("\t" + entry);
-				}
-
-				dropStmts.add(entry);
-			}
-		}
-
-		return dropStmts;
 	}
 
 	@Override
@@ -1452,7 +1484,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 					IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
 					totalCount += rootEntryCounter.getEntryTotalCount();
 					nullCount += rootEntryCounter.getEntryNullCount();
-					dropCount += rootEntryCounter.getEntryCount(REMOVED);
+					dropCount += rootEntryCounter.getEntryCount(REMOVE);
 				}
 
 				return totalCount - nullCount - dropCount;
@@ -1464,16 +1496,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IREntryTable getEntryTable() {
 		return entryTable;
-	}
-
-	@Override
-	public IRInterpreter getInterpreter() {
-		return interpreter;
-	}
-
-	@Override
-	public IRFrame getModelFrame() {
-		return this.modelFrame;
 	}
 
 //	@Override
@@ -1496,6 +1518,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 //			}
 //		};
 //	}
+
+	@Override
+	public IRInterpreter getInterpreter() {
+		return interpreter;
+	}
+
+	@Override
+	public IRFrame getModelFrame() {
+		return this.modelFrame;
+	}
 
 	@Override
 	public String getModelName() {
@@ -1589,7 +1621,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
 				int totalCount = rootEntryCounter.getEntryTotalCount();
 				int nullCount = rootEntryCounter.getEntryNullCount();
-				int dropCount = rootEntryCounter.getEntryCount(REMOVED);
+				int dropCount = rootEntryCounter.getEntryCount(REMOVE);
 				if (totalCount > nullCount - dropCount) {
 					return true;
 				}
@@ -1823,6 +1855,37 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return _queryCond(rstExpr, condList, limit);
+	}
+
+	@Override
+	public IRRule removeRule(String ruleName) throws RException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<? extends IRList> removeStatement(IRList filter) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> dropStatement: " + filter);
+		}
+
+		List<IRReteEntry> dropStmts = new ArrayList<>();
+
+		for (IRReteEntry entry : listStatements(filter, 0, 0)) {
+
+			if (entry != null && !entry.isDroped()) {
+
+				entryTable.removeEntry(entry);
+				if (RuleUtil.isModelTrace()) {
+					System.out.println("\t" + entry);
+				}
+
+				dropStmts.add(entry);
+			}
+		}
+
+		return dropStmts;
 	}
 
 	@Override
@@ -2081,26 +2144,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.isProcessing = false;
 			this.modelPriority = oldModelPriority;
 		}
-	}
-
-	@Override
-	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
-
-		if (loadNodeListener == null) {
-			loadNodeListener = new XRRListener2Adapter<>();
-		}
-
-		loadNodeListener.addListener(listener);
-	}
-
-	@Override
-	public void addSaveNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
-
-		if (saveNodeListener == null) {
-			saveNodeListener = new XRRListener2Adapter<>();
-		}
-
-		saveNodeListener.addListener(listener);
 	}
 
 //	@Override
