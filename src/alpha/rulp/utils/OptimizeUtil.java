@@ -316,6 +316,9 @@ public class OptimizeUtil {
 		case DefinedCount:
 			return "Define";
 
+		case FixedCount:
+			return "Fixed";
+
 		case DropCount:
 			return "Drop";
 
@@ -995,7 +998,8 @@ public class OptimizeUtil {
 				sb.append(SEP_LINE2);
 
 				for (IRReteEntry entry : maxChildCountEntrys) {
-					sb.append(String.format("%8d: %s\n", entry.getChildCount(), entry));
+					sb.append(String.format("%8d: entry=%s, status=%s\n", entry.getChildCount(), entry,
+							entry.getStatus()));
 				}
 
 				sb.append(SEP_LINE2);
@@ -2170,7 +2174,8 @@ public class OptimizeUtil {
 
 		// root0 node
 		{
-			String count = String.format("%d,%d,%d,%d,%d,%d",
+			String count = String.format("%d,%d,%d,%d,%d,%d,%d",
+					reteCounter.getCount(RReteType.ROOT0, RCountType.FixedCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.DefinedCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.ReasonCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.DropCount),
@@ -2183,7 +2188,7 @@ public class OptimizeUtil {
 
 		// table node
 		if (reteCounter.getCount(RReteType.NAME0, RCountType.NodeCount) > 0) {
-			String count = String.format("%d, %d, %d, %d, %d",
+			String count = String.format("%d,%d,%d,%d,%d", reteCounter.getCount(RReteType.NAME0, RCountType.FixedCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.NodeCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.DefinedCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.ExecCount),
@@ -2198,6 +2203,7 @@ public class OptimizeUtil {
 
 			String count = String.format("%d, %d, %d, %d, %d",
 					reteCounter.getCount(RReteType.VAR, RCountType.NodeCount),
+					reteCounter.getCount(RReteType.VAR, RCountType.FixedCount),
 					reteCounter.getCount(RReteType.VAR, RCountType.DefinedCount),
 					reteCounter.getCount(RReteType.VAR, RCountType.ExecCount),
 					reteCounter.getCount(RReteType.VAR, RCountType.IdleCount),
@@ -2228,7 +2234,8 @@ public class OptimizeUtil {
 						reteCounter.getCount(rtype, RCountType.BindFromCount),
 						reteCounter.getCount(rtype, RCountType.BindToCount));
 
-				String count2 = String.format("%d,%d,%d,%d,%d", reteCounter.getCount(rtype, RCountType.DefinedCount),
+				String count2 = String.format("%d,%d,%d,%d,%d,%d", reteCounter.getCount(rtype, RCountType.FixedCount),
+						reteCounter.getCount(rtype, RCountType.DefinedCount),
 						reteCounter.getCount(rtype, RCountType.ReasonCount),
 						reteCounter.getCount(rtype, RCountType.DropCount),
 						reteCounter.getCount(rtype, RCountType.AssumeCount),

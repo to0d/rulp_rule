@@ -1,8 +1,8 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0      3      0      0     0     0      0      0     1      0     0     0    0        0      3      0    0    0    0    0      0       6
+NAME0      0      3      0      0     0     0      0      0     1      0     0     0    0        0      3      0    0    0    0    0      0       6
 ========================================================================================================================================================
 
 node info:
@@ -54,7 +54,7 @@ RULE      :  A0-Define B0-Define  B0-Match B2-Define  B2-Match B3-Define  B3-Mat
 
 Model<m> share index:
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 ========================================================================================================================================================
 

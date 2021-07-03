@@ -1,10 +1,10 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    0    0  900  900      0       0
-EXPR1      0      0      0     0     0      0      0     2      0     0     0    0        0      0      0    1    2   99   99      0       0
- RULE      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ROOT0      0      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    0    0  900  900      0       0
+EXPR1      0      0      0      0     0     0      0      0     2      0     0     0    0        0      0      0    1    2   99   99      0       0
+ RULE      0      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -74,10 +74,10 @@ node bind info:
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if '(?a ?p ?b) (equal p1 ?p) (equal p2 ?p) do (remove-stmt ?0))
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1      0      0      0     0     0      0      0     2      0     0     0    0        0      0      0    1    2   99   99      0       0
- RULE      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+EXPR1      0      0      0      0     0     0      0      0     2      0     0     0    0        0      0      0    1    2   99   99      0       0
+ RULE      0      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -105,10 +105,10 @@ RU000     :          0         0         0         0         0         0        
 
 Model<m> share index:
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1                                                    0                                                   0    0    0    0               
- RULE                                                    0                                                   0    0    0    0               
+EXPR1                                                           0                                                   0    0    0    0               
+ RULE                                                           0                                                   0    0    0    0               
 ========================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

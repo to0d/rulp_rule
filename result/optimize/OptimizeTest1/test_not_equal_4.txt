@@ -1,12 +1,12 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0      3      0      0     0     0      0      0     1      2     1     0    0        0      3      0    0    0  900  900      0      12
-ALPH0      3      0      0     0     0      0      0     3      0     3     0    0        7      3      0    1    2   99   99      0       3
-EXPR1      5      0      0     0     0      0      0     2      0     2     0    0        6      5      0    1    2   99   99      0       5
-BETA2      0      0      0     0     0      0      0     2      0     2     1    0        2      0      0    3    4   99   99      0       0
- RULE      0      0      0     0     0      0      0     2      0     0     0    0        0      0      0    4    5   99   99      0       0
+ROOT0      0      3      0      0     0     0      0      0     1      2     1     0    0        0      3      0    0    0  900  900      0      12
+ALPH0      0      3      0      0     0     0      0      0     3      0     3     0    0        7      3      0    1    2   99   99      0       3
+EXPR1      0      5      0      0     0     0      0      0     2      0     2     0    0        6      5      0    1    2   99   99      0       5
+BETA2      0      0      0      0     0     0      0      0     2      0     2     1    0        2      0      0    3    4   99   99      0       0
+ RULE      0      0      0      0     0     0      0      0     2      0     0     0    0        0      0      0    4    5   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -113,12 +113,12 @@ node bind info:
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if '(?a ?p ?b) '(?p of tr) (not (equal p1 ?p)) (not (equal p2 ?p)) do (-> '(?a p4 ?b)))
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0      2      0      0     0     0      0      0     2      0     2     0    0        4      2      0    1    2   99   99      0       3
-EXPR1      5      0      0     0     0      0      0     2      0     2     0    0        6      5      0    1    2   99   99      0       5
-BETA2      0      0      0     0     0      0      0     1      0     1     0    0        2      0      0    3    3   99   99      0       0
- RULE      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
+ALPH0      0      2      0      0     0     0      0      0     2      0     2     0    0        4      2      0    1    2   99   99      0       3
+EXPR1      0      5      0      0     0     0      0      0     2      0     2     0    0        6      5      0    1    2   99   99      0       5
+BETA2      0      0      0      0     0     0      0      0     1      0     1     0    0        2      0      0    3    3   99   99      0       0
+ RULE      0      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -142,12 +142,12 @@ Priority        ALPH0 EXPR1 BETA2  RULE
 
 Rule<RU001> stats: priority=099, expr=(add-rule m if '(?a2 pauto ?b2) '(?a2 ?p2 ?b2) '(?p2 of tr) (not (equal p1 ?p2)) (not (equal p2 ?p2)) do (-> '(?a2 p5 ?b2)))
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0      3      0      0     0     0      0      0     3      0     3     0    0        7      3      0    1    2   99   99      0       3
-EXPR1      5      0      0     0     0      0      0     2      0     2     0    0        6      5      0    1    2   99   99      0       5
-BETA2      0      0      0     0     0      0      0     2      0     2     1    0        2      0      0    3    4   99   99      0       0
- RULE      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
+ALPH0      0      3      0      0     0     0      0      0     3      0     3     0    0        7      3      0    1    2   99   99      0       3
+EXPR1      0      5      0      0     0     0      0      0     2      0     2     0    0        6      5      0    1    2   99   99      0       5
+BETA2      0      0      0      0     0     0      0      0     2      0     2     1    0        2      0      0    3    4   99   99      0       0
+ RULE      0      0      0      0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -181,12 +181,12 @@ RU001     :          3         0         0         0         2         0        
 
 Model<m> share index:
 ========================================================================================================================================================
- NODE Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE  Fixed Define Reason Assume  Drop  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0    399                                           399          399                 363    399         500  500  500  500            500
-EXPR1    500                                           500          500                 500    500         500  500  500  500            500
-BETA2                                                  333          333     0           500                500  428  500  500               
- RULE                                                    0                                                 555  444  500  500               
+ALPH0           399                                           399          399                 363    399         500  500  500  500            500
+EXPR1           500                                           500          500                 500    500         500  500  500  500            500
+BETA2                                                         333          333     0           500                500  428  500  500               
+ RULE                                                           0                                                 555  444  500  500               
 ========================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3
