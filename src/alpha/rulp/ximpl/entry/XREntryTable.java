@@ -189,9 +189,9 @@ public class XREntryTable implements IREntryTable {
 
 		public int parentEntryCount;
 
-//		public final int[] parentEntryIds;
-
 		public final XRReteEntry[] parentEntrys;
+
+		public int refId;
 
 		public XRReference(int nodeId, XRReteEntry childEntry, int parentEntryCount, XRReteEntry[] parentEntrys) {
 			super();
@@ -451,29 +451,29 @@ public class XREntryTable implements IREntryTable {
 			throw new RException("Entry id exist: " + oldId);
 		}
 
+		int entryId = -1;
+
 		if (REUSE_ENTRY_ID && !freeEntryIdList.isEmpty()) {
 
-			int entryId = freeEntryIdList.pollFirst();
+			entryId = freeEntryIdList.pollFirst();
 			if (XREntryTable.TRACE) {
-				System.out.println("    reuse entry: id=" + entryId + ", len=" + entry.size());
+				System.out.println("    reuse entry: id=" + entryId + ", entry=" + entry);
 			}
 
-			entry.setEntryId(entryId);
 			entryArray.set(entryId, entry);
-			++entryCount;
-
+			
 		} else {
 
-			int entryId = entryArray.size() + 1;
+			entryId = entryArray.size() + 1;
 			if (XREntryTable.TRACE) {
-				System.out.println("    new-entry: id=" + entryId + ", len=" + entry.size());
+				System.out.println("    new-entry: id=" + entryId + ", entry=" + entry);
 			}
 
-			entry.setEntryId(entryId);
 			entryArray.add(entry);
-			++entryCount;
 		}
 
+		entry.setEntryId(entryId);
+		++entryCount;
 	}
 
 	protected void _addReference(XRReteEntry entry, int nodeId, int[] parentIds) throws RException {

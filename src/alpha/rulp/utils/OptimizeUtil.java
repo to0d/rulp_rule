@@ -706,7 +706,7 @@ public class OptimizeUtil {
 			int groupSize2 = groupSize / 10;
 
 			sb.append(SEP_LINE1);
-			sb.append(String.format("Bit Map: group-size=%d, group-count=%d\n", groupSize, groupCount));
+			sb.append(String.format("Entry Bit Map: group-size=%d, group-count=%d\n", groupSize, groupCount));
 			sb.append(SEP_LINE2);
 
 			int rowCount = 0;
