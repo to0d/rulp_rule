@@ -19,8 +19,13 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.lang.AbsAtomObject;
+import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XREntryTable implements IREntryTable {
+
+	static class EntryArray<T> {
+
+	}
 
 	static class ETA_Entry {
 
@@ -402,38 +407,6 @@ public class XREntryTable implements IREntryTable {
 		return ref != null && ref.parentEntryCount != -1;
 	}
 
-	protected static int[] _toIds(int[] ids) {
-
-		if (ids == null || ids.length == 0) {
-			return null;
-		}
-
-		int size = 0;
-		for (int id : ids) {
-			if (id != 0) {
-				++size;
-			}
-		}
-
-		if (size == 0) {
-			return null;
-		}
-
-		if (size == ids.length) {
-			return ids;
-		}
-
-		int[] newIds = new int[size];
-		int idx = 0;
-		for (int id : ids) {
-			if (id != 0) {
-				newIds[idx++] = id;
-			}
-		}
-
-		return newIds;
-	}
-
 	protected ArrayList<XRReteEntry> entryArray = new ArrayList<>();
 
 	protected int entryCount = 0;
@@ -444,56 +417,11 @@ public class XREntryTable implements IREntryTable {
 
 	protected int maxActionSize = 0;
 
-	protected void _addEntry(XRReteEntry entry) throws RException {
+	protected void _addReference(XRReteEntry entry, IRReteNode node, XRReteEntry[] parentEntrys) throws RException {
 
-		int oldId = entry.getEntryId();
-		if (oldId != 0) {
-			throw new RException("Entry id exist: " + oldId);
-		}
+		int parentEntryCount = parentEntrys == null ? 0 : parentEntrys.length;
 
-		int entryId = -1;
-
-		if (REUSE_ENTRY_ID && !freeEntryIdList.isEmpty()) {
-
-			entryId = freeEntryIdList.pollFirst();
-			if (XREntryTable.TRACE) {
-				System.out.println("    reuse entry: id=" + entryId + ", entry=" + entry);
-			}
-
-			entryArray.set(entryId, entry);
-			
-		} else {
-
-			entryId = entryArray.size() + 1;
-			if (XREntryTable.TRACE) {
-				System.out.println("    new-entry: id=" + entryId + ", entry=" + entry);
-			}
-
-			entryArray.add(entry);
-		}
-
-		entry.setEntryId(entryId);
-		++entryCount;
-	}
-
-	protected void _addReference(XRReteEntry entry, int nodeId, int[] parentIds) throws RException {
-
-		int[] parentEntryIds = _toIds(parentIds);
-		int parentEntryCount = parentEntryIds == null ? 0 : parentEntryIds.length;
-
-		XRReteEntry[] parentEntrys = null;
-
-		if (parentEntryCount > 0) {
-
-			parentEntrys = new XRReteEntry[parentEntryCount];
-			for (int i = 0; i < parentEntryCount; ++i) {
-				int parentId = parentEntryIds[i];
-				XRReteEntry parent = getEntry(parentId);
-				parentEntrys[i] = parent;
-			}
-		}
-
-		XRReference ref = new XRReference(nodeId, entry, parentEntryCount, parentEntrys);
+		XRReference ref = new XRReference(node.getNodeId(), entry, parentEntryCount, parentEntrys);
 
 		// Add links to child
 		entry.addReference(ref);
@@ -678,30 +606,115 @@ public class XREntryTable implements IREntryTable {
 		entry.setStatus(status);
 	}
 
+	protected XRReteEntry _toEntry(IRReteEntry entry) throws RException {
+
+		if (!_isValidEntry((XRReteEntry) entry)) {
+			throw new RException("Invalid entry: " + entry);
+		}
+
+		XRReteEntry oEntry = getEntry(entry.getEntryId());
+		if (entry != oEntry) {
+			throw new RException(
+					String.format("unmatch entry: id=%d, input=%s, actual=%s", entry.getEntryId(), entry, oEntry));
+		}
+
+		return oEntry;
+	}
+
+	protected XRReteEntry[] _toEntry(IRReteEntry[] entrys) throws RException {
+
+		if (entrys == null || entrys.length == 0) {
+			return null;
+		}
+
+		/******************************************/
+		// Scan entry & check valid
+		/******************************************/
+		int size = 0;
+
+		for (IRReteEntry entry : entrys) {
+
+			if (entry == null) {
+				continue;
+			}
+
+			if (!_isValidEntry((XRReteEntry) entry)) {
+				throw new RException("Invalid entry: " + entry);
+			}
+
+			XRReteEntry oEntry = getEntry(entry.getEntryId());
+			if (entry != oEntry) {
+				throw new RException(
+						String.format("unmatch entry: id=%d, input=%s, actual=%s", entry.getEntryId(), entry, oEntry));
+			}
+
+			++size;
+		}
+
+		if (size == 0) {
+			return null;
+		}
+
+//		if (size == entrys.length) {
+//			return (XRReteEntry[]) entrys;
+//		}
+
+		XRReteEntry[] newEntrys = new XRReteEntry[size];
+		int idx = 0;
+		for (IRReteEntry entry : entrys) {
+			if (entry != null) {
+				newEntrys[idx++] = (XRReteEntry) entry;
+			}
+		}
+
+		return newEntrys;
+	}
+
 	@Override
-	public void addReference(IRReteEntry entry, int nodeId, int... parentIds) throws RException {
+	public void addReference(IRReteEntry entry, IRReteNode node, IRReteEntry... parents) throws RException {
 
 		if (XREntryTable.TRACE) {
-			System.out.println(
-					"==> addReference: " + entry + ", id=" + nodeId + ", parents=" + RuleUtil.toList(parentIds));
+			System.out
+					.println("==> addReference: " + entry + ", node=" + node + ", parents=" + RuleUtil.toList(parents));
 		}
 
-		if (parentIds.length > 3) {
-			throw new RException("Not support parentIds: " + RuleUtil.toList(parentIds));
+		if (parents.length > 3) {
+			throw new RException("Not support parentIds: " + RuleUtil.toList(parents));
 		}
 
-		XRReteEntry xEntry = (XRReteEntry) entry;
-		if (xEntry.getEntryId() == 0) {
-			_addEntry(xEntry);
-		}
-
-		_addReference(xEntry, nodeId, parentIds);
+		_addReference(_toEntry(entry), node, _toEntry(parents));
 	}
 
 	@Override
 	public IRReteEntry createEntry(String namedName, IRObject[] elements, RReteStatus status) {
+
 		XRReteEntry entry = new XRReteEntry(namedName, elements);
 		entry.setStatus(status);
+
+		int entryId = -1;
+
+		if (REUSE_ENTRY_ID && !freeEntryIdList.isEmpty()) {
+
+			entryId = freeEntryIdList.pollFirst();
+			if (XREntryTable.TRACE) {
+				System.out.println("    reuse entry: id=" + entryId + ", entry=" + entry);
+			}
+
+			entryArray.set(entryId, entry);
+
+		} else {
+
+			entryId = entryArray.size() + 1;
+			if (XREntryTable.TRACE) {
+				System.out.println("    new-entry: id=" + entryId + ", entry=" + entry);
+			}
+
+			entryArray.add(entry);
+		}
+
+		entry.setEntryId(entryId);
+		++entryCount;
+
 		return entry;
 	}
 
@@ -777,18 +790,14 @@ public class XREntryTable implements IREntryTable {
 	}
 
 	@Override
-	public void removeEntry(int entryId) throws RException {
+	public void removeEntry(IRReteEntry entry) throws RException {
 
 		if (XREntryTable.TRACE) {
-			System.out.println("==> removeEntry: entryId=" + entryId);
+			System.out.println("==> removeEntry: entry=" + entry);
 		}
 
-		XRReteEntry entry = getEntry(entryId);
-		if (!_isValidEntry(entry)) {
-			return;
-		}
-
-		_pushRemoveEntry(entry);
+		XRReteEntry xEntry = _toEntry(entry);
+		_pushRemoveEntry(xEntry);
 		_processEtaQueue();
 	}
 

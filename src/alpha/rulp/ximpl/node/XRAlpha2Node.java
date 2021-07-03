@@ -32,12 +32,13 @@ public class XRAlpha2Node extends XRAlpha1Node {
 		/*******************************************************/
 		IRReteEntry newEntry = _getNewEntry(parentEntry);
 
-		if (super.addReteEntry(newEntry)) {
-			entryTable.addReference(newEntry, this.getNodeId(), parentEntry.getEntryId());
-			return true;
+		if (!super.addReteEntry(newEntry)) {
+			entryTable.removeEntry(newEntry);
+			return false;
 		}
 
-		return false;
+		entryTable.addReference(newEntry, this, parentEntry);
+		return true;
 	}
 
 	public void setEntryTable(IREntryTable entryTable) {

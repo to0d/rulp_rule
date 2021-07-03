@@ -1319,7 +1319,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			if (entry != null && !entry.isDroped()) {
 
-				entryTable.removeEntry(entry.getEntryId());
+				entryTable.removeEntry(entry);
 				if (RuleUtil.isModelTrace()) {
 					System.out.println("\t" + entry);
 				}

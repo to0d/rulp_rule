@@ -53,9 +53,14 @@ public class XRExprNode3 extends XRReteNode1 {
 		}
 
 		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements, REASONED);
-		entryTable.addReference(newEntry, this.getNodeId(), entry.getEntryId());
-		
-		return entryQueue.addEntry(newEntry, this.getModel().getInterpreter(), this.getNodeFrame(true));
+		entryTable.addReference(newEntry, this, entry);
+
+		if (!entryQueue.addEntry(newEntry, this.getModel().getInterpreter(), this.getNodeFrame(true))) {
+			entryTable.removeEntry(newEntry);
+			return false;
+		}
+
+		return true;
 	}
 
 	public void setEntryTable(IREntryTable entryTable) {

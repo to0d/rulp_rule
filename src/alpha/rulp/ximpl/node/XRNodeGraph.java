@@ -858,7 +858,10 @@ public class XRNodeGraph implements IRNodeGraph {
 //				model.getEntryTable().addEntryReference(reteEntry, varNode.getNodeId());
 //				model.getEntryTable().setEntryLife(reteEntry.getEntryId(), 1); // certain entry
 
-				varNode.addReteEntry(reteEntry);
+				if (!varNode.addReteEntry(reteEntry)) {
+					model.getEntryTable().removeEntry(reteEntry);
+					return;
+				}
 
 				model.addUpdateNode(varNode);
 

@@ -5,10 +5,11 @@ import java.util.List;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
+import alpha.rulp.ximpl.node.IRReteNode;
 
 public interface IREntryTable {
 
-	public void addReference(IRReteEntry entry, int nodeId, int... parentEntryIds) throws RException;
+	public void addReference(IRReteEntry entry, IRReteNode node, IRReteEntry... parents) throws RException;
 
 	public IRReteEntry createEntry(String namedName, IRObject elements[], RReteStatus status);
 
@@ -30,7 +31,7 @@ public interface IREntryTable {
 
 	public List<? extends IRReteEntry> listAllEntries();
 
-	public void removeEntry(int entryId) throws RException;
+	public void removeEntry(IRReteEntry entry) throws RException;
 
 	public void removeEntryReference(int entryId, int nodeId) throws RException;
 

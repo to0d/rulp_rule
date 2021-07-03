@@ -56,7 +56,7 @@ public class XREntryQueueSingleEntryList implements IREntryQueue {
 		this.nodeUpdateCount++;
 
 		if (bindNode != null) {
-			entryTable.addReference(entry, bindNode.getNodeId());
+			entryTable.addReference(entry, bindNode);
 		}
 
 		return true;
@@ -125,6 +125,16 @@ public class XREntryQueueSingleEntryList implements IREntryQueue {
 		return nodeUpdateCount;
 	}
 
+	@Override
+	public void incEntryRedundant() {
+		entryRedundant++;
+	}
+
+	@Override
+	public void incNodeUpdateCount() {
+		nodeUpdateCount++;
+	}
+
 	public void setBindNode(IRReteNode bindNode) {
 		this.bindNode = bindNode;
 	}
@@ -136,16 +146,6 @@ public class XREntryQueueSingleEntryList implements IREntryQueue {
 	@Override
 	public int size() {
 		return maxValueCount;
-	}
-
-	@Override
-	public void incEntryRedundant() {
-		entryRedundant++;
-	}
-
-	@Override
-	public void incNodeUpdateCount() {
-		nodeUpdateCount++;
 	}
 
 }

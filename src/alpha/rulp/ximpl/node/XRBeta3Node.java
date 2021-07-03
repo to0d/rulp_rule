@@ -15,7 +15,7 @@ public class XRBeta3Node extends XRReteNode2 {
 		IRReteEntry newEntry = _getNewEntry(leftEntry, rightEntry);
 
 		if (addReteEntry(newEntry)) {
-			entryTable.addReference(newEntry, this.getNodeId(), leftEntry.getEntryId(), rightEntry.getEntryId());
+			entryTable.addReference(newEntry, this, leftEntry, rightEntry);
 			return true;
 		}
 
