@@ -41,47 +41,47 @@
 ;;------------------------------------------------------------------
 ;; Basic Rules
 ;;------------------------------------------------------------------
-(add-stmt p2d '(nm:inverseProperty nm:propertyOf nm:symmetricProperty))
+(fix-stmt p2d '(nm:inverseProperty nm:propertyOf nm:symmetricProperty))
 
 
 ;;------------------------------------------------------------------
 ;; Tag Rules
 ;;------------------------------------------------------------------
 
-(add-stmt p2d '(nm:beParentTagOf nm:inverseSimpleTagProperty nm:beChildTagOf))
-(add-stmt p2d '(nm:hasDescendant nm:inverseSimpleTagProperty nm:hasAncestors))
-(add-stmt p2d '(nm:hasAliasTag nm:inverseSimpleTagProperty nm:beAliasTo))
-(add-stmt p2d '(nm:beDefinedByTag nm:inverseSimpleTagProperty nm:defineTag))
-(add-stmt p2d '(nm:beBaseOn nm:inverseSimpleTagProperty nm:beImplementedIn))
-(add-stmt p2d '(nm:hasVersion nm:inverseSimpleTagProperty nm:isVersionOf))
-(add-stmt p2d '(nm:hasPartTag nm:inverseSimpleTagProperty nm:bePartTagOf))
+(fix-stmt p2d '(nm:beParentTagOf nm:inverseSimpleTagProperty nm:beChildTagOf))
+(fix-stmt p2d '(nm:hasDescendant nm:inverseSimpleTagProperty nm:hasAncestors))
+(fix-stmt p2d '(nm:hasAliasTag nm:inverseSimpleTagProperty nm:beAliasTo))
+(fix-stmt p2d '(nm:beDefinedByTag nm:inverseSimpleTagProperty nm:defineTag))
+(fix-stmt p2d '(nm:beBaseOn nm:inverseSimpleTagProperty nm:beImplementedIn))
+(fix-stmt p2d '(nm:hasVersion nm:inverseSimpleTagProperty nm:isVersionOf))
+(fix-stmt p2d '(nm:hasPartTag nm:inverseSimpleTagProperty nm:bePartTagOf))
 
-(add-stmt p2d '(nm:beAliasTo nm:propertyOf nm:singlePropery))
+(fix-stmt p2d '(nm:beAliasTo nm:propertyOf nm:singlePropery))
 
-(add-stmt p2d '(nm:hasRelatedTag nm:propertyOf nm:tagRelation))
-(add-stmt p2d '(nm:hasRelatedTag nm:propertyOf nm:symmetricProperty))
+(fix-stmt p2d '(nm:hasRelatedTag nm:propertyOf nm:tagRelation))
+(fix-stmt p2d '(nm:hasRelatedTag nm:propertyOf nm:symmetricProperty))
 
-(add-stmt p2d '(nm:hasAutoRelatedTag nm:propertyOf nm:tagRelation))
-(add-stmt p2d '(nm:hasAutoRelatedTag nm:propertyOf nm:symmetricProperty))
+(fix-stmt p2d '(nm:hasAutoRelatedTag nm:propertyOf nm:tagRelation))
+(fix-stmt p2d '(nm:hasAutoRelatedTag nm:propertyOf nm:symmetricProperty))
 
-(add-stmt p2d '(nm:beSimilarTo nm:propertyOf nm:tagRelation))
-(add-stmt p2d '(nm:beSimilarTo nm:propertyOf nm:symmetricProperty))
+(fix-stmt p2d '(nm:beSimilarTo nm:propertyOf nm:tagRelation))
+(fix-stmt p2d '(nm:beSimilarTo nm:propertyOf nm:symmetricProperty))
 
-(add-stmt p2d '(nm:term nm:typeOf nm:tagAttr))
-(add-stmt p2d '(nm:commonTag nm:typeOf nm:tagAttr))
-(add-stmt p2d '(nm:itemTag nm:typeOf nm:tagAttr))
-(add-stmt p2d '(nm:autoTag nm:typeOf nm:tagAttr))
-(add-stmt p2d '(nm:groupTag nm:typeOf nm:tagAttr))
-(add-stmt p2d '(nm:hotTag nm:typeOf nm:tagAttr))
+(fix-stmt p2d '(nm:term nm:typeOf nm:tagAttr))
+(fix-stmt p2d '(nm:commonTag nm:typeOf nm:tagAttr))
+(fix-stmt p2d '(nm:itemTag nm:typeOf nm:tagAttr))
+(fix-stmt p2d '(nm:autoTag nm:typeOf nm:tagAttr))
+(fix-stmt p2d '(nm:groupTag nm:typeOf nm:tagAttr))
+(fix-stmt p2d '(nm:hotTag nm:typeOf nm:tagAttr))
 
-(add-stmt p2d '(nm:hasTagAttr nm:propertyOf nm:tagProperty))
+(fix-stmt p2d '(nm:hasTagAttr nm:propertyOf nm:tagProperty))
 
 
 ;;------------------------------------------------------------------
 ;; Rules for TagClass 
 ;;------------------------------------------------------------------
-(add-stmt p2d '(nm:beInstanceTagOf nm:inverseSimpleTagProperty nm:beClassTagOf))
-(add-stmt p2d '(nm:beFieldTagOf nm:inverseSimpleTagProperty nm:hasFieldTag))
+(fix-stmt p2d '(nm:beInstanceTagOf nm:inverseSimpleTagProperty nm:beClassTagOf))
+(fix-stmt p2d '(nm:beFieldTagOf nm:inverseSimpleTagProperty nm:hasFieldTag))
 (add-rule "TC1" p2d
     if 
         '(?ti nm:beInstanceTagOf ?tc)
@@ -92,7 +92,7 @@
 ;;------------------------------------------------------------------
 ;; Rules for Collection 
 ;;------------------------------------------------------------------
-(add-stmt
+(fix-stmt
     p2d
     '(nm:isSubCollectionOf nm:inverseSimpleTagProperty nm:hasSubCollection)
 )
@@ -109,7 +109,7 @@
 ;;------------------------------------------------------------------
 ;; Rules for TagGroup 
 ;;------------------------------------------------------------------
-(add-stmt p2d '(nm:hasGroupChild nm:inverseSimpleTagProperty nm:hasGroupParent))
+(fix-stmt p2d '(nm:hasGroupChild nm:inverseSimpleTagProperty nm:hasGroupParent))
 (add-rule "TG1" p2d
     if
         '(?c nm:beParentTagOf ?cc)
@@ -271,8 +271,8 @@
 ;;------------------------------------------------------------------
 ;; Domain Rules
 ;;------------------------------------------------------------------
-(add-stmt p2d '(nm:beParentDomainOf nm:inverseSimpleDomainProperty nm:beChildDomainOf))
-(add-stmt p2d '(nm:beAncestorDomainOf nm:inverseSimpleDomainProperty nm:beDescendantDomainOf))
+(fix-stmt p2d '(nm:beParentDomainOf nm:inverseSimpleDomainProperty nm:beChildDomainOf))
+(fix-stmt p2d '(nm:beAncestorDomainOf nm:inverseSimpleDomainProperty nm:beDescendantDomainOf))
 
 (add-rule "D1" p2d
     if

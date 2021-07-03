@@ -21,6 +21,7 @@ import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RCountType.COUNT_TYPE_NUM;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.FIXED_;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
@@ -1334,9 +1335,9 @@ public class OptimizeUtil {
 
 		sb.append("\nnode info:\n");
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%8s  %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %11s\n",
-				"NODE[n]", "Define", "Reason", "Assume", "Drop", "Null", "Bind", "Match", "Update", "Redunt", "Exec",
-				"Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "PVisit"));
+		sb.append(String.format("%8s  %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %11s\n",
+				"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Null", "Bind", "Match", "Update", "Redunt",
+				"Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "PVisit"));
 		sb.append(SEP_LINE2);
 
 		Map<IRReteNode, Integer> wasteMap = getWasteMap(nodes);
@@ -1367,10 +1368,11 @@ public class OptimizeUtil {
 				}
 			}
 
-			sb.append(String.format("%8s: %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
-					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(DEFINE),
-					entryCounter.getEntryCount(REASON), entryCounter.getEntryCount(ASSUME),
-					entryCounter.getEntryCount(REMOVE), entryCounter.getEntryNullCount(),
+			sb.append(String.format("%8s: %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
+					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(FIXED_),
+					entryCounter.getEntryCount(DEFINE), entryCounter.getEntryCount(REASON),
+					entryCounter.getEntryCount(ASSUME), entryCounter.getEntryCount(REMOVE),
+					entryCounter.getEntryNullCount(),
 					"" + model.getNodeGraph().getBindFromNodes(node).size() + "/"
 							+ model.getNodeGraph().getBindToNodes(node).size(),
 					node.getNodeMatchCount(), entryQueue.getUpdateCount(), entryQueue.getRedundantCount(),

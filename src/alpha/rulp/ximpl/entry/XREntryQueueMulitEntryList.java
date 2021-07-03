@@ -21,6 +21,8 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 
 		protected int entryDropCount = 0;
 
+		protected int entryFixCount = 0;
+
 		protected int entryNullCount = 0;
 
 		protected int entryReasonCount = 0;
@@ -68,6 +70,10 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 					++entryReasonCount;
 					break;
 
+				case FIXED_:
+					++entryFixCount;
+					break;
+
 				default:
 					break;
 				}
@@ -82,12 +88,19 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 			switch (status) {
 			case ASSUME:
 				return entryAssumeCount;
+
 			case DEFINE:
 				return entryDefinedCount;
+
 			case REMOVE:
 				return entryDropCount;
+
 			case REASON:
 				return entryReasonCount;
+
+			case FIXED_:
+				return entryFixCount;
+
 			default:
 				return 0;
 			}
