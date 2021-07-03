@@ -19,7 +19,8 @@ public enum RReteStatus {
 	DEFINED(1), //
 	REASONED(2), //
 	ASSUMED(4), //
-	REMOVED(8);
+	REMOVED(8), //
+	FIXED(16);
 
 	public static final RReteStatus ALL_RETE_STATUS[] = { DEFINED, REASONED, ASSUMED, REMOVED };
 

@@ -1,5 +1,5 @@
 ========================================================================================================================================================
-ENTRY ARRAY : max-id=208, count=207
+ENTRY ARRAY : max-id=207, count=207
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 00000001: entry='(nm:inverseProperty nm:propertyOf nm:symmetricProperty), status=DEFINED, child[26]= 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, ref[1]= 1,
 00000002: entry='(nm:beParentTagOf nm:inverseSimpleTagProperty nm:beChildTagOf), status=DEFINED, child[0], ref[1]= 2,
@@ -29,8 +29,9 @@ ENTRY ARRAY : max-id=208, count=207
 00000026: entry='(nm:hasGroupChild nm:inverseSimpleTagProperty nm:hasGroupParent), status=DEFINED, child[0], ref[1]= 26,
 00000027: entry='(nm:beParentDomainOf nm:inverseSimpleDomainProperty nm:beChildDomainOf), status=DEFINED, child[0], ref[1]= 27,
 00000028: entry='(nm:beAncestorDomainOf nm:inverseSimpleDomainProperty nm:beDescendantDomainOf), status=DEFINED, child[0], ref[1]= 28,
-00000029: entry='(ta nm:hasAliasTag tb), status=DEFINED, child[5]= 139, 169, 171, 227, 242, ref[4]= 29, 169, 171, 227,
-00000030: entry='(ta nm:hasAliasTag tc), status=DEFINED, child[5]= 140, 170, 172, 228, 243, ref[4]= 30, 170, 172, 228,
+00000029: entry='(ta nm:hasAliasTag tb), status=DEFINED, child[5]= 139, 169, 171, 227, 241, ref[4]= 29, 169, 171, 227,
+00000030: entry='(ta nm:hasAliasTag tc), status=DEFINED, child[5]= 140, 170, 172, 228, 242, ref[4]= 30, 170, 172, 228,
+00000031: entry='(ta nm:hasAliasTag tb &?model-state), status=REASONED, child[0], ref[1]= 241,
 00000032: entry='(nm:beParentTagOf nm:propertyOf nm:nonSelfDefine), status=REASONED, child[0], ref[1]= 32,
 00000033: entry='(nm:beChildTagOf nm:propertyOf nm:nonSelfDefine), status=REASONED, child[0], ref[1]= 33,
 00000034: entry='(nm:beParentTagOf nm:propertyOf nm:nonCircleProperty), status=REASONED, child[0], ref[1]= 34,
@@ -140,8 +141,8 @@ ENTRY ARRAY : max-id=208, count=207
 00000138: entry='(nm:hasGroupParent nm:inverseProperty nm:hasGroupChild), status=REASONED, child[2]= 164, 209, ref[2]= 151, 164,
 00000139: entry='(nm:beChildDomainOf nm:inverseProperty nm:beParentDomainOf), status=REASONED, child[1]= 165, ref[2]= 152, 165,
 00000140: entry='(nm:beDescendantDomainOf nm:inverseProperty nm:beAncestorDomainOf), status=REASONED, child[1]= 166, ref[2]= 153, 166,
-00000141: entry='(tb nm:beAliasTo ta), status=REASONED, child[10]= 173, 175, 221, 223, 225, 225, 229, 237, 239, 244, ref[5]= 167, 175, 221, 223, 229,
-00000142: entry='(tc nm:beAliasTo ta), status=REASONED, child[10]= 174, 176, 222, 224, 226, 226, 230, 238, 240, 245, ref[5]= 168, 176, 222, 224, 230,
+00000141: entry='(tb nm:beAliasTo ta), status=REASONED, child[10]= 173, 175, 221, 223, 225, 225, 229, 237, 239, 243, ref[5]= 167, 175, 221, 223, 229,
+00000142: entry='(tc nm:beAliasTo ta), status=REASONED, child[10]= 174, 176, 222, 224, 226, 226, 230, 238, 240, 244, ref[5]= 168, 176, 222, 224, 230,
 00000143: entry='(tb nm:beAliasTo ta nm:hasAliasTag), status=REASONED, child[0], ref[1]= 173,
 00000144: entry='(tc nm:beAliasTo ta nm:hasAliasTag), status=REASONED, child[0], ref[1]= 174,
 00000145: entry='(nm:beParentTagOf nm:propertyOf nm:tagProperty), status=REASONED, child[0], ref[1]= 177,
@@ -190,9 +191,9 @@ ENTRY ARRAY : max-id=208, count=207
 00000188: entry='(nm:hasGroupChild nm:hasGroupParent), status=REASONED, child[0], ref[1]= 220,
 00000189: entry='(tb nm:beAliasTo ta ta), status=REASONED, child[0], ref[1]= 225,
 00000190: entry='(tc nm:beAliasTo ta ta), status=REASONED, child[0], ref[1]= 226,
-00000191: entry='(ta nm:typeOf nm:tag), status=REASONED, child[1]= 246, ref[1]= 231,
-00000192: entry='(tb nm:typeOf nm:tag), status=REASONED, child[2]= 237, 247, ref[1]= 232,
-00000193: entry='(tc nm:typeOf nm:tag), status=REASONED, child[2]= 238, 248, ref[1]= 233,
+00000191: entry='(ta nm:typeOf nm:tag), status=REASONED, child[1]= 245, ref[1]= 231,
+00000192: entry='(tb nm:typeOf nm:tag), status=REASONED, child[2]= 237, 246, ref[1]= 232,
+00000193: entry='(tc nm:typeOf nm:tag), status=REASONED, child[2]= 238, 247, ref[1]= 233,
 00000194: entry='(nd:Global nm:hasTag ta), status=REASONED, child[0], ref[1]= 234,
 00000195: entry='(nd:Global nm:hasTag tb), status=REASONED, child[1]= 239, ref[1]= 235,
 00000196: entry='(nd:Global nm:hasTag tc), status=REASONED, child[1]= 240, ref[1]= 236,
@@ -200,17 +201,16 @@ ENTRY ARRAY : max-id=208, count=207
 00000198: entry='(tc nm:typeOf nm:tag ta), status=REASONED, child[0], ref[1]= 238,
 00000199: entry='(nd:Global nm:hasTag tb ta), status=REASONED, child[0], ref[1]= 239,
 00000200: entry='(nd:Global nm:hasTag tc ta), status=REASONED, child[0], ref[1]= 240,
-00000201: entry='(&?model-state running completed), status=DEFINED, child[7]= 242, 243, 244, 245, 246, 247, 248, ref[1]= 241,
-00000202: entry='(ta nm:hasAliasTag tb &?model-state), status=REASONED, child[0], ref[1]= 242,
-00000203: entry='(ta nm:hasAliasTag tc &?model-state), status=REASONED, child[0], ref[1]= 243,
-00000204: entry='(tb nm:beAliasTo ta &?model-state), status=REASONED, child[0], ref[1]= 244,
-00000205: entry='(tc nm:beAliasTo ta &?model-state), status=REASONED, child[0], ref[1]= 245,
-00000206: entry='(ta &?model-state), status=REASONED, child[0], ref[1]= 246,
-00000207: entry='(tb &?model-state), status=REASONED, child[0], ref[1]= 247,
+00000201: entry='(&?model-state running completed), status=DEFINED, child[7]= 241, 242, 243, 244, 245, 246, 247, ref[1]= 31,
+00000202: entry='(ta nm:hasAliasTag tc &?model-state), status=REASONED, child[0], ref[1]= 242,
+00000203: entry='(tb nm:beAliasTo ta &?model-state), status=REASONED, child[0], ref[1]= 243,
+00000204: entry='(tc nm:beAliasTo ta &?model-state), status=REASONED, child[0], ref[1]= 244,
+00000205: entry='(ta &?model-state), status=REASONED, child[0], ref[1]= 245,
+00000206: entry='(tb &?model-state), status=REASONED, child[0], ref[1]= 246,
 
 
 ========================================================================================================================================================
-REF ARRAY   : max-id=248, count=247
+REF ARRAY   : max-id=247, count=247
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 00000001: node=1, child=1, parent[0],
 00000002: node=1, child=2, parent[0],
@@ -242,6 +242,7 @@ REF ARRAY   : max-id=248, count=247
 00000028: node=1, child=28, parent[0],
 00000029: node=1, child=29, parent[0],
 00000030: node=1, child=30, parent[0],
+00000031: node=37, child=201, parent[0],
 00000032: node=1, child=32, parent[0],
 00000033: node=1, child=33, parent[0],
 00000034: node=1, child=34, parent[0],
@@ -451,11 +452,10 @@ REF ARRAY   : max-id=248, count=247
 00000238: node=46, child=198, parent[2]= 193, 142,
 00000239: node=48, child=199, parent[2]= 195, 141,
 00000240: node=48, child=200, parent[2]= 196, 142,
-00000241: node=37, child=201, parent[0],
-00000242: node=39, child=202, parent[2]= 29, 201,
-00000243: node=39, child=203, parent[2]= 30, 201,
-00000244: node=39, child=204, parent[2]= 141, 201,
-00000245: node=39, child=205, parent[2]= 142, 201,
-00000246: node=102, child=206, parent[2]= 191, 201,
-00000247: node=102, child=207, parent[2]= 192, 201,
+00000241: node=39, child=31, parent[2]= 29, 201,
+00000242: node=39, child=202, parent[2]= 30, 201,
+00000243: node=39, child=203, parent[2]= 141, 201,
+00000244: node=39, child=204, parent[2]= 142, 201,
+00000245: node=102, child=205, parent[2]= 191, 201,
+00000246: node=102, child=206, parent[2]= 192, 201,
 

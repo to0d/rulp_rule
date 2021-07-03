@@ -26,15 +26,6 @@ public class XRFactorListStmt extends AbsRFactorAdapter implements IRFactor, IRu
 		super(factorName);
 	}
 
-	static int updateStatus(int mask, IRObject obj) throws RException {
-
-		RReteStatus status = RReteStatus.toStatus(obj);
-		if (status == null) {
-			throw new RException("Not ReteStatus: " + obj);
-		}
-
-		return ReteUtil.updateMask(status, mask);
-	}
 
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {

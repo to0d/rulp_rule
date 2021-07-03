@@ -494,7 +494,7 @@ public class XREntryTable implements IREntryTable {
 
 	static int FIX_ETA_MAX_SIZE = 102400;
 
-	public static boolean REUSE_ENTRY_ID = false;
+	public static boolean REUSE_ENTRY_ID = true;
 
 	public static boolean TRACE = false;
 
