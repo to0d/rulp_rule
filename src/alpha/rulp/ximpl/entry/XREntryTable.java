@@ -711,6 +711,10 @@ public class XREntryTable implements IREntryTable {
 	protected void _setEntryStatus(XRReteEntry entry, RReteStatus status) throws RException {
 
 		entry.setStatus(status);
+
+		if (status == RReteStatus.FIXED_) {
+			entry.childList = null;
+		}
 	}
 
 	protected XRReteEntry _toEntry(IRReteEntry entry) throws RException {

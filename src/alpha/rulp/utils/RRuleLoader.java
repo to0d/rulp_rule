@@ -1,6 +1,6 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_ADD_LAZY_STMT;
 import static alpha.rulp.rule.Constant.F_ADD_NODE;
@@ -8,6 +8,7 @@ import static alpha.rulp.rule.Constant.F_ADD_RULE;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
 import static alpha.rulp.rule.Constant.F_DUMP_STATUS;
+import static alpha.rulp.rule.Constant.F_FIX_STMT;
 import static alpha.rulp.rule.Constant.F_GC_MODEL;
 import static alpha.rulp.rule.Constant.F_GET_RULE;
 import static alpha.rulp.rule.Constant.F_HAS_STMT;

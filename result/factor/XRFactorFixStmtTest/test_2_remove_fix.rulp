@@ -1,0 +1,14 @@
+(new model m)
+;=>m
+(add-rule m if '(?a p1 ?b) do (remove-stmt ?0))
+;=>RU000
+(add-stmt m '(a p1 b))
+;=>1
+(fix-stmt m '(c p1 d))
+;=>1
+(start m)
+;err:
+Can't remove fix entry: '(c p1 d)
+at Frame-RU000: (remove-stmt ?0)
+at main: (start m)
+;eof
