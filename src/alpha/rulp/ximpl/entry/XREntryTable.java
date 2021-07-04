@@ -440,6 +440,13 @@ public class XREntryTable implements IREntryTable {
 
 	protected void _addReference(XRReteEntry entry, IRReteNode node, XRReteEntry[] parentEntrys) throws RException {
 
+		/****************************************************/
+		// Optimization: "fix" entry only need one reference
+		/****************************************************/
+		if (_isFix(entry) && entry.getReferenceCount() > 0) {
+			return;
+		}
+
 		int parentEntryCount = parentEntrys == null ? 0 : parentEntrys.length;
 
 		XRReference ref = new XRReference(node.getNodeId(), entry, parentEntryCount, parentEntrys);

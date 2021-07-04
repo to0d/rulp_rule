@@ -1,6 +1,5 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import alpha.rulp.lang.IRFrame;
