@@ -4,9 +4,13 @@ import alpha.rulp.lang.RException;
 
 public interface IFixEntryArray<T> {
 
-	public int getEntryMaxId();
+	public int getCreatedCount();
+
+	public T getEntry(int entryId) throws RException;
 
 	public int getEntryCount();
 
-	public T getEntry(int entryId) throws RException;
+	public int getEntryMaxId();
+
+	public int getRemovedCount();
 }
