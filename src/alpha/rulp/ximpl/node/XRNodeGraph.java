@@ -950,9 +950,10 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		String uniqName = ReteUtil.uniqName(reteTree);
 		IRReteNode node = nodeUniqNameMap.get(uniqName);
-		if (uniqName.equals("'(?0 ?1 200)")) {
-			System.out.println();
-		}
+		
+//		if (uniqName.equals("'(?0 ?1 200)")) {
+//			System.out.println();
+//		}
 
 		if (node == null) {
 			node = _buildReteNode(reteTree, tmpVarBuilder);

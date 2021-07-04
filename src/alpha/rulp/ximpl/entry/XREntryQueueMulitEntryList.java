@@ -189,7 +189,7 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 			int size = entryList.size();
 			for (int i = 0; i < size; ++i) {
 				IRReteEntry entry = entryList.get(i);
-				if (entry != null && entry.getStatus() == REMOVE) {
+				if (entry != null && entry.isDroped()) {
 					entryList.set(i, null);
 					++removeCount;
 				}

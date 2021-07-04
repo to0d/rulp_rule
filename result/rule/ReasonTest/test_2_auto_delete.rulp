@@ -15,6 +15,6 @@
 (add-stmt m '(c p a))
 ;=>1
 (start m)
-;=>1
+;=>4
 (list-stmt m)
-;=>'()
+;=>'('(c p a))

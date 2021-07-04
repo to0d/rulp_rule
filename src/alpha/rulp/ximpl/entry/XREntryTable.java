@@ -347,7 +347,7 @@ public class XREntryTable implements IREntryTable {
 
 		@Override
 		public boolean isDroped() {
-			return this.status == REMOVE;
+			return this.status == REMOVE || this.status == null;
 		}
 
 		@Override
@@ -551,7 +551,7 @@ public class XREntryTable implements IREntryTable {
 			entry.entryRemovedlistener = null;
 		}
 
-		entry.status = REMOVE;
+		entry.status = null; // mark entry as "drop"
 
 		entryFixArray.removeEntry(entry);
 	}
@@ -808,8 +808,12 @@ public class XREntryTable implements IREntryTable {
 			System.out.println("==> removeEntry: entry=" + entry);
 		}
 
-		_pushRemoveEntry(_toEntry(entry));
+		XRReteEntry xEntry = _toEntry(entry);
+
+		_pushRemoveEntry(_toEntry(xEntry));
 		_processEtaQueue();
+
+		xEntry.status = REMOVE; // mark entry as "remove"
 	}
 
 	@Override

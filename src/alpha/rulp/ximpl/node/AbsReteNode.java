@@ -177,7 +177,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public boolean addReteEntry(IRReteEntry entry) throws RException {
 
-		if (entry.size() != this.getEntryLength()) {
+		if (entry.size() != this.getEntryLength() || entry.isDeleted()) {
 			throw new RException("invalid entry: " + entry);
 		}
 

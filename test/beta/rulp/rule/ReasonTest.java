@@ -18,5 +18,7 @@ public class ReasonTest extends RuleTestBase {
 
 		_setup();
 		_test_script("result/rule/ReasonTest/test_2_auto_delete.rulp");
+		_statsInfo("m", "result/rule/ReasonTest/test_2_auto_delete.txt");
+		_dumpEntryTable("m", "result/rule/ReasonTest/test_2_auto_delete.dump.txt");
 	}
 }

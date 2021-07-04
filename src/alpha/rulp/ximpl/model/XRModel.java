@@ -632,7 +632,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RReteStatus status = DEFINE;
 
 		if (nodeContext != null) {
+
 			if (nodeContext.currentEntry != null) {
+
+//				if (nodeContext.currentEntry.getStatus() == null) {
+//					System.out.println();
+//				}
+
 				switch (nodeContext.currentEntry.getStatus()) {
 				case ASSUME:
 					status = ASSUME;
@@ -708,6 +714,225 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return false;
+	}
+
+	protected List<IRReteEntry> _listStatements(IRList filter, int statusMask, int limit) throws RException {
+
+		String namedName = filter.getNamedName();
+
+		/******************************************************/
+		// '(a ? ?)
+		/******************************************************/
+		{
+			ArrayList<IRObject> filterObjs = null;
+			XTempVarBuilder tmpVarBuilder = null;
+
+			IRIterator<? extends IRObject> iter = filter.iterator();
+			for (int stmtIndex = 0; iter.hasNext(); stmtIndex++) {
+
+				IRObject obj = iter.next();
+
+				if (ReteUtil.isAnyVar(obj)) {
+
+					if (filterObjs == null) {
+						filterObjs = new ArrayList<>();
+						for (int i = 0; i < stmtIndex; ++i) {
+							filterObjs.add(filter.get(i));
+						}
+					}
+
+					if (tmpVarBuilder == null) {
+						tmpVarBuilder = new XTempVarBuilder("?_ag_");
+					}
+
+					filterObjs.add(tmpVarBuilder.next());
+
+				} else {
+
+					if (filterObjs != null) {
+						filterObjs.add(obj);
+					}
+				}
+			}
+
+			if (filterObjs != null) {
+				if (namedName == null) {
+					filter = RulpFactory.createList(filterObjs);
+				} else {
+					filter = RulpFactory.createNamedList(filterObjs, namedName);
+				}
+			}
+		}
+
+		/******************************************************/
+		// '(?...) or '(?x ?...)
+		// n:'(?...) or n:'(?x ?...)
+		/******************************************************/
+		int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
+		if (anyIndex != -1) {
+
+			if (anyIndex != (filter.size() - 1)) {
+				throw new RException(String.format("invalid filter: %s", filter));
+			}
+
+			ArrayList<IRObject> extendFilterObjs = new ArrayList<>();
+			XTempVarBuilder tmpVarBuilder = new XTempVarBuilder("?_vg_");
+
+			for (int i = 0; i < anyIndex; ++i) {
+				extendFilterObjs.add(filter.get(i));
+			}
+
+			/******************************************************/
+			// '(?...)
+			/******************************************************/
+			if (namedName == null) {
+
+				LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
+
+				int subLimit = limit;
+
+				FIND_SUB: while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
+
+					if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
+
+						IRList subFilter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+
+						List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit);
+						matchedEntrys.addAll(subEntries);
+
+						if (limit > 0) {
+							subLimit = subLimit - subEntries.size();
+							if (subLimit <= 0) {
+								break FIND_SUB;
+							}
+						}
+
+					}
+
+					extendFilterObjs.add(tmpVarBuilder.next());
+				}
+
+				return matchedEntrys;
+			}
+
+			IRNamedNode namedNode = nodeGraph.findNamedNode(namedName);
+			if (namedNode == null || extendFilterObjs.size() > namedNode.getEntryLength()) {
+				return Collections.emptyList();
+			}
+
+			for (int i = anyIndex; i < namedNode.getEntryLength(); ++i) {
+				extendFilterObjs.add(tmpVarBuilder.next());
+			}
+
+			filter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+		}
+
+		/******************************************************/
+		// Check named node
+		/******************************************************/
+		if (namedName != null) {
+
+			IRNamedNode namedNode = nodeGraph.findNamedNode(namedName);
+			if (namedNode == null || namedNode.getEntryLength() != filter.size()) {
+				return Collections.emptyList();
+			}
+		}
+
+		/******************************************************/
+		// Query uniq stmt
+		/******************************************************/
+		if (ReteUtil.getStmtVarCount(filter) == 0) {
+
+			IRRootNode rootNode = null;
+
+			if (filter.getNamedName() == null) {
+				rootNode = nodeGraph.getRootNode(filter.size());
+			} else {
+				rootNode = nodeGraph.getNamedNode(filter.getNamedName(), filter.size());
+			}
+
+			_checkCache(rootNode);
+
+			String uniqName = ReteUtil.uniqName(filter);
+//			XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) rootNode.getEntryQueue();
+
+			IRReteEntry oldEntry = rootNode.getStmt(uniqName);
+			if (oldEntry == null) {
+				return Collections.emptyList();
+			}
+
+			LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
+			matchedEntrys.add(oldEntry);
+
+			return matchedEntrys;
+		}
+
+		IRReteNode matchedNode = nodeGraph.getNodeByTree(filter);
+
+		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
+			throw new RException("Invalid list node: " + matchedNode);
+		}
+
+		_checkCache(matchedNode);
+
+		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
+		int fromIndex = 0;
+		boolean completed = false;
+
+		/******************************************************/
+		// Check cached entry
+		/******************************************************/
+		{
+			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
+
+			int maxCount = matchedNodeQueue.size();
+			for (; fromIndex < maxCount; ++fromIndex) {
+
+				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
+				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
+					continue;
+				}
+
+				matchedEntrys.add(entry);
+				if (limit > 0 && matchedEntrys.size() >= limit) {
+					completed = true;
+					break;
+				}
+			}
+		}
+
+		/******************************************************/
+		// Update all current node chain
+		/******************************************************/
+		if (!completed) {
+
+			NodeUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
+
+				int update = execute(node);
+				if (update > 0) {
+					modelCounter.queryMatchCount++;
+				}
+
+				return false;
+			});
+
+			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
+			int maxCount = matchedNodeQueue.size();
+			for (; fromIndex < maxCount; ++fromIndex) {
+
+				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
+				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
+					continue;
+				}
+
+				matchedEntrys.add(entry);
+				if (limit > 0 && matchedEntrys.size() >= limit) {
+					break;
+				}
+			}
+		}
+
+		return matchedEntrys;
 	}
 
 	protected List<? extends IRObject> _queryCond(IRObject rstExpr, IRList condList, final int limit)
@@ -1446,11 +1671,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		};
 	}
 
-	@Override
-	public IREntryTable getEntryTable() {
-		return entryTable;
-	}
-
 //	@Override
 //	public IRIterator<IRObject> listObjects() throws RException {
 //
@@ -1471,6 +1691,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 //			}
 //		};
 //	}
+
+	@Override
+	public IREntryTable getEntryTable() {
+		return entryTable;
+	}
 
 	@Override
 	public IRInterpreter getInterpreter() {
@@ -1642,225 +1867,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return _listStatements(filter, statusMask, limit);
-	}
-
-	protected List<IRReteEntry> _listStatements(IRList filter, int statusMask, int limit) throws RException {
-
-		String namedName = filter.getNamedName();
-
-		/******************************************************/
-		// '(a ? ?)
-		/******************************************************/
-		{
-			ArrayList<IRObject> filterObjs = null;
-			XTempVarBuilder tmpVarBuilder = null;
-
-			IRIterator<? extends IRObject> iter = filter.iterator();
-			for (int stmtIndex = 0; iter.hasNext(); stmtIndex++) {
-
-				IRObject obj = iter.next();
-
-				if (ReteUtil.isAnyVar(obj)) {
-
-					if (filterObjs == null) {
-						filterObjs = new ArrayList<>();
-						for (int i = 0; i < stmtIndex; ++i) {
-							filterObjs.add(filter.get(i));
-						}
-					}
-
-					if (tmpVarBuilder == null) {
-						tmpVarBuilder = new XTempVarBuilder("?_ag_");
-					}
-
-					filterObjs.add(tmpVarBuilder.next());
-
-				} else {
-
-					if (filterObjs != null) {
-						filterObjs.add(obj);
-					}
-				}
-			}
-
-			if (filterObjs != null) {
-				if (namedName == null) {
-					filter = RulpFactory.createList(filterObjs);
-				} else {
-					filter = RulpFactory.createNamedList(filterObjs, namedName);
-				}
-			}
-		}
-
-		/******************************************************/
-		// '(?...) or '(?x ?...)
-		// n:'(?...) or n:'(?x ?...)
-		/******************************************************/
-		int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
-		if (anyIndex != -1) {
-
-			if (anyIndex != (filter.size() - 1)) {
-				throw new RException(String.format("invalid filter: %s", filter));
-			}
-
-			ArrayList<IRObject> extendFilterObjs = new ArrayList<>();
-			XTempVarBuilder tmpVarBuilder = new XTempVarBuilder("?_vg_");
-
-			for (int i = 0; i < anyIndex; ++i) {
-				extendFilterObjs.add(filter.get(i));
-			}
-
-			/******************************************************/
-			// '(?...)
-			/******************************************************/
-			if (namedName == null) {
-
-				LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
-
-				int subLimit = limit;
-
-				FIND_SUB: while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
-
-					if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
-
-						IRList subFilter = RulpFactory.createNamedList(extendFilterObjs, namedName);
-
-						List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit);
-						matchedEntrys.addAll(subEntries);
-
-						if (limit > 0) {
-							subLimit = subLimit - subEntries.size();
-							if (subLimit <= 0) {
-								break FIND_SUB;
-							}
-						}
-
-					}
-
-					extendFilterObjs.add(tmpVarBuilder.next());
-				}
-
-				return matchedEntrys;
-			}
-
-			IRNamedNode namedNode = nodeGraph.findNamedNode(namedName);
-			if (namedNode == null || extendFilterObjs.size() > namedNode.getEntryLength()) {
-				return Collections.emptyList();
-			}
-
-			for (int i = anyIndex; i < namedNode.getEntryLength(); ++i) {
-				extendFilterObjs.add(tmpVarBuilder.next());
-			}
-
-			filter = RulpFactory.createNamedList(extendFilterObjs, namedName);
-		}
-
-		/******************************************************/
-		// Check named node
-		/******************************************************/
-		if (namedName != null) {
-
-			IRNamedNode namedNode = nodeGraph.findNamedNode(namedName);
-			if (namedNode == null || namedNode.getEntryLength() != filter.size()) {
-				return Collections.emptyList();
-			}
-		}
-
-		/******************************************************/
-		// Query uniq stmt
-		/******************************************************/
-		if (ReteUtil.getStmtVarCount(filter) == 0) {
-
-			IRRootNode rootNode = null;
-
-			if (filter.getNamedName() == null) {
-				rootNode = nodeGraph.getRootNode(filter.size());
-			} else {
-				rootNode = nodeGraph.getNamedNode(filter.getNamedName(), filter.size());
-			}
-
-			_checkCache(rootNode);
-
-			String uniqName = ReteUtil.uniqName(filter);
-//			XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) rootNode.getEntryQueue();
-
-			IRReteEntry oldEntry = rootNode.getStmt(uniqName);
-			if (oldEntry == null) {
-				return Collections.emptyList();
-			}
-
-			LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
-			matchedEntrys.add(oldEntry);
-
-			return matchedEntrys;
-		}
-
-		IRReteNode matchedNode = nodeGraph.getNodeByTree(filter);
-
-		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
-			throw new RException("Invalid list node: " + matchedNode);
-		}
-
-		_checkCache(matchedNode);
-
-		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
-		int fromIndex = 0;
-		boolean completed = false;
-
-		/******************************************************/
-		// Check cached entry
-		/******************************************************/
-		{
-			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
-
-			int maxCount = matchedNodeQueue.size();
-			for (; fromIndex < maxCount; ++fromIndex) {
-
-				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
-				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
-					continue;
-				}
-
-				matchedEntrys.add(entry);
-				if (limit > 0 && matchedEntrys.size() >= limit) {
-					completed = true;
-					break;
-				}
-			}
-		}
-
-		/******************************************************/
-		// Update all current node chain
-		/******************************************************/
-		if (!completed) {
-
-			NodeUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
-
-				int update = execute(node);
-				if (update > 0) {
-					modelCounter.queryMatchCount++;
-				}
-
-				return false;
-			});
-
-			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
-			int maxCount = matchedNodeQueue.size();
-			for (; fromIndex < maxCount; ++fromIndex) {
-
-				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
-				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
-					continue;
-				}
-
-				matchedEntrys.add(entry);
-				if (limit > 0 && matchedEntrys.size() >= limit) {
-					break;
-				}
-			}
-		}
-
-		return matchedEntrys;
 	}
 
 	@Override
