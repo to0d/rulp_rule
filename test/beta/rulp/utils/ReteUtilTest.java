@@ -2,9 +2,10 @@ package beta.rulp.utils;
 
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.FIXED_;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
+import static alpha.rulp.rule.RReteStatus.TEMP__;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

@@ -11,8 +11,9 @@ import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.FIXED_;
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
+import static alpha.rulp.rule.RReteStatus.TEMP__;
 
 import java.util.ArrayList;
 import java.util.Collections;

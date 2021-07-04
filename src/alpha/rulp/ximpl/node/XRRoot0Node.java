@@ -1,6 +1,8 @@
 package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.lang.Constant.O_Nil;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
+import static alpha.rulp.rule.RReteStatus.TEMP__;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,13 +12,12 @@ import java.util.Map.Entry;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.rule.IRModel.RNodeContext;
+import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import static alpha.rulp.rule.RReteStatus.*;
 
 public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 

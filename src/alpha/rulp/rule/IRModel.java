@@ -1,9 +1,5 @@
 package alpha.rulp.rule;
 
-import static alpha.rulp.rule.RReteStatus.ASSUME;
-import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.REASON;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +9,6 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRModel.RNodeContext;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.cache.IRCacheWorker;

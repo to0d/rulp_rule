@@ -635,10 +635,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			if (nodeContext.currentEntry != null) {
 
-//				if (nodeContext.currentEntry.getStatus() == null) {
-//					System.out.println();
-//				}
-
 				switch (nodeContext.currentEntry.getStatus()) {
 				case ASSUME:
 					status = ASSUME;

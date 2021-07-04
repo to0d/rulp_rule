@@ -21,9 +21,10 @@ import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RCountType.COUNT_TYPE_NUM;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.FIXED_;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
+import static alpha.rulp.rule.RReteStatus.TEMP__;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
 import static alpha.rulp.ximpl.node.RReteType.ALPH1;
 import static alpha.rulp.ximpl.node.RReteType.ALPH2;
@@ -1985,7 +1986,7 @@ public class OptimizeUtil {
 					entryFixArray.getEntryCount()));
 			sb.append(SEP_LINE2);
 
-			for (int entryId = 0; entryId < maxEntryId; ++entryId) {
+			for (int entryId = 0; entryId <= maxEntryId; ++entryId) {
 
 				IRReteEntry entry = entryFixArray.getEntry(entryId);
 				if (entry == null || entry.isDroped()) {
@@ -2052,7 +2053,7 @@ public class OptimizeUtil {
 					refFixArray.getEntryCount()));
 			sb.append(SEP_LINE2);
 
-			for (int entryId = 0; entryId < maxEntryId; ++entryId) {
+			for (int entryId = 0; entryId <= maxEntryId; ++entryId) {
 
 				IRReference ref = refFixArray.getEntry(entryId);
 				if (ref == null || ref.isDroped()) {

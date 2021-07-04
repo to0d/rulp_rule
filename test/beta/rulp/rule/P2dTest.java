@@ -3,8 +3,6 @@ package beta.rulp.rule;
 import org.junit.Test;
 
 import alpha.rulp.utils.RuleTestBase;
-import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.ximpl.model.XRModel;
 
 public class P2dTest extends RuleTestBase {
 

@@ -16,7 +16,6 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.RulpTestBase.XROut;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.scope.IRScope;

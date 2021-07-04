@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.node;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.TEMP__;
 
 import java.util.ArrayList;
 import java.util.Collection;

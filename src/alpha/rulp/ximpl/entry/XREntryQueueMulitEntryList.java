@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.entry;
 
-import static alpha.rulp.rule.RReteStatus.REMOVE;
-
 import java.util.ArrayList;
 
 import alpha.rulp.lang.IRFrame;
