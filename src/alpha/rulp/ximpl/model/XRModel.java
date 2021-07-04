@@ -627,32 +627,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return cache;
 	}
 
-	protected RReteStatus _getNewStmtStatus() {
+	protected RReteStatus _getNewStmtStatus() throws RException {
 
-		RReteStatus status = DEFINE;
-
-		if (nodeContext != null) {
-
-			if (nodeContext.currentEntry != null) {
-
-				switch (nodeContext.currentEntry.getStatus()) {
-				case ASSUME:
-					status = ASSUME;
-					break;
-				case DEFINE:
-				case REASON:
-				case FIXED_:
-				case TEMP__:
-					status = REASON;
-					break;
-				case REMOVE:
-				default:
-					break;
-				}
-			}
+		if (nodeContext == null) {
+			return DEFINE;
 		}
 
-		return status;
+		return ReteUtil.getChildStatus(nodeContext.currentEntry);
 	}
 
 	protected boolean _isInClosingPhase() {

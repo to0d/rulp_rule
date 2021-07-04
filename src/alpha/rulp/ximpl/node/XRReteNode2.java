@@ -4,6 +4,7 @@ import static alpha.rulp.rule.RReteStatus.REASON;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -42,7 +43,7 @@ public abstract class XRReteNode2 extends AbsReteNode {
 			newElements[i] = parentEntry.get(inherit.elementIndex);
 		}
 
-		return entryTable.createEntry(null, newElements, REASON);
+		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry));
 	}
 
 	protected abstract boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException;

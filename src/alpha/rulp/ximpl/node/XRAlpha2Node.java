@@ -4,6 +4,7 @@ import static alpha.rulp.rule.RReteStatus.REASON;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -21,7 +22,7 @@ public class XRAlpha2Node extends XRAlpha1Node {
 			newElements[i] = parentEntry.get(inherit.elementIndex);
 		}
 
-		return entryTable.createEntry(null, newElements, REASON);
+		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(parentEntry));
 	}
 
 	@Override

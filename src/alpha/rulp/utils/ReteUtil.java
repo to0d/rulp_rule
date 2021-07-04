@@ -605,6 +605,45 @@ public class ReteUtil {
 		return namedNode;
 	}
 
+	public static RReteStatus getChildStatus(IRReteEntry... parents) throws RException {
+
+//		RReteStatus status = 
+
+		if (parents == null) {
+			return DEFINE;
+		}
+
+		int fixCount = 0;
+
+		for (IRReteEntry parent : parents) {
+
+			if (parent == null || parent.isDroped()) {
+				throw new RException("Invalid parent entry: " + parent);
+			}
+
+			switch (parent.getStatus()) {
+			case ASSUME:
+				return ASSUME;
+
+			case TEMP__:
+				return DEFINE;
+				
+			case DEFINE:
+			case REASON:
+				return REASON;
+
+			case FIXED_:
+				++fixCount;
+				break;
+
+			default:
+				throw new RException("Invalid parent entry: " + parent);
+			}
+		}
+
+		return fixCount > 0 ? FIXED_ : DEFINE;
+	}
+
 	public static int getFilerEntryLength(IRList filter) throws RException {
 
 		int nodeEntryLengh = -1;

@@ -6,6 +6,7 @@ import static alpha.rulp.rule.RReteStatus.REMOVE;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
@@ -52,7 +53,8 @@ public class XRExprNode3 extends XRReteNode1 {
 			newElements[i] = externalVars[i - leftEnryLength];
 		}
 
-		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements, REASON);
+		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements,
+				ReteUtil.getChildStatus(entry));
 		entryTable.addReference(newEntry, this, entry);
 
 		if (!entryQueue.addEntry(newEntry, this.getModel().getInterpreter(), this.getNodeFrame(true))) {
