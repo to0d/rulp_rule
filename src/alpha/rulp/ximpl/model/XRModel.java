@@ -522,20 +522,23 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 //		XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) rootNode.getEntryQueue();
 
+		int oldSize = 0;
+		if (this.nodeContext != null) {
+			this.nodeContext.tryAddStmt++;
+			oldSize = rootNode.getEntryQueue().size();
+		}
+
 		// there is no any update
 		if (!rootNode.addStmt(stmt, toStatus)) {
-
-			if (this.nodeContext != null) {
-				this.nodeContext.tryAddStmt++;
-			}
-
 			return 0;
 		}
 
-		// new stmt added or stats updated
+		// new stmt added
 		if (this.nodeContext != null) {
-			this.nodeContext.actualAddStmt++;
-			this.nodeContext.tryAddStmt++;
+			int newSize = rootNode.getEntryQueue().size();
+			if (newSize > oldSize) {
+				this.nodeContext.actualAddStmt++;
+			}
 		}
 
 		cacheUpdateCount++;

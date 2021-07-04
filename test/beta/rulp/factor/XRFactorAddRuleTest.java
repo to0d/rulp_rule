@@ -19,7 +19,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(type-of m)", "instance");
 		_test("(name-of m)", "\"m\"");
 		_test("(add-stmt m '(a p1 c))", "1");
-		_test("(add-stmt m '(a p1 c))", "0"); // duplicated
+		_test("(add-stmt m '(a p1 c))", "1"); // duplicated
 		_test("(add-stmt m '(a p1 b))", "1");
 		_test("(add-stmt m '(a p2 c))", "1");
 		_test("(add-rule \"R1\" m if '(?x p2 ?y) do (-> m '(?y p2 ?x)))", "R1"); // rule not work
@@ -27,7 +27,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(list-stmt m)", "'('(a p1 c) '(a p1 b) '(a p2 c))");
 		_mStatus(1, "m");
 
-		_test("(start m)", "6");
+		_test("(start m)", "7");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m from '(?x p2 ?y))", "'('(a p2 c) '(c p2 a))"); // rule works
 		_mStatus(2, "m");
@@ -219,7 +219,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(add-stmt m '(p1 propertyOf inverse))");
 		_test("(add-stmt m '(a p1 b))");
 		_test("(add-rule m if '(?p propertyOf inverse) '(?a ?p ?b) do (-> m '(?b ?p ?a)))", "RU000");
-		_test("(start m)", "10");
+		_test("(start m)", "11");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(p1 propertyOf inverse) '(a p1 b) '(b p1 a))");
 		_mStatus(1, "m");

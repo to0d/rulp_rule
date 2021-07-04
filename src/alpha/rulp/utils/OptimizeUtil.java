@@ -693,10 +693,9 @@ public class OptimizeUtil {
 		int maxId = entryTable.getEntryMaxId();
 
 		sb.append(String.format(
-				"Entry Table: total=%d, max-id=%d, eta-total-action=%d, eta-new-action=%d, eta-max-size=%d, eta-capacity=%d, eta-expend=%d\n",
-				entryTable.getEntryCount(), maxId, entryTable.getETATotalActionSize(), entryTable.getETAMaxActionSize(),
-				entryTable.getETAQueueMaxSize(), entryTable.getETAQueueCapacity(),
-				entryTable.getETAQueueExpendCount()));
+				"Entry Table ETA: total-action=%d, new-action=%d, max-size=%d, capacity=%d, expend=%d\n",
+				entryTable.getETATotalActionSize(), entryTable.getETAMaxActionSize(), entryTable.getETAQueueMaxSize(),
+				entryTable.getETAQueueCapacity(), entryTable.getETAQueueExpendCount()));
 
 		// entry bit map
 		sb.append(SEP_LINE1);
@@ -1203,7 +1202,8 @@ public class OptimizeUtil {
 		int groupCount = (maxId - 1) / groupSize + 1;
 		int groupSize2 = groupSize / 10;
 
-		sb.append(String.format("%s Bit Map: group-size=%d, group-count=%d\n", name, groupSize, groupCount));
+		sb.append(String.format("%s Bit Map: total=%d, max-id=%d, group-size=%d, group-count=%d\n", name,
+				fixArray.getEntryCount(), maxId, groupSize, groupCount));
 		sb.append(SEP_LINE2);
 
 		int rowCount = 0;

@@ -18,15 +18,6 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 
 	protected IREntryTable entryTable;
 
-	public void setEntryTable(IREntryTable entryTable) {
-		this.entryTable = entryTable;
-	}
-
-	@Override
-	public IRReteEntry getStmt(String uniqName) throws RException {
-		return stmtMap.get(uniqName);
-	}
-
 	protected Map<String, IRReteEntry> stmtMap = new HashMap<>();
 
 	@Override
@@ -112,8 +103,17 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 				entryQueue.incEntryRedundant();
 			}
 
-			return false;
+			return true;
 		}
 
+	}
+
+	@Override
+	public IRReteEntry getStmt(String uniqName) throws RException {
+		return stmtMap.get(uniqName);
+	}
+
+	public void setEntryTable(IREntryTable entryTable) {
+		this.entryTable = entryTable;
 	}
 }

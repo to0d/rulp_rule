@@ -17,7 +17,7 @@ mbr=?os.name, name=?os.name, type=var, property='(public), value="Windows 10"
 mbr=?os.version, name=?os.version, type=var, property='(public), value="10.0"
 mbr=?path.separator, name=?path.separator, type=var, property='(public), value=";"
 mbr=?trace, name=?trace, type=var, property='(public), value="false"
-mbr=?user.dir, name=?user.dir, type=var, property='(public), value="C:\data\project\itool\iRulp_rule"
+mbr=?user.dir, name=?user.dir, type=var, property='(public), value="C:\data\itool\irulp_rule"
 mbr=?user.home, name=?user.home, type=var, property='(public), value="C:\Users\to0d"
 mbr=?user.name, name=?user.name, type=var, property='(public), value="to0d"
 mbr=^, name=^, type=factor, property='(public)

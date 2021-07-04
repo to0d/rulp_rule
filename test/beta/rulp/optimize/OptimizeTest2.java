@@ -19,7 +19,7 @@ public class OptimizeTest2 extends RuleTestBase {
 		_test("(opt-model p2d)", "1");
 		_nodeInfo("p2d", "result/optimize/OptimizeTest2/p2d_alias_1_full_single_child_optimize_n2.txt");
 
-		_test("(start p2d)", "297");
+		_test("(start p2d)", "302");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 

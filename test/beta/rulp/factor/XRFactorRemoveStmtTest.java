@@ -150,7 +150,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_mCount(1, "m");
 		_eCount(1, "m");
 
-		_test("(start m)", "12");
+		_test("(start m)", "13");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)",
 				"'('(a p1 b) '(b p1 c) '(c p1 a) '(a p1 c) '(b p1 a) '(c p1 b) '(a p1 a) '(b p1 b) '(c p1 c))");
@@ -189,7 +189,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_mCount(1, "m");
 		_eCount(1, "m");
 
-		_test("(start m)", "13");
+		_test("(start m)", "14");
 		_test("(state-of m)", "completed");
 		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
 		_test("(list-stmt m)", "'('(a p1 c) '(b p1 a) '(c p1 b))");

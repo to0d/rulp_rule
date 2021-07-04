@@ -3,8 +3,9 @@ package alpha.rulp.ximpl.model;
 import static alpha.rulp.rule.RCountType.COUNT_TYPE_NUM;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.FIXED_;
 import static alpha.rulp.rule.RReteStatus.REASON;
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_NUM;
 
 import java.util.List;

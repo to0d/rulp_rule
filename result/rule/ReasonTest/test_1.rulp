@@ -5,7 +5,7 @@
 (add-stmt m '(a b c))
 ;=>1
 (start m)
-;=>6
+;=>7
 (list-stmt m)
 ;=>'('(a b c) '(b c a) '(c a b))
 (print-entry-ref m)
