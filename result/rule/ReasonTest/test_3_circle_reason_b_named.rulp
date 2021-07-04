@@ -1,0 +1,20 @@
+(new model m)
+;=>m
+(add-rule m if '(?x p ?y) n1:'(p p2) do (-> m '(?y p ?x)))
+;=>RU000
+(add-stmt m '(a p c))
+;=>1
+(add-stmt m n1:'(p p2))
+;=>1
+(query-stmt m '(?x ?y) from '(?x p ?y))
+;=>'('(a c) '(c a))
+(remove-stmt m n1:'(p p2))
+;=>'(n1:'(p p2))
+(list-stmt m)
+;=>'()
+(add-stmt m '(c p a))
+;=>1
+(start m)
+;=>4
+(list-stmt m)
+;=>'('(c p a))

@@ -6,6 +6,8 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRBeta1Node extends XRBeta0Node {
 
+	private boolean rightConstNodeIsRun = false;
+
 	@Override
 	public int update() throws RException {
 
@@ -15,22 +17,34 @@ public class XRBeta1Node extends XRBeta0Node {
 
 		++nodeExecCount;
 
+		IRReteNode rightNode = parentNodes[1];
+
 		/*********************************************/
 		// idle
 		/*********************************************/
-		int rightSingleMaxCount = parentNodes[1].getEntryQueue().size();
-		if (lastRightEntryCount >= rightSingleMaxCount) {
+		int rightSingleMaxCount = rightNode.getEntryQueue().size();
+		if (!rightConstNodeIsRun && lastRightEntryCount >= rightSingleMaxCount) {
 			++nodeIdleCount;
 			return 0;
 		}
 
-		IRReteEntry rightEntry = parentNodes[1].getEntryQueue().getEntryAt(rightSingleMaxCount - 1);
-		if (rightEntry == null || rightEntry.isDroped()) {
+		IRReteEntry rightEntry = rightNode.getEntryQueue().getEntryAt(rightSingleMaxCount - 1);
+		if (!rightConstNodeIsRun && (rightEntry == null || rightEntry.isDroped())) {
 			++nodeIdleCount;
 			return 0;
 		}
 
-		IREntryQueue leftEntryQueue = parentNodes[0].getEntryQueue();
+		/********************************************************/
+		// - If the right node is const node & it has been active
+		// - Let this beta1 node to to auto child of left node
+		/********************************************************/
+		IRReteNode leftNode = parentNodes[0];
+		if (rightNode.getReteType() == RReteType.CONST && !rightConstNodeIsRun) {
+			leftNode.setChildNodeUpdateMode(this, true);
+			rightConstNodeIsRun = true;
+		}
+
+		IREntryQueue leftEntryQueue = leftNode.getEntryQueue();
 		int leftParentEntryCount = leftEntryQueue.size();
 		if (leftParentEntryCount == 0) {
 			++nodeIdleCount;
