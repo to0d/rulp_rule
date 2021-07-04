@@ -21,7 +21,7 @@ import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RCountType.COUNT_TYPE_NUM;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.FIXED_;
+import static alpha.rulp.rule.RReteStatus.*;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
@@ -294,6 +294,9 @@ public class OptimizeUtil {
 		case NodeCount:
 		case ExecCount:
 		case IdleCount:
+		case FixedCount:
+		case TempCount:
+		case RemoveCount:
 			return 5;
 
 		default:
@@ -318,6 +321,12 @@ public class OptimizeUtil {
 
 		case FixedCount:
 			return "Fixed";
+
+		case RemoveCount:
+			return "Remove";
+
+		case TempCount:
+			return "Temp";
 
 		case DropCount:
 			return "Drop";
@@ -1341,9 +1350,10 @@ public class OptimizeUtil {
 
 		sb.append("\nnode info:\n");
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%8s  %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %11s\n",
-				"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Null", "Bind", "Match", "Update", "Redunt",
-				"Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "PVisit"));
+		sb.append(
+				String.format("%8s  %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %11s\n",
+						"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null", "Bind",
+						"Match", "Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "PVisit"));
 		sb.append(SEP_LINE2);
 
 		Map<IRReteNode, Integer> wasteMap = getWasteMap(nodes);
@@ -1374,10 +1384,12 @@ public class OptimizeUtil {
 				}
 			}
 
-			sb.append(String.format("%8s: %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
+			sb.append(String.format(
+					"%8s: %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(FIXED_),
 					entryCounter.getEntryCount(DEFINE), entryCounter.getEntryCount(REASON),
-					entryCounter.getEntryCount(ASSUME), entryCounter.getEntryCount(REMOVE),
+					entryCounter.getEntryCount(ASSUME), entryCounter.getEntryCount(null),
+					entryCounter.getEntryCount(REMOVE), entryCounter.getEntryCount(TEMP__),
 					entryCounter.getEntryNullCount(),
 					"" + model.getNodeGraph().getBindFromNodes(node).size() + "/"
 							+ model.getNodeGraph().getBindToNodes(node).size(),
@@ -2176,11 +2188,13 @@ public class OptimizeUtil {
 
 		// root0 node
 		{
-			String count = String.format("%d,%d,%d,%d,%d,%d,%d",
+			String count = String.format("%d,%d,%d,%d,%d,%d,%d,%d,%d",
 					reteCounter.getCount(RReteType.ROOT0, RCountType.FixedCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.DefinedCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.ReasonCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.DropCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.RemoveCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.TempCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.AssumeCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.NullCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.RedundantCount));
@@ -2236,10 +2250,13 @@ public class OptimizeUtil {
 						reteCounter.getCount(rtype, RCountType.BindFromCount),
 						reteCounter.getCount(rtype, RCountType.BindToCount));
 
-				String count2 = String.format("%d,%d,%d,%d,%d,%d", reteCounter.getCount(rtype, RCountType.FixedCount),
+				String count2 = String.format("%d,%d,%d,%d,%d,%d,%d,%d",
+						reteCounter.getCount(rtype, RCountType.FixedCount),
 						reteCounter.getCount(rtype, RCountType.DefinedCount),
 						reteCounter.getCount(rtype, RCountType.ReasonCount),
 						reteCounter.getCount(rtype, RCountType.DropCount),
+						reteCounter.getCount(rtype, RCountType.RemoveCount),
+						reteCounter.getCount(rtype, RCountType.TempCount),
 						reteCounter.getCount(rtype, RCountType.AssumeCount),
 						reteCounter.getCount(rtype, RCountType.NullCount));
 

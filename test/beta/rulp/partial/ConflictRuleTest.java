@@ -17,9 +17,9 @@ public class ConflictRuleTest extends RuleTestBase {
 		_test("(add-rule \"R1\" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )", "R1"); //
 		_test("(add-rule \"R2\" m if '(?x p ?y) '(?y p ?z) do (remove-stmt ?0) )", "R2");
 		_test("(add-stmt m '(a p b) '(b p c))", "2");
-		_test("(start m)", "8");
+		_test("(start m)", "7");
 		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(b p c) '(a p c))");
+		_test("(list-stmt m)", "'('(b p c))");
 
 		_mStatus(1, "m");
 		_rStatus(1, "m", "R1");

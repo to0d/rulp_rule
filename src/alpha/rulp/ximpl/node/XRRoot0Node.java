@@ -9,10 +9,12 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
+import alpha.rulp.rule.IRModel.RNodeContext;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+import static alpha.rulp.rule.RReteStatus.*;
 
 public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 
@@ -20,8 +22,12 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 
 	protected Map<String, IRReteEntry> stmtMap = new HashMap<>();
 
+	public void addReference(IRReteEntry entry) throws RException {
+		entryTable.addReference(entry, this);
+	}
+
 	@Override
-	public boolean addStmt(IRList stmt, RReteStatus newStatus) throws RException {
+	public boolean addStmt(IRList stmt, RReteStatus newStatus, RNodeContext context) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println(String.format("%s: addEntry(%s, %s)", getNodeName(), "" + stmt, "" + newStatus));
@@ -49,12 +55,18 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 			}
 
 			IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus);
-			entryTable.addReference(newEntry, this);
-//			entryTable.setEntryLife(newEntry.getEntryId(), newStatus == DEFINED ? 1 : 0);
-
 			if (!addReteEntry(newEntry)) {
 				entryTable.removeEntry(newEntry);
 				return false;
+			}
+
+			/*******************************************************/
+			// Add reference
+			/*******************************************************/
+			if (context != null) {
+				entryTable.addReference(newEntry, context.currentNode, context.currentEntry);
+			} else {
+				entryTable.addReference(newEntry, this);
 			}
 
 			stmtMap.put(uniqName, newEntry);
@@ -89,6 +101,9 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 				case FIXED_:
 					entryTable.setEntryStatus(oldEntry, finalStatus);
 					break;
+				case TEMP__:
+					entryTable.setEntryStatus(oldEntry, finalStatus);
+					break;
 
 				case REMOVE:
 					entryTable.removeEntryReference(oldEntry, this);
@@ -101,6 +116,13 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 			// status not changed
 			else {
 				entryQueue.incEntryRedundant();
+			}
+
+			/*******************************************************/
+			// Add reference
+			/*******************************************************/
+			if (finalStatus != REMOVE && finalStatus != TEMP__ && context != null) {
+				entryTable.addReference(oldEntry, context.currentNode, context.currentEntry);
 			}
 
 			return true;

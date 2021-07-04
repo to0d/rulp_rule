@@ -10,7 +10,13 @@ public class ReasonTest extends RuleTestBase {
 	public void test_1() {
 
 		_setup();
-//		TraceUtil.setTrace(true);
 		_test_script("result/rule/ReasonTest/test_1.rulp");
+	}
+
+	@Test
+	public void test_2_auto_delete() {
+
+		_setup();
+		_test_script("result/rule/ReasonTest/test_2_auto_delete.rulp");
 	}
 }

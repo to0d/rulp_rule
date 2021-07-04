@@ -15,11 +15,13 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 
 	static class XREntryCounter implements IREntryCounter {
 
+		protected int entryTempCount = 0;
+
 		protected int entryAssumeCount = 0;
 
 		protected int entryDefinedCount = 0;
 
-		protected int entryDropCount = 0;
+		protected int entryRemoveCount = 0;
 
 		protected int entryFixCount = 0;
 
@@ -28,6 +30,8 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 		protected int entryReasonCount = 0;
 
 		protected int entryTotalCount = 0;
+
+		protected int entryDropCount = 0;
 
 		public XREntryCounter(XREntryQueueMulitEntryList queue) {
 			_updateEntryCount(queue);
@@ -38,9 +42,12 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 			entryTotalCount = 0;
 			entryNullCount = 0;
 			entryDefinedCount = 0;
-			entryDropCount = 0;
+			entryRemoveCount = 0;
 			entryReasonCount = 0;
 			entryAssumeCount = 0;
+			entryTempCount = 0;
+			entryFixCount = 0;
+			entryDropCount = 0;
 
 			if (queue.entryList == null) {
 				return;
@@ -53,37 +60,52 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 					continue;
 				}
 
-				switch (entry.getStatus()) {
-				case ASSUME:
-					++entryAssumeCount;
-					break;
+				RReteStatus status = entry.getStatus();
 
-				case DEFINE:
-					++entryDefinedCount;
-					break;
-
-				case REMOVE:
+				if (status == null) {
 					++entryDropCount;
-					break;
+				} else {
+					switch (entry.getStatus()) {
+					case ASSUME:
+						++entryAssumeCount;
+						break;
 
-				case REASON:
-					++entryReasonCount;
-					break;
+					case DEFINE:
+						++entryDefinedCount;
+						break;
 
-				case FIXED_:
-					++entryFixCount;
-					break;
+					case REMOVE:
+						++entryRemoveCount;
+						break;
 
-				default:
-					break;
+					case REASON:
+						++entryReasonCount;
+						break;
+
+					case FIXED_:
+						++entryFixCount;
+
+					case TEMP__:
+						++entryTempCount;
+
+						break;
+
+					default:
+						break;
+					}
 				}
 			}
 
-			entryTotalCount = entryDefinedCount + entryReasonCount + entryAssumeCount + entryDropCount + entryNullCount;
+			entryTotalCount = entryDefinedCount + entryReasonCount + entryAssumeCount + entryRemoveCount
+					+ entryNullCount + entryTempCount + entryFixCount + entryDropCount;
 		}
 
 		@Override
 		public int getEntryCount(RReteStatus status) {
+
+			if (status == null) {
+				return entryDropCount;
+			}
 
 			switch (status) {
 			case ASSUME:
@@ -93,7 +115,10 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 				return entryDefinedCount;
 
 			case REMOVE:
-				return entryDropCount;
+				return entryRemoveCount;
+
+			case TEMP__:
+				return entryTempCount;
 
 			case REASON:
 				return entryReasonCount;

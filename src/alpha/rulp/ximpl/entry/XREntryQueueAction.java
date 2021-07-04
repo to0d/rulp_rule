@@ -85,6 +85,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 
 	public RNodeContext getDefaultNodeContext() {
 		defaultNodeConext.currentEntry = null;
+		defaultNodeConext.currentNode = node;
 		defaultNodeConext.tryAddStmt = 0;
 		defaultNodeConext.actualAddStmt = 0;
 		return defaultNodeConext;

@@ -104,6 +104,7 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 
 	public RNodeContext getDefaultNodeContext() {
 		defaultNodeConext.currentEntry = null;
+		defaultNodeConext.currentNode = node;
 		defaultNodeConext.tryAddStmt = 0;
 		defaultNodeConext.actualAddStmt = 0;
 		return defaultNodeConext;

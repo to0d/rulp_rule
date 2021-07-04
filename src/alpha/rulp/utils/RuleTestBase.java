@@ -16,6 +16,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.RulpTestBase.XROut;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.scope.IRScope;
@@ -204,6 +205,8 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
+	protected Boolean traceModel = null;
+
 	protected void _dumpEntryTable(String modelName, String expectFile) {
 
 		try {
@@ -233,6 +236,30 @@ public class RuleTestBase extends RulpTestBase {
 			e.printStackTrace();
 			fail(e.toString());
 		}
+	}
+
+	protected void _enableTrace() {
+		try {
+			RuleUtil.setModelTrace(true);
+			traceModel = true;
+		} catch (RException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected IRInterpreter _getInterpreter() throws RException, IOException {
+
+		IRInterpreter interpreter = super._getInterpreter();
+		if (traceModel != null) {
+			try {
+				RuleUtil.setModelTrace(traceModel);
+			} catch (RException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return interpreter;
 	}
 
 	protected void _mCount(int index, String modelName) {
@@ -411,6 +438,7 @@ public class RuleTestBase extends RulpTestBase {
 		super._setup();
 		XRScope.TRACE = false;
 		XREntryTable.TRACE = false;
+		traceModel = null;
 	}
 
 	protected void _smCount(int index, String scopeName) {

@@ -3,6 +3,8 @@ package beta.rulp.rule;
 import org.junit.Test;
 
 import alpha.rulp.utils.RuleTestBase;
+import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.ximpl.model.XRModel;
 
 public class P2dTest extends RuleTestBase {
 
@@ -448,7 +450,9 @@ public class P2dTest extends RuleTestBase {
 	public void test_tag_class() {
 
 		_setup();
-		// XRModel.TRACE_RETE = true;
+
+		// _enableTrace();
+
 		_test("(load \"result/p2d.rulp\")");
 		_test("(add-stmt p2d '(nt:tc nm:beClassTagOf nt:t1))");
 		_test("(add-stmt p2d '(nt:tc nm:hasFieldTag nt:te))");

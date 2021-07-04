@@ -12,6 +12,8 @@ public interface IRReteEntry extends IRList, IFixEntry {
 
 	public int getChildCount();
 
+	public Iterator<? extends IRReference> getChildIterator();
+
 	public int getEntryId();
 
 	public String getNamedName();
@@ -20,11 +22,7 @@ public interface IRReteEntry extends IRList, IFixEntry {
 
 	public Iterator<? extends IRReference> getReferenceIterator();
 
-	public Iterator<? extends IRReference> getChildIterator();
-
 	public RReteStatus getStatus();
-
-	public boolean isDroped();
 
 	public void removeEntryRemovedListener(IRRListener1<IRReteEntry> listener);
 }

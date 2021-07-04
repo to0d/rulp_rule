@@ -2,7 +2,7 @@ package beta.rulp.utils;
 
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.FIXED_;
+import static alpha.rulp.rule.RReteStatus.*;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static org.junit.Assert.assertEquals;
@@ -236,30 +236,42 @@ class ReteUtilTest extends RuleTestBase {
 		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, ASSUME));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(DEFINE, REMOVE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(DEFINE, FIXED_));
+		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, TEMP__));
 
 		assertEquals(DEFINE, ReteUtil.getReteStatus(REASON, DEFINE));
 		assertEquals(REASON, ReteUtil.getReteStatus(REASON, REASON));
 		assertEquals(REASON, ReteUtil.getReteStatus(REASON, ASSUME));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REASON, REMOVE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(REASON, FIXED_));
+		assertEquals(REASON, ReteUtil.getReteStatus(REASON, TEMP__));
 
 		assertEquals(DEFINE, ReteUtil.getReteStatus(ASSUME, DEFINE));
 		assertEquals(REASON, ReteUtil.getReteStatus(ASSUME, REASON));
 		assertEquals(ASSUME, ReteUtil.getReteStatus(ASSUME, ASSUME));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(ASSUME, REMOVE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(ASSUME, FIXED_));
+		assertEquals(ASSUME, ReteUtil.getReteStatus(ASSUME, TEMP__));
 
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, DEFINE));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, REASON));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, ASSUME));
 		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, REMOVE));
 		assertEquals(null, ReteUtil.getReteStatus(REMOVE, FIXED_));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(REMOVE, TEMP__));
 
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, DEFINE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, REASON));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, ASSUME));
 		assertEquals(null, ReteUtil.getReteStatus(FIXED_, REMOVE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, FIXED_));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, TEMP__));
+		
+		assertEquals(DEFINE, ReteUtil.getReteStatus(TEMP__, DEFINE));
+		assertEquals(REASON, ReteUtil.getReteStatus(TEMP__, REASON));
+		assertEquals(ASSUME, ReteUtil.getReteStatus(TEMP__, ASSUME));
+		assertEquals(REMOVE, ReteUtil.getReteStatus(TEMP__, REMOVE));
+		assertEquals(FIXED_, ReteUtil.getReteStatus(TEMP__, FIXED_));
+		assertEquals(TEMP__, ReteUtil.getReteStatus(TEMP__, TEMP__));
 	}
 
 	@Test
@@ -322,18 +334,21 @@ class ReteUtilTest extends RuleTestBase {
 		assertFalse(ReteUtil.matchReteStatus(ASSUME, 0));
 		assertFalse(ReteUtil.matchReteStatus(REMOVE, 0));
 		assertFalse(ReteUtil.matchReteStatus(FIXED_, 0));
+		assertFalse(ReteUtil.matchReteStatus(TEMP__, 0));
 
 		assertTrue(ReteUtil.matchReteStatus(DEFINE, 1));
 		assertTrue(ReteUtil.matchReteStatus(REASON, 2));
 		assertTrue(ReteUtil.matchReteStatus(ASSUME, 4));
 		assertTrue(ReteUtil.matchReteStatus(REMOVE, 8));
 		assertTrue(ReteUtil.matchReteStatus(FIXED_, 16));
+		assertTrue(ReteUtil.matchReteStatus(TEMP__, 32));
 
-		assertTrue(ReteUtil.matchReteStatus(DEFINE, 31));
-		assertTrue(ReteUtil.matchReteStatus(REASON, 31));
-		assertTrue(ReteUtil.matchReteStatus(ASSUME, 31));
-		assertTrue(ReteUtil.matchReteStatus(REMOVE, 31));
-		assertTrue(ReteUtil.matchReteStatus(FIXED_, 31));
+		assertTrue(ReteUtil.matchReteStatus(DEFINE, 63));
+		assertTrue(ReteUtil.matchReteStatus(REASON, 63));
+		assertTrue(ReteUtil.matchReteStatus(ASSUME, 63));
+		assertTrue(ReteUtil.matchReteStatus(REMOVE, 63));
+		assertTrue(ReteUtil.matchReteStatus(FIXED_, 63));
+		assertTrue(ReteUtil.matchReteStatus(TEMP__, 63));
 	}
 
 	@Test

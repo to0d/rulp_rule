@@ -20,11 +20,12 @@ public enum RReteStatus {
 	REASON(1, 2, "reason"), //
 	ASSUME(2, 4, "assume"), //
 	REMOVE(3, 8, "remove"), //
-	FIXED_(4, 16, "fixed"); //
+	FIXED_(4, 16, "fixed"), //
+	TEMP__(5, 32, "temp"); //
 
-	public static final RReteStatus ALL_RETE_STATUS[] = { DEFINE, REASON, ASSUME, REMOVE };
+	public static final RReteStatus ALL_RETE_STATUS[] = { DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__ };
 
-	public static final int RETE_STATUS_NUM = 4;
+	public static final int RETE_STATUS_NUM = 6;
 
 	public static IRObject toObject(RReteStatus state) {
 		switch (state) {

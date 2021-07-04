@@ -319,7 +319,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 						stmt = RulpFactory.createNamedList(stmt.iterator(), stmtName);
 					}
 
-					if (node.addStmt(stmt, DEFINE)) {
+					if (node.addStmt(stmt, DEFINE, null)) {
 						cacheUpdateCount++;
 						stmtCount++;
 					}
@@ -506,6 +506,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("not support stmt: " + stmt);
 		}
 
+//		if (stmt.toString().equals("'(nt:t1 nm:hasFieldTag nt:t1-te)")) {
+//			System.out.println();
+//		}
+
 		IRRootNode rootNode;
 		String namedName = stmt.getNamedName();
 		if (namedName == null) {
@@ -530,7 +534,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		// there is no any update
-		if (!rootNode.addStmt(stmt, toStatus)) {
+		if (!rootNode.addStmt(stmt, toStatus, nodeContext)) {
 			return 0;
 		}
 
@@ -636,6 +640,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				case DEFINE:
 				case REASON:
 				case FIXED_:
+				case TEMP__:
 					status = REASON;
 					break;
 				case REMOVE:
@@ -703,76 +708,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return false;
-	}
-
-	protected List<IRReteEntry> _listStatements(IRList filter, int requiredMask, int limit) throws RException {
-
-		IRReteNode matchedNode = nodeGraph.getNodeByTree(filter);
-
-		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
-			throw new RException("Invalid list node: " + matchedNode);
-		}
-
-		_checkCache(matchedNode);
-
-		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
-		int fromIndex = 0;
-		boolean completed = false;
-
-		/******************************************************/
-		// Check cached entry
-		/******************************************************/
-		{
-			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
-
-			int maxCount = matchedNodeQueue.size();
-			for (; fromIndex < maxCount; ++fromIndex) {
-
-				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
-				if (entry == null || !ReteUtil.matchReteStatus(entry, requiredMask)) {
-					continue;
-				}
-
-				matchedEntrys.add(entry);
-				if (limit > 0 && matchedEntrys.size() >= limit) {
-					completed = true;
-					break;
-				}
-			}
-		}
-
-		/******************************************************/
-		// Update all current node chain
-		/******************************************************/
-		if (!completed) {
-
-			NodeUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
-
-				int update = execute(node);
-				if (update > 0) {
-					modelCounter.queryMatchCount++;
-				}
-
-				return false;
-			});
-
-			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
-			int maxCount = matchedNodeQueue.size();
-			for (; fromIndex < maxCount; ++fromIndex) {
-
-				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
-				if (entry == null || !ReteUtil.matchReteStatus(entry, requiredMask)) {
-					continue;
-				}
-
-				matchedEntrys.add(entry);
-				if (limit > 0 && matchedEntrys.size() >= limit) {
-					break;
-				}
-			}
-		}
-
-		return matchedEntrys;
 	}
 
 	protected List<? extends IRObject> _queryCond(IRObject rstExpr, IRList condList, final int limit)
@@ -1658,7 +1593,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 
-		List<IRReteEntry> entrys = listStatements(filter, 0, 1);
+		List<IRReteEntry> entrys = _listStatements(filter, 0, 1);
 		if (entrys == null || entrys.isEmpty()) {
 			return false;
 		}
@@ -1705,6 +1640,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (filter == null) {
 			return _listAllStatements(statusMask, limit);
 		}
+
+		return _listStatements(filter, statusMask, limit);
+	}
+
+	protected List<IRReteEntry> _listStatements(IRList filter, int statusMask, int limit) throws RException {
 
 		String namedName = filter.getNamedName();
 
@@ -1785,7 +1725,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 						IRList subFilter = RulpFactory.createNamedList(extendFilterObjs, namedName);
 
-						List<IRReteEntry> subEntries = listStatements(subFilter, statusMask, subLimit);
+						List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit);
 						matchedEntrys.addAll(subEntries);
 
 						if (limit > 0) {
@@ -1855,7 +1795,72 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return matchedEntrys;
 		}
 
-		return _listStatements(filter, statusMask, limit);
+		IRReteNode matchedNode = nodeGraph.getNodeByTree(filter);
+
+		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
+			throw new RException("Invalid list node: " + matchedNode);
+		}
+
+		_checkCache(matchedNode);
+
+		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
+		int fromIndex = 0;
+		boolean completed = false;
+
+		/******************************************************/
+		// Check cached entry
+		/******************************************************/
+		{
+			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
+
+			int maxCount = matchedNodeQueue.size();
+			for (; fromIndex < maxCount; ++fromIndex) {
+
+				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
+				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
+					continue;
+				}
+
+				matchedEntrys.add(entry);
+				if (limit > 0 && matchedEntrys.size() >= limit) {
+					completed = true;
+					break;
+				}
+			}
+		}
+
+		/******************************************************/
+		// Update all current node chain
+		/******************************************************/
+		if (!completed) {
+
+			NodeUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
+
+				int update = execute(node);
+				if (update > 0) {
+					modelCounter.queryMatchCount++;
+				}
+
+				return false;
+			});
+
+			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
+			int maxCount = matchedNodeQueue.size();
+			for (; fromIndex < maxCount; ++fromIndex) {
+
+				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
+				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
+					continue;
+				}
+
+				matchedEntrys.add(entry);
+				if (limit > 0 && matchedEntrys.size() >= limit) {
+					break;
+				}
+			}
+		}
+
+		return matchedEntrys;
 	}
 
 	@Override
@@ -1890,7 +1895,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		List<IRReteEntry> dropStmts = new ArrayList<>();
 
-		for (IRReteEntry entry : listStatements(filter, 0, 0)) {
+		for (IRReteEntry entry : _listStatements(filter, 0, 0)) {
 
 			if (entry != null && !entry.isDroped()) {
 

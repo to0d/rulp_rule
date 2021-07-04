@@ -1,7 +1,7 @@
-Stmt : name='(a p1 c), id=7, stats=reason, ref=1
+Stmt : name='(a p1 b), id=1, stats=define, ref=1
     ==> Ref: node=R0001, parent=(0)
-Stmt : name='(b p1 a), id=8, stats=reason, ref=1
+Stmt : name='(b p1 c), id=2, stats=define, ref=1
     ==> Ref: node=R0001, parent=(0)
-Stmt : name='(c p1 b), id=9, stats=reason, ref=1
-    ==> Ref: node=R0001, parent=(0)
+Entry: name='(a p1 c), id=7, stats=reason, ref=1
+    ==> Ref: node=RU001, parent=(1) 4,
 

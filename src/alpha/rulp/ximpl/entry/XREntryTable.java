@@ -418,8 +418,12 @@ public class XREntryTable implements IREntryTable {
 		return entry != null && entry.getStatus() == RReteStatus.FIXED_;
 	}
 
+	static boolean _isTemp(XRReteEntry entry) {
+		return entry != null && entry.getStatus() == RReteStatus.TEMP__;
+	}
+
 	static boolean _isValidEntry(XRReteEntry entry) {
-		return entry != null && entry.status != REMOVE;
+		return entry != null && entry.status != REMOVE && entry.status != null;
 	}
 
 	static boolean _isValidReference(XRReference ref) {
@@ -648,7 +652,7 @@ public class XREntryTable implements IREntryTable {
 		return oEntry;
 	}
 
-	protected XRReteEntry[] _toEntry(IRReteEntry[] entrys) throws RException {
+	protected XRReteEntry[] _toValidParentEntry(IRReteEntry[] entrys) throws RException {
 
 		if (entrys == null || entrys.length == 0) {
 			return null;
@@ -665,14 +669,20 @@ public class XREntryTable implements IREntryTable {
 				continue;
 			}
 
-			if (!_isValidEntry((XRReteEntry) entry)) {
+			XRReteEntry xEntry = (XRReteEntry) entry;
+			if (!_isValidEntry(xEntry)) {
 				throw new RException("Invalid entry: " + entry);
 			}
 
 			XRReteEntry oEntry = getEntry(entry.getEntryId());
-			if (entry != oEntry) {
+			if (xEntry != oEntry) {
 				throw new RException(
 						String.format("unmatch entry: id=%d, input=%s, actual=%s", entry.getEntryId(), entry, oEntry));
+			}
+
+			// ignore temp entry
+			if (_isTemp(xEntry)) {
+				continue;
 			}
 
 			++size;
@@ -682,15 +692,19 @@ public class XREntryTable implements IREntryTable {
 			return null;
 		}
 
-//		if (size == entrys.length) {
-//			return (XRReteEntry[]) entrys;
-//		}
-
 		XRReteEntry[] newEntrys = new XRReteEntry[size];
 		int idx = 0;
+
 		for (IRReteEntry entry : entrys) {
 			if (entry != null) {
-				newEntrys[idx++] = (XRReteEntry) entry;
+
+				XRReteEntry xEntry = (XRReteEntry) entry;
+				// ignore temp entry
+				if (_isTemp(xEntry)) {
+					continue;
+				}
+
+				newEntrys[idx++] = xEntry;
 			}
 		}
 
@@ -709,7 +723,7 @@ public class XREntryTable implements IREntryTable {
 			throw new RException("Not support parentIds: " + RuleUtil.toList(parents));
 		}
 
-		_addReference(_toEntry(entry), node, _toEntry(parents));
+		_addReference(_toEntry(entry), node, _toValidParentEntry(parents));
 	}
 
 	@Override

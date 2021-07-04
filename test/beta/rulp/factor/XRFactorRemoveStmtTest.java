@@ -189,24 +189,24 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_mCount(1, "m");
 		_eCount(1, "m");
 
-		_test("(start m)", "14");
+		_test("(start m)", "13");
 		_test("(state-of m)", "completed");
 		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
-		_test("(list-stmt m)", "'('(a p1 c) '(b p1 a) '(c p1 b))");
+		_test("(list-stmt m)", "'('(a p1 b) '(b p1 c) '(a p1 c))");
 		_mStatus(2, "m");
 		_mCount(2, "m");
 		_eCount(2, "m");
 
-		_test("(gc-model m)", "24");
+		_test("(gc-model m)", "26");
 		_mStatus(3, "m");
 		_mCount(3, "m");
 		_eCount(3, "m");
 
 		_saveTest();
 		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
-
 		_statsInfo("m", "result/factor/XRFactorRemoveStmtTest/test_conflict_3.stats.txt");
 		_refInfo("m", "result/factor/XRFactorRemoveStmtTest/test_conflict_3.ref.txt");
+		_dumpEntryTable("m", "result/factor/XRFactorRemoveStmtTest/test_conflict_3.dump.txt");
 	}
 
 	@Test
@@ -227,12 +227,12 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_test("(start m)", "13");
 		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'()");
+		_test("(list-stmt m)", "'('(a p1 b) '(b p1 c))");
 		_mStatus(2, "m");
 		_mCount(2, "m");
 		_eCount(2, "m");
 
-		_test("(gc-model m)", "36");
+		_test("(gc-model m)", "29");
 		_mStatus(3, "m");
 		_mCount(3, "m");
 		_eCount(3, "m");
@@ -259,12 +259,12 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_test("(start m)", "13");
 		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'()");
+		_test("(list-stmt m)", "'('(a p1 b) '(b p1 c))");
 		_mStatus(2, "m");
 		_mCount(2, "m");
 		_eCount(2, "m");
 
-		_test("(gc-model m)", "36");
+		_test("(gc-model m)", "29");
 		_mStatus(3, "m");
 		_mCount(3, "m");
 		_eCount(3, "m");

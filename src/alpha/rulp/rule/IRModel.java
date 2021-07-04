@@ -13,6 +13,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRModel.RNodeContext;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
@@ -67,9 +68,9 @@ public interface IRModel extends IRInstance, IRRunnable {
 
 	public int execute(IRReteNode node) throws RException;
 
-//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
-
 	public IRReteNode findNode(IRList condList) throws RException;
+
+//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
 
 	public int fixStatement(IRList stmt) throws RException;
 
