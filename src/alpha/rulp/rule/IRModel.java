@@ -35,27 +35,6 @@ public interface IRModel extends IRInstance, IRRunnable {
 
 		public int tryAddStmt = 0;
 
-		public RReteStatus getNewStmtStatus() {
-
-			RReteStatus status = DEFINE;
-
-			if (currentEntry != null) {
-				switch (currentEntry.getStatus()) {
-				case ASSUME:
-					status = ASSUME;
-					break;
-				case DEFINE:
-				case REASON:
-					status = REASON;
-					break;
-				case REMOVE:
-				default:
-					break;
-				}
-			}
-
-			return status;
-		}
 	}
 
 	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener);

@@ -8,6 +8,7 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RRunState.Completed;
 import static alpha.rulp.rule.RRunState.Failed;
@@ -627,7 +628,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RReteStatus status = DEFINE;
 
 		if (nodeContext != null) {
-			status = nodeContext.getNewStmtStatus();
+			if (nodeContext.currentEntry != null) {
+				switch (nodeContext.currentEntry.getStatus()) {
+				case ASSUME:
+					status = ASSUME;
+					break;
+				case DEFINE:
+				case REASON:
+				case FIXED_:
+					status = REASON;
+					break;
+				case REMOVE:
+				default:
+					break;
+				}
+			}
 		}
 
 		return status;
