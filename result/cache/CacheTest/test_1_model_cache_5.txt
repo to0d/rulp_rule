@@ -60,7 +60,8 @@ Model<m> share index:
 
 MatchCount: BETA0 BETA2 BETA3
 
-Entry Table ETA: total-action=1, new-action=0, max-size=1, capacity=256, expend=0
+Entry Table:
+	ETA: total-action=1, new-action=0, max-size=1, capacity=256, expend=0
 ========================================================================================================================================================
 Entry Bit Map: total=0, max-id=1, group-size=10, group-count=1
 --------------------------------------------------------------------------------------------------------------------------------------------------------

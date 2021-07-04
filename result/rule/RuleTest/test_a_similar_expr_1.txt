@@ -153,7 +153,8 @@ EXPR0                                 0                         0            0  
 
 MatchCount: BETA0 BETA2 BETA3
 
-Entry Table ETA: total-action=2, new-action=0, max-size=1, capacity=256, expend=0
+Entry Table:
+	ETA: total-action=2, new-action=0, max-size=1, capacity=256, expend=0
 ========================================================================================================================================================
 Entry Bit Map: total=1, max-id=3, group-size=10, group-count=1
 --------------------------------------------------------------------------------------------------------------------------------------------------------

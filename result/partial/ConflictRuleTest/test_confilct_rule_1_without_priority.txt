@@ -150,7 +150,8 @@ BETA0                               500                       500          500  
 MatchCount: BETA0 BETA2 BETA3
 B0003[3]:          7
 
-Entry Table ETA: total-action=2, new-action=1, max-size=1, capacity=256, expend=0
+Entry Table:
+	ETA: total-action=2, new-action=1, max-size=1, capacity=256, expend=0
 ========================================================================================================================================================
 Entry Bit Map: total=2, max-id=4, group-size=10, group-count=1
 --------------------------------------------------------------------------------------------------------------------------------------------------------

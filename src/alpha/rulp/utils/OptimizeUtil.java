@@ -692,8 +692,8 @@ public class OptimizeUtil {
 
 		int maxId = entryTable.getEntryMaxId();
 
-		sb.append(String.format(
-				"Entry Table ETA: total-action=%d, new-action=%d, max-size=%d, capacity=%d, expend=%d\n",
+		sb.append("Entry Table:\n");
+		sb.append(String.format("\tETA: total-action=%d, new-action=%d, max-size=%d, capacity=%d, expend=%d\n",
 				entryTable.getETATotalActionSize(), entryTable.getETAMaxActionSize(), entryTable.getETAQueueMaxSize(),
 				entryTable.getETAQueueCapacity(), entryTable.getETAQueueExpendCount()));
 
