@@ -8,7 +8,7 @@
 ;=>7
 (list-stmt m)
 ;=>'('(a b c) '(b c a) '(c a b))
-(print-entry-ref m)
+(prove-stmt m '(c a b))
 ;out:
 Stmt : name='(a b c), id=1, stats=define, ref=2
     ==> Ref: node=R0001, parent=(0)

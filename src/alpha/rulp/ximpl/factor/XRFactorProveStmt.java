@@ -15,9 +15,9 @@ import alpha.rulp.utils.RefPrinter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorPrintEntryRef extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
-	public XRFactorPrintEntryRef(String factorName) {
+	public XRFactorProveStmt(String factorName) {
 		super(factorName);
 	}
 

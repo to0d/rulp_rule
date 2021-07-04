@@ -394,9 +394,6 @@ beta.rulp.rule.VarChangeTest:test_1_expr_tree_6:1-mStatus:sc=[0,1], vc=[1, 0, 0,
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_7:1-mStatus:sc=[0,1], vc=[1, 0, 0, 1, 0], a1=[1,0,1,99,1,0,0,1,1,0,1/0,0,0,0,0,1], ru=[1,0,2,99,1,0,0,0,1],
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_8:1-mStatus:sc=[0,0,1], vc=[1, 0, 0, 1, 0], a2=[1,0,1,99,1,0,0,0,1,0,1/0,1], e2=[1,0,2,99,1,0,0,1,1,0,1/0,1], ru=[1,0,3,99,1,0,0,0,1],
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_9:1-mStatus:sc=[0,0,1], n0=[0,1,1], vc=[1, 0, 0, 1, 0], a2=[1,0,1,99,1,0,0,0,1,0,1/0,1], b0=[1,0,3,99,2,1,0,1,1,0,1/0,0,1], e2=[1,0,2,99,1,0,0,1,1,0,1/0,1], ru=[1,0,4,99,1,0,0,0,1],
-beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-eCount:size=7, max-id=7, dup=0, null=0
-beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-mCount:stmt=3, rule=0, match=0, fetch=28, exec=7, idle=3, state=2/2, max-queue=4, uniq-obj=7, entry-cnt=7, entry-maxid=7, waste-node=0, waste-match=0
-beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-mStatus:sc=[3], a0=[1,0,1,500,1,0,0,3,3,0,21/3], b3=[2,0,3,0,5,3,0,18,4,0,4/0,4],
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-eCount:size=2, max-id=2, dup=0, null=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-mCount:stmt=2, rule=0, match=0, fetch=6, exec=6, idle=2, state=5/2, max-queue=3, uniq-obj=3, entry-cnt=2, entry-maxid=2, waste-node=0, waste-match=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-mStatus:sc=[0,2], a0=[2,0,2,0,4,2,0,4,4,0,4,0,1/0,4], wk=[1,0,0,-99,1],

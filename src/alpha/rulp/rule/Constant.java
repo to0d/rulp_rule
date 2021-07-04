@@ -105,13 +105,13 @@ public interface Constant {
 
 	String F_OPT_MODEL = "opt-model";
 
-	String F_PRINT_ENTRY_REF = "print-entry-ref";
-
 	String F_PRINT_MODEL_STATUS = "print-model-status";
 
 	String F_PRINT_RUNNABLE_COUNTER = "print-runnable-counter";
 
 	String F_PRIORITY_OF = "priority-of";
+
+	String F_PROVE_STMT = "prove-stmt";
 
 	String F_QUERY_STMT = "query-stmt";
 
