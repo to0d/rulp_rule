@@ -1202,8 +1202,10 @@ public class OptimizeUtil {
 		int groupCount = (maxId - 1) / groupSize + 1;
 		int groupSize2 = groupSize / 10;
 
-		sb.append(String.format("%s Bit Map: total=%d, max-id=%d, group-size=%d, group-count=%d\n", name,
-				fixArray.getEntryCount(), maxId, groupSize, groupCount));
+		sb.append(
+				String.format("%s Bit Map: total=%d, max-id=%d, create=%d, removed=%d, group-size=%d, group-count=%d\n",
+						name, fixArray.getEntryCount(), maxId, fixArray.getCreatedCount(), fixArray.getRemovedCount(),
+						groupSize, groupCount));
 		sb.append(SEP_LINE2);
 
 		int rowCount = 0;
