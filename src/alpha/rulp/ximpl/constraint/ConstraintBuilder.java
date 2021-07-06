@@ -1,9 +1,13 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.lang.Constant.S_QUESTION;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
@@ -16,6 +20,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintFactory.RConstraint;
+import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class ConstraintBuilder {
 
@@ -96,6 +101,56 @@ public class ConstraintBuilder {
 		}
 	}
 
+	private Set<String> _matchTypeConstraint(RConstraint cons, IRNamedNode node) throws RException {
+
+		Set<String> matchedConstraints = new HashSet<>();
+
+		/**********************************************/
+		// find column type
+		/**********************************************/
+		RType columnType = null;
+		if (!ReteUtil.isAnyVar(cons.constraintValue)) {
+			columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
+			if (columnType == null || !ReteUtil.isEntryValueType(columnType)) {
+				throw new RException("Invalid column type: " + columnType);
+			}
+		}
+
+		/**********************************************/
+		// find column index
+		/**********************************************/
+		int columnIndex = -1;
+		{
+			if (cons.onObject.getType() == RType.ATOM) {
+
+				String columnName = RulpUtil.asAtom(cons.onObject).getName();
+				if (!columnName.equals(S_QUESTION)) {
+					if (!varIndexMap.containsKey(columnName)) {
+						throw new RException("invalid column: " + columnName);
+					}
+					columnIndex = varIndexMap.get(columnName);
+				}
+
+			} else if (cons.onObject.getType() == RType.INT) {
+
+				columnIndex = RulpUtil.asInteger(cons.onObject).asInteger();
+
+			} else {
+				throw new RException("invalid column index: " + cons.onObject);
+			}
+		}
+
+		int totalConstraintCount = node.getConstraintCount();
+		for (int i = 0; i < totalConstraintCount; ++i) {
+			IRConstraint1 constraint = node.getConstraint(i);
+			if (XRConstraintType.match(constraint, columnType, columnIndex)) {
+				matchedConstraints.add(constraint.getConstraintExpression());
+			}
+		}
+
+		return matchedConstraints;
+	};
+
 	private IRConstraint1 _typeConstraint(RConstraint cons) throws RException {
 
 		RType columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
@@ -104,7 +159,7 @@ public class ConstraintBuilder {
 		}
 
 		return ConstraintFactory.createConstraintType(_getColumnIndex(cons.onObject), columnType);
-	};
+	}
 
 	private IRConstraint1 _uniqConstraint(RConstraint cons) throws RException {
 
@@ -131,15 +186,14 @@ public class ConstraintBuilder {
 		}
 	}
 
-	public List<IRConstraint1> buildconstraintList(IRList args, IRInterpreter interpreter, IRFrame frame)
-			throws RException {
+	public List<IRConstraint1> build(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		/********************************************/
 		// Check constraint list
 		/********************************************/
 		ArrayList<IRConstraint1> constraintList = new ArrayList<>();
 
-		IRIterator<? extends IRObject> it = args.listIterator(0);
+		IRIterator<? extends IRObject> it = args.iterator();
 		while (it.hasNext()) {
 
 			IRObject obj = it.next();
@@ -174,5 +228,47 @@ public class ConstraintBuilder {
 		}
 
 		return constraintList;
+	}
+
+	public List<String> match(IRNamedNode node, IRList args, IRInterpreter interpreter, IRFrame frame)
+			throws RException {
+
+		Set<String> matchedConstraints = new HashSet<>();
+
+		IRIterator<? extends IRObject> it = args.iterator();
+		while (it.hasNext()) {
+
+			IRObject obj = it.next();
+
+			switch (obj.getType()) {
+
+			case LIST:
+
+				RConstraint cons = ConstraintFactory.toConstraint((IRList) obj, interpreter, frame);
+				switch (cons.constraintType) {
+				case TYPE:
+					matchedConstraints.addAll(_matchTypeConstraint(cons, node));
+					break;
+
+				case UNIQ:
+					matchedConstraints.add(_uniqConstraint(cons).getConstraintExpression());
+					break;
+
+				default:
+					throw new RException("unsupport constraint: " + cons.constraintType);
+				}
+
+				break;
+
+			case EXPR:
+				matchedConstraints.add(_exprConstraint((IRExpr) obj).getConstraintExpression());
+				break;
+
+			default:
+				throw new RException("no constraint list: " + obj);
+			}
+		}
+
+		return new ArrayList<>(matchedConstraints);
 	}
 }

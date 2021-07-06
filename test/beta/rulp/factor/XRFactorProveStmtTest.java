@@ -10,7 +10,7 @@ class XRFactorProveStmtTest extends RuleTestBase {
 	public void test_1() {
 
 		_setup();
-		_test_script("result/rule/XRFactorProveStmtTest/test_1.rulp");
+		_test_script("result/factor/XRFactorProveStmtTest/test_1.rulp");
 	}
 
 }

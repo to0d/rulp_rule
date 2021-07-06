@@ -64,7 +64,7 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 		}
 
 		List<IRConstraint1> constraintList = new ConstraintBuilder(namedList)
-				.buildconstraintList(RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
+				.build(RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
 		if (constraintList.isEmpty()) {
 			throw new RException("no constraint list: " + args);
 		}

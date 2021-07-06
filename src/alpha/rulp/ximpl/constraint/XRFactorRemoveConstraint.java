@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,95 +74,27 @@ public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFac
 			throw new RException("named node not found: " + namedList);
 		}
 
-		int totalConstraintCount = node.getConstraintCount();
-		if (totalConstraintCount == 0) {
-			return RulpFactory.createList();
-		}
-
-		Map<String, Integer> varIndexMap = new HashMap<>();
-		ReteUtil.buildTreeVarList(namedList, varIndexMap);
-
-		/********************************************/
-		// Check constraint list
-		/********************************************/
-		Set<String> matchConstraintSet = new HashSet<>();
-
-		IRIterator<? extends IRObject> it = args.listIterator(argIndex);
-		while (it.hasNext()) {
-
-			IRObject obj = it.next();
-
-			switch (obj.getType()) {
-
-			case LIST:
-
-				RConstraint cons = ConstraintFactory.toConstraint((IRList) obj, interpreter, frame);
-				switch (cons.constraintType) {
-				case TYPE:
-
-					RType columnType = null;
-					if (!ReteUtil.isAnyVar(cons.constraintValue)) {
-						columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
-						if (columnType == null || !ReteUtil.isEntryValueType(columnType)) {
-							throw new RException("Invalid column type: " + columnType);
-						}
-					}
-
-					int columnIndex = -1;
-
-					String columnName = RulpUtil.asAtom(cons.onObject).getName();
-					if (!columnName.equals(S_QUESTION)) {
-
-						if (!varIndexMap.containsKey(columnName)) {
-							throw new RException("invalid column: " + columnName);
-						}
-
-						columnIndex = varIndexMap.get(columnName);
-					}
-
-					for (int i = 0; i < totalConstraintCount; ++i) {
-
-						IRConstraint1 constraint = node.getConstraint(i);
-						if (XRConstraintType.match(constraint, columnType, columnIndex)) {
-							matchConstraintSet.add(constraint.getConstraintExpression());
-						}
-					}
-
-					break;
-
-				default:
-					throw new RException("unsupport constraint: " + cons.constraintType);
-				}
-
-				break;
-
-			case EXPR:
-
-				break;
-
-			default:
-				throw new RException("no constraint list: " + obj);
-			}
-
-		}
-
-		if (matchConstraintSet.isEmpty()) {
-			return RulpFactory.createList();
+		List<String> constraintList = new ConstraintBuilder(namedList).match(node,
+				RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
+		if (constraintList.isEmpty()) {
+			throw new RException("no constraint matched: " + args);
 		}
 
 		/********************************************/
 		// Remove matched Constraint
 		/********************************************/
-		ArrayList<String> matchConstraintList = new ArrayList<>(matchConstraintSet);
 		ArrayList<IRConstraint1> removedConstraintList = new ArrayList<>();
-		Collections.sort(matchConstraintList);
-
-		for (String constraintExpression : matchConstraintList) {
-			IRConstraint1 cons = node.removeConstraint(constraintExpression);
-			if (cons != null) {
-				removedConstraintList.add(cons);
+		for (String des : constraintList) {
+			IRConstraint1 removedCons = node.removeConstraint(des);
+			if (removedCons == null) {
+				throw new RException("constraint not found: " + des);
 			}
+			removedConstraintList.add(removedCons);
 		}
+
+		Collections.sort(removedConstraintList, (c1, c2) -> {
+			return c1.getConstraintExpression().compareTo(c2.getConstraintExpression());
+		});
 
 		return RulpFactory.createList(removedConstraintList);
 	}

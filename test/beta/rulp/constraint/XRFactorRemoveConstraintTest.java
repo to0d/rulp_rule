@@ -50,44 +50,9 @@ class XRFactorRemoveConstraintTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-node m name1:'(3))");
 		_test("(add-constraint m name1:'(?x ? ?) '(type int on ?x))", "1");
-		_test("(remove-constraint m name1:'(3) '(type ? on 1))", "'('(type int on 2))");
+		_test("(remove-constraint m name1:'(3) '(type ? on 0))", "'('(type int on 0))");
 		_test("(list-constraint m name1:'(?...))", "'()");
 
-	}
-
-	@Test
-	void test_type_5() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(add-node m name1:'(3))");
-		_test("(add-constraint m name1:'(?x ? ?) '(type int on ?x))", "1");
-		_test("(remove-constraint m name1:'(3) '(type ? on '(1)))", "'('(type int on 2))");
-		_test("(list-constraint m name1:'(?...))", "'()");
-
-	}
-
-	@Test
-	void test_type_6() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(add-node m name1:'(3))");
-		_test("(add-constraint m name1:'(?x ? ?) '(type int on ?x))", "1");
-		_test("(remove-constraint m name1:'(?x ? ?) '(type ? on '(?x)))", "'('(type int on 2))");
-		_test("(list-constraint m name1:'(?...))", "'()");
-
-	}
-
-	@Test
-	void test_type_7() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(add-node m name1:'(3))");
-		_test("(add-constraint m name1:'(?x ? ?) '(type int on ?x))", "1");
-		_test("(remove-constraint m name1:'(?x ? ?) '(type ? on '(?)))", "'('(type int on 2))");
-		_test("(list-constraint m name1:'(?...))", "'()");
 	}
 
 	@Test
@@ -98,7 +63,7 @@ class XRFactorRemoveConstraintTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-node m name1:'(3))");
 		_test("(add-constraint m name1:'(?x ?y ?) '(uniq on '(?x ?y)))", "1");
-		_test("(remove-constraint m name1:'(?x ?y ?) '(uniq on '(?x ?y)))", "");
+		_test("(remove-constraint m name1:'(?x ?y ?) '(uniq on '(?x ?y)))", "'('(uniq on '(0 1)))");
 		_test("(list-constraint m name1:'(?...))", "'()");
 
 	}
@@ -111,7 +76,7 @@ class XRFactorRemoveConstraintTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-node m name1:'(3))");
 		_test("(add-constraint m name1:'(3) '(uniq on '(0 1)))", "1");
-		_test("(remove-constraint m name1:'(?x ?y ?) '(uniq on '(?x ?y)))", "");
+		_test("(remove-constraint m name1:'(?x ?y ?) '(uniq on '(?x ?y)))", "'('(uniq on '(0 1)))");
 		_test("(list-constraint m name1:'(?...))", "'()");
 
 	}
@@ -123,7 +88,7 @@ class XRFactorRemoveConstraintTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-node m name1:'(3))");
 		_test("(add-constraint m name1:'(?x ?y ?) '(uniq on '(?y ?x)))", "1");
-		_test("(remove-constraint m name1:'(3) '(uniq on '(0 1)))", "");
+		_test("(remove-constraint m name1:'(3) '(uniq on '(0 1)))", "'('(uniq on '(0 1)))");
 		_test("(list-constraint m name1:'(?...))", "'()");
 	}
 

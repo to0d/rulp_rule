@@ -18,3 +18,13 @@ Entry: name='(b c a), id=2, stats=reason, ref=1
 Entry: name='(c a b), id=3, stats=reason, ref=1
     ==> Ref: node=RU000, parent=(1) 2,
 ;eof
+(prove-stmt m '(c b a))
+;out:
+none
+;eof
+(prove-stmt m '(c a b) limit 1)
+;out:
+;eof
+(prove-stmt m '(c a b) limit 1)
+;out:
+;eof
