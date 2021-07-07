@@ -11,7 +11,7 @@ public interface IREntryTable {
 
 	public void addReference(IRReteEntry entry, IRReteNode node, IRReteEntry... parents) throws RException;
 
-	public IRReteEntry createEntry(String namedName, IRObject elements[], RReteStatus status);
+	public IRReteEntry createEntry(String namedName, IRObject elements[], RReteStatus status, boolean isStmt);
 
 	public int doGC() throws RException;
 

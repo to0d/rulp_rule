@@ -23,6 +23,8 @@ public interface IRReteEntry extends IRList, IFixEntry {
 	public Iterator<? extends IRReference> getReferenceIterator();
 
 	public RReteStatus getStatus();
+	
+	public boolean isStmt();
 
 	public void removeEntryRemovedListener(IRRListener1<IRReteEntry> listener);
 }

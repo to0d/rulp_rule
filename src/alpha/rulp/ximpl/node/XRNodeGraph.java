@@ -854,7 +854,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				elements[1] = o;
 				elements[2] = n;
 
-				IRReteEntry reteEntry = model.getEntryTable().createEntry(null, elements, TEMP__);
+				IRReteEntry reteEntry = model.getEntryTable().createEntry(null, elements, TEMP__, true);
 //				model.getEntryTable().addEntryReference(reteEntry, varNode.getNodeId());
 //				model.getEntryTable().setEntryLife(reteEntry.getEntryId(), 1); // certain entry
 
@@ -950,7 +950,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		String uniqName = ReteUtil.uniqName(reteTree);
 		IRReteNode node = nodeUniqNameMap.get(uniqName);
-		
+
 //		if (uniqName.equals("'(?0 ?1 200)")) {
 //			System.out.println();
 //		}

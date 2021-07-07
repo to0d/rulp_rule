@@ -45,7 +45,7 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 			newElements[i] = obj;
 		}
 
-		IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus);
+		IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus, true);
 		if (!addReteEntry(newEntry)) {
 			entryTable.removeEntry(newEntry);
 			return false;

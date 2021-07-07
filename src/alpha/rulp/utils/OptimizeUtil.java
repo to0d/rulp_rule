@@ -703,9 +703,29 @@ public class OptimizeUtil {
 		int maxId = entryTable.getEntryMaxId();
 
 		sb.append("Entry Table:\n");
-		sb.append(String.format("\tETA: total-action=%d, new-action=%d, max-size=%d, capacity=%d, expend=%d\n",
+
+		sb.append(String.format("\t%7s: total-action=%d, new-action=%d, max-size=%d, capacity=%d, expend=%d\n", "ETA",
 				entryTable.getETATotalActionSize(), entryTable.getETAMaxActionSize(), entryTable.getETAQueueMaxSize(),
 				entryTable.getETAQueueCapacity(), entryTable.getETAQueueExpendCount()));
+
+		// output stmt count
+
+		{
+			int stmtCount = 0;
+			for (int entryId = 1; entryId <= maxId; ++entryId) {
+
+				IRReteEntry entry = entryTable.getEntry(entryId);
+				if (entry == null || entry.isDroped()) {
+					continue;
+				}
+
+				if (entry.isStmt()) {
+					++stmtCount;
+				}
+			}
+
+			sb.append(String.format("\t%7s: count=%d, stmt=%s\n", "Entry", entryTable.getEntryCount(), stmtCount));
+		}
 
 		// entry bit map
 		sb.append(SEP_LINE1);
@@ -726,7 +746,7 @@ public class OptimizeUtil {
 				entryLenArray[i] = 0;
 			}
 
-			for (int entryId = 1; entryId < maxId; ++entryId) {
+			for (int entryId = 1; entryId <= maxId; ++entryId) {
 
 				IRReteEntry entry = entryTable.getEntry(entryId);
 				if (entry == null || entry.isDroped()) {
@@ -789,7 +809,7 @@ public class OptimizeUtil {
 			IRNodeGraph nodeGraph = model.getNodeGraph();
 			Map<Integer, RefArray> entryReteCountMap = new HashMap<>();
 
-			for (int entryId = 1; entryId < maxId; ++entryId) {
+			for (int entryId = 1; entryId <= maxId; ++entryId) {
 
 				IRReteEntry entry = entryTable.getEntry(entryId);
 				if (entry == null || entry.isDroped()) {
@@ -872,7 +892,7 @@ public class OptimizeUtil {
 
 			int zeroRefCount = 0;
 
-			for (int entryId = 1; entryId < maxId; ++entryId) {
+			for (int entryId = 1; entryId <= maxId; ++entryId) {
 
 				IRReteEntry entry = entryTable.getEntry(entryId);
 				if (entry == null || entry.isDroped()) {
@@ -963,7 +983,7 @@ public class OptimizeUtil {
 			int MAX_CHILD_ENTRY_SIZE = 10;
 			int minChildSize = -1;
 
-			for (int entryId = 1; entryId < maxId; ++entryId) {
+			for (int entryId = 1; entryId <= maxId; ++entryId) {
 
 				IRReteEntry entry = entryTable.getEntry(entryId);
 				if (entry == null || entry.isDroped()) {
@@ -1045,7 +1065,7 @@ public class OptimizeUtil {
 				Map<Integer, RefArray> entryReteCountMap = new HashMap<>();
 				RefArray totalRefArray = new RefArray();
 
-				for (int entryId = 1; entryId < maxId; ++entryId) {
+				for (int entryId = 1; entryId <= maxId; ++entryId) {
 
 					IRReteEntry entry = entryTable.getEntry(entryId);
 					if (entry == null || entry.isDroped()) {

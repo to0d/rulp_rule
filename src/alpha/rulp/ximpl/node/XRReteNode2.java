@@ -41,7 +41,7 @@ public abstract class XRReteNode2 extends AbsReteNode {
 			newElements[i] = parentEntry.get(inherit.elementIndex);
 		}
 
-		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry));
+		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry), false);
 	}
 
 	protected abstract boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException;

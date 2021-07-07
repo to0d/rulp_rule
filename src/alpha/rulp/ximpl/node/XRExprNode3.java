@@ -52,8 +52,8 @@ public class XRExprNode3 extends XRReteNode1 {
 			newElements[i] = externalVars[i - leftEnryLength];
 		}
 
-		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements,
-				ReteUtil.getChildStatus(entry));
+		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements, ReteUtil.getChildStatus(entry),
+				false);
 		entryTable.addReference(newEntry, this, entry);
 
 		if (!entryQueue.addEntry(newEntry, this.getModel().getInterpreter(), this.getNodeFrame(true))) {

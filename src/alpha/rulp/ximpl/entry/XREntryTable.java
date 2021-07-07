@@ -256,6 +256,8 @@ public class XREntryTable implements IREntryTable {
 
 		private RReteStatus status = RReteStatus.DEFINE;
 
+		private boolean isStmt = false;
+
 		public XRReteEntry(String namedName, IRObject[] elements) {
 			this.namedName = namedName;
 			this.elements = elements;
@@ -356,6 +358,11 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
+		public boolean isStmt() {
+			return isStmt;
+		}
+
+		@Override
 		public IRIterator<? extends IRObject> iterator() {
 			return listIterator(0);
 		}
@@ -395,6 +402,10 @@ public class XREntryTable implements IREntryTable {
 
 		public void setStatus(RReteStatus status) {
 			this.status = status;
+		}
+
+		public void setStmt(boolean isStmt) {
+			this.isStmt = isStmt;
 		}
 
 		@Override
@@ -734,10 +745,11 @@ public class XREntryTable implements IREntryTable {
 	}
 
 	@Override
-	public IRReteEntry createEntry(String namedName, IRObject[] elements, RReteStatus status) {
+	public IRReteEntry createEntry(String namedName, IRObject[] elements, RReteStatus status, boolean isStmt) {
 
 		XRReteEntry entry = new XRReteEntry(namedName, elements);
 		entry.setStatus(status);
+		entry.setStmt(isStmt);
 		entryFixArray.addEntry(entry);
 
 		return entry;

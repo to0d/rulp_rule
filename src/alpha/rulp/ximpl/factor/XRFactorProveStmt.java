@@ -2,6 +2,15 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.O_Nil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -14,8 +23,10 @@ import alpha.rulp.runtime.IROut;
 import alpha.rulp.utils.RefPrinter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.IRRootNode;
 
 public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -28,13 +39,82 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 		static class ProveEntry {
 
+			public List<String> factStmtList = null;
+
+			public List<IRReteNode> relatedNodes = null;
+
+			public List<Integer> refList = null;
+
+			public String _refPathStr = null;
+
+			public String getRefPathString() {
+
+				if (_refPathStr == null) {
+					if (_refPathStr == null || _refPathStr.isEmpty()) {
+						_refPathStr = "";
+					} else {
+						_refPathStr = refList.toString();
+					}
+				}
+				return _refPathStr;
+			}
 		}
+
+		static class ProveNode {
+
+			public final String stmtUniqName;
+
+			public ProveNode(String stmtUniqName, IRReteEntry stmtEntry) {
+				super();
+				this.stmtUniqName = stmtUniqName;
+				this.stmtEntry = stmtEntry;
+			}
+
+			public final IRReteEntry stmtEntry;
+
+			public List<ProveEntry> proveEntryList = null;
+
+			public int getProveEntryCount() {
+				return proveEntryList == null ? 0 : proveEntryList.size();
+			}
+
+			public boolean visitCompleted = false;
+		}
+
+		private Map<String, ProveNode> proveMap = new HashMap<>();
 
 		private IRModel model;
 
 		public StmtProveUtil(IRModel model) {
 			super();
 			this.model = model;
+		}
+
+		public ProveNode getProveNode(IRReteEntry entry, int limit) {
+
+			String uniqName = entry.toString();
+
+			ProveNode proveNode = proveMap.get(uniqName);
+			if (proveNode != null) {
+
+				if (proveNode.visitCompleted) {
+					return proveNode;
+				}
+
+				if (limit < 0 && proveNode.getProveEntryCount() >= limit) {
+					return proveNode;
+				}
+			} else {
+				proveNode = new ProveNode(uniqName, entry);
+				buildProveNode(proveNode, entry, new LinkedList<>(), limit);
+			}
+
+			return proveNode;
+		}
+
+		public void buildProveNode(ProveNode proveNode, IRReteEntry entry, Queue<IRReference> refPath, int limit) {
+
+			
 		}
 
 		public String proveStmt(IRList stmt) throws RException {
@@ -64,7 +144,7 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 			}
 
 			StringBuilder sb = new StringBuilder();
-			printEntry(sb, entry.getEntryId(), 0);
+//			printEntry(sb, entry.getEntryId(), 0);
 
 			return sb.toString();
 		}

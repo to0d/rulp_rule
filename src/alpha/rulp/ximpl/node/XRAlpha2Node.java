@@ -20,7 +20,7 @@ public class XRAlpha2Node extends XRAlpha1Node {
 			newElements[i] = parentEntry.get(inherit.elementIndex);
 		}
 
-		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(parentEntry));
+		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(parentEntry), false);
 	}
 
 	@Override
