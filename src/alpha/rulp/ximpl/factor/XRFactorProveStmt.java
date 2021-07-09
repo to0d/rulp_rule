@@ -2,14 +2,11 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.O_Nil;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -18,9 +15,6 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.runtime.IRIterator;
-import alpha.rulp.runtime.IROut;
-import alpha.rulp.utils.RefPrinter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReference;
@@ -104,6 +98,7 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 				if (limit < 0 && proveNode.getProveEntryCount() >= limit) {
 					return proveNode;
 				}
+
 			} else {
 				proveNode = new ProveNode(uniqName, entry);
 				buildProveNode(proveNode, entry, new LinkedList<>(), limit);
@@ -114,7 +109,7 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 		public void buildProveNode(ProveNode proveNode, IRReteEntry entry, Queue<IRReference> refPath, int limit) {
 
-			
+//			if(entry.is)
 		}
 
 		public String proveStmt(IRList stmt) throws RException {

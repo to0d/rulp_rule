@@ -18,7 +18,7 @@ class ActionUtilTest extends RuleTestBase {
 
 	@Test
 	void test_buildRelatedStmtUniqNames_1() {
-
+		_setup();
 		_test_buildRelatedStmtUniqNames("(a b c)", "[]");
 		_test_buildRelatedStmtUniqNames("(add-stmt '(a b c))", "['(a b c)]");
 		_test_buildRelatedStmtUniqNames("(add-stmt '(?x b c))", "['(?0 b c)]");
@@ -36,7 +36,7 @@ class ActionUtilTest extends RuleTestBase {
 
 	@Test
 	void test_buildRelatedStmtUniqNames_2() {
-
+		_setup();
 		_test_buildRelatedStmtUniqNames("(-> '(a b c))", "['(a b c)]");
 		_test_buildRelatedStmtUniqNames("(-> m2 '(a b c))", "['(a b c)]");
 		_test_buildRelatedStmtUniqNames("(do (-> '(a b c)) (-> '(x y z)))", "['(a b c), '(x y z)]");

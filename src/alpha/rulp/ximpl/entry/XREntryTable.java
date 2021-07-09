@@ -714,11 +714,11 @@ public class XREntryTable implements IREntryTable {
 		int idx = 0;
 
 		for (IRReteEntry entry : entrys) {
+
 			if (entry != null) {
 
 				XRReteEntry xEntry = (XRReteEntry) entry;
-				// ignore temp entry
-				if (_isTemp(xEntry)) {
+				if (_isTemp(xEntry)) { // ignore temp entry
 					continue;
 				}
 
