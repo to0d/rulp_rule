@@ -806,7 +806,6 @@ public class OptimizeUtil {
 				sb.append("\n");
 			}
 
-			IRNodeGraph nodeGraph = model.getNodeGraph();
 			Map<Integer, RefArray> entryReteCountMap = new HashMap<>();
 
 			for (int entryId = 1; entryId <= maxId; ++entryId) {
@@ -822,7 +821,7 @@ public class OptimizeUtil {
 				}
 
 				IRReference ref = entry.getReferenceIterator().next();
-				IRReteNode node = nodeGraph.getNodeById(ref.getNodeId());
+				IRReteNode node = ref.getNode();
 				if (node == null) {
 					continue;
 				}
@@ -886,7 +885,6 @@ public class OptimizeUtil {
 
 		// entry reference array
 		{
-			IRNodeGraph nodeGraph = model.getNodeGraph();
 			Map<Integer, RefArray> referCountMap = new HashMap<>();
 			RefArray totalRefArray = new RefArray();
 
@@ -914,7 +912,7 @@ public class OptimizeUtil {
 				Iterator<? extends IRReference> refIt = entry.getReferenceIterator();
 				while (refIt.hasNext()) {
 					IRReference ref = refIt.next();
-					IRReteNode node = nodeGraph.getNodeById(ref.getNodeId());
+					IRReteNode node = ref.getNode();
 					if (node == null) {
 						refArray.unRefCount++;
 						totalRefArray.unRefCount++;
@@ -1061,7 +1059,6 @@ public class OptimizeUtil {
 					totalChildCount[i] = 0;
 				}
 
-				IRNodeGraph nodeGraph = model.getNodeGraph();
 				Map<Integer, RefArray> entryReteCountMap = new HashMap<>();
 				RefArray totalRefArray = new RefArray();
 
@@ -1092,7 +1089,7 @@ public class OptimizeUtil {
 					totalChildCount[entry.size()]++;
 
 					IRReference ref = entry.getReferenceIterator().next();
-					IRReteNode node = nodeGraph.getNodeById(ref.getNodeId());
+					IRReteNode node = ref.getNode();
 					if (node == null) {
 						continue;
 					}
@@ -2087,8 +2084,8 @@ public class OptimizeUtil {
 					throw new RException("Invalid entry: " + childEntry);
 				}
 
-				sb.append(String.format("%08d: node=%d, child=%d, parent[%d]", ref.getEntryId(), ref.getNodeId(),
-						childEntry.getEntryId(), parentCount));
+				sb.append(String.format("%08d: node=%d, child=%d, parent[%d]", ref.getEntryId(),
+						ref.getNode().getNodeId(), childEntry.getEntryId(), parentCount));
 
 				if (parentCount > 0) {
 
@@ -2151,15 +2148,15 @@ public class OptimizeUtil {
 					continue;
 				}
 
-				Set<Integer> nodeIds = new HashSet<>();
+				Set<IRReteNode> nodes = new HashSet<>();
 
 				Iterator<? extends IRReference> refIt = entry.getReferenceIterator();
 				while (refIt.hasNext()) {
 					IRReference ref = refIt.next();
-					if (nodeIds.contains(ref.getNodeId())) {
+					if (nodes.contains(ref.getNode())) {
 						++dupCount;
 					} else {
-						nodeIds.add(ref.getNodeId());
+						nodes.add(ref.getNode());
 					}
 				}
 			}

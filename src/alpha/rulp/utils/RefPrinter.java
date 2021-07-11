@@ -43,16 +43,12 @@ public class RefPrinter {
 		Iterator<? extends IRReference> refIt = entry.getReferenceIterator();
 		while (refIt.hasNext()) {
 			IRReference ref = refIt.next();
-			if (RReteType.isRootType(node(ref.getNodeId()).getReteType())) {
+			if (RReteType.isRootType(ref.getNode().getReteType())) {
 				return true;
 			}
 		}
 
 		return false;
-	}
-
-	public IRReteNode node(int nodeId) {
-		return model.getNodeGraph().getNodeById(nodeId);
 	}
 
 	public void printEntry(StringBuilder sb, int entryId, int lvl) throws RException {
@@ -82,7 +78,7 @@ public class RefPrinter {
 			int pc = ref.getParentEntryCount();
 
 			String line = head(lvl + 1)
-					+ String.format("==> Ref: node=%s, parent=(%s)", node(ref.getNodeId()).getNodeName(), pc);
+					+ String.format("==> Ref: node=%s, parent=(%s)", ref.getNode().getNodeName(), pc);
 
 			for (int i = 0; i < pc; ++i) {
 				line += " " + ref.getParentEntry(i).getEntryId() + ",";

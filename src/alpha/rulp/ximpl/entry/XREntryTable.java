@@ -184,7 +184,7 @@ public class XREntryTable implements IREntryTable {
 
 		public XRReteEntry childEntry;
 
-		public int nodeId;
+		public IRReteNode node;
 
 		public int parentEntryCount;
 
@@ -192,9 +192,9 @@ public class XREntryTable implements IREntryTable {
 
 		public int refId;
 
-		public XRReference(int nodeId, XRReteEntry childEntry, int parentEntryCount, XRReteEntry[] parentEntrys) {
+		public XRReference(IRReteNode node, XRReteEntry childEntry, int parentEntryCount, XRReteEntry[] parentEntrys) {
 			super();
-			this.nodeId = nodeId;
+			this.node = node;
 			this.childEntry = childEntry;
 			this.parentEntryCount = parentEntryCount;
 			this.parentEntrys = parentEntrys;
@@ -215,11 +215,6 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public int getNodeId() {
-			return nodeId;
-		}
-
-		@Override
 		public IRReteEntry getParentEntry(int index) {
 			return parentEntrys[index];
 		}
@@ -237,6 +232,11 @@ public class XREntryTable implements IREntryTable {
 		@Override
 		public void setEntryId(int id) {
 			this.refId = id;
+		}
+
+		@Override
+		public IRReteNode getNode() {
+			return node;
 		}
 	}
 
@@ -460,7 +460,7 @@ public class XREntryTable implements IREntryTable {
 
 		int parentEntryCount = parentEntrys == null ? 0 : parentEntrys.length;
 
-		XRReference ref = new XRReference(node.getNodeId(), entry, parentEntryCount, parentEntrys);
+		XRReference ref = new XRReference(node, entry, parentEntryCount, parentEntrys);
 
 		// Add links to child
 		entry.addReference(ref);
@@ -843,7 +843,6 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		XRReteEntry xEntry = _toEntry(entry);
-		int nodeId = node.getNodeId();
 
 		int find = 0;
 
@@ -853,7 +852,7 @@ public class XREntryTable implements IREntryTable {
 			while (it.hasNext()) {
 
 				XRReference ref = it.next();
-				if (ref.nodeId != nodeId) {
+				if (ref.node != node) {
 					continue;
 				}
 

@@ -10,21 +10,11 @@
 ;=>'('(a b c) '(b c a) '(c a b))
 (prove-stmt m '(c a b))
 ;out:
-Stmt : name='(a b c), id=1, stats=define, ref=2
-    ==> Ref: node=R0001, parent=(0)
-    ==> Ref: node=RU000, parent=(1) 3,
-Entry: name='(b c a), id=2, stats=reason, ref=1
-    ==> Ref: node=RU000, parent=(1) 1,
-Entry: name='(c a b), id=3, stats=reason, ref=1
-    ==> Ref: node=RU000, parent=(1) 2,
+'(c a b) : RU000 '(b c a)
+'(b c a) : RU000 '(a b c)
+'(a b c) : define
 ;eof
 (prove-stmt m '(c b a))
 ;out:
-none
-;eof
-(prove-stmt m '(c a b) limit 1)
-;out:
-;eof
-(prove-stmt m '(c a b) limit 1)
-;out:
+'(c b a): not found
 ;eof

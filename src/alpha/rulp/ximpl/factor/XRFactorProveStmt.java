@@ -2,77 +2,141 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.O_Nil;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
+import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.AndOrTreeUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.AndOrTreeUtil.DLRVisitNode;
+import alpha.rulp.utils.AndOrTreeUtil.IAOTreeNode;
 import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.IRRootNode;
+import alpha.rulp.ximpl.node.RReteType;
 
 public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
-
-	public XRFactorProveStmt(String factorName) {
-		super(factorName);
-	}
 
 	static class StmtProveUtil {
 
 		static class ProveEntry {
 
-			public List<String> factStmtList = null;
+			public List<IRReteEntry> factEntryList = null;
 
-			public List<IRReteNode> relatedNodes = null;
+			public IRReteNode node = null;
 
-			public List<Integer> refList = null;
+			public String _str = null;
 
-			public String _refPathStr = null;
+			public Boolean isInvalid = null;
+
+			public boolean isInvalid() {
+
+				if (isInvalid == null) {
+
+					isInvalid = true;
+					if (factEntryList != null) {
+						for (IRReteEntry fact : factEntryList) {
+							if (fact.isDroped()) {
+								isInvalid = false;
+							}
+						}
+					}
+				}
+
+				return isInvalid;
+			}
 
 			public String getRefPathString() {
 
-				if (_refPathStr == null) {
-					if (_refPathStr == null || _refPathStr.isEmpty()) {
-						_refPathStr = "";
-					} else {
-						_refPathStr = refList.toString();
+				if (_str == null) {
+
+					_str = "";
+
+					if (node != null) {
+						_str += node.getNodeName() + ":";
+					}
+
+					if (factEntryList != null) {
+						for (IRReteEntry fact : factEntryList) {
+							_str += " " + fact;
+						}
 					}
 				}
-				return _refPathStr;
+
+				return _str;
 			}
 		}
 
 		static class ProveNode {
 
-			public final String stmtUniqName;
-
-			public ProveNode(String stmtUniqName, IRReteEntry stmtEntry) {
-				super();
-				this.stmtUniqName = stmtUniqName;
-				this.stmtEntry = stmtEntry;
-			}
-
 			public final IRReteEntry stmtEntry;
 
+			public DLRVisitNode<IRReteEntry> vistTree = null;
+
 			public List<ProveEntry> proveEntryList = null;
+
+			public boolean isVisitCompleted = false;
+
+			public boolean isDefinedStmt = false;
+
+			public ProveNode(IRReteEntry stmtEntry) {
+				super();
+				this.stmtEntry = stmtEntry;
+			}
 
 			public int getProveEntryCount() {
 				return proveEntryList == null ? 0 : proveEntryList.size();
 			}
 
-			public boolean visitCompleted = false;
+			public static ProveEntry toProveEntry(DLRVisitNode<IRReteEntry> vistTree) throws RException {
+
+				List<IRReteEntry> vistEntries = AndOrTreeUtil.visit(vistTree);
+				Collections.sort(vistEntries, (o1, o2) -> {
+					return o1.toString().compareTo(o2.toString());
+				});
+
+				ProveEntry proveEntry = new ProveEntry();
+				proveEntry.factEntryList = vistEntries;
+
+				XRefAOTreeNode refChild = (XRefAOTreeNode) vistTree.aoNode.getChild(0);
+				proveEntry.node = refChild.ref.getNode();
+
+				return proveEntry;
+			}
+
+			public ProveEntry getFirstProve() throws RException {
+
+				if (proveEntryList == null) {
+
+					proveEntryList = new ArrayList<>();
+
+					IAOTreeNode<IRReteEntry> aoTree = new XEntryAOTreeNode(stmtEntry, true);
+					vistTree = AndOrTreeUtil.getDLRVisitFirstTree(aoTree);
+
+					proveEntryList.add(toProveEntry(vistTree));
+				}
+
+				return proveEntryList.get(0);
+			}
 		}
 
 		private Map<String, ProveNode> proveMap = new HashMap<>();
@@ -84,32 +148,44 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 			this.model = model;
 		}
 
-		public ProveNode getProveNode(IRReteEntry entry, int limit) {
+		public ProveNode getProveNode(IRReteEntry entry) throws RException {
 
 			String uniqName = entry.toString();
 
 			ProveNode proveNode = proveMap.get(uniqName);
-			if (proveNode != null) {
+			if (proveNode == null) {
 
-				if (proveNode.visitCompleted) {
-					return proveNode;
+				proveNode = new ProveNode(entry);
+
+				if (!entry.isStmt()) {
+					throw new RException("not stmt entry: " + entry);
 				}
 
-				if (limit < 0 && proveNode.getProveEntryCount() >= limit) {
-					return proveNode;
+				if (entry.getReferenceCount() <= 0) {
+					throw new RException("no ref found: " + entry);
 				}
 
-			} else {
-				proveNode = new ProveNode(uniqName, entry);
-				buildProveNode(proveNode, entry, new LinkedList<>(), limit);
+				if (entry.getStatus() == RReteStatus.DEFINE || entry.getStatus() == RReteStatus.FIXED_) {
+
+					Iterator<? extends IRReference> it = entry.getReferenceIterator();
+					while (it.hasNext()) {
+
+						IRReference ref = it.next();
+						if (RReteType.isRootType(ref.getNode().getReteType())) {
+							proveNode.isDefinedStmt = true;
+							proveNode.isVisitCompleted = true;
+						}
+					}
+				} else if (entry.getStatus() == RReteStatus.REASON) {
+					// we should find rule node
+				} else {
+					throw new RException("not support status: " + entry.getStatus() + ", for entry: " + entry);
+				}
+
+				proveMap.put(uniqName, proveNode);
 			}
 
 			return proveNode;
-		}
-
-		public void buildProveNode(ProveNode proveNode, IRReteEntry entry, Queue<IRReference> refPath, int limit) {
-
-//			if(entry.is)
 		}
 
 		public String proveStmt(IRList stmt) throws RException {
@@ -128,21 +204,172 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 			}
 
 			String uniqName = RulpUtil.toString(stmt);
-
 			if (rootNode == null) {
 				return String.format("==> %s: node not found\n", uniqName);
 			}
 
-			IRReteEntry entry = rootNode.getStmt(uniqName);
-			if (entry == null) {
-				return String.format("==> %s: entry not found\n", uniqName);
+			StringBuilder sb = new StringBuilder();
+			Queue<IRReteEntry> needProveStmt = new LinkedList<>();
+			Set<String> provedStmt = new HashSet<>();
+
+			{
+				IRReteEntry entry = rootNode.getStmt(uniqName);
+				if (entry == null) {
+					return String.format("%s: not found\n", uniqName);
+				}
+
+				needProveStmt.add(entry);
 			}
 
-			StringBuilder sb = new StringBuilder();
+			while (!needProveStmt.isEmpty()) {
+
+				IRReteEntry entry = needProveStmt.remove();
+				if (provedStmt.contains(entry.toString())) {
+					continue;
+				}
+
+				provedStmt.add(entry.toString());
+
+				ProveNode proveNode = getProveNode(entry);
+				if (proveNode.isDefinedStmt) {
+					sb.append(String.format("%s : %s\n", entry.toString(), entry.getStatus()));
+
+				} else {
+
+					ProveEntry proveEntry = proveNode.getFirstProve();
+
+					sb.append(String.format("%s : %s", entry.toString(), proveEntry.node.getNodeName()));
+					for (IRReteEntry factEntry : proveEntry.factEntryList) {
+						needProveStmt.add(factEntry);
+						sb.append(" " + factEntry.toString());
+					}
+					sb.append("\n");
+				}
+
+			}
+
 //			printEntry(sb, entry.getEntryId(), 0);
 
 			return sb.toString();
 		}
+	}
+
+	static class XEntryAOTreeNode implements IAOTreeNode<IRReteEntry> {
+
+		private IRReteEntry entry;
+
+		public XEntryAOTreeNode(IRReteEntry entry, boolean root) {
+			super();
+			this.entry = entry;
+			this.root = root;
+		}
+
+		private ArrayList<IAOTreeNode<IRReteEntry>> childs = null;
+
+		private boolean root;
+
+		@Override
+		public IAOTreeNode<IRReteEntry> getChild(int index) throws RException {
+			return getChilds().get(index);
+		}
+
+		@Override
+		public int getChildCount() throws RException {
+			return getChilds().size();
+		}
+
+		public ArrayList<IAOTreeNode<IRReteEntry>> getChilds() throws RException {
+
+			if (childs == null) {
+
+				childs = new ArrayList<>();
+
+				if (entry.getReferenceCount() > 0) {
+
+					Iterator<? extends IRReference> it = entry.getReferenceIterator();
+					while (it.hasNext()) {
+						childs.add(new XRefAOTreeNode(it.next()));
+					}
+				}
+
+			}
+
+			return childs;
+		}
+
+		@Override
+		public IRReteEntry getObj() {
+			return entry;
+		}
+
+		@Override
+		public boolean isAnd() throws RException {
+			return false;
+		}
+
+		@Override
+		public boolean isLeaf() throws RException {
+			return !root && entry.isStmt();
+		}
+
+	}
+
+	static class XRefAOTreeNode implements IAOTreeNode<IRReteEntry> {
+
+		private IRReference ref;
+
+		private ArrayList<IAOTreeNode<IRReteEntry>> childs = null;
+
+		public XRefAOTreeNode(IRReference ref) {
+			super();
+			this.ref = ref;
+		}
+
+		@Override
+		public IAOTreeNode<IRReteEntry> getChild(int index) throws RException {
+			return getChilds().get(index);
+		}
+
+		@Override
+		public int getChildCount() throws RException {
+			return getChilds().size();
+		}
+
+		public ArrayList<IAOTreeNode<IRReteEntry>> getChilds() throws RException {
+
+			if (childs == null) {
+
+				childs = new ArrayList<>();
+
+				int parentCount = ref.getParentEntryCount();
+				for (int i = 0; i < parentCount; ++i) {
+					childs.add(new XEntryAOTreeNode(ref.getParentEntry(i), false));
+				}
+
+			}
+
+			return childs;
+		}
+
+		@Override
+		public IRReteEntry getObj() {
+			return null;
+		}
+
+		@Override
+		public boolean isAnd() throws RException {
+			return true;
+		}
+
+		@Override
+		public boolean isLeaf() throws RException {
+			return false;
+		}
+
+	}
+
+	public XRFactorProveStmt(String factorName) {
+		super(factorName);
 	}
 
 	@Override
