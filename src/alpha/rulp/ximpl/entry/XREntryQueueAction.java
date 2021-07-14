@@ -7,7 +7,6 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModel.RNodeContext;
-import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.action.IActionNode1;
@@ -17,11 +16,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 
 	protected LinkedList<IActionNode1> actionStmtList = new LinkedList<>();
 
-	protected RNodeContext defaultNodeConext = new RNodeContext() {
-		public RReteStatus getNewStmtStatus() {
-			return RReteStatus.REASON;
-		}
-	};
+	protected RNodeContext defaultNodeConext = new RNodeContext();
 
 	protected int entryRedundant = 0;
 

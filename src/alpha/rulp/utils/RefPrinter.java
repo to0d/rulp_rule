@@ -10,7 +10,6 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.IRRootNode;
 import alpha.rulp.ximpl.node.RReteType;
 

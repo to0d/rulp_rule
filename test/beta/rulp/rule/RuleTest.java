@@ -575,11 +575,11 @@ public class RuleTest extends RuleTestBase {
 	}
 
 	@Test
-	public void test_b_var_in_rule_body_1() {
+	public void test_b_defvar_in_rule_body_1() {
 
 		_setup();
-		_test_script("result/rule/RuleTest/test_b_var_in_rule_body_1.rulp");
-		_statsInfo("m", "result/rule/RuleTest/test_b_var_in_rule_body_1.txt");
-		_dumpEntryTable("m", "result/rule/RuleTest/test_b_var_in_rule_body_1.dump.txt");
+		_test_script("result/rule/RuleTest/test_b_defvar_in_rule_body_1.rulp");
+		_statsInfo("m", "result/rule/RuleTest/test_b_defvar_in_rule_body_1.txt");
+		_dumpEntryTable("m", "result/rule/RuleTest/test_b_defvar_in_rule_body_1.dump.txt");
 	}
 }

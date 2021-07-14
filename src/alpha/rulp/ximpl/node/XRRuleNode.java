@@ -450,10 +450,6 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		this.actionStmtList.addAll(actionStmtList);
 	}
 
-//	public void setIndexExprList(List<IRExpr> indexExprList) {
-//		this.indexExprList.addAll(indexExprList);
-//	}
-
 	public void setMatchStmtList(List<IRList> matchStmtList) {
 		this.matchStmtList.addAll(matchStmtList);
 	}

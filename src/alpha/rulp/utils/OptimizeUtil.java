@@ -80,7 +80,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.AbsReteNode;
-import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.IRReteNode.InheritIndex;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
