@@ -555,6 +555,31 @@ public class P2dTest extends RuleTestBase {
 	}
 
 	@Test
+	public void test_tag_version_1() {
+
+		_setup();
+
+		_test("(load \"result/p2d.rulp\")");
+		_test("(add-stmt p2d '(MYSQL nm:typeOf nm:tag))");
+		_test("(add-stmt p2d '(MYSQLv8 nm:typeOf nm:tag))");
+		_test("(add-stmt p2d '(MYSQLv5.7 nm:typeOf nm:tag))");
+
+		_test("(start p2d)", "483");
+		_test("(state-of p2d)", "completed");
+		_test("(list-with-state (list-rule p2d) failed)", "'()");
+
+		_test("(list-stmt p2d from '(?x nm:isVersionOf ?y))",
+				"'('(MYSQLv8 nm:isVersionOf MYSQL) '(MYSQLv5.7 nm:isVersionOf MYSQL))");
+		_test("(list-stmt p2d from '(?x nm:beDefinedByTag ?y))",
+				"'('(MYSQLv8 nm:beDefinedByTag MYSQL-version) '(MYSQLv5.7 nm:beDefinedByTag MYSQL-version))");
+
+		_mStatus(1, "p2d");
+		_mCount(1, "p2d");
+		_eCount(1, "p2d");
+		_saveTest();
+	}
+
+	@Test
 	public void test_tag_subcollection_2_full() {
 
 		_setup();
