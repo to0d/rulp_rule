@@ -20,11 +20,11 @@
     )
 )
 
-(defun get-field-name (?t)
+(defun get-suffix (?t ?c)
     (let
         (?name (to-string ?t))
         (let
-            (?pos (str-last-index-of ?name "-"))
+            (?pos (str-last-index-of ?name ?c))
             (if
                 (equal ?pos -1)
                 (return ?name)
@@ -33,6 +33,11 @@
         )
     )
 )
+
+(defun get-field-name (?t) 
+    (return (get-suffix ?t "-"))
+)
+
 
 (defmacro get-new-ns (?obj ?ns)
     (to-atom (strcat ?ns (get-uri-name ?obj)))
@@ -53,7 +58,6 @@
 (fix-stmt p2d '(nm:hasAliasTag nm:inverseSimpleTagProperty nm:beAliasTo))
 (fix-stmt p2d '(nm:beDefinedByTag nm:inverseSimpleTagProperty nm:defineTag))
 (fix-stmt p2d '(nm:beBaseOn nm:inverseSimpleTagProperty nm:beImplementedIn))
-(fix-stmt p2d '(nm:hasVersion nm:inverseSimpleTagProperty nm:isVersionOf))
 (fix-stmt p2d '(nm:hasPartTag nm:inverseSimpleTagProperty nm:bePartTagOf))
 
 (fix-stmt p2d '(nm:beAliasTo nm:propertyOf nm:singlePropery))
@@ -76,6 +80,43 @@
 
 (fix-stmt p2d '(nm:hasTagAttr nm:propertyOf nm:tagProperty))
 
+;;------------------------------------------------------------------
+;; Rules for Tag Version
+;;------------------------------------------------------------------
+(fix-stmt p2d '(nm:hasVersion nm:inverseSimpleTagProperty nm:isVersionOf))
+
+(defun get-version-number (?t)
+    (return (get-suffix ?t "v"))
+)
+
+(add-rule "TV1" p2d
+    if 
+        (var-changed ?model-state running completed)
+        '(?tag nm:typeOf nm:tag) 
+        (can-cast '(int float) (get-version-number ?tag))
+    do
+        (defvar ?tagName)        
+        (defvar ?mainTag)
+        (defvar ?mainTagVersion)
+        (defvar ?pos)
+        
+        (setq ?tagName (to-string ?tag))
+        (setq ?pos (str-last-index-of ?tagName "v"))
+        (if
+            (not (equal ?pos -1))
+            (do             
+                (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos)))
+                (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version" )))
+                (if
+                    (has-stmt p2d '(?mainTag nm:typeOf nm:tag))
+                    (->
+                        '(?tag nm:isVersionOf ?mainTag)
+                        '(?tag nm:beDefinedByTag ?mainTagVersion)
+                    )
+                )
+            )
+        )
+)
 
 ;;------------------------------------------------------------------
 ;; Rules for TagClass 
@@ -191,6 +232,16 @@
         (if 
             (has-stmt p2d '(?b ?p ?a))
             (error '("Circle found" '(?a ?p ?b) '(?b ?p ?a)))
+        )
+)
+
+(add-rule "C8" p2d
+    if
+        '(?a ?p ?b)
+        '(?p nm:propertyOf nm:tagRelation)
+    do
+        (-> '(?a nm:typeOf nm:tag)
+            '(?b nm:typeOf nm:tag)
         )
 )
 
@@ -550,4 +601,14 @@
             )
             (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t))
         )
+)
+
+
+(defmacro hasGroupChild
+    (?parent ?tags)
+    (do
+        (loop for ?tag in ?tags do 
+            (fix-stmt p2d '(?parent nm:hasGroupChild ?tag))
+        )
+    )
 )
