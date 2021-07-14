@@ -1,5 +1,5 @@
 mbr=!=, name=!=, type=factor, property='(public)
-mbr=%, name=%, type=factor, property='(public)
+mbr=%%, name=%%, type=factor, property='(public)
 mbr=*, name=*, type=factor, property='(public)
 mbr=+, name=+, type=factor, property='(public)
 mbr=-, name=-, type=factor, property='(public)
@@ -10,16 +10,16 @@ mbr=<=, name=<=, type=factor, property='(public)
 mbr==, name==, type=factor, property='(public)
 mbr=>, name=>, type=factor, property='(public)
 mbr=>=, name=>=, type=factor, property='(public)
-mbr=?file.separator, name=?file.separator, type=var, property='(public), value="\"
-mbr=?op-cps, name=?op-cps, type=var, property='(public), value="false"
-mbr=?op-stable, name=?op-stable, type=var, property='(public), value="false"
-mbr=?os.name, name=?os.name, type=var, property='(public), value="Windows 10"
-mbr=?os.version, name=?os.version, type=var, property='(public), value="10.0"
-mbr=?path.separator, name=?path.separator, type=var, property='(public), value=";"
-mbr=?trace, name=?trace, type=var, property='(public), value="false"
-mbr=?user.dir, name=?user.dir, type=var, property='(public), value="C:\data\itool\irulp_rule"
-mbr=?user.home, name=?user.home, type=var, property='(public), value="C:\Users\to0d"
-mbr=?user.name, name=?user.name, type=var, property='(public), value="to0d"
+mbr=?file.separator, name=?file.separator, type=var, property='(public), value="*"
+mbr=?op-cps, name=?op-cps, type=var, property='(public), value="*"
+mbr=?op-stable, name=?op-stable, type=var, property='(public), value="*"
+mbr=?os.name, name=?os.name, type=var, property='(public), value="*"
+mbr=?os.version, name=?os.version, type=var, property='(public), value="*"
+mbr=?path.separator, name=?path.separator, type=var, property='(public), value="*"
+mbr=?trace, name=?trace, type=var, property='(public), value="*"
+mbr=?user.dir, name=?user.dir, type=var, property='(public), value="*"
+mbr=?user.home, name=?user.home, type=var, property='(public), value="*"
+mbr=?user.name, name=?user.name, type=var, property='(public), value="*"
 mbr=^, name=^, type=factor, property='(public)
 mbr=access, name=access, type=factor, property='(public)
 mbr=add, name=add, type=factor, property='(public)
@@ -30,6 +30,7 @@ mbr=array, name=array, type=atom, property='(public)
 mbr=atom, name=atom, type=atom, property='(public)
 mbr=bool, name=bool, type=atom, property='(public)
 mbr=break, name=break, type=factor, property='(public)
+mbr=can-cast, name=can-cast, type=factor, property='(public)
 mbr=class, name=class, type=atom, property='(public)
 mbr=class-of, name=class-of, type=factor, property='(public)
 mbr=cmp_def, name=cmp_def, type=factor, property='(public)
