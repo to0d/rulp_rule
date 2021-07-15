@@ -134,20 +134,11 @@ Child Count:
   total:       1       1
 ========================================================================================================================================================
 
-Model<m> frame:id=4, name=MODEL, lvl=3, ref=4/4, pid=2(main), entry=1, subject=MODEL, thread=null
+Model<m> frame:id=4, name=MODEL, lvl=3, ref=2/2, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 4        4        4    instance   m                   
-==========================================================================================================================
-
-Node<R0001> frame:id=5, name=NF-R0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-R0001, thread=null
-
-Node<RU000> frame:id=7, name=Frame-RU000, lvl=4, ref=1/1, pid=4(MODEL), entry=1, subject=Frame-RU000, thread=null
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       7        4    instance   m                   
+default_model        : 4        4        3    instance   m                   
 ==========================================================================================================================
 
 node update info: model-exec-count=5, row=2, column=5(1), value-max=1, value-unit=1^x
@@ -168,7 +159,7 @@ Total runtime info:
      Interpreter call id/level:       35        0
              CPS support/count:    false        0
                Frame max level:        4
-                  Frame max id:        8
+                  Frame max id:        6
            Frame free id count:        0
 ==========================================================================================================================
 
@@ -196,24 +187,24 @@ Callable stats info: callId=35, row=9, column=36(1), value-max=1, value-unit=1^x
 
 Object create count:
 ==========================================================================================================================
-       RType:       Create       Delete
+       RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          488            0
-      string:           18            0
-        list:           15            0
-        expr:          252            0
-         var:           19            0
-        func:           41            0
-       macro:            3            0
-       class:            5            0
-      member:           63            0
-       frame:            5            0
+        atom:          488            0          488
+      string:           18            0           18
+        list:           15            0           15
+        expr:          252            0          252
+         var:           19            0           19
+        func:           41            0           41
+       macro:            3            0            3
+       class:            5            0            5
+      member:           63            0           63
+       frame:            3            0            3
  interpreter:            1            0
-  frameEntry:          221            0
+  frameEntry:          220            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=5
+Global frame list: total=3
 
 id=2, name=main, lvl=2, ref=3/3, pid=1(system), entry=4, subject=main, thread=null
 ==========================================================================================================================
@@ -222,45 +213,36 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
 main                 : 3        2        3    frame      main                
-m                    : 5        2        4    instance   m                   
+m                    : 5        2        3    instance   m                   
 ==========================================================================================================================
 
 
 id=3, name=MODEL, lvl=3, ref=0/0, pid=2(main), entry=0, subject=MODEL, thread=null
 
-id=4, name=MODEL, lvl=3, ref=4/4, pid=2(main), entry=1, subject=MODEL, thread=null
+id=4, name=MODEL, lvl=3, ref=2/2, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 4        4        4    instance   m                   
+default_model        : 4        4        3    instance   m                   
 ==========================================================================================================================
 
-id=5, name=NF-R0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-R0001, thread=null
-
-id=6, name=QUERY, lvl=4, ref=0/0, pid=4(MODEL), entry=4, subject=QUERY, thread=null
+id=5, name=QUERY, lvl=4, ref=0/0, pid=4(MODEL), entry=4, subject=QUERY, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        6        4    instance   m                   
-?x                   : 7        6        1    var        atom:z              
-?y                   : 8        6        1    var        atom:y              
-?z                   : 9        6        1    var        atom:x              
-==========================================================================================================================
-
-id=7, name=Frame-RU000, lvl=4, ref=1/1, pid=4(MODEL), entry=1, subject=Frame-RU000, thread=null
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       7        4    instance   m                   
+default_model        : 6        5        3    instance   m                   
+?x                   : 7        5        1    var        atom:z              
+?y                   : 8        5        1    var        atom:y              
+?z                   : 9        5        1    var        atom:x              
 ==========================================================================================================================
 
 Global Subject list:
 
-name=m, lvl=1, ref=4/4, parent=model, frame=8(subject-0), final=false, mbrs=1
+name=m, lvl=1, ref=3/3, parent=model, frame=6(subject-0), final=false, mbrs=1
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    4    instance   m
+this                 : DEFAULT  false    false    3    instance   m
 ==========================================================================================================================
 
 

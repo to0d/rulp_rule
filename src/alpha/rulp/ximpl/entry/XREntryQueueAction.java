@@ -3,11 +3,9 @@ package alpha.rulp.ximpl.entry;
 import java.util.LinkedList;
 import java.util.List;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModel.RNodeContext;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.action.IActionNode1;
 import alpha.rulp.ximpl.node.IRReteNode;
@@ -34,7 +32,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry) throws RException {
 
 		++nodeUpdateCount;
 

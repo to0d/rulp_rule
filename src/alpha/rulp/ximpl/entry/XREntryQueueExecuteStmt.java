@@ -5,38 +5,29 @@ import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModel.RNodeContext;
-import alpha.rulp.rule.RReteStatus;
+import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntryQueue {
 
 	protected LinkedList<IRExpr> actionStmtList = new LinkedList<>();
 
-	protected RNodeContext defaultNodeConext = new RNodeContext() {
-		public RReteStatus getNewStmtStatus() {
-			return RReteStatus.REASON;
-		}
-	};
+	protected RNodeContext defaultNodeConext = new RNodeContext();
 
 	protected int entryRedundant = 0;
 
-	protected IRReteNode node;
+	protected IRRule node;
 
 	protected int nodeUpdateCount = 0;
 
-	protected IRVar[] ruleVars = null;
-
-	protected IRObject[] varEntry;
-
-	public XREntryQueueExecuteStmt(IRReteNode node) {
+	public XREntryQueueExecuteStmt(IRRule node) {
 		super();
 		this.node = node;
 	}
@@ -46,11 +37,11 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry) throws RException {
 
 		++nodeUpdateCount;
 
-		IRVar[] _vars = getVars();
+		IRVar[] _vars = node.getVars();
 
 		/******************************************************/
 		// Update variable value
@@ -67,7 +58,11 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 		/******************************************************/
 
 		RNodeContext context = getDefaultNodeContext();
+
 		IRModel model = node.getModel();
+		IRInterpreter interpreter = model.getInterpreter();
+		IRFrame execFrame = RulpFactory.createFrame(node.getNodeFrame(true), "NF-" + node.getNodeName());
+		RulpUtil.incRef(execFrame);
 
 		try {
 
@@ -81,7 +76,7 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 					System.out.println("\t" + actionExpr.toString());
 				}
 
-				interpreter.compute(frame, actionExpr);
+				interpreter.compute(execFrame, actionExpr);
 			}
 
 		} finally {
@@ -92,6 +87,9 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 			// remove running context
 			model.setNodeContext(null);
 			context.currentEntry = null;
+
+			execFrame.release();
+			RulpUtil.decRef(execFrame);
 		}
 
 		return true;
@@ -123,30 +121,6 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 	@Override
 	public int getUpdateCount() {
 		return nodeUpdateCount;
-	}
-
-	public IRVar[] getVars() throws RException {
-
-		if (ruleVars == null) {
-
-			ruleVars = new IRVar[varEntry.length];
-
-			IRFrame frame = node.getNodeFrame(true);
-
-			for (int i = 0; i < varEntry.length; ++i) {
-
-				IRObject obj = varEntry[i];
-				if (obj != null) {
-					ruleVars[i] = frame.addVar(RulpUtil.asAtom(obj).getName());
-				}
-			}
-		}
-
-		return ruleVars;
-	}
-
-	public void setVarEntry(IRObject[] varEntry) {
-		this.varEntry = varEntry;
 	}
 
 }

@@ -184,32 +184,26 @@ Child Count:
   total:       2       4       2
 ========================================================================================================================================================
 
-Model<m> frame:id=4, name=MODEL, lvl=3, ref=7/7, pid=2(main), entry=1, subject=MODEL, thread=null
+Model<m> frame:id=4, name=MODEL, lvl=3, ref=4/4, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 4        4        3    instance   m                   
 ==========================================================================================================================
 
-Node<R0001> frame:id=7, name=NF-R0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-R0001, thread=null
-
 Node<A0002> frame:id=5, name=NF-A0002, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0002, thread=null
-
-Node<B0003> frame:id=8, name=NF-B0003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-B0003, thread=null
 
 Node<E1004> frame:id=6, name=NF-E1004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-E1004, thread=null
 
-Node<RU000> frame:id=9, name=Frame-RU000, lvl=4, ref=1/1, pid=4(MODEL), entry=4, subject=Frame-RU000, thread=null
+Node<RU000> frame:id=7, name=NF-RU000, lvl=4, ref=1/2, pid=4(MODEL), entry=4, subject=NF-RU000, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        9        3    instance   m                   
-?a                   : 7        9        1    var        atom:y              
-?b                   : 8        9        1    var        null                
-?c                   : 9        9        1    var        atom:x              
+default_model        : 6        7        3    instance   m                   
+?a                   : 7        7        1    var        atom:y              
+?b                   : 8        7        1    var        null                
+?c                   : 9        7        1    var        atom:x              
 ==========================================================================================================================
-
-Node<N0006> frame:id=10, name=NF-N0006, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-N0006, thread=null
 
 node update info: model-exec-count=5, row=5, column=6(1), value-max=1, value-unit=1^x
 ========================================================================================================================================================
@@ -231,9 +225,9 @@ Total runtime info:
 --------------------------------------------------------------------------------------------------------------------------
      Interpreter call id/level:       37        0
              CPS support/count:    false        0
-               Frame max level:        4
-                  Frame max id:       11
-           Frame free id count:        0
+               Frame max level:        5
+                  Frame max id:        9
+           Frame free id count:        1
 ==========================================================================================================================
 
 Expression compute count:
@@ -261,24 +255,24 @@ Callable stats info: callId=37, row=10, column=38(1), value-max=2, value-unit=2^
 
 Object create count:
 ==========================================================================================================================
-       RType:       Create       Delete
+       RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          504            0
-      string:           18            0
-        list:           20            0
-        expr:          258            0
-         var:           19            0
-        func:           41            0
-       macro:            3            0
-       class:            5            0
-      member:           63            0
-       frame:            8            0
+        atom:          504            0          504
+      string:           18            0           18
+        list:           20            0           20
+        expr:          258            0          258
+         var:           19            0           19
+        func:           41            0           41
+       macro:            3            0            3
+       class:            5            0            5
+      member:           63            0           63
+       frame:            9            4            5
  interpreter:            1            0
   frameEntry:          220            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=8
+Global frame list: total=5
 
 id=2, name=main, lvl=2, ref=3/3, pid=1(system), entry=4, subject=main, thread=null
 ==========================================================================================================================
@@ -293,7 +287,7 @@ m                    : 5        2        3    instance   m
 
 id=3, name=MODEL, lvl=3, ref=0/0, pid=2(main), entry=0, subject=MODEL, thread=null
 
-id=4, name=MODEL, lvl=3, ref=7/7, pid=2(main), entry=1, subject=MODEL, thread=null
+id=4, name=MODEL, lvl=3, ref=4/4, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -304,25 +298,19 @@ id=5, name=NF-A0002, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0002, th
 
 id=6, name=NF-E1004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-E1004, thread=null
 
-id=7, name=NF-R0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-R0001, thread=null
-
-id=8, name=NF-B0003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-B0003, thread=null
-
-id=9, name=Frame-RU000, lvl=4, ref=1/1, pid=4(MODEL), entry=4, subject=Frame-RU000, thread=null
+id=7, name=NF-RU000, lvl=4, ref=1/2, pid=4(MODEL), entry=4, subject=NF-RU000, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        9        3    instance   m                   
-?a                   : 7        9        1    var        atom:y              
-?b                   : 8        9        1    var        null                
-?c                   : 9        9        1    var        atom:x              
+default_model        : 6        7        3    instance   m                   
+?a                   : 7        7        1    var        atom:y              
+?b                   : 8        7        1    var        null                
+?c                   : 9        7        1    var        atom:x              
 ==========================================================================================================================
-
-id=10, name=NF-N0006, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-N0006, thread=null
 
 Global Subject list:
 
-name=m, lvl=1, ref=3/3, parent=model, frame=11(subject-0), final=false, mbrs=1
+name=m, lvl=1, ref=3/3, parent=model, frame=8(subject-0), final=false, mbrs=1
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

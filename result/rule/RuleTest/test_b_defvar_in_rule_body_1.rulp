@@ -49,4 +49,4 @@
 (start m)
 ;=>7
 (list-stmt m from '(?x nm:isVersionOf ?y))
-;=>'('(MYSQLv8 nm:isVersionOf MYSQL) '(Javav8 nm:isVersionOf MYSQL))
+;=>'('(MYSQLv8 nm:isVersionOf MYSQL) '(Javav8 nm:isVersionOf Java))

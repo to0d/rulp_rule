@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
+import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
@@ -13,6 +14,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IActionNode1;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
@@ -559,6 +561,48 @@ public class RNodeFactory {
 		return node;
 	}
 
+	public static IRNamedNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
+			throws RException {
+
+		XRNamedNode node = new XRNamedNode();
+
+		// Model
+		node.setModel(model);
+
+		// Node id
+		node.setNodeId(nodeId);
+
+		// Node type
+		node.setReteType(RReteType.NAME0);
+
+		// Entry Name
+		node.setNamedName(namedName);
+
+		// Uniq name
+		node.setUniqName(ReteUtil.getNamedUniqName(namedName, stmtLen));
+
+		// Entry length
+		node.setEntryLength(stmtLen);
+
+		// Entry queue
+		node.setEntryQueue(new XREntryQueueMulitEntryList(stmtLen));
+
+		// Entry table
+		node.setEntryTable(model.getEntryTable());
+
+		// Var entry
+		node.setVarEntry(new IRObject[stmtLen]);
+
+		// Node Default Priority
+		node.setPriority(0);
+
+		return node;
+	}
+
+	public static IRFrame createNodeFrame(IRReteNode node) throws RException {
+		return RulpFactory.createFrame(node.getModel().getModelFrame(), "NF-" + node.getNodeName());
+	}
+
 	public static IRRootNode createRoot0Node(IRModel model, int nodeId, int stmtLen) throws RException {
 
 		XRRoot0Node node = new XRRoot0Node();
@@ -651,7 +695,6 @@ public class RNodeFactory {
 
 			XREntryQueueExecuteStmt entryQueue = new XREntryQueueExecuteStmt(node);
 			entryQueue.addActionStmts(actionStmtList);
-			entryQueue.setVarEntry(varEntry);
 			node.setEntryQueue(entryQueue);
 		}
 
@@ -667,44 +710,6 @@ public class RNodeFactory {
 
 		// Model
 		node.setModel(model);
-
-		return node;
-	}
-
-	public static IRNamedNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
-			throws RException {
-
-		XRNamedNode node = new XRNamedNode();
-
-		// Model
-		node.setModel(model);
-
-		// Node id
-		node.setNodeId(nodeId);
-
-		// Node type
-		node.setReteType(RReteType.NAME0);
-
-		// Entry Name
-		node.setNamedName(namedName);
-
-		// Uniq name
-		node.setUniqName(ReteUtil.getNamedUniqName(namedName, stmtLen));
-
-		// Entry length
-		node.setEntryLength(stmtLen);
-
-		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(stmtLen));
-
-		// Entry table
-		node.setEntryTable(model.getEntryTable());
-
-		// Var entry
-		node.setVarEntry(new IRObject[stmtLen]);
-
-		// Node Default Priority
-		node.setPriority(0);
 
 		return node;
 	}

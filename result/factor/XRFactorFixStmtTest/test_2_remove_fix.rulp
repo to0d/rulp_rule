@@ -9,6 +9,6 @@
 (start m)
 ;err:
 Can't remove fix entry: '(c p1 d)
-at Frame-RU000: (remove-stmt ?0)
+at NF-RU000: (remove-stmt ?0)
 at main: (start m)
 ;eof

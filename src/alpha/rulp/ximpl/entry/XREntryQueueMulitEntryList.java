@@ -2,10 +2,8 @@ package alpha.rulp.ximpl.entry;
 
 import java.util.ArrayList;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
@@ -158,7 +156,7 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("\t(" + ReteUtil.uniqName(entry) + ")");

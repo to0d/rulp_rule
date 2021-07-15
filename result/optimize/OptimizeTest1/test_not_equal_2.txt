@@ -218,22 +218,12 @@ Ref Bit Map: total=0, max-id=0, create=0, removed=0, group-size=10, group-count=
 0 [0]
 ========================================================================================================================================================
 
-Model<m> frame:id=4, name=MODEL, lvl=3, ref=6/6, pid=2(main), entry=1, subject=MODEL, thread=null
+Model<m> frame:id=4, name=MODEL, lvl=3, ref=1/2, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 4        4        2    instance   m                   
 ==========================================================================================================================
-
-Node<E1002> frame:id=5, name=NF-E1002, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-E1002, thread=null
-
-Node<E1003> frame:id=6, name=NF-E1003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-E1003, thread=null
-
-Node<A0004> frame:id=7, name=NF-A0004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0004, thread=null
-
-Node<A0005> frame:id=8, name=NF-A0005, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0005, thread=null
-
-Node<A0008> frame:id=9, name=NF-A0008, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0008, thread=null
 
 node update info: model-exec-count=0, row=0, column=0(-1), value-max=-1, value-unit=0^x
 ========================================================================================================================================================
@@ -251,8 +241,8 @@ Total runtime info:
      Interpreter call id/level:       36        0
              CPS support/count:    false        0
                Frame max level:        2
-                  Frame max id:       10
-           Frame free id count:        0
+                  Frame max id:        6
+           Frame free id count:        1
 ==========================================================================================================================
 
 Expression compute count:
@@ -279,24 +269,24 @@ Callable stats info: callId=36, row=9, column=37(1), value-max=1, value-unit=1^x
 
 Object create count:
 ==========================================================================================================================
-       RType:       Create       Delete
+       RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          529            0
-      string:           20            0
-        list:           30            0
-        expr:          263            0
-         var:           16            0
-        func:           41            0
-       macro:            3            0
-       class:            5            0
-      member:           63            0
-       frame:            7            0
+        atom:          529            0          529
+      string:           20            0           20
+        list:           30            0           30
+        expr:          263            0          263
+         var:           16            0           16
+        func:           41            0           41
+       macro:            3            0            3
+       class:            5            0            5
+      member:           63            0           63
+       frame:            7            5            2
  interpreter:            1            0
   frameEntry:          216            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=7
+Global frame list: total=2
 
 id=2, name=main, lvl=2, ref=3/3, pid=1(system), entry=4, subject=main, thread=null
 ==========================================================================================================================
@@ -311,26 +301,16 @@ m                    : 5        2        2    instance   m
 
 id=3, name=MODEL, lvl=3, ref=0/0, pid=2(main), entry=0, subject=MODEL, thread=null
 
-id=4, name=MODEL, lvl=3, ref=6/6, pid=2(main), entry=1, subject=MODEL, thread=null
+id=4, name=MODEL, lvl=3, ref=1/2, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 4        4        2    instance   m                   
 ==========================================================================================================================
 
-id=5, name=NF-E1002, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-E1002, thread=null
-
-id=6, name=NF-E1003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-E1003, thread=null
-
-id=7, name=NF-A0004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0004, thread=null
-
-id=8, name=NF-A0005, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0005, thread=null
-
-id=9, name=NF-A0008, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0008, thread=null
-
 Global Subject list:
 
-name=m, lvl=1, ref=2/2, parent=model, frame=10(subject-0), final=false, mbrs=1
+name=m, lvl=1, ref=2/2, parent=model, frame=5(subject-0), final=false, mbrs=1
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

@@ -127,24 +127,20 @@ Ref Bit Map: total=5, max-id=5, create=5, removed=0, group-size=10, group-count=
 5 [5]
 ========================================================================================================================================================
 
-Model<m> frame:id=4, name=MODEL, lvl=3, ref=7/7, pid=2(main), entry=1, subject=MODEL, thread=null
+Model<m> frame:id=4, name=MODEL, lvl=3, ref=5/5, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 4        4        2    instance   m                   
 ==========================================================================================================================
 
-Node<R0001> frame:id=5, name=NF-R0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-R0001, thread=null
+Node<A0003> frame:id=5, name=NF-A0003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0003, thread=null
 
-Node<N0002> frame:id=6, name=NF-N0002, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-N0002, thread=null
+Node<A0004> frame:id=6, name=NF-A0004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0004, thread=null
 
-Node<A0003> frame:id=7, name=NF-A0003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0003, thread=null
+Node<A0005> frame:id=7, name=NF-A0005, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0005, thread=null
 
-Node<A0004> frame:id=8, name=NF-A0004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0004, thread=null
-
-Node<A0005> frame:id=9, name=NF-A0005, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0005, thread=null
-
-Node<A0006> frame:id=10, name=NF-A0006, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0006, thread=null
+Node<A0006> frame:id=8, name=NF-A0006, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0006, thread=null
 
 node update info: model-exec-count=13, row=6, column=11(1), value-max=1, value-unit=1^x
 ========================================================================================================================================================
@@ -168,7 +164,7 @@ Total runtime info:
      Interpreter call id/level:       47        0
              CPS support/count:    false        0
                Frame max level:        2
-                  Frame max id:       11
+                  Frame max id:        9
            Frame free id count:        0
 ==========================================================================================================================
 
@@ -195,24 +191,24 @@ Callable stats info: callId=47, row=8, column=48(1), value-max=1, value-unit=1^x
 
 Object create count:
 ==========================================================================================================================
-       RType:       Create       Delete
+       RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          596            0
-      string:           18            0
-        list:           49            0
-        expr:          262            0
-         var:           16            0
-        func:           41            0
-       macro:            3            0
-       class:            5            0
-      member:           63            0
-       frame:            8            0
+        atom:          596            0          596
+      string:           18            0           18
+        list:           49            0           49
+        expr:          262            0          262
+         var:           16            0           16
+        func:           41            0           41
+       macro:            3            0            3
+       class:            5            0            5
+      member:           63            0           63
+       frame:           10            4            6
  interpreter:            1            0
   frameEntry:          216            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=8
+Global frame list: total=6
 
 id=2, name=main, lvl=2, ref=3/3, pid=1(system), entry=4, subject=main, thread=null
 ==========================================================================================================================
@@ -227,28 +223,24 @@ m                    : 5        2        2    instance   m
 
 id=3, name=MODEL, lvl=3, ref=0/0, pid=2(main), entry=0, subject=MODEL, thread=null
 
-id=4, name=MODEL, lvl=3, ref=7/7, pid=2(main), entry=1, subject=MODEL, thread=null
+id=4, name=MODEL, lvl=3, ref=5/5, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 4        4        2    instance   m                   
 ==========================================================================================================================
 
-id=5, name=NF-R0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-R0001, thread=null
+id=5, name=NF-A0003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0003, thread=null
 
-id=6, name=NF-N0002, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-N0002, thread=null
+id=6, name=NF-A0004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0004, thread=null
 
-id=7, name=NF-A0003, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0003, thread=null
+id=7, name=NF-A0005, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0005, thread=null
 
-id=8, name=NF-A0004, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0004, thread=null
-
-id=9, name=NF-A0005, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0005, thread=null
-
-id=10, name=NF-A0006, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0006, thread=null
+id=8, name=NF-A0006, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-A0006, thread=null
 
 Global Subject list:
 
-name=m, lvl=1, ref=2/2, parent=model, frame=11(subject-0), final=false, mbrs=1
+name=m, lvl=1, ref=2/2, parent=model, frame=9(subject-0), final=false, mbrs=1
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

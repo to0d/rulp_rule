@@ -83,15 +83,17 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public InheritIndex[] getInheritIndex();
 
-	public IRModel getModel();
-
 	public String getMatchDescription();
+
+	public IRModel getModel();
 
 	public int getNodeExecCount();
 
 	public int getNodeFailedCount();
 
 	public IRFrame getNodeFrame(boolean create) throws RException;
+
+//	public IRFrame getNodeFrame(boolean create) throws RException;
 
 	public int getNodeId();
 

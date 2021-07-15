@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRRListener1;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
@@ -20,7 +18,7 @@ public class XREntryQueueUniqEntryList extends XREntryQueueMulitEntryList implem
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry newEntry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry newEntry) throws RException {
 
 		String uniqName = ReteUtil.uniqName(newEntry);
 		if (RuleUtil.isModelTrace()) {

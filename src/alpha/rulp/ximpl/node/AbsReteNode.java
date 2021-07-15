@@ -60,6 +60,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected int nodeExecCount = 0;
 
+//	protected IRFrame nodeFrame = null;
+
 	protected IRFrame nodeFrame = null;
 
 	protected int nodeId;
@@ -92,10 +94,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	public AbsReteNode() {
 		super(null, null, null);
-	}
-
-	protected IRFrame _createNodeFrame() throws RException {
-		return RulpFactory.createFrame(this.getModel().getModelFrame(), "NF-" + this.getNodeName());
 	}
 
 	public void addChildNode(IRReteNode child) {
@@ -143,20 +141,28 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		// Check old entries
 		/***********************************************/
 		IRInterpreter interpreter = this.getModel().getInterpreter();
-		IRFrame frame = this.getNodeFrame(true);
+		IRFrame nodeFrame = RNodeFactory.createNodeFrame(this);
+		RulpUtil.incRef(nodeFrame);
 
-		int size = entryQueue.size();
-		for (int i = 0; i < size; ++i) {
+		try {
 
-			IRReteEntry entry = entryQueue.getEntryAt(i);
-			if (entry == null || entry.isDroped()) {
-				continue;
+			int size = entryQueue.size();
+			for (int i = 0; i < size; ++i) {
+
+				IRReteEntry entry = entryQueue.getEntryAt(i);
+				if (entry == null || entry.isDroped()) {
+					continue;
+				}
+
+				if (!constraint.addEntry(entry, interpreter, nodeFrame)) {
+					constraint.close();
+					throw new RException(
+							String.format("Unable to add constraint<%s> due to entry<%s>", constraint, entry));
+				}
 			}
-
-			if (!constraint.addEntry(entry, interpreter, frame)) {
-				constraint.close();
-				throw new RException(String.format("Unable to add constraint<%s> due to entry<%s>", constraint, entry));
-			}
+		} finally {
+			nodeFrame.release();
+			RulpUtil.decRef(nodeFrame);
 		}
 
 		if (constraintList == null) {
@@ -186,11 +192,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			nodeMatchCount++;
 
 			IRInterpreter interpreter = this.getModel().getInterpreter();
-			IRFrame frame = this.getNodeFrame(true);
 
 			for (IRConstraint1 cons : constraintList) {
 
-				if (!cons.addEntry(entry, interpreter, frame)) {
+				if (!cons.addEntry(entry, interpreter, this.getNodeFrame(true))) {
 
 					++addEntryFailCount;
 
@@ -204,7 +209,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			}
 		}
 
-		return entryQueue.addEntry(entry, this.getModel().getInterpreter(), this.getNodeFrame(true));
+		return entryQueue.addEntry(entry);
 	}
 
 	@Override
@@ -227,6 +232,17 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 		this._delete();
 	}
+
+//	@Override
+//	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
+//
+//		if (this.nodeFrame != null) {
+//			RulpUtil.decRef(this.nodeFrame);
+//			this.nodeFrame = null;
+//		}
+//
+//		this._delete();
+//	}
 
 	@Override
 	public int doGC() {
@@ -326,6 +342,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		return nodeFrame;
+	}
+
+	protected IRFrame _createNodeFrame() throws RException {
+		return RNodeFactory.createNodeFrame(this);
 	}
 
 	@Override

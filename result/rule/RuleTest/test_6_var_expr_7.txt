@@ -118,22 +118,20 @@ Ref Bit Map: total=2, max-id=2, create=2, removed=0, group-size=10, group-count=
 2 [2]
 ========================================================================================================================================================
 
-Model<m> frame:id=4, name=MODEL, lvl=3, ref=3/3, pid=2(main), entry=1, subject=MODEL, thread=null
+Model<m> frame:id=4, name=MODEL, lvl=3, ref=2/2, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 4        4        3    instance   m                   
 ==========================================================================================================================
 
-Node<N0001> frame:id=5, name=NF-N0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-N0001, thread=null
-
-Node<RU000> frame:id=6, name=Frame-RU000, lvl=4, ref=1/2, pid=4(MODEL), entry=3, subject=Frame-RU000, thread=null
+Node<RU000> frame:id=5, name=NF-RU000, lvl=4, ref=1/2, pid=4(MODEL), entry=3, subject=NF-RU000, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       6        3    instance   m                   
-?a                   : 11       6        1    var        func:(f2 nil)       
-?b                   : 12       6        1    var        int:9               
+default_model        : 10       5        3    instance   m                   
+?a                   : 11       5        1    var        func:(f2 nil)       
+?b                   : 12       5        1    var        int:9               
 ==========================================================================================================================
 
 node update info: model-exec-count=2, row=2, column=3(1), value-max=1, value-unit=1^x
@@ -153,9 +151,9 @@ Total runtime info:
 --------------------------------------------------------------------------------------------------------------------------
      Interpreter call id/level:       43        0
              CPS support/count:    false        0
-               Frame max level:        5
+               Frame max level:        6
                   Frame max id:        8
-           Frame free id count:        1
+           Frame free id count:        2
 ==========================================================================================================================
 
 Expression compute count:
@@ -187,24 +185,24 @@ Callable stats info: callId=43, row=13, column=42(1), value-max=2, value-unit=2^
 
 Object create count:
 ==========================================================================================================================
-       RType:       Create       Delete
+       RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          496            0
-      string:           18            0
-        list:            8            0
-        expr:          264            0
-         var:           22            2
-        func:           43            0
-       macro:            3            0
-       class:            5            0
-      member:           63            0
-       frame:            6            2
+        atom:          496            0          496
+      string:           18            0           18
+        list:            8            0            8
+        expr:          264            0          264
+         var:           22            2           20
+        func:           43            0           43
+       macro:            3            0            3
+       class:            5            0            5
+      member:           63            0           63
+       frame:            7            4            3
  interpreter:            1            0
   frameEntry:          225            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=4
+Global frame list: total=3
 
 id=2, name=main, lvl=2, ref=3/3, pid=1(system), entry=8, subject=main, thread=null
 ==========================================================================================================================
@@ -223,27 +221,25 @@ f2                   : 9        2        2    func       (f2 nil) : frame=main
 
 id=3, name=MODEL, lvl=3, ref=0/0, pid=2(main), entry=0, subject=MODEL, thread=null
 
-id=4, name=MODEL, lvl=3, ref=3/3, pid=2(main), entry=1, subject=MODEL, thread=null
+id=4, name=MODEL, lvl=3, ref=2/2, pid=2(main), entry=1, subject=MODEL, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 4        4        3    instance   m                   
 ==========================================================================================================================
 
-id=5, name=NF-N0001, lvl=4, ref=1/1, pid=4(MODEL), entry=0, subject=NF-N0001, thread=null
-
-id=6, name=Frame-RU000, lvl=4, ref=1/2, pid=4(MODEL), entry=3, subject=Frame-RU000, thread=null
+id=5, name=NF-RU000, lvl=4, ref=1/2, pid=4(MODEL), entry=3, subject=NF-RU000, thread=null
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       6        3    instance   m                   
-?a                   : 11       6        1    var        func:(f2 nil)       
-?b                   : 12       6        1    var        int:9               
+default_model        : 10       5        3    instance   m                   
+?a                   : 11       5        1    var        func:(f2 nil)       
+?b                   : 12       5        1    var        int:9               
 ==========================================================================================================================
 
 Global Subject list:
 
-name=m, lvl=1, ref=3/3, parent=model, frame=7(subject-0), final=false, mbrs=1
+name=m, lvl=1, ref=3/3, parent=model, frame=6(subject-0), final=false, mbrs=1
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

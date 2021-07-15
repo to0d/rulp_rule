@@ -1,9 +1,7 @@
 package alpha.rulp.ximpl.entry;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.node.IRReteNode;
 
@@ -31,7 +29,7 @@ public class XREntryQueueSingleEntryList implements IREntryQueue {
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry) throws RException {
 
 		if (entry == null) {
 			return false;

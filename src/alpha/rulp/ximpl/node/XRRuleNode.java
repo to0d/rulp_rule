@@ -117,9 +117,10 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 
 	protected IRVar[] ruleVars = null;
 
+	@Override
 	protected IRFrame _createNodeFrame() throws RException {
 
-		IRFrame ruleFrame = RulpFactory.createFrame(this.getModel().getModelFrame(), "Frame-" + this.getNodeName());
+		IRFrame ruleFrame = super._createNodeFrame();
 
 		Set<String> indexVarNames = new HashSet<>();
 
@@ -200,18 +201,18 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			}
 		}
 
-		for (IRConstraint1 constraint : this.constraintList) {
+		IRFrame consFrame = RulpFactory.createFrame(this.getNodeFrame(true), "NF-" + getNodeName());
+		RulpUtil.incRef(consFrame);
 
-//			IRExpr newExpr = (IRExpr) rebuiltIndexExpr(indexExpr);
-
-			if (!constraint.addEntry(entry, model.getInterpreter(), this.getNodeFrame(true))) {
-				return false;
+		try {
+			for (IRConstraint1 constraint : this.constraintList) {
+				if (!constraint.addEntry(entry, model.getInterpreter(), consFrame)) {
+					return false;
+				}
 			}
-
-//			IRObject rst = model.getInterpreter().compute(this.getNodeFrame(true), newExpr);
-//			if (!RulpUtil.asBoolean(rst).asBoolean()) {
-//				return false;
-//			}
+		} finally {
+			consFrame.release();
+			RulpUtil.decRef(consFrame);
 		}
 
 		return true;
@@ -316,11 +317,6 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		return lastError;
 	}
 
-	@Override
-	public IRList getLastValues() {
-		return lastValueEntry;
-	}
-
 //	@Override
 //	public String getMatchDescription() {
 //
@@ -339,6 +335,11 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 //
 //		return des;
 //	}
+
+	@Override
+	public IRList getLastValues() {
+		return lastValueEntry;
+	}
 
 	public LinkedList<IRList> getMatchStmtList() {
 		return matchStmtList;
@@ -404,19 +405,16 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		return runState;
 	}
 
+	@Override
 	public IRVar[] getVars() throws RException {
 
 		if (ruleVars == null) {
-
 			ruleVars = new IRVar[varEntry.length];
 
-			IRFrame frame = getNodeFrame(true);
-
 			for (int i = 0; i < varEntry.length; ++i) {
-
 				IRObject obj = varEntry[i];
 				if (obj != null) {
-					ruleVars[i] = frame.addVar(RulpUtil.asAtom(obj).getName());
+					ruleVars[i] = getNodeFrame(true).addVar(RulpUtil.asAtom(obj).getName());
 				}
 			}
 		}
@@ -526,7 +524,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 					System.out.println("\tadd:" + lastValueEntry);
 				}
 
-				this.entryQueue.addEntry(lastValueEntry, this.getModel().getInterpreter(), this.getNodeFrame(true));
+				this.entryQueue.addEntry(lastValueEntry);
 
 				++updateCount;
 				this.ruleExecutedListenerDispatcher.doAction(XRRuleNode.this);

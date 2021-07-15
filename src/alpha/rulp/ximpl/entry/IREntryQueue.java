@@ -1,9 +1,7 @@
 package alpha.rulp.ximpl.entry;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
-import alpha.rulp.runtime.IRInterpreter;
 
 public interface IREntryQueue {
 
@@ -16,7 +14,7 @@ public interface IREntryQueue {
 		public int getEntryTotalCount();
 	}
 
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException;
+	public boolean addEntry(IRReteEntry entry) throws RException;
 
 	public int doGC();
 

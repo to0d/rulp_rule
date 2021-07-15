@@ -6,6 +6,7 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
@@ -25,10 +26,18 @@ public class XRExprNode3 extends XRReteNode1 {
 
 		++nodeMatchCount;
 
-		for (IRConstraint1 matchNode : constraintList) {
-			if (!matchNode.addEntry(null, this.getModel().getInterpreter(), this.getNodeFrame(true))) {
-				return false;
+		IRFrame consFrame = RNodeFactory.createNodeFrame(this);
+		RulpUtil.incRef(consFrame);
+
+		try {
+			for (IRConstraint1 matchNode : constraintList) {
+				if (!matchNode.addEntry(null, this.getModel().getInterpreter(), consFrame)) {
+					return false;
+				}
 			}
+		} finally {
+			consFrame.release();
+			RulpUtil.decRef(consFrame);
 		}
 
 		return true;
@@ -56,7 +65,7 @@ public class XRExprNode3 extends XRReteNode1 {
 				false);
 		entryTable.addReference(newEntry, this, entry);
 
-		if (!entryQueue.addEntry(newEntry, this.getModel().getInterpreter(), this.getNodeFrame(true))) {
+		if (!entryQueue.addEntry(newEntry)) {
 			entryTable.removeEntry(newEntry);
 			return false;
 		}

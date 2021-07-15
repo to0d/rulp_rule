@@ -1,9 +1,7 @@
 package alpha.rulp.ximpl.entry;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
-import alpha.rulp.runtime.IRInterpreter;
 
 public class XREntryQueueEmpty implements IREntryQueue {
 
@@ -26,7 +24,7 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	};
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry) throws RException {
 		return true;
 	}
 
@@ -77,12 +75,12 @@ public class XREntryQueueEmpty implements IREntryQueue {
 
 	@Override
 	public void incEntryRedundant() {
-		
+
 	}
 
 	@Override
 	public void incNodeUpdateCount() {
-		
+
 	}
 
 }

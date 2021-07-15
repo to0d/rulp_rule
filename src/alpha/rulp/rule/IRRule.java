@@ -4,7 +4,10 @@ import java.util.List;
 
 import alpha.rulp.lang.IRError;
 import alpha.rulp.lang.IRExpr;
+import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
+import alpha.rulp.lang.IRVar;
+import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.IRReteNode;
 
@@ -35,6 +38,8 @@ public interface IRRule extends IRReteNode, IRRunnable {
 	public String getRuleName();
 
 	public IRReteNode getRuleNode();
+
+	public IRVar[] getVars() throws RException;
 
 	public void setRuleDecription(String ruleDecription);
 
