@@ -1,4 +1,4 @@
-package beta.rulp.table;
+package beta.rulp.sql;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,6 @@ class XRFactorCreateTableTest extends RuleTestBase {
 
 		_setup();
 		// XRModel.TRACE_RETE = true;
-
 		_test("(new model m)");
 		_test("(set-default-model m)");
 

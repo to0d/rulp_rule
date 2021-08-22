@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.table;
+package alpha.rulp.ximpl.sql;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;

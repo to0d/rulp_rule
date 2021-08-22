@@ -68,7 +68,7 @@ public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFac
 		List<String> constraintList = new ConstraintBuilder(namedList).match(node,
 				RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
 		if (constraintList.isEmpty()) {
-			throw new RException("no constraint matched: " + args);
+			return RulpFactory.createList();
 		}
 
 		/********************************************/

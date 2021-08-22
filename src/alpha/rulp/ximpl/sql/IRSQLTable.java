@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.table;
+package alpha.rulp.ximpl.sql;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 
-public interface IRTable extends IRInstance {
+public interface IRSQLTable extends IRInstance {
 
 	public int getRowCount();
 
@@ -15,7 +15,7 @@ public interface IRTable extends IRInstance {
 
 	public String getTableName();
 
-	public List<IRColumn> getColumnMetas();
+	public List<RSQLColumn> getColumns();
 
 	public IRList getRow(int rowIndex) throws RException;
 

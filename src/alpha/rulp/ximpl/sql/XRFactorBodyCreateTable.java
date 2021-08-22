@@ -1,4 +1,8 @@
-package alpha.rulp.ximpl.table;
+package alpha.rulp.ximpl.sql;
+
+import static alpha.rulp.ximpl.sql.Constant.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import alpha.rulp.lang.IRArray;
 import alpha.rulp.lang.IRFrame;
@@ -8,12 +12,14 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactorBody;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRFactorBodyCreateTable implements IRFactorBody {
 
-	
 //
 //	static TableColumnConstraint[] getColumnConstraint(IRList tableList) throws RException {
 //
@@ -73,7 +79,42 @@ public class XRFactorBodyCreateTable implements IRFactorBody {
 			throw new RException("Invalid table name: " + args);
 		}
 
-		IRArray tableDefArray = RulpUtil.asArray(args.get(3));
+		IRArray columnDefArray = RulpUtil.asArray(args.get(3));
+
+		IRSQLSchema schema = SQLUtil.getSchema(model);
+		if (schema.getAllTableNames().contains(tableName)) {
+			throw new RException("table name already exist: " + tableName);
+		}
+
+		List<RSQLColumn> columns = SQLUtil.toColumn(columnDefArray);
+		ArrayList<String> columnNames = new ArrayList<>();
+		for (RSQLColumn column : columns) {
+			columnNames.add(column.columnName);
+		}
+
+		/**************************************************/
+		// Check named list
+		/**************************************************/
+		IRList namedList = RulpFactory.createNamedList(RulpFactory.createListOfString(columnNames).iterator(),
+				tableName);
+		int anyIndex = ReteUtil.indexOfVarArgStmt(namedList);
+		if (anyIndex != -1) {
+			throw new RException(String.format("Can't create var arg node: %s", namedList));
+		}
+
+		/**************************************************/
+		// Find node
+		/**************************************************/
+		IRNamedNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
+		if (node == null) {
+
+			// Create node
+			node = model.getNodeGraph().getNamedNode(namedList.getNamedName(), ReteUtil.getFilerEntryLength(namedList));
+		}
+		
+		
+
+		return RulpFactory.createInteger(SQLCODE_SUCC);
 
 //		TableColumnConstraint[] columnConstraint = getColumnConstraint(tableList);
 //		int tableLen = tableList.size();
@@ -105,6 +146,5 @@ public class XRFactorBodyCreateTable implements IRFactorBody {
 //
 //		}
 
-		return tableDefArray;
 	}
 }

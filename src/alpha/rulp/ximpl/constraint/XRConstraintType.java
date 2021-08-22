@@ -32,11 +32,11 @@ public class XRConstraintType extends AbsRConstraint1 implements IRConstraint1 {
 
 	private String _constraintExpression = null;
 
-	private int[] constraintIndex;
-
 	private final int columnIndex;
 
 	private final RType columnType;
+
+	private int[] constraintIndex;
 
 	public XRConstraintType(int columnIndex, RType columnType) {
 		super();
@@ -44,31 +44,6 @@ public class XRConstraintType extends AbsRConstraint1 implements IRConstraint1 {
 		this.columnType = columnType;
 		this.constraintIndex = new int[1];
 		this.constraintIndex[0] = columnIndex;
-	}
-
-	@Override
-	public boolean addConstraint(List<IRConstraint1> constraints, List<IRConstraint1> incompatibleConstraints) {
-
-		for (IRConstraint1 preCons : constraints) {
-
-			if (preCons.getConstraintType() != RConstraintType.TYPE) {
-				continue;
-			}
-
-			XRConstraintType preTypeCons = (XRConstraintType) preCons;
-			if (preTypeCons.getColumnIndex() != this.getColumnIndex()) {
-				continue;
-			}
-
-			if (preTypeCons.getColumnType() != this.getColumnType()) {
-				incompatibleConstraints.add(preCons);
-			}
-			// else: Same type constraint, no need to
-
-			return false;
-		}
-
-		return super.addConstraint(constraints, incompatibleConstraints);
 	}
 
 	@Override
@@ -102,13 +77,38 @@ public class XRConstraintType extends AbsRConstraint1 implements IRConstraint1 {
 	}
 
 	@Override
+	public int[] getConstraintIndex() {
+		return constraintIndex;
+	}
+
+	@Override
 	public RConstraintType getConstraintType() {
 		return RConstraintType.TYPE;
 	}
 
 	@Override
-	public int[] getConstraintIndex() {
-		return constraintIndex;
+	public boolean tryMatchConstraint(List<IRConstraint1> constraints, List<IRConstraint1> incompatibleConstraints) {
+
+		for (IRConstraint1 preCons : constraints) {
+
+			if (preCons.getConstraintType() != RConstraintType.TYPE) {
+				continue;
+			}
+
+			XRConstraintType preTypeCons = (XRConstraintType) preCons;
+			if (preTypeCons.getColumnIndex() != this.getColumnIndex()) {
+				continue;
+			}
+
+			if (preTypeCons.getColumnType() != this.getColumnType()) {
+				incompatibleConstraints.add(preCons);
+			}
+			// else: Same type constraint, no need to
+
+			return false;
+		}
+
+		return super.tryMatchConstraint(constraints, incompatibleConstraints);
 	}
 
 }

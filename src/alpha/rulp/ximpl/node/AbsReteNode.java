@@ -125,7 +125,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 			List<IRConstraint1> incompatibleConstraints = new ArrayList<>();
 
-			if (!constraint.addConstraint(constraintList, incompatibleConstraints)) {
+			if (!constraint.tryMatchConstraint(constraintList, incompatibleConstraints)) {
 
 				if (!incompatibleConstraints.isEmpty()) {
 					throw new RException(String.format("Unable to add constraint<%s> due to pre-constraints<%s>",

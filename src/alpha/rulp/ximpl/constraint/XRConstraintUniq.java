@@ -1,7 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,23 +24,9 @@ public class XRConstraintUniq extends AbsRConstraint1 implements IRConstraint1, 
 	private Map<String, IRReteEntry> uniqEntryMap = null;
 
 	public XRConstraintUniq(int[] uniqColumnIndexs) {
-		
 		super();
-
-		int size = uniqColumnIndexs.length;
-
-		ArrayList<Integer> indexs = new ArrayList<>();
-		for (int index : uniqColumnIndexs) {
-			indexs.add(index);
-		}
-		Collections.sort(indexs);
-
-		this.uniqColumnIndexs = new int[size];
-		for (int i = 0; i < size; ++i) {
-			this.uniqColumnIndexs[i] = indexs.get(i);
-		}
-
-		this.uniqEntry = new IRObject[size];
+		this.uniqColumnIndexs = uniqColumnIndexs;
+		this.uniqEntry = new IRObject[uniqColumnIndexs.length];
 	}
 
 	protected String _getUniqString(IRReteEntry entry) throws RException {

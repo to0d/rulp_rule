@@ -23,7 +23,7 @@ public abstract class AbsRConstraint1 extends AbsRInstance implements IRConstrai
 	}
 
 	@Override
-	public boolean addConstraint(List<IRConstraint1> preConstraints, List<IRConstraint1> incompatibleConstraints) {
+	public boolean tryMatchConstraint(List<IRConstraint1> preConstraints, List<IRConstraint1> incompatibleConstraints) {
 		return true;
 	}
 

@@ -24,6 +24,73 @@ import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class ConstraintBuilder {
 
+	public static boolean matchIndexs(int[] idx1, int[] idx2) throws RException {
+
+		if (idx1.length != idx2.length) {
+			return false;
+		}
+
+		if (idx1.length == 0) {
+			return true;
+		}
+
+		// All index1 should be actual index number
+		{
+			int lastIdx = -2;
+			for (int idx : idx1) {
+				if (idx < 0 || idx == lastIdx) {
+					throw new RException("invalid index1: " + idx);
+				}
+				lastIdx = idx;
+			}
+		}
+
+		// All index2 should be in order
+		int anyIdx2Count = 0;
+		{
+			int lastIdx = -2;
+			for (int idx : idx2) {
+
+				if (idx < lastIdx || (idx >= 0 && idx == lastIdx)) {
+					throw new RException("invalid index2: " + idx);
+				}
+
+				if (idx == -1) {
+					anyIdx2Count++;
+				}
+
+				lastIdx = idx;
+			}
+		}
+
+		final int len = idx1.length;
+
+		// match index one by one
+		if (anyIdx2Count == 0) {
+
+			for (int i = 0; i < len; ++i) {
+				if (idx1[i] != idx2[i]) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		int i = 0;
+		NEXT: for (int j = anyIdx2Count; j < len; ++j) {
+			int idx = idx2[j];
+			while (i < len) {
+				if (idx1[i++] == idx) {
+					continue NEXT;
+				}
+			}
+			return false;
+		}
+
+		return true;
+	}
+
 	private IRList namedList;
 
 	private Map<String, Integer> varIndexMap = new HashMap<>();
@@ -89,6 +156,10 @@ public class ConstraintBuilder {
 		} else if (obj.getType() == RType.ATOM) {
 
 			String columnName = RulpUtil.asAtom(obj).getName();
+			if (columnName.equals(S_QUESTION)) {
+				return -1;
+			}
+
 			if (!varIndexMap.containsKey(columnName)) {
 				throw new RException("invalid column: " + obj);
 			}
@@ -101,15 +172,60 @@ public class ConstraintBuilder {
 		}
 	}
 
-	private Set<String> _matchTypeConstraint(RConstraint cons, IRNamedNode node) throws RException {
+	private int[] _toIndex(IRObject obj) throws RException {
+
+		int columnIndexs[] = null;
+
+		switch (obj.getType()) {
+		case ATOM:
+
+			String columnName = RulpUtil.asAtom(obj).getName();
+			if (columnName.equals(S_QUESTION)) {
+				return null;
+			}
+
+			if (!varIndexMap.containsKey(columnName)) {
+				throw new RException("invalid column: " + columnName);
+			}
+
+			columnIndexs = new int[1];
+			columnIndexs[0] = varIndexMap.get(columnName);
+			break;
+
+		case INT:
+			columnIndexs = new int[1];
+			columnIndexs[0] = RulpUtil.asInteger(obj).asInteger();
+			break;
+
+		case LIST:
+
+			IRList onList = RulpUtil.asList(obj);
+
+			int uniqIndexCount = onList.size();
+			columnIndexs = new int[uniqIndexCount];
+
+			for (int i = 0; i < uniqIndexCount; ++i) {
+				columnIndexs[i] = _getColumnIndex(onList.get(i));
+			}
+			break;
+
+		default:
+			throw new RException("invalid column index: " + obj);
+		}
+
+		return columnIndexs;
+	}
+
+	private Set<String> _matchConstraint(RConstraint cons, IRNamedNode node) throws RException {
 
 		Set<String> matchedConstraints = new HashSet<>();
 
-		/**********************************************/
-		// find column type
-		/**********************************************/
 		RType columnType = null;
-		if (!ReteUtil.isAnyVar(cons.constraintValue)) {
+
+		/**********************************************/
+		// Column type
+		/**********************************************/
+		if (cons.constraintType.equals(RConstraintType.TYPE) && !ReteUtil.isAnyVar(cons.constraintValue)) {
 			columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
 			if (columnType == null || !ReteUtil.isEntryValueType(columnType)) {
 				throw new RException("Invalid column type: " + columnType);
@@ -117,39 +233,30 @@ public class ConstraintBuilder {
 		}
 
 		/**********************************************/
-		// find column index
+		// Column index
 		/**********************************************/
-		int columnIndex = -1;
-		{
-			if (cons.onObject.getType() == RType.ATOM) {
+		int columnIndexs[] = _toIndex(cons.onObject);
 
-				String columnName = RulpUtil.asAtom(cons.onObject).getName();
-				if (!columnName.equals(S_QUESTION)) {
-					if (!varIndexMap.containsKey(columnName)) {
-						throw new RException("invalid column: " + columnName);
-					}
-					columnIndex = varIndexMap.get(columnName);
-				}
-
-			} else if (cons.onObject.getType() == RType.INT) {
-
-				columnIndex = RulpUtil.asInteger(cons.onObject).asInteger();
-
-			} else {
-				throw new RException("invalid column index: " + cons.onObject);
-			}
-		}
-
+		/**********************************************/
+		// Check
+		/**********************************************/
 		int totalConstraintCount = node.getConstraintCount();
 		for (int i = 0; i < totalConstraintCount; ++i) {
+
 			IRConstraint1 constraint = node.getConstraint(i);
-			if (XRConstraintType.match(constraint, columnType, columnIndex)) {
-				matchedConstraints.add(constraint.getConstraintExpression());
+			if (cons.constraintType != RConstraintType.ANY && cons.constraintType != constraint.getConstraintType()) {
+				continue;
 			}
+
+			if (columnIndexs != null && !matchIndexs(constraint.getConstraintIndex(), columnIndexs)) {
+				continue;
+			}
+
+			matchedConstraints.add(constraint.getConstraintExpression());
 		}
 
 		return matchedConstraints;
-	};
+	}
 
 	private IRConstraint1 _typeConstraint(RConstraint cons) throws RException {
 
@@ -241,23 +348,9 @@ public class ConstraintBuilder {
 			IRObject obj = it.next();
 
 			switch (obj.getType()) {
-
 			case LIST:
-
-				RConstraint cons = ConstraintFactory.toConstraint((IRList) obj, interpreter, frame);
-				switch (cons.constraintType) {
-				case TYPE:
-					matchedConstraints.addAll(_matchTypeConstraint(cons, node));
-					break;
-
-				case UNIQ:
-					matchedConstraints.add(_uniqConstraint(cons).getConstraintExpression());
-					break;
-
-				default:
-					throw new RException("unsupport constraint: " + cons.constraintType);
-				}
-
+				matchedConstraints.addAll(
+						_matchConstraint(ConstraintFactory.toConstraint((IRList) obj, interpreter, frame), node));
 				break;
 
 			case EXPR:

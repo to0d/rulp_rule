@@ -27,8 +27,8 @@ Unable to add entry<name1:'(x y 3)> due to constraint<'(uniq on '(0 1))>
 at main: (add-stmt m name1:'(x y 3))
 ;eof
 (remove-constraint m name1:'(3) '(? on ?))
-;=>1
+;=>'('(uniq on '(0 1)))
 (add-stmt m name1:'(x y 3))
 ;=>1
 (list-stmt m)
-;=>'(name1:'(a b 1) name1:'(x y 2))
+;=>'(name1:'(a b 1) name1:'(x y dup) name1:'(x y 3))

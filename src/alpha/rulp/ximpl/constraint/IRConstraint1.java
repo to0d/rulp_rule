@@ -10,8 +10,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public interface IRConstraint1 extends IRInstance {
 
-	public boolean addConstraint(List<IRConstraint1> constraints, List<IRConstraint1> incompatibleConstraints);
-
 	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException;
 
 	public void close();
@@ -21,4 +19,6 @@ public interface IRConstraint1 extends IRInstance {
 	public int[] getConstraintIndex();
 
 	public RConstraintType getConstraintType();
+
+	public boolean tryMatchConstraint(List<IRConstraint1> constraints, List<IRConstraint1> incompatibleConstraints);
 }

@@ -1,12 +1,14 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
+import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import alpha.rulp.lang.IRAtom;
@@ -187,7 +189,30 @@ public class ConstraintFactory {
 		return new XRConstraintType(columnIndex, columnType);
 	}
 
-	public static IRConstraint1 createConstraintUniq(int... uniqColumnIndexs) {
+	public static IRConstraint1 createConstraintUniq(int... columnIndexs) throws RException {
+
+		int size = columnIndexs.length;
+
+		ArrayList<Integer> indexs = new ArrayList<>();
+		for (int index : columnIndexs) {
+			indexs.add(index);
+		}
+		Collections.sort(indexs);
+
+		int lastIndex = -1;
+
+		int[] uniqColumnIndexs = new int[size];
+		for (int i = 0; i < size; ++i) {
+
+			int columnIndex = indexs.get(i);
+			if (columnIndex > 0 && columnIndex == lastIndex) {
+				throw new RException("duplicate column index: " + columnIndex);
+			}
+
+			uniqColumnIndexs[i] = columnIndex;
+			lastIndex = columnIndex;
+		}
+
 		return new XRConstraintUniq(uniqColumnIndexs);
 	}
 
@@ -250,6 +275,15 @@ public class ConstraintFactory {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintType = RConstraintType.UNIQ;
+			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+
+			return cons;
+		}
+
+		if (consListSize == 3 && _isAtom(constraintlist, 0, S_QUESTION) && _isAtom(constraintlist, 1, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintType = RConstraintType.ANY;
 			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
 
 			return cons;
