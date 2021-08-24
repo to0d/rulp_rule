@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.sql;
 
+import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.ximpl.sql.Constant.F_ADD_SQL_COLUMN;
 import static alpha.rulp.ximpl.sql.Constant.F_ADD_SQL_TABLE;
 import static alpha.rulp.ximpl.sql.Constant.SQLCODE_SUCC;
@@ -11,6 +12,7 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactorBody;
 import alpha.rulp.runtime.IRInterpreter;
@@ -115,40 +117,10 @@ public class XRFactorBodyCreateTable implements IRFactorBody {
 		for (RSQLColumn column : columns) {
 			RuleUtil.compute(model,
 					String.format("(%s %s \"%s\" \"%s\" %d %s)", F_ADD_SQL_COLUMN, model.getModelName(), tableName,
-							column.columnName, columnIndex++, column.columnType == null ? "nil" : column.columnType));
+							column.columnName, columnIndex++,
+							column.columnType == null ? A_NIL : RType.toObject(column.columnType).getName()));
 		}
 
 		return RulpFactory.createInteger(SQLCODE_SUCC);
-
-//		TableColumnConstraint[] columnConstraint = getColumnConstraint(tableList);
-//		int tableLen = tableList.size();
-//
-//		IRNodeGraph nodeGraph = model.getNodeGraph();
-//
-//		IRNamedNode tableNode = nodeGraph.findNamedNode(tableName);
-//		if (tableNode != null) {
-//
-//			if (tableNode.getReteType() != RReteType.NAME0) {
-//				throw new RException("invalid named node: " + tableNode);
-//			}
-//
-//			if (tableNode.getEntryLength() != tableLen) {
-//				throw new RException(String.format("Entry Length not match: expect=%d, actual=%d, node=%s", tableLen,
-//						tableNode.getEntryLength(), tableNode));
-//			}
-//
-//			if (columnConstraint != null && tableNode.getConstraintCount() != 0) {
-//				throw new RException("node has constraint already: " + tableNode);
-//			}
-//
-//		} else {
-//
-//			tableNode = nodeGraph.getNamedNode(tableName, tableLen);
-//		}
-//
-//		if (columnConstraint != null) {
-//
-//		}
-
 	}
 }

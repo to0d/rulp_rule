@@ -91,4 +91,12 @@
 
 (defun add-sql-column((?m model) (?table string) (?column string) (?index int) (?type))
     (add-stmt ?m _STR_COLUMN:'(?table ?column ?index ?type))
+    (if (not (equal ?type nil)) 
+        (add-constraint ?m (to-named-list ?table '(?...)) '(type ?type on ?index)))
 )
+
+
+
+
+
+
