@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,6 +69,16 @@ public class RuleTestBase extends RulpTestBase {
 
 	static {
 		new RuleFactory();
+	}
+
+	protected static void _clean_cache(String cachePath) {
+		if (FileUtil.isExistDirectory(cachePath)) {
+			for (File file : new File(cachePath).listFiles()) {
+				if (file.isFile()) {
+					file.delete();
+				}
+			}
+		}
 	}
 
 	static String _getTestKey(String className, String funcName, String testName) {

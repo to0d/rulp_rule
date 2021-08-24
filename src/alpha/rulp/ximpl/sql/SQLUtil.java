@@ -16,7 +16,16 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.constraint.ConstraintFactory;
+import alpha.rulp.ximpl.entry.IREntryQueue;
+import alpha.rulp.ximpl.node.IRNamedNode;
+import alpha.rulp.ximpl.node.IRNodeGraph;
+
+import static alpha.rulp.ximpl.sql.Constant.*;
 
 public class SQLUtil {
 
@@ -40,7 +49,6 @@ public class SQLUtil {
 
 		RSQLSchema schema = new RSQLSchema(model);
 		modelFrame.setEntry(STR_SCHEMA_NAME, schema);
-		schema.load();
 		return schema;
 	}
 
@@ -90,6 +98,29 @@ public class SQLUtil {
 			throw new RException("invalid column obj: " + obj);
 		}
 
+	}
+
+	public static void initSQLSchema(IRModel model) throws RException {
+
+		IRNodeGraph nodeGraph = model.getNodeGraph();
+
+		/**************************************************/
+		// Find node
+		/**************************************************/
+		IRNamedNode tableNameNode = nodeGraph.findNamedNode(STR_TABLE);
+		if (tableNameNode != null) {
+			return;
+		}
+
+		RuleUtil.compute(model, String.format("(%s %s)", F_INIT_SQL_SCHEMA, model.getModelName()));
+	}
+
+	public static boolean hasTableNames(IRModel model, String tableName) throws RException {
+
+		List<IRObject> rst = RuleUtil.compute(model,
+				String.format("(%s %s \"%s\")", F_HAS_SQL_TABLE_NAME, model.getModelName(), tableName));
+
+		return rst.size() == 1 && RulpUtil.asBoolean(rst.get(0)).asBoolean();
 	}
 
 	public static List<RSQLColumn> toColumn(IRArray columnDefArray) throws RException {

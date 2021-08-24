@@ -14,6 +14,6 @@ class XRFactorAddViewTest extends RuleTestBase {
 
 		_test("(new model m)");
 		_test("(add-view m n2:'(? ?) as select '(?x ?y) from n1:'(?x ?y ?z))", "");
-		_statsInfo("m", "result/table/XRFactorAddViewTest/test_1_as_select_1.txt");
+		_statsInfo("m", "result/sql/XRFactorAddViewTest/test_1_as_select_1.txt");
 	}
 }

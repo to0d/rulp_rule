@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
+import alpha.rulp.lang.RError;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
@@ -24,10 +25,12 @@ import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRParser;
+import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRRuleNode;
+import alpha.rulp.ximpl.runtime.XRInterpreter;
 import alpha.rulp.ximpl.scope.IRScope;
 
 public class RuleUtil {
@@ -206,6 +209,52 @@ public class RuleUtil {
 		return (IRScope) obj;
 	}
 
+	public static List<IRObject> compute(IRModel model, String input) throws RException {
+
+		IRInterpreter interpreter = model.getInterpreter();
+		IRFrame modelFrame = model.getModelFrame();
+		IRParser parser = interpreter.getParser();
+
+		List<IRObject> objs;
+
+		synchronized (parser) {
+			objs = parser.parse(input);
+		}
+
+		try {
+
+			List<IRObject> rsts = new LinkedList<>();
+
+			for (IRObject obj : objs) {
+				rsts.add(interpreter.compute(modelFrame, obj));
+			}
+
+			return rsts;
+
+		} catch (RIException e) {
+
+			if (XRInterpreter.TRACE) {
+				e.printStackTrace();
+			}
+
+			throw new RException("Unhandled internal exception: " + e.toString());
+
+		} catch (RError e) {
+
+			if (XRInterpreter.TRACE) {
+				e.printStackTrace();
+			}
+
+			RException newExp = new RException("" + e.getError());
+
+			for (String addMsg : e.getAdditionalMessages()) {
+				newExp.addMessage(addMsg);
+			}
+
+			throw newExp;
+		}
+	}
+
 	public static boolean equal(String a, String b) throws RException {
 
 		if (a == null) {
@@ -310,6 +359,20 @@ public class RuleUtil {
 
 	}
 
+	public static List<Integer> toList(int[] ids) {
+
+		if (ids == null || ids.length == 0) {
+			return Collections.emptyList();
+		}
+
+		List<Integer> list = new ArrayList<Integer>();
+		for (int id : ids) {
+			list.add(id);
+		}
+
+		return list;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> toList(T... objs) {
 
@@ -320,20 +383,6 @@ public class RuleUtil {
 		List<T> list = new ArrayList<T>();
 		for (T o : objs) {
 			list.add(o);
-		}
-
-		return list;
-	}
-
-	public static List<Integer> toList(int[] ids) {
-
-		if (ids == null || ids.length == 0) {
-			return Collections.emptyList();
-		}
-
-		List<Integer> list = new ArrayList<Integer>();
-		for (int id : ids) {
-			list.add(id);
 		}
 
 		return list;
@@ -372,4 +421,5 @@ public class RuleUtil {
 	public static IRIterator<? extends IRList> toStmtList(String stmts) throws RException {
 		return RuleUtil.toStmtList(RulpFactory.createList(getParser().parse(stmts)));
 	}
+
 }

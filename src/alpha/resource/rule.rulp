@@ -50,3 +50,40 @@
         (return ?impl))
 
 )
+
+
+(defun init-sql-schema((?m model))
+
+    ;; table definition
+    (add-node ?m _STR_TABLE:'(1))
+    (add-constraint ?m _STR_TABLE:'(?x) '(type string on ?x))
+    (add-stmt ?m _STR_TABLE:'("_STR_TABLE"))
+    (add-stmt ?m _STR_TABLE:'("_STR_COLUMN"))
+    
+    ;; column definition 
+    (add-node ?m _STR_COLUMN:'(4))
+    (add-constraint ?m _STR_COLUMN:'(?table ?column ?index ?type) '(type string on ?table))
+    (add-constraint ?m _STR_COLUMN:'(?table ?column ?index ?type) '(type string on ?column))
+    (add-constraint ?m _STR_COLUMN:'(?table ?column ?index ?type) '(type int on ?index))
+    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "TABLE_NAME"   0 string))
+    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_NAME"  1 string))
+    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_INDEX" 2 int))
+    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_TYPE"  3 nil))
+)
+
+(defun query-sql-table-names((?m model))
+    (return (query-stmt ?m ?x from _STR_TABLE_NAMES:'(?x)))
+)
+
+(defun has-sql-table-names((?m model) (?table string))
+    (return (has-stmt ?m _STR_TABLE_NAMES:'(?table)))
+)
+
+(defun add-sql-table((?m model) (?table string) (?size int))
+   (add-node ?m (to-named-list ?table '(?size)))
+   (add-stmt ?m _STR_TABLE:'(?table))
+)
+
+(defun add-sql-column((?m model) (?table string) (?column string) (?index int) (?type))
+    (add-stmt ?m _STR_COLUMN:'(?table ?column ?index ?type))
+)

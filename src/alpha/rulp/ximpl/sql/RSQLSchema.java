@@ -15,27 +15,13 @@ public class RSQLSchema extends XRDefInstance {
 
 	public IRModel model;
 
-	public List<String> tableNames = new ArrayList<>();
-
 	public RSQLSchema(IRModel model) {
 		super(null, STR_SCHEMA_NAME, model.getModelFrame());
 		this.model = model;
 	}
 
-	public void load() {
+	public void init() {
 
-		IRNodeGraph nodeGraph = model.getNodeGraph();
-
-		/**************************************************/
-		// Find node
-		/**************************************************/
-		IRNamedNode tableNameNode = nodeGraph.findNamedNode(STR_TABLE_NAMES);
-
-		IRNamedNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
-		if (node == null) {
-
-			// Create node
-			node = nodeGraph.getNamedNode(namedList.getNamedName(), ReteUtil.getFilerEntryLength(namedList));
-		}
+		
 	}
 }

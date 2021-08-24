@@ -20,7 +20,6 @@ import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRFactorBodyCreateTable implements IRFactorBody {
 
-//
 //	static TableColumnConstraint[] getColumnConstraint(IRList tableList) throws RException {
 //
 //		int tableLen = tableList.size();
@@ -64,7 +63,7 @@ public class XRFactorBodyCreateTable implements IRFactorBody {
 		}
 
 		/**************************************************/
-		// Check model object
+		// model object
 		/**************************************************/
 		IRModel model = RuleUtil.getDefaultModel(frame);
 		if (model == null) {
@@ -72,47 +71,52 @@ public class XRFactorBodyCreateTable implements IRFactorBody {
 		}
 
 		/**************************************************/
-		// Check table name
+		// table name
 		/**************************************************/
 		String tableName = RulpUtil.asAtom(args.get(2)).getName();
 		if (tableName == null) {
 			throw new RException("Invalid table name: " + args);
 		}
 
+		/**************************************************/
+		// Column definition
+		/**************************************************/
 		IRArray columnDefArray = RulpUtil.asArray(args.get(3));
+		List<RSQLColumn> columns = SQLUtil.toColumn(columnDefArray);
 
-		IRSQLSchema schema = SQLUtil.getSchema(model);
-		if (schema.getAllTableNames().contains(tableName)) {
+		for (RSQLColumn column : columns) {
+			switch (column.columnType) {
+			case FLOAT:
+			case INT:
+			case BOOL:
+				break;
+			default:
+				throw new RException("not support column type: " + column.columnType);
+			}
+		}
+
+		/**************************************************/
+		// check table name exist
+		/**************************************************/
+		if (SQLUtil.hasTableNames(model, tableName)) {
 			throw new RException("table name already exist: " + tableName);
 		}
 
-		List<RSQLColumn> columns = SQLUtil.toColumn(columnDefArray);
-		ArrayList<String> columnNames = new ArrayList<>();
+		/**************************************************/
+		// Create table
+		/**************************************************/
+		RuleUtil.compute(model,
+				String.format("(%s %s \"%s\" %d)", F_ADD_SQL_TABLE, model.getModelName(), tableName, columns.size()));
+
+		/**************************************************/
+		// Create columns
+		/**************************************************/
+		int columnIndex = 0;
 		for (RSQLColumn column : columns) {
-			columnNames.add(column.columnName);
+			RuleUtil.compute(model,
+					String.format("(%s %s \"%s\" \"%s\" %d %s)", F_ADD_SQL_COLUMN, model.getModelName(), tableName,
+							column.columnName, columnIndex++, column.columnType == null ? "nil" : column.columnType));
 		}
-
-		/**************************************************/
-		// Check named list
-		/**************************************************/
-		IRList namedList = RulpFactory.createNamedList(RulpFactory.createListOfString(columnNames).iterator(),
-				tableName);
-		int anyIndex = ReteUtil.indexOfVarArgStmt(namedList);
-		if (anyIndex != -1) {
-			throw new RException(String.format("Can't create var arg node: %s", namedList));
-		}
-
-		/**************************************************/
-		// Find node
-		/**************************************************/
-		IRNamedNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
-		if (node == null) {
-
-			// Create node
-			node = model.getNodeGraph().getNamedNode(namedList.getNamedName(), ReteUtil.getFilerEntryLength(namedList));
-		}
-		
-		
 
 		return RulpFactory.createInteger(SQLCODE_SUCC);
 

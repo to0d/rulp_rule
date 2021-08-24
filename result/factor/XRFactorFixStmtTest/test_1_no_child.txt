@@ -211,7 +211,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       56        0
+     Interpreter call id/level:       61        0
              CPS support/count:    false        0
                Frame max level:        5
                   Frame max id:        9
@@ -222,43 +222,43 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       57
+    factor:       62
 ==========================================================================================================================
 
-Callable stats info: callId=56, row=12, column=57(1), value-max=1, value-unit=1^x
+Callable stats info: callId=61, row=12, column=62(1), value-max=1, value-unit=1^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         .11111111111111111111111111111111111111111111111111111211 max=2, unit=2^x
+   Frame    RType  Count  Ref Object                         .1111111111111111111111111111111111111111111111111111111111211 max=2, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     31    0 defun                                  111111111111 11  1111 111 11111 1111  1          
-    root   factor      7    0 defclass                                              11    1   1     1    1    1       
-    root   factor      7    0 alias                           111111                                      1           
-    root   factor      3    0 defmacro                                           1                          11        
-  system   factor      2    0 add-stmt                                                                           1 1  
-  system   factor      1    0 state-of                                                                              1 
-  system   factor      1    0 start                                                                                1  
-    root   factor      1    0 new                                                                              1      
-  system   factor      1    0 list-stmt                                                                              1
-  system   factor      1    0 fix-stmt                                                                            1   
-    root   factor      1    0 defvar                                1                                                 
-  system   factor      1    0 add-rule                                                                          1     
+    root   factor     36    0 defun                                  111111111111 11  1111 111 11111 1111  1   11111       
+    root   factor      7    0 defclass                                              11    1   1     1    1    1            
+    root   factor      7    0 alias                           111111                                      1                
+    root   factor      3    0 defmacro                                           1                          11             
+  system   factor      2    0 add-stmt                                                                                1 1  
+  system   factor      1    0 state-of                                                                                   1 
+  system   factor      1    0 start                                                                                     1  
+    root   factor      1    0 new                                                                                   1      
+  system   factor      1    0 list-stmt                                                                                   1
+  system   factor      1    0 fix-stmt                                                                                 1   
+    root   factor      1    0 defvar                                1                                                      
+  system   factor      1    0 add-rule                                                                               1     
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          788            0          788
-      string:           18            0           18
-        list:           18            0           18
-        expr:          420            0          420
+        atom:          904            0          904
+      string:           28            0           28
+        list:           39            0           39
+        expr:          464            0          464
          var:           22            0           22
-        func:           88            0           88
+        func:           93            0           93
        macro:            3            0            3
        class:            7            0            7
       member:          151            0          151
        frame:            8            3            5
  interpreter:            1            0
-  frameEntry:          230            0
+  frameEntry:          236            0
       lambda:            0            0
 ==========================================================================================================================
 
