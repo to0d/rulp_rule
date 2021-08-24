@@ -194,5 +194,6 @@ public interface Constant {
 	int STMT_MIN_LEN = 1;
 
 	String V_M_STATE = "?model-state";
-
+	
+	String V_M_SQL_INIT = "?str-sql-init";
 }

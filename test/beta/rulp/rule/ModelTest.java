@@ -295,4 +295,16 @@ public class ModelTest extends RuleTestBase {
 		_saveTest();
 	}
 
+	@Test
+	void test_5_model_vars() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(value-of m::?model-state)", "completed");
+		_test("(value-of m::?str-sql-init)", "false");
+
+		_test("(defvar ?m m)");
+		_test("(value-of ?m::?model-state)", "completed");
+		_test("(value-of ?m::?str-sql-init)", "false");
+	}
 }

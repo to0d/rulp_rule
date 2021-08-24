@@ -52,23 +52,27 @@
 )
 
 
-(defun init-sql-schema((?m model))
+(defun init-str-sql-schema((?m model))
+
+    (if (value-of ?m::?str-sql-init) (return)) 
 
     ;; table definition
     (add-node ?m _STR_TABLE:'(1))
-    (add-constraint ?m _STR_TABLE:'(?x) '(type string on ?x))
+    (add-constraint ?m _STR_TABLE:'(?_name_) '(type string on ?_name_))
     (add-stmt ?m _STR_TABLE:'("_STR_TABLE"))
     (add-stmt ?m _STR_TABLE:'("_STR_COLUMN"))
     
     ;; column definition 
     (add-node ?m _STR_COLUMN:'(4))
-    (add-constraint ?m _STR_COLUMN:'(?table ?column ?index ?type) '(type string on ?table))
-    (add-constraint ?m _STR_COLUMN:'(?table ?column ?index ?type) '(type string on ?column))
-    (add-constraint ?m _STR_COLUMN:'(?table ?column ?index ?type) '(type int on ?index))
+    (add-constraint ?m _STR_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_table_))
+    (add-constraint ?m _STR_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_column_))
+    (add-constraint ?m _STR_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type int on ?_index_))
     (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "TABLE_NAME"   0 string))
     (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_NAME"  1 string))
     (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_INDEX" 2 int))
     (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_TYPE"  3 nil))
+
+    (setq ?m::?str-sql-init true)
 )
 
 (defun query-sql-table-names((?m model))
@@ -80,8 +84,9 @@
 )
 
 (defun add-sql-table((?m model) (?table string) (?size int))
-   (add-node ?m (to-named-list ?table '(?size)))
-   (add-stmt ?m _STR_TABLE:'(?table))
+    (init-str-sql-schema ?m)
+    (add-node ?m (to-named-list ?table '(?size)))
+    (add-stmt ?m _STR_TABLE:'(?table))
 )
 
 (defun add-sql-column((?m model) (?table string) (?column string) (?index int) (?type))

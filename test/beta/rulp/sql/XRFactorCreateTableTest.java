@@ -1,10 +1,7 @@
 package beta.rulp.sql;
 
-import java.io.File;
-
 import org.junit.jupiter.api.Test;
 
-import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.RuleTestBase;
 
 class XRFactorCreateTableTest extends RuleTestBase {

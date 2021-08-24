@@ -29,7 +29,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m name4:'(? ? ?z) '(type string on ?z))", "1");
 		_test("(add-constraint m name5:'(?...)   '(type string on 2))", "1");
 		_test("(add-constraint m name5:'(?x ?y ?z) '(uniq on '(?x ?y)))", "1");
-		
+
 		_test("(add-constraint m name6:'(?x ?y ?z) (!= ?x nil))", "1");
 		_test("(add-constraint m name6:'(?x ?y ?z) (> ?y 5))", "1");
 		_test("(add-constraint m name6:'(?x ?y ?z) (< ?x 10))", "1");
@@ -93,5 +93,26 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m (> ?z 1) on name1:'(?x ?y ?z))"); // user define expression constraint
 
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_4_expr_1.txt");
+	}
+
+	@Test
+	void test_5_var_1() {
+
+		_setup();
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_1.rulp");
+	}
+	
+	@Test
+	void test_5_var_2() {
+
+		_setup();
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_2.rulp");
+	}
+	
+	@Test
+	void test_5_var_3() {
+
+		_setup();
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_3.rulp");
 	}
 }

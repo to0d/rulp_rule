@@ -3,10 +3,15 @@ package alpha.rulp.ximpl.sql;
 import static alpha.rulp.rule.Constant.A_TABLE;
 import static alpha.rulp.rule.Constant.A_VIEW;
 import static alpha.rulp.rule.Constant.F_CREATE;
+import static alpha.rulp.ximpl.sql.Constant.F_HAS_SQL_TABLE_NAME;
+import static alpha.rulp.ximpl.sql.Constant.F_INIT_SQL_SCHEMA;
 import static alpha.rulp.ximpl.sql.Constant.STR_SCHEMA_NAME;
+import static alpha.rulp.ximpl.sql.Constant.STR_TABLE;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import alpha.rulp.lang.IRArray;
 import alpha.rulp.lang.IRFrame;
@@ -16,16 +21,10 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.constraint.ConstraintFactory;
-import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
-
-import static alpha.rulp.ximpl.sql.Constant.*;
 
 public class SQLUtil {
 

@@ -1,7 +1,9 @@
 package alpha.rulp.ximpl.sql;
 
-import static alpha.rulp.ximpl.sql.Constant.*;
-import java.util.ArrayList;
+import static alpha.rulp.ximpl.sql.Constant.F_ADD_SQL_COLUMN;
+import static alpha.rulp.ximpl.sql.Constant.F_ADD_SQL_TABLE;
+import static alpha.rulp.ximpl.sql.Constant.SQLCODE_SUCC;
+
 import java.util.List;
 
 import alpha.rulp.lang.IRArray;
@@ -12,11 +14,9 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactorBody;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRFactorBodyCreateTable implements IRFactorBody {
 

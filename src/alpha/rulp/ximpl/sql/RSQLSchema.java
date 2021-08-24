@@ -1,14 +1,8 @@
 package alpha.rulp.ximpl.sql;
 
-import static alpha.rulp.ximpl.sql.Constant.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import static alpha.rulp.ximpl.sql.Constant.STR_SCHEMA_NAME;
 
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.ximpl.node.IRNamedNode;
-import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.rclass.XRDefInstance;
 
 public class RSQLSchema extends XRDefInstance {

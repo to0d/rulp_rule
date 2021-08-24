@@ -1,10 +1,12 @@
 package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.lang.Constant.O_False;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
+import static alpha.rulp.rule.Constant.V_M_SQL_INIT;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
@@ -33,8 +35,10 @@ import alpha.rulp.lang.IRClass;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
+import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
+import alpha.rulp.lang.RAccessType;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
@@ -486,6 +490,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected final LinkedList<IRReteNode> restartingNodeList = new LinkedList<>();
 
 	protected XRRListener2Adapter<IRReteNode, IRObject> saveNodeListener = null;
+
+	protected IRVar sqlInitVar;
 
 	protected final XRStmtListenUpdater stmtListenUpdater = new XRStmtListenUpdater();
 
@@ -1570,6 +1576,27 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return modelCachePath;
 	}
 
+//	@Override
+//	public IRIterator<IRObject> listObjects() throws RException {
+//
+//		return new IRIterator<IRObject>() {
+//
+//			protected int index = 0;
+//			protected ArrayList<IRObject> objList = allObjectList;
+//			protected int size = allObjectList.size();
+//
+//			@Override
+//			public boolean hasNext() throws RException {
+//				return index < size;
+//			}
+//
+//			@Override
+//			public IRObject next() throws RException {
+//				return objList.get(index++);
+//			}
+//		};
+//	}
+
 	@Override
 	public IRModelCounter getCounter() {
 
@@ -1647,27 +1674,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		};
 	}
 
-//	@Override
-//	public IRIterator<IRObject> listObjects() throws RException {
-//
-//		return new IRIterator<IRObject>() {
-//
-//			protected int index = 0;
-//			protected ArrayList<IRObject> objList = allObjectList;
-//			protected int size = allObjectList.size();
-//
-//			@Override
-//			public boolean hasNext() throws RException {
-//				return index < size;
-//			}
-//
-//			@Override
-//			public IRObject next() throws RException {
-//				return objList.get(index++);
-//			}
-//		};
-//	}
-
 	@Override
 	public IREntryTable getEntryTable() {
 		return entryTable;
@@ -1676,6 +1682,31 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRInterpreter getInterpreter() {
 		return interpreter;
+	}
+
+	@Override
+	public IRMember getMember(String name) throws RException {
+
+		IRMember mbr = super.getMember(name);
+		if (mbr == null) {
+
+			switch (name) {
+			case V_M_STATE:
+			case V_M_SQL_INIT:
+				mbr = RulpFactory.createMember(this, name, getVar(name));
+				mbr.setAccessType(RAccessType.PUBLIC);
+				mbr.setFinal(false);
+				mbr.setStatic(false);
+				break;
+			default:
+			}
+
+			if (mbr != null) {
+				this.setMember(name, mbr);
+			}
+		}
+
+		return mbr;
 	}
 
 	@Override
@@ -1723,6 +1754,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			return modelStatsVar;
+
+		case V_M_SQL_INIT:
+
+			if (sqlInitVar == null) {
+				sqlInitVar = RulpFactory.createVar(V_M_SQL_INIT);
+				this.getModelFrame().setEntry(V_M_SQL_INIT, sqlInitVar);
+				sqlInitVar.setValue(O_False);
+			}
+
+			return sqlInitVar;
 
 		default:
 
