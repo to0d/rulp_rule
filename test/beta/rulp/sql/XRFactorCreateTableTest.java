@@ -12,8 +12,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_setup();
 
 		_clean_cache("result/sql/XRFactorCreateTableTest/test_1_create_table_1");
-
-		// XRModel.TRACE_RETE = true;
+		
 		_test("(new model m)");
 		_test("(set-default-model m)");
 		_test("(create table name1 {c1 int, c2 bool, c3 float})", "0");
@@ -26,9 +25,9 @@ class XRFactorCreateTableTest extends RuleTestBase {
 	void test_1_new_2() {
 
 		_setup();
-		// XRModel.TRACE_RETE = true;
 
 		_test("(new model m)");
+		_test("(set schema m)");
 		_test("(add-table m name1:'(? ? ?))", "name1:'(?0 ?1 ?2)");
 		_test("(add-table m name1:'(? ? ?))", "name1:'(?0 ?1 ?2)");
 

@@ -54,7 +54,7 @@
 
 (defun init-str-sql-schema((?m model))
 
-    (if (value-of ?m::?str-sql-init) (return)) 
+    (if (value-of (value-of ?m::?str-sql-init)) (return)) 
 
     ;; table definition
     (add-node ?m _STR_TABLE:'(1))

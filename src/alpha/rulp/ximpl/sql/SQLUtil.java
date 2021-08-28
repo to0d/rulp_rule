@@ -4,9 +4,7 @@ import static alpha.rulp.rule.Constant.A_TABLE;
 import static alpha.rulp.rule.Constant.A_VIEW;
 import static alpha.rulp.rule.Constant.F_CREATE;
 import static alpha.rulp.ximpl.sql.Constant.F_HAS_SQL_TABLE_NAME;
-import static alpha.rulp.ximpl.sql.Constant.F_INIT_SQL_SCHEMA;
 import static alpha.rulp.ximpl.sql.Constant.STR_SCHEMA_NAME;
-import static alpha.rulp.ximpl.sql.Constant.STR_TABLE;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,8 +21,6 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.node.IRNamedNode;
-import alpha.rulp.ximpl.node.IRNodeGraph;
 
 public class SQLUtil {
 
@@ -55,6 +51,9 @@ public class SQLUtil {
 
 		RulpUtil.addFactor(frame, F_CREATE, A_TABLE, new XRFactorBodyCreateTable());
 		RulpUtil.addFactor(frame, F_CREATE, A_VIEW, new XRFactorBodyCreateView());
+
+//		RulpUtil.addFactor(frame, F_SET, A_SCHEMA, new XRFactorBodyCreateView());
+
 	}
 
 	public static RSQLColumn toColumn(IRObject obj) throws RException {
@@ -97,21 +96,6 @@ public class SQLUtil {
 			throw new RException("invalid column obj: " + obj);
 		}
 
-	}
-
-	public static void initSQLSchema(IRModel model) throws RException {
-
-		IRNodeGraph nodeGraph = model.getNodeGraph();
-
-		/**************************************************/
-		// Find node
-		/**************************************************/
-		IRNamedNode tableNameNode = nodeGraph.findNamedNode(STR_TABLE);
-		if (tableNameNode != null) {
-			return;
-		}
-
-		RuleUtil.compute(model, String.format("(%s %s)", F_INIT_SQL_SCHEMA, model.getModelName()));
 	}
 
 	public static boolean hasTableNames(IRModel model, String tableName) throws RException {

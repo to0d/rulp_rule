@@ -41,6 +41,8 @@ public interface Constant {
 
 	String A_Running = "running";
 
+	String A_SCHEMA = "schema";
+
 	String A_SCOPE = "scope";
 
 	String A_SELECT = "select";
@@ -121,6 +123,8 @@ public interface Constant {
 
 	String F_SAVE_MODEL = "save-model";
 
+	String F_SET = "set";
+
 	String F_SET_DEFAULT_MODEL = "set-default-model";
 
 	String F_SET_MODEL_CACHE_PATH = "set-model-cache-path";
@@ -193,7 +197,7 @@ public interface Constant {
 
 	int STMT_MIN_LEN = 1;
 
-	String V_M_STATE = "?model-state";
-	
 	String V_M_SQL_INIT = "?str-sql-init";
+
+	String V_M_STATE = "?model-state";
 }
