@@ -1,9 +1,9 @@
-package alpha.rulp.ximpl.sql;
+package alpha.rulp.ximpl.rs;
 
 import static alpha.rulp.lang.Constant.A_NIL;
-import static alpha.rulp.ximpl.sql.Constant.F_ADD_SQL_COLUMN;
-import static alpha.rulp.ximpl.sql.Constant.F_ADD_SQL_TABLE;
-import static alpha.rulp.ximpl.sql.Constant.SQLCODE_SUCC;
+import static alpha.rulp.ximpl.rs.Constant.F_ADD_SQL_COLUMN;
+import static alpha.rulp.ximpl.rs.Constant.F_ADD_SQL_TABLE;
+import static alpha.rulp.ximpl.rs.Constant.SQLCODE_SUCC;
 
 import java.util.List;
 

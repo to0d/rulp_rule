@@ -88,8 +88,8 @@ import alpha.rulp.ximpl.factor.XRFactorStart;
 import alpha.rulp.ximpl.factor.XRFactorStateOf;
 import alpha.rulp.ximpl.factor.XRFactorTraceRule;
 import alpha.rulp.ximpl.model.XRModelClass;
+import alpha.rulp.ximpl.rs.SQLUtil;
 import alpha.rulp.ximpl.scope.ScopeFactory;
-import alpha.rulp.ximpl.sql.SQLUtil;
 
 public class RRuleLoader implements IRObjectLoader {
 

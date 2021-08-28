@@ -1,10 +1,10 @@
-package alpha.rulp.ximpl.sql;
+package alpha.rulp.ximpl.rs;
 
 import static alpha.rulp.rule.Constant.A_TABLE;
 import static alpha.rulp.rule.Constant.A_VIEW;
 import static alpha.rulp.rule.Constant.F_CREATE;
-import static alpha.rulp.ximpl.sql.Constant.F_HAS_SQL_TABLE_NAME;
-import static alpha.rulp.ximpl.sql.Constant.STR_SCHEMA_NAME;
+import static alpha.rulp.ximpl.rs.Constant.F_HAS_SQL_TABLE_NAME;
+import static alpha.rulp.ximpl.rs.Constant.STR_SCHEMA_NAME;
 
 import java.util.ArrayList;
 import java.util.HashSet;

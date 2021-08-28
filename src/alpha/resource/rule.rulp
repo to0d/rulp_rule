@@ -51,46 +51,45 @@
 
 )
 
-
 (defun init-str-sql-schema((?m model))
 
     (if (value-of (value-of ?m::?str-sql-init)) (return)) 
 
     ;; table definition
-    (add-node ?m _STR_TABLE:'(1))
-    (add-constraint ?m _STR_TABLE:'(?_name_) '(type string on ?_name_))
-    (add-stmt ?m _STR_TABLE:'("_STR_TABLE"))
-    (add-stmt ?m _STR_TABLE:'("_STR_COLUMN"))
+    (add-node ?m _RS_TABLE:'(1))
+    (add-constraint ?m _RS_TABLE:'(?_name_) '(type string on ?_name_))
+    (add-stmt ?m _RS_TABLE:'("_RS_TABLE"))
+    (add-stmt ?m _RS_TABLE:'("_RS_COLUMN"))
     
     ;; column definition 
-    (add-node ?m _STR_COLUMN:'(4))
-    (add-constraint ?m _STR_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_table_))
-    (add-constraint ?m _STR_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_column_))
-    (add-constraint ?m _STR_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type int on ?_index_))
-    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "TABLE_NAME"   0 string))
-    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_NAME"  1 string))
-    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_INDEX" 2 int))
-    (add-stmt ?m _STR_COLUMN:'("_STR_TABLE" "COLUMN_TYPE"  3 nil))
+    (add-node ?m _RS_COLUMN:'(4))
+    (add-constraint ?m _RS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_table_))
+    (add-constraint ?m _RS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_column_))
+    (add-constraint ?m _RS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type int on ?_index_))
+    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "TABLE_NAME"   0 string))
+    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "COLUMN_NAME"  1 string))
+    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "COLUMN_INDEX" 2 int))
+    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "COLUMN_TYPE"  3 nil))
 
     (setq ?m::?str-sql-init true)
 )
 
 (defun query-sql-table-names((?m model))
-    (return (query-stmt ?m ?x from _STR_TABLE_NAMES:'(?x)))
+    (return (query-stmt ?m ?x from _RS_TABLE_NAMES:'(?x)))
 )
 
 (defun has-sql-table-names((?m model) (?table string))
-    (return (has-stmt ?m _STR_TABLE_NAMES:'(?table)))
+    (return (has-stmt ?m _RS_TABLE_NAMES:'(?table)))
 )
 
 (defun add-sql-table((?m model) (?table string) (?size int))
     (init-str-sql-schema ?m)
     (add-node ?m (to-named-list ?table '(?size)))
-    (add-stmt ?m _STR_TABLE:'(?table))
+    (add-stmt ?m _RS_TABLE:'(?table))
 )
 
 (defun add-sql-column((?m model) (?table string) (?column string) (?index int) (?type))
-    (add-stmt ?m _STR_COLUMN:'(?table ?column ?index ?type))
+    (add-stmt ?m _RS_COLUMN:'(?table ?column ?index ?type))
     (if (not (equal ?type nil)) 
         (add-constraint ?m (to-named-list ?table '(?...)) '(type ?type on ?index)))
 )

@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.sql;
+package alpha.rulp.ximpl.rs;
 
 import alpha.rulp.lang.RType;
 

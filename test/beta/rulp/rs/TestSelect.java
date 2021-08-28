@@ -1,4 +1,4 @@
-package beta.rulp.sql;
+package beta.rulp.rs;
 
 import org.junit.jupiter.api.Test;
 

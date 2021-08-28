@@ -1,11 +1,11 @@
-package alpha.rulp.ximpl.sql;
+package alpha.rulp.ximpl.rs;
 
 // STR: SQL TO RULP
 public interface Constant {
 
-	String STR_SCHEMA_NAME = "_STR_SCHEMA";
+	String STR_SCHEMA_NAME = "_RS_SCHEMA";
 
-	String STR_TABLE = "_STR_TABLE";
+	String STR_TABLE = "_RS_TABLE";
 
 	String F_INIT_SQL_SCHEMA = "init-sql-schema";
 
