@@ -51,50 +51,72 @@
 
 )
 
-(defun init-str-sql-schema((?m model))
+(new namespace rbs)
 
-    (if (value-of (value-of ?m::?str-sql-init)) (return)) 
+(defvar rbs::?current_schema nil)
+
+(deftemplate rbs::set (schema (?m model))
+    (setq rbs::?current_schema ?m)
+)
+
+(deftemplate rbs::create (table (?table_name atom) (?table_def array))    
+    
+    (defvar ?table_name_str (to-string ?table_name))
+    (defvar ?column_def_list (rsb::get_column_def_list ?table_def))    
+    (defvar ?column_index 0) 
+    
+    (rbs::init-sql-schema)
+    (if (has-sql-table-names ?current_schema ?table_name_str) 
+        (error duplicated-table (strcat "Can't create table: " ?table_name_str)))
+         
+    (add-node ?current_schema (to-named-list ?table_name '(?size)))
+    (add-stmt ?current_schema _RBS_TABLE:'(?table_name))       
+    
+    (loop for ?column_def in ?column_def_list do
+        
+        (defvar ?column_name (get ?column_def 0))
+        (defvar ?column_type (get ?column_def 1))        
+        
+        (add-stmt ?current_schema _RBS_COLUMN:'(?table_name_str ?column_name ?column_index ?column_type))
+        
+        (if (not (equal ?column_type nil)) 
+            (add-constraint ?current_schema (to-named-list ?table_name_str '(?...)) '(type ?column_type on ?column_index)))
+        
+        (setq ?column_index (+ ?column_index 1))        
+    )
+)
+
+(defun rbs::init-sql-schema ()
+
+    (if (equal ?current_schema nil) (error no-schema "no schema specified"))
+    (if (equal ?current_schema::?str-sql-init true) (return)) 
 
     ;; table definition
-    (add-node ?m _RS_TABLE:'(1))
-    (add-constraint ?m _RS_TABLE:'(?_name_) '(type string on ?_name_))
-    (add-stmt ?m _RS_TABLE:'("_RS_TABLE"))
-    (add-stmt ?m _RS_TABLE:'("_RS_COLUMN"))
+    (add-node ?current_schema _RBS_TABLE:'(1))
+    (add-constraint ?current_schema _RBS_TABLE:'(?_name_) '(type string on ?_name_))
+    (add-stmt ?current_schema _RBS_TABLE:'("_RBS_TABLE"))
+    (add-stmt ?current_schema _RBS_TABLE:'("_RBS_COLUMN"))
     
     ;; column definition 
-    (add-node ?m _RS_COLUMN:'(4))
-    (add-constraint ?m _RS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_table_))
-    (add-constraint ?m _RS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_column_))
-    (add-constraint ?m _RS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type int on ?_index_))
-    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "TABLE_NAME"   0 string))
-    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "COLUMN_NAME"  1 string))
-    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "COLUMN_INDEX" 2 int))
-    (add-stmt ?m _RS_COLUMN:'("_RS_TABLE" "COLUMN_TYPE"  3 nil))
+    (add-node ?current_schema _RBS_COLUMN:'(4))
+    (add-constraint ?current_schema _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_table_))
+    (add-constraint ?current_schema _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_column_))
+    (add-constraint ?current_schema _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type int on ?_index_))
+    (add-stmt ?current_schema _RBS_COLUMN:'("_RBS_TABLE" "TABLE_NAME"   0 string))
+    (add-stmt ?current_schema _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_NAME"  1 string))
+    (add-stmt ?current_schema _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_INDEX" 2 int))
+    (add-stmt ?current_schema _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_TYPE"  3 nil))
 
-    (setq ?m::?str-sql-init true)
+    (setq ?current_schema::?str-sql-init true)
 )
 
-(defun query-sql-table-names((?m model))
-    (return (query-stmt ?m ?x from _RS_TABLE_NAMES:'(?x)))
+(defun rbs::query-sql-table-names((?m model))
+    (return (query-stmt ?m ?x from _RBS_TABLE_NAMES:'(?x)))
 )
 
-(defun has-sql-table-names((?m model) (?table string))
-    (return (has-stmt ?m _RS_TABLE_NAMES:'(?table)))
+(defun rbs::has-sql-table-names((?m model) (?table string))
+    (return (has-stmt ?m _RBS_TABLE_NAMES:'(?table)))
 )
-
-(defun add-sql-table((?m model) (?table string) (?size int))
-    (init-str-sql-schema ?m)
-    (add-node ?m (to-named-list ?table '(?size)))
-    (add-stmt ?m _RS_TABLE:'(?table))
-)
-
-(defun add-sql-column((?m model) (?table string) (?column string) (?index int) (?type))
-    (add-stmt ?m _RS_COLUMN:'(?table ?column ?index ?type))
-    (if (not (equal ?type nil)) 
-        (add-constraint ?m (to-named-list ?table '(?...)) '(type ?type on ?index)))
-)
-
-
 
 
 

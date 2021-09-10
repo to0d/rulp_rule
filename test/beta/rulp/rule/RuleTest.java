@@ -11,6 +11,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.utils.RuleTestBase;
 
 public class RuleTest extends RuleTestBase {
+	
 	@Test
 	void test_0() {
 

@@ -36,7 +36,8 @@ class XRFactorAddRuleTest extends RuleTestBase {
 
 	@Test
 	void test_rule_beta3_1() {
-
+		
+		_setup();
 		_test("(new model m)");
 
 		// Should be beta3
@@ -60,6 +61,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	@Test
 	void test_rule_beta3_2_a() {
 
+		_setup();
 		_test("(new model m)");
 
 		// Should be beta0
@@ -82,6 +84,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	@Test
 	void test_rule_beta3_2_b() {
 
+		_setup();
 		_test("(new model m)");
 
 		// Should be beta0
@@ -104,6 +107,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	@Test
 	void test_rule_beta3_2_c() {
 
+		_setup();
 		_test("(new model m)");
 
 		// Should be beta0
@@ -128,6 +132,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	@Test
 	void test_rule_beta3_3() {
 
+		_setup();
 		_test("(new model m)");
 
 		// Should be beta0 & expr1
@@ -153,6 +158,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	@Test
 	void test_rule_beta3_4() {
 
+		_setup();
 		_test("(new model m)");
 
 		// Should be beta3

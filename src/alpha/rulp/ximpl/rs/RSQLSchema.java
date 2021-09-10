@@ -16,6 +16,5 @@ public class RSQLSchema extends XRDefInstance {
 
 	public void init() {
 
-		
 	}
 }

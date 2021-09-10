@@ -160,9 +160,6 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorRemoveConstraint(F_REMOVE_CONSTRAINT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorListConstraint(F_LIST_CONSTRAINT));
 
-		// Table
-		SQLUtil.init(systemFrame);
-
 		// Assume
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAssumeStmt(F_ASSUME_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorDumpStatus(F_DUMP_STATUS));
@@ -170,8 +167,12 @@ public class RRuleLoader implements IRObjectLoader {
 		// Load rule library
 		LoadUtil.loadRulpFromJar(interpreter, systemFrame, "alpha/resource/rule.rulp", "utf-8");
 
+		// RBS init
+		SQLUtil.init(systemFrame);
+
 		// Native Class Initialization
 		ScopeFactory.initScopeClass(systemFrame);
+
 	}
 
 }

@@ -1,9 +1,8 @@
 package alpha.rulp.ximpl.rs;
 
-import static alpha.rulp.rule.Constant.A_TABLE;
-import static alpha.rulp.rule.Constant.A_VIEW;
-import static alpha.rulp.rule.Constant.F_CREATE;
+import static alpha.rulp.ximpl.rs.Constant.F_GET_COLUN_DEF_LIST;
 import static alpha.rulp.ximpl.rs.Constant.F_HAS_SQL_TABLE_NAME;
+import static alpha.rulp.ximpl.rs.Constant.RBS_NS;
 import static alpha.rulp.ximpl.rs.Constant.STR_SCHEMA_NAME;
 
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.runtime.IRNameSpace;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 
@@ -47,10 +47,14 @@ public class SQLUtil {
 		return schema;
 	}
 
-	public static void init(IRFrame frame) throws RException {
+	public static void init(IRFrame systemFrame) throws RException {
 
-		RulpUtil.addFactor(frame, F_CREATE, A_TABLE, new XRFactorBodyCreateTable());
-		RulpUtil.addFactor(frame, F_CREATE, A_VIEW, new XRFactorBodyCreateView());
+		IRNameSpace rbsNameSpace = RulpUtil.asNameSpace(systemFrame.getObject(RBS_NS));
+
+		RulpUtil.addFrameObject(rbsNameSpace.getSubjectFrame(), new XRFactorCreateTable(F_GET_COLUN_DEF_LIST));
+
+//		RulpUtil.addFactor(frame, F_CREATE, A_TABLE, new XRFactorBodyCreateTable());
+//		RulpUtil.addFactor(frame, F_CREATE, A_VIEW, new XRFactorBodyCreateView());
 
 //		RulpUtil.addFactor(frame, F_SET, A_SCHEMA, new XRFactorBodyCreateView());
 

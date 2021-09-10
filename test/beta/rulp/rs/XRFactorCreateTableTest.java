@@ -11,9 +11,9 @@ class XRFactorCreateTableTest extends RuleTestBase {
 
 		_setup();
 		_clean_cache("result/rs/XRFactorCreateTableTest/test_1_create_table_1");
-//		_test("(use namespace rs)");
+		_test("(use namespace rbs)");
 		_test("(new model m)");
-		_test("(set-default-model m)");
+		_test("(set schema m)");
 		_test("(create table name1 {c1 int, c2 bool, c3 float})", "0");
 		_statsInfo("m", "result/rs/XRFactorCreateTableTest/test_1_create_table_1.txt");
 		_test("(set-model-cache-path m \"result/rs/XRFactorCreateTableTest/test_1_create_table_1\")");
