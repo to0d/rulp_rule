@@ -167,23 +167,23 @@ Child Count:
   total:       2       2       1
 ========================================================================================================================================================
 
-Model<m> frame:id=5, name=MODEL, lvl=3, ref=3/4, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=4, name=MODEL, lvl=3, ref=3/4, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 4        5        3    instance   m                   
+default_model        : 5        4        3    instance   m                   
 ==========================================================================================================================
 
-Node<A0002> frame:id=6, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=5(MODEL), subject=NF-A0002
+Node<A0002> frame:id=5, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0002
 
-Node<RU000> frame:id=7, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=5(MODEL), subject=NF-RU000
+Node<RU000> frame:id=6, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=4(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        7        3    instance   m                   
-?a                   : 8        7        1    var        atom:y              
-?b                   : 9        7        1    var        atom:x              
-?x                   : 10       7        1    var        int:1               
+default_model        : 8        6        3    instance   m                   
+?a                   : 9        6        1    var        atom:y              
+?b                   : 10       6        1    var        atom:x              
+?x                   : 11       6        1    var        int:1               
 ==========================================================================================================================
 
 node update info: model-exec-count=12, row=4, column=12(1), value-max=1, value-unit=1^x
@@ -203,10 +203,10 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       68        0
+     Interpreter call id/level:       62        0
              CPS support/count:    false        0
                Frame max level:        5
-                  Frame max id:        9
+                  Frame max id:        8
            Frame free id count:        1
 ==========================================================================================================================
 
@@ -214,84 +214,83 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       73
+    factor:       66
 ==========================================================================================================================
 
-Callable stats info: callId=68, row=13, column=35(2), value-max=3, value-unit=2^x
+Callable stats info: callId=62, row=13, column=63(1), value-max=2, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         12222222222222222222222222222224231 max=6, unit=2^x
+   Frame    RType  Count  Ref Object                         .111111111111111111111111111111111111111111111111111.1111411121 max=5, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     34    0 defun                              222222112212122121  1   21     
-    root   factor      7    0 alias                          1221                   1           
-    root   factor      6    0 defclass                                  1  1 1  1 1   1         
-    root   factor      5    0 deftemplate                                          21   2       
-  system   factor      4    0 add-stmt                                                      3 1 
-    root   factor      3    0 defvar                            1                      1   1    
-    root   factor      3    0 defmacro                                 1             11         
-    root   factor      3    0 =                                                             2 1 
-  system   factor      2    0 start                                                         1 1 
-    root   factor      2    0 new                                                      1  1     
-  system   factor      2    0 list-stmt                                                      1 1
-    root   factor      1    0 setq                                                           1  
-  system   factor      1    0 add-rule                                                     1    
+    root   factor     31    0 defun                                  111111111111 11 1111 111 11111 1111     1              
+    root   factor      7    0 alias                           111111                                        1               
+    root   factor      6    0 defclass                                              1    1   1     1    1       1           
+  system   factor      4    0 add-stmt                                                                               12  1  
+    root   factor      3    0 deftemplate                                                                111                
+    root   factor      3    0 defmacro                                           1                            11            
+    root   factor      3    0 =                                                                                       2   1 
+  system   factor      2    0 start                                                                                   1   1 
+  system   factor      2    0 list-stmt                                                                                1   1
+    root   factor      2    0 defvar                                1                                              1        
+    root   factor      1    0 setq                                                                                      1   
+    root   factor      1    0 new                                                                                 1         
+  system   factor      1    0 add-rule                                                                              1       
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          999            0          999
-      string:           31            0           31
-        list:           38            0           38
-        expr:          510            0          510
-         var:           23            0           23
-        func:           96            0           96
-    template:            3            0            3
+        atom:          819            0          819
+      string:           19            0           19
+        list:           16            0           16
+        expr:          441            0          441
+         var:           22            0           22
+        func:           91            0           91
+    template:            1            0            1
        macro:            3            0            3
     instance:            1            0            1
        class:            6            0            6
-      member:          170            0          170
-       frame:           12            7            5
+      member:          152            0          152
+       frame:           11            7            4
  interpreter:            1            0
   frameEntry:          239            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=5
+Global frame list: total=4
 
-id=2, name=main, lvl=2, ref=3/3, entry=5, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/3, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
 main                 : 3        2        3    frame      main                
-m                    : 5        2        3    instance   m                   
-?x                   : 6        2        1    var        int:3               
+rbs                  : 4        2        1    instance   rbs                 
+m                    : 6        2        3    instance   m                   
+?x                   : 7        2        1    var        int:3               
 ==========================================================================================================================
 
 
-id=3, name=SF-rbs-0, lvl=2, ref=1/1, entry=0, pid=1(system), subject=rbs
+id=3, name=MODEL, lvl=3, ref=0/0, entry=0, pid=2(main), subject=MODEL
 
-id=4, name=MODEL, lvl=3, ref=0/0, entry=0, pid=2(main), subject=MODEL
-
-id=5, name=MODEL, lvl=3, ref=3/4, entry=1, pid=2(main), subject=MODEL
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-default_model        : 4        5        3    instance   m                   
-==========================================================================================================================
-
-id=6, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=5(MODEL), subject=NF-A0002
-
-id=7, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=5(MODEL), subject=NF-RU000
+id=4, name=MODEL, lvl=3, ref=3/4, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        7        3    instance   m                   
-?a                   : 8        7        1    var        atom:y              
-?b                   : 9        7        1    var        atom:x              
-?x                   : 10       7        1    var        int:1               
+default_model        : 5        4        3    instance   m                   
+==========================================================================================================================
+
+id=5, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0002
+
+id=6, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=4(MODEL), subject=NF-RU000
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+default_model        : 8        6        3    instance   m                   
+?a                   : 9        6        1    var        atom:y              
+?b                   : 10       6        1    var        atom:x              
+?x                   : 11       6        1    var        int:1               
 ==========================================================================================================================
 
 Global frame tree:
@@ -299,11 +298,10 @@ Global frame tree:
 ->FRAME(root): id=0, lvl=0, subject=root
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
+            ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
             ->FRAME(MODEL): id=4, lvl=3, subject=MODEL
-            ->FRAME(MODEL): id=5, lvl=3, subject=MODEL
-                ->FRAME(NF-A0002): id=6, lvl=4, subject=NF-A0002
-                ->FRAME(NF-RU000): id=7, lvl=4, subject=NF-RU000
-        ->FRAME(SF-rbs-0): id=3, lvl=2, subject=rbs
+                ->FRAME(NF-A0002): id=5, lvl=4, subject=NF-A0002
+                ->FRAME(NF-RU000): id=6, lvl=4, subject=NF-RU000
 
 Global Subject list:
 
@@ -312,6 +310,13 @@ name=m, lvl=1, ref=3/3, parent=model, final=false, mbrs=1, frame=null
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 this                 : DEFAULT  false    false    3    instance   m
+==========================================================================================================================
+
+name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
+==========================================================================================================================
+Name                 : Access   Final    Static   Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+this                 : DEFAULT  false    false    1    instance   rbs
 ==========================================================================================================================
 
 

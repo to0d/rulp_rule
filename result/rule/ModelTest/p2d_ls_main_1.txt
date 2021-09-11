@@ -1,3 +1,4 @@
 mbr=main, name=main, type=frame, property='(public)
+mbr=rbs, name=rbs, type=instance, property='(public), instance-class=namespace
 mbr=root, name=root, type=frame, property='(public)
 mbr=system, name=system, type=frame, property='(public)

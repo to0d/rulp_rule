@@ -8,5 +8,6 @@ mbr=get-version-number, name=(get-version-number nil), type=func, property='(pub
 mbr=hasGroupChild, name=hasGroupChild, type=macro, property='(public)
 mbr=main, name=main, type=frame, property='(public)
 mbr=p2d, name=p2d, type=instance, property='(public), instance-class=model
+mbr=rbs, name=rbs, type=instance, property='(public), instance-class=namespace
 mbr=root, name=root, type=frame, property='(public)
 mbr=system, name=system, type=frame, property='(public)
