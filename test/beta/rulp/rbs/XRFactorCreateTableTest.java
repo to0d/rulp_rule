@@ -1,4 +1,4 @@
-package beta.rulp.rs;
+package beta.rulp.rbs;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(set schema m)");
 		_test("(create table name1 {c1 int, c2 bool, c3 float})", "0");
-		_statsInfo("m", "result/rs/XRFactorCreateTableTest/test_1_create_table_1.txt");
+		_statsInfo("m", "result/rbs/XRFactorCreateTableTest/test_1_create_table_1.txt");
 		_test("(set-model-cache-path m \"result/rs/XRFactorCreateTableTest/test_1_create_table_1\")");
 		_test("(save-model m)");
 	}
@@ -30,7 +30,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_test("(add-table m name1:'(? ? ?))", "name1:'(?0 ?1 ?2)");
 		_test("(add-table m name1:'(? ? ?))", "name1:'(?0 ?1 ?2)");
 
-		_statsInfo("m", "result/rs/XRFactorCreateTableTest/test_1_new_2.txt");
+		_statsInfo("m", "result/rbs/XRFactorCreateTableTest/test_1_new_2.txt");
 	}
 
 	@Test
@@ -42,7 +42,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-table m name1:'('(type atom) ? ?))", "");
 
-		_statsInfo("m", "result/rs/XRFactorCreateTableTest/test_2_type_1_atom.txt");
+		_statsInfo("m", "result/rbs/XRFactorCreateTableTest/test_2_type_1_atom.txt");
 	}
 
 	@Test
@@ -54,7 +54,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-table m name1:'(? ? '(? type int)))", "");
 
-		_statsInfo("m", "result/rs/XRFactorCreateTableTest/test_2_type_2_int.txt");
+		_statsInfo("m", "result/rbs/XRFactorCreateTableTest/test_2_type_2_int.txt");
 	}
 
 	@Test
@@ -66,7 +66,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-table m name1:'('(uniq) ? ?))", "");
 
-		_statsInfo("m", "result/sql/XRFactorCreateTableTest/test_3_constraint_1_uniq.txt");
+		_statsInfo("m", "result/rbs/XRFactorCreateTableTest/test_3_constraint_1_uniq.txt");
 	}
 
 	@Test
@@ -78,7 +78,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-table m name1:'('(not null) ? ?))", "");
 
-		_statsInfo("m", "result/rs/XRFactorCreateTableTest/test_3_constraint_2_not_null.txt");
+		_statsInfo("m", "result/rbs/XRFactorCreateTableTest/test_3_constraint_2_not_null.txt");
 	}
 
 	@Test
@@ -90,7 +90,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-table m name1:'(? ? ?) limit 3)", "");
 
-		_statsInfo("m", "result/rs/XRFactorCreateTableTest/test_3_constraint_3_limit.txt");
+		_statsInfo("m", "result/rbs/XRFactorCreateTableTest/test_3_constraint_3_limit.txt");
 	}
 
 }
