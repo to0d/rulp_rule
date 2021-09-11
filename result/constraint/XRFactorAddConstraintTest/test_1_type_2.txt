@@ -166,7 +166,7 @@ Object create count:
       member:          170            0          170
        frame:            5            1            4
  interpreter:            1            0
-  frameEntry:          233            0
+  frameEntry:          234            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -198,12 +198,13 @@ id=6, name=NF-N0001, lvl=4, ref=1/1, entry=0, pid=5(MODEL), subject=NF-N0001
 
 Global frame tree:
 
-->FRAME(system): id=1, lvl=1, subject=system
-    ->FRAME(main): id=2, lvl=2, subject=main
-        ->FRAME(MODEL): id=4, lvl=3, subject=MODEL
-        ->FRAME(MODEL): id=5, lvl=3, subject=MODEL
-            ->FRAME(NF-N0001): id=6, lvl=4, subject=NF-N0001
-    ->FRAME(SF-rbs-0): id=3, lvl=2, subject=rbs
+->FRAME(root): id=0, lvl=0, subject=root
+    ->FRAME(system): id=1, lvl=1, subject=system
+        ->FRAME(main): id=2, lvl=2, subject=main
+            ->FRAME(MODEL): id=4, lvl=3, subject=MODEL
+            ->FRAME(MODEL): id=5, lvl=3, subject=MODEL
+                ->FRAME(NF-N0001): id=6, lvl=4, subject=NF-N0001
+        ->FRAME(SF-rbs-0): id=3, lvl=2, subject=rbs
 
 Global Subject list:
 

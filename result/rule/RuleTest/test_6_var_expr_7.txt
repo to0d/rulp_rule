@@ -201,7 +201,7 @@ Object create count:
       member:          170            0          170
        frame:            8            4            4
  interpreter:            1            0
-  frameEntry:          242            0
+  frameEntry:          243            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -244,12 +244,13 @@ default_model        : 10       6        3    instance   m
 
 Global frame tree:
 
-->FRAME(system): id=1, lvl=1, subject=system
-    ->FRAME(main): id=2, lvl=2, subject=main
-        ->FRAME(MODEL): id=4, lvl=3, subject=MODEL
-        ->FRAME(MODEL): id=5, lvl=3, subject=MODEL
-            ->FRAME(NF-RU000): id=6, lvl=4, subject=NF-RU000
-    ->FRAME(SF-rbs-0): id=3, lvl=2, subject=rbs
+->FRAME(root): id=0, lvl=0, subject=root
+    ->FRAME(system): id=1, lvl=1, subject=system
+        ->FRAME(main): id=2, lvl=2, subject=main
+            ->FRAME(MODEL): id=4, lvl=3, subject=MODEL
+            ->FRAME(MODEL): id=5, lvl=3, subject=MODEL
+                ->FRAME(NF-RU000): id=6, lvl=4, subject=NF-RU000
+        ->FRAME(SF-rbs-0): id=3, lvl=2, subject=rbs
 
 Global Subject list:
 
