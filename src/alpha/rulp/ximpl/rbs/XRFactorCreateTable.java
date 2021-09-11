@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.rs;
+package alpha.rulp.ximpl.rbs;
 
 import static alpha.rulp.lang.Constant.O_Nil;
 
@@ -33,8 +33,8 @@ public class XRFactorCreateTable extends AbsRFactorAdapter implements IRFactor {
 		/**************************************************/
 		// Column definition
 		/**************************************************/
-		IRArray columnDefArray = RulpUtil.asArray(args.get(1));
-		List<RSQLColumn> columns = SQLUtil.toColumn(columnDefArray);
+		IRArray columnDefArray = RulpUtil.asArray(interpreter.compute(frame, args.get(1)));
+		List<RSQLColumn> columns = RBSUtil.toColumn(columnDefArray);
 
 		ArrayList<IRObject> columDefList = new ArrayList<>();
 		for (RSQLColumn column : columns) {

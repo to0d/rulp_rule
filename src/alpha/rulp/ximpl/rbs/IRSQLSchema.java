@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.rs;
+package alpha.rulp.ximpl.rbs;
 //package alpha.rulp.ximpl.sql;
 //
 //import java.util.List;

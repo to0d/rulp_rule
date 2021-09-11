@@ -48,6 +48,7 @@ import static alpha.rulp.rule.Constant.O_Runnable;
 import static alpha.rulp.rule.Constant.O_Running;
 import static alpha.rulp.rule.Constant.O_State;
 import static alpha.rulp.rule.Constant.O_Type;
+import static alpha.rulp.ximpl.rbs.Constant.RBS_NS;
 
 import java.io.IOException;
 
@@ -88,7 +89,7 @@ import alpha.rulp.ximpl.factor.XRFactorStart;
 import alpha.rulp.ximpl.factor.XRFactorStateOf;
 import alpha.rulp.ximpl.factor.XRFactorTraceRule;
 import alpha.rulp.ximpl.model.XRModelClass;
-import alpha.rulp.ximpl.rs.SQLUtil;
+import alpha.rulp.ximpl.rbs.RBSUtil;
 import alpha.rulp.ximpl.scope.ScopeFactory;
 
 public class RRuleLoader implements IRObjectLoader {
@@ -168,7 +169,9 @@ public class RRuleLoader implements IRObjectLoader {
 		LoadUtil.loadRulpFromJar(interpreter, systemFrame, "alpha/resource/rule.rulp", "utf-8");
 
 		// RBS init
-		SQLUtil.init(systemFrame);
+		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), RBS_NS, (inp, frame) -> {
+			RBSUtil.init(inp, frame);
+		});
 
 		// Native Class Initialization
 		ScopeFactory.initScopeClass(systemFrame);

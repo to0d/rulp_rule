@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.rs;
+package alpha.rulp.ximpl.rbs;
 
 // STR: SQL TO RULP
 public interface Constant {

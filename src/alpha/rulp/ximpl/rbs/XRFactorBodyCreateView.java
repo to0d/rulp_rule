@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.rs;
+package alpha.rulp.ximpl.rbs;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;

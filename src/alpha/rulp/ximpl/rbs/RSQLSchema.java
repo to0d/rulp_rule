@@ -1,6 +1,6 @@
-package alpha.rulp.ximpl.rs;
+package alpha.rulp.ximpl.rbs;
 
-import static alpha.rulp.ximpl.rs.Constant.STR_SCHEMA_NAME;
+import static alpha.rulp.ximpl.rbs.Constant.STR_SCHEMA_NAME;
 
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.ximpl.rclass.XRDefInstance;

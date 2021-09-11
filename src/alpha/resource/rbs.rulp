@@ -1,0 +1,77 @@
+
+(defvar rbs::?current_schema nil)
+
+(deftemplate rbs::set (schema (?m model))
+    (setq rbs::?current_schema ?m)
+)
+
+(deftemplate rbs::create (table (?table_name atom) (?table_def array)) 
+
+    (use namespace rbs)
+    (set-default-model (value-of (value-of rbs::?current_schema)))
+    
+    (defvar ?table_name_str (to-string ?table_name))
+    (defvar ?column_def_list (rbs::get_column_def_list ?table_def))    
+    (defvar ?column_index 0) 
+    
+    (rbs::init-sql-schema)
+    (if (has-sql-table-names ?current_schema ?table_name_str) 
+        (error duplicated-table (strcat "Can't create table: " ?table_name_str)))
+         
+    (add-node (to-named-list ?table_name '(?size)))
+    (add-stmt _RBS_TABLE:'(?table_name_str))       
+    
+    (loop for ?column_def in ?column_def_list do
+        
+        (defvar ?column_name (get ?column_def 0))
+        (defvar ?column_type (get ?column_def 1))        
+        
+        (add-stmt _RBS_COLUMN:'(?table_name_str ?column_name ?column_index ?column_type))
+        
+        (if (not (equal ?column_type nil)) 
+            (add-constraint (to-named-list ?table_name_str '(?...)) '(type ?column_type on ?column_index)))
+        
+        (setq ?column_index (+ ?column_index 1))        
+    )
+    
+    (return 0)
+)
+
+(defun rbs::init-sql-schema ()
+
+    (use namespace rbs)
+    (set-default-model (value-of (value-of rbs::?current_schema)))
+
+    (if (equal ?current_schema nil) (error no-schema "no schema specified"))
+    (if (equal ?current_schema::?str-sql-init true) (return)) 
+
+    ;; table definition
+    (add-node       _RBS_TABLE:'(1))
+    (add-constraint _RBS_TABLE:'(?_name_) '(type string on ?_name_))
+    (add-stmt       _RBS_TABLE:'("_RBS_TABLE"))
+    (add-stmt       _RBS_TABLE:'("_RBS_COLUMN"))
+    
+    ;; column definition 
+    (add-node       _RBS_COLUMN:'(4))
+    (add-constraint _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_table_))
+    (add-constraint _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_column_))
+    (add-constraint _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type int on ?_index_))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "TABLE_NAME"   0 string))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_NAME"  1 string))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_INDEX" 2 int))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_TYPE"  3 nil))
+
+    (setq ?current_schema::?str-sql-init true)
+)
+
+(defun rbs::query-sql-table-names((?m model))
+    (return (query-stmt ?m ?x from _RBS_TABLE_NAMES:'(?x)))
+)
+
+(defun rbs::has-sql-table-names((?m model) (?table string))
+    (return (has-stmt ?m _RBS_TABLE_NAMES:'(?table)))
+)
+
+
+
+
