@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
-public class P2dTest extends RuleTestBase {
+public class TestP2d extends RuleTestBase {
 
 	@Test
 	public void test_domain_beParentDomainOf_Global() {
@@ -100,8 +100,8 @@ public class P2dTest extends RuleTestBase {
 		_eCount(1, "p2d");
 		_saveTest();
 
-		_statsInfo("p2d", "result/rule/P2dModelTest/p2d_alias_1_full.txt");
-		_dumpEntryTable("p2d", "result/rule/P2dModelTest/p2d_alias_1.entry.dump.txt");
+		_statsInfo("p2d", "result/rule/TestP2d/p2d_alias_1_full.txt");
+		_dumpEntryTable("p2d", "result/rule/TestP2d/p2d_alias_1.entry.dump.txt");
 
 	}
 

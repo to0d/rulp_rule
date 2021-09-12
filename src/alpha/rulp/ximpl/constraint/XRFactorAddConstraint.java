@@ -60,7 +60,19 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 		IRList namedList = RulpUtil.asList(interpreter.compute(frame, args.get(argIndex++)));
 		IRNamedNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
 		if (node == null) {
-			throw new RException("named node not found: " + namedList);
+
+			int anyIndex = ReteUtil.indexOfVarArgStmt(namedList);
+			if (anyIndex != -1) {
+				throw new RException(String.format("Can't create var arg node: %s", namedList));
+			}
+
+			/**************************************************/
+			// Create node
+			/**************************************************/
+			node = model.getNodeGraph().getNamedNode(namedList.getNamedName(), ReteUtil.getFilerEntryLength(namedList));
+			if (node == null) {
+				throw new RException(String.format("Fail to create named node: %s", namedList));
+			}
 		}
 
 		List<IRConstraint1> constraintList = new ConstraintBuilder(namedList)

@@ -18,17 +18,17 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 
-public class ModelTest extends RuleTestBase {
+public class TestModel extends RuleTestBase {
 
 	@Test
 	public void test_0_p2d_ls() {
 
 		_setup();
-		_test_match("(ls-print root)", "nil", "result/rule/ModelTest/p2d_ls_root.txt");
-		_test("(ls-print system)", "nil", _load("result/rule/ModelTest/p2d_ls_system.txt") + "\n");
-		_test("(ls-print main)", "nil", _load("result/rule/ModelTest/p2d_ls_main_1.txt") + "\n");
+		_test_match("(ls-print root)", "nil", "result/rule/TestModel/p2d_ls_root.txt");
+		_test("(ls-print system)", "nil", _load("result/rule/TestModel/p2d_ls_system.txt") + "\n");
+		_test("(ls-print main)", "nil", _load("result/rule/TestModel/p2d_ls_main_1.txt") + "\n");
 		_test("(load \"result/p2d.rulp\")");
-		_test("(ls-print main)", "nil", _load("result/rule/ModelTest/p2d_ls_main_2.txt") + "\n");
+		_test("(ls-print main)", "nil", _load("result/rule/TestModel/p2d_ls_main_2.txt") + "\n");
 	}
 
 	@Test

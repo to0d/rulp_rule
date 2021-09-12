@@ -101,18 +101,27 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_setup();
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_1.rulp");
 	}
-	
+
 	@Test
 	void test_5_var_2() {
 
 		_setup();
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_2.rulp");
 	}
-	
+
 	@Test
 	void test_5_var_3() {
 
 		_setup();
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_3.rulp");
+	}
+
+	@Test
+	void test_6_auto_create_node() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-constraint m name1:'(?x ?y ?z) '(type int on ?x))", "1");
+		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_6_auto_create_node.txt");
 	}
 }

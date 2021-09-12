@@ -10,8 +10,8 @@ import alpha.rulp.lang.IRError;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.utils.RuleTestBase;
 
-public class RuleTest extends RuleTestBase {
-	
+public class TestRule extends RuleTestBase {
+
 	@Test
 	void test_0() {
 
@@ -259,7 +259,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_4_const_expr_1.txt");
+		_statsInfo("m", "result/rule/TestRule/test_4_const_expr_1.txt");
 	}
 
 	@Test
@@ -279,7 +279,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_4_const_expr_2.txt");
+		_statsInfo("m", "result/rule/TestRule/test_4_const_expr_2.txt");
 	}
 
 	@Test
@@ -296,7 +296,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_4_const_expr_3.txt");
+		_statsInfo("m", "result/rule/TestRule/test_4_const_expr_3.txt");
 	}
 
 	@Test
@@ -316,7 +316,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_4_const_stmt.txt");
+		_statsInfo("m", "result/rule/TestRule/test_4_const_stmt.txt");
 	}
 
 	@Test
@@ -350,7 +350,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_5_waste_var.txt");
+		_statsInfo("m", "result/rule/TestRule/test_5_waste_var.txt");
 	}
 
 	@Test
@@ -368,7 +368,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_5_waste_var_2.txt");
+		_statsInfo("m", "result/rule/TestRule/test_5_waste_var_2.txt");
 	}
 
 	@Test
@@ -389,7 +389,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_6_var_expr_1.txt");
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_1.txt");
 	}
 
 	@Test
@@ -409,7 +409,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_6_var_expr_2.txt");
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_2.txt");
 	}
 
 	@Test
@@ -425,7 +425,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_6_var_expr_3.txt");
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_3.txt");
 	}
 
 	@Test
@@ -442,7 +442,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_6_var_expr_4.txt");
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_4.txt");
 	}
 
 	@Test
@@ -458,7 +458,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_6_var_expr_5.txt");
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_5.txt");
 	}
 
 	@Test
@@ -480,7 +480,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_6_var_expr_6.txt");
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_6.txt");
 	}
 
 	@Test
@@ -504,7 +504,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_6_var_expr_7.txt");
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_7.txt");
 	}
 
 	@Test
@@ -520,7 +520,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_7_null_expr_1.txt");
+		_statsInfo("m", "result/rule/TestRule/test_7_null_expr_1.txt");
 	}
 
 	@Test
@@ -536,7 +536,7 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_7_null_expr_2.txt");
+		_statsInfo("m", "result/rule/TestRule/test_7_null_expr_2.txt");
 	}
 
 	@Test
@@ -553,7 +553,7 @@ public class RuleTest extends RuleTestBase {
 		_mStatus(1, "m");
 		_saveTest();
 
-		_statsInfo("m", "result/rule/RuleTest/test_9_stmtchange_1.txt");
+		_statsInfo("m", "result/rule/TestRule/test_9_stmtchange_1.txt");
 
 	}
 
@@ -572,15 +572,15 @@ public class RuleTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/RuleTest/test_a_similar_expr_1.txt");
+		_statsInfo("m", "result/rule/TestRule/test_a_similar_expr_1.txt");
 	}
 
 	@Test
 	public void test_b_defvar_in_rule_body_1() {
 
 		_setup();
-		_test_script("result/rule/RuleTest/test_b_defvar_in_rule_body_1.rulp");
-		_statsInfo("m", "result/rule/RuleTest/test_b_defvar_in_rule_body_1.txt");
-		_dumpEntryTable("m", "result/rule/RuleTest/test_b_defvar_in_rule_body_1.dump.txt");
+		_test_script("result/rule/TestRule/test_b_defvar_in_rule_body_1.rulp");
+		_statsInfo("m", "result/rule/TestRule/test_b_defvar_in_rule_body_1.txt");
+		_dumpEntryTable("m", "result/rule/TestRule/test_b_defvar_in_rule_body_1.dump.txt");
 	}
 }
