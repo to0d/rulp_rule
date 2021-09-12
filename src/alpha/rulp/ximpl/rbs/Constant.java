@@ -11,6 +11,8 @@ public interface Constant {
 
 	String F_PARSE_COLUMN_DEF_LIST = "parse-column-def-list";
 
+	String F_PARSE_VALUES_LIST = "parse-values-list";
+
 	String F_HAS_SQL_TABLE_NAME = "has-sql-table-names";
 
 	String F_ADD_SQL_TABLE = "add-sql-table";

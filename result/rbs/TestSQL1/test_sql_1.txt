@@ -2,7 +2,7 @@ Model<m> stats info:
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0     0     10      0      0     0     0     0     0      0      0     3      0     0     0    0       10     10      0    0    0    0    0      0       0
+NAME0     0     11      0      0     0     0     0     0      0      0     3      0     0     0    0       11     11      0    0    0    0    0      0       0
 ========================================================================================================================================================
 
 node info:
@@ -11,7 +11,7 @@ node info:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[1]:      0      3      0      0      0      0     0     0   0/0      3      3      0    0    0      *    0   0   0   0            
 N0002[4]:      0      7      0      0      0      0     0     0   0/0      7      7      0    0    0      *    0   0   0   0            
-N0003[1]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   0   0   0            
+N0003[3]:      0      1      0      0      0      0     0     0   0/0      1      1      0    0    0      *    0   0   0   0            
 ========================================================================================================================================================
 
 node info2:
@@ -20,7 +20,7 @@ NODE[n]  Queue  Parent         Child                                Rule        
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[1] *
 N0002[4] *
-N0003[1] *
+N0003[3] *
 ========================================================================================================================================================
 
 node info3:
@@ -29,7 +29,7 @@ node info3:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[1]  _RBS_TABLE:'(?0)
 N0002[4]  _RBS_COLUMN:'(?0 ?1 ?2 ?3)
-N0003[1]  t1:'(?0)
+N0003[3]  t1:'(?0 ?1 ?2)
 ========================================================================================================================================================
 
 node info4:
@@ -40,7 +40,7 @@ N0001[1]       3      0 '(type string on 0)
 N0002[4]       7      0 '(type string on 0)
                         '(type string on 1)
                         '(type int on 2)
-N0003[1]       0      0 '(type int on 0)
+N0003[3]       1      0 '(type int on 0)
                         '(type bool on 1)
                         '(type float on 2)
 ========================================================================================================================================================
@@ -58,7 +58,7 @@ node source info:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001(NAME0):               _RBS_TABLE:'(?0)
 N0002(NAME0):               _RBS_COLUMN:'(?0 ?1 ?2 ?3)
-N0003(NAME0):               t1:'(?0)
+N0003(NAME0):               t1:'(?0 ?1 ?2)
 ========================================================================================================================================================
 
 node bind info:
@@ -83,38 +83,39 @@ MatchCount: BETA0 BETA2 BETA3
 
 Entry Table:
 	    ETA: total-action=0, new-action=0, max-size=0, capacity=256, expend=0
-	  Entry: count=10, stmt=10
+	  Entry: count=11, stmt=11
 ========================================================================================================================================================
-Entry Bit Map: total=10, max-id=10, create=10, removed=0, group-size=10, group-count=1
+Entry Bit Map: total=11, max-id=11, create=11, removed=0, group-size=10, group-count=2
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-. [10]
+.1 [11]
 ========================================================================================================================================================
 Length Array: min=1, max=4
 Entry[1]= 3, _RBS_TABLE(3)
 Entry[2]= 0
-Entry[3]= 0
+Entry[3]= 1, t1(1)
 Entry[4]= 7, _RBS_COLUMN(7)
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Length Array:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Length:   NAME0
      1:       3
+     3:       1
      4:       7
- total:      10
+ total:      11
 ========================================================================================================================================================
 Ref Array:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 RefCount: unRefer   NAME0
        0:       0
-       1:       0      10
-   total:       0      10
+       1:       0      11
+   total:       0      11
 ========================================================================================================================================================
-Ref Bit Map: total=10, max-id=10, create=10, removed=0, group-size=10, group-count=1
+Ref Bit Map: total=11, max-id=11, create=11, removed=0, group-size=10, group-count=2
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-. [10]
+.1 [11]
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/4, entry=2, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=4/4, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -125,6 +126,8 @@ default_model        : 8        3        3    instance   m
 Node<N0001> frame:id=9, name=NF-N0001, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0001
 
 Node<N0002> frame:id=10, name=NF-N0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0002
+
+Node<N0003> frame:id=5, name=NF-N0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0003
 
 node update info: model-exec-count=0, row=0, column=0(-1), value-max=-1, value-unit=0^x
 ========================================================================================================================================================
@@ -143,82 +146,85 @@ Total runtime info:
              CPS support/count:    false        0
                Frame max level:        7
                   Frame max id:       12
-           Frame free id count:        5
+           Frame free id count:        4
 ==========================================================================================================================
 
 Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      158
-      func:       13
+    factor:      190
+      func:       18
 ==========================================================================================================================
 
-Callable stats info: callId=57, row=35, column=58(1), value-max=13, value-unit=2^x
+Callable stats info: callId=57, row=38, column=58(1), value-max=14, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         .111111111111111111111111111111111111111111111111111.34282 max=110, unit=2^x
+   Frame    RType  Count  Ref Object                         .111111111111111111111111111111111111111111111111111.34287 max=113, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor     34    0 defun                                  111111111111 11 1111 111 11111 1111     1     3   
-    root   factor     14    0 return                                                                                 51
-    root   factor     11    0 defvar                                1                                              1 5 
-  system   factor     10    0 add-stmt                                                                               5 
-    root   factor      7    0 value-of                                                                            1  4 
-    root   factor      7    0 to-named-list                                                                          4 
+    root   factor     19    0 return                                                                                 54
+    root   factor     14    0 defvar                                1                                              1 53
+    root   factor     12    0 value-of                                                                            1  44
+  system   factor     11    0 add-stmt                                                                               51
+    root   factor      9    0 if                                                                                     43
+    root   factor      8    0 to-named-list                                                                          41
+    root   factor      7    0 equal_def                                                                              42
+  system funcList      7    1 equal                                                                                  42
     root   factor      7    0 alias                           111111                                        1          
   system   factor      7    0 add-constraint                                                                         4 
-    root   factor      6    0 if                                                                                     4 
     root   factor      6    0 get-of-list                                                                            4 
   system funcList      6    1 get                                                                                    4 
     root   factor      6    0 deftemplate                                                                111       3   
     root   factor      6    0 defclass                                              1    1   1     1    1       1      
+  system template      5    1 use                                                                                 1  22
     root   factor      5    0 setq                                                                                  13 
-    root   factor      5    0 equal_def                                                                              4 
-  system funcList      5    1 equal                                                                                  4 
-  system template      3    1 use                                                                                 1  2 
-    root   factor      3    0 not                                                                                    3 
-    root   factor      3    0 frame-of                                                                            1  2 
+    root   factor      5    0 frame-of                                                                            1  22
+    root   factor      5    0 add_search_frame                                                                    1  22
+    root   factor      4    0 not                                                                                    31
+    root   factor      4    0 do                                                                                     22
+  system   factor      3    0 set-default-model                                                                      21
     root   factor      3    0 defmacro                                           1                            11       
-    root   factor      3    0 add_search_frame                                                                    1  2 
   system   factor      3    0 add-node                                                                               3 
     root   factor      3    0 +                                                                                      3 
-  system   factor      2    0 set-default-model                                                                      2 
-    root   factor      2    0 do                                                                                     2 
-    root   factor      1    0 to-string                                                                              1 
+    root   factor      2    0 to-string                                                                              11
+    main   member      2    0 rbs::init-sql-schema                                                                   11
+    main   member      2    0 rbs::has-sql-table-names                                                               11
+  system   factor      2    0 has-stmt                                                                               11
+    root   factor      1    0 size-of-list                                                                           1 
+  system funcList      1    1 size-of                                                                                1 
     main   member      1    0 rbs::set                                                                              1  
+    main   member      1    0 rbs::parse-values-list                                                                  1
     main   member      1    0 rbs::parse-column-def-list                                                             1 
     main   member      1    0 rbs::insert                                                                             1
-    main   member      1    0 rbs::init-sql-schema                                                                   1 
-    main   member      1    0 rbs::has-sql-table-names                                                               1 
     main   member      1    0 rbs::create                                                                            1 
     root   factor      1    0 new                                                                                  1   
     root   factor      1    0 loop                                                                                   1 
-  system   factor      1    0 has-stmt                                                                               1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1038            0         1038
+        atom:         1074            0         1074
        float:            1            0            1
-      string:           35            0           35
-        list:           57            0           57
-        expr:          536            0          536
+      string:           37            0           37
+        list:           61            0           61
+        expr:          565            0          565
        array:            1            0            1
-         var:           67           47           20
+         var:           80           60           20
         func:           97            0           97
     template:            4            0            4
        macro:            3            0            3
     instance:            1            0            1
        class:            6            0            6
-      member:          175            0          175
-       frame:           36           32            4
+      member:          179            0          179
+       frame:           46           41            5
  interpreter:            1            0
-  frameEntry:          294            0
+  frameEntry:          311            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=4
+Global frame list: total=5
 
 id=2, name=main, lvl=2, ref=3/4, entry=5, pid=1(system), subject=main, search=[SF-rbs-0, main]
 ==========================================================================================================================
@@ -232,7 +238,7 @@ m                    : 9        2        3    instance   m
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=3/4, entry=2, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=4/4, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -241,6 +247,8 @@ default_model        : 8        3        3    instance   m
 ==========================================================================================================================
 
 id=4, name=SF-rbs-0, lvl=3, ref=1/1, entry=0, pid=2(main), subject=rbs
+
+id=5, name=NF-N0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0003
 
 id=9, name=NF-N0001, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0001
 
@@ -252,6 +260,7 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main, search=[SF-rbs-0, main]
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
+                ->FRAME(NF-N0003): id=5, lvl=4, subject=NF-N0003
                 ->FRAME(NF-N0001): id=9, lvl=4, subject=NF-N0001
                 ->FRAME(NF-N0002): id=10, lvl=4, subject=NF-N0002
             ->FRAME(SF-rbs-0): id=4, lvl=3, subject=rbs
@@ -266,7 +275,7 @@ Name                 : Access   Final    Static   Ref  Type       Value
 this                 : DEFAULT  false    false    3    instance   m
 ==========================================================================================================================
 
-name=rbs, lvl=1, ref=1/2, parent=namespace, final=false, mbrs=9, frame=4(SF-rbs-0)
+name=rbs, lvl=1, ref=1/2, parent=namespace, final=false, mbrs=10, frame=4(SF-rbs-0)
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -276,6 +285,7 @@ has-sql-table-names  : DEFAULT  false    false    1    func       (has-sql-table
 init-sql-schema      : DEFAULT  false    false    1    func       (init-sql-schema) : frame=SF-rbs-0
 insert               : DEFAULT  false    false    1    template   (insert '('(into atom) '(? atom) '(values atom) '(? expr))) : frame=SF-rbs-0
 parse-column-def-list : DEFAULT  false    false    0    factor     parse-column-def-list
+parse-values-list    : DEFAULT  false    false    0    factor     parse-values-list
 query-sql-table-names : DEFAULT  false    false    1    func       (query-sql-table-names type#model) : frame=SF-rbs-0
 set                  : DEFAULT  false    false    1    template   (set '('(schema atom) '(? type#model))) : frame=SF-rbs-0
 this                 : DEFAULT  false    false    1    instance   rbs

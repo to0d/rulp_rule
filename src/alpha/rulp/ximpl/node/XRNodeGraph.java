@@ -1334,7 +1334,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		if (stmtLen != -1 && namedNode.getEntryLength() != stmtLen) {
-			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=", stmtLen,
+			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
 					namedNode.getEntryLength(), namedNode.getNodeName()));
 		}
 

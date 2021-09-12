@@ -11,15 +11,16 @@
     (set-default-model (value-of (value-of rbs::?current_schema)))
     
     (defvar ?table_name_str (to-string ?table_name))
-    (defvar ?column_def_list (rbs::parse-column-def-list ?table_def))    
+    (defvar ?column_def_list (rbs::parse-column-def-list ?table_def))
+    (defvar ?column_count (size-of ?column_def_list))
     (defvar ?column_index 0) 
     
     (rbs::init-sql-schema)
     (if (has-sql-table-names ?current_schema ?table_name_str) 
         (error duplicated-table (strcat "Can't create table: " ?table_name_str)))
          
-    (add-node (to-named-list ?table_name '(?size)))
-    (add-stmt _RBS_TABLE:'(?table_name_str))       
+    (add-node (to-named-list ?table_name '(?column_count)))
+    (add-stmt _RBS_TABLE:'(?table_name_str ?column_count))
     
     (loop for ?column_def in ?column_def_list do
         
@@ -38,6 +39,19 @@
 )
 
 (deftemplate rbs::insert (into (?table_name atom) values $(?value-list expr)) 
+
+    (use namespace rbs)
+    (set-default-model (value-of (value-of rbs::?current_schema)))
+
+    (defvar ?table_name_str (to-string ?table_name))
+    (defvar ?column_values_list (rbs::parse-values-list $(value-of ?value-list)))
+    (defvar ?column_index 0) 
+    
+    (rbs::init-sql-schema)
+    (if (not (has-sql-table-names ?current_schema ?table_name_str))
+        (error no-table (strcat "no table found: " ?table_name_str)))
+    
+    (add-stmt (to-named-list ?table_name_str ?column_values_list))
     (return 0)
 )
 
@@ -54,10 +68,10 @@
     (set-default-model (value-of (value-of rbs::?current_schema)))
 
     ;; table definition
-    (add-node       _RBS_TABLE:'(1))
-    (add-constraint _RBS_TABLE:'(?_name_) '(type string on ?_name_))
-    (add-stmt       _RBS_TABLE:'("_RBS_TABLE"))
-    (add-stmt       _RBS_TABLE:'("_RBS_COLUMN"))
+    (add-node       _RBS_TABLE:'(2))
+    (add-constraint _RBS_TABLE:'(?_name_ ?_column_count) '(type string on ?_name_) '(type int on ?_column_count))
+    (add-stmt       _RBS_TABLE:'("_RBS_TABLE" 2))
+    (add-stmt       _RBS_TABLE:'("_RBS_COLUMN" 4))
     
     ;; column definition 
     (add-node       _RBS_COLUMN:'(4))
@@ -72,12 +86,9 @@
     (setq ?current_schema::?str-sql-init true)
 )
 
-(defun rbs::query-sql-table-names((?m model))
-    (return (query-stmt ?m ?x from _RBS_TABLE_NAMES:'(?x)))
-)
 
 (defun rbs::has-sql-table-names((?m model) (?table string))
-    (return (has-stmt ?m _RBS_TABLE_NAMES:'(?table)))
+    (return (has-stmt ?m _RBS_TABLE:'(?table ?...)))
 )
 
 
