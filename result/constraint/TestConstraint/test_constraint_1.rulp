@@ -1,0 +1,22 @@
+(new model m)
+;=>m
+(add-constraint m n1:'(?n) '(type int on ?n))
+;=>1
+(add-rule m if n1:'(?n) do (-> n1:'((+ ?n 1))))
+;=>RU000
+;(add-stmt m n1:'(1))
+;=>1
+(add-stmt m n1:'(p p2))
+;=>1
+(query-stmt m '(?x ?y) from '(?x p ?y))
+;=>'('(a c) '(c a))
+(remove-stmt m n1:'(p p2))
+;=>'(n1:'(p p2))
+(list-stmt m)
+;=>'()
+(add-stmt m '(c p a))
+;=>1
+(start m)
+;=>4
+(list-stmt m)
+;=>'('(c p a))

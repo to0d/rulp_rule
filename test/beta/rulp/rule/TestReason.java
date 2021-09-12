@@ -37,7 +37,7 @@ public class TestReason extends RuleTestBase {
 	@Test
 	public void test_3_circle_reason_b_named() {
 		_setup();
-		_enableTrace();
+		//_enableTrace();
 		_test_script("result/rule/TestReason/test_3_circle_reason_b_named.rulp");
 		_statsInfo("m", "result/rule/TestReason/test_3_circle_reason_b_named.txt");
 		_dumpEntryTable("m", "result/rule/TestReason/test_3_circle_reason_b_named.dump.txt");

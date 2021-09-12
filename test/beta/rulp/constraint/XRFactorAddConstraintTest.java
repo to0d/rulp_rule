@@ -34,30 +34,33 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m name6:'(?x ?y ?z) (> ?y 5))", "1");
 		_test("(add-constraint m name6:'(?x ?y ?z) (< ?x 10))", "1");
 
+		_test("(add-constraint m name7:'(?x ?y ?z) '(type int on ?x))", "1");
+
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_1.txt");
 	}
 
 	@Test
-	void test_1_type_2() {
+	void test_1_type_2_fail_add_stmt() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_2.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_2.txt");
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_2_fail_add_stmt.rulp");
+		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_2_fail_add_stmt.txt");
 	}
 
 	@Test
-	void test_1_type_3() {
+	void test_1_type_3_fail_add_constraint() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_3.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_3.txt");
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_3_fail_add_constraint.rulp");
+		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_3_fail_add_constraint.txt");
 	}
 
 	@Test
-	void test_1_type_4() {
+	void test_1_type_4_fail_merge_constraint() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_4.rulp");
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_4_fail_merge_constraint.rulp");
+		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_4_fail_merge_constraint.txt");
 	}
 
 	@Test
@@ -116,12 +119,4 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_3.rulp");
 	}
 
-	@Test
-	void test_6_auto_create_node() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(add-constraint m name1:'(?x ?y ?z) '(type int on ?x))", "1");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_6_auto_create_node.txt");
-	}
 }
