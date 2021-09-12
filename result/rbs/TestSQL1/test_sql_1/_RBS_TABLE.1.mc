@@ -1,3 +1,3 @@
 _RBS_TABLE:'("_RBS_TABLE")
 _RBS_TABLE:'("_RBS_COLUMN")
-_RBS_TABLE:'("name1")
+_RBS_TABLE:'("t1")

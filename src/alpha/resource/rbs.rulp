@@ -11,7 +11,7 @@
     (set-default-model (value-of (value-of rbs::?current_schema)))
     
     (defvar ?table_name_str (to-string ?table_name))
-    (defvar ?column_def_list (rbs::get_column_def_list ?table_def))    
+    (defvar ?column_def_list (rbs::parse-column-def-list ?table_def))    
     (defvar ?column_index 0) 
     
     (rbs::init-sql-schema)
@@ -34,6 +34,10 @@
         (setq ?column_index (+ ?column_index 1))        
     )
     
+    (return 0)
+)
+
+(deftemplate rbs::insert (into (?table_name atom) values $(?value-list expr)) 
     (return 0)
 )
 

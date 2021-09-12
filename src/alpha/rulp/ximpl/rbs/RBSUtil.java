@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.rbs;
 
-import static alpha.rulp.ximpl.rbs.Constant.F_GET_COLUMN_DEF_LIST;
+import static alpha.rulp.ximpl.rbs.Constant.F_PARSE_COLUMN_DEF_LIST;
 import static alpha.rulp.ximpl.rbs.Constant.F_HAS_SQL_TABLE_NAME;
 import static alpha.rulp.ximpl.rbs.Constant.RBS_NS;
 import static alpha.rulp.ximpl.rbs.Constant.STR_SCHEMA_NAME;
@@ -62,7 +62,7 @@ public class RBSUtil {
 
 		LoadUtil.loadRulpFromJar(interpreter, frame, "alpha/resource/rbs.rulp", "utf-8");
 
-		RulpUtil.addFrameObject(frame, new XRFactorGetColumnDefList(F_GET_COLUMN_DEF_LIST));
+		RulpUtil.addFrameObject(frame, new XRFactorParseColumnDefList(F_PARSE_COLUMN_DEF_LIST));
 	}
 
 	public static List<RSQLColumn> toColumn(IRArray columnDefArray) throws RException {
