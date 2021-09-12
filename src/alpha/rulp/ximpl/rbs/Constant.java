@@ -9,7 +9,7 @@ public interface Constant {
 
 	String STR_TABLE = "_RS_TABLE";
 
-	String F_GET_COLUN_DEF_LIST = "get_column_def_list";
+	String F_GET_COLUMN_DEF_LIST = "get_column_def_list";
 
 	String F_HAS_SQL_TABLE_NAME = "has-sql-table-names";
 

@@ -153,20 +153,20 @@ Child Count:
   total:       1       1       1
 ========================================================================================================================================================
 
-Model<m> frame:id=4, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        4        3    instance   m                   
+default_model        : 5        3        3    instance   m                   
 ==========================================================================================================================
 
-Node<RU000> frame:id=5, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=4(MODEL), subject=NF-RU000
+Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 8        5        3    instance   m                   
-?x                   : 9        5        1    var        var:?x:"c"          
-?val                 : 10       5        1    var        atom:c              
+default_model        : 8        4        3    instance   m                   
+?x                   : 9        4        1    var        var:?x:"c"          
+?val                 : 10       4        1    var        atom:c              
 ==========================================================================================================================
 
 node update info: model-exec-count=4, row=4, column=5(1), value-max=1, value-unit=1^x
@@ -189,7 +189,7 @@ Total runtime info:
      Interpreter call id/level:       58        0
              CPS support/count:    false        0
                Frame max level:        5
-                  Frame max id:        7
+                  Frame max id:        6
            Frame free id count:        1
 ==========================================================================================================================
 
@@ -233,43 +233,41 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          152            0          152
-       frame:            4            1            3
+       frame:            3            1            2
  interpreter:            1            0
   frameEntry:          238            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=3
+Global frame list: total=2
 
-id=2, name=main, lvl=2, ref=3/3, entry=6, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
-main                 : 3        2        3    frame      main                
+main                 : 3        2        2    frame      main                
 rbs                  : 4        2        1    instance   rbs                 
 m                    : 6        2        3    instance   m                   
 ?x                   : 7        2        2    var        atom:c              
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=0/0, entry=0, pid=2(main), subject=MODEL
-
-id=4, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        4        3    instance   m                   
+default_model        : 5        3        3    instance   m                   
 ==========================================================================================================================
 
-id=5, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=4(MODEL), subject=NF-RU000
+id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 8        5        3    instance   m                   
-?x                   : 9        5        1    var        var:?x:"c"          
-?val                 : 10       5        1    var        atom:c              
+default_model        : 8        4        3    instance   m                   
+?x                   : 9        4        1    var        var:?x:"c"          
+?val                 : 10       4        1    var        atom:c              
 ==========================================================================================================================
 
 Global frame tree:
@@ -278,8 +276,7 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-            ->FRAME(MODEL): id=4, lvl=3, subject=MODEL
-                ->FRAME(NF-RU000): id=5, lvl=4, subject=NF-RU000
+                ->FRAME(NF-RU000): id=4, lvl=4, subject=NF-RU000
 
 Global Subject list:
 

@@ -25,6 +25,7 @@ class XRFactorCreateTableTest extends RuleTestBase {
 
 		_setup();
 
+		_test("(use namespace rbs)");
 		_test("(new model m)");
 		_test("(set schema m)");
 		_test("(add-table m name1:'(? ? ?))", "name1:'(?0 ?1 ?2)");

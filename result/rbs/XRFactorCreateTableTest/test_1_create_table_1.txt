@@ -114,17 +114,17 @@ Ref Bit Map: total=10, max-id=10, create=10, removed=0, group-size=10, group-cou
 . [10]
 ========================================================================================================================================================
 
-Model<m> frame:id=5, name=MODEL, lvl=3, ref=3/4, entry=2, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/4, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 8        5        3    instance   m                   
-?str-sql-init        : 31       5        2    var        bool:true           
+default_model        : 8        3        3    instance   m                   
+?str-sql-init        : 30       3        2    var        bool:true           
 ==========================================================================================================================
 
-Node<N0001> frame:id=10, name=NF-N0001, lvl=4, ref=1/1, entry=0, pid=5(MODEL), subject=NF-N0001
+Node<N0001> frame:id=9, name=NF-N0001, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0001
 
-Node<N0002> frame:id=11, name=NF-N0002, lvl=4, ref=1/1, entry=0, pid=5(MODEL), subject=NF-N0002
+Node<N0002> frame:id=10, name=NF-N0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0002
 
 node update info: model-exec-count=0, row=0, column=0(-1), value-max=-1, value-unit=0^x
 ========================================================================================================================================================
@@ -142,7 +142,7 @@ Total runtime info:
      Interpreter call id/level:       56        0
              CPS support/count:    false        0
                Frame max level:        7
-                  Frame max id:       13
+                  Frame max id:       12
            Frame free id count:        5
 ==========================================================================================================================
 
@@ -210,41 +210,39 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          173            0          173
-       frame:           36           31            5
+       frame:           35           31            4
  interpreter:            1            0
   frameEntry:          289            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=5
+Global frame list: total=4
 
-id=2, name=main, lvl=2, ref=4/5, entry=5, pid=1(system), subject=main, search=[SF-rbs-0, main]
+id=2, name=main, lvl=2, ref=3/4, entry=5, pid=1(system), subject=main, search=[SF-rbs-0, main]
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
-main                 : 3        2        4    frame      main                
+main                 : 3        2        3    frame      main                
 rbs                  : 4        2        1    instance   rbs                 
 m                    : 9        2        3    instance   m                   
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=0/0, entry=0, pid=2(main), subject=MODEL
-
-id=4, name=SF-rbs-0, lvl=3, ref=1/1, entry=0, pid=2(main), subject=rbs
-
-id=5, name=MODEL, lvl=3, ref=3/4, entry=2, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=3/4, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 8        5        3    instance   m                   
-?str-sql-init        : 31       5        2    var        bool:true           
+default_model        : 8        3        3    instance   m                   
+?str-sql-init        : 30       3        2    var        bool:true           
 ==========================================================================================================================
 
-id=10, name=NF-N0001, lvl=4, ref=1/1, entry=0, pid=5(MODEL), subject=NF-N0001
+id=4, name=SF-rbs-0, lvl=3, ref=1/1, entry=0, pid=2(main), subject=rbs
 
-id=11, name=NF-N0002, lvl=4, ref=1/1, entry=0, pid=5(MODEL), subject=NF-N0002
+id=9, name=NF-N0001, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0001
+
+id=10, name=NF-N0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-N0002
 
 Global frame tree:
 
@@ -252,14 +250,13 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main, search=[SF-rbs-0, main]
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
+                ->FRAME(NF-N0001): id=9, lvl=4, subject=NF-N0001
+                ->FRAME(NF-N0002): id=10, lvl=4, subject=NF-N0002
             ->FRAME(SF-rbs-0): id=4, lvl=3, subject=rbs
-            ->FRAME(MODEL): id=5, lvl=3, subject=MODEL
-                ->FRAME(NF-N0001): id=10, lvl=4, subject=NF-N0001
-                ->FRAME(NF-N0002): id=11, lvl=4, subject=NF-N0002
 
 Global Subject list:
 
-name=m, lvl=1, ref=3/6, parent=model, final=false, mbrs=2, frame=null
+name=m, lvl=1, ref=3/5, parent=model, final=false, mbrs=2, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

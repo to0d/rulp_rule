@@ -174,33 +174,33 @@ Child Count:
   total:       4       4
 ========================================================================================================================================================
 
-Model<m> frame:id=4, name=MODEL, lvl=3, ref=6/6, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=6/6, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        4        3    instance   m                   
+default_model        : 5        3        3    instance   m                   
 ==========================================================================================================================
 
-Node<A0002> frame:id=5, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0002
+Node<A0002> frame:id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
 
-Node<A0003> frame:id=6, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0003
+Node<A0003> frame:id=5, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0003
 
-Node<E0004> frame:id=7, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=4(MODEL), subject=NF-E0004
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-?tag                 : 9        7        1    var        atom:Javav8         
-==========================================================================================================================
-
-Node<RU000> frame:id=8, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=4(MODEL), subject=NF-RU000
+Node<E0004> frame:id=6, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 41       8        3    instance   m                   
-?tag                 : 42       8        1    var        atom:Javav8         
+?tag                 : 9        6        1    var        atom:Javav8         
 ==========================================================================================================================
 
-Node<A0006> frame:id=10, name=NF-A0006, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0006
+Node<RU000> frame:id=7, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-RU000
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+default_model        : 41       7        3    instance   m                   
+?tag                 : 42       7        1    var        atom:Javav8         
+==========================================================================================================================
+
+Node<A0006> frame:id=9, name=NF-A0006, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0006
 
 node update info: model-exec-count=9, row=6, column=10(1), value-max=1, value-unit=1^x
 ========================================================================================================================================================
@@ -224,7 +224,7 @@ Total runtime info:
      Interpreter call id/level:       62        0
              CPS support/count:    false        0
                Frame max level:        9
-                  Frame max id:       13
+                  Frame max id:       12
            Frame free id count:        3
 ==========================================================================================================================
 
@@ -287,21 +287,21 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          152            0          152
-       frame:           40           33            7
+       frame:           39           33            6
  interpreter:            1            0
   frameEntry:          282            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=7
+Global frame list: total=6
 
-id=2, name=main, lvl=2, ref=3/3, entry=7, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=7, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
-main                 : 3        2        3    frame      main                
+main                 : 3        2        2    frame      main                
 rbs                  : 4        2        1    instance   rbs                 
 m                    : 6        2        3    instance   m                   
 get-suffix           : 7        2        1    func       (get-suffix nil nil) : frame=main
@@ -309,35 +309,33 @@ get-version-number   : 8        2        1    func       (get-version-number nil
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=0/0, entry=0, pid=2(main), subject=MODEL
-
-id=4, name=MODEL, lvl=3, ref=6/6, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=6/6, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        4        3    instance   m                   
+default_model        : 5        3        3    instance   m                   
 ==========================================================================================================================
 
-id=5, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0002
+id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
 
-id=6, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0003
+id=5, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0003
 
-id=7, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=4(MODEL), subject=NF-E0004
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-?tag                 : 9        7        1    var        atom:Javav8         
-==========================================================================================================================
-
-id=8, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=4(MODEL), subject=NF-RU000
+id=6, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 41       8        3    instance   m                   
-?tag                 : 42       8        1    var        atom:Javav8         
+?tag                 : 9        6        1    var        atom:Javav8         
 ==========================================================================================================================
 
-id=10, name=NF-A0006, lvl=4, ref=1/1, entry=0, pid=4(MODEL), subject=NF-A0006
+id=7, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-RU000
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+default_model        : 41       7        3    instance   m                   
+?tag                 : 42       7        1    var        atom:Javav8         
+==========================================================================================================================
+
+id=9, name=NF-A0006, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0006
 
 Global frame tree:
 
@@ -345,12 +343,11 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-            ->FRAME(MODEL): id=4, lvl=3, subject=MODEL
-                ->FRAME(NF-A0002): id=5, lvl=4, subject=NF-A0002
-                ->FRAME(NF-A0003): id=6, lvl=4, subject=NF-A0003
-                ->FRAME(NF-E0004): id=7, lvl=4, subject=NF-E0004
-                ->FRAME(NF-RU000): id=8, lvl=4, subject=NF-RU000
-                ->FRAME(NF-A0006): id=10, lvl=4, subject=NF-A0006
+                ->FRAME(NF-A0002): id=4, lvl=4, subject=NF-A0002
+                ->FRAME(NF-A0003): id=5, lvl=4, subject=NF-A0003
+                ->FRAME(NF-E0004): id=6, lvl=4, subject=NF-E0004
+                ->FRAME(NF-RU000): id=7, lvl=4, subject=NF-RU000
+                ->FRAME(NF-A0006): id=9, lvl=4, subject=NF-A0006
 
 Global Subject list:
 

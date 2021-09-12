@@ -17,7 +17,7 @@ public class RuleFactory {
 	}
 
 	public static IRModel createModel(String name, IRClass rclass, IRFrame frame) throws RException {
-		return new XRModel(name, rclass, RulpFactory.createFrame(frame, "MODEL"));
+		return new XRModel(name, rclass, frame);
 	}
 
 	public static IRReteNodeCounter createReteCounter(IReteNodeMatrix reteNodeMatrix) {

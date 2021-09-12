@@ -39,11 +39,15 @@
 
 (defun rbs::init-sql-schema ()
 
-    (use namespace rbs)
-    (set-default-model (value-of (value-of rbs::?current_schema)))
+    (use namespace rbs)   
 
-    (if (equal ?current_schema nil) (error no-schema "no schema specified"))
-    (if (equal ?current_schema::?str-sql-init true) (return)) 
+    (if (equal ?current_schema nil) 
+        (error no-schema "no schema specified"))
+    
+    (if (equal ?current_schema::?str-sql-init true) 
+        (return)) 
+
+    (set-default-model (value-of (value-of rbs::?current_schema)))
 
     ;; table definition
     (add-node       _RBS_TABLE:'(1))

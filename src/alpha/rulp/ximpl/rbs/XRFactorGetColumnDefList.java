@@ -17,9 +17,9 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 
-public class XRFactorCreateTable extends AbsRFactorAdapter implements IRFactor {
+public class XRFactorGetColumnDefList extends AbsRFactorAdapter implements IRFactor {
 
-	public XRFactorCreateTable(String factorName) {
+	public XRFactorGetColumnDefList(String factorName) {
 		super(factorName);
 	}
 
