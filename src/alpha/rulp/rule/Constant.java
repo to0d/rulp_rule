@@ -52,6 +52,8 @@ public interface Constant {
 	String A_TABLE = "table";
 
 	String A_Type = "type";
+	
+	String A_Max = "max";
 
 	String A_Uniq = "uniq";
 

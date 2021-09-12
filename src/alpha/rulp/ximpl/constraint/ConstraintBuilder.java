@@ -293,6 +293,31 @@ public class ConstraintBuilder {
 		}
 	}
 
+	private IRConstraint1 _maxConstraint(RConstraint cons) throws RException {
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.createConstraintUniq(_getColumnIndex(cons.onObject));
+
+		case LIST:
+
+			IRList onList = (IRList) cons.onObject;
+
+			int uniqIndexCount = onList.size();
+			int[] columnIndexs = new int[uniqIndexCount];
+
+			for (int i = 0; i < uniqIndexCount; ++i) {
+				columnIndexs[i] = _getColumnIndex(onList.get(i));
+			}
+
+			return ConstraintFactory.createConstraintUniq(columnIndexs);
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
 	public List<IRConstraint1> build(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		/********************************************/
