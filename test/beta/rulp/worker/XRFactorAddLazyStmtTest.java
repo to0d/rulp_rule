@@ -21,6 +21,8 @@ class XRFactorAddLazyStmtTest extends RuleTestBase {
 		_eCount(1, "m");
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m", "result/worker/XRFactorAddLazyStmtTest/test_1_load_twice.txt");
+
 	}
 
 	@Test

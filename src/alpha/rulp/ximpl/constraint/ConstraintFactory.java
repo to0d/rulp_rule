@@ -2,8 +2,9 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.S_QUESTION;
+import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_On;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 
