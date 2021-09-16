@@ -95,13 +95,15 @@ class XRFactorHasStmtTest extends RuleTestBase {
 		_test("(add-stmt m n1:'(a b c1))");
 		_test("(add-stmt m n1:'(a b c2))");
 		_test("(add-stmt m n1:'(a2 b c2))");
-		_test("(has-stmt m '(?...))", "true");
-		_test("(has-stmt m '(?x ?...))", "true");
+//		_test("(has-stmt m '(?...))", "true");
+//		_test("(has-stmt m '(?x ?...))", "true");
+		_test("(has-stmt m '(?x c d))", "false");
 		_test("(has-stmt m '(a ?...))", "true");
 		_test("(has-stmt m n1:'(?...))", "true");
 		_test("(has-stmt m n1:'(?x ?...))", "true");
 		_test("(has-stmt m n1:'(a ?...))", "true");
 		_test("(has-stmt m n2:'(?...))", "false");
+		_test("(has-stmt m n1:'(\"t1\" ?...))", "false");
 	}
 
 	@Test

@@ -55,6 +55,31 @@
     (return 0)
 )
 
+(deftemplate rbs::insert (into (?table_name atom) $(?column-list expr) values $(?value-list expr)) 
+
+    (use namespace rbs)
+    (set-default-model (value-of (value-of rbs::?current_schema)))
+
+    (defvar ?table_name_str (to-string ?table_name))
+    (defvar ?column_names_input_list (rbs::parse-values-list $(value-of ?column-list)))
+    (defvar ?column_values_input_list (rbs::parse-values-list $(value-of ?value-list)))    
+    (defvar ?input_count (size-of ?column_names_input_list))
+    
+    (if (!= (size-of ?column_values_input_list) ?input_count) 
+        (error fail-insert (strcat "not-match-column-count: columns=" ?column-list ", values=" ?value-list)))
+    
+    (defvar ?column_index 0)
+
+
+    (rbs::init-sql-schema)
+    (if (not (has-sql-table-names ?current_schema ?table_name_str))
+        (error no-table (strcat "no table found: " ?table_name_str)))
+    
+    (add-stmt (to-named-list ?table_name_str ?column_values_list))
+    (return 0)
+)
+
+
 (defun rbs::init-sql-schema ()
 
     (use namespace rbs)   

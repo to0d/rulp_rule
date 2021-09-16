@@ -197,7 +197,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        3    instance   m                   
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 Node<A0002> frame:id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
@@ -206,10 +206,10 @@ Node<RU000> frame:id=5, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=3(MODEL), su
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        5        3    instance   m                   
-?a                   : 8        5        1    var        atom:x              
-?b                   : 9        5        1    var        atom:y              
-?c                   : 10       5        1    var        atom:z              
+default_model        : 7        5        3    instance   m : class=model     
+?a                   : 8        5        1    var        x : type=atom       
+?b                   : 9        5        1    var        y : type=atom       
+?c                   : 10       5        1    var        z : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=15, row=6, column=15(1), value-max=1, value-unit=1^x
@@ -292,8 +292,8 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
 main                 : 3        2        2    frame      main                
-rbs                  : 4        2        1    instance   rbs                 
-m                    : 6        2        3    instance   m                   
+rbs                  : 4        2        1    instance   rbs : class=namespace
+m                    : 6        2        3    instance   m : class=model     
 ==========================================================================================================================
 
 
@@ -301,7 +301,7 @@ id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        3    instance   m                   
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
@@ -310,10 +310,10 @@ id=5, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        5        3    instance   m                   
-?a                   : 8        5        1    var        atom:x              
-?b                   : 9        5        1    var        atom:y              
-?c                   : 10       5        1    var        atom:z              
+default_model        : 7        5        3    instance   m : class=model     
+?a                   : 8        5        1    var        x : type=atom       
+?b                   : 9        5        1    var        y : type=atom       
+?c                   : 10       5        1    var        z : type=atom       
 ==========================================================================================================================
 
 Global frame tree:
@@ -331,14 +331,14 @@ name=m, lvl=1, ref=3/3, parent=model, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    3    instance   m
+this                 : DEFAULT  false    false    3    instance   m : class=model
 ==========================================================================================================================
 
 name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    1    instance   rbs
+this                 : DEFAULT  false    false    1    instance   rbs : class=namespace
 ==========================================================================================================================
 
 

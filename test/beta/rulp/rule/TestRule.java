@@ -508,6 +508,23 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
+	public void test_6_var_expr_8() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar m::?xmode false)");
+		_test("(add-rule m if (var-changed ?xmode ?v true) name1:'(?a) do (-> name2:'(?a)))");
+		_test("(add-stmt m name1:'(a))");
+		_test("(query-stmt m ?x from name2:'(?x))", "'()");
+		_test("(setq m::?xmode true)");
+		_test("(query-stmt m ?x from name2:'(?x))", "'(a)");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_8.txt");
+	}
+
+	@Test
 	public void test_7_null_expr_1() {
 
 		_setup();

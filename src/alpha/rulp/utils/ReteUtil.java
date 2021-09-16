@@ -553,6 +553,9 @@ public class ReteUtil {
 		case STRING:
 			return ((IRString) a).asString().equals(((IRString) b).asString());
 
+		case BOOL:
+			return ((IRBoolean) a).asBoolean() == ((IRBoolean) b).asBoolean();
+
 		case ATOM:
 			return ((IRAtom) a).getName().equals(((IRAtom) b).getName());
 
@@ -627,7 +630,7 @@ public class ReteUtil {
 
 			case TEMP__:
 				return DEFINE;
-				
+
 			case DEFINE:
 			case REASON:
 				return REASON;
@@ -838,7 +841,7 @@ public class ReteUtil {
 	}
 
 	public static boolean isAlphaMatchTree(IRList matchTree) throws RException {
-		return isValidStmtLen(matchTree.size()) && matchTree.get(0).getType() == RType.ATOM;
+		return isValidStmtLen(matchTree.size()) && ReteUtil.isEntryValueType(matchTree.get(0).getType());
 	}
 
 	public static boolean isAnyVar(IRObject obj) {
@@ -1162,15 +1165,20 @@ public class ReteUtil {
 					return false;
 				}
 
-				for (int i = 1; i < expr.size(); ++i) {
-					if (expr.get(i).getType() != RType.ATOM) {
-						return false;
-					}
+				// The second object should be a variable
+				if (expr.get(1).getType() != RType.ATOM) {
+					return false;
 				}
 
 				// the e1 must be a var name format
 				if (!RulpUtil.isVarName(RulpUtil.asAtom(expr.get(1)).getName())) {
 					throw new RException("the 2nd element must be a var name format: " + expr);
+				}
+
+				// The next two object can be a variable or a value
+				if (!ReteUtil.isEntryValueType(expr.get(2).getType())
+						|| !ReteUtil.isEntryValueType(expr.get(2).getType())) {
+					return false;
 				}
 
 				return true;

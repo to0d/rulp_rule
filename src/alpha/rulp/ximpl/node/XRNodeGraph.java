@@ -661,7 +661,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		RType e1Type = treeSize >= 2 ? reteTree.get(1).getType() : null;
 
 		// Build alpha node: '(a b c)
-		if (treeType == RType.LIST && e0Type == RType.ATOM) {
+		if (treeType == RType.LIST && ReteUtil.isEntryValueType(e0Type)) {
 
 			// Build const node
 			if (ReteUtil.getStmtVarCount(reteTree) == 0) {
@@ -748,187 +748,186 @@ public class XRNodeGraph implements IRNodeGraph {
 			throw new RException("the 2nd element must be a var name format: " + varName);
 		}
 
-		/*****************************************************/
-		// (var-changed ?varName old-value new-value)
-		/*****************************************************/
-		if (reteTree.size() == 4) {
-
+		switch (reteTree.size()) {
+		case 4:
 			/*****************************************************/
-			// (var-changed ?varName same-value same-value) invalid
+			// (var-changed ?varName old-value new-value)
 			/*****************************************************/
-			if (RulpUtil.equal(reteTree.get(2), reteTree.get(3))) {
-				throw new RException("invalid tree: " + reteTree);
-			}
+			return _buildVarChangeNode4(varName, reteTree, tmpVarBuilder);
 
-			int varCount = 0;
-			int lastVarPos = -1;
-			IRObject lastValue = null;
-
-			// (var-changed ?varName a b)
-			for (int i = reteTree.size() - 1; i >= 2; --i) {
-
-				IRObject obj = reteTree.get(i);
-
-				if (obj.getType() != RType.ATOM) {
-					throw new RException("invalid element: " + obj);
-				}
-
-				// var
-				if (RulpUtil.isVarName(RulpUtil.asAtom(obj).getName())) {
-					++varCount;
-				}
-				// value
-				else {
-
-					if (lastValue == null) {
-						lastValue = obj;
-						lastVarPos = i;
-					}
-				}
-			}
-
-			/*****************************************************/
-			// (var-changed ?varName value1 value2)
-			/*****************************************************/
-			if (varCount == 0) {
-
-				// (var-changed ?varName ?tmp1 ?tmp2)
-				List<IRObject> list = RulpUtil.toArray(reteTree);
-				list.set(2, tmpVarBuilder.next());
-				list.set(3, tmpVarBuilder.next());
-
-				IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-
-				XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(),
-						ReteUtil.uniqName(reteTree), 3, parentNode,
-						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-
-				// (?varName a ?tmp)
-				alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(1, reteTree.get(2)));
-				alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(2, reteTree.get(3)));
-
-				return alph0Node;
-			}
-
-			/*****************************************************/
-			// (var-changed ?varName ?v1 value2)
-			// (var-changed ?varName value ?v2)
-			/*****************************************************/
-			if (lastValue != null) {
-
-				// (var-changed ?varName a ?tmp)
-				List<IRObject> list = RulpUtil.toArray(reteTree);
-				list.set(lastVarPos, tmpVarBuilder.next());
-
-				IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-
-				// (?varName a ?tmp)
-
-				XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(),
-						ReteUtil.uniqName(reteTree), 3, parentNode,
-						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-
-				// (?varName a ?tmp)
-				alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(lastVarPos - 1, lastValue));
-				return alph0Node;
-			}
-
-			/*****************************************************/
-			// (var-changed ?varName ?v1 ?v2)
-			/*****************************************************/
-			IRVar var = model.getVar(varName);
-			if (var == null) {
-				throw new RException("var entry not found: " + varName);
-			}
-
-			AbsReteNode varNode = RNodeFactory.createVarNode(model, _getNextNodeId(), var, ReteUtil.uniqName(reteTree),
-					model.getEntryTable());
-
-			varNode.setVarEntry(ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-
-			var.addVarListener((v, o, n) -> {
-
-				IRObject elements[] = new IRObject[3];
-
-				elements[0] = v;
-				elements[1] = o;
-				elements[2] = n;
-
-				IRReteEntry reteEntry = model.getEntryTable().createEntry(null, elements, TEMP__, true);
-//				model.getEntryTable().addEntryReference(reteEntry, varNode.getNodeId());
-//				model.getEntryTable().setEntryLife(reteEntry.getEntryId(), 1); // certain entry
-
-				if (!varNode.addReteEntry(reteEntry)) {
-					model.getEntryTable().removeEntry(reteEntry);
-					return;
-				}
-
-				model.addUpdateNode(varNode);
-
-			});
-
-			varNodeMap.put(var.getName(), varNode);
-
-			return varNode;
-		}
-		/*****************************************************/
-		// (var-changed ?varName new-value)
-		/*****************************************************/
-		else if (reteTree.size() == 3) {
-
-			IRObject obj = reteTree.get(2);
-
+		case 3:
 			/*****************************************************/
 			// (var-changed ?varName new-value)
 			/*****************************************************/
-			if (obj.getType() != RType.ATOM || !RulpUtil.isVarName(RulpUtil.asAtom(obj).getName())) {
+			return _buildVarChangeNode3(varName, reteTree, tmpVarBuilder);
 
-				// (var-changed ?varName ?anyVar ?tmp)
-				List<IRObject> list = new ArrayList<>();
-				list.add(reteTree.get(0));
-				list.add(reteTree.get(1));
-				list.add(tmpVarBuilder.next());
-
-				IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-
-				XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(),
-						ReteUtil.uniqName(reteTree), 2, parentNode,
-						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-
-				// (?varName a ?tmp)
-				alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(2, obj));
-				return alph0Node;
-
-			}
-			/*****************************************************/
-			// (var-changed ?varName ?v2)
-			/*****************************************************/
-			else {
-
-				// (var-changed ?varName ?anyVar ?tmp)
-				List<IRObject> list = new ArrayList<>();
-				list.add(reteTree.get(0));
-				list.add(reteTree.get(1));
-				list.add(tmpVarBuilder.next());
-				list.add(reteTree.get(2));
-
-				InheritIndex[] inheritIndexs = new InheritIndex[2];
-				inheritIndexs[0] = new InheritIndex(0, 0);
-				inheritIndexs[1] = new InheritIndex(0, 2);
-
-				IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-
-				XRReteNode1 alph0Node = RNodeFactory.createAlpha2Node(model, _getNextNodeId(),
-						ReteUtil.uniqName(reteTree), 2, model.getEntryTable(), parentNode,
-						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)), inheritIndexs);
-
-				return alph0Node;
-			}
-
-		} else {
+		default:
 			throw new RException("invalid tree: " + reteTree);
 		}
 
+	}
+
+	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
+			throws RException {
+
+		IRObject obj = reteTree.get(2);
+
+		/*****************************************************/
+		// (var-changed ?varName new-value)
+		/*****************************************************/
+		if (obj.getType() != RType.ATOM || !RulpUtil.isVarName(RulpUtil.asAtom(obj).getName())) {
+
+			// (var-changed ?varName ?anyVar ?tmp)
+			List<IRObject> list = new ArrayList<>();
+			list.add(reteTree.get(0));
+			list.add(reteTree.get(1));
+			list.add(tmpVarBuilder.next());
+
+			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+
+			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+					2, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+
+			// (?varName a ?tmp)
+			alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(2, obj));
+			return alph0Node;
+
+		}
+		/*****************************************************/
+		// (var-changed ?varName ?v2)
+		/*****************************************************/
+		else {
+
+			// (var-changed ?varName ?anyVar ?tmp)
+			List<IRObject> list = new ArrayList<>();
+			list.add(reteTree.get(0));
+			list.add(reteTree.get(1));
+			list.add(tmpVarBuilder.next());
+			list.add(reteTree.get(2));
+
+			InheritIndex[] inheritIndexs = new InheritIndex[2];
+			inheritIndexs[0] = new InheritIndex(0, 0);
+			inheritIndexs[1] = new InheritIndex(0, 2);
+
+			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+
+			XRReteNode1 alph0Node = RNodeFactory.createAlpha2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+					2, model.getEntryTable(), parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)),
+					inheritIndexs);
+
+			return alph0Node;
+		}
+	}
+
+	protected IRReteNode _buildVarChangeNode4(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
+			throws RException {
+
+		/*****************************************************/
+		// (var-changed ?varName same-value same-value) invalid
+		/*****************************************************/
+		if (RulpUtil.equal(reteTree.get(2), reteTree.get(3))) {
+			throw new RException("invalid tree: " + reteTree);
+		}
+
+		int varCount = 0;
+		int lastVarPos = -1;
+		IRObject lastValue = null;
+
+		// (var-changed ?varName a b)
+		for (int i = reteTree.size() - 1; i >= 2; --i) {
+
+			IRObject obj = reteTree.get(i);
+			if (!ReteUtil.isEntryValueType(obj.getType())) {
+				throw new RException("invalid element: " + obj);
+			}
+
+			// var
+			if (RulpUtil.isVarAtom(obj)) {
+				++varCount;
+			}
+			// value
+			else if (lastValue == null) {
+				lastValue = obj;
+				lastVarPos = i;
+			}
+		}
+
+		/*****************************************************/
+		// (var-changed ?varName value1 value2)
+		/*****************************************************/
+		if (varCount == 0) {
+
+			// (var-changed ?varName ?tmp1 ?tmp2)
+			List<IRObject> list = RulpUtil.toArray(reteTree);
+			list.set(2, tmpVarBuilder.next());
+			list.set(3, tmpVarBuilder.next());
+
+			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+
+			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+
+			// (?varName a ?tmp)
+			alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(1, reteTree.get(2)));
+			alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(2, reteTree.get(3)));
+
+			return alph0Node;
+		}
+
+		/*****************************************************/
+		// (var-changed ?varName ?v1 value2)
+		// (var-changed ?varName value ?v2)
+		/*****************************************************/
+		if (lastValue != null) {
+
+			// (var-changed ?varName a ?tmp)
+			List<IRObject> list = RulpUtil.toArray(reteTree);
+			list.set(lastVarPos, tmpVarBuilder.next());
+
+			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+
+			// (?varName a ?tmp)
+
+			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+
+			// (?varName a ?tmp)
+			alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(lastVarPos - 1, lastValue));
+			return alph0Node;
+		}
+
+		/*****************************************************/
+		// (var-changed ?varName ?v1 ?v2)
+		/*****************************************************/
+		IRVar var = model.getVar(varName);
+		if (var == null) {
+			throw new RException("var entry not found: " + varName);
+		}
+
+		AbsReteNode varNode = RNodeFactory.createVarNode(model, _getNextNodeId(), var, ReteUtil.uniqName(reteTree),
+				model.getEntryTable());
+
+		varNode.setVarEntry(ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+
+		var.addVarListener((v, o, n) -> {
+
+			IRObject elements[] = new IRObject[3];
+
+			elements[0] = v;
+			elements[1] = o;
+			elements[2] = n;
+
+			IRReteEntry reteEntry = model.getEntryTable().createEntry(null, elements, TEMP__, true);
+			if (!varNode.addReteEntry(reteEntry)) {
+				model.getEntryTable().removeEntry(reteEntry);
+				return;
+			}
+
+			model.addUpdateNode(varNode);
+		});
+
+		varNodeMap.put(var.getName(), varNode);
+		return varNode;
 	}
 
 	protected IRReteNode _buildVarNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {

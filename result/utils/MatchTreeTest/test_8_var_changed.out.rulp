@@ -190,3 +190,32 @@
  )
 
 
+
+;;---------------------------------------------------------;;
+(var-changed ?xmode ?v true) name1:'(?a)  ; input
+'(name1:'(?a) (var-changed ?xmode ?v true)) ; output
+;expr: 
+'(
+    name1:'(?a)
+    (var-changed ?xmode ?v true)
+ )
+
+
+(var-changed ?xmode ?v true) '(?a)  ; input
+'('(?a) (var-changed ?xmode ?v true)) ; output
+;expr: 
+'(
+    '(?a)
+    (var-changed ?xmode ?v true)
+ )
+
+
+(var-changed ?x ?v true) '(?a ?b)  ; input
+'('(?a ?b) (var-changed ?x ?v true)) ; output
+;expr: 
+'(
+    '(?a ?b)
+    (var-changed ?x ?v true)
+ )
+
+

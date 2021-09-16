@@ -44,3 +44,8 @@
 
 ;;---------------------------------------------------------;;
 (var-changed ?state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasRelatedTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f)))) nm:typeOf nm:tag))
+
+;;---------------------------------------------------------;;
+(var-changed ?xmode ?v true) name1:'(?a) 
+(var-changed ?xmode ?v true) '(?a) 
+(var-changed ?x ?v true) '(?a ?b) 

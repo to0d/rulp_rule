@@ -175,7 +175,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=4/4, entry=1, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        3    instance   m                   
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 Node<A0002> frame:id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
@@ -186,11 +186,11 @@ Node<RU000> frame:id=6, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), su
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        6        3    instance   m                   
-?a                   : 8        6        1    var        atom:a              
-?b                   : 9        6        1    var        atom:b              
-?p                   : 10       6        1    var        atom:c              
-?c                   : 11       6        1    var        atom:d              
+default_model        : 7        6        3    instance   m : class=model     
+?a                   : 8        6        1    var        a : type=atom       
+?b                   : 9        6        1    var        b : type=atom       
+?p                   : 10       6        1    var        c : type=atom       
+?c                   : 11       6        1    var        d : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=8, row=5, column=7(1), value-max=1, value-unit=1^x
@@ -274,8 +274,8 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
 main                 : 3        2        2    frame      main                
-rbs                  : 4        2        1    instance   rbs                 
-m                    : 6        2        3    instance   m                   
+rbs                  : 4        2        1    instance   rbs : class=namespace
+m                    : 6        2        3    instance   m : class=model     
 ==========================================================================================================================
 
 
@@ -283,7 +283,7 @@ id=3, name=MODEL, lvl=3, ref=4/4, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        3    instance   m                   
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
@@ -294,11 +294,11 @@ id=6, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        6        3    instance   m                   
-?a                   : 8        6        1    var        atom:a              
-?b                   : 9        6        1    var        atom:b              
-?p                   : 10       6        1    var        atom:c              
-?c                   : 11       6        1    var        atom:d              
+default_model        : 7        6        3    instance   m : class=model     
+?a                   : 8        6        1    var        a : type=atom       
+?b                   : 9        6        1    var        b : type=atom       
+?p                   : 10       6        1    var        c : type=atom       
+?c                   : 11       6        1    var        d : type=atom       
 ==========================================================================================================================
 
 Global frame tree:
@@ -317,14 +317,14 @@ name=m, lvl=1, ref=3/3, parent=model, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    3    instance   m
+this                 : DEFAULT  false    false    3    instance   m : class=model
 ==========================================================================================================================
 
 name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    1    instance   rbs
+this                 : DEFAULT  false    false    1    instance   rbs : class=namespace
 ==========================================================================================================================
 
 

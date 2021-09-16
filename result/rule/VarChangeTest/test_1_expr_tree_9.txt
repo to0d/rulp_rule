@@ -193,25 +193,25 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        3    instance   m                   
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 Node<E2004> frame:id=4, name=NF-E2004, lvl=4, ref=1/1, entry=2, pid=3(MODEL), subject=NF-E2004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?x                   : 9        4        1    var        var:?x:"abcd"       
-?url                 : 10       4        1    var        string:abcd         
+?x                   : 9        4        1    var        ?x:"abcd" : type=var
+?url                 : 10       4        1    var        abcd : type=string  
 ==========================================================================================================================
 
 Node<RU000> frame:id=5, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 11       5        3    instance   m                   
-?url-name            : 12       5        1    var        atom:head1          
-?url                 : 13       5        1    var        string:abcd         
-?x                   : 14       5        1    var        var:?x:"abcd"       
+default_model        : 11       5        3    instance   m : class=model     
+?url-name            : 12       5        1    var        head1 : type=atom   
+?url                 : 13       5        1    var        abcd : type=string  
+?x                   : 14       5        1    var        ?x:"abcd" : type=var
 ==========================================================================================================================
 
 node update info: model-exec-count=7, row=6, column=8(1), value-max=1, value-unit=1^x
@@ -296,10 +296,10 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
 main                 : 3        2        2    frame      main                
-rbs                  : 4        2        1    instance   rbs                 
-m                    : 6        2        3    instance   m                   
-?x                   : 7        2        3    var        string:abcd         
-?xurl                : 8        2        1    var        string:abc          
+rbs                  : 4        2        1    instance   rbs : class=namespace
+m                    : 6        2        3    instance   m : class=model     
+?x                   : 7        2        3    var        abcd : type=string  
+?xurl                : 8        2        1    var        abc : type=string   
 ==========================================================================================================================
 
 
@@ -307,25 +307,25 @@ id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        3    instance   m                   
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 id=4, name=NF-E2004, lvl=4, ref=1/1, entry=2, pid=3(MODEL), subject=NF-E2004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?x                   : 9        4        1    var        var:?x:"abcd"       
-?url                 : 10       4        1    var        string:abcd         
+?x                   : 9        4        1    var        ?x:"abcd" : type=var
+?url                 : 10       4        1    var        abcd : type=string  
 ==========================================================================================================================
 
 id=5, name=NF-RU000, lvl=4, ref=1/2, entry=4, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 11       5        3    instance   m                   
-?url-name            : 12       5        1    var        atom:head1          
-?url                 : 13       5        1    var        string:abcd         
-?x                   : 14       5        1    var        var:?x:"abcd"       
+default_model        : 11       5        3    instance   m : class=model     
+?url-name            : 12       5        1    var        head1 : type=atom   
+?url                 : 13       5        1    var        abcd : type=string  
+?x                   : 14       5        1    var        ?x:"abcd" : type=var
 ==========================================================================================================================
 
 Global frame tree:
@@ -343,14 +343,14 @@ name=m, lvl=1, ref=3/3, parent=model, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    3    instance   m
+this                 : DEFAULT  false    false    3    instance   m : class=model
 ==========================================================================================================================
 
 name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    1    instance   rbs
+this                 : DEFAULT  false    false    1    instance   rbs : class=namespace
 ==========================================================================================================================
 
 

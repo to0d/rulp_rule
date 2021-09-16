@@ -162,6 +162,30 @@ public class VarChangeTest extends RuleTestBase {
 	}
 
 	@Test
+	public void test_2_contant_bool() {
+
+		_setup();
+
+//		XRModel.TRACE_RETE = true;
+
+		_test("(new model m)");
+		_test("(defvar ?x false)");
+		_test("(add-rule m if (var-changed ?x ?v true) '(?a ?b) do (-> '(?b ?a)) )");
+		_test("(add-stmt m '(a b))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b))");
+
+		_test("(setq ?x true)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b) '(b a))");
+
+		_mStatus(1, "m");
+		_saveTest();
+
+		_statsInfo("m", "result/rule/VarChangeTest/test_2_contant_bool.txt");
+	}
+
+	@Test
 	void test_2_scope_1() {
 
 		_setup();

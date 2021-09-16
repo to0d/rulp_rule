@@ -1685,31 +1685,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public IRMember getMember(String name) throws RException {
-
-		IRMember mbr = super.getMember(name);
-		if (mbr == null) {
-
-			switch (name) {
-			case V_M_STATE:
-			case V_M_SQL_INIT:
-				mbr = RulpFactory.createMember(this, name, getVar(name));
-				mbr.setAccessType(RAccessType.PUBLIC);
-				mbr.setFinal(false);
-				mbr.setStatic(false);
-				break;
-			default:
-			}
-
-			if (mbr != null) {
-				this.setMember(name, mbr);
-			}
-		}
-
-		return mbr;
-	}
-
-	@Override
 	public IRFrame getModelFrame() {
 		return this.modelFrame;
 	}
@@ -1742,6 +1717,32 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public IRMember getMember(String name) throws RException {
+
+		IRMember mbr = super.getMember(name);
+		if (mbr == null) {
+
+			switch (name) {
+			case V_M_STATE:
+			case V_M_SQL_INIT:
+				mbr = RulpFactory.createMember(this, name, getVar(name));
+				mbr.setAccessType(RAccessType.PUBLIC);
+				mbr.setFinal(false);
+				mbr.setStatic(false);
+				break;
+
+			default:
+			}
+
+			if (mbr != null) {
+				this.setMember(name, mbr);
+			}
+		}
+
+		return mbr;
+	}
+
+	@Override
 	public IRVar getVar(String varName) throws RException {
 
 		switch (varName) {
@@ -1749,8 +1750,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			if (modelStatsVar == null) {
 				modelStatsVar = RulpFactory.createVar(V_M_STATE);
-				this.getModelFrame().setEntry(V_M_STATE, modelStatsVar);
 				modelStatsVar.setValue(RRunState.toObject(this.getRunState()));
+				this.getModelFrame().setEntry(V_M_STATE, modelStatsVar);
+
 			}
 
 			return modelStatsVar;
@@ -1759,13 +1761,18 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			if (sqlInitVar == null) {
 				sqlInitVar = RulpFactory.createVar(V_M_SQL_INIT);
-				this.getModelFrame().setEntry(V_M_SQL_INIT, sqlInitVar);
 				sqlInitVar.setValue(O_False);
+				this.getModelFrame().setEntry(V_M_SQL_INIT, sqlInitVar);
 			}
 
 			return sqlInitVar;
 
 		default:
+
+			IRMember mbr = this.getMember(varName);
+			if (mbr != null && mbr.getValue().getType() == RType.VAR) {
+				return (IRVar) mbr.getValue();
+			}
 
 			IRFrameEntry varEntry = this.getModelFrame().getEntry(varName);
 			if (varEntry != null) {
