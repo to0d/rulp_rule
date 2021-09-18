@@ -162,11 +162,9 @@ public class VarChangeTest extends RuleTestBase {
 	}
 
 	@Test
-	public void test_2_contant_bool() {
+	public void test_2_contant_bool_1() {
 
 		_setup();
-
-//		XRModel.TRACE_RETE = true;
 
 		_test("(new model m)");
 		_test("(defvar ?x false)");
@@ -179,10 +177,48 @@ public class VarChangeTest extends RuleTestBase {
 		_test("(start m)");
 		_test("(list-stmt m)", "'('(a b) '(b a))");
 
+		_test("(setq ?x false)");
+		_test("(add-stmt m '(x y))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b) '(b a) '(x y))");
+
+		_test("(setq ?x true)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a b) '(b a) '(x y) '(y x))");
+
 		_mStatus(1, "m");
 		_saveTest();
 
-		_statsInfo("m", "result/rule/VarChangeTest/test_2_contant_bool.txt");
+		_statsInfo("m", "result/rule/VarChangeTest/test_2_contant_bool_1.txt");
+
+	}
+
+	@Test
+	public void test_2_contant_bool_2() {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(defvar ?x false)");
+		_test("(add-rule m if (var-changed ?x ?v true) '(?a ?b) do (-> '(?b ?a)) )");
+		_test("(add-stmt m '(a b))");
+		_test("(query-stmt m '(?a ?b) from '(?a ?b))", "'('(a b))");
+
+		_test("(setq ?x true)");
+		_test("(query-stmt m '(?a ?b) from '(?a ?b))", "'('(a b) '(b a))");
+
+		_test("(setq ?x false)");
+		_test("(add-stmt m '(x y))");
+		_test("(query-stmt m '(?a ?b) from '(?a ?b))", "'('(a b) '(b a) '(x y))");
+
+		_test("(setq ?x true)");
+		_test("(query-stmt m '(?a ?b) from '(?a ?b))", "'('(a b) '(b a) '(x y) '(y x))");
+
+		_mStatus(1, "m");
+		_saveTest();
+
+		_statsInfo("m", "result/rule/VarChangeTest/test_2_contant_bool_2.txt");
+
 	}
 
 	@Test

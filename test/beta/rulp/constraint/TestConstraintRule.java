@@ -10,6 +10,6 @@ public class TestConstraintRule extends RuleTestBase {
 
 		_setup();
 		// _enableTrace();
-		_test_script("result/constraint/TestConstraint/test_type_match_1.rulp");
+		_test_script("result/constraint/TestConstraintRule/test_type_match_1.rulp");
 	}
 }

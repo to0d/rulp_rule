@@ -399,6 +399,8 @@ beta.rulp.rule.VarChangeTest:test_1_expr_tree_7:1-mStatus:sc=[0,1], vc=[1, 0, 0,
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_8:1-mStatus:sc=[0,0,1], vc=[1, 0, 0, 1, 0], a2=[1,0,1,99,1,0,0,0,1,0,1/0,1], e2=[1,0,2,99,1,0,0,1,1,0,1/0,1], ru=[1,0,3,99,1,0,0,0,1],
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_9:1-mStatus:sc=[0,0,1], n0=[0,1,1], vc=[1, 0, 0, 1, 0], a2=[1,0,1,99,1,0,0,0,1,0,1/0,1], b0=[1,0,3,99,2,1,0,1,1,0,1/0,0,1], e2=[1,0,2,99,1,0,0,1,1,0,1/0,1], ru=[1,0,4,99,1,0,0,0,1],
 beta.rulp.rule.VarChangeTest:test_2_contant_bool:1-mStatus:sc=[0,1,1], vc=[1, 0, 0, 1, 0], a1=[1,0,1,99,1,0,0,1,1,0,1/0,0,0,0,0,1], b1=[1,0,2,99,1,0,0,1,1,0,1/0,0,1], ru=[1,0,3,99,1,0,0,0,1],
+beta.rulp.rule.VarChangeTest:test_2_contant_bool_1:1-mStatus:sc=[0,2,2,0,0,0,0,0,1], vc=[1, 0, 0, 3, 0], a1=[1,0,1,99,3,0,0,3,2,0,2/0,0,0,0,0,1], b1=[1,0,2,99,2,0,0,3,3,0,3/0,0,3], ru=[1,0,3,99,2,0,0,0,3,1],
+beta.rulp.rule.VarChangeTest:test_2_contant_bool_2:1-mStatus:sc=[0,2,2,0,0,0,0,0,1], vc=[1, 0, 0, 4, 1], a1=[1,0,1,99,7,4,0,3,2,0,2/0,0,0,0,0,1], b1=[1,0,2,99,6,4,0,3,3,0,3/0,0,3], ru=[1,0,3,99,6,4,0,0,3,1],
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-eCount:size=2, max-id=2, dup=0, null=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-mCount:stmt=2, rule=0, match=0, fetch=6, exec=6, idle=2, state=5/2, max-queue=3, uniq-obj=3, entry-cnt=2, entry-maxid=2, waste-node=0, waste-match=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-mStatus:sc=[0,2], a0=[2,0,2,0,4,2,0,4,4,0,4,0,1/0,4], wk=[1,0,0,-99,1],

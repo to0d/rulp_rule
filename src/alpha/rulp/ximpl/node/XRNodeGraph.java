@@ -773,30 +773,9 @@ public class XRNodeGraph implements IRNodeGraph {
 		IRObject obj = reteTree.get(2);
 
 		/*****************************************************/
-		// (var-changed ?varName new-value)
-		/*****************************************************/
-		if (obj.getType() != RType.ATOM || !RulpUtil.isVarName(RulpUtil.asAtom(obj).getName())) {
-
-			// (var-changed ?varName ?anyVar ?tmp)
-			List<IRObject> list = new ArrayList<>();
-			list.add(reteTree.get(0));
-			list.add(reteTree.get(1));
-			list.add(tmpVarBuilder.next());
-
-			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-
-			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-					2, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-
-			// (?varName a ?tmp)
-			alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(2, obj));
-			return alph0Node;
-
-		}
-		/*****************************************************/
 		// (var-changed ?varName ?v2)
 		/*****************************************************/
-		else {
+		if (RulpUtil.isVarAtom(obj)) {
 
 			// (var-changed ?varName ?anyVar ?tmp)
 			List<IRObject> list = new ArrayList<>();
@@ -817,6 +796,26 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			return alph0Node;
 		}
+
+		/*****************************************************/
+		// (var-changed ?varName new-value)
+		/*****************************************************/
+
+		// (var-changed ?varName ?tmp1 ?tmp2)
+		List<IRObject> list = new ArrayList<>();
+		list.add(reteTree.get(0));
+		list.add(reteTree.get(1));
+		list.add(tmpVarBuilder.next());
+//		list.add(tmpVarBuilder.next());
+
+		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+
+		XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 2,
+				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+
+		// (?varName a ?tmp)
+		alph0Node.addConstraint(ConstraintFactory.createConstraintEqualValue(2, obj));
+		return alph0Node;
 	}
 
 	protected IRReteNode _buildVarChangeNode4(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)

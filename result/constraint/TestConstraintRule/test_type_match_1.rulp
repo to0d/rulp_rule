@@ -1,7 +1,7 @@
 (new model m)
 ;=>m
 (defvar m::?_m_verify_constraint false)
-;=>m
+;=>&?_m_verify_constraint
 (add-rule m if _m_constraint_type:'(?node ?index ?type1) _m_constraint_type:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (error conflict-constraint '(?node ?index ?type1 ?type2)))
 ;=>RU000
 (add-stmt m n1:'(1))
