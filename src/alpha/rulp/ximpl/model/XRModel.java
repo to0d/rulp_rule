@@ -2,9 +2,7 @@ package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_False;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 import static alpha.rulp.rule.Constant.V_M_SQL_INIT;
 import static alpha.rulp.rule.Constant.V_M_STATE;
@@ -24,11 +22,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import alpha.rulp.lang.IRClass;
@@ -52,7 +48,6 @@ import alpha.rulp.rule.RRunState;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.FileUtil;
-import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.NodeUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
@@ -82,116 +77,6 @@ import alpha.rulp.ximpl.node.XTempVarBuilder;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
-
-	static class QuerySourceEntry {
-
-		IRReteNode fromNode;
-		IRReteNode sourceNode;
-
-		public QuerySourceEntry(IRReteNode fromNode, IRReteNode sourceNode) {
-			super();
-			this.fromNode = fromNode;
-			this.sourceNode = sourceNode;
-		}
-	}
-
-	static class QuerySourceInfo {
-
-		public IRReteNode node;
-		public int partialRecoveryPriority = -1;
-	}
-
-	static class UniqObjQueue {
-
-		private IRVar[] _vars;
-
-		private IRList condList;
-
-		private IRModel model;
-
-		private IRFrame queryFrame;
-
-		private IRObject rstExpr;
-
-		private ArrayList<IRObject> rstList = new ArrayList<>();
-
-		private Set<String> uniqNames = new HashSet<>();
-
-		public UniqObjQueue(IRModel model, IRObject rstExpr, IRList condList) {
-			super();
-			this.model = model;
-			this.rstExpr = rstExpr;
-			this.condList = condList;
-		}
-
-		public boolean addEntry(IRReteEntry entry) throws RException {
-
-			if (entry == null || entry.isDroped()) {
-				return false;
-			}
-
-			/******************************************************/
-			// Update variable value
-			/******************************************************/
-			for (int j = 0; j < getVars().length; ++j) {
-				IRVar var = _vars[j];
-				if (var != null) {
-					var.setValue(entry.get(j));
-				}
-			}
-
-			IRObject rstObj = model.getInterpreter().compute(getQueryFrame(), rstExpr);
-			String uniqName = ReteUtil.uniqName(rstObj);
-			if (uniqNames.contains(uniqName)) {
-				return false;
-			}
-
-			uniqNames.add(uniqName);
-			rstList.add(rstObj);
-			return true;
-		}
-
-		public IRFrame getQueryFrame() throws RException {
-
-			if (queryFrame == null) {
-				queryFrame = RulpFactory.createFrame(model.getModelFrame(), "QUERY");
-				RuleUtil.setDefaultModel(queryFrame, model);
-			}
-
-			return queryFrame;
-		}
-
-		public List<? extends IRObject> getRstList() {
-			return rstList;
-		}
-
-		public IRVar[] getVars() throws RException {
-
-			if (_vars == null) {
-
-				/******************************************************/
-				// Build var list
-				/******************************************************/
-				List<IRList> matchStmtList = ReteUtil.toCondList(condList, model.getNodeGraph());
-				IRList matchTree = MatchTree.build(matchStmtList);
-				IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree));
-				_vars = new IRVar[varEntry.length];
-
-				for (int i = 0; i < varEntry.length; ++i) {
-					IRObject obj = varEntry[i];
-					if (obj != null) {
-						_vars[i] = getQueryFrame().addVar(RulpUtil.asAtom(obj).getName());
-					}
-				}
-			}
-
-			return _vars;
-		}
-
-		public int size() {
-			return rstList.size();
-		}
-	}
 
 	class XRCacheWorker implements IRCacheWorker {
 
@@ -434,6 +319,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	static final String MODEL_CACHE_SUFFIX = ".mc";
 
+//	public static boolean RuleUtility.isModelTrace() = false;
+
 	static final RRunState MODEL_SSTATE[][] = {
 
 			// Completed(0), Runnable(1), Running(2), Halting(3), Failed(4), Partial(5)
@@ -445,8 +332,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			{ Partial, Partial, Partial, Halting, Failed, Partial }, // Partial
 	};
 
-//	public static boolean RuleUtility.isModelTrace() = false;
-
 	protected static int nodeExecId = 0;
 
 	protected boolean cacheEnable = false;
@@ -455,7 +340,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final LinkedList<XRCacheWorker> cacheWorkerList = new LinkedList<>();
 
-	protected IREntryTable entryTable = new XREntryTable();
+	protected final IREntryTable entryTable = new XREntryTable();
 
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
 
@@ -485,7 +370,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected RNodeContext nodeContext = null;
 
-	protected IRNodeGraph nodeGraph = new XRNodeGraph(this);
+	protected final IRNodeGraph nodeGraph;
 
 	protected final LinkedList<IRReteNode> restartingNodeList = new LinkedList<>();
 
@@ -503,6 +388,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	public XRModel(String modelName, IRClass rclass, IRFrame frame) throws RException {
 		super(rclass, modelName, frame);
+		this.nodeGraph = new XRNodeGraph(this, entryTable);
 	}
 
 	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
@@ -921,11 +807,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throws RException {
 
 		IRReteNode queryNode = this.findNode(condList);
-		UniqObjQueue objQueue = new UniqObjQueue(this, rstExpr, condList);
+		XRUniqObjQueue objQueue = new XRUniqObjQueue(this, rstExpr, condList);
 
 		int queryEntryIndex = 0;
-
-		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
 
 		/******************************************************/
 		// Load results
@@ -950,68 +834,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
-		Map<IRReteNode, QuerySourceInfo> sourceMap = new HashMap<>();
-		Set<IRReteNode> sourceNodes = new HashSet<>();
-		List<QuerySourceInfo> changeList = new LinkedList<>();
+		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
+		subGraph.build(queryNode);
 
-		LinkedList<QuerySourceEntry> visitStack = new LinkedList<>();
-		visitStack.add(new QuerySourceEntry(null, queryNode));
-
-		while (!visitStack.isEmpty()) {
-
-			QuerySourceEntry entry = visitStack.pop();
-			IRReteNode fromNode = entry.fromNode;
-			IRReteNode sourceNode = entry.sourceNode;
-
-			if (sourceNode.getPriority() < RETE_PRIORITY_INACTIVE) {
-				continue;
-			}
-
-			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
-				continue;
-			}
-
-			int new_priority = RETE_PRIORITY_PARTIAL_MAX;
-			if (sourceNode != queryNode) {
-				new_priority = Math.min(sourceNode.getPriority(), fromNode.getPriority()) - 1;
-				if (new_priority < RETE_PRIORITY_PARTIAL_MIN) {
-					new_priority = RETE_PRIORITY_PARTIAL_MIN;
-				}
-			}
-
-			// source node is not visited before
-			QuerySourceInfo info = sourceMap.get(sourceNode);
-			if (info == null) {
-				info = new QuerySourceInfo();
-				info.node = sourceNode;
-				info.partialRecoveryPriority = sourceNode.getPriority();
-				sourceNode.setPriority(new_priority);
-				changeList.add(info);
-			}
-
-			// ignore visited node
-			if (sourceNodes.contains(sourceNode)) {
-				continue;
-			}
-
+		for (IRReteNode sourceNode : subGraph.getChangedNodes()) {
 			updateQueue.push(sourceNode);
-
-			// add all source nodes
-			sourceNodes.add(sourceNode);
-
-			if (sourceNode.getParentNodes() != null) {
-				for (IRReteNode newSrcNode : sourceNode.getParentNodes()) {
-					visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-				}
-			}
-
-			for (IRReteNode newSrcNode : nodeGraph.getBindFromNodes(sourceNode)) {
-				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-			}
-
-			for (IRReteNode newSrcNode : nodeGraph.listSourceNodes(sourceNode)) {
-				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-			}
 		}
 
 		/******************************************************/
@@ -1074,20 +901,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.isProcessing = false;
 			this.modelPriority = oldModelPriority;
 
-			// recovery priority
-			for (QuerySourceInfo changeInfo : changeList) {
-
-				if (changeInfo.partialRecoveryPriority == -1) {
-					throw new RException("partial recovery priority invalid: " + changeInfo.node);
-				}
-
-				// ignore dead node
-				if (changeInfo.node.getPriority() >= 0) {
-					changeInfo.node.setPriority(changeInfo.partialRecoveryPriority);
-				}
-
-				changeInfo.partialRecoveryPriority = -1;
-			}
+			subGraph.rollback();
 		}
 	}
 
@@ -1685,6 +1499,32 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public IRMember getMember(String name) throws RException {
+
+		IRMember mbr = super.getMember(name);
+		if (mbr == null) {
+
+			switch (name) {
+			case V_M_STATE:
+			case V_M_SQL_INIT:
+				mbr = RulpFactory.createMember(this, name, getVar(name));
+				mbr.setAccessType(RAccessType.PUBLIC);
+				mbr.setFinal(false);
+				mbr.setStatic(false);
+				break;
+
+			default:
+			}
+
+			if (mbr != null) {
+				this.setMember(name, mbr);
+			}
+		}
+
+		return mbr;
+	}
+
+	@Override
 	public IRFrame getModelFrame() {
 		return this.modelFrame;
 	}
@@ -1714,32 +1554,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	public void getTransaction() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public IRMember getMember(String name) throws RException {
-
-		IRMember mbr = super.getMember(name);
-		if (mbr == null) {
-
-			switch (name) {
-			case V_M_STATE:
-			case V_M_SQL_INIT:
-				mbr = RulpFactory.createMember(this, name, getVar(name));
-				mbr.setAccessType(RAccessType.PUBLIC);
-				mbr.setFinal(false);
-				mbr.setStatic(false);
-				break;
-
-			default:
-			}
-
-			if (mbr != null) {
-				this.setMember(name, mbr);
-			}
-		}
-
-		return mbr;
 	}
 
 	@Override

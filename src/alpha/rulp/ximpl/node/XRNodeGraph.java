@@ -36,6 +36,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
@@ -149,13 +150,16 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected final Map<String, XRRuleNode> ruleNodeMap = new HashMap<>();
 
-	private XRUniqObjBuilder uniqBuilder = new XRUniqObjBuilder();
+	protected XRUniqObjBuilder uniqBuilder = new XRUniqObjBuilder();
 
 	protected final Map<String, IRReteNode> varNodeMap = new HashMap<>();
 
-	public XRNodeGraph(IRModel model) {
+	protected IREntryTable entryTable;
+
+	public XRNodeGraph(IRModel model, IREntryTable entryTable) {
 
 		this.model = model;
+		this.entryTable = entryTable;
 
 		for (int i = 0; i < RReteType.RETE_TYPE_NUM; ++i) {
 			this.nodeListArray[i] = new ReteNodeList();
@@ -450,7 +454,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				|| rightNode.getReteType() == RReteType.VAR || rightNode.getReteType() == RReteType.CONST)) {
 
 			return RNodeFactory.createBeta1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-					model.getEntryTable(), leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
+					entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
 
 		}
 
@@ -474,7 +478,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			return RNodeFactory.createBeta3Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-					model.getEntryTable(), leftNode, rightNode, varEntry, inheritIndexs, matchNode);
+					entryTable, leftNode, rightNode, varEntry, inheritIndexs, matchNode);
 
 		}
 
@@ -484,12 +488,12 @@ public class XRNodeGraph implements IRNodeGraph {
 		// child entry.
 		if (leftNode.getEntryLength() == beteEntryLen && ReteUtil.getMainInheritIndex(inheritIndexs) == 0) {
 			return RNodeFactory.createBeta2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-					model.getEntryTable(), leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
+					entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
 
 		}
 
 		return RNodeFactory.createBeta0Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-				model.getEntryTable(), leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
+				entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
 
 	}
 
@@ -502,7 +506,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		int stmtLen = constStmt.size();
 		IRRootNode parentNode = getRootNode(stmtLen);
 
-		return RNodeFactory.createConstNode(model, _getNextNodeId(), constStmt, model.getEntryTable(), parentNode);
+		return RNodeFactory.createConstNode(model, _getNextNodeId(), constStmt, entryTable, parentNode);
 	}
 
 	protected IRReteNode _buildExprNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
@@ -563,7 +567,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 
 				return RNodeFactory.createExpr3Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-						varEntry.length, leftNode.getEntryLength(), model.getEntryTable(), leftNode,
+						varEntry.length, leftNode.getEntryLength(), entryTable, leftNode,
 						ConstraintFactory.createConstraintExpr3Node(rightExpr), varEntry);
 
 			}
@@ -791,8 +795,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
 			XRReteNode1 alph0Node = RNodeFactory.createAlpha2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-					2, model.getEntryTable(), parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)),
-					inheritIndexs);
+					2, entryTable, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)), inheritIndexs);
 
 			return alph0Node;
 		}
@@ -904,7 +907,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		AbsReteNode varNode = RNodeFactory.createVarNode(model, _getNextNodeId(), var, ReteUtil.uniqName(reteTree),
-				model.getEntryTable());
+				entryTable);
 
 		varNode.setVarEntry(ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
@@ -916,9 +919,9 @@ public class XRNodeGraph implements IRNodeGraph {
 			elements[1] = o;
 			elements[2] = n;
 
-			IRReteEntry reteEntry = model.getEntryTable().createEntry(null, elements, TEMP__, true);
+			IRReteEntry reteEntry = entryTable.createEntry(null, elements, TEMP__, true);
 			if (!varNode.addReteEntry(reteEntry)) {
-				model.getEntryTable().removeEntry(reteEntry);
+				entryTable.removeEntry(reteEntry);
 				return;
 			}
 
