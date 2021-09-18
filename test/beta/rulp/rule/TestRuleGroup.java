@@ -15,12 +15,18 @@ public class TestRuleGroup extends RuleTestBase {
 		_test("(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))", "RU000");
 		_test("(add-stmt m '(a p b))", "1");
 		_test("(list-stmt m)", "'('(a p b))");
+
 		_test("(start m)");
-		_test("(list-stmt m)", "'('(a p b) '(a p2 b))");
+		_test("(list-stmt m)", "'('(a p b))");
 		_mStatus(1, "m");
+		_statsInfo("m", "result/rule/TestRuleGroup/test_rule_group_0a.txt");
+
+		_test("(start m::g1)");
+		_test("(list-stmt m)", "'('(a p b))");
+		_mStatus(2, "m");
+		_statsInfo("m", "result/rule/TestRuleGroup/test_rule_group_0b.txt");
 		_saveTest();
 
-		_statsInfo("m", "result/rule/TestRuleGroup/test_rule_group_0.txt");
 	}
 
 }

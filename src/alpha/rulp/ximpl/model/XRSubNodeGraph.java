@@ -37,16 +37,22 @@ public class XRSubNodeGraph {
 
 	private List<QuerySourceInfo> changeList = new LinkedList<>();
 
-	private final IRNodeGraph nodeGraph;
-
 	private List<IRReteNode> changeNodes = new LinkedList<>();
+
+	private Set<IRReteNode> visitedNodes = new HashSet<>();
+
+	private final IRNodeGraph nodeGraph;
 
 	public XRSubNodeGraph(IRNodeGraph nodeGraph) {
 		super();
 		this.nodeGraph = nodeGraph;
 	}
 
-	public void build(IRReteNode queryNode) throws RException {
+//	public void buildSourceNodeGraph(IRReteNode queryNode) throws RException {
+//
+//	}
+
+	public void buildSourceNodeGraph(IRReteNode queryNode) throws RException {
 
 		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
 
@@ -56,7 +62,6 @@ public class XRSubNodeGraph {
 		Map<IRReteNode, QuerySourceInfo> sourceMap = new HashMap<>();
 		LinkedList<QuerySourceEntry> visitStack = new LinkedList<>();
 		visitStack.add(new QuerySourceEntry(null, queryNode));
-		Set<IRReteNode> sourceNodes = new HashSet<>();
 
 		while (!visitStack.isEmpty()) {
 
@@ -91,12 +96,12 @@ public class XRSubNodeGraph {
 			}
 
 			// ignore visited node
-			if (sourceNodes.contains(sourceNode)) {
+			if (visitedNodes.contains(sourceNode)) {
 				continue;
 			}
 
 			// add all source nodes
-			sourceNodes.add(sourceNode);
+			visitedNodes.add(sourceNode);
 
 			// add changed node
 			changeNodes.add(sourceNode);
@@ -117,7 +122,7 @@ public class XRSubNodeGraph {
 		}
 	}
 
-	public List<IRReteNode> getChangedNodes() {
+	public List<IRReteNode> getAllNodes() {
 		return changeNodes;
 	}
 

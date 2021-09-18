@@ -835,9 +835,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Build source graph
 		/******************************************************/
 		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
-		subGraph.build(queryNode);
+		subGraph.buildSourceNodeGraph(queryNode);
 
-		for (IRReteNode sourceNode : subGraph.getChangedNodes()) {
+		for (IRReteNode sourceNode : subGraph.getAllNodes()) {
 			updateQueue.push(sourceNode);
 		}
 
