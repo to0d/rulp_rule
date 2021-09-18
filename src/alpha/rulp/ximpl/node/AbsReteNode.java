@@ -95,6 +95,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		super(null, null, null);
 	}
 
+	protected IRFrame _createNodeFrame() throws RException {
+		return RNodeFactory.createNodeFrame(this);
+	}
+
 	public void addChildNode(IRReteNode child) {
 
 		if (allChildNodes == null) {
@@ -221,17 +225,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	}
 
-	@Override
-	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
-
-		if (this.nodeFrame != null) {
-			RulpUtil.decRef(this.nodeFrame);
-			this.nodeFrame = null;
-		}
-
-		this._delete();
-	}
-
 //	@Override
 //	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
 //
@@ -242,6 +235,17 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 //
 //		this._delete();
 //	}
+
+	@Override
+	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
+
+		if (this.nodeFrame != null) {
+			RulpUtil.decRef(this.nodeFrame);
+			this.nodeFrame = null;
+		}
+
+		this._delete();
+	}
 
 	@Override
 	public int doGC() {
@@ -341,10 +345,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		return nodeFrame;
-	}
-
-	protected IRFrame _createNodeFrame() throws RException {
-		return RNodeFactory.createNodeFrame(this);
 	}
 
 	@Override

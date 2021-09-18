@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
+import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
@@ -37,31 +38,41 @@ public class XRFactorAddRule extends AbsRFactorAdapter implements IRuleFactor {
 		try {
 
 			String ruleName = null;
+			String ruleGroupName = null;
 			IRModel model = null;
 			int argIndex = 1;
-			IRObject arg = null;
 
+			IRObject argObj = args.get(argIndex);
 			/**************************************************/
 			// Check rule name
 			/**************************************************/
-			arg = interpreter.compute(frame, args.get(argIndex++));
-			if (arg.getType() == RType.STRING) {
-				ruleName = RulpUtil.asString(arg).asString();
-				arg = null;
+			if (argObj.getType() == RType.STRING) {
+				ruleName = RulpUtil.asString(argObj).asString();
+				++argIndex;
 			}
 
 			/**************************************************/
 			// Check model object
 			/**************************************************/
-			if (arg == null) {
-				arg = interpreter.compute(frame, args.get(argIndex++));
-			}
+			argObj = args.get(argIndex);
+			if (argObj.getType() == RType.MEMBER) {
 
-			if (arg instanceof IRModel) {
-				model = (IRModel) arg;
-				arg = null;
+				IRMember mbr = RulpUtil.asMember(argObj);
+				model = RuleUtil.asModel(interpreter.compute(frame, mbr.getSubject()));
+				ruleGroupName = mbr.getName();
+
+				++argIndex;
+
 			} else {
-				model = RuleUtil.getDefaultModel(frame);
+
+				argObj = interpreter.compute(frame, argObj);
+				if (argObj instanceof IRModel) {
+					model = (IRModel) argObj;
+					++argIndex;
+				} else {
+					model = RuleUtil.getDefaultModel(frame);
+				}
+
 				if (model == null) {
 					throw new RException("no model be specified");
 				}
@@ -70,12 +81,9 @@ public class XRFactorAddRule extends AbsRFactorAdapter implements IRuleFactor {
 			/**************************************************/
 			// Check "IF"
 			/**************************************************/
-			if (arg == null) {
-				arg = interpreter.compute(frame, args.get(argIndex++));
-			}
-
-			if (!arg.asString().equals(F_IF)) {
-				throw new RException("expect if: " + arg);
+			argObj = interpreter.compute(frame, args.get(argIndex++));
+			if (!argObj.asString().equals(F_IF)) {
+				throw new RException("expect if: " + argObj);
 			}
 
 			/**************************************************/
