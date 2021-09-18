@@ -27,7 +27,7 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.MatchTree;
-import alpha.rulp.utils.NodeUtil;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
@@ -1157,7 +1157,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Update node rule & priority
 		/******************************************************/
-		NodeUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
+		ModelUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
 
 			if (node.getReteType() != RReteType.ROOT0) {
 

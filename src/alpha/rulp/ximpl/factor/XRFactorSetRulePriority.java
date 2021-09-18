@@ -6,6 +6,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
@@ -25,7 +26,7 @@ public class XRFactorSetRulePriority extends AbsRFactorAdapter implements IRuleF
 
 		IRRule rule = RuleUtil.asRule(interpreter.compute(frame, args.get(1)));
 		int priority = RulpUtil.asInteger(interpreter.compute(frame, args.get(2))).asInteger();
-		RuleUtil.setRulePriority(rule, priority);
+		ModelUtil.setRulePriority(rule, priority);
 
 		return rule;
 	}

@@ -52,7 +52,7 @@ public interface Constant {
 	String A_TABLE = "table";
 
 	String A_Type = "type";
-	
+
 	String A_Max = "max";
 
 	String A_Uniq = "uniq";
@@ -106,6 +106,10 @@ public interface Constant {
 	String F_LIST_STMT = "list-stmt";
 
 	String F_NOT_EQUAL = "not-equal";
+
+	String F_MBR_RULE_GROUP_NAMES = "$rule-group-names$";
+
+	String F_MBR_RULE_GROUP_PRE = "$rule-group$";
 
 	String F_OPT_MODEL = "opt-model";
 
@@ -186,6 +190,8 @@ public interface Constant {
 	int RETE_PRIORITY_INACTIVE = 0;
 
 	int RETE_PRIORITY_MAXIMUM = 499; // maximum
+
+	int RETE_PRIORITY_SUB_GROUP = 900;
 
 	int RETE_PRIORITY_PARTIAL_MAX = 899;
 

@@ -14,6 +14,7 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -102,6 +103,14 @@ public class XRFactorAddRule extends AbsRFactorAdapter implements IRuleFactor {
 			IRList actionList = RulpFactory.createList(args.listIterator(argIndex));
 			IRRule rule = model.addRule(ruleName, condList, actionList);
 			rule.setRuleDecription(RulpUtil.toString(args));
+
+			/**************************************************/
+			// Set rule group
+			/**************************************************/
+			if (ruleGroupName != null) {
+				ModelUtil.addRuleToGroup(model, rule, ruleGroupName);
+				ModelUtil.setRulePriority(rule, 0);
+			}
 
 			return rule;
 

@@ -48,7 +48,7 @@ import alpha.rulp.rule.RRunState;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.FileUtil;
-import alpha.rulp.utils.NodeUtil;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
 import alpha.rulp.utils.ReteUtil;
@@ -774,7 +774,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		if (!completed) {
 
-			NodeUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
+			ModelUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
 				int update = execute(node);
 				if (update > 0) {
@@ -966,7 +966,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// update loaders
 		/******************************************************/
-		NodeUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
+		ModelUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
 			for (IRReteNode loader : nodeGraph.getBindFromNodes(node)) {
 				if (loader.getPriority() >= 0) {
 					int c = execute(loader);
@@ -981,7 +981,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// update node
 		/******************************************************/
-		NodeUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
+		ModelUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
 			int c = execute(node);
 			if (c > 0) {
 				count.addAndGet(c);
@@ -1019,7 +1019,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		for (IRReteNode parentNode : rule.getParentNodes()) {
 
-			NodeUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
+			ModelUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
 
 				/******************************************************/
 				// Check node update queue

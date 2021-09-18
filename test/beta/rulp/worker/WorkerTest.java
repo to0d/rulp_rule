@@ -8,6 +8,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRWorker;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.node.IRReteNode;
@@ -118,7 +119,7 @@ public class WorkerTest extends RuleTestBase {
 
 		try {
 
-			RuleUtil.addWorker(_model("m"), RuleUtil.toCondList("'(?n typeof node)"), (model) -> {
+			ModelUtil.addWorker(_model("m"), RuleUtil.toCondList("'(?n typeof node)"), (model) -> {
 				model.addStatements(RuleUtil.toStmtList("'('(a typeof node) '(b has c))"));
 				return true;
 			});

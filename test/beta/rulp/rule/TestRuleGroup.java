@@ -7,7 +7,7 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestRuleGroup extends RuleTestBase {
 
 	@Test
-	void test_0() {
+	void test_rule_group_0() {
 
 		// XRModel.TRACE_RETE = true;
 		_setup();
@@ -19,6 +19,8 @@ public class TestRuleGroup extends RuleTestBase {
 		_test("(list-stmt m)", "'('(a p b) '(a p2 b))");
 		_mStatus(1, "m");
 		_saveTest();
+
+		_statsInfo("m", "result/rule/TestRuleGroup/test_rule_group_0.txt");
 	}
 
 }

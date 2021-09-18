@@ -13,6 +13,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -41,7 +42,7 @@ public class TestModel extends RuleTestBase {
 
 		try {
 
-			RuleUtil.addRule(_model("m"), null, "'(?n typeof node)", (entry, rule, frame) -> {
+			ModelUtil.addRule(_model("m"), null, "'(?n typeof node)", (entry, rule, frame) -> {
 				objs.add(entry.get(0));
 			});
 
@@ -84,7 +85,7 @@ public class TestModel extends RuleTestBase {
 
 		try {
 
-			RuleUtil.addRule(_model("m"), "R01", "'(?n typeof node)", (entry, rule, frame) -> {
+			ModelUtil.addRule(_model("m"), "R01", "'(?n typeof node)", (entry, rule, frame) -> {
 				objs.add(entry.get(0));
 			});
 
