@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.node.IRReteNode;
+import alpha.rulp.ximpl.node.RReteStage;
 
 public class XRUpdateQueue {
 
@@ -127,15 +128,14 @@ public class XRUpdateQueue {
 		}
 
 		IRReteNode node = curQueue.pop();
-		node.setInQueue(false);
+		node.setReteStage(RReteStage.OutQueue);
 		--nodeCount;
-
 		return node;
 	}
 
 	public void push(IRReteNode node) throws RException {
 
-		if (node.isInQueue()) {
+		if (node.getReteStage() == RReteStage.InQueue) {
 			return;
 		}
 
@@ -168,7 +168,7 @@ public class XRUpdateQueue {
 
 		PriorityQueue queue = _getQueue(priority);
 		queue.push(node);
-		node.setInQueue(true);
+		node.setReteStage(RReteStage.InQueue);
 		++nodeCount;
 		if (nodeCount > maxNodeCount) {
 			maxNodeCount = nodeCount;

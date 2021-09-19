@@ -73,18 +73,28 @@ public class XRSubNodeGraph {
 		}
 	}
 
-	public void disableAllOtherNodes() throws RException {
+	public void disableAllOtherNodes(int minPriority) throws RException {
 
 		for (IRReteNode node : nodeGraph.getNodeMatrix().getAllNodes()) {
 
-			if (node.getReteType() == RReteType.ROOT0) {
+			if (RReteType.isRootType(node.getReteType())) {
 				continue;
 			}
 
-//			int pirority = node.getPriority();
-//			if (maxPriority < pirority) {
-//				maxPriority = pirority;
-//			}
+			if (sourceMap.containsKey(node)) {
+				continue;
+			}
+
+			if (node.getPriority() < minPriority) {
+				continue;
+			}
+
+			QuerySourceInfo info = new QuerySourceInfo();
+			info.node = node;
+			info.oldPriority = node.getPriority();
+			node.setPriority(RETE_PRIORITY_INACTIVE);
+
+			sourceMap.put(node, info);
 		}
 	}
 

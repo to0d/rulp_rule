@@ -22,6 +22,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
+import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -121,6 +122,12 @@ public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleF
 			IRIterator<? extends IRObject> it = ruleList.iterator();
 			while (it.hasNext()) {
 				subGraph.addRule(RuleUtil.asRule(it.next()), RETE_PRIORITY_DEFAULT);
+			}
+
+			subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT);
+
+			for (IRReteNode node : subGraph.getAllNodes()) {
+				model.addUpdateNode(node);
 			}
 		}
 

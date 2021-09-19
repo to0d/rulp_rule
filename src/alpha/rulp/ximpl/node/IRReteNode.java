@@ -115,6 +115,8 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public int getReteLevel();
 
+	public RReteStage getReteStage();
+
 	public IRList getReteTree();
 
 	public RReteType getReteType();
@@ -127,8 +129,6 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public void incExecCount(int execId);
 
-	public boolean isInQueue();
-
 	public boolean isNodeFresh();
 
 	public IRConstraint1 removeConstraint(String constraintExpression);
@@ -139,9 +139,9 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public void setGraphInfo(IGraphInfo graphInfo);
 
-	public void setInQueue(boolean inQueue);
-
 	public void setPriority(int priority) throws RException;
+
+	public void setReteStage(RReteStage stage);
 
 	public void setReteTree(IRList reteTree);
 

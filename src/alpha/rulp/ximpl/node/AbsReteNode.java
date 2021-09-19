@@ -53,8 +53,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected IGraphInfo graphInfo;
 
-	protected boolean inQueue = false;
-
 	protected IRModel model;
 
 	protected int nodeExecCount = 0;
@@ -78,6 +76,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	protected int priority = 0;
 
 	protected int queryMatchCount = 0;
+
+	protected RReteStage reteStage = RReteStage.InActive;
 
 	protected IRList reteTree;
 
@@ -220,11 +220,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return this.uniqName;
 	}
 
-	@Override
-	public void decRef() throws RException {
-
-	}
-
 //	@Override
 //	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
 //
@@ -235,6 +230,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 //
 //		this._delete();
 //	}
+
+	@Override
+	public void decRef() throws RException {
+
+	}
 
 	@Override
 	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
@@ -419,6 +419,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
+	public RReteStage getReteStage() {
+		return reteStage;
+	}
+
+	@Override
 	public IRList getReteTree() {
 		return reteTree;
 	}
@@ -470,11 +475,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public boolean isDeleted() {
 		return false;
-	}
-
-	@Override
-	public boolean isInQueue() {
-		return inQueue;
 	}
 
 	public boolean isTrace() {
@@ -553,11 +553,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		this.graphInfo = graphInfo;
 	}
 
-	@Override
-	public void setInQueue(boolean inQueue) {
-		this.inQueue = inQueue;
-	}
-
 	public void setModel(IRModel model) {
 		this.model = model;
 	}
@@ -579,6 +574,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		this.priority = priority;
+	}
+
+	@Override
+	public void setReteStage(RReteStage reteStage) {
+		this.reteStage = reteStage;
 	}
 
 	@Override

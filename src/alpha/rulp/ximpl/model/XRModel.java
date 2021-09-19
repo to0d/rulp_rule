@@ -71,6 +71,7 @@ import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.IRRootNode;
+import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRNodeGraph;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
@@ -385,6 +386,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected IRTransaction transaction = null;
 
 	protected final XRUpdateQueue updateQueue = new XRUpdateQueue();
+
+	protected List<IRReteNode> activeQueue = new LinkedList<>();
+
+	protected int activeUpdate = 0;
 
 	public XRModel(String modelName, IRClass rclass, IRFrame frame) throws RException {
 		super(rclass, modelName, frame);
@@ -858,7 +863,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		try {
 
-			while (updateQueue.hasNext()) {
+			while (_hasActiveNode()) {
 
 				IRReteNode node = updateQueue.pop();
 				if (node != null) {
@@ -1031,7 +1036,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				/******************************************************/
 				// Check node update queue
 				/******************************************************/
-				if (node.getReteType() != RReteType.ROOT0 && !node.isInQueue()) {
+				if (node.getReteType() != RReteType.ROOT0 && node.getReteStage() != RReteStage.InQueue) {
 
 					boolean needUpdate = false;
 
@@ -1313,6 +1318,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		++modelCounter.nodeExecCount;
 
 		int update = node.update();
+		node.setReteStage(RReteStage.InActive);
 
 		if (node.getReteType() == RReteType.RULE) {
 
@@ -1328,9 +1334,36 @@ public class XRModel extends AbsRInstance implements IRModel {
 			node.incExecCount(modelCounter.nodeExecCount);
 
 			for (IRReteNode child : node.getChildNodes(true)) {
-				if (child.getPriority() >= modelPriority) {
-					updateQueue.push(child);
+
+				switch (child.getReteStage()) {
+				case Active:
+
+					if (child.getPriority() >= modelPriority) {
+						updateQueue.push(child);
+						activeUpdate++;
+					}
+
+					break;
+
+				case InQueue:
+					// Do nothing
+					break;
+
+				case InActive:
+
+					if (child.getPriority() >= modelPriority) {
+						updateQueue.push(child);
+					} else {
+						activeQueue.add(child);
+						child.setReteStage(RReteStage.Active);
+					}
+
+					break;
+				case OutQueue:
+				default:
+					throw new RException("Invalid stage: " + child.getReteStage());
 				}
+
 			}
 
 		} else {
@@ -1896,6 +1929,22 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.nodeContext = nodeContext;
 	}
 
+	protected boolean _hasActiveNode() throws RException {
+
+		if (activeUpdate > 0) {
+
+			for (IRReteNode node : activeQueue) {
+				if (node.getPriority() >= modelPriority) {
+					updateQueue.push(node);
+				}
+			}
+
+			activeUpdate = 0;
+		}
+
+		return updateQueue.hasNext();
+	}
+
 	@Override
 	public int start(int priority, final int maxStep) throws RException {
 
@@ -1939,7 +1988,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			int runTimes = 0;
 			int execTimes = 0;
 
-			RUN: for (; runTimes == 0 || updateQueue.hasNext() || this.needRestart; ++runTimes) {
+			RUN: for (; runTimes == 0 || _hasActiveNode() || this.needRestart; ++runTimes) {
 
 				RRunState state = this.getRunState();
 
