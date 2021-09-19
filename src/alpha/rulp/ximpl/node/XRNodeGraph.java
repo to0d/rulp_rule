@@ -1176,6 +1176,10 @@ public class XRNodeGraph implements IRNodeGraph {
 		ruleNode.addNode(ruleNode);
 		_addReteNode(ruleNode);
 
+		if (parentNode.getEntryQueue().size() > 0) {
+			model.addUpdateNode(ruleNode);
+		}
+
 		return ruleNode;
 	}
 

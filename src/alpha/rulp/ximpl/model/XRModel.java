@@ -834,12 +834,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
+//		int maxPriority = ModelUtil.getNodeMaxPriority(this);
+//		if (maxPriority > RETE_PRIORITY_MAXIMUM) {
+//			throw new RException("invailid priority found: " + maxPriority);
+//		}
+
 		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
 		subGraph.buildSourceNodeGraph(queryNode);
-
-		for (IRReteNode sourceNode : subGraph.getAllNodes()) {
-			updateQueue.push(sourceNode);
-		}
 
 		/******************************************************/
 		// Invoke running
@@ -848,6 +849,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.modelPriority = RETE_PRIORITY_PARTIAL_MIN;
 		this.isProcessing = true;
 		this._setRunState(RRunState.Running);
+
+		for (IRReteNode node : subGraph.getAllNodes()) {
+			if (node.getPriority() >= modelPriority) {
+				updateQueue.push(node);
+			}
+		}
 
 		try {
 

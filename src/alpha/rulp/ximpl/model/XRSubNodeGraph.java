@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
@@ -12,6 +13,8 @@ import java.util.Map;
 import java.util.Set;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRRule;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
@@ -35,22 +38,67 @@ public class XRSubNodeGraph {
 		public int oldPriority = -1;
 	}
 
-	private List<QuerySourceInfo> changeList = new LinkedList<>();
-
-	private List<IRReteNode> changeNodes = new LinkedList<>();
-
-	private Set<IRReteNode> visitedNodes = new HashSet<>();
+	private List<IRReteNode> allNodes = new LinkedList<>();
 
 	private final IRNodeGraph nodeGraph;
+
+	private Map<IRReteNode, QuerySourceInfo> sourceMap = new HashMap<>();
 
 	public XRSubNodeGraph(IRNodeGraph nodeGraph) {
 		super();
 		this.nodeGraph = nodeGraph;
 	}
 
-//	public void buildSourceNodeGraph(IRReteNode queryNode) throws RException {
-//
-//	}
+	public void addNode(IRReteNode node, int newPriority) throws RException {
+
+		if (node.getPriority() <= RETE_PRIORITY_DEAD) {
+			return;
+		}
+
+		QuerySourceInfo info = sourceMap.get(node);
+		if (info == null) {
+			info = new QuerySourceInfo();
+			info.node = node;
+			sourceMap.put(node, info);
+			allNodes.add(node);
+		}
+
+		if (newPriority > node.getPriority()) {
+
+			if (info.oldPriority == -1) {
+				info.oldPriority = node.getPriority();
+			}
+
+			node.setPriority(newPriority);
+		}
+	}
+
+	public void disableAllOtherNodes() throws RException {
+
+		for (IRReteNode node : nodeGraph.getNodeMatrix().getAllNodes()) {
+
+			if (node.getReteType() == RReteType.ROOT0) {
+				continue;
+			}
+
+//			int pirority = node.getPriority();
+//			if (maxPriority < pirority) {
+//				maxPriority = pirority;
+//			}
+		}
+	}
+
+	public void addRule(IRRule ruleNode, int priority) throws RException {
+
+		ModelUtil.travelReteParentNodeByPostorder(ruleNode, (node) -> {
+
+			if (!containNode(node) && node.getPriority() < priority) {
+				addNode(node, priority);
+			}
+
+			return false;
+		});
+	}
 
 	public void buildSourceNodeGraph(IRReteNode queryNode) throws RException {
 
@@ -59,9 +107,9 @@ public class XRSubNodeGraph {
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
-		Map<IRReteNode, QuerySourceInfo> sourceMap = new HashMap<>();
 		LinkedList<QuerySourceEntry> visitStack = new LinkedList<>();
 		visitStack.add(new QuerySourceEntry(null, queryNode));
+		Set<IRReteNode> visitedNodes = new HashSet<>();
 
 		while (!visitStack.isEmpty()) {
 
@@ -69,9 +117,16 @@ public class XRSubNodeGraph {
 			IRReteNode fromNode = entry.fromNode;
 			IRReteNode sourceNode = entry.sourceNode;
 
-			if (sourceNode.getPriority() < RETE_PRIORITY_INACTIVE) {
+			// ignore visited node
+			if (visitedNodes.contains(sourceNode)) {
 				continue;
 			}
+
+			visitedNodes.add(sourceNode);
+
+//			if (sourceNode.getPriority() < minPriority) {
+//				continue;
+//			}
 
 			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
 				continue;
@@ -85,26 +140,7 @@ public class XRSubNodeGraph {
 				}
 			}
 
-			// source node is not visited before
-			QuerySourceInfo info = sourceMap.get(sourceNode);
-			if (info == null) {
-				info = new QuerySourceInfo();
-				info.node = sourceNode;
-				info.oldPriority = sourceNode.getPriority();
-				sourceNode.setPriority(new_priority);
-				changeList.add(info);
-			}
-
-			// ignore visited node
-			if (visitedNodes.contains(sourceNode)) {
-				continue;
-			}
-
-			// add all source nodes
-			visitedNodes.add(sourceNode);
-
-			// add changed node
-			changeNodes.add(sourceNode);
+			addNode(sourceNode, new_priority);
 
 			if (sourceNode.getParentNodes() != null) {
 				for (IRReteNode newSrcNode : sourceNode.getParentNodes()) {
@@ -120,27 +156,44 @@ public class XRSubNodeGraph {
 				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
 			}
 		}
+
+		ModelUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+
+			if (!containNode(node)) {
+				addNode(node, RETE_PRIORITY_PARTIAL_MIN);
+				visitStack.add(new QuerySourceEntry(null, node));
+				visitedNodes.add(node);
+			}
+
+			return false;
+		});
+	}
+
+	public boolean containNode(IRReteNode node) {
+		return sourceMap.containsKey(node);
 	}
 
 	public List<IRReteNode> getAllNodes() {
-		return changeNodes;
+		return allNodes;
 	}
 
 	public void rollback() throws RException {
 
 		// recovery priority
-		for (QuerySourceInfo changeInfo : changeList) {
+		for (QuerySourceInfo changeInfo : sourceMap.values()) {
 
-			if (changeInfo.oldPriority == -1) {
-				throw new RException("partial recovery priority invalid: " + changeInfo.node);
+			if (changeInfo.oldPriority != -1) {
+
+				// ignore dead node
+				if (changeInfo.node.getPriority() >= 0) {
+					changeInfo.node.setPriority(changeInfo.oldPriority);
+				}
+
+				changeInfo.oldPriority = -1;
 			}
 
-			// ignore dead node
-			if (changeInfo.node.getPriority() >= 0) {
-				changeInfo.node.setPriority(changeInfo.oldPriority);
-			}
-
-			changeInfo.oldPriority = -1;
 		}
+
+		sourceMap.clear();
 	}
 }

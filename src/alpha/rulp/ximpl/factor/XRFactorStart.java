@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.*;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -13,12 +13,15 @@ import alpha.rulp.rule.IRRunnable;
 import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
 public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -94,14 +97,41 @@ public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleF
 			}
 		}
 
+		XRSubNodeGraph subGraph = null;
+
 		/********************************************/
-		// Check modifier
+		// Run as rule group
 		/********************************************/
 		if (ruleGroupName != null) {
 
+			IRModel model = RuleUtil.asModel((IRObject) runObj);
+			subGraph = new XRSubNodeGraph(model.getNodeGraph());
+
+			IRList ruleList = ModelUtil.getRuleGroupRuleList(model, ruleGroupName);
+			if (ruleList.size() == 0) {
+				throw new RException("no rule found for group: " + ruleGroupName);
+			}
+
+//			if (priority == -1) {
+//				priority = RETE_PRIORITY_GROUP_MAX;
+//			} else if (priority < RETE_PRIORITY_GROUP_MIN) {
+//				throw new RException("invalid priority: " + priority);
+//			}
+
+			IRIterator<? extends IRObject> it = ruleList.iterator();
+			while (it.hasNext()) {
+				subGraph.addRule(RuleUtil.asRule(it.next()), RETE_PRIORITY_DEFAULT);
+			}
 		}
 
 		int step = runObj.start(priority, limit);
+
+		/********************************************/
+		// Recovery all nodes' priority
+		/********************************************/
+		if (subGraph != null) {
+			subGraph.rollback();
+		}
 
 		return RulpFactory.createInteger(step);
 	}

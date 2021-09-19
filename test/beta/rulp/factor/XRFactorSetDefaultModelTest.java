@@ -24,8 +24,8 @@ class XRFactorSetDefaultModelTest extends RuleTestBase {
 		_test("(list-stmt)", "'('(x p y))");
 
 		_test("(add-rule if '(?a ?p ?b) do (add-stmt '(?b ?p ?a)))");
-		_test("(start)", "1");
-		_test("(list-stmt)", "'('(x p y))");
+		_test("(start)", "5");
+		_test("(list-stmt)", "'('(x p y) '(y p x))");
 
 		_test("(query-stmt ?x from '(?x p ?y))", "'(x y)");
 

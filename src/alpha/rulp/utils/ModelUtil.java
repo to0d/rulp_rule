@@ -35,6 +35,25 @@ public class ModelUtil {
 
 	private static AtomicInteger anonymousRuleActionIndex = new AtomicInteger(0);
 
+	public static int getNodeMaxPriority(IRModel model) {
+
+		int maxPriority = -1;
+
+		for (IRReteNode node : model.getNodeGraph().getNodeMatrix().getAllNodes()) {
+
+			if (node.getReteType() == RReteType.ROOT0) {
+				continue;
+			}
+
+			int pirority = node.getPriority();
+			if (maxPriority < pirority) {
+				maxPriority = pirority;
+			}
+		}
+
+		return maxPriority;
+	}
+
 	public static IRRule addRule(IRModel model, String ruleName, String condExpr,
 			IRRListener3<IRList, IRRule, IRFrame> actioner) throws RException {
 
