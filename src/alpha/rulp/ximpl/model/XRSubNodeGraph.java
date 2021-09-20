@@ -1,9 +1,9 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
+import static alpha.rulp.rule.Constant.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,7 +73,7 @@ public class XRSubNodeGraph {
 		}
 	}
 
-	public void disableAllOtherNodes(int minPriority) throws RException {
+	public void disableAllOtherNodes(int minPriority, int toPriority) throws RException {
 
 		for (IRReteNode node : nodeGraph.getNodeMatrix().getAllNodes()) {
 
@@ -92,7 +92,7 @@ public class XRSubNodeGraph {
 			QuerySourceInfo info = new QuerySourceInfo();
 			info.node = node;
 			info.oldPriority = node.getPriority();
-			node.setPriority(RETE_PRIORITY_INACTIVE);
+			node.setPriority(toPriority);
 
 			sourceMap.put(node, info);
 		}
@@ -102,7 +102,8 @@ public class XRSubNodeGraph {
 
 		ModelUtil.travelReteParentNodeByPostorder(ruleNode, (node) -> {
 
-			if (!containNode(node) && node.getPriority() < priority) {
+			if (!containNode(node) && node.getPriority() < RETE_PRIORITY_MAXIMUM
+					&& node.getPriority() > RETE_PRIORITY_DISABLED) {
 				addNode(node, priority);
 			}
 
@@ -134,9 +135,9 @@ public class XRSubNodeGraph {
 
 			visitedNodes.add(sourceNode);
 
-//			if (sourceNode.getPriority() < minPriority) {
-//				continue;
-//			}
+			if (sourceNode.getPriority() <= RETE_PRIORITY_DISABLED) {
+				continue;
+			}
 
 			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
 				continue;
@@ -195,7 +196,7 @@ public class XRSubNodeGraph {
 			if (changeInfo.oldPriority != -1) {
 
 				// ignore dead node
-				if (changeInfo.node.getPriority() >= 0) {
+				if (changeInfo.node.getPriority() != RETE_PRIORITY_DEAD) {
 					changeInfo.node.setPriority(changeInfo.oldPriority);
 				}
 

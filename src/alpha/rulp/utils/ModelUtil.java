@@ -3,6 +3,7 @@ package alpha.rulp.utils;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 
 import java.util.ArrayList;
@@ -186,7 +187,7 @@ public class ModelUtil {
 			subGraph.addRule(RuleUtil.asRule(it.next()), RETE_PRIORITY_DEFAULT);
 		}
 
-		subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT);
+		subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT, RETE_PRIORITY_DISABLED);
 
 		for (IRReteNode node : subGraph.getAllNodes()) {
 			model.addUpdateNode(node);

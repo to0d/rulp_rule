@@ -189,6 +189,8 @@ public interface Constant {
 
 	int RETE_PRIORITY_INACTIVE = 0;
 
+	int RETE_PRIORITY_DISABLED = -9;
+
 	int RETE_PRIORITY_MAXIMUM = 499; // maximum
 
 //	int RETE_PRIORITY_GROUP_MAX = 699;

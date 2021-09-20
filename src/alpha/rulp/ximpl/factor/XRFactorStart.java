@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Limit;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -13,7 +13,6 @@ import alpha.rulp.rule.IRRunnable;
 import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
@@ -22,7 +21,6 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -532,20 +533,31 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return ReteUtil.getChildStatus(nodeContext.currentEntry);
 	}
 
-	protected boolean _hasActiveNode() throws RException {
+	protected void _checkActiveNode() throws RException {
 
 		if (activeUpdate > 0) {
 
-			for (IRReteNode node : activeQueue) {
+			Iterator<IRReteNode> it = activeQueue.iterator();
+			while (it.hasNext()) {
+				IRReteNode node = it.next();
 				if (node.getPriority() >= modelPriority) {
 					updateQueue.push(node);
+					it.remove();
 				}
 			}
 
 			activeUpdate = 0;
 		}
+	}
 
+	protected boolean _hasUpdateNode() throws RException {
+		_checkActiveNode();
 		return updateQueue.hasNext();
+	}
+
+	protected IRReteNode _nextUpdateNode() throws RException {
+		_checkActiveNode();
+		return updateQueue.pop();
 	}
 
 	protected boolean _isInClosingPhase() {
@@ -869,6 +881,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		int oldModelPriority = this.modelPriority;
 		this.modelPriority = RETE_PRIORITY_PARTIAL_MIN;
 		this.isProcessing = true;
+		this.activeUpdate++;
 		this._setRunState(RRunState.Running);
 
 		for (IRReteNode node : subGraph.getAllNodes()) {
@@ -879,9 +892,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		try {
 
-			while (_hasActiveNode()) {
+			while (_hasUpdateNode()) {
 
-				IRReteNode node = updateQueue.pop();
+				IRReteNode node = _nextUpdateNode();
 				if (node != null) {
 
 					switch (node.getRunState()) {
@@ -1372,6 +1385,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 					} else {
 						activeQueue.add(child);
 						child.setReteStage(RReteStage.Active);
+						activeUpdate++;
 					}
 
 					break;
@@ -1980,6 +1994,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.modelPriority = priority;
 		this.isProcessing = true;
 		this.needRestart = false;
+		this.activeUpdate++;
 
 //		boolean running = false;
 
@@ -1988,7 +2003,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			int runTimes = 0;
 			int execTimes = 0;
 
-			RUN: for (; runTimes == 0 || _hasActiveNode() || this.needRestart; ++runTimes) {
+			RUN: for (; runTimes == 0 || _hasUpdateNode() || this.needRestart; ++runTimes) {
 
 				RRunState state = this.getRunState();
 
@@ -2034,7 +2049,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 					break RUN;
 				}
 
-				IRReteNode node = updateQueue.pop();
+				IRReteNode node = _nextUpdateNode();
 				if (node != null) {
 
 					switch (node.getRunState()) {
