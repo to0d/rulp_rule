@@ -1,22 +1,18 @@
 (new model m)
 ;=>m
-(defvar m::?_m_verify_constraint false)
-;=>&?_m_verify_constraint
-(add-rule m if _m_constraint_type:'(?node ?index ?type1) _m_constraint_type:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (error conflict-constraint '(?node ?index ?type1 ?type2)))
+(add-rule m::$cst$ 
+    if  $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) 
+    do 
+        (-> $cst_conflict_constraint$:'(?node ?index ?type1 ?type2))
+)
 ;=>RU000
-(add-stmt m n1:'(1))
+(add-stmt m $cst_type$:'(a 1 int))
 ;=>1
-(add-stmt m n1:'(p p2))
+(add-stmt m $cst_type$:'(a 1 bool))
 ;=>1
-(query-stmt m '(?x ?y) from '(?x p ?y))
-;=>'('(a c) '(c a))
-(remove-stmt m n1:'(p p2))
-;=>'(n1:'(p p2))
-(list-stmt m)
+(query-stmt m::$cst$ '(?node ?index ?type1 ?type2) from $cst_conflict_constraint$:'(?node ?index ?type1 ?type2) limit 1)
+;=>'('(a 1 int bool))
+(remove-stmt m $cst_type$:'(a 1 bool))
+;=>'($cst_type$:'(a 1 bool))
+(query-stmt m::$cst$ '(?node ?index ?type1 ?type2) from $cst_conflict_constraint$:'(?node ?index ?type1 ?type2) limit 1)
 ;=>'()
-(add-stmt m '(c p a))
-;=>1
-(start m)
-;=>4
-(list-stmt m)
-;=>'('(c p a))

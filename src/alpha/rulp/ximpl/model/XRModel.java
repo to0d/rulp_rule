@@ -335,6 +335,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected static int nodeExecId = 0;
 
+	protected List<IRReteNode> activeQueue = new LinkedList<>();
+
+	protected int activeUpdate = 0;
+
 	protected boolean cacheEnable = false;
 
 	private int cacheUpdateCount = 0;
@@ -386,10 +390,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected IRTransaction transaction = null;
 
 	protected final XRUpdateQueue updateQueue = new XRUpdateQueue();
-
-	protected List<IRReteNode> activeQueue = new LinkedList<>();
-
-	protected int activeUpdate = 0;
 
 	public XRModel(String modelName, IRClass rclass, IRFrame frame) throws RException {
 		super(rclass, modelName, frame);
@@ -530,6 +530,22 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return ReteUtil.getChildStatus(nodeContext.currentEntry);
+	}
+
+	protected boolean _hasActiveNode() throws RException {
+
+		if (activeUpdate > 0) {
+
+			for (IRReteNode node : activeQueue) {
+				if (node.getPriority() >= modelPriority) {
+					updateQueue.push(node);
+				}
+			}
+
+			activeUpdate = 0;
+		}
+
+		return updateQueue.hasNext();
 	}
 
 	protected boolean _isInClosingPhase() {
@@ -1425,11 +1441,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return actualAddStmt;
 	}
 
-	@Override
-	public String getCachePath() {
-		return modelCachePath;
-	}
-
 //	@Override
 //	public IRIterator<IRObject> listObjects() throws RException {
 //
@@ -1450,6 +1461,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 //			}
 //		};
 //	}
+
+	@Override
+	public String getCachePath() {
+		return modelCachePath;
+	}
 
 	@Override
 	public IRModelCounter getCounter() {
@@ -1927,22 +1943,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public void setNodeContext(RNodeContext nodeContext) {
 		this.nodeContext = nodeContext;
-	}
-
-	protected boolean _hasActiveNode() throws RException {
-
-		if (activeUpdate > 0) {
-
-			for (IRReteNode node : activeQueue) {
-				if (node.getPriority() >= modelPriority) {
-					updateQueue.push(node);
-				}
-			}
-
-			activeUpdate = 0;
-		}
-
-		return updateQueue.hasNext();
 	}
 
 	@Override

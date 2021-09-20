@@ -107,9 +107,9 @@ public interface Constant {
 
 	String F_NOT_EQUAL = "not-equal";
 
-	String F_MBR_RULE_GROUP_NAMES = "$rule-group-names$";
+	String F_MBR_RULE_GROUP_NAMES = "$RG-names$";
 
-	String F_MBR_RULE_GROUP_PRE = "$rule-group$";
+	String F_MBR_RULE_GROUP_PRE = "$RG$";
 
 	String F_OPT_MODEL = "opt-model";
 

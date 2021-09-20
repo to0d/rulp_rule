@@ -306,8 +306,8 @@ name=m, lvl=1, ref=4/4, parent=model, final=false, mbrs=3, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-$rule-group$g1       : PRIVATE  true     false    1    var        '(RU000) : type=list
-$rule-group-names$   : PRIVATE  true     false    1    var        '("g1") : type=list
+$RG$g1               : PRIVATE  true     false    1    var        '(RU000) : type=list
+$RG-names$           : PRIVATE  true     false    1    var        '("g1") : type=list
 this                 : DEFAULT  false    false    4    instance   m : class=model
 ==========================================================================================================================
 
