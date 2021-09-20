@@ -43,7 +43,7 @@ public class TestRuleGroup extends RuleTestBase {
 		_mStatus(1, "m");
 		_statsInfo("m", "result/rule/TestRuleGroup/test_rule_group_1a.txt");
 
-		_test("(query-stmt m::g1 '(?x ?z) from '(?x p2 ?z))", "'('(a p b))");
+		_test("(query-stmt m::g1 '(?x ?z) from '(?x p2 ?z))", "'('(a b))");
 		_mStatus(2, "m");
 		_statsInfo("m", "result/rule/TestRuleGroup/test_rule_group_1b.txt");
 		_saveTest();

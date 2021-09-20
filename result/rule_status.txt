@@ -393,6 +393,7 @@ beta.rulp.rule.TestRuleGroup:test_0:1-mStatus:sc=[0,1,1], a0=[1,0,1,99,2,0,0,2,1
 beta.rulp.rule.TestRuleGroup:test_rule_group_0:1-mStatus:sc=[0,1], a0=[1,0,1], ru=[1,0,2],
 beta.rulp.rule.TestRuleGroup:test_rule_group_0:2-mStatus:sc=[0,1,1], a0=[1,0,1,0,2,0,0,2,1,0,1/0,1], ru=[1,0,2,0,1,0,0,0,1],
 beta.rulp.rule.TestRuleGroup:test_rule_group_1:1-mStatus:sc=[0,1,1], a0=[2,1,1,0,4,0,0,4,2,0,2/0,1,1], ru=[1,0,2,0,2,1,0,0,1],
+beta.rulp.rule.TestRuleGroup:test_rule_group_1:2-mStatus:sc=[0,1,1], a0=[2,1,1,0,6,2,0,4,2,0,3/0,1,1], ru=[1,0,2,0,3,2,0,0,1],
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_1:1-mStatus:sc=[0,1], vc=[1, 0, 0, 1, 0], ru=[1,0,1,99,1,0,0,0,1],
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_2:1-mStatus:sc=[0,1], vc=[1, 0, 0, 1, 0], e0=[1,0,1,99,1,0,0,1,1,0,1/0,0,0,0,0,1], ru=[1,0,2,99,1,0,0,0,1],
 beta.rulp.rule.VarChangeTest:test_1_expr_tree_3:1-mStatus:sc=[0,0,1], vc=[1, 0, 0, 1, 0], a2=[1,0,1,99,1,0,0,0,1,0,1/0,1], ru=[1,0,2,99,1,0,0,0,1],

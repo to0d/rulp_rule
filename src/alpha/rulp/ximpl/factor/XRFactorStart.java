@@ -98,49 +98,29 @@ public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleF
 			}
 		}
 
-		XRSubNodeGraph subGraph = null;
-
 		/********************************************/
 		// Run as rule group
 		/********************************************/
+		XRSubNodeGraph subGraph = null;
 		if (ruleGroupName != null) {
+			subGraph = ModelUtil.activeRuleGroup((IRModel) runObj, ruleGroupName);
+		}
 
-			IRModel model = RuleUtil.asModel((IRObject) runObj);
-			subGraph = new XRSubNodeGraph(model.getNodeGraph());
+		try {
 
-			IRList ruleList = ModelUtil.getRuleGroupRuleList(model, ruleGroupName);
-			if (ruleList.size() == 0) {
-				throw new RException("no rule found for group: " + ruleGroupName);
-			}
+			int step = runObj.start(priority, limit);
+			return RulpFactory.createInteger(step);
 
-//			if (priority == -1) {
-//				priority = RETE_PRIORITY_GROUP_MAX;
-//			} else if (priority < RETE_PRIORITY_GROUP_MIN) {
-//				throw new RException("invalid priority: " + priority);
-//			}
+		} finally {
 
-			IRIterator<? extends IRObject> it = ruleList.iterator();
-			while (it.hasNext()) {
-				subGraph.addRule(RuleUtil.asRule(it.next()), RETE_PRIORITY_DEFAULT);
-			}
-
-			subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT);
-
-			for (IRReteNode node : subGraph.getAllNodes()) {
-				model.addUpdateNode(node);
+			/********************************************/
+			// Recovery all nodes' priority
+			/********************************************/
+			if (subGraph != null) {
+				subGraph.rollback();
 			}
 		}
 
-		int step = runObj.start(priority, limit);
-
-		/********************************************/
-		// Recovery all nodes' priority
-		/********************************************/
-		if (subGraph != null) {
-			subGraph.rollback();
-		}
-
-		return RulpFactory.createInteger(step);
 	}
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
+import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
@@ -19,12 +20,14 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
 public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -45,16 +48,25 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		}
 
 		IRModel model = null;
+		String ruleGroupName = null;
+
 		int argIndex = 1;
 
 		/**************************************************/
 		// Check model object
 		/**************************************************/
 		{
-			IRObject o2 = args.get(argIndex);
-			if (o2.getType() != RType.LIST) {
+			IRObject argObj = args.get(argIndex);
 
-				IRObject obj = interpreter.compute(frame, o2);
+			if (argObj.getType() == RType.MEMBER) {
+				IRMember mbr = RulpUtil.asMember(argObj);
+				model = RuleUtil.asModel(interpreter.compute(frame, mbr.getSubject()));
+				ruleGroupName = mbr.getName();
+				++argIndex;
+
+			} else if (argObj.getType() != RType.LIST) {
+
+				IRObject obj = interpreter.compute(frame, argObj);
 				if (obj instanceof IRModel) {
 					model = (IRModel) obj;
 					++argIndex;
@@ -113,10 +125,28 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			}
 		}
 
-		List<? extends IRObject> rst = model.query(rstExpr, RulpFactory.createList(condList), queryLimit);
+		/********************************************/
+		// Run as rule group
+		/********************************************/
+		XRSubNodeGraph subGraph = null;
+		if (ruleGroupName != null) {
+			subGraph = ModelUtil.activeRuleGroup(model, ruleGroupName);
+		}
 
-		if (doList == null) {
-			return RulpFactory.createList(rst);
+		List<? extends IRObject> rst;
+
+		try {
+			rst = model.query(rstExpr, RulpFactory.createList(condList), queryLimit);
+			if (doList == null) {
+				return RulpFactory.createList(rst);
+			}
+		} finally {
+			/********************************************/
+			// Recovery all nodes' priority
+			/********************************************/
+			if (subGraph != null) {
+				subGraph.rollback();
+			}
 		}
 
 		if (!rst.isEmpty()) {

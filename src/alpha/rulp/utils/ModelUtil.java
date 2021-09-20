@@ -2,6 +2,7 @@ package alpha.rulp.utils;
 
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRListener3;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleUtil.RuleActionFactor;
+import alpha.rulp.ximpl.model.XRSubNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRRuleNode;
@@ -34,25 +37,6 @@ public class ModelUtil {
 	}
 
 	private static AtomicInteger anonymousRuleActionIndex = new AtomicInteger(0);
-
-	public static int getNodeMaxPriority(IRModel model) {
-
-		int maxPriority = -1;
-
-		for (IRReteNode node : model.getNodeGraph().getNodeMatrix().getAllNodes()) {
-
-			if (node.getReteType() == RReteType.ROOT0) {
-				continue;
-			}
-
-			int pirority = node.getPriority();
-			if (maxPriority < pirority) {
-				maxPriority = pirority;
-			}
-		}
-
-		return maxPriority;
-	}
 
 	public static IRRule addRule(IRModel model, String ruleName, String condExpr,
 			IRRListener3<IRList, IRRule, IRFrame> actioner) throws RException {
@@ -117,6 +101,25 @@ public class ModelUtil {
 		model.getNodeGraph().bindNode(fromNode, toNode);
 	}
 
+	public static int getNodeMaxPriority(IRModel model) {
+
+		int maxPriority = -1;
+
+		for (IRReteNode node : model.getNodeGraph().getNodeMatrix().getAllNodes()) {
+
+			if (node.getReteType() == RReteType.ROOT0) {
+				continue;
+			}
+
+			int pirority = node.getPriority();
+			if (maxPriority < pirority) {
+				maxPriority = pirority;
+			}
+		}
+
+		return maxPriority;
+	}
+
 	public static IRList getRuleGroupList(IRModel model) throws RException {
 
 		IRMember mbr = model.getMember(F_MBR_RULE_GROUP_NAMES);
@@ -167,6 +170,29 @@ public class ModelUtil {
 		}
 
 		return priority;
+	}
+
+	public static XRSubNodeGraph activeRuleGroup(IRModel model, String ruleGroupName) throws RException {
+
+		XRSubNodeGraph subGraph = new XRSubNodeGraph(model.getNodeGraph());
+
+		IRList ruleList = ModelUtil.getRuleGroupRuleList(model, ruleGroupName);
+		if (ruleList.size() == 0) {
+			throw new RException("no rule found for group: " + ruleGroupName);
+		}
+
+		IRIterator<? extends IRObject> it = ruleList.iterator();
+		while (it.hasNext()) {
+			subGraph.addRule(RuleUtil.asRule(it.next()), RETE_PRIORITY_DEFAULT);
+		}
+
+		subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT);
+
+		for (IRReteNode node : subGraph.getAllNodes()) {
+			model.addUpdateNode(node);
+		}
+
+		return subGraph;
 	}
 
 	public static void setRulePriority(IRRule rule, int priority) throws RException {
