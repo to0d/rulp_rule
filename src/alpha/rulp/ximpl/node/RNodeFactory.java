@@ -13,6 +13,7 @@ import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRWorker;
+import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.ActionUtil;
@@ -324,7 +325,7 @@ public class RNodeFactory {
 
 		// match mode
 		if (matchNode != null) {
-			node.addConstraint(matchNode);
+			ModelUtil.addConstraint(model, node, matchNode);
 		}
 
 		return node;
@@ -395,7 +396,7 @@ public class RNodeFactory {
 		parentNode.addChildNode(node);
 
 		// constant
-		node.addConstraint(matchNode);
+		ModelUtil.addConstraint(model, node, matchNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -431,7 +432,7 @@ public class RNodeFactory {
 		parentNode.addChildNode(node);
 
 		// constant
-		node.addConstraint(matchNode);
+		ModelUtil.addConstraint(model, node, matchNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -467,7 +468,7 @@ public class RNodeFactory {
 		parentNode.addChildNode(node);
 
 		// constant
-		node.addConstraint(matchNode);
+		ModelUtil.addConstraint(model, node, matchNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -510,7 +511,7 @@ public class RNodeFactory {
 		parentNode.addChildNode(node);
 
 		// constant
-		node.addConstraint(matchNode);
+		ModelUtil.addConstraint(model, node, matchNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -553,7 +554,7 @@ public class RNodeFactory {
 		parentNode.addChildNode(node);
 
 		// constant
-		node.addConstraint(matchNode);
+		ModelUtil.addConstraint(model, node, matchNode);
 
 		// var entry
 		node.setVarEntry(varEntry);

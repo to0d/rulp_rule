@@ -1,7 +1,8 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
+import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRMember;
@@ -32,7 +32,6 @@ import alpha.rulp.utils.RuleUtil.RuleActionFactor;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraintType;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
-import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRRuleNode;
@@ -283,7 +282,7 @@ public class ModelUtil {
 		return null;
 	}
 
-	public static boolean addConstraint(IRModel model, IRNamedNode node, IRConstraint1 constraint) throws RException {
+	public static boolean addConstraint(IRModel model, IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		IRInterpreter interpreter = model.getInterpreter();
 		IRFrame frame = model.getModelFrame();
@@ -293,7 +292,7 @@ public class ModelUtil {
 			IRConstraintType typeConstraint = (IRConstraintType) constraint;
 			interpreter.compute(frame,
 					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, model,
-							RulpFactory.createString(node.getNamedName()),
+							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
 							RType.toObject(typeConstraint.getColumnType())));
 			break;
