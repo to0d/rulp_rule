@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.constraint;
 
-import java.util.List;
-
 import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
 
@@ -21,11 +19,11 @@ public abstract class AbsRConstraint1 extends AbsRInstance implements IRConstrai
 	public void decRef() throws RException {
 
 	}
-
-	@Override
-	public boolean tryMatchConstraint(List<IRConstraint1> preConstraints, List<IRConstraint1> incompatibleConstraints) {
-		return true;
-	}
+//
+//	@Override
+//	public boolean tryMatchConstraint(List<IRConstraint1> preConstraints, List<IRConstraint1> incompatibleConstraints) {
+//		return true;
+//	}
 
 	@Override
 	public void incRef() throws RException {

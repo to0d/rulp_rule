@@ -2,10 +2,12 @@ package alpha.rulp.ximpl.constraint;
 
 import java.util.List;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
@@ -86,6 +88,19 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 		/********************************************/
 		int updateCount = 0;
 		for (IRConstraint1 cons : constraintList) {
+
+			switch (cons.getConstraintType()) {
+			case TYPE:
+				XRConstraintType typeCons = (XRConstraintType) cons;
+				IRExpr expr = RulpFactory.createExpression(RulpFactory.createAtom("add_cst_type_constraint"), model,
+						RulpFactory.createString(node.getNamedName()),
+						RulpFactory.createInteger(typeCons.getColumnIndex()), RType.toObject(typeCons.getColumnType()));
+				interpreter.compute(frame, expr);
+				break;
+			default:
+				break;
+			}
+
 			if (node.addConstraint(cons)) {
 				updateCount++;
 			}

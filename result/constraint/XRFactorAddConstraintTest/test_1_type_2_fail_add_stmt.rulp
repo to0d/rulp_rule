@@ -14,4 +14,4 @@ Unable to add entry<name1:'(x y bad)> due to constraint<'(type int on 2)>
 at main: (add-stmt m name1:'(x y bad))
 ;eof
 (list-stmt m)
-;=>'(name1:'(a b 1) name1:'(x y 2))
+;=>'(name1:'(a b 1) name1:'(x y 2) $cst_type$:'("name1" 2 int))

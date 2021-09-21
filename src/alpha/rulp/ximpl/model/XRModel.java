@@ -1,10 +1,10 @@
 package alpha.rulp.ximpl.model;
 
-import static alpha.rulp.lang.Constant.O_False;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
-import static alpha.rulp.rule.Constant.V_M_SQL_INIT;
+import static alpha.rulp.rule.Constant.V_M_CST_INIT;
+import static alpha.rulp.rule.Constant.V_M_RBS_INIT;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
@@ -35,7 +35,6 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
-import alpha.rulp.lang.RAccessType;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
@@ -381,8 +380,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected final LinkedList<IRReteNode> restartingNodeList = new LinkedList<>();
 
 	protected XRRListener2Adapter<IRReteNode, IRObject> saveNodeListener = null;
-
-	protected IRVar sqlInitVar;
 
 	protected final XRStmtListenUpdater stmtListenUpdater = new XRStmtListenUpdater();
 
@@ -1568,31 +1565,31 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return interpreter;
 	}
 
-	@Override
-	public IRMember getMember(String name) throws RException {
-
-		IRMember mbr = super.getMember(name);
-		if (mbr == null) {
-
-			switch (name) {
-			case V_M_STATE:
-			case V_M_SQL_INIT:
-				mbr = RulpFactory.createMember(this, name, getVar(name));
-				mbr.setAccessType(RAccessType.PUBLIC);
-				mbr.setFinal(false);
-				mbr.setStatic(false);
-				break;
-
-			default:
-			}
-
-			if (mbr != null) {
-				this.setMember(name, mbr);
-			}
-		}
-
-		return mbr;
-	}
+//	@Override
+//	public IRMember getMember(String name) throws RException {
+//
+//		IRMember mbr = super.getMember(name);
+//		if (mbr == null) {
+//
+//			switch (name) {
+//			case V_M_STATE:
+//			case V_M_RBS_INIT:
+//				mbr = RulpFactory.createMember(this, name, getVar(name));
+//				mbr.setAccessType(RAccessType.PUBLIC);
+//				mbr.setFinal(false);
+//				mbr.setStatic(false);
+//				break;
+//
+//			default:
+//			}
+//
+//			if (mbr != null) {
+//				this.setMember(name, mbr);
+//			}
+//		}
+//
+//		return mbr;
+//	}
 
 	@Override
 	public IRFrame getModelFrame() {
@@ -1633,23 +1630,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		case V_M_STATE:
 
 			if (modelStatsVar == null) {
-				modelStatsVar = RulpFactory.createVar(V_M_STATE);
-				modelStatsVar.setValue(RRunState.toObject(this.getRunState()));
-				this.getModelFrame().setEntry(V_M_STATE, modelStatsVar);
-
+				modelStatsVar = RulpUtil.asVar(this.getMember(varName).getValue());
 			}
 
 			return modelStatsVar;
-
-		case V_M_SQL_INIT:
-
-			if (sqlInitVar == null) {
-				sqlInitVar = RulpFactory.createVar(V_M_SQL_INIT);
-				sqlInitVar.setValue(O_False);
-				this.getModelFrame().setEntry(V_M_SQL_INIT, sqlInitVar);
-			}
-
-			return sqlInitVar;
 
 		default:
 
@@ -1746,6 +1730,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.modelFrame = RulpFactory.createFrame(frame, "MODEL");
 		RulpUtil.incRef(modelFrame);
 		RuleUtil.setDefaultModel(modelFrame, this);
+
+		ModelUtil.createModelVar(this, V_M_STATE, RRunState.toObject(this.getRunState()));
+		ModelUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
+		ModelUtil.createModelVar(this, V_M_CST_INIT, RulpFactory.createBoolean(false));
 	}
 
 	@Override

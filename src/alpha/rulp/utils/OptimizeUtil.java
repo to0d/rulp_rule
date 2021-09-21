@@ -1087,6 +1087,11 @@ public class OptimizeUtil {
 					m2[entry.size()]++;
 					totalChildCount[entry.size()]++;
 
+					int referCount = entry.getReferenceCount();
+					if (referCount == 0) {
+						continue;
+					}
+
 					IRReference ref = entry.getReferenceIterator().next();
 					IRReteNode node = ref.getNode();
 					if (node == null) {

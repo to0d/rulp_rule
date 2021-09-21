@@ -87,7 +87,7 @@
     (if (equal ?current_schema nil) 
         (error no-schema "no schema specified"))
     
-    (if (equal ?current_schema::?str-sql-init true) 
+    (if (equal ?current_schema::?rbs-init true) 
         (return)) 
 
     (set-default-model (value-of (value-of rbs::?current_schema)))

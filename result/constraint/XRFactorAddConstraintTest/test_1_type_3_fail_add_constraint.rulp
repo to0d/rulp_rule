@@ -14,4 +14,4 @@ Unable to add constraint<'(type int on 2)> due to entry<name1:'(x y bad)>
 at main: (add-constraint m name1:'(? ? ?x) '(type int on ?x))
 ;eof
 (list-stmt m)
-;=>'(name1:'(a b 1) name1:'(x y 2) name1:'(x y bad))
+;=>'(name1:'(a b 1) name1:'(x y 2) name1:'(x y bad) $cst_type$:'("name1" 2 int))

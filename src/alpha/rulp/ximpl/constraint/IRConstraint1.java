@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.constraint;
 
-import java.util.List;
-
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRInstance;
 import alpha.rulp.lang.RException;
@@ -20,5 +18,5 @@ public interface IRConstraint1 extends IRInstance {
 
 	public RConstraintType getConstraintType();
 
-	public boolean tryMatchConstraint(List<IRConstraint1> constraints, List<IRConstraint1> incompatibleConstraints);
+//	public boolean tryMatchConstraint(List<IRConstraint1> constraints, List<IRConstraint1> incompatibleConstraints);
 }

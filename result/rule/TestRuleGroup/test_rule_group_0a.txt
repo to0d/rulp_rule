@@ -157,7 +157,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       58        0
+     Interpreter call id/level:       60        0
              CPS support/count:    false        0
                Frame max level:        2
                   Frame max id:        5
@@ -168,44 +168,44 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       57
+    factor:       59
 ==========================================================================================================================
 
-Callable stats info: callId=58, row=11, column=59(1), value-max=1, value-unit=1^x
+Callable stats info: callId=60, row=11, column=61(1), value-max=1, value-unit=1^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         .111111111111111111111111111111111111111111111111111.111111 max=1, unit=1^x
+   Frame    RType  Count  Ref Object                         .11111111111111111111111111111111111111111111111111111.111111 max=1, unit=1^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     31    0 defun                                  111111111111 11 1111 111 11111 1111     1          
-    root   factor      7    0 alias                           111111                                        1           
-    root   factor      6    0 defclass                                              1    1   1     1    1       1       
-    root   factor      3    0 deftemplate                                                                111            
-    root   factor      3    0 defmacro                                           1                            11        
-  system   factor      2    0 list-stmt                                                                              1 1
-  system   factor      1    0 start                                                                                   1 
-    root   factor      1    0 new                                                                                 1     
-    root   factor      1    0 defvar                                1                                                   
-  system   factor      1    0 add-stmt                                                                              1   
-  system   factor      1    0 add-rule                                                                             1    
+    root   factor     33    0 defun                                  111111111111 11 1111 111 11111 1111     1   11       
+    root   factor      7    0 alias                           111111                                        1             
+    root   factor      6    0 defclass                                              1    1   1     1    1       1         
+    root   factor      3    0 deftemplate                                                                111              
+    root   factor      3    0 defmacro                                           1                            11          
+  system   factor      2    0 list-stmt                                                                                1 1
+  system   factor      1    0 start                                                                                     1 
+    root   factor      1    0 new                                                                                   1     
+    root   factor      1    0 defvar                                1                                                     
+  system   factor      1    0 add-stmt                                                                                1   
+  system   factor      1    0 add-rule                                                                               1    
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          805            0          805
-      string:           19            0           19
-        list:           14            0           14
-        expr:          435            0          435
-         var:           20            0           20
-        func:           91            0           91
+        atom:          876            0          876
+      string:           23            0           23
+        list:           21            0           21
+        expr:          458            0          458
+         var:           23            0           23
+        func:           93            0           93
     template:            1            0            1
        macro:            3            0            3
     instance:            1            0            1
        class:            6            0            6
-      member:          155            0          155
+      member:          162            0          162
        frame:            2            1            1
  interpreter:            1            0
-  frameEntry:          234            0
+  frameEntry:          237            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -239,12 +239,15 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, lvl=1, ref=2/2, parent=model, final=false, mbrs=3, frame=null
+name=m, lvl=1, ref=2/2, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 $RG$g1               : PRIVATE  true     false    1    var        '(RU000) : type=list
 $RG-names$           : PRIVATE  true     false    1    var        '("g1") : type=list
+?cst-init            : DEFAULT  false    false    1    var        false : type=bool
+?model-state         : DEFAULT  false    false    1    var        completed : type=atom
+?rbs-init            : DEFAULT  false    false    1    var        false : type=bool
 this                 : DEFAULT  false    false    2    instance   m : class=model
 ==========================================================================================================================
 

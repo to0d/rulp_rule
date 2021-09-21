@@ -302,10 +302,12 @@ public class TestModel extends RuleTestBase {
 		_setup();
 		_test("(new model m)");
 		_test("(value-of (value-of m::?model-state))", "completed");
-		_test("(value-of (value-of m::?str-sql-init))", "false");
+		_test("(value-of (value-of m::?rbs-init))", "false");
+		_test("(value-of (value-of m::?cst-init))", "false");
 
 		_test("(defvar ?m m)");
 		_test("(value-of (value-of m::?model-state))", "completed");
-		_test("(value-of (value-of m::?str-sql-init))", "false");
+		_test("(value-of (value-of m::?rbs-init))", "false");
+		_test("(value-of (value-of m::?cst-init))", "false");
 	}
 }

@@ -117,7 +117,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       54        0
+     Interpreter call id/level:       56        0
              CPS support/count:    false        0
                Frame max level:        2
                   Frame max id:        4
@@ -128,41 +128,41 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       53
+    factor:       55
 ==========================================================================================================================
 
-Callable stats info: callId=54, row=8, column=55(1), value-max=1, value-unit=1^x
+Callable stats info: callId=56, row=8, column=57(1), value-max=1, value-unit=1^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         .111111111111111111111111111111111111111111111111111.11 max=1, unit=1^x
+   Frame    RType  Count  Ref Object                         .11111111111111111111111111111111111111111111111111111.11 max=1, unit=1^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     31    0 defun                                  111111111111 11 1111 111 11111 1111     1      
-    root   factor      7    0 alias                           111111                                        1       
-    root   factor      6    0 defclass                                              1    1   1     1    1       1   
-    root   factor      3    0 deftemplate                                                                111        
-    root   factor      3    0 defmacro                                           1                            11    
-    root   factor      1    0 new                                                                                 1 
-  system   factor      1    0 list-stmt                                                                            1
-    root   factor      1    0 defvar                                1                                               
+    root   factor     33    0 defun                                  111111111111 11 1111 111 11111 1111     1   11   
+    root   factor      7    0 alias                           111111                                        1         
+    root   factor      6    0 defclass                                              1    1   1     1    1       1     
+    root   factor      3    0 deftemplate                                                                111          
+    root   factor      3    0 defmacro                                           1                            11      
+    root   factor      1    0 new                                                                                   1 
+  system   factor      1    0 list-stmt                                                                              1
+    root   factor      1    0 defvar                                1                                                 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          828            0          828
-      string:           19            0           19
-        list:           14            0           14
-        expr:          429            0          429
-         var:           18            0           18
-        func:           91            0           91
+        atom:          899            0          899
+      string:           23            0           23
+        list:           21            0           21
+        expr:          452            0          452
+         var:           21            0           21
+        func:           93            0           93
     template:            1            0            1
        macro:            3            0            3
     instance:            1            0            1
        class:            6            0            6
-      member:          152            0          152
+      member:          159            0          159
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          234            0
+  frameEntry:          237            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -196,10 +196,13 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, lvl=1, ref=2/2, parent=model, final=false, mbrs=1, frame=null
+name=m, lvl=1, ref=2/2, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
+?cst-init            : DEFAULT  false    false    1    var        false : type=bool
+?model-state         : DEFAULT  false    false    1    var        completed : type=atom
+?rbs-init            : DEFAULT  false    false    1    var        false : type=bool
 this                 : DEFAULT  false    false    2    instance   m : class=model
 ==========================================================================================================================
 

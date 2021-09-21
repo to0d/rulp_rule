@@ -39,6 +39,29 @@ public class ModelUtil {
 
 	private static AtomicInteger anonymousRuleActionIndex = new AtomicInteger(0);
 
+	public static XRSubNodeGraph activeRuleGroup(IRModel model, String ruleGroupName) throws RException {
+
+		XRSubNodeGraph subGraph = new XRSubNodeGraph(model.getNodeGraph());
+
+		IRList ruleList = ModelUtil.getRuleGroupRuleList(model, ruleGroupName);
+		if (ruleList.size() == 0) {
+			throw new RException("no rule found for group: " + ruleGroupName);
+		}
+
+		IRIterator<? extends IRObject> it = ruleList.iterator();
+		while (it.hasNext()) {
+			subGraph.addRule(RuleUtil.asRule(it.next()), RETE_PRIORITY_DEFAULT);
+		}
+
+		subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT, RETE_PRIORITY_DISABLED);
+
+		for (IRReteNode node : subGraph.getAllNodes()) {
+			model.addUpdateNode(node);
+		}
+
+		return subGraph;
+	}
+
 	public static IRRule addRule(IRModel model, String ruleName, String condExpr,
 			IRRListener3<IRList, IRRule, IRFrame> actioner) throws RException {
 
@@ -100,6 +123,16 @@ public class ModelUtil {
 		IRReteNode fromNode = model.getNodeGraph().addWorker(null, worker);
 		IRReteNode toNode = model.findNode(condList);
 		model.getNodeGraph().bindNode(fromNode, toNode);
+	}
+
+	public static void createModelVar(IRModel model, String varName, IRObject value) throws RException {
+
+		IRVar var = RulpFactory.createVar(varName);
+		if (value != null) {
+			var.setValue(value);
+		}
+
+		RulpUtil.setMember(model, varName, var);
 	}
 
 	public static int getNodeMaxPriority(IRModel model) {
@@ -171,29 +204,6 @@ public class ModelUtil {
 		}
 
 		return priority;
-	}
-
-	public static XRSubNodeGraph activeRuleGroup(IRModel model, String ruleGroupName) throws RException {
-
-		XRSubNodeGraph subGraph = new XRSubNodeGraph(model.getNodeGraph());
-
-		IRList ruleList = ModelUtil.getRuleGroupRuleList(model, ruleGroupName);
-		if (ruleList.size() == 0) {
-			throw new RException("no rule found for group: " + ruleGroupName);
-		}
-
-		IRIterator<? extends IRObject> it = ruleList.iterator();
-		while (it.hasNext()) {
-			subGraph.addRule(RuleUtil.asRule(it.next()), RETE_PRIORITY_DEFAULT);
-		}
-
-		subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT, RETE_PRIORITY_DISABLED);
-
-		for (IRReteNode node : subGraph.getAllNodes()) {
-			model.addUpdateNode(node);
-		}
-
-		return subGraph;
 	}
 
 	public static void setRulePriority(IRRule rule, int priority) throws RException {

@@ -2,8 +2,9 @@ package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 
 import java.util.HashMap;
 import java.util.HashSet;

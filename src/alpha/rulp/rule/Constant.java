@@ -23,6 +23,8 @@ public interface Constant {
 
 	String A_M_TRACE = "?model-trace";
 
+	String A_Max = "max";
+
 	String A_MODEL = "model";
 
 	String A_On = "on";
@@ -52,8 +54,6 @@ public interface Constant {
 	String A_TABLE = "table";
 
 	String A_Type = "type";
-
-	String A_Max = "max";
 
 	String A_Uniq = "uniq";
 
@@ -105,11 +105,11 @@ public interface Constant {
 
 	String F_LIST_STMT = "list-stmt";
 
-	String F_NOT_EQUAL = "not-equal";
-
 	String F_MBR_RULE_GROUP_NAMES = "$RG-names$";
 
 	String F_MBR_RULE_GROUP_PRE = "$RG$";
+
+	String F_NOT_EQUAL = "not-equal";
 
 	String F_OPT_MODEL = "opt-model";
 
@@ -187,9 +187,9 @@ public interface Constant {
 
 	int RETE_PRIORITY_DEFAULT = 99;
 
-	int RETE_PRIORITY_INACTIVE = 0;
-
 	int RETE_PRIORITY_DISABLED = -9;
+
+	int RETE_PRIORITY_INACTIVE = 0;
 
 	int RETE_PRIORITY_MAXIMUM = 499; // maximum
 
@@ -209,7 +209,9 @@ public interface Constant {
 
 	int STMT_MIN_LEN = 1;
 
-	String V_M_SQL_INIT = "?str-sql-init";
+	String V_M_CST_INIT = "?cst-init";
+
+	String V_M_RBS_INIT = "?rbs-init";
 
 	String V_M_STATE = "?model-state";
 }
