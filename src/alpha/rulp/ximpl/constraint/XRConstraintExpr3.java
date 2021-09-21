@@ -8,7 +8,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public  class XRConstraintExpr3 extends AbsRConstraint1 implements IRConstraintType {
+public  class XRConstraintExpr3 extends AbsRConstraint1 implements IRConstraintExpr {
 
 	protected IRExpr expr;
 

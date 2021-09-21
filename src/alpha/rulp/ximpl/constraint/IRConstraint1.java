@@ -18,5 +18,4 @@ public interface IRConstraint1 extends IRInstance {
 
 	public RConstraintType getConstraintType();
 
-//	public boolean tryMatchConstraint(List<IRConstraint1> constraints, List<IRConstraint1> incompatibleConstraints);
 }

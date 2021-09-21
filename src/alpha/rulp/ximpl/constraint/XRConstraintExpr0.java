@@ -9,7 +9,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraintExpr0 extends AbsRConstraint1 implements IRConstraintType {
+public class XRConstraintExpr0 extends AbsRConstraint1 implements IRConstraintExpr {
 
 	protected IRObject[] varEntry;
 

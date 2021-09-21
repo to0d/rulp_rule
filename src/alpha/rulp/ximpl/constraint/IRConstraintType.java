@@ -1,8 +1,11 @@
 package alpha.rulp.ximpl.constraint;
 
-import alpha.rulp.lang.IRExpr;
+import alpha.rulp.lang.RType;
 
 public interface IRConstraintType extends IRConstraint1 {
 
-	public IRExpr getExpr();
+	public int getColumnIndex();
+
+	public RType getColumnType();
+
 }

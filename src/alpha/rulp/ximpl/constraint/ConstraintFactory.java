@@ -176,6 +176,12 @@ public class ConstraintFactory {
 		return new XRConstraintExpr4(expr, matchStmtList);
 	}
 
+	public static IRConstraint1 createConstraintMax(int columnIndex, IRObject maxValue) {
+		
+//		return new XRConstraintType(columnIndex, columnType);
+		return null;
+	}
+
 	public static IRConstraint1 createConstraintNotEqualIndex(int idx1, int idx2) {
 		return new XRConstraintNotEqualIndex(idx1, idx2);
 
@@ -188,12 +194,6 @@ public class ConstraintFactory {
 
 	public static IRConstraint1 createConstraintType(int columnIndex, RType columnType) {
 		return new XRConstraintType(columnIndex, columnType);
-	}
-
-	public static IRConstraint1 createConstraintMax(int columnIndex, IRObject maxValue) {
-		
-//		return new XRConstraintType(columnIndex, columnType);
-		return null;
 	}
 
 	public static IRConstraint1 createConstraintUniq(int... columnIndexs) throws RException {
