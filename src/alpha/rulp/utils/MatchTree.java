@@ -688,9 +688,17 @@ public class MatchTree {
 			// const expr
 			if (stmt.getType() == RType.LIST && ReteUtil.getStmtVarCount(stmt) == 0) {
 
+//				if (ReteUtil.isCond(stmt)) {
+//
+//				}
+
 				constStmtList.add(stmt);
 
 			} else {
+
+//				if (stmt.getType() == RType.LIST) {
+//					System.out.println();
+//				}
 
 				varStmtList.add(stmt);
 				ArrayList<IRObject> stmtVars = ReteUtil.buildVarList(stmt);

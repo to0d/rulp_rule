@@ -149,7 +149,7 @@ public interface Constant {
 
 //	String F_UPDATE_STMT = "update-stmt";
 
-	String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_type_constraint";
+	String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
 
 	String F_VAR_CHANGED = "var-changed";
 	

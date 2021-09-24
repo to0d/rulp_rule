@@ -296,6 +296,9 @@ public class ModelUtil {
 							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
 							RType.toObject(typeConstraint.getColumnType())));
 			break;
+			
+		case UNIQ:
+			
 		default:
 			break;
 		}

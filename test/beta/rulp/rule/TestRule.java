@@ -523,7 +523,7 @@ public class TestRule extends RuleTestBase {
 		_saveTest();
 		_statsInfo("m", "result/rule/TestRule/test_6_var_expr_8.txt");
 	}
-	
+
 	@Test
 	public void test_6_var_expr_9() {
 
@@ -539,7 +539,7 @@ public class TestRule extends RuleTestBase {
 		_mStatus(1, "m");
 		_saveTest();
 	}
-	
+
 	@Test
 	public void test_7_null_expr_1() {
 
@@ -616,4 +616,51 @@ public class TestRule extends RuleTestBase {
 		_statsInfo("m", "result/rule/TestRule/test_b_defvar_in_rule_body_1.txt");
 		_dumpEntryTable("m", "result/rule/TestRule/test_b_defvar_in_rule_body_1.dump.txt");
 	}
+
+	@Test
+	public void test_c_entry_order_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if n1:'(?a) n1:'(?b) do (-> n2:'(?a ?b)))");
+		_test("(add-stmt m n1:'(a))");
+		_test("(add-stmt m n1:'(b))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'(n1:'(a) n1:'(b) n2:'(a a) n2:'(a b) n2:'(b a) n2:'(b b))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m", "result/rule/TestRule/test_c_entry_order_1.txt");
+	}
+
+	@Test
+	public void test_d_action_var_tostring_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if n1:'(?a) do (-> n2:'(?a (to-string $(value-of (to-nonamed-list ?0))))))");
+		_test("(add-stmt m n1:'(a))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'(n1:'(a) n2:'(a \"'(a)\"))");
+		
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	public void test_c_entry_order_2() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if n1:'(?a) n1:'(?b) do (-> n2:'(?a ?b)))");
+		_test("(add-stmt m n1:'(a))");
+		_test("(add-stmt m n1:'(b))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'(n1:'(a) n1:'(b) n2:'(a a) n2:'(a b) n2:'(b a) n2:'(b b))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m", "result/rule/TestRule/test_c_entry_order_2.txt");
+	}
+
 }

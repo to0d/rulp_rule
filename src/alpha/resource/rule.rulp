@@ -59,19 +59,28 @@
     (add-rule ?m::$cst$ 
         if  $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) 
         do 
-            (-> $cst_conflict_constraint$:'(?node ?index ?type1 ?type2))
+            (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
+            (-> $invalid_constraint$:'(?msg))
     )
-    
+
     (setq ?m::?cst-init true)
 )
 
-(defun add_cst_type_constraint ((?m model) (?node string) ?index ?type)
+(defun add_cst_constraint_type ((?m model) (?node string) ?index ?type)
     (init_cst_rule ?m)        
     (add-stmt ?m $cst_type$:'(?node ?index ?type))
-    (query-stmt ?m::$cst$ '(?n ?i ?t1 ?t2) from $cst_conflict_constraint$:'(?n ?i ?t1 ?t2) 
+    (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_type$:'(?node ?index ?type)) 
-               (error add-constraint-fail (+ "conflict-constraint: node=" ?n ", index=" ?i ", type1=" ?t1 ", type2=" ?t2))
-    limit 1)
+               (error add-constraint-fail (+ "type-constraint:'(" ?node " " ?index " " ?type "), " ?c))  limit 1)
 )
 
+
+;;(defun add_cst_constraint_index_1 ((?m model) (?node string) ?index ?cst_type)
+;;    (init_cst_rule ?m)        
+;;    (add-stmt ?m $cst_index_1:'(?node ?index ?cst_type))
+;;    (query-stmt ?m::$cst$ '(?r ?c1 ?c2) from $invalid_constraint$:'(?r ?c1 ?c2) 
+;;            do (remove-stmt ?m $cst_type$:'(?node ?index ?type)) 
+;;               (error add-constraint-fail (+ ?r ?c1 ?c2))
+;;    limit 1)
+;;)
 

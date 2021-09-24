@@ -929,9 +929,9 @@ public class ReteUtil {
 			return false;
 		}
 
-		if (stmt.getNamedName() != null) {
-			return true;
-		}
+//		if (stmt.getNamedName() != null) {
+//			return true;
+//		}
 
 		int index = 0;
 		IRIterator<? extends IRObject> iter = stmt.iterator();
@@ -951,7 +951,7 @@ public class ReteUtil {
 			case LONG:
 			case DOUBLE:
 			case BOOL:
-				if (index <= 2) {
+				if (stmt.getNamedName() == null && index <= 2) {
 					return false;
 				}
 				break;

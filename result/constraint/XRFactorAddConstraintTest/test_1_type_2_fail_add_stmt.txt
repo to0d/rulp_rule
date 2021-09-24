@@ -14,7 +14,7 @@ node info:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[3]:      0      2      0      0      0      0     0     0   0/0      3      2      0    0    0      *    0   0   0   0            
 N0002[3]:      0      1      0      0      0      0     0     0   0/0      0      1      0    1    0           0   0   0   0            
-N0006[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   0   0   1            
+N0006[1]:      0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   0   0   1            
 E1004[4]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2   0   0           1
 B0003[4]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0         1/1
 RU000[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   3   0   0           0
@@ -26,10 +26,10 @@ NODE[n]  Queue  Parent         Child                                Rule        
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[3] *
 N0002[3] *                     [B0003, B0003]                       [RU000]
-N0006[4] *
+N0006[1] *
 E1004[4] *      [B0003]        [RU000]                              [RU000]
 B0003[4] *      [N0002, N0002] [E1004]                              [RU000]                        [0/0, 0/1, 0/2, 1/2]
-RU000[4] ACTION [E1004]
+RU000[4] EXEC   [E1004]
 ========================================================================================================================================================
 
 node info3:
@@ -38,10 +38,10 @@ node info3:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[3]  name1:'(?0 ?1 ?2)
 N0002[3]  $cst_type$:'(?0 ?1 ?2)
-N0006[4]  $cst_conflict_constraint$:'(?0 ?1 ?2 ?3)
+N0006[1]  $invalid_constraint$:'(?0)
 E1004[4]  '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
 B0003[4]  '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) [join(0/0),join(1/1)]
-RU000[4]  (-> $cst_conflict_constraint$:'(?node ?index ?type1 ?type2))
+RU000[4]  (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg))
 ========================================================================================================================================================
 
 node info4:
@@ -65,14 +65,14 @@ node source info:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001(NAME0):               name1:'(?0 ?1 ?2)
 N0002(NAME0):               $cst_type$:'(?0 ?1 ?2)
-N0006(NAME0):               $cst_conflict_constraint$:'(?0 ?1 ?2 ?3)
+N0006(NAME0):               $invalid_constraint$:'(?0)
            0: RU000(RULE) 
 E1004(EXPR1):               '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
            0: B0003(BETA0)  '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
 B0003(BETA0):               '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
            0: N0002(NAME0)  $cst_type$:'(?0 ?1 ?2)
            1: N0002(NAME0)  $cst_type$:'(?0 ?1 ?2)
- RU000(RULE):               $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not-equal ?type1 ?type2) ==> (-> $cst_conflict_constraint$:'(?node ?index ?type1 ?type2))
+ RU000(RULE):               $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not-equal ?type1 ?type2) ==> (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg))
            0: E1004(EXPR1)  '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
 ========================================================================================================================================================
 
@@ -82,7 +82,7 @@ node bind info:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 ========================================================================================================================================================
 
-Rule<RU000> stats: priority=000, expr=(add-rule ?m::$cst$ if $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (-> $cst_conflict_constraint$:'(?node ?index ?type1 ?type2)))
+Rule<RU000> stats: priority=000, expr=(add-rule ?m::$cst$ if $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg)))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -233,7 +233,7 @@ Callable stats info: callId=61, row=21, column=62(1), value-max=2, value-unit=2^
     root   factor      1    0 equal_def                                                                               1    
   system funcList      1    1 equal                                                                                   1    
     root   factor      1    0 defvar                                1                                                      
-  system     func      1    1 (add_cst_type_constraint type#                                                          1    
+  system     func      1    1 (add_cst_constraint_type type#                                                          1    
   system   factor      1    0 add-rule                                                                                1    
   system   factor      1    0 add-node                                                                               1     
   system   factor      1    0 add-constraint                                                                          1    
@@ -243,10 +243,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          877            0          877
-      string:           24            0           24
+        atom:          872            0          872
+      string:           29            0           29
         list:           29            0           29
-        expr:          467            0          467
+        expr:          469            0          469
          var:           29            6           23
         func:           93            0           93
     template:            1            0            1
@@ -256,7 +256,7 @@ Object create count:
       member:          161            0          161
        frame:           10            7            3
  interpreter:            1            0
-  frameEntry:          244            0
+  frameEntry:          245            0
       lambda:            0            0
 ==========================================================================================================================
 

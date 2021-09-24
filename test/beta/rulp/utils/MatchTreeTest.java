@@ -117,9 +117,9 @@ class MatchTreeTest extends RuleTestBase {
 
 	@Test
 	void test_2_beta3() {
-		
+
 		_setup();
-		
+
 		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_2_beta3.in.rulp",
 				"result/utils/MatchTreeTest/test_2_beta3.out.rulp");
 
@@ -127,9 +127,9 @@ class MatchTreeTest extends RuleTestBase {
 
 	@Test
 	void test_3_error() {
-		
+
 		_setup();
-		
+
 		_test_buildMatchTree_error("'(?x ?y ?z) '(?a ?b ?c) (!= ?0 ?1)",
 				"Invalid index var<?0> found in: ['(?x ?y ?z), '(?a ?b ?c), (!= ?0 ?1)]");
 
@@ -137,16 +137,16 @@ class MatchTreeTest extends RuleTestBase {
 
 	@Test
 	void test_4_order() {
-		
+
 		_setup();
-		
+
 		_test_buildMatchTree("'(?a p1 ?b) '(?a ?p ?b) '(?p p2 c)", "'('('(?a ?p ?b) '(?p p2 c)) '(?a p1 ?b))");
 		_test_buildMatchTree("'(?a p1 ?b) '(?p p2 c) '(?a ?p ?b)", "'('('(?a ?p ?b) '(?p p2 c)) '(?a p1 ?b))");
 	}
 
 	@Test
 	void test_5_const_stmt() {
-		
+
 		_setup();
 		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_5_const_stmt.in.rulp",
 				"result/utils/MatchTreeTest/test_5_const_stmt.out.rulp");
@@ -154,7 +154,7 @@ class MatchTreeTest extends RuleTestBase {
 
 	@Test
 	void test_6_expr() {
-		
+
 		_setup();
 		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_6_expr.in.rulp",
 				"result/utils/MatchTreeTest/test_6_expr.out.rulp");
@@ -181,4 +181,10 @@ class MatchTreeTest extends RuleTestBase {
 				"result/utils/MatchTreeTest/test_9_stmt_changed.out.rulp");
 	}
 
+	@Test
+	void test_a_force_node() {
+		_setup();
+		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_a_force_node.in.rulp",
+				"result/utils/MatchTreeTest/test_a_force_node.out.rulp");
+	}
 }
