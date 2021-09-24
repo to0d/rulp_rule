@@ -177,7 +177,7 @@ public class ConstraintFactory {
 	}
 
 	public static IRConstraint1 createConstraintMax(int columnIndex, IRObject maxValue) {
-		
+
 //		return new XRConstraintType(columnIndex, columnType);
 		return null;
 	}
@@ -189,7 +189,10 @@ public class ConstraintFactory {
 
 	public static IRConstraint1 createConstraintNotEqualValue(int index, IRObject obj) {
 		return new XRConstraintNotEqualValue(index, obj);
+	}
 
+	public static IRConstraint1 createConstraintNotNull(int index) {
+		return new XRConstraintNotNull(index);
 	}
 
 	public static IRConstraint1 createConstraintType(int columnIndex, RType columnType) {

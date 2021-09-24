@@ -12,6 +12,8 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_setup();
 		// XRModel.TRACE_RETE = true;
 
+		_clean_cache("result/constraint/XRFactorAddConstraintTest/test_1_type_1");
+
 		_test("(new model m)");
 		_test("(add-node m name1:'(3))", "1");
 		_test("(add-node m name2:'(3))", "1");
@@ -37,6 +39,9 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m name7:'(?x ?y ?z) '(type int on ?x))", "1");
 
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_1.txt");
+
+		_test("(set-model-cache-path m \"result/constraint/XRFactorAddConstraintTest/test_1_type_1\")");
+		_test("(save-model m)");
 	}
 
 	@Test
@@ -79,9 +84,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		// XRModel.TRACE_RETE = true;
 
 		_test("(new model m)");
-		_test("(add-table m name1:'(? ? ?))");
-		_test("(add-constraint m '(?y not-null) on name1:'(?x ?y ?z))"); // not null constraint
-
+		_test("(add-constraint m name1:'(?x ?y ?z) '(not-null on ?x))", "1");
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_3_not_null_1.txt");
 	}
 
