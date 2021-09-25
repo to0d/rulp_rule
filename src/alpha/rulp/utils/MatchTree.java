@@ -687,34 +687,24 @@ public class MatchTree {
 
 			// const expr
 			if (stmt.getType() == RType.LIST && ReteUtil.getStmtVarCount(stmt) == 0) {
-
-//				if (ReteUtil.isCond(stmt)) {
-//
-//				}
-
 				constStmtList.add(stmt);
+				continue;
+			}
 
-			} else {
+			varStmtList.add(stmt);
+			ArrayList<IRObject> stmtVars = ReteUtil.buildVarList(stmt);
 
-//				if (stmt.getType() == RType.LIST) {
-//					System.out.println();
-//				}
-
-				varStmtList.add(stmt);
-				ArrayList<IRObject> stmtVars = ReteUtil.buildVarList(stmt);
-
-				// Check index vars: ?0 ?1
-				for (IRObject obj : stmtVars) {
-					if (ReteUtil.isIndexVarName(RulpUtil.asAtom(obj).getName())) {
-						throw new RException("Invalid index var<" + obj + "> found in: " + matchStmtList);
-					}
+			// Check index vars: ?0 ?1
+			for (IRObject obj : stmtVars) {
+				if (ReteUtil.isIndexVarName(RulpUtil.asAtom(obj).getName())) {
+					throw new RException("Invalid index var<" + obj + "> found in: " + matchStmtList);
 				}
+			}
 
-				// Get all stmt vars
-				if (stmt.getType() == RType.LIST) {
-					for (IRObject obj : stmtVars) {
-						stmtVarNames.add(RulpUtil.asAtom(obj).getName());
-					}
+			// Get all stmt vars
+			if (stmt.getType() == RType.LIST) {
+				for (IRObject obj : stmtVars) {
+					stmtVarNames.add(RulpUtil.asAtom(obj).getName());
 				}
 			}
 		}

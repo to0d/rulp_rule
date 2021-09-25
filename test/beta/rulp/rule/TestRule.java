@@ -634,20 +634,6 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
-	public void test_d_action_var_tostring_1() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(add-rule m if n1:'(?a) do (-> n2:'(?a (to-string $(value-of (to-nonamed-list ?0))))))");
-		_test("(add-stmt m n1:'(a))");
-		_test("(start m)");
-		_test("(list-stmt m)", "'(n1:'(a) n2:'(a \"'(a)\"))");
-		
-		_mStatus(1, "m");
-		_saveTest();
-	}
-
-	@Test
 	public void test_c_entry_order_2() {
 
 		_setup();
@@ -661,6 +647,20 @@ public class TestRule extends RuleTestBase {
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m", "result/rule/TestRule/test_c_entry_order_2.txt");
+	}
+
+	@Test
+	public void test_d_action_var_tostring_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if n1:'(?a) do (-> n2:'(?a (to-string $(value-of (to-nonamed-list ?0))))))");
+		_test("(add-stmt m n1:'(a))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'(n1:'(a) n2:'(a \"'(a)\"))");
+		
+		_mStatus(1, "m");
+		_saveTest();
 	}
 
 }
