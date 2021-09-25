@@ -71,12 +71,13 @@ public class OptimizeTest1 extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule m if '(?a ?p ?b) '(?b ?p ?c) do (-> n1:'(?a ?b ?c)))");
+		_test("(add-rule m if '(?a ?p ?b) '(?b ?p ?c) do (-> '(?a ?p ?c)))");
 		_test("(add-stmt m '(a p b))");
-		_test("(add-stmt m '(a p c))");
 		_test("(add-stmt m '(b p c))");
-		_test("(add-stmt m '(c p b))");
-		_test("(query-stmt m '(?a ?b ?c) from '(?a ?p ?b) '(?b ?p ?c))", "'('(a b c) '(a c b) '(b c b) '(c b c))");
+		_test("(add-stmt m '(c p a))");
+		_test("(add-stmt m '(a p a))");
+		_test("(query-stmt m '(?a ?b ?c) from '(?a ?p ?b) '(?b ?p ?c))",
+				"'('(a b c) '(b c a) '(c a b) '(c a a) '(a a b) '(a a a))");
 
 		_mStatus(1, "m");
 		_oStatus(1, "m");
@@ -90,12 +91,12 @@ public class OptimizeTest1 extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule m if '(?a ?p ?b) '(?b ?p ?c) do (-> n1:'(?a ?b ?c)))");
+		_test("(add-rule m if '(?a ?p ?b) '(?b ?p ?c) do (-> '(?a ?p ?c)))");
 		_test("(add-stmt m '(a p b))");
-		_test("(add-stmt m '(a p c))");
 		_test("(add-stmt m '(b p c))");
-		_test("(add-stmt m '(c p b))");
-		_test("(query-stmt m '(?b ?c) from '(?a ?p ?b) '(?b ?p ?c))", "'('(b c) '(c b))");
+		_test("(add-stmt m '(c p a))");
+		_test("(add-stmt m '(a p a))");
+		_test("(query-stmt m '(?a ?b) from '(?a ?p ?b) '(?b ?p ?c))", "'('(a b) '(b c) '(c a) '(a a))");
 
 		_mStatus(1, "m");
 		_oStatus(1, "m");
