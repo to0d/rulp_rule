@@ -1,0 +1,37 @@
+
+;;---------------------------------------------------------;;
+'('(?a p ?b) '(?b p ?c)) ; input
+'('(?a p ?b) '(?b p ?c)) ; output
+;expr: 
+'(
+    '(?a p ?b)
+    '(?b p ?c)
+ )
+
+
+
+'('(?a p ?b) '(?b p ?c)) (factor ?a ?b) ; input
+'('('(?a p ?b) '(?b p ?c)) (factor ?a ?b)) ; output
+;expr: 
+'(
+    '(
+        '(?a p ?b)
+        '(?b p ?c)
+     )
+    (factor ?a ?b)
+ )
+
+
+
+'('(?a p ?b) '(?b p ?c)) '(?a ?c) ; input
+'('('(?a p ?b) '(?b p ?c)) '(?a ?c)) ; output
+;expr: 
+'(
+    '(
+        '(?a p ?b)
+        '(?b p ?c)
+     )
+    '(?a ?c)
+ )
+
+

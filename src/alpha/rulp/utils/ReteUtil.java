@@ -814,6 +814,10 @@ public class ReteUtil {
 					varCount++;
 				}
 				break;
+			case LIST:
+			case EXPR:
+				varCount += getStmtVarCount((IRList) obj);
+				break;
 
 			default:
 				break;
