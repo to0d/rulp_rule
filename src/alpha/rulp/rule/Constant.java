@@ -15,6 +15,8 @@ public interface Constant {
 
 	String A_ENTRY = "entry";
 
+	String A_ENTRY_ORDER = "entry-order";
+
 	String A_Failed = "failed";
 
 	String A_Halting = "halting";
@@ -28,8 +30,6 @@ public interface Constant {
 	String A_MODEL = "model";
 
 	String A_On = "on";
-
-	String A_ORDER_BY_ENTRY_ID = "order-by-entry-id";
 
 	String A_Partial = "partial";
 

@@ -1030,7 +1030,7 @@ public class ReteUtil {
 	public static boolean isReteTreeModifierAtom(IRAtom obj) throws RException {
 
 		switch (obj.getName()) {
-		case A_ORDER_BY_ENTRY_ID:
+		case A_ENTRY_ORDER:
 			return true;
 
 		default:
