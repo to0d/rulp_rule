@@ -622,11 +622,10 @@ public class TestRule extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule m if n1:'(?a) n1:'(?b) do (-> n2:'(?a ?b)))");
+		_test("(add-rule m if n1:'(?a) n1:'(?b) (!= ?a ?b) do (-> n2:'(?a ?b)))");
 		_test("(add-stmt m n1:'(a))");
 		_test("(add-stmt m n1:'(b))");
-		_test("(start m)");
-		_test("(list-stmt m)", "'(n1:'(a) n1:'(b) n2:'(a a) n2:'(a b) n2:'(b a) n2:'(b b))");
+		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a b) '(b a))");
 
 		_mStatus(1, "m");
 		_saveTest();
@@ -638,11 +637,10 @@ public class TestRule extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule m if n1:'(?a) n1:'(?b) do (-> n2:'(?a ?b)))");
+		_test("(add-rule m if n1:'(?a) n1:'(?b) (!= ?a ?b) do (-> n2:'(?a ?b)))");
 		_test("(add-stmt m n1:'(a))");
 		_test("(add-stmt m n1:'(b))");
-		_test("(start m)");
-		_test("(list-stmt m)", "'(n1:'(a) n1:'(b) n2:'(a a) n2:'(a b) n2:'(b a) n2:'(b b))");
+		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a b) '(b a))");
 
 		_mStatus(1, "m");
 		_saveTest();
@@ -658,7 +656,7 @@ public class TestRule extends RuleTestBase {
 		_test("(add-stmt m n1:'(a))");
 		_test("(start m)");
 		_test("(list-stmt m)", "'(n1:'(a) n2:'(a \"'(a)\"))");
-		
+
 		_mStatus(1, "m");
 		_saveTest();
 	}
