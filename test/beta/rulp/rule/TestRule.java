@@ -618,37 +618,7 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
-	public void test_c_entry_order_1() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(add-rule m if n1:'(?a) n1:'(?b) (!= ?a ?b) do (-> n2:'(?a ?b)))");
-		_test("(add-stmt m n1:'(a))");
-		_test("(add-stmt m n1:'(b))");
-		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a b) '(b a))");
-
-		_mStatus(1, "m");
-		_saveTest();
-		_statsInfo("m", "result/rule/TestRule/test_c_entry_order_1.txt");
-	}
-
-	@Test
-	public void test_c_entry_order_2() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(add-rule m if n1:'(?a) n1:'(?b) (!= ?a ?b) do (-> n2:'(?a ?b)))");
-		_test("(add-stmt m n1:'(a))");
-		_test("(add-stmt m n1:'(b))");
-		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a b) '(b a))");
-
-		_mStatus(1, "m");
-		_saveTest();
-		_statsInfo("m", "result/rule/TestRule/test_c_entry_order_2.txt");
-	}
-
-	@Test
-	public void test_d_action_var_tostring_1() {
+	public void test_c_action_var_tostring_1() {
 
 		_setup();
 		_test("(new model m)");
