@@ -86,6 +86,25 @@ public class OptimizeTest1 extends RuleTestBase {
 	}
 
 	@Test
+	void test_beta_join_same_node_2() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if '(?a ?p ?b) '(?b ?p ?c) do (-> n1:'(?a ?b ?c)))");
+		_test("(add-stmt m '(a p b))");
+		_test("(add-stmt m '(a p c))");
+		_test("(add-stmt m '(b p c))");
+		_test("(add-stmt m '(c p b))");
+		_test("(query-stmt m '(?b ?c) from '(?a ?p ?b) '(?b ?p ?c))", "'('(b c) '(c b))");
+
+		_mStatus(1, "m");
+		_oStatus(1, "m");
+		_saveTest();
+
+		_statsInfo("m", "result/optimize/OptimizeTest1/test_beta_join_same_node_2.txt");
+	}
+
+	@Test
 	void test_equal_1() {
 
 		_setup();

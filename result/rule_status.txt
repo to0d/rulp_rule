@@ -227,6 +227,8 @@ beta.rulp.optimize.OptimizeTest1:test_beta_join_1:1-mStatus:sc=[0,5], a0=[2,0,2,
 beta.rulp.optimize.OptimizeTest1:test_beta_join_1:1-oStatus:shared=0
 beta.rulp.optimize.OptimizeTest1:test_beta_join_same_node_1:1-mStatus:sc=[0,4], b0=[1,0,1,99,1,0,0,16,4,0,4/0,0,4], ru=[1,0,2,99],
 beta.rulp.optimize.OptimizeTest1:test_beta_join_same_node_1:1-oStatus:shared=0
+beta.rulp.optimize.OptimizeTest1:test_beta_join_same_node_2:1-mStatus:sc=[0,4], b0=[1,0,1,99,1,0,0,16,4,0,4/0,0,4], ru=[1,0,2,99],
+beta.rulp.optimize.OptimizeTest1:test_beta_join_same_node_2:1-oStatus:shared=0
 beta.rulp.optimize.OptimizeTest1:test_equal_1:1-mStatus:sc=[], a0=[3,0,2,99], b2=[2,0,4,99], e1=[2,0,2,99], ru=[2,0,5,99],
 beta.rulp.optimize.OptimizeTest1:test_equal_1:1-oStatus:shared=5
 beta.rulp.optimize.OptimizeTest1:test_not_equal_1_orignal:1-mStatus:sc=[], a0=[3,0,2,99], b2=[2,0,4,99], e1=[2,0,2,99], ru=[2,0,5,99],
