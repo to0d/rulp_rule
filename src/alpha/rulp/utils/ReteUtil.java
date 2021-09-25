@@ -6,11 +6,11 @@ import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.lang.Constant.S_QUESTION_C;
 import static alpha.rulp.lang.Constant.S_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
-import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.FIXED_;
+import static alpha.rulp.rule.RReteStatus.*;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
@@ -1027,6 +1027,17 @@ public class ReteUtil {
 		return true;
 	}
 
+	public static boolean isReteTreeModifierAtom(IRAtom obj) throws RException {
+
+		switch (obj.getName()) {
+		case A_ORDER_BY_ENTRY_ID:
+			return true;
+
+		default:
+			return false;
+		}
+	}
+
 	public static boolean isReteTree(IRObject tree) throws RException {
 
 		if (tree.getType() != RType.LIST) {
@@ -1042,16 +1053,33 @@ public class ReteUtil {
 		if (e0.getType() == RType.LIST) {
 
 			/************************************/
-			// 1. '( ReteTree ReteTree)
-			// 2. '( ReteTree Expression)
+			// 1. '(ReteTree ReteTree)
+			// 2. '(ReteTree Expression)
+			// 3. '(ReteTree modifier-atoms) : '('(?a p ?b) '(?b p ?c) order-by-entry-id)
 			/************************************/
 			if (!isReteTree(e0)) {
 				return false;
 			}
 
-			IRIterator<? extends IRObject> iter = list.listIterator(1);
-			while (iter.hasNext()) {
-				IRObject obj = iter.next();
+			int size = list.size();
+
+			// Skip modifier atoms
+			while (size > 0) {
+
+				IRObject obj = list.get(size - 1);
+				if (obj.getType() == RType.ATOM && isReteTreeModifierAtom(RulpUtil.asAtom(obj))) {
+					--size;
+					continue;
+				}
+
+				break;
+			}
+
+			for (int index = 1; index < size; ++index) {
+
+				IRObject obj = list.get(index);
+
+				// not expression and not ReteTree
 				if (obj.getType() != RType.EXPR && !isReteTree(obj)) {
 					return false;
 				}

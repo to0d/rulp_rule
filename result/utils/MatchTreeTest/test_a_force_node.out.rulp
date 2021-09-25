@@ -1,10 +1,25 @@
 ;;---------------------------------------------------------;;
-(factor '(?a p ?b) '(?b p ?c)) '(?a ?c) ; input
-'('(?a ?c) (factor '(?a p ?b) '(?b p ?c))) ; output
+'('(?a p ?b) '(?b p ?c) order-by-entry-id) ; input
+'('(?a p ?b) '(?b p ?c) order-by-entry-id) ; output
 ;expr: 
 '(
+    '(?a p ?b)
+    '(?b p ?c)
+    order-by-entry-id
+ )
+
+
+
+'('(?a p ?b) '(?b p ?c) order-by-entry-id) '(?a ?c) ; input
+'('('(?a p ?b) '(?b p ?c) order-by-entry-id) '(?a ?c)) ; output
+;expr: 
+'(
+    '(
+        '(?a p ?b)
+        '(?b p ?c)
+        order-by-entry-id
+     )
     '(?a ?c)
-    (factor '(?a p ?b) '(?b p ?c))
  )
 
 

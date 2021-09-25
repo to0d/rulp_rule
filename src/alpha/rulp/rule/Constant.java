@@ -29,6 +29,8 @@ public interface Constant {
 
 	String A_On = "on";
 
+	String A_ORDER_BY_ENTRY_ID = "order-by-entry-id";
+
 	String A_Partial = "partial";
 
 	String A_Priority = "priority";
@@ -76,6 +78,8 @@ public interface Constant {
 	String F_ASSUME_STMT = "assume-stmt";
 
 	String F_CREATE = "create";
+
+	String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
 
 	String F_DEF_QUERY_COUNTER = "def-query-counter";
 
@@ -143,21 +147,19 @@ public interface Constant {
 
 	String F_START = "start";
 
+//	String F_UPDATE_STMT = "update-stmt";
+
 	String F_STATE_OF = "state-of";
 
 	String F_TRACE_RULE = "trace-rule";
 
-//	String F_UPDATE_STMT = "update-stmt";
-
-	String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
-
 	String F_VAR_CHANGED = "var-changed";
-	
-	IRAtom O_CST_ADD_CONSTRAINT_TYPE = RulpFactory.createAtom(F_CST_ADD_CONSTRAINT_TYPE);
 
 	IRAtom O_Assumed = RulpFactory.createAtom(A_Assumed);
 
 	IRAtom O_Completed = RulpFactory.createAtom(A_Completed);
+
+	IRAtom O_CST_ADD_CONSTRAINT_TYPE = RulpFactory.createAtom(F_CST_ADD_CONSTRAINT_TYPE);
 
 	IRAtom O_Defined = RulpFactory.createAtom(A_Defined);
 
