@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.lang.Constant.F_EQUAL;
-import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
+import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 
@@ -132,6 +132,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected int anonymousWorkIndex = 0;
 
+	protected IREntryTable entryTable;
+
 	protected int maxNodeIndex = 0;
 
 	protected int maxRootStmtLen = 0;
@@ -153,8 +155,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	protected XRUniqObjBuilder uniqBuilder = new XRUniqObjBuilder();
 
 	protected final Map<String, IRReteNode> varNodeMap = new HashMap<>();
-
-	protected IREntryTable entryTable;
 
 	public XRNodeGraph(IRModel model, IREntryTable entryTable) {
 
@@ -677,12 +677,12 @@ public class XRNodeGraph implements IRNodeGraph {
 			return _buildAlphaNode(reteTree, tmpVarBuilder);
 		}
 
-		// Build beta0 node: '('(a b c) '(x y z))
-		if (treeSize == 2 && treeType == RType.LIST && e0Type == RType.LIST && e1Type == RType.LIST) {
+		// Beta0: '('(a b c) '(x y z))
+		if (ReteUtil.isBetaTree(reteTree, treeSize)) {
 			return _buildBetaNode(reteTree, tmpVarBuilder);
 		}
 
-		// Build beta1 node or expr node
+		// Beta1 or Expr
 		if (treeSize == 2 && treeType == RType.LIST && e0Type == RType.LIST && e1Type == RType.EXPR) {
 
 			IRList l1 = (IRList) reteTree.get(1);
@@ -712,8 +712,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
-		if (treeSize == 3 && treeType == RType.LIST && e0Type == RType.LIST && e1Type == RType.LIST
-				&& reteTree.get(2).getType() == RType.EXPR) {
+		if (ReteUtil.isBeta3Tree(reteTree, treeSize)) {
 			return _buildBetaNode(reteTree, tmpVarBuilder);
 		}
 
@@ -722,6 +721,19 @@ public class XRNodeGraph implements IRNodeGraph {
 				&& ReteUtil.isVarChangeExpr(reteTree.get(1))) {
 			return _buildBetaNode(reteTree, tmpVarBuilder);
 		}
+
+//		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
+//		if (ModifierCount > 0) {
+//
+//			IRObject ex = reteTree.get(treeSize - 1);
+//			RType exType = ex.getType();
+//
+//			// beta4: '(?a) '(?b) entry-order
+//			if (ModifierCount == 1 && exType == RType.ATOM && RulpUtil.asAtom(ex).getName().equals(A_ENTRY_ORDER)
+//					&& ReteUtil.isBetaTree(reteTree, treeSize - ModifierCount)) {
+//				return _buildBetaNode(RulpFactory.createList(e0, reteTree.get(1)), tmpVarBuilder);
+//			}
+//		}
 
 //		// beta:((var-changed ?x ?xv) url-entry:'(?url-name ?url))
 //		if (treeSize == 2 && treeType == RType.EXPR && ReteUtility.isVarChangeExpr(e0) && e1Type == RType.LIST) {
@@ -1125,6 +1137,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		for (IRList stmt : matchStmtList) {
 
+			// ?1 ?2 ?3
 			if (ReteUtil.isIndexVarStmt(stmt)) {
 
 				if (stmt.getType() != RType.EXPR) {

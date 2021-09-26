@@ -5,9 +5,7 @@ import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.lang.Constant.S_QUESTION_C;
 import static alpha.rulp.lang.Constant.S_QUESTION_LIST;
-import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.*;
-import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.*;
@@ -402,8 +400,7 @@ public class ReteUtil {
 		}
 
 		// Beta node
-		if (reteTree.size() == 2 && reteTree.get(0).getType() == RType.LIST
-				&& reteTree.get(1).getType() == RType.LIST) {
+		if (isBetaTree(reteTree, reteTree.size())) {
 
 			ArrayList<IRObject> vars = new ArrayList<>();
 			for (IRObject v : buildTreeVarList((IRList) reteTree.get(0), new HashMap<>())) {
@@ -422,8 +419,7 @@ public class ReteUtil {
 		}
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
-		if (reteTree.size() == 3 && reteTree.get(0).getType() == RType.LIST && reteTree.get(1).getType() == RType.LIST
-				&& reteTree.get(2).getType() == RType.EXPR) {
+		if (isBeta3Tree(reteTree, reteTree.size())) {
 
 			ArrayList<IRObject> vars = new ArrayList<>();
 			for (IRObject v : buildTreeVarList((IRList) reteTree.get(0), new HashMap<>())) {
@@ -467,7 +463,33 @@ public class ReteUtil {
 			return vars;
 		}
 
+//		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
+//		if (ModifierCount > 0) {
+//
+//			ArrayList<IRObject> vars = new ArrayList<>();
+//
+//			for (int index = reteTree.size() - ModifierCount; index > 0; --index) {
+//				for (IRObject v : buildTreeVarList((IRList) reteTree.get(index - 1), new HashMap<>())) {
+//					if (_tryPutVarIndex(indexMap, v, vars.size())) {
+//						vars.add(v);
+//					}
+//				}
+//			}
+//
+//			return vars;
+//		}
+
 		throw new RException("Invalid tree node found: " + reteTree);
+	}
+
+	public static boolean isBetaTree(IRList reteTree, int treeSize) throws RException {
+		return treeSize == 2 && reteTree.getType() == RType.LIST && reteTree.get(0).getType() == RType.LIST
+				&& reteTree.get(1).getType() == RType.LIST;
+	}
+
+	public static boolean isBeta3Tree(IRList reteTree, int treeSize) throws RException {
+		return treeSize == 3 && reteTree.get(0).getType() == RType.LIST && reteTree.get(1).getType() == RType.LIST
+				&& reteTree.get(2).getType() == RType.EXPR;
 	}
 
 	public static ArrayList<IRObject> buildVarList(IRList reteTree) throws RException {
@@ -875,11 +897,7 @@ public class ReteUtil {
 
 			IRObject cond = condIter.next();
 
-			if (ReteUtil.isReteStmt(cond)) {
-				continue;
-			}
-
-			if (RulpUtil.isExpression(cond)) {
+			if (ReteUtil.isReteStmt(cond) || ReteUtil.isReteTree(cond) || RulpUtil.isExpression(cond)) {
 				continue;
 			}
 
@@ -932,10 +950,6 @@ public class ReteUtil {
 		if (!isValidStmtLen(stmt.size())) {
 			return false;
 		}
-
-//		if (stmt.getNamedName() != null) {
-//			return true;
-//		}
 
 		int index = 0;
 		IRIterator<? extends IRObject> iter = stmt.iterator();
@@ -1038,6 +1052,25 @@ public class ReteUtil {
 		}
 	}
 
+	public static int getReteTreeModifierCount(IRList tree) throws RException {
+
+		if (tree.isEmpty()) {
+			return 0;
+		}
+
+		int modifierCount = 0;
+		for (int index = tree.size() - 1; index >= 0; --index) {
+			IRObject obj = tree.get(index);
+			if (obj.getType() == RType.ATOM && isReteTreeModifierAtom(RulpUtil.asAtom(obj))) {
+				++modifierCount;
+				continue;
+			}
+			break;
+		}
+
+		return modifierCount;
+	}
+
 	public static boolean isReteTree(IRObject tree) throws RException {
 
 		if (tree.getType() != RType.LIST) {
@@ -1061,19 +1094,8 @@ public class ReteUtil {
 				return false;
 			}
 
-			int size = list.size();
-
 			// Skip modifier atoms
-			while (size > 0) {
-
-				IRObject obj = list.get(size - 1);
-				if (obj.getType() == RType.ATOM && isReteTreeModifierAtom(RulpUtil.asAtom(obj))) {
-					--size;
-					continue;
-				}
-
-				break;
-			}
+			int size = list.size() - getReteTreeModifierCount((IRList) tree);
 
 			for (int index = 1; index < size; ++index) {
 
@@ -1469,6 +1491,10 @@ public class ReteUtil {
 			} else if (RulpUtil.isExpression(cond)) {
 
 				matchStmtList.add((IRExpr) builder.build(OptimizeUtil.optimizeExpr(cond)));
+
+			} else if (ReteUtil.isReteTree(cond)) {
+
+				matchStmtList.add((IRList) builder.build(cond));
 
 			} else {
 				throw new RException("Invalid condition: " + cond);
