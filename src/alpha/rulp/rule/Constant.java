@@ -17,6 +17,16 @@ public interface Constant {
 
 	String A_ENTRY_ORDER = "entry-order";
 
+	String A_EQUAL_INDEX = "equal-index";
+
+	String A_EQUAL_VALUE = "equal-value";
+
+	String A_NOT_EQUAL_INDEX = "not-equal-index";
+
+	String A_NOT_EQUAL_VALUE = "not-equal-value";
+
+	String A_NOT_NULL = "not-null";
+
 	String A_Failed = "failed";
 
 	String A_Halting = "halting";
@@ -28,6 +38,8 @@ public interface Constant {
 	String A_Max = "max";
 
 	String A_MODEL = "model";
+
+	String A_Name = "name";
 
 	String A_On = "on";
 

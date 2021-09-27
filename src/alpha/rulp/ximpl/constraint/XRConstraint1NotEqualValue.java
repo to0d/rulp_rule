@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.rule.Constant.A_NOT_EQUAL_VALUE;
+
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -34,12 +36,12 @@ public class XRConstraint1NotEqualValue extends AbsRConstraint1 implements IRCon
 	}
 
 	@Override
-	public RConstraintType getConstraintType() {
-		return RConstraintType.NOT_EQUAL_OBJ;
+	public int[] getConstraintIndex() {
+		return constraintIndex;
 	}
 
 	@Override
-	public int[] getConstraintIndex() {
-		return constraintIndex;
+	public String getConstraintName() {
+		return A_NOT_EQUAL_VALUE;
 	}
 }

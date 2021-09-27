@@ -27,7 +27,7 @@ import alpha.rulp.utils.RulpUtil;
 public class ConstraintFactory {
 
 	public static class RConstraint {
-		RConstraintType constraintType;
+		String constraintName;
 		IRObject constraintValue;
 		IRObject onObject;
 	}
@@ -275,7 +275,7 @@ public class ConstraintFactory {
 		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Type) && _isAtom(constraintlist, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
-			cons.constraintType = RConstraintType.TYPE;
+			cons.constraintName = A_Type;
 			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
 			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
 
@@ -286,7 +286,7 @@ public class ConstraintFactory {
 		if (consListSize == 3 && _isAtom(constraintlist, 0, A_Uniq) && _isAtom(constraintlist, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
-			cons.constraintType = RConstraintType.UNIQ;
+			cons.constraintName = A_Uniq;
 			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
 
 			return cons;
@@ -296,7 +296,7 @@ public class ConstraintFactory {
 		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Max) && _isAtom(constraintlist, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
-			cons.constraintType = RConstraintType.MAX;
+			cons.constraintName = A_Max;
 			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
 			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
 			return cons;
@@ -306,7 +306,7 @@ public class ConstraintFactory {
 		if (consListSize == 3 && _isAtom(constraintlist, 0, S_QUESTION) && _isAtom(constraintlist, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
-			cons.constraintType = RConstraintType.ANY;
+			cons.constraintName = S_QUESTION;
 			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
 
 			return cons;

@@ -70,6 +70,7 @@ import alpha.rulp.rule.IRRuleCounter;
 import alpha.rulp.rule.RCountType;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.constraint.IRConstraint;
 import alpha.rulp.ximpl.entry.IFixEntry;
 import alpha.rulp.ximpl.entry.IFixEntryArray;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -1522,9 +1523,14 @@ public class OptimizeUtil {
 
 		ArrayList<IRReteNode> constraintNodeList = new ArrayList<>();
 		for (IRReteNode node : nodes) {
-
-			if (node.getConstraintCount() == 0) {
-				continue;
+			if (RReteType.isBetaType(node.getReteType())) {
+				if (node.getConstraint1Count() == 0 && RuleUtil.asBetaNode(node).getConstraint2Count() == 0) {
+					continue;
+				}
+			} else {
+				if (node.getConstraint1Count() == 0) {
+					continue;
+				}
 			}
 
 			constraintNodeList.add(node);
@@ -1536,16 +1542,29 @@ public class OptimizeUtil {
 
 		sb.append("node info4:\n");
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%8s  %6s %6s %s\n", "NODE[n]", "Update", "Fail", "Constraint"));
+		sb.append(String.format("%8s  %6s %6s   %s\n", "NODE[n]", "Update", "Fail", "Constraint"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : constraintNodeList) {
 
-			sb.append(String.format("%8s  %6d %6d %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
-					node.getEntryQueue().getUpdateCount(), node.getAddEntryFailCount(), node.getConstraint(0)));
+			ArrayList<IRConstraint> consList = new ArrayList<>();
+			if (node.getConstraint1Count() > 0) {
+				for (int i = 0; i < node.getConstraint1Count(); ++i) {
+					consList.add(node.getConstraint1(i));
+				}
+			}
 
-			for (int i = 1; i < node.getConstraintCount(); ++i) {
-				sb.append(String.format("%8s  %6s %6s %s\n", "", "", "", node.getConstraint(i)));
+			if (RReteType.isBetaType(node.getReteType()) && RuleUtil.asBetaNode(node).getConstraint2Count() > 0) {
+				consList.addAll(RuleUtil.asBetaNode(node).getConstraint2List());
+			}
+
+			sb.append(String.format("%8s  %6d %6d   %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					node.getEntryQueue().getUpdateCount(), node.getAddEntryFailCount(),
+					consList.get(0).getConstraintKind() + ":" + consList.get(0)));
+
+			for (int i = 1; i < consList.size(); ++i) {
+				sb.append(String.format("%8s  %6s %6s   %s\n", "", "", "",
+						consList.get(i).getConstraintKind() + ":" + consList.get(i)));
 			}
 		}
 

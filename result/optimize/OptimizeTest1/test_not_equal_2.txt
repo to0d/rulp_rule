@@ -59,13 +59,13 @@ B2009[3]  '('('('('(?0 ?1 ?2) (not-equal nm:hasRelation ?1)) (not-equal nm:hasAu
 
 node info4:
 ========================================================================================================================================================
- NODE[n]  Update   Fail Constraint
+ NODE[n]  Update   Fail   Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-A0004[3]       0      0 (equal ?1 nm:propertyOf)
-A0005[3]       0      0 (equal ?2 nm:tagRelation)
-A0008[3]       0      0 (equal ?1 nm:hasAutoRelatedTag)
-E1002[3]       0      0 (not-qual ?1 nm:hasRelation)
-E1003[3]       0      0 (not-qual ?1 nm:hasAutoRelatedTag)
+A0004[3]       0      0   C1:equal-value:(equal ?1 nm:propertyOf)
+A0005[3]       0      0   C1:equal-value:(equal ?2 nm:tagRelation)
+A0008[3]       0      0   C1:equal-value:(equal ?1 nm:hasAutoRelatedTag)
+E1002[3]       0      0   C1:not-equal-value:(not-qual ?1 nm:hasRelation)
+E1003[3]       0      0   C1:not-equal-value:(not-qual ?1 nm:hasAutoRelatedTag)
 ========================================================================================================================================================
 
 priority info:

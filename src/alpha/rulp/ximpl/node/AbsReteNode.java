@@ -120,7 +120,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		/***********************************************/
 		// Check constraint list
 		/***********************************************/
-		if (getConstraintCount() != 0) {
+		if (getConstraint1Count() != 0) {
 
 			// Duplicate constraint
 			if (constraintExprMap.containsKey(constraint.getConstraintExpression())) {
@@ -278,7 +278,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public IRConstraint1 getConstraint(int index) {
+	public IRConstraint1 getConstraint1(int index) {
 
 		if (constraintList == null || index < 0 || index >= constraintList.size()) {
 			return null;
@@ -288,7 +288,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public int getConstraintCount() {
+	public int getConstraint1Count() {
 		return constraintList == null ? 0 : constraintList.size();
 	}
 

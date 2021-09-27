@@ -65,8 +65,8 @@ public class XRFactorListConstraint extends AbsRFactorAdapter implements IRFacto
 		}
 
 		ArrayList<IRConstraint1> cons = new ArrayList<>();
-		for (int i = 0; i < node.getConstraintCount(); ++i) {
-			cons.add(node.getConstraint(i));
+		for (int i = 0; i < node.getConstraint1Count(); ++i) {
+			cons.add(node.getConstraint1(i));
 		}
 
 		return RulpFactory.createList(cons);

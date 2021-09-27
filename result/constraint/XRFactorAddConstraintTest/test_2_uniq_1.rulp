@@ -10,7 +10,7 @@
 ;=>1
 (add-stmt m name1:'(x y dup))
 ;err:
-Unable to add entry<name1:'(x y dup)> due to constraint<'(uniq on '(0 1))>
+Unable to add entry<name1:'(x y dup)> due to constraint<uniq:'(uniq on '(0 1))>
 at main: (add-stmt m name1:'(x y dup))
 ;eof
 (list-stmt m)
@@ -23,7 +23,7 @@ at main: (add-stmt m name1:'(x y dup))
 ;=>'(name1:'(a b 1) name1:'(x y dup))
 (add-stmt m name1:'(x y 3))
 ;err:
-Unable to add entry<name1:'(x y 3)> due to constraint<'(uniq on '(0 1))>
+Unable to add entry<name1:'(x y 3)> due to constraint<uniq:'(uniq on '(0 1))>
 at main: (add-stmt m name1:'(x y 3))
 ;eof
 (remove-constraint m name1:'(3) '(? on ?))

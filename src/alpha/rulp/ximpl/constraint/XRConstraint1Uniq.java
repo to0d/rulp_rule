@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.rule.Constant.A_Uniq;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +14,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+
 
 public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1, IRRListener1<IRReteEntry> {
 
@@ -97,16 +100,16 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 		return uniqColumnIndexs;
 	}
 
-	@Override
-	public RConstraintType getConstraintType() {
-		return RConstraintType.UNIQ;
-	}
-
 	public int[] getUniqColumnIndexs() {
 		return uniqColumnIndexs;
 	}
 
 	public int getUniqIndexCount() {
 		return uniqColumnIndexs.length;
+	}
+
+	@Override
+	public String getConstraintName() {
+		return A_Uniq;
 	}
 }

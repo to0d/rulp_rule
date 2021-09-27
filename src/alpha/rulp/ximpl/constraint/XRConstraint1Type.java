@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.rule.Constant.A_Type;
+
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -63,8 +65,8 @@ public class XRConstraint1Type extends AbsRConstraint1 implements IRConstraint1T
 	}
 
 	@Override
-	public RConstraintType getConstraintType() {
-		return RConstraintType.TYPE;
+	public String getConstraintName() {
+		return A_Type;
 	}
 
 }

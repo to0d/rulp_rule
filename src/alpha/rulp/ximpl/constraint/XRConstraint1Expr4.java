@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.lang.Constant.A_EXPRESSION;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,8 +51,8 @@ public class XRConstraint1Expr4 extends AbsRConstraint1 implements IRConstraint1
 	}
 
 	@Override
-	public RConstraintType getConstraintType() {
-		return RConstraintType.EXPR;
+	public String getConstraintName() {
+		return A_EXPRESSION;
 	}
 
 	@Override

@@ -46,12 +46,12 @@ RU000[3]  (defvar ?tagName (to-string ?tag)) (defvar ?pos (str-last-index-of ?ta
 
 node info4:
 ========================================================================================================================================================
- NODE[n]  Update   Fail Constraint
+ NODE[n]  Update   Fail   Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-A0002[3]       4      4 (equal ?1 nm:typeOf)
-A0003[3]       4      0 (equal ?2 nm:tag)
-A0006[3]       2      6 (equal ?1 nm:isVersionOf)
-E0004[3]       2      2 (can-cast '(int float) (get-version-number ?tag))
+A0002[3]       4      4   C1:equal-value:(equal ?1 nm:typeOf)
+A0003[3]       4      0   C1:equal-value:(equal ?2 nm:tag)
+A0006[3]       2      6   C1:equal-value:(equal ?1 nm:isVersionOf)
+E0004[3]       2      2   C1:expr:(can-cast '(int float) (get-version-number ?tag))
 ========================================================================================================================================================
 
 priority info:

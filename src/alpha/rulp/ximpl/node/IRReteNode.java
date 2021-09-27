@@ -70,10 +70,12 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 	public List<IRReteNode> getChildNodes();
 
 	public List<IRReteNode> getChildNodes(boolean onlyAutoUpdate);
+	
+//	public List<IRConstraint> listConstraints();
 
-	public IRConstraint1 getConstraint(int index);
+	public IRConstraint1 getConstraint1(int index);
 
-	public int getConstraintCount();
+	public int getConstraint1Count();
 
 	public int getEntryLength();
 

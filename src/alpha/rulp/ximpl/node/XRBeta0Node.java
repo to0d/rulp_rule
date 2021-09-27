@@ -13,6 +13,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -260,6 +261,17 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 	@Override
 	public List<JoinIndex> getJoinIndexList() {
 		return joinIndexList;
+	}
+
+	@Override
+	public List<IRConstraint2> getConstraint2List() {
+		return null;
+	}
+
+	@Override
+	public int getConstraint2Count() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

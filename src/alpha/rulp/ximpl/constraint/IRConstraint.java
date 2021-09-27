@@ -8,5 +8,7 @@ public interface IRConstraint extends IRInstance {
 
 	public String getConstraintExpression();
 
-	public RConstraintType getConstraintType();
+	public String getConstraintName();
+
+	public RConstraintKind getConstraintKind();
 }

@@ -24,6 +24,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
+import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
@@ -138,6 +139,15 @@ public class RuleUtil {
 	static IRParser parser = null;
 
 	static StaticVar varTraceModel = new StaticVar(A_M_TRACE, O_False);
+
+	public static IRBetaNode asBetaNode(IRReteNode node) throws RException {
+
+		if (!RReteType.isBetaType(node.getReteType())) {
+			throw new RException("Can't convert to beta node: " + node);
+		}
+
+		return (IRBetaNode) node;
+	}
 
 	public static IRModel asModel(IRObject obj) throws RException {
 

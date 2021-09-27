@@ -1,9 +1,8 @@
 package alpha.rulp.ximpl.constraint;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.ximpl.rclass.AbsRInstance;
 
-public abstract class AbsRConstraint2 extends AbsRInstance implements IRConstraint2 {
+public abstract class AbsRConstraint2 extends AbsRConstraint implements IRConstraint2 {
 
 	@Override
 	public String asString() {
@@ -18,6 +17,11 @@ public abstract class AbsRConstraint2 extends AbsRInstance implements IRConstrai
 	@Override
 	public void decRef() throws RException {
 
+	}
+
+	@Override
+	public RConstraintKind getConstraintKind() {
+		return RConstraintKind.C2;
 	}
 
 	@Override

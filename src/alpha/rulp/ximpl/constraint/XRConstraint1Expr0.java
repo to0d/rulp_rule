@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.lang.Constant.A_EXPRESSION;
+
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
@@ -67,11 +69,6 @@ public class XRConstraint1Expr0 extends AbsRConstraint1 implements IRConstraint1
 	}
 
 	@Override
-	public RConstraintType getConstraintType() {
-		return RConstraintType.EXPR;
-	}
-
-	@Override
 	public IRExpr getExpr() {
 		return expr;
 	}
@@ -79,5 +76,10 @@ public class XRConstraint1Expr0 extends AbsRConstraint1 implements IRConstraint1
 	@Override
 	public int[] getConstraintIndex() {
 		return null;
+	}
+
+	@Override
+	public String getConstraintName() {
+		return A_EXPRESSION;
 	}
 }

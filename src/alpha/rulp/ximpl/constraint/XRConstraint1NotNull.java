@@ -1,12 +1,13 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.rule.Constant.A_NOT_NULL;
+
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-
 public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstraint1 {
 
 	private int index;
@@ -32,12 +33,12 @@ public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstrain
 	}
 
 	@Override
-	public RConstraintType getConstraintType() {
-		return RConstraintType.NOT_EQUAL_OBJ;
+	public int[] getConstraintIndex() {
+		return constraintIndex;
 	}
 
 	@Override
-	public int[] getConstraintIndex() {
-		return constraintIndex;
+	public String getConstraintName() {
+		return A_NOT_NULL;
 	}
 }

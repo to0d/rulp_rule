@@ -1,6 +1,8 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.S_QUESTION;
+import static alpha.rulp.rule.Constant.A_Type;
+import static alpha.rulp.rule.Constant.A_Uniq;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -225,7 +227,7 @@ public class ConstraintBuilder {
 		/**********************************************/
 		// Column type
 		/**********************************************/
-		if (cons.constraintType.equals(RConstraintType.TYPE) && !ReteUtil.isAnyVar(cons.constraintValue)) {
+		if (cons.constraintName.equals(A_Type) && !ReteUtil.isAnyVar(cons.constraintValue)) {
 			columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
 			if (columnType == null || !ReteUtil.isEntryValueType(columnType)) {
 				throw new RException("Invalid column type: " + columnType);
@@ -240,11 +242,12 @@ public class ConstraintBuilder {
 		/**********************************************/
 		// Check
 		/**********************************************/
-		int totalConstraintCount = node.getConstraintCount();
+		int totalConstraintCount = node.getConstraint1Count();
 		for (int i = 0; i < totalConstraintCount; ++i) {
 
-			IRConstraint1 constraint = node.getConstraint(i);
-			if (cons.constraintType != RConstraintType.ANY && cons.constraintType != constraint.getConstraintType()) {
+			IRConstraint1 constraint = node.getConstraint1(i);
+			if (!cons.constraintName.equals(S_QUESTION)
+					&& !cons.constraintName.equals(constraint.getConstraintName())) {
 				continue;
 			}
 
@@ -335,17 +338,17 @@ public class ConstraintBuilder {
 			case LIST:
 
 				RConstraint cons = ConstraintFactory.toConstraint((IRList) obj, interpreter, frame);
-				switch (cons.constraintType) {
-				case TYPE:
+				switch (cons.constraintName) {
+				case A_Type:
 					constraintList.add(_typeConstraint(cons));
 					break;
 
-				case UNIQ:
+				case A_Uniq:
 					constraintList.add(_uniqConstraint(cons));
 					break;
 
 				default:
-					throw new RException("unsupport constraint: " + cons.constraintType);
+					throw new RException("unsupport constraint: " + cons.constraintName);
 				}
 				break;
 

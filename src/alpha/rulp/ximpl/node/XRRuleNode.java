@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.node;
 
+import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 
@@ -32,7 +33,6 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Expr;
-import alpha.rulp.ximpl.constraint.RConstraintType;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -139,9 +139,9 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		/***********************************************************/
 		// Check ?1 ?2 variables in index expression
 		/***********************************************************/
-		if (this.getConstraintCount() > 0) {
+		if (this.getConstraint1Count() > 0) {
 			for (IRConstraint1 constraint : this.constraintList) {
-				if (constraint.getConstraintType() == RConstraintType.TYPE) {
+				if (constraint.getConstraintName().equals(A_Type)) {
 					IRConstraint1Expr typeCons = (IRConstraint1Expr) constraint;
 					for (IRObject varObj : ReteUtil.buildVarList(typeCons.getExpr())) {
 						String varName = RulpUtil.asAtom(varObj).getName();
@@ -183,7 +183,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			return false;
 		}
 
-		if (this.getConstraintCount() == 0) {
+		if (this.getConstraint1Count() == 0) {
 			return true;
 		}
 

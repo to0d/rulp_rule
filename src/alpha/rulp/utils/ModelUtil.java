@@ -1,5 +1,7 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.rule.Constant.A_Type;
+import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
 import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
@@ -287,8 +289,8 @@ public class ModelUtil {
 		IRInterpreter interpreter = model.getInterpreter();
 		IRFrame frame = model.getModelFrame();
 
-		switch (constraint.getConstraintType()) {
-		case TYPE:
+		switch (constraint.getConstraintName()) {
+		case A_Type:
 			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
 			interpreter.compute(frame,
 					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, model,
@@ -296,9 +298,9 @@ public class ModelUtil {
 							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
 							RType.toObject(typeConstraint.getColumnType())));
 			break;
-			
-		case UNIQ:
-			
+
+		case A_Uniq:
+
 		default:
 			break;
 		}

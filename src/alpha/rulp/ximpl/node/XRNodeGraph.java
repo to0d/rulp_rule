@@ -1343,9 +1343,9 @@ public class XRNodeGraph implements IRNodeGraph {
 				exprChild1.setParentNodes(ReteUtil.toNodesArray(parentNode));
 
 				// Copy match node from parent to child
-				int consSize = exprParent1.getConstraintCount();
+				int consSize = exprParent1.getConstraint1Count();
 				for (int i = 0; i < consSize; ++i) {
-					ModelUtil.addConstraint(model, exprChild1, exprParent1.getConstraint(i));
+					ModelUtil.addConstraint(model, exprChild1, exprParent1.getConstraint1(i));
 				}
 
 				// Update priority
