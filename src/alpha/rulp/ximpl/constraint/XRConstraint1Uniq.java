@@ -13,7 +13,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraintUniq extends AbsRConstraint1 implements IRConstraint1, IRRListener1<IRReteEntry> {
+public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1, IRRListener1<IRReteEntry> {
 
 	private String _constraintExpression = null;
 
@@ -23,7 +23,7 @@ public class XRConstraintUniq extends AbsRConstraint1 implements IRConstraint1, 
 
 	private Map<String, IRReteEntry> uniqEntryMap = null;
 
-	public XRConstraintUniq(int[] uniqColumnIndexs) {
+	public XRConstraint1Uniq(int[] uniqColumnIndexs) {
 		super();
 		this.uniqColumnIndexs = uniqColumnIndexs;
 		this.uniqEntry = new IRObject[uniqColumnIndexs.length];

@@ -16,7 +16,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBeta0Node extends XRReteNode2 {
+public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 
 	public static int MAP_MATCH_MIN_COUNT = 100;
 
@@ -213,7 +213,7 @@ public class XRBeta0Node extends XRReteNode2 {
 		} else {
 			des += ",";
 		}
-		
+
 		des += OptimizeUtil.toString(joinIndexList);
 
 		return des;
@@ -255,6 +255,11 @@ public class XRBeta0Node extends XRReteNode2 {
 		} else {
 			return _update_no_primary();
 		}
+	}
+
+	@Override
+	public List<JoinIndex> getJoinIndexList() {
+		return joinIndexList;
 	}
 
 }

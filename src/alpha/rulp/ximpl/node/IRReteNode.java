@@ -147,6 +147,8 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public void setTrace(boolean trace);
 
+	public void setUniqName(String uniqName);
+
 	public int update() throws RException;
 
 }

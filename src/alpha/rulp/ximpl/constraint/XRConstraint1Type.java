@@ -7,7 +7,7 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraintType extends AbsRConstraint1 implements IRConstraintType {
+public class XRConstraint1Type extends AbsRConstraint1 implements IRConstraint1Type {
 
 	private String _constraintExpression = null;
 
@@ -17,7 +17,7 @@ public class XRConstraintType extends AbsRConstraint1 implements IRConstraintTyp
 
 	private int[] constraintIndex;
 
-	public XRConstraintType(int columnIndex, RType columnType) {
+	public XRConstraint1Type(int columnIndex, RType columnType) {
 		super();
 		this.columnIndex = columnIndex;
 		this.columnType = columnType;

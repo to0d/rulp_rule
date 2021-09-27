@@ -18,13 +18,13 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraintExpr4 extends AbsRConstraint1 implements IRConstraintExpr {
+public class XRConstraint1Expr4 extends AbsRConstraint1 implements IRConstraint1Expr {
 
 	protected IRExpr expr;
 
 	protected LinkedList<IRList> matchStmtList;
 
-	public XRConstraintExpr4(IRExpr expr, List<IRList> matchStmtList) {
+	public XRConstraint1Expr4(IRExpr expr, List<IRList> matchStmtList) {
 		super();
 		this.expr = expr;
 		this.matchStmtList = new LinkedList<>(matchStmtList);

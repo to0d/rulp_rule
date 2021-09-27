@@ -7,7 +7,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraintNotEqualValue extends AbsRConstraint1 implements IRConstraint1 {
+public class XRConstraint1NotEqualValue extends AbsRConstraint1 implements IRConstraint1 {
 
 	private int index;
 
@@ -15,7 +15,7 @@ public class XRConstraintNotEqualValue extends AbsRConstraint1 implements IRCons
 
 	private IRObject obj;
 
-	public XRConstraintNotEqualValue(int index, IRObject obj) {
+	public XRConstraint1NotEqualValue(int index, IRObject obj) {
 		super();
 		this.index = index;
 		this.obj = obj;

@@ -6,7 +6,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraintEqualIndex extends AbsRConstraint1 implements IRConstraint1 {
+public class XRConstraint1EqualIndex extends AbsRConstraint1 implements IRConstraint1 {
 
 	private int[] constraintIndex;
 
@@ -14,7 +14,7 @@ public class XRConstraintEqualIndex extends AbsRConstraint1 implements IRConstra
 
 	private int idx2;
 
-	public XRConstraintEqualIndex(int idx1, int idx2) {
+	public XRConstraint1EqualIndex(int idx1, int idx2) {
 		super();
 		this.idx1 = idx1;
 		this.idx2 = idx2;

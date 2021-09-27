@@ -2,10 +2,12 @@ package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 
+import java.util.List;
+
 import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBeta3Node extends XRReteNode2 {
+public class XRBeta3Node extends XRReteNode2 implements IRBetaNode {
 
 	protected boolean _addNewEntry(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
 
@@ -33,6 +35,11 @@ public class XRBeta3Node extends XRReteNode2 {
 		}
 
 		return true;
+	}
+
+	@Override
+	public List<JoinIndex> getJoinIndexList() {
+		return null;
 	}
 
 }

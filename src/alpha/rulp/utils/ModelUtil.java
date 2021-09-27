@@ -30,7 +30,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleUtil.RuleActionFactor;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
-import alpha.rulp.ximpl.constraint.IRConstraintType;
+import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
@@ -289,7 +289,7 @@ public class ModelUtil {
 
 		switch (constraint.getConstraintType()) {
 		case TYPE:
-			IRConstraintType typeConstraint = (IRConstraintType) constraint;
+			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
 			interpreter.compute(frame,
 					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, model,
 							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),

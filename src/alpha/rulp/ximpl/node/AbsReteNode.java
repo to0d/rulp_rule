@@ -595,6 +595,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		this.trace = trace;
 	}
 
+	@Override
 	public void setUniqName(String uniqName) {
 		this.uniqName = uniqName;
 		this.setInstanceName(uniqName);

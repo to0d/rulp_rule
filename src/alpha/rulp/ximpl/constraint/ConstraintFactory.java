@@ -49,15 +49,15 @@ public class ConstraintFactory {
 	}
 
 	public static IRConstraint1 createConstraintEqualIndex(int idx1, int idx2) {
-		return new XRConstraintEqualIndex(idx1, idx2);
+		return new XRConstraint1EqualIndex(idx1, idx2);
 	}
 
 	public static IRConstraint1 createConstraintEqualValue(int index, IRObject obj) {
-		return new XRConstraintEqualValue(index, obj);
+		return new XRConstraint1EqualValue(index, obj);
 	}
 
 	public static IRConstraint1 createConstraintExpr0Node(IRExpr expr, IRObject[] varEntry) throws RException {
-		return new XRConstraintExpr0(expr, varEntry);
+		return new XRConstraint1Expr0(expr, varEntry);
 	}
 
 	public static IRConstraint1 createConstraintExpr1Node(IRExpr expr, ArrayList<IRObject> leftVarList)
@@ -169,11 +169,11 @@ public class ConstraintFactory {
 	}
 
 	public static IRConstraint1 createConstraintExpr3Node(IRExpr expr) throws RException {
-		return new XRConstraintExpr3(expr);
+		return new XRConstraint1Expr3(expr);
 	}
 
 	public static IRConstraint1 createConstraintExpr4Node(IRExpr expr, List<IRList> matchStmtList) throws RException {
-		return new XRConstraintExpr4(expr, matchStmtList);
+		return new XRConstraint1Expr4(expr, matchStmtList);
 	}
 
 	public static IRConstraint1 createConstraintMax(int columnIndex, IRObject maxValue) {
@@ -183,20 +183,20 @@ public class ConstraintFactory {
 	}
 
 	public static IRConstraint1 createConstraintNotEqualIndex(int idx1, int idx2) {
-		return new XRConstraintNotEqualIndex(idx1, idx2);
+		return new XRConstraint1NotEqualIndex(idx1, idx2);
 
 	}
 
 	public static IRConstraint1 createConstraintNotEqualValue(int index, IRObject obj) {
-		return new XRConstraintNotEqualValue(index, obj);
+		return new XRConstraint1NotEqualValue(index, obj);
 	}
 
 	public static IRConstraint1 createConstraintNotNull(int index) {
-		return new XRConstraintNotNull(index);
+		return new XRConstraint1NotNull(index);
 	}
 
 	public static IRConstraint1 createConstraintType(int columnIndex, RType columnType) {
-		return new XRConstraintType(columnIndex, columnType);
+		return new XRConstraint1Type(columnIndex, columnType);
 	}
 
 	public static IRConstraint1 createConstraintUniq(int... columnIndexs) throws RException {
@@ -223,7 +223,7 @@ public class ConstraintFactory {
 			lastIndex = columnIndex;
 		}
 
-		return new XRConstraintUniq(uniqColumnIndexs);
+		return new XRConstraint1Uniq(uniqColumnIndexs);
 	}
 
 	static IRConstraint1 createSingleConstraint(IRList constraintList) {

@@ -3,41 +3,43 @@ package alpha.rulp.ximpl.constraint;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraintNotNull extends AbsRConstraint1 implements IRConstraint1 {
-
-	private int index;
+public class XRConstraint1EqualValue extends AbsRConstraint1 implements IRConstraint1 {
 
 	private int[] constraintIndex;
 
-	public XRConstraintNotNull(int index) {
+	private int index;
+
+	private IRObject obj;
+
+	public XRConstraint1EqualValue(int index, IRObject obj) {
 		super();
 		this.index = index;
+		this.obj = obj;
 		this.constraintIndex = new int[1];
 		this.constraintIndex[0] = index;
 	}
 
 	@Override
 	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
-		IRObject obj = entry.get(index);
-		return obj != null && obj.getType() != RType.NIL;
+		return ReteUtil.equal(entry.get(index), obj);
 	}
 
 	@Override
 	public String getConstraintExpression() {
-		return String.format("(not-null ?%d)", index);
-	}
-
-	@Override
-	public RConstraintType getConstraintType() {
-		return RConstraintType.NOT_EQUAL_OBJ;
+		return String.format("(equal ?%d %s)", index, "" + obj);
 	}
 
 	@Override
 	public int[] getConstraintIndex() {
 		return constraintIndex;
+	}
+
+	@Override
+	public RConstraintType getConstraintType() {
+		return RConstraintType.EQUAL_OBJ;
 	}
 }

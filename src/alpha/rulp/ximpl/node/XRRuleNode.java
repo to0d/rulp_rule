@@ -31,7 +31,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
-import alpha.rulp.ximpl.constraint.IRConstraintExpr;
+import alpha.rulp.ximpl.constraint.IRConstraint1Expr;
 import alpha.rulp.ximpl.constraint.RConstraintType;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
@@ -142,7 +142,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		if (this.getConstraintCount() > 0) {
 			for (IRConstraint1 constraint : this.constraintList) {
 				if (constraint.getConstraintType() == RConstraintType.TYPE) {
-					IRConstraintExpr typeCons = (IRConstraintExpr) constraint;
+					IRConstraint1Expr typeCons = (IRConstraint1Expr) constraint;
 					for (IRObject varObj : ReteUtil.buildVarList(typeCons.getExpr())) {
 						String varName = RulpUtil.asAtom(varObj).getName();
 						if (ReteUtil.isIndexVarName(varName)) {

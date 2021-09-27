@@ -1,7 +1,8 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.lang.Constant.*;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.lang.Constant.F_EQUAL;
+import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
+import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 
@@ -723,16 +724,22 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
-		if (ModifierCount > 0) {
+		if (ModifierCount > 0 && treeSize > ModifierCount) {
 
-			IRObject ex = reteTree.get(treeSize - 1);
-			RType exType = ex.getType();
-
-			// beta4: '(?a) '(?b) entry-order
-			if (ModifierCount == 1 && exType == RType.ATOM && RulpUtil.asAtom(ex).getName().equals(A_ENTRY_ORDER)
-					&& ReteUtil.isBetaTree(reteTree, treeSize - ModifierCount)) {
-				return _buildBetaNode(RulpFactory.createList(e0, reteTree.get(1)), tmpVarBuilder);
+			ArrayList<IRObject> newReteTreeList = new ArrayList<>();
+			int newSize = treeSize - ModifierCount;
+			for (int i = 0; i < newSize; ++i) {
+				newReteTreeList.add(reteTree.get(i));
 			}
+
+			IRReteNode processNode = _buildReteNode(RulpFactory.createList(newReteTreeList), tmpVarBuilder);
+			for (int i = newSize; i < treeSize; ++i) {
+				processNode = _processNodeModifier(processNode, RulpUtil.asAtom(reteTree.get(i)).asString());
+			}
+
+			processNode.setUniqName(ReteUtil.uniqName(reteTree));
+
+			return processNode;
 		}
 
 //		// beta:((var-changed ?x ?xv) url-entry:'(?url-name ?url))
@@ -741,6 +748,51 @@ public class XRNodeGraph implements IRNodeGraph {
 //		}
 
 		throw new RException("Invalid tree found: " + reteTree);
+	}
+
+	public static boolean isSymmetricBetaNode(IRReteNode node) {
+
+		if (!RReteType.isBetaType(node.getReteType())) {
+			return false;
+		}
+
+		if (node.getParentNodes()[0] != node.getParentNodes()[1]) {
+			return false;
+		}
+
+		IRBetaNode betaNode = (IRBetaNode) node;
+
+		List<JoinIndex> joinIndexs = betaNode.getJoinIndexList();
+		if (joinIndexs != null) {
+			for (JoinIndex ji : joinIndexs) {
+				if (ji.leftIndex != ji.rightIndex) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	protected IRReteNode _processNodeModifier(IRReteNode node, String modifier) throws RException {
+
+		switch (modifier) {
+
+		// beta: '(?a) '(?b) entry-order
+		case A_ENTRY_ORDER:
+
+			// This constraint will be only added to "symmetric" betaNode
+			if (isSymmetricBetaNode(node)) {
+
+			}
+
+			break;
+
+		default:
+			throw new RException("invalid modifier: " + modifier);
+		}
+
+		return node;
 	}
 
 	protected IRReteNode _buildRootNode(int stmtLen) throws RException {
