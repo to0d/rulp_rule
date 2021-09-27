@@ -722,18 +722,18 @@ public class XRNodeGraph implements IRNodeGraph {
 			return _buildBetaNode(reteTree, tmpVarBuilder);
 		}
 
-//		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
-//		if (ModifierCount > 0) {
-//
-//			IRObject ex = reteTree.get(treeSize - 1);
-//			RType exType = ex.getType();
-//
-//			// beta4: '(?a) '(?b) entry-order
-//			if (ModifierCount == 1 && exType == RType.ATOM && RulpUtil.asAtom(ex).getName().equals(A_ENTRY_ORDER)
-//					&& ReteUtil.isBetaTree(reteTree, treeSize - ModifierCount)) {
-//				return _buildBetaNode(RulpFactory.createList(e0, reteTree.get(1)), tmpVarBuilder);
-//			}
-//		}
+		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
+		if (ModifierCount > 0) {
+
+			IRObject ex = reteTree.get(treeSize - 1);
+			RType exType = ex.getType();
+
+			// beta4: '(?a) '(?b) entry-order
+			if (ModifierCount == 1 && exType == RType.ATOM && RulpUtil.asAtom(ex).getName().equals(A_ENTRY_ORDER)
+					&& ReteUtil.isBetaTree(reteTree, treeSize - ModifierCount)) {
+				return _buildBetaNode(RulpFactory.createList(e0, reteTree.get(1)), tmpVarBuilder);
+			}
+		}
 
 //		// beta:((var-changed ?x ?xv) url-entry:'(?url-name ?url))
 //		if (treeSize == 2 && treeType == RType.EXPR && ReteUtility.isVarChangeExpr(e0) && e1Type == RType.LIST) {

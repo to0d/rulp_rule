@@ -463,21 +463,21 @@ public class ReteUtil {
 			return vars;
 		}
 
-//		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
-//		if (ModifierCount > 0) {
-//
-//			ArrayList<IRObject> vars = new ArrayList<>();
-//
-//			for (int index = reteTree.size() - ModifierCount; index > 0; --index) {
-//				for (IRObject v : buildTreeVarList((IRList) reteTree.get(index - 1), new HashMap<>())) {
-//					if (_tryPutVarIndex(indexMap, v, vars.size())) {
-//						vars.add(v);
-//					}
-//				}
-//			}
-//
-//			return vars;
-//		}
+		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
+		if (ModifierCount > 0) {
+
+			ArrayList<IRObject> vars = new ArrayList<>();
+
+			for (int index = reteTree.size() - ModifierCount; index > 0; --index) {
+				for (IRObject v : buildTreeVarList((IRList) reteTree.get(index - 1), new HashMap<>())) {
+					if (_tryPutVarIndex(indexMap, v, vars.size())) {
+						vars.add(v);
+					}
+				}
+			}
+
+			return vars;
+		}
 
 		throw new RException("Invalid tree node found: " + reteTree);
 	}
