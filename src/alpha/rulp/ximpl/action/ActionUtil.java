@@ -32,16 +32,20 @@ public class ActionUtil {
 
 		protected int stmtSize;
 
-		protected IRList varStmt;
+		protected String stmtName;
+
+		protected String _toString;
 
 		public XActionNodeAddStmt(int[] inheritIndexs, int inheritCount, IRObject[] stmtObjs, int stmtSize,
-				IRList varStmt) {
+				String stmtName) {
+
 			super();
 			this.inheritIndexs = inheritIndexs;
 			this.inheritCount = inheritCount;
 			this.stmtObjs = stmtObjs;
 			this.stmtSize = stmtSize;
-			this.varStmt = varStmt;
+			this.stmtName = stmtName;
+
 		}
 
 		@Override
@@ -64,15 +68,48 @@ public class ActionUtil {
 				elements.add(obj);
 			}
 
-			if (varStmt.getNamedName() != null) {
-				node.getModel().addStatement(RulpFactory.createNamedList(elements, varStmt.getNamedName()));
+			if (stmtName != null) {
+				node.getModel().addStatement(RulpFactory.createNamedList(elements, stmtName));
 			} else {
 				node.getModel().addStatement(RulpFactory.createList(elements));
 			}
 		}
 
 		public String toString() {
-			return "" + varStmt;
+
+			if (_toString == null) {
+
+				StringBuffer sb = new StringBuffer();
+
+				sb.append("(-> ");
+
+				if (stmtName != null) {
+					sb.append(String.format("%s:", stmtName));
+				}
+
+				sb.append("'(");
+
+				for (int i = 0; i < stmtSize; ++i) {
+
+					if (i != 0) {
+						sb.append(", ");
+					}
+
+					IRObject obj = stmtObjs[i];
+					if (obj == null) {
+						sb.append(String.format("?%d", inheritIndexs[i]));
+					} else {
+						sb.append(obj.toString());
+					}
+
+				}
+
+				sb.append("))");
+
+				_toString = sb.toString();
+			}
+
+			return _toString;
 		}
 	}
 
@@ -251,7 +288,7 @@ public class ActionUtil {
 			throw new RException("not var found: " + varStmt);
 		}
 
-		return new XActionNodeAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize, varStmt);
+		return new XActionNodeAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize, varStmt.getNamedName());
 	}
 
 	public static List<String> buildRelatedStmtUniqNames(IRExpr expr) throws RException {

@@ -1572,6 +1572,35 @@ public class OptimizeUtil {
 		sb.append("\n");
 	}
 
+	private static void _printNodeInfo5Queue(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		sb.append("node info5: queue\n");
+		sb.append(SEP_LINE1);
+
+		List<List<String>> result = new ArrayList<>();
+		List<Integer> maxLen = toList(8, 6, 136);
+
+		result.add(toList("NODE[n]", "Type", "Description"));
+
+		for (IRReteNode node : nodes) {
+			IREntryQueue entryQueue = node.getEntryQueue();
+			result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]", "" + entryQueue.getQueueType(),
+					entryQueue.getQueueDescription()));
+		}
+
+		int index = 0;
+		for (String line : _formatTableResult(result, maxLen)) {
+			if (index++ == 1) {
+				sb.append(SEP_LINE2);
+			}
+			sb.append(line);
+			sb.append("\n");
+		}
+
+		sb.append(SEP_LINE1);
+		sb.append("\n");
+	}
+
 	private static void _printNodeStats2(StringBuffer sb, IReteNodeMatrix nodeMatrix, RReteType... reteTypes)
 			throws RException {
 
@@ -1743,6 +1772,7 @@ public class OptimizeUtil {
 
 			// Output node constraint
 			_printNodeInfo4(sb, model, nodes);
+			_printNodeInfo5Queue(sb, model, nodes);
 		}
 
 		/****************************************************/

@@ -3,7 +3,6 @@ package alpha.rulp.ximpl.node;
 import java.util.List;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 
 public interface IRBetaNode extends IRReteNode {

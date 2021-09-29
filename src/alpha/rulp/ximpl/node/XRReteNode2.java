@@ -17,8 +17,6 @@ public abstract class XRReteNode2 extends AbsReteNode implements IRBetaNode {
 
 	protected IREntryTable entryTable;
 
-	protected InheritIndex inheritIndexs[];
-
 	protected int lastLeftEntryCount = 0;
 
 	protected int lastRightEntryCount = 0;
@@ -42,7 +40,7 @@ public abstract class XRReteNode2 extends AbsReteNode implements IRBetaNode {
 
 		IRObject[] newElements = new IRObject[entryLength];
 		for (int i = 0; i < entryLength; ++i) {
-			InheritIndex inherit = inheritIndexs[i];
+			InheritIndex inherit = getInheritIndex()[i];
 			IRReteEntry parentEntry = inherit.parentIndex == 0 ? leftEntry : rightEntry;
 			newElements[i] = parentEntry.get(inherit.elementIndex);
 		}
@@ -158,10 +156,6 @@ public abstract class XRReteNode2 extends AbsReteNode implements IRBetaNode {
 
 	public void setEntryTable(IREntryTable entryTable) {
 		this.entryTable = entryTable;
-	}
-
-	public void setInheritIndexs(InheritIndex[] inheritIndexs) {
-		this.inheritIndexs = inheritIndexs;
 	}
 
 	@Override

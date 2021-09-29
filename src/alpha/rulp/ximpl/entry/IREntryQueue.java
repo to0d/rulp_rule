@@ -26,6 +26,8 @@ public interface IREntryQueue {
 
 	public int getQueryFetchCount();
 
+	public String getQueueDescription();
+
 	public REntryQueueType getQueueType();
 
 	public int getRedundantCount();

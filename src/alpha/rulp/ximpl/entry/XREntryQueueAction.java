@@ -22,6 +22,22 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 
 	protected int nodeUpdateCount = 0;
 
+	@Override
+	public String getQueueDescription() {
+
+		StringBuffer sb = new StringBuffer();
+
+		int index = 0;
+		for (IActionNode1 action : actionStmtList) {
+			if (index++ != 0) {
+				sb.append(" ");
+			}
+			sb.append(action.toString());
+		}
+
+		return sb.toString();
+	}
+
 	public XREntryQueueAction(IRReteNode node) {
 		super();
 		this.node = node;

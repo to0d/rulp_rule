@@ -27,6 +27,22 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 
 	protected int nodeUpdateCount = 0;
 
+	@Override
+	public String getQueueDescription() {
+
+		StringBuffer sb = new StringBuffer();
+
+		int index = 0;
+		for (IRExpr actionExpr : actionStmtList) {
+			if (index++ != 0) {
+				sb.append(" ");
+			}
+			sb.append(actionExpr.toString());
+		}
+
+		return sb.toString();
+	}
+
 	public XREntryQueueExecuteStmt(IRRule node) {
 		super();
 		this.node = node;

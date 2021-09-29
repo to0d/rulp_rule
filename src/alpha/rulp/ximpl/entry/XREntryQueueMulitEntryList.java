@@ -176,6 +176,11 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 	}
 
 	@Override
+	public String getQueueDescription() {
+		return "";
+	}
+
+	@Override
 	public int doGC() {
 
 		int removeCount = 0;

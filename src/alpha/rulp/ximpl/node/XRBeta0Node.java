@@ -14,7 +14,6 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -213,11 +212,6 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 		}
 
 		joinIndexList.add(joinIndex);
-	}
-
-	@Override
-	public InheritIndex[] getInheritIndex() {
-		return inheritIndexs;
 	}
 
 	@Override

@@ -44,8 +44,18 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	}
 
 	@Override
+	public int getEntryLength() {
+		return -1;
+	}
+
+	@Override
 	public int getQueryFetchCount() {
 		return 0;
+	}
+
+	@Override
+	public String getQueueDescription() {
+		return "";
 	}
 
 	@Override
@@ -64,16 +74,6 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	}
 
 	@Override
-	public int size() {
-		return 0;
-	}
-
-	@Override
-	public int getEntryLength() {
-		return -1;
-	}
-
-	@Override
 	public void incEntryRedundant() {
 
 	}
@@ -81,6 +81,11 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	@Override
 	public void incNodeUpdateCount() {
 
+	}
+
+	@Override
+	public int size() {
+		return 0;
 	}
 
 }

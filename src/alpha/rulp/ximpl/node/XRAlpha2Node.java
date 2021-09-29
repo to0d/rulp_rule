@@ -8,8 +8,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRAlpha2Node extends XRAlpha1Node {
 
-	protected InheritIndex inheritIndexs[];
-
 	protected IREntryTable entryTable;
 
 	protected IRReteEntry _getNewEntry(IRReteEntry parentEntry) throws RException {
@@ -42,10 +40,6 @@ public class XRAlpha2Node extends XRAlpha1Node {
 
 	public void setEntryTable(IREntryTable entryTable) {
 		this.entryTable = entryTable;
-	}
-
-	public void setInheritIndexs(InheritIndex[] inheritIndexs) {
-		this.inheritIndexs = inheritIndexs;
 	}
 
 }

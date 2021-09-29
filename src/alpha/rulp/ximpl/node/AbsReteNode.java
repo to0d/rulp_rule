@@ -41,9 +41,9 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected IRCacheWorker cache;
 
-	protected Map<String, IRConstraint1> constraintExprMap = null;
-
 	protected List<IRConstraint1> constraint1List = null;
+
+	protected Map<String, IRConstraint1> constraintExprMap = null;
 
 	protected int entryLength;
 
@@ -53,11 +53,13 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected IGraphInfo graphInfo;
 
+	protected InheritIndex inheritIndexs[];
+
 	protected IRModel model;
 
-	protected int nodeExecCount = 0;
-
 //	protected IRFrame nodeFrame = null;
+
+	protected int nodeExecCount = 0;
 
 	protected IRFrame nodeFrame = null;
 
@@ -204,11 +206,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return entryQueue.addEntry(entry);
 	}
 
-	@Override
-	public String asString() {
-		return this.uniqName;
-	}
-
 //	@Override
 //	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
 //
@@ -219,6 +216,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 //
 //		this._delete();
 //	}
+
+	@Override
+	public String asString() {
+		return this.uniqName;
+	}
 
 	@Override
 	public void decRef() throws RException {
@@ -298,7 +300,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	@Override
 	public InheritIndex[] getInheritIndex() {
-		return null;
+		return inheritIndexs;
 	}
 
 	@Override
@@ -540,6 +542,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public void setGraphInfo(IGraphInfo graphInfo) {
 		this.graphInfo = graphInfo;
+	}
+
+	public void setInheritIndexs(InheritIndex[] inheritIndexs) {
+		this.inheritIndexs = inheritIndexs;
 	}
 
 	public void setModel(IRModel model) {
