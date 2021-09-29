@@ -55,7 +55,7 @@ public class ActionUtil {
 
 					int inheritIndex = inheritIndexs[i];
 					if (inheritIndex == -1) {
-						throw new RException("invalid inherit index: " + inheritIndex);
+						throw new RException("invalid7 inherit index: " + inheritIndex);
 					}
 
 					obj = entry.get(inheritIndex);

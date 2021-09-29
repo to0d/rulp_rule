@@ -20,7 +20,7 @@ public class XRExprNode3 extends XRReteNode1 {
 
 	protected boolean _match() throws RException {
 
-		if (constraintList == null) {
+		if (constraint1List == null) {
 			return true;
 		}
 
@@ -30,7 +30,7 @@ public class XRExprNode3 extends XRReteNode1 {
 		RulpUtil.incRef(consFrame);
 
 		try {
-			for (IRConstraint1 matchNode : constraintList) {
+			for (IRConstraint1 matchNode : constraint1List) {
 				if (!matchNode.addEntry(null, this.getModel().getInterpreter(), consFrame)) {
 					return false;
 				}

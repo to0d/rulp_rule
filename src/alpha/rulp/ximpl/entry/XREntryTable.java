@@ -215,6 +215,11 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
+		public IRReteNode getNode() {
+			return node;
+		}
+
+		@Override
 		public IRReteEntry getParentEntry(int index) {
 			return parentEntrys[index];
 		}
@@ -233,11 +238,6 @@ public class XREntryTable implements IREntryTable {
 		public void setEntryId(int id) {
 			this.refId = id;
 		}
-
-		@Override
-		public IRReteNode getNode() {
-			return node;
-		}
 	}
 
 	static class XRReteEntry extends AbsAtomObject implements IRReteEntry, IFixEntry {
@@ -248,7 +248,11 @@ public class XREntryTable implements IREntryTable {
 
 		private int entryId = 0;
 
+		private int entryIndex = 0;
+
 		private XRRListener1Adapter<IRReteEntry> entryRemovedlistener = null;
+
+		private boolean isStmt = false;
 
 		private String namedName;
 
@@ -256,9 +260,8 @@ public class XREntryTable implements IREntryTable {
 
 		private RReteStatus status = RReteStatus.DEFINE;
 
-		private boolean isStmt = false;
-
-		public XRReteEntry(String namedName, IRObject[] elements) {
+		public XRReteEntry(int entryIndex, String namedName, IRObject[] elements) {
+			this.entryIndex = entryIndex;
 			this.namedName = namedName;
 			this.elements = elements;
 		}
@@ -320,6 +323,11 @@ public class XREntryTable implements IREntryTable {
 		@Override
 		public int getEntryId() {
 			return entryId;
+		}
+
+		@Override
+		public int getEntryIndex() {
+			return entryIndex;
 		}
 
 		@Override
@@ -440,6 +448,8 @@ public class XREntryTable implements IREntryTable {
 	static boolean _isValidReference(XRReference ref) {
 		return ref != null && !ref.isDroped();
 	}
+
+	protected int entryCount = 0;
 
 	protected XFixEntryArray<XRReteEntry> entryFixArray = new XFixEntryArray<>();
 
@@ -747,7 +757,7 @@ public class XREntryTable implements IREntryTable {
 	@Override
 	public IRReteEntry createEntry(String namedName, IRObject[] elements, RReteStatus status, boolean isStmt) {
 
-		XRReteEntry entry = new XRReteEntry(namedName, elements);
+		XRReteEntry entry = new XRReteEntry(++entryCount, namedName, elements);
 		entry.setStatus(status);
 		entry.setStmt(isStmt);
 		entryFixArray.addEntry(entry);

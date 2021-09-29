@@ -55,7 +55,7 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public void addChildNode(IRReteNode child);
 
-	public boolean addConstraint(IRConstraint1 constraint) throws RException;
+	public boolean addConstraint1(IRConstraint1 constraint) throws RException;
 
 	public void addQueryMatchCount(int add);
 
@@ -70,8 +70,6 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 	public List<IRReteNode> getChildNodes();
 
 	public List<IRReteNode> getChildNodes(boolean onlyAutoUpdate);
-	
-//	public List<IRConstraint> listConstraints();
 
 	public IRConstraint1 getConstraint1(int index);
 

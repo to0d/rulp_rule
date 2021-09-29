@@ -4,7 +4,9 @@ import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import java.util.List;
 
+import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -35,23 +37,29 @@ public class XRBeta3Node extends XRReteNode2 implements IRBetaNode {
 			return false;
 		}
 
-		return true;
-	}
+		if (this.constraint2List != null) {
 
-	@Override
-	public List<IRConstraint2> getConstraint2List() {
-		return null;
+			IRFrame consFrame = RNodeFactory.createNodeFrame(this);
+			RulpUtil.incRef(consFrame);
+
+			try {
+				for (IRConstraint2 constraint : constraint2List) {
+					if (!constraint.addEntry(leftEntry, rightEntry, this.getModel().getInterpreter(), consFrame)) {
+						return false;
+					}
+				}
+			} finally {
+				consFrame.release();
+				RulpUtil.decRef(consFrame);
+			}
+		}
+
+		return true;
 	}
 
 	@Override
 	public List<JoinIndex> getJoinIndexList() {
 		return null;
-	}
-
-	@Override
-	public int getConstraint2Count() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

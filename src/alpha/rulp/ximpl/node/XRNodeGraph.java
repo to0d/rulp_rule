@@ -783,7 +783,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			// This constraint will be only added to "symmetric" betaNode
 			if (isSymmetricBetaNode(node)) {
-
+				RuleUtil.asBetaNode(node).addConstraint2(ConstraintFactory.createConstraint2EntryOrder());
 			}
 
 			break;

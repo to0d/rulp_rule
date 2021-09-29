@@ -140,7 +140,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		// Check ?1 ?2 variables in index expression
 		/***********************************************************/
 		if (this.getConstraint1Count() > 0) {
-			for (IRConstraint1 constraint : this.constraintList) {
+			for (IRConstraint1 constraint : this.constraint1List) {
 				if (constraint.getConstraintName().equals(A_Type)) {
 					IRConstraint1Expr typeCons = (IRConstraint1Expr) constraint;
 					for (IRObject varObj : ReteUtil.buildVarList(typeCons.getExpr())) {
@@ -205,7 +205,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		RulpUtil.incRef(consFrame);
 
 		try {
-			for (IRConstraint1 constraint : this.constraintList) {
+			for (IRConstraint1 constraint : this.constraint1List) {
 				if (!constraint.addEntry(entry, model.getInterpreter(), consFrame)) {
 					return false;
 				}

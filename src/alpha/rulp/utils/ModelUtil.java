@@ -305,6 +305,6 @@ public class ModelUtil {
 			break;
 		}
 
-		return node.addConstraint(constraint);
+		return node.addConstraint1(constraint);
 	}
 }

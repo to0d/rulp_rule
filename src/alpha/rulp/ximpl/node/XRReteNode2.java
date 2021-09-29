@@ -1,13 +1,19 @@
 package alpha.rulp.ximpl.node;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public abstract class XRReteNode2 extends AbsReteNode {
+public abstract class XRReteNode2 extends AbsReteNode implements IRBetaNode {
+
+	protected List<IRConstraint2> constraint2List = null;
 
 	protected IREntryTable entryTable;
 
@@ -108,6 +114,27 @@ public abstract class XRReteNode2 extends AbsReteNode {
 		}
 
 		return updateCount;
+	}
+
+	@Override
+	public boolean addConstraint2(IRConstraint2 constraint) throws RException {
+
+		if (constraint2List == null) {
+			constraint2List = new ArrayList<>();
+		}
+
+		constraint2List.add(constraint);
+		return true;
+	}
+
+	@Override
+	public int getConstraint2Count() {
+		return constraint2List == null ? 0 : constraint2List.size();
+	}
+
+	@Override
+	public List<IRConstraint2> getConstraint2List() {
+		return constraint2List;
 	}
 
 	@Override

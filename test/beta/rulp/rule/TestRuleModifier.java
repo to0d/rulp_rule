@@ -44,7 +44,7 @@ public class TestRuleModifier extends RuleTestBase {
 		_test("(add-rule m if '(n1:'(?a) n1:'(?b) entry-order) (!= ?a ?b) do (-> n2:'(?a ?b)))");
 		_test("(add-stmt m n1:'(a))");
 		_test("(add-stmt m n1:'(b))");
-		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(b a) '(a b))");
+		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a b))");
 
 		_mStatus(1, "m");
 		_saveTest();

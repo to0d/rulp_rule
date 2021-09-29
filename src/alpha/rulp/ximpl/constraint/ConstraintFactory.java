@@ -48,6 +48,10 @@ public class ConstraintFactory {
 		return ((IRAtom) obj).getName().equals(name);
 	}
 
+	public static IRConstraint2 createConstraint2EntryOrder() {
+		return new XRConstraint2EntryOrder();
+	}
+
 	public static IRConstraint1 createConstraintEqualIndex(int idx1, int idx2) {
 		return new XRConstraint1EqualIndex(idx1, idx2);
 	}

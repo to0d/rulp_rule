@@ -43,7 +43,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected Map<String, IRConstraint1> constraintExprMap = null;
 
-	protected List<IRConstraint1> constraintList = null;
+	protected List<IRConstraint1> constraint1List = null;
 
 	protected int entryLength;
 
@@ -115,7 +115,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public boolean addConstraint(IRConstraint1 constraint) throws RException {
+	public boolean addConstraint1(IRConstraint1 constraint) throws RException {
 
 		/***********************************************/
 		// Check constraint list
@@ -126,18 +126,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			if (constraintExprMap.containsKey(constraint.getConstraintExpression())) {
 				return false;
 			}
-
-//			List<IRConstraint1> incompatibleConstraints = new ArrayList<>();
-
-//			if (!constraint.tryMatchConstraint(constraintList, incompatibleConstraints)) {
-//
-//				if (!incompatibleConstraints.isEmpty()) {
-//					throw new RException(String.format("Unable to add constraint<%s> due to pre-constraints<%s>",
-//							constraint, incompatibleConstraints));
-//				}
-//
-//				return false;
-//			}
 		}
 
 		/***********************************************/
@@ -163,17 +151,18 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 							String.format("Unable to add constraint<%s> due to entry<%s>", constraint, entry));
 				}
 			}
+
 		} finally {
 			nodeFrame.release();
 			RulpUtil.decRef(nodeFrame);
 		}
 
-		if (constraintList == null) {
-			constraintList = new ArrayList<>();
+		if (constraint1List == null) {
+			constraint1List = new ArrayList<>();
 			constraintExprMap = new HashMap<>();
 		}
 
-		constraintList.add(constraint);
+		constraint1List.add(constraint);
 		constraintExprMap.put(constraint.getConstraintExpression(), constraint);
 		return true;
 	}
@@ -190,13 +179,13 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			throw new RException("invalid entry: " + entry);
 		}
 
-		if (constraintList != null) {
+		if (constraint1List != null) {
 
 			nodeMatchCount++;
 
 			IRInterpreter interpreter = this.getModel().getInterpreter();
 
-			for (IRConstraint1 cons : constraintList) {
+			for (IRConstraint1 cons : constraint1List) {
 
 				if (!cons.addEntry(entry, interpreter, this.getNodeFrame(true))) {
 
@@ -280,16 +269,16 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public IRConstraint1 getConstraint1(int index) {
 
-		if (constraintList == null || index < 0 || index >= constraintList.size()) {
+		if (constraint1List == null || index < 0 || index >= constraint1List.size()) {
 			return null;
 		}
 
-		return constraintList.get(index);
+		return constraint1List.get(index);
 	}
 
 	@Override
 	public int getConstraint1Count() {
-		return constraintList == null ? 0 : constraintList.size();
+		return constraint1List == null ? 0 : constraint1List.size();
 	}
 
 	@Override
@@ -505,12 +494,12 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 		IRConstraint1 constraint = constraintExprMap.remove(constraintExpression);
 		if (constraint != null) {
-			constraintList.remove(constraint);
+			constraint1List.remove(constraint);
 			constraint.close();
 		}
 
-		if (constraintList.isEmpty()) {
-			constraintList = null;
+		if (constraint1List.isEmpty()) {
+			constraint1List = null;
 			constraintExprMap = null;
 		}
 

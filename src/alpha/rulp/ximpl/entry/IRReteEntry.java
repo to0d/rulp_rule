@@ -16,14 +16,16 @@ public interface IRReteEntry extends IRList, IFixEntry {
 
 	public int getEntryId();
 
+	public int getEntryIndex();
+
 	public String getNamedName();
 
 	public int getReferenceCount();
 
 	public Iterator<? extends IRReference> getReferenceIterator();
-
-	public RReteStatus getStatus();
 	
+	public RReteStatus getStatus();
+
 	public boolean isStmt();
 
 	public void removeEntryRemovedListener(IRRListener1<IRReteEntry> listener);

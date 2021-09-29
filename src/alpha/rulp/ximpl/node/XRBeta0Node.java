@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -76,6 +78,23 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 		for (JoinIndex joinIndex : joinIndexList) {
 			if (!ReteUtil.equal(leftEntry.get(joinIndex.leftIndex), rightEntry.get(joinIndex.rightIndex))) {
 				return false;
+			}
+		}
+
+		if (this.constraint2List != null) {
+
+			IRFrame consFrame = RNodeFactory.createNodeFrame(this);
+			RulpUtil.incRef(consFrame);
+
+			try {
+				for (IRConstraint2 constraint : constraint2List) {
+					if (!constraint.addEntry(leftEntry, rightEntry, this.getModel().getInterpreter(), consFrame)) {
+						return false;
+					}
+				}
+			} finally {
+				consFrame.release();
+				RulpUtil.decRef(consFrame);
 			}
 		}
 
@@ -202,6 +221,11 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 	}
 
 	@Override
+	public List<JoinIndex> getJoinIndexList() {
+		return joinIndexList;
+	}
+
+	@Override
 	public String getMatchDescription() {
 
 		if (joinIndexList == null) {
@@ -256,22 +280,6 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 		} else {
 			return _update_no_primary();
 		}
-	}
-
-	@Override
-	public List<JoinIndex> getJoinIndexList() {
-		return joinIndexList;
-	}
-
-	@Override
-	public List<IRConstraint2> getConstraint2List() {
-		return null;
-	}
-
-	@Override
-	public int getConstraint2Count() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }
