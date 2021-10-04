@@ -17,7 +17,7 @@ import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.ActionUtil;
-import alpha.rulp.ximpl.action.IActionNode1;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.XREntryQueueAction;
@@ -659,7 +659,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Try build action queue
-		List<IActionNode1> actionNodes = null;
+		List<IAction> actionNodes = null;
 
 		if (!actionStmtList.isEmpty()) {
 
@@ -669,7 +669,7 @@ public class RNodeFactory {
 
 			for (IRExpr actionStmt : actionStmtList) {
 
-				List<IActionNode1> acNodes = ActionUtil.tryBuildActionNodes(varEntry, actionStmt);
+				List<IAction> acNodes = ActionUtil.tryBuildActionNodes(varEntry, actionStmt);
 				if (acNodes == null) {
 					canBuildActionQueue = false;
 					break;

@@ -7,12 +7,12 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModel.RNodeContext;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.ximpl.action.IActionNode1;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueue {
 
-	protected LinkedList<IActionNode1> actionStmtList = new LinkedList<>();
+	protected LinkedList<IAction> actionStmtList = new LinkedList<>();
 
 	protected RNodeContext defaultNodeConext = new RNodeContext();
 
@@ -28,7 +28,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 		StringBuffer sb = new StringBuffer();
 
 		int index = 0;
-		for (IActionNode1 action : actionStmtList) {
+		for (IAction action : actionStmtList) {
 			if (index++ != 0) {
 				sb.append(" ");
 			}
@@ -43,7 +43,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 		this.node = node;
 	}
 
-	public void addActionNodes(List<IActionNode1> actionNodes) {
+	public void addActionNodes(List<IAction> actionNodes) {
 		this.actionStmtList.addAll(actionNodes);
 	}
 
@@ -65,7 +65,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 			context.currentEntry = entry;
 			model.setNodeContext(context);
 
-			for (IActionNode1 action : actionStmtList) {
+			for (IAction action : actionStmtList) {
 
 				if (RuleUtil.isModelTrace()) {
 					System.out.println("\t" + action.toString());

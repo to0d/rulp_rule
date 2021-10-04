@@ -14,106 +14,12 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.factor.XRFactorAddStmt;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class ActionUtil {
 
-	static class XActionNodeAddStmt implements IActionNode1 {
-
-		protected int inheritCount;
-
-		protected int inheritIndexs[];
-
-		protected IRObject stmtObjs[];
-
-		protected int stmtSize;
-
-		protected String stmtName;
-
-		protected String _toString;
-
-		public XActionNodeAddStmt(int[] inheritIndexs, int inheritCount, IRObject[] stmtObjs, int stmtSize,
-				String stmtName) {
-
-			super();
-			this.inheritIndexs = inheritIndexs;
-			this.inheritCount = inheritCount;
-			this.stmtObjs = stmtObjs;
-			this.stmtSize = stmtSize;
-			this.stmtName = stmtName;
-
-		}
-
-		@Override
-		public void doAction(IRReteNode node, IRReteEntry entry) throws RException {
-
-			ArrayList<IRObject> elements = new ArrayList<>();
-			for (int i = 0; i < stmtSize; ++i) {
-
-				IRObject obj = stmtObjs[i];
-				if (obj == null) {
-
-					int inheritIndex = inheritIndexs[i];
-					if (inheritIndex == -1) {
-						throw new RException("invalid7 inherit index: " + inheritIndex);
-					}
-
-					obj = entry.get(inheritIndex);
-				}
-
-				elements.add(obj);
-			}
-
-			if (stmtName != null) {
-				node.getModel().addStatement(RulpFactory.createNamedList(elements, stmtName));
-			} else {
-				node.getModel().addStatement(RulpFactory.createList(elements));
-			}
-		}
-
-		public String toString() {
-
-			if (_toString == null) {
-
-				StringBuffer sb = new StringBuffer();
-
-				sb.append("(-> ");
-
-				if (stmtName != null) {
-					sb.append(String.format("%s:", stmtName));
-				}
-
-				sb.append("'(");
-
-				for (int i = 0; i < stmtSize; ++i) {
-
-					if (i != 0) {
-						sb.append(", ");
-					}
-
-					IRObject obj = stmtObjs[i];
-					if (obj == null) {
-						sb.append(String.format("?%d", inheritIndexs[i]));
-					} else {
-						sb.append(obj.toString());
-					}
-
-				}
-
-				sb.append("))");
-
-				_toString = sb.toString();
-			}
-
-			return _toString;
-		}
-	}
-
-	private static boolean _buildActionNodes(IRExpr expr, IRObject[] varEntry, List<IActionNode1> actionList)
+	private static boolean _buildActionNodes(IRExpr expr, IRObject[] varEntry, List<IAction> actionList)
 			throws RException {
 
 		if (expr.isEmpty()) {
@@ -132,7 +38,7 @@ public class ActionUtil {
 	}
 
 	private static boolean _buildActionNodes(String factorName, IRExpr expr, IRObject[] varEntry,
-			List<IActionNode1> actionList) throws RException {
+			List<IAction> actionList) throws RException {
 
 		if (factorName == null) {
 			return false;
@@ -239,7 +145,7 @@ public class ActionUtil {
 		}
 	}
 
-	public static IActionNode1 addStmtAction(IRList varStmt, IRObject[] varEntry) throws RException {
+	public static IAction addStmtAction(IRList varStmt, IRObject[] varEntry) throws RException {
 
 		if (!ReteUtil.isReteStmt(varStmt)) {
 			throw new RException("invalid var stmt: " + varStmt);
@@ -288,7 +194,7 @@ public class ActionUtil {
 			throw new RException("not var found: " + varStmt);
 		}
 
-		return new XActionNodeAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize, varStmt.getNamedName());
+		return new XActionAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize, varStmt.getNamedName());
 	}
 
 	public static List<String> buildRelatedStmtUniqNames(IRExpr expr) throws RException {
@@ -298,9 +204,9 @@ public class ActionUtil {
 		return uniqNames;
 	}
 
-	public static List<IActionNode1> tryBuildActionNodes(IRObject[] varEntry, IRExpr expr) throws RException {
+	public static List<IAction> tryBuildActionNodes(IRObject[] varEntry, IRExpr expr) throws RException {
 
-		List<IActionNode1> actionList = new ArrayList<>();
+		List<IAction> actionList = new ArrayList<>();
 
 		if (!_buildActionNodes(expr, varEntry, actionList)) {
 			return null;
