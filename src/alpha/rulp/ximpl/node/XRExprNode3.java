@@ -26,18 +26,10 @@ public class XRExprNode3 extends XRReteNode1 {
 
 		++nodeMatchCount;
 
-		IRFrame consFrame = RNodeFactory.createNodeFrame(this);
-		RulpUtil.incRef(consFrame);
-
-		try {
-			for (IRConstraint1 matchNode : constraint1List) {
-				if (!matchNode.addEntry(null, this.getModel().getInterpreter(), consFrame)) {
-					return false;
-				}
+		for (IRConstraint1 matchNode : constraint1List) {
+			if (!matchNode.addEntry(null, this)) {
+				return false;
 			}
-		} finally {
-			consFrame.release();
-			RulpUtil.decRef(consFrame);
 		}
 
 		return true;
@@ -111,7 +103,7 @@ public class XRExprNode3 extends XRReteNode1 {
 		/*********************************************/
 		// compute right expression
 		/*********************************************/
-		IRFrame modelFrame = model.getModelFrame();
+		IRFrame modelFrame = model.getFrame();
 		IRObject[] externalVars = new IRObject[this.getEntryLength() - leftEnryLength];
 		for (int i = leftEnryLength; i < this.getEntryLength(); ++i) {
 			IRObject extVar = this.getVarEntry()[i];

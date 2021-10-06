@@ -12,6 +12,9 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.rule.IRReteNode.InheritIndex;
+import alpha.rulp.rule.IRReteNode.JoinIndex;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ReteUtil;
@@ -25,8 +28,6 @@ import alpha.rulp.ximpl.entry.XREntryQueueEmpty;
 import alpha.rulp.ximpl.entry.XREntryQueueExecuteStmt;
 import alpha.rulp.ximpl.entry.XREntryQueueMulitEntryList;
 import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
-import alpha.rulp.ximpl.node.IRReteNode.InheritIndex;
-import alpha.rulp.ximpl.node.IRReteNode.JoinIndex;
 
 public class RNodeFactory {
 
@@ -601,7 +602,7 @@ public class RNodeFactory {
 	}
 
 	public static IRFrame createNodeFrame(IRReteNode node) throws RException {
-		return RulpFactory.createFrame(node.getModel().getModelFrame(), "NF-" + node.getNodeName());
+		return RulpFactory.createFrame(node.getModel().getFrame(), "NF-" + node.getNodeName());
 	}
 
 	public static IRRootNode createRoot0Node(IRModel model, int nodeId, int stmtLen) throws RException {

@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.cache;
 
 import alpha.rulp.lang.IRObject;
-import alpha.rulp.ximpl.node.IRReteNode;
+import alpha.rulp.rule.IRReteNode;
 
 public interface IRCacheWorker {
 

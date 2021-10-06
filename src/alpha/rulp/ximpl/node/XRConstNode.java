@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.node;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRRListener1;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstNode extends XRReteNode0 implements IRRListener1<IRReteEntry> {

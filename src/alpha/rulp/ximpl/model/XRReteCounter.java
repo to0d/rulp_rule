@@ -13,8 +13,8 @@ import java.util.List;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RCountType;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 

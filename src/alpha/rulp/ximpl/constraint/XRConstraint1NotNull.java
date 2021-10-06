@@ -6,8 +6,10 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+
 public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstraint1 {
 
 	private int index;
@@ -22,7 +24,7 @@ public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstrain
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
 		IRObject obj = entry.get(index);
 		return obj != null && obj.getType() != RType.NIL;
 	}

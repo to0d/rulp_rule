@@ -4,9 +4,11 @@ import static alpha.rulp.rule.Constant.A_NOT_EQUAL_INDEX;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+
 public class XRConstraint1NotEqualIndex extends AbsRConstraint1 implements IRConstraint1 {
 
 	private int[] constraintIndex;
@@ -34,7 +36,7 @@ public class XRConstraint1NotEqualIndex extends AbsRConstraint1 implements IRCon
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
 		return !ReteUtil.equal(entry.get(idx1), entry.get(idx2));
 	}
 

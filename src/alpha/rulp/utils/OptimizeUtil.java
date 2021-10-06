@@ -65,6 +65,8 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModelCounter;
+import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRRuleCounter;
 import alpha.rulp.rule.RCountType;
@@ -81,8 +83,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.AbsReteNode;
-import alpha.rulp.ximpl.node.IRReteNode;
-import alpha.rulp.ximpl.node.IRReteNode.InheritIndex;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRRuleNode;
@@ -1339,8 +1339,8 @@ public class OptimizeUtil {
 		// Model Frame
 		/*********************************************************************/
 		sb.append(String.format("Model<%s> frame:", "" + model.getModelName()));
-		sb.append(TraceUtil.printFrame(model.getModelFrame()));
-		_printFrameCounter(sb, model.getModelFrame());
+		sb.append(TraceUtil.printFrame(model.getFrame()));
+		_printFrameCounter(sb, model.getFrame());
 		sb.append("\n");
 
 		/*********************************************************************/
@@ -1355,7 +1355,7 @@ public class OptimizeUtil {
 
 		for (IRReteNode node : nodes) {
 
-			IRFrame nodeFrame = node.findNodeFrame();
+			IRFrame nodeFrame = node.findFrame();
 			if (nodeFrame == null) {
 				continue;
 			}
@@ -1896,7 +1896,7 @@ public class OptimizeUtil {
 		Set<IRVar> modelVarSet = new HashSet<>();
 		// model var list
 		{
-			IRFrame frame = scope.getModel().getModelFrame();
+			IRFrame frame = scope.getModel().getFrame();
 
 			for (IRFrameEntry entry : frame.listEntries()) {
 

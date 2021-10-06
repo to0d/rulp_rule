@@ -71,7 +71,7 @@ public class XRUniqObjQueue {
 	public IRFrame getQueryFrame() throws RException {
 
 		if (queryFrame == null) {
-			queryFrame = RulpFactory.createFrame(model.getModelFrame(), "QUERY");
+			queryFrame = RulpFactory.createFrame(model.getFrame(), "QUERY");
 			RuleUtil.setDefaultModel(queryFrame, model);
 		}
 

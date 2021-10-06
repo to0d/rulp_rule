@@ -9,12 +9,12 @@ import java.util.Map;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-
 
 public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1, IRRListener1<IRReteEntry> {
 
@@ -42,7 +42,7 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
 		String uniqName = _getUniqString(entry);
 
 		if (uniqEntryMap == null) {

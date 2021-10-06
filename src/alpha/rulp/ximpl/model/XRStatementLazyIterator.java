@@ -2,10 +2,10 @@ package alpha.rulp.ximpl.model;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class XRStatementLazyIterator extends XRNodeOrderedUpdater implements IRIterator<IRList> {

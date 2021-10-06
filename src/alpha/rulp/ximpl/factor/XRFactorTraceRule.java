@@ -6,12 +6,12 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class XRFactorTraceRule extends AbsRFactorAdapter implements IRFactor, IRuleFactor {

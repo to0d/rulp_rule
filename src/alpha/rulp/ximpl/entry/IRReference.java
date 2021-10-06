@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.entry;
 
-import alpha.rulp.ximpl.node.IRReteNode;
+import alpha.rulp.rule.IRReteNode;
 
 public interface IRReference extends IFixEntry {
 

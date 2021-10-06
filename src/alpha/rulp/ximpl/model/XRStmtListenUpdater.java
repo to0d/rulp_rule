@@ -11,12 +11,12 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRListener1;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class XRStmtListenUpdater extends XRNodeOrderedUpdater {

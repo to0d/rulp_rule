@@ -4,8 +4,8 @@ import java.util.List;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public interface IREntryTable {
 

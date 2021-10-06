@@ -38,6 +38,8 @@ import alpha.rulp.lang.IRString;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRFunction;
@@ -46,8 +48,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRObjBuilder;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.IRReteNode;
-import alpha.rulp.ximpl.node.IRReteNode.InheritIndex;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {

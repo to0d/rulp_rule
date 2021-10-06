@@ -321,7 +321,7 @@ public class XRScope extends AbsRInstance implements IRScope {
 			}
 		}
 
-		context.frame = RulpFactory.createFrame(model.getModelFrame(), "VarScope-Frame");
+		context.frame = RulpFactory.createFrame(model.getFrame(), "VarScope-Frame");
 
 		/**********************************************/
 		// Check cross reference constraint

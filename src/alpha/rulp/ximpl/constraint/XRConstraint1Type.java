@@ -6,6 +6,7 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -28,7 +29,7 @@ public class XRConstraint1Type extends AbsRConstraint1 implements IRConstraint1T
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
 
 		IRObject columnValue = entry.get(columnIndex);
 		if (columnValue == null) {

@@ -7,6 +7,7 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -44,9 +45,9 @@ public class XRConstraint1Expr0 extends AbsRConstraint1 implements IRConstraint1
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
 
-		IRVar[] _vars = getVars(frame);
+		IRVar[] _vars = getVars(context.getFrame());
 
 		/******************************************************/
 		// Update variable value
@@ -58,7 +59,7 @@ public class XRConstraint1Expr0 extends AbsRConstraint1 implements IRConstraint1
 			}
 		}
 
-		IRObject rst = interpreter.compute(frame, expr);
+		IRObject rst = context.getInterpreter().compute(context.getFrame(), expr);
 
 		return RulpUtil.asBoolean(rst).asBoolean();
 	}

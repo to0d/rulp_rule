@@ -14,10 +14,10 @@ import java.util.Map;
 import java.util.Set;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class XRSubNodeGraph {

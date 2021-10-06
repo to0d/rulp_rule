@@ -305,7 +305,7 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:           11            6            5
+       frame:            7            2            5
  interpreter:            1            0
   frameEntry:          250            0
       lambda:            0            0

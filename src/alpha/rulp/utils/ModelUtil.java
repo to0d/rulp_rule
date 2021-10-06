@@ -26,6 +26,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRListener3;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRInterpreter;
@@ -34,7 +35,6 @@ import alpha.rulp.utils.RuleUtil.RuleActionFactor;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRRuleNode;
 
@@ -82,7 +82,7 @@ public class ModelUtil {
 			uniqName = "RAF-" + model.getModelName() + "-" + ruleName + "";
 		}
 
-		if (model.getModelFrame().getObject(uniqName) != null) {
+		if (model.getFrame().getObject(uniqName) != null) {
 			throw new RException("duplicated uniq name: " + uniqName);
 		}
 
@@ -287,7 +287,7 @@ public class ModelUtil {
 	public static boolean addConstraint(IRModel model, IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		IRInterpreter interpreter = model.getInterpreter();
-		IRFrame frame = model.getModelFrame();
+		IRFrame frame = model.getFrame();
 
 		switch (constraint.getConstraintName()) {
 		case A_Type:

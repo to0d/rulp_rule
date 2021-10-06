@@ -279,7 +279,7 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          161            0          161
-       frame:           25           22            3
+       frame:           21           18            3
  interpreter:            1            0
   frameEntry:          270            0
       lambda:            0            0
@@ -306,12 +306,12 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 5        3        4    instance   m : class=model     
 ==========================================================================================================================
 
-id=5, name=QUERY, lvl=4, ref=0/0, entry=2, pid=3(MODEL), subject=QUERY
+id=7, name=QUERY, lvl=4, ref=0/0, entry=2, pid=3(MODEL), subject=QUERY
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 35       5        4    instance   m : class=model     
-?c                   : 36       5        1    var        conflict-type-constraint:'(name1 2 float int) : type=string
+default_model        : 35       7        4    instance   m : class=model     
+?c                   : 36       7        1    var        conflict-type-constraint:'(name1 2 float int) : type=string
 ==========================================================================================================================
 
 id=8, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
@@ -331,7 +331,7 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-                ->FRAME(QUERY): id=5, lvl=4, subject=QUERY
+                ->FRAME(QUERY): id=7, lvl=4, subject=QUERY
                 ->FRAME(NF-RU000): id=8, lvl=4, subject=NF-RU000
 
 Global Subject list:

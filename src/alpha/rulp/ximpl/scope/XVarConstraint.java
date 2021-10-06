@@ -65,7 +65,7 @@ public class XVarConstraint implements IVarConstraint {
 	public IRFrame getFrame() throws RException {
 
 		if (frame == null) {
-			frame = RulpFactory.createFrame(model.getModelFrame(), "constraint-Frame");
+			frame = RulpFactory.createFrame(model.getFrame(), "constraint-Frame");
 		}
 
 		return frame;

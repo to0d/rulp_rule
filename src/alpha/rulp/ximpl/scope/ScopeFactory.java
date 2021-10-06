@@ -115,9 +115,8 @@ public class ScopeFactory {
 
 				IRModel model = RuleUtil.asModel(modelInstance);
 
-				XRScope scope = new XRScope(scopeName, model.getModelFrame(), model,
-						RuntimeUtil.getNoClass(interpreter));
-				
+				XRScope scope = new XRScope(scopeName, model.getFrame(), model, RuntimeUtil.getNoClass(interpreter));
+
 				RulpUtil.setMember(scope, F_MBR_SCOPE_MODEL, modelInstance, RAccessType.PUBLIC);
 
 				return scope;

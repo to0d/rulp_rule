@@ -1,9 +1,9 @@
 package alpha.rulp.ximpl.entry;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XREntryQueueSingleEntryList implements IREntryQueue {
 

@@ -1,8 +1,8 @@
 package alpha.rulp.ximpl.action;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public interface IAction {
 

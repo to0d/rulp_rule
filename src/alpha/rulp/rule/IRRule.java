@@ -8,7 +8,6 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public interface IRRule extends IRReteNode, IRRunnable {
 

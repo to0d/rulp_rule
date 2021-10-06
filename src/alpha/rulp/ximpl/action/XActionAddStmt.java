@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XActionAddStmt implements IAction {
 

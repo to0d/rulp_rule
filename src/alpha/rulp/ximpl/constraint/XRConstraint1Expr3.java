@@ -6,6 +6,7 @@ import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -20,8 +21,8 @@ public class XRConstraint1Expr3 extends AbsRConstraint1 implements IRConstraint1
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRInterpreter interpreter, IRFrame frame) throws RException {
-		IRObject rst = interpreter.compute(frame, expr);
+	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+		IRObject rst = context.getInterpreter().compute(context.getFrame(), expr);
 		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 

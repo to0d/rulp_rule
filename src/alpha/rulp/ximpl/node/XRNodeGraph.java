@@ -24,6 +24,9 @@ import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.rule.IRReteNode.InheritIndex;
+import alpha.rulp.rule.IRReteNode.JoinIndex;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRIterator;
@@ -42,8 +45,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
-import alpha.rulp.ximpl.node.IRReteNode.InheritIndex;
-import alpha.rulp.ximpl.node.IRReteNode.JoinIndex;
 
 public class XRNodeGraph implements IRNodeGraph {
 

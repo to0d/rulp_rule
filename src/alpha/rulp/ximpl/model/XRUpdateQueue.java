@@ -6,7 +6,7 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_SYSTEM;
 import java.util.LinkedList;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.ximpl.node.IRReteNode;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.node.RReteStage;
 
 public class XRUpdateQueue {

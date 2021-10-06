@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class WorkerTest extends RuleTestBase {
 

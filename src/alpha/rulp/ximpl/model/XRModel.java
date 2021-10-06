@@ -41,6 +41,7 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModelCounter;
 import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.rule.IRRListener2;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRTransaction;
 import alpha.rulp.rule.RReteStatus;
@@ -69,7 +70,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.IRRootNode;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
@@ -445,6 +445,23 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return 1;
 	}
 
+	protected void _checkActiveNode() throws RException {
+
+		if (activeUpdate > 0) {
+
+			Iterator<IRReteNode> it = activeQueue.iterator();
+			while (it.hasNext()) {
+				IRReteNode node = it.next();
+				if (node.getPriority() >= modelPriority) {
+					updateQueue.push(node);
+					it.remove();
+				}
+			}
+
+			activeUpdate = 0;
+		}
+	}
+
 	protected void _checkCache(IRReteNode node) throws RException {
 
 		if (!cacheEnable || node.getReteType() != RReteType.NAME0) {
@@ -530,31 +547,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return ReteUtil.getChildStatus(nodeContext.currentEntry);
 	}
 
-	protected void _checkActiveNode() throws RException {
-
-		if (activeUpdate > 0) {
-
-			Iterator<IRReteNode> it = activeQueue.iterator();
-			while (it.hasNext()) {
-				IRReteNode node = it.next();
-				if (node.getPriority() >= modelPriority) {
-					updateQueue.push(node);
-					it.remove();
-				}
-			}
-
-			activeUpdate = 0;
-		}
-	}
-
 	protected boolean _hasUpdateNode() throws RException {
 		_checkActiveNode();
 		return updateQueue.hasNext();
-	}
-
-	protected IRReteNode _nextUpdateNode() throws RException {
-		_checkActiveNode();
-		return updateQueue.pop();
 	}
 
 	protected boolean _isInClosingPhase() {
@@ -833,6 +828,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return matchedEntrys;
 	}
 
+	protected IRReteNode _nextUpdateNode() throws RException {
+		_checkActiveNode();
+		return updateQueue.pop();
+	}
+
 	protected List<? extends IRObject> _queryCond(IRObject rstExpr, IRList condList, final int limit)
 			throws RException {
 
@@ -1048,7 +1048,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		if (OptimizeUtil.OPT_RULE) {
-			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRule(condList, actionList, this.getModelFrame());
+			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRule(condList, actionList, this.getFrame());
 			condList = rst.getKey();
 			actionList = rst.getValue();
 		}
@@ -1407,6 +1407,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public IRFrame findFrame() {
+		return this.modelFrame;
+	}
+
+	@Override
 	public IRReteNode findNode(IRList condList) throws RException {
 		return nodeGraph.getNodeByTree(condList);
 	}
@@ -1419,32 +1424,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		int actualAddStmt = _addReteEntry(stmt, RReteStatus.FIXED_);
-
-		// active stmt listeners
-		if (actualAddStmt > 0) {
-			stmtListenUpdater.update(this);
-		}
-
-		return actualAddStmt;
-	}
-
-	@Override
-	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addFixedStatements: ");
-		}
-
-		int actualAddStmt = 0;
-		while (stmtIterator.hasNext()) {
-
-			IRList stmt = stmtIterator.next();
-			if (RuleUtil.isModelTrace()) {
-				System.out.println("\t(" + stmt + ")");
-			}
-
-			actualAddStmt += _addReteEntry(stmt, RReteStatus.FIXED_);
-		}
 
 		// active stmt listeners
 		if (actualAddStmt > 0) {
@@ -1474,6 +1453,32 @@ public class XRModel extends AbsRInstance implements IRModel {
 //			}
 //		};
 //	}
+
+	@Override
+	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> addFixedStatements: ");
+		}
+
+		int actualAddStmt = 0;
+		while (stmtIterator.hasNext()) {
+
+			IRList stmt = stmtIterator.next();
+			if (RuleUtil.isModelTrace()) {
+				System.out.println("\t(" + stmt + ")");
+			}
+
+			actualAddStmt += _addReteEntry(stmt, RReteStatus.FIXED_);
+		}
+
+		// active stmt listeners
+		if (actualAddStmt > 0) {
+			stmtListenUpdater.update(this);
+		}
+
+		return actualAddStmt;
+	}
 
 	@Override
 	public String getCachePath() {
@@ -1562,11 +1567,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return entryTable;
 	}
 
-	@Override
-	public IRInterpreter getInterpreter() {
-		return interpreter;
-	}
-
 //	@Override
 //	public IRMember getMember(String name) throws RException {
 //
@@ -1594,8 +1594,18 @@ public class XRModel extends AbsRInstance implements IRModel {
 //	}
 
 	@Override
-	public IRFrame getModelFrame() {
+	public IRFrame getFrame() {
 		return this.modelFrame;
+	}
+
+	@Override
+	public IRInterpreter getInterpreter() {
+		return interpreter;
+	}
+
+	@Override
+	public IRModel getModel() {
+		return this;
 	}
 
 	@Override
@@ -1644,7 +1654,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return (IRVar) mbr.getValue();
 			}
 
-			IRFrameEntry varEntry = this.getModelFrame().getEntry(varName);
+			IRFrameEntry varEntry = this.getFrame().getEntry(varName);
 			if (varEntry != null) {
 				IRObject obj = varEntry.getObject();
 				if (obj.getType() == RType.VAR) {

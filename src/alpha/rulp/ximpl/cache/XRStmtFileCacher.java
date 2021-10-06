@@ -8,6 +8,7 @@ import java.util.List;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.FileUtil;
@@ -16,7 +17,6 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
 import alpha.rulp.ximpl.node.IRNamedNode;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XRStmtFileCacher implements IRStmtLoader, IRStmtSaver {
 

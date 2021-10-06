@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.model;
 import java.util.List;
 
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.ximpl.node.IRReteNode;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public interface IReteNodeMatrix {

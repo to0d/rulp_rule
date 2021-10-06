@@ -32,7 +32,7 @@ public class ScopeUtils {
 		// Create variable
 		/********************************************/
 		IRVar var = RulpFactory.createVar(varName);
-		model.getModelFrame().setEntry(varName, var);
+		model.getFrame().setEntry(varName, var);
 
 		if (values != null) {
 
@@ -79,7 +79,7 @@ public class ScopeUtils {
 		// Create variable
 		/********************************************/
 		IRVar var = RulpFactory.createVar(varName);
-		model.getModelFrame().setEntry(varName, var);
+		model.getFrame().setEntry(varName, var);
 
 		if (varType == null) {
 

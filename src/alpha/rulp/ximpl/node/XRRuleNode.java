@@ -22,6 +22,7 @@ import alpha.rulp.lang.RError;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRListener1;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRRuleCounter;
 import alpha.rulp.rule.RReteStatus;
@@ -201,12 +202,12 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			}
 		}
 
-		IRFrame consFrame = RulpFactory.createFrame(this.getNodeFrame(), "NF-" + getNodeName());
+		IRFrame consFrame = RulpFactory.createFrame(this.getFrame(), "NF-" + getNodeName());
 		RulpUtil.incRef(consFrame);
 
 		try {
 			for (IRConstraint1 constraint : this.constraint1List) {
-				if (!constraint.addEntry(entry, model.getInterpreter(), consFrame)) {
+				if (!constraint.addEntry(entry, this)) {
 					return false;
 				}
 			}
@@ -414,7 +415,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			for (int i = 0; i < varEntry.length; ++i) {
 				IRObject obj = varEntry[i];
 				if (obj != null) {
-					ruleVars[i] = getNodeFrame().addVar(RulpUtil.asAtom(obj).getName());
+					ruleVars[i] = getFrame().addVar(RulpUtil.asAtom(obj).getName());
 				}
 			}
 		}

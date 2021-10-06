@@ -1,22 +1,21 @@
-package alpha.rulp.ximpl.node;
+package alpha.rulp.rule;
 
 import java.util.List;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRInstance;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.IRRunnable;
 import alpha.rulp.utils.DeCounter;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
+import alpha.rulp.ximpl.node.RReteStage;
+import alpha.rulp.ximpl.node.RReteType;
 
-public interface IRReteNode extends IRRunnable, IRInstance {
+public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public static class InheritIndex {
 
@@ -65,8 +64,6 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public int doGC();
 
-	public IRFrame findNodeFrame();
-
 	public int getAddEntryFailCount();
 
 	public IRCacheWorker getCacheWorker();
@@ -89,13 +86,9 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public String getMatchDescription();
 
-	public IRModel getModel();
-
 	public int getNodeExecCount();
 
 	public int getNodeFailedCount();
-
-	public IRFrame getNodeFrame() throws RException;
 
 	public int getNodeId();
 

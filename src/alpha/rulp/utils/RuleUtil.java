@@ -18,6 +18,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRListener3;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
@@ -26,7 +27,6 @@ import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNamedNode;
-import alpha.rulp.ximpl.node.IRReteNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
 import alpha.rulp.ximpl.scope.IRScope;
@@ -188,7 +188,7 @@ public class RuleUtil {
 	public static List<IRObject> compute(IRModel model, String input) throws RException {
 
 		IRInterpreter interpreter = model.getInterpreter();
-		IRFrame modelFrame = model.getModelFrame();
+		IRFrame modelFrame = model.getFrame();
 		IRParser parser = interpreter.getParser();
 
 		List<IRObject> objs;

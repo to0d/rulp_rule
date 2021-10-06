@@ -7,7 +7,7 @@ import java.util.Set;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.ximpl.node.IRReteNode;
+import alpha.rulp.rule.IRReteNode;
 
 public class XRNodeOrderedUpdater {
 

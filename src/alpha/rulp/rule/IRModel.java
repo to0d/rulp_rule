@@ -3,13 +3,11 @@ package alpha.rulp.rule;
 import java.util.Collection;
 import java.util.List;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRInstance;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
@@ -17,9 +15,8 @@ import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.IRReteNode;
 
-public interface IRModel extends IRInstance, IRRunnable {
+public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public static class RNodeContext {
 
@@ -76,10 +73,6 @@ public interface IRModel extends IRInstance, IRRunnable {
 	public IRModelCounter getCounter();
 
 	public IREntryTable getEntryTable();
-
-	public IRInterpreter getInterpreter();
-
-	public IRFrame getModelFrame();
 
 	public String getModelName();
 

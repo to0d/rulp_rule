@@ -11,13 +11,13 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRRListener1;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.lang.AbsAtomObject;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 public class XREntryTable implements IREntryTable {
 

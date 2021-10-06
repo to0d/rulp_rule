@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.node.IRReteNode;
 
 class SourceNodesTest extends RuleTestBase {
 

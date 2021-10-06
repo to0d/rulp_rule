@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.node;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel.RNodeContext;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 

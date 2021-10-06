@@ -208,7 +208,7 @@ Child Count:
   total:       3       3
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -235,8 +235,8 @@ Total runtime info:
      Interpreter call id/level:       62        0
              CPS support/count:    false        0
                Frame max level:        2
-                  Frame max id:        5
-           Frame free id count:        1
+                  Frame max id:        4
+           Frame free id count:        0
 ==========================================================================================================================
 
 Expression compute count:
@@ -278,7 +278,7 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:            3            2            1
+       frame:            1            0            1
  interpreter:            1            0
   frameEntry:          239            0
       lambda:            0            0
@@ -299,7 +299,7 @@ m                    : 6        2        2    instance   m : class=model
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
