@@ -167,26 +167,22 @@ Ref Bit Map: total=4, max-id=4, create=4, removed=0, group-size=10, group-count=
 4 [4]
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=4/4, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=2/3, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
-Node<A0002> frame:id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
-
-Node<A0003> frame:id=5, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0003
-
-Node<RU000> frame:id=6, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
+Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        6        3    instance   m : class=model     
-?a                   : 8        6        1    var        a : type=atom       
-?b                   : 9        6        1    var        b : type=atom       
-?p                   : 10       6        1    var        c : type=atom       
-?c                   : 11       6        1    var        d : type=atom       
+default_model        : 7        4        3    instance   m : class=model     
+?a                   : 8        4        1    var        a : type=atom       
+?b                   : 9        4        1    var        b : type=atom       
+?p                   : 10       4        1    var        c : type=atom       
+?c                   : 11       4        1    var        d : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=8, row=5, column=7(1), value-max=1, value-unit=1^x
@@ -210,7 +206,7 @@ Total runtime info:
      Interpreter call id/level:       61        0
              CPS support/count:    false        0
                Frame max level:        5
-                  Frame max id:        8
+                  Frame max id:        6
            Frame free id count:        1
 ==========================================================================================================================
 
@@ -255,13 +251,13 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:            7            3            4
+       frame:            9            7            2
  interpreter:            1            0
   frameEntry:          243            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=4
+Global frame list: total=2
 
 id=2, name=main, lvl=2, ref=2/2, entry=5, pid=1(system), subject=main
 ==========================================================================================================================
@@ -275,26 +271,22 @@ m                    : 6        2        3    instance   m : class=model
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=4/4, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=2/3, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
-id=4, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
-
-id=5, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0003
-
-id=6, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
+id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 7        6        3    instance   m : class=model     
-?a                   : 8        6        1    var        a : type=atom       
-?b                   : 9        6        1    var        b : type=atom       
-?p                   : 10       6        1    var        c : type=atom       
-?c                   : 11       6        1    var        d : type=atom       
+default_model        : 7        4        3    instance   m : class=model     
+?a                   : 8        4        1    var        a : type=atom       
+?b                   : 9        4        1    var        b : type=atom       
+?p                   : 10       4        1    var        c : type=atom       
+?c                   : 11       4        1    var        d : type=atom       
 ==========================================================================================================================
 
 Global frame tree:
@@ -303,9 +295,7 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-                ->FRAME(NF-A0002): id=4, lvl=4, subject=NF-A0002
-                ->FRAME(NF-A0003): id=5, lvl=4, subject=NF-A0003
-                ->FRAME(NF-RU000): id=6, lvl=4, subject=NF-RU000
+                ->FRAME(NF-RU000): id=4, lvl=4, subject=NF-RU000
 
 Global Subject list:
 

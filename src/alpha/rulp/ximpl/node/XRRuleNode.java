@@ -201,7 +201,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			}
 		}
 
-		IRFrame consFrame = RulpFactory.createFrame(this.getNodeFrame(true), "NF-" + getNodeName());
+		IRFrame consFrame = RulpFactory.createFrame(this.getNodeFrame(), "NF-" + getNodeName());
 		RulpUtil.incRef(consFrame);
 
 		try {
@@ -414,7 +414,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			for (int i = 0; i < varEntry.length; ++i) {
 				IRObject obj = varEntry[i];
 				if (obj != null) {
-					ruleVars[i] = getNodeFrame(true).addVar(RulpUtil.asAtom(obj).getName());
+					ruleVars[i] = getNodeFrame().addVar(RulpUtil.asAtom(obj).getName());
 				}
 			}
 		}

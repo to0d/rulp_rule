@@ -1355,7 +1355,7 @@ public class OptimizeUtil {
 
 		for (IRReteNode node : nodes) {
 
-			IRFrame nodeFrame = node.getNodeFrame(false);
+			IRFrame nodeFrame = node.findNodeFrame();
 			if (nodeFrame == null) {
 				continue;
 			}

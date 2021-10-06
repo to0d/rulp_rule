@@ -61,7 +61,11 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public boolean addReteEntry(IRReteEntry entry) throws RException;
 
+	public void cleanNode() throws RException;
+
 	public int doGC();
+
+	public IRFrame findNodeFrame();
 
 	public int getAddEntryFailCount();
 
@@ -91,9 +95,7 @@ public interface IRReteNode extends IRRunnable, IRInstance {
 
 	public int getNodeFailedCount();
 
-	public IRFrame getNodeFrame(boolean create) throws RException;
-
-//	public IRFrame getNodeFrame(boolean create) throws RException;
+	public IRFrame getNodeFrame() throws RException;
 
 	public int getNodeId();
 

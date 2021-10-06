@@ -189,14 +189,12 @@ Child Count:
   total:       2       1       3       2
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=6/6, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=5/6, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 5        3        6    instance   m : class=model     
 ==========================================================================================================================
-
-Node<A1003> frame:id=6, name=NF-A1003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A1003
 
 node update info: model-exec-count=29, row=5, column=29(1), value-max=1, value-unit=1^x
 ========================================================================================================================================================
@@ -220,7 +218,7 @@ Total runtime info:
              CPS support/count:    false        0
                Frame max level:        4
                   Frame max id:        9
-           Frame free id count:        0
+           Frame free id count:        1
 ==========================================================================================================================
 
 Expression compute count:
@@ -262,13 +260,13 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:            7            1            6
+       frame:            9            4            5
  interpreter:            1            0
   frameEntry:          251            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=6
+Global frame list: total=5
 
 id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
@@ -283,7 +281,7 @@ m                    : 6        2        6    instance   m : class=model
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=6/6, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=5/6, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -308,24 +306,22 @@ default_model        : 11       5        6    instance   m : class=model
 ?b                   : 13       5        1    var        a : type=atom       
 ==========================================================================================================================
 
-id=6, name=NF-A1003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A1003
+id=6, name=QUERY, lvl=4, ref=0/0, entry=3, pid=3(MODEL), subject=QUERY
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+default_model        : 14       6        6    instance   m : class=model     
+?a                   : 15       6        1    var        x : type=atom       
+?b                   : 16       6        1    var        y : type=atom       
+==========================================================================================================================
 
 id=7, name=QUERY, lvl=4, ref=0/0, entry=3, pid=3(MODEL), subject=QUERY
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 14       7        6    instance   m : class=model     
-?a                   : 15       7        1    var        x : type=atom       
-?b                   : 16       7        1    var        y : type=atom       
-==========================================================================================================================
-
-id=8, name=QUERY, lvl=4, ref=0/0, entry=3, pid=3(MODEL), subject=QUERY
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-default_model        : 17       8        6    instance   m : class=model     
-?a                   : 18       8        1    var        y : type=atom       
-?b                   : 19       8        1    var        x : type=atom       
+default_model        : 17       7        6    instance   m : class=model     
+?a                   : 18       7        1    var        y : type=atom       
+?b                   : 19       7        1    var        x : type=atom       
 ==========================================================================================================================
 
 Global frame tree:
@@ -336,9 +332,8 @@ Global frame tree:
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
                 ->FRAME(QUERY): id=4, lvl=4, subject=QUERY
                 ->FRAME(QUERY): id=5, lvl=4, subject=QUERY
-                ->FRAME(NF-A1003): id=6, lvl=4, subject=NF-A1003
+                ->FRAME(QUERY): id=6, lvl=4, subject=QUERY
                 ->FRAME(QUERY): id=7, lvl=4, subject=QUERY
-                ->FRAME(QUERY): id=8, lvl=4, subject=QUERY
 
 Global Subject list:
 

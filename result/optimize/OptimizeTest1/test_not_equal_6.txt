@@ -211,16 +211,12 @@ Child Count:
   total:       1       3
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 5        3        2    instance   m : class=model     
 ==========================================================================================================================
-
-Node<E1002> frame:id=4, name=NF-E1002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1002
-
-Node<E1004> frame:id=5, name=NF-E1004, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1004
 
 node update info: model-exec-count=20, row=6, column=20(1), value-max=1, value-unit=1^x
 ========================================================================================================================================================
@@ -244,8 +240,8 @@ Total runtime info:
      Interpreter call id/level:       61        0
              CPS support/count:    false        0
                Frame max level:        2
-                  Frame max id:        6
-           Frame free id count:        0
+                  Frame max id:        5
+           Frame free id count:        1
 ==========================================================================================================================
 
 Expression compute count:
@@ -288,13 +284,13 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:            5            2            3
+       frame:            9            8            1
  interpreter:            1            0
   frameEntry:          238            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=3
+Global frame list: total=1
 
 id=2, name=main, lvl=2, ref=2/2, entry=5, pid=1(system), subject=main
 ==========================================================================================================================
@@ -308,16 +304,12 @@ m                    : 6        2        2    instance   m : class=model
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 5        3        2    instance   m : class=model     
 ==========================================================================================================================
-
-id=4, name=NF-E1002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1002
-
-id=5, name=NF-E1004, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1004
 
 Global frame tree:
 
@@ -325,8 +317,6 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-                ->FRAME(NF-E1002): id=4, lvl=4, subject=NF-E1002
-                ->FRAME(NF-E1004): id=5, lvl=4, subject=NF-E1004
 
 Global Subject list:
 

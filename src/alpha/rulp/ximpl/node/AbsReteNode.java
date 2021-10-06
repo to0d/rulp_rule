@@ -189,7 +189,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 			for (IRConstraint1 cons : constraint1List) {
 
-				if (!cons.addEntry(entry, interpreter, this.getNodeFrame(true))) {
+				if (!cons.addEntry(entry, interpreter, this.getNodeFrame())) {
 
 					++addEntryFailCount;
 
@@ -205,17 +205,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 		return entryQueue.addEntry(entry);
 	}
-
-//	@Override
-//	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
-//
-//		if (this.nodeFrame != null) {
-//			RulpUtil.decRef(this.nodeFrame);
-//			this.nodeFrame = null;
-//		}
-//
-//		this._delete();
-//	}
 
 	@Override
 	public String asString() {
@@ -241,6 +230,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public int doGC() {
 		return entryQueue.doGC();
+	}
+
+	@Override
+	public IRFrame findNodeFrame() {
+		return this.nodeFrame;
 	}
 
 	@Override
@@ -324,11 +318,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public IRFrame getNodeFrame(boolean create) throws RException {
-
-		if (!create) {
-			return nodeFrame;
-		}
+	public IRFrame getNodeFrame() throws RException {
 
 		if (nodeFrame == null) {
 			nodeFrame = _createNodeFrame();
@@ -336,6 +326,17 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		return nodeFrame;
+	}
+
+	@Override
+	public void cleanNode() throws RException {
+
+		if (nodeFrame != null && nodeFrame.listEntries().isEmpty()) {
+			nodeFrame.release();
+			RulpUtil.decRef(nodeFrame);
+			nodeFrame = null;
+		}
+
 	}
 
 	@Override

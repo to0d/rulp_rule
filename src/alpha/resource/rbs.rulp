@@ -108,7 +108,7 @@
     (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_INDEX" 2 int))
     (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_TYPE"  3 nil))
 
-    (setq ?current_schema::?str-sql-init true)
+    (setq ?current_schema::?rbs-init true)
 )
 
 

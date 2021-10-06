@@ -1344,7 +1344,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		++modelCounter.nodeExecCount;
 
 		int update = node.update();
+
 		node.setReteStage(RReteStage.InActive);
+		node.cleanNode();
 
 		if (node.getReteType() == RReteType.RULE) {
 

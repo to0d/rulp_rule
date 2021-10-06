@@ -77,7 +77,7 @@ public class XREntryQueueExecuteStmt extends XREntryQueueEmpty implements IREntr
 
 		IRModel model = node.getModel();
 		IRInterpreter interpreter = model.getInterpreter();
-		IRFrame execFrame = RulpFactory.createFrame(node.getNodeFrame(true), "NF-" + node.getNodeName());
+		IRFrame execFrame = RulpFactory.createFrame(node.getNodeFrame(), "NF-" + node.getNodeName());
 		RulpUtil.incRef(execFrame);
 
 		try {

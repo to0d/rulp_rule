@@ -2462,56 +2462,12 @@ Child Count:
   total:      30       1       4      93
 ========================================================================================================================================================
 
-Model<p2d> frame:id=3, name=MODEL, lvl=3, ref=24/24, entry=1, pid=2(main), subject=MODEL
+Model<p2d> frame:id=3, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 5        3        3    instance   p2d : class=model   
 ==========================================================================================================================
-
-Node<A0002> frame:id=6, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
-
-Node<A0003> frame:id=7, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0003
-
-Node<A1006> frame:id=5, name=NF-A1006, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A1006
-
-Node<A0009> frame:id=9, name=NF-A0009, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0009
-
-Node<A0011> frame:id=11, name=NF-A0011, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0011
-
-Node<A0012> frame:id=10, name=NF-A0012, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0012
-
-Node<A0016> frame:id=12, name=NF-A0016, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0016
-
-Node<A0018> frame:id=13, name=NF-A0018, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0018
-
-Node<A0021> frame:id=18, name=NF-A0021, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0021
-
-Node<A0022> frame:id=14, name=NF-A0022, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0022
-
-Node<A0026> frame:id=15, name=NF-A0026, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0026
-
-Node<A0034> frame:id=16, name=NF-A0034, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0034
-
-Node<A0037> frame:id=19, name=NF-A0037, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0037
-
-Node<E1040> frame:id=20, name=NF-E1040, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1040
-
-Node<A0045> frame:id=17, name=NF-A0045, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0045
-
-Node<A0048> frame:id=21, name=NF-A0048, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0048
-
-Node<E1051> frame:id=22, name=NF-E1051, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1051
-
-Node<E1052> frame:id=23, name=NF-E1052, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1052
-
-Node<A0060> frame:id=24, name=NF-A0060, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0060
-
-Node<A0063> frame:id=8, name=NF-A0063, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0063
-
-Node<A0128> frame:id=4, name=NF-A0128, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0128
-
-Node<A0129> frame:id=25, name=NF-A0129, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0129
 
 node update info: model-exec-count=129, row=23, column=65(2), value-max=1, value-unit=1^x
 ========================================================================================================================================================
@@ -2552,7 +2508,7 @@ Total runtime info:
      Interpreter call id/level:       58        0
              CPS support/count:    false        0
                Frame max level:        4
-                  Frame max id:       27
+                  Frame max id:        5
            Frame free id count:        0
 ==========================================================================================================================
 
@@ -2596,13 +2552,13 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:           72           48           24
+       frame:          108          106            2
  interpreter:            1            0
   frameEntry:          248            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=24
+Global frame list: total=2
 
 id=2, name=main, lvl=2, ref=2/2, entry=13, pid=1(system), subject=main
 ==========================================================================================================================
@@ -2624,63 +2580,19 @@ hasGroupChild        : 14       2        1    macro      hasGroupChild
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=24/24, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 5        3        3    instance   p2d : class=model   
 ==========================================================================================================================
 
-id=4, name=NF-A0128, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0128
-
-id=5, name=NF-A1006, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A1006
-
-id=6, name=NF-A0002, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0002
-
-id=7, name=NF-A0003, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0003
-
-id=8, name=NF-A0063, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0063
-
-id=9, name=NF-A0009, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0009
-
-id=10, name=NF-A0012, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0012
-
-id=11, name=NF-A0011, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0011
-
-id=12, name=NF-A0016, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0016
-
-id=13, name=NF-A0018, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0018
-
-id=14, name=NF-A0022, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0022
-
-id=15, name=NF-A0026, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0026
-
-id=16, name=NF-A0034, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0034
-
-id=17, name=NF-A0045, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0045
-
-id=18, name=NF-A0021, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0021
-
-id=19, name=NF-A0037, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0037
-
-id=20, name=NF-E1040, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1040
-
-id=21, name=NF-A0048, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0048
-
-id=22, name=NF-E1051, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1051
-
-id=23, name=NF-E1052, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-E1052
-
-id=24, name=NF-A0060, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0060
-
-id=25, name=NF-A0129, lvl=4, ref=1/1, entry=0, pid=3(MODEL), subject=NF-A0129
-
-id=26, name=QUERY, lvl=4, ref=0/0, entry=2, pid=3(MODEL), subject=QUERY
+id=4, name=QUERY, lvl=4, ref=0/0, entry=2, pid=3(MODEL), subject=QUERY
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 15       26       3    instance   p2d : class=model   
-?x                   : 16       26       1    var        ta : type=atom      
+default_model        : 15       4        3    instance   p2d : class=model   
+?x                   : 16       4        1    var        ta : type=atom      
 ==========================================================================================================================
 
 Global frame tree:
@@ -2689,29 +2601,7 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-                ->FRAME(NF-A0128): id=4, lvl=4, subject=NF-A0128
-                ->FRAME(NF-A1006): id=5, lvl=4, subject=NF-A1006
-                ->FRAME(NF-A0002): id=6, lvl=4, subject=NF-A0002
-                ->FRAME(NF-A0003): id=7, lvl=4, subject=NF-A0003
-                ->FRAME(NF-A0063): id=8, lvl=4, subject=NF-A0063
-                ->FRAME(NF-A0009): id=9, lvl=4, subject=NF-A0009
-                ->FRAME(NF-A0012): id=10, lvl=4, subject=NF-A0012
-                ->FRAME(NF-A0011): id=11, lvl=4, subject=NF-A0011
-                ->FRAME(NF-A0016): id=12, lvl=4, subject=NF-A0016
-                ->FRAME(NF-A0018): id=13, lvl=4, subject=NF-A0018
-                ->FRAME(NF-A0022): id=14, lvl=4, subject=NF-A0022
-                ->FRAME(NF-A0026): id=15, lvl=4, subject=NF-A0026
-                ->FRAME(NF-A0034): id=16, lvl=4, subject=NF-A0034
-                ->FRAME(NF-A0045): id=17, lvl=4, subject=NF-A0045
-                ->FRAME(NF-A0021): id=18, lvl=4, subject=NF-A0021
-                ->FRAME(NF-A0037): id=19, lvl=4, subject=NF-A0037
-                ->FRAME(NF-E1040): id=20, lvl=4, subject=NF-E1040
-                ->FRAME(NF-A0048): id=21, lvl=4, subject=NF-A0048
-                ->FRAME(NF-E1051): id=22, lvl=4, subject=NF-E1051
-                ->FRAME(NF-E1052): id=23, lvl=4, subject=NF-E1052
-                ->FRAME(NF-A0060): id=24, lvl=4, subject=NF-A0060
-                ->FRAME(NF-A0129): id=25, lvl=4, subject=NF-A0129
-                ->FRAME(QUERY): id=26, lvl=4, subject=QUERY
+                ->FRAME(QUERY): id=4, lvl=4, subject=QUERY
 
 Global Subject list:
 
