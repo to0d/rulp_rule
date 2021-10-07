@@ -13,4 +13,7 @@ public interface IRContext {
 	public IRInterpreter getInterpreter();
 
 	public IRModel getModel();
+
+	public void clean() throws RException;
+
 }

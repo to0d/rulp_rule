@@ -54,11 +54,6 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	}
 
 	@Override
-	public String getQueueDescription() {
-		return "";
-	}
-
-	@Override
 	public REntryQueueType getQueueType() {
 		return REntryQueueType.EMPTY;
 	}

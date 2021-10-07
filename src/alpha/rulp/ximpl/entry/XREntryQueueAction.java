@@ -3,14 +3,21 @@ package alpha.rulp.ximpl.entry;
 import java.util.LinkedList;
 import java.util.List;
 
+import alpha.rulp.lang.IRFrame;
+import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModel.RNodeContext;
-import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.rule.IRRule;
+import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.action.IAction;
+import alpha.rulp.ximpl.action.RActionType;
 
-public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueue {
+public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueue, IRContext {
 
 	protected LinkedList<IAction> actionStmtList = new LinkedList<>();
 
@@ -18,39 +25,49 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 
 	protected int entryRedundant = 0;
 
-	protected IRReteNode node;
+	protected boolean needVar = false;
+
+	protected IRRule node;
 
 	protected int nodeUpdateCount = 0;
 
-	@Override
-	public String getQueueDescription() {
+	protected IRFrame queueFrame;
 
-		StringBuffer sb = new StringBuffer();
-
-		int index = 0;
-		for (IAction action : actionStmtList) {
-			if (index++ != 0) {
-				sb.append(" ");
-			}
-			sb.append(action.toString());
-		}
-
-		return sb.toString();
-	}
-
-	public XREntryQueueAction(IRReteNode node) {
+	public XREntryQueueAction(IRRule node) {
 		super();
 		this.node = node;
 	}
 
-	public void addActionNodes(List<IAction> actionNodes) {
-		this.actionStmtList.addAll(actionNodes);
+	public void addActions(List<IAction> actions) {
+
+		this.actionStmtList.addAll(actions);
+		if (!needVar) {
+			for (IAction action : actions) {
+				if (action.getActionType() == RActionType.EXPR) {
+					needVar = true;
+					break;
+				}
+			}
+		}
 	}
 
 	@Override
 	public boolean addEntry(IRReteEntry entry) throws RException {
 
 		++nodeUpdateCount;
+
+		/******************************************************/
+		// Update variable value
+		/******************************************************/
+		if (needVar) {
+			IRVar[] _vars = node.getVars();
+			for (int i = 0; i < entry.size(); ++i) {
+				IRVar var = _vars[i];
+				if (var != null) {
+					var.setValue(entry.get(i));
+				}
+			}
+		}
 
 		/******************************************************/
 		// Run actions
@@ -71,7 +88,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 					System.out.println("\t" + action.toString());
 				}
 
-				action.doAction(node, entry);
+				action.doAction(entry, this);
 			}
 
 		} finally {
@@ -82,14 +99,35 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 			// remove running context
 			model.setNodeContext(null);
 			context.currentEntry = null;
+
+			// clean frame
+			this.clean();
 		}
 
 		return true;
 	}
 
 	@Override
+	public void clean() throws RException {
+		if (queueFrame != null) {
+			queueFrame.release();
+			RulpUtil.decRef(queueFrame);
+			queueFrame = null;
+		}
+	}
+
+	@Override
 	public int doGC() {
 		return 0;
+	}
+
+	@Override
+	public IRFrame findFrame() {
+		return queueFrame;
+	}
+
+	public LinkedList<IAction> getActionStmtList() {
+		return actionStmtList;
 	}
 
 	public RNodeContext getDefaultNodeContext() {
@@ -98,6 +136,27 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 		defaultNodeConext.tryAddStmt = 0;
 		defaultNodeConext.actualAddStmt = 0;
 		return defaultNodeConext;
+	}
+
+	@Override
+	public IRFrame getFrame() throws RException {
+
+		if (queueFrame == null) {
+			queueFrame = RulpFactory.createFrame(node.getFrame(), "NF-" + node.getNodeName());
+			RulpUtil.incRef(queueFrame);
+		}
+
+		return queueFrame;
+	}
+
+	@Override
+	public IRInterpreter getInterpreter() {
+		return node.getModel().getInterpreter();
+	}
+
+	@Override
+	public IRModel getModel() {
+		return node.getModel();
 	}
 
 	@Override

@@ -4,26 +4,25 @@ import java.util.ArrayList;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XActionAddStmt implements IAction {
 
+	protected String _toString;
+
 	protected int inheritCount;
 
 	protected int inheritIndexs[];
+
+	protected String stmtName;
 
 	protected IRObject stmtObjs[];
 
 	protected int stmtSize;
 
-	protected String stmtName;
-
-	protected String _toString;
-
-	public XActionAddStmt(int[] inheritIndexs, int inheritCount, IRObject[] stmtObjs, int stmtSize,
-			String stmtName) {
+	public XActionAddStmt(int[] inheritIndexs, int inheritCount, IRObject[] stmtObjs, int stmtSize, String stmtName) {
 
 		super();
 		this.inheritIndexs = inheritIndexs;
@@ -35,7 +34,7 @@ public class XActionAddStmt implements IAction {
 	}
 
 	@Override
-	public void doAction(IRReteNode node, IRReteEntry entry) throws RException {
+	public void doAction(IRReteEntry entry, IRContext context) throws RException {
 
 		ArrayList<IRObject> elements = new ArrayList<>();
 		for (int i = 0; i < stmtSize; ++i) {
@@ -55,10 +54,15 @@ public class XActionAddStmt implements IAction {
 		}
 
 		if (stmtName != null) {
-			node.getModel().addStatement(RulpFactory.createNamedList(elements, stmtName));
+			context.getModel().addStatement(RulpFactory.createNamedList(elements, stmtName));
 		} else {
-			node.getModel().addStatement(RulpFactory.createList(elements));
+			context.getModel().addStatement(RulpFactory.createList(elements));
 		}
+	}
+
+	@Override
+	public RActionType getActionType() {
+		return RActionType.ADD;
 	}
 
 	public String toString() {

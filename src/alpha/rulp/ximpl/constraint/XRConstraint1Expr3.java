@@ -3,11 +3,9 @@ package alpha.rulp.ximpl.constraint;
 import static alpha.rulp.lang.Constant.A_EXPRESSION;
 
 import alpha.rulp.lang.IRExpr;
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 

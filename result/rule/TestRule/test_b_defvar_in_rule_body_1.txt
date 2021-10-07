@@ -29,7 +29,7 @@ A0002[3] *      [R0001]        [A0003]                              [RU000]
 A0003[3] *      [A0002]        [E0004]                              [RU000]
 A0006[3] *      [R0001]
 E0004[3] *      [A0003]        [RU000]                              [RU000]
-RU000[3] EXEC   [E0004]
+RU000[3] ACTION [E0004]
 ========================================================================================================================================================
 
 node info3:
@@ -54,18 +54,15 @@ A0006[3]       2      6   C1:equal-value:(equal ?1 nm:isVersionOf)
 E0004[3]       2      2   C1:expr:(can-cast '(int float) (get-version-number ?tag))
 ========================================================================================================================================================
 
-node info5: queue
+node info5: action
 ========================================================================================================================================================
-NODE[n]  Type   Description
+NODE[n]  Index Type  Action
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0001[3] MULTI
-A0002[3] MULTI
-A0003[3] MULTI
-A0006[3] MULTI
-E0004[3] MULTI
-RU000[3] EXEC   (defvar ?tagName (to-string ?tag)) (defvar ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (defvar ?mainTag
-                 (to-atom (str-substr ?tagName 0 ?pos))) (defvar ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt m
-                 '(?mainTag nm:typeOf nm:tag)) (-> '(?tag nm:isVersionOf ?mainTag) '(?tag nm:beDefinedByTag )))))...
+RU000[3] 0     EXPR  (defvar ?tagName (to-string ?tag))
+         1     EXPR  (defvar ?pos (str-last-index-of ?tagName "v"))
+         2     EXPR  (if (not (equal ?pos -1)) (do (defvar ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (defvar ?mainTagVersion (to-atom (strcat
+                      (to-string ?mainTag) "-version"))) (if (has-stmt m '(?mainTag nm:typeOf nm:tag)) (-> '(?tag nm:isVersionOf ?mainTag) '(?tag
+                      nm:beDefinedByTag )))))...
 ========================================================================================================================================================
 
 priority info:

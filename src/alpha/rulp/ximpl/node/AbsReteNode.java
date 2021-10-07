@@ -321,7 +321,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public void cleanNode() throws RException {
+	public void clean() throws RException {
 
 		if (nodeFrame != null && nodeFrame.listEntries().isEmpty()) {
 			nodeFrame.release();

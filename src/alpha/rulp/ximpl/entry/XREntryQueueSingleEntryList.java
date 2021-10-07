@@ -109,11 +109,6 @@ public class XREntryQueueSingleEntryList implements IREntryQueue {
 	}
 
 	@Override
-	public String getQueueDescription() {
-		return "";
-	}
-
-	@Override
 	public REntryQueueType getQueueType() {
 		return REntryQueueType.SINGLE;
 	}

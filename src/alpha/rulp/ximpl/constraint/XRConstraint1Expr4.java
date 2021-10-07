@@ -8,13 +8,11 @@ import java.util.List;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;

@@ -252,20 +252,20 @@ B2094[3] *      [B2092, A0093] [RR5]                                [RR5]       
 B2104[3] *      [B0103, E1102] [B1105]                              [AC1]                          [0/0, 0/1, 0/2]
 B2111[3] *      [B0110, A0003] [B1112]                              [AC3]                          [0/0, 0/1, 0/2]
 B2117[3] *      [E0116, A0003] [B1118]                              [AC4]                          [0/0, 0/1, 0/2]
-TV1[2]   EXEC   [B1007]
+TV1[2]   ACTION [B1007]
 TC1[3]   ACTION [A0009]
 CC1[3]   ACTION [B0013]
 TG1[3]   ACTION [A0012]
 TG3[3]   ACTION [A0016]
 C1[4]    ACTION [B0019]
-C2[2]    EXEC   [B0024]
+C2[2]    ACTION [B0024]
 C3[3]    ACTION [B2027]
-C4[4]    EXEC   [E1032]
+C4[4]    ACTION [E1032]
 C5[3]    ACTION [B2035]
 C6[3]    ACTION [B0038]
-C7[4]    EXEC   [B1043]
+C7[4]    ACTION [B1043]
 C8[3]    ACTION [B2046]
-T1[3]    EXEC   [B0049]
+T1[3]    ACTION [B0049]
 T2[4]    ACTION [B0053]
 T3[4]    ACTION [B0055]
 T4[3]    ACTION [A0045]
@@ -277,22 +277,22 @@ D2[3]    ACTION [A0068]
 D3[3]    ACTION [B0071]
 D4[3]    ACTION [B0074]
 D5[3]    ACTION [A0003]
-DC1[2]   EXEC   [B1079]
+DC1[2]   ACTION [B1079]
 RR1[3]   ACTION [A0012]
 RR2[3]   ACTION [B0083]
-RR3[2]   EXEC   [B0086]
-RR4[2]   EXEC   [B0089]
-RR5[3]   EXEC   [B2094]
-RR6[2]   EXEC   [B0097]
-RR7[2]   EXEC   [B0100]
-AC1[4]   EXEC   [B1105]
-AC2[2]   EXEC   [B1107]
-AC3[4]   EXEC   [B1112]
-AC4[4]   EXEC   [B1118]
-AC5[2]   EXEC   [B1121]
-AC6[2]   EXEC   [B1124]
-AC7[2]   EXEC   [B1124]
-AC8[2]   EXEC   [B1124]
+RR3[2]   ACTION [B0086]
+RR4[2]   ACTION [B0089]
+RR5[3]   ACTION [B2094]
+RR6[2]   ACTION [B0097]
+RR7[2]   ACTION [B0100]
+AC1[4]   ACTION [B1105]
+AC2[2]   ACTION [B1107]
+AC3[4]   ACTION [B1112]
+AC4[4]   ACTION [B1118]
+AC5[2]   ACTION [B1121]
+AC6[2]   ACTION [B1124]
+AC7[2]   ACTION [B1124]
+AC8[2]   ACTION [B1124]
 ========================================================================================================================================================
 
 node info3:
@@ -484,154 +484,85 @@ E1091[3]       0      0   C1:not-equal-value:(not-qual ?1 nm:hasAutoRelatedTag)
 E1102[3]       0      0   C1:not-equal-index:(not-qual a::?0 b::?2)
 ========================================================================================================================================================
 
-node info5: queue
+node info5: action
 ========================================================================================================================================================
-NODE[n]  Type   Description
+NODE[n]  Index Type  Action
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0001[3] MULTI
-V0005[3] SINGLE
-A0002[3] MULTI
-A0003[3] MULTI
-A0009[3] MULTI
-A0011[3] MULTI
-A0012[3] MULTI
-A0016[3] MULTI
-A0018[3] MULTI
-A0021[3] MULTI
-A0022[3] MULTI
-A0023[3] MULTI
-A0026[3] MULTI
-A0029[3] MULTI
-A0034[3] MULTI
-A0037[3] MULTI
-A0041[3] MULTI
-A0045[3] MULTI
-A0048[3] MULTI
-A0060[3] MULTI
-A0062[3] MULTI
-A0063[3] MULTI
-A0066[3] MULTI
-A0068[3] MULTI
-A0070[3] MULTI
-A0073[3] MULTI
-A0077[3] MULTI
-A0082[3] MULTI
-A0085[3] MULTI
-A0088[3] MULTI
-A0093[3] MULTI
-A0096[3] MULTI
-A0099[3] MULTI
-A0109[3] MULTI
-A0114[3] MULTI
-A0128[3] MULTI
-A0129[3] MULTI
-A1006[3] SINGLE
-E0004[3] MULTI
-E0116[3] MULTI
-E0120[3] MULTI
-E0123[3] MULTI
-E1032[4] MULTI
-E1040[3] MULTI
-E1051[3] MULTI
-E1052[3] MULTI
-E1078[3] MULTI
-E1091[3] MULTI
-E1102[3] MULTI
-B0013[3] MULTI
-B0019[4] MULTI
-B0024[2] MULTI
-B0031[4] MULTI
-B0038[3] MULTI
-B0049[3] MULTI
-B0053[4] MULTI
-B0055[4] MULTI
-B0058[2] MULTI
-B0064[2] MULTI
-B0071[3] MULTI
-B0074[3] MULTI
-B0083[3] MULTI
-B0086[2] MULTI
-B0089[2] MULTI
-B0097[2] MULTI
-B0100[2] MULTI
-B0103[3] MULTI
-B0110[3] MULTI
-B0115[3] MULTI
-B1007[2] MULTI
-B1043[4] MULTI
-B1079[2] MULTI
-B1105[4] MULTI
-B1107[2] MULTI
-B1112[4] MULTI
-B1118[4] MULTI
-B1121[2] MULTI
-B1124[2] MULTI
-B2027[3] MULTI
-B2030[3] MULTI
-B2035[3] MULTI
-B2042[3] MULTI
-B2046[3] MULTI
-B2092[3] MULTI
-B2094[3] MULTI
-B2104[3] MULTI
-B2111[3] MULTI
-B2117[3] MULTI
-TV1[2]   EXEC   (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos
-                 (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq
-                 ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (-> '(?tag
-                 nm:isVersionOf ?mainTag) '(?tag nm:beDefinedByTag )))))...
-TC1[3]   ACTION (-> '(?2, nm:beDefinedByTag, nt:$TClass))
-CC1[3]   ACTION (-> '(?0, nm:beParentTagOf, ?2)) (-> '(?0, nm:beDefinedByTag, nt:$TCollection))
-TG1[3]   ACTION (-> '(?0, nm:hasGroupChild, ?2))
-TG3[3]   ACTION (-> '(nt:$TGROUP, nm:hasRelatedTag, ?2))
-C1[4]    ACTION (-> '(?2, ?3, ?0))
-C2[2]    EXEC   (print "a=" ?a ", p=" ?p "\\n") (error p2d-conflict ?0)
-C3[3]    ACTION (-> '(?0, nm:typeOf, nm:tag))
-C4[4]    EXEC   (error p2d-conflict '(?0 ?1))
-C5[3]    ACTION (-> '(?2, ?1, ?0))
-C6[3]    ACTION (-> '(?0, nm:typeOf, ?2))
-C7[4]    EXEC   (if (has-stmt p2d '(?b ?p ?a)) (error '("Circle found" '(?a ?p ?b) '(?b ?p ?a))))
-C8[3]    ACTION (-> '(?0, nm:typeOf, nm:tag)) (-> '(?2, nm:typeOf, nm:tag))
-T1[3]    EXEC   (error p2d-conflict '("Can't alias to alias tag" ?0 1))
-T2[4]    ACTION (-> '(?3, ?1, ?2))
-T3[4]    ACTION (-> '(?0, ?1, ?3))
-T4[3]    ACTION (-> '(?0, nm:propertyOf, nm:tagProperty))
-T5[2]    ACTION (-> '(?1, nm:propertyOf, nm:tagRelation))
-T8[3]    ACTION (-> '(?0, nm:propertyOf, nm:nonSelfDefine)) (-> '(?2, nm:propertyOf, nm:nonSelfDefine)) (-> '(?0, nm:propertyOf, nm:nonCircleProperty))
-                 (-> '(?2, nm:propertyOf, nm:nonCircleProperty)) (-> '(?0, nm:propertyOf, nm:tagRelation)) (-> '(?2, nm:propertyOf, nm:tagRelation))
-                 (-> '(?0, nm:inverseProperty, ?2))
-TA5[2]   ACTION (-> '(?0, nm:typeOf, nm:tag))
-D1[3]    ACTION (-> '(?0, nm:propertyOf, nm:nonSelfDefine)) (-> '(?2, nm:propertyOf, nm:nonSelfDefine)) (-> '(?0, nm:propertyOf, nm:nonCircleProperty))
-                 (-> '(?2, nm:propertyOf, nm:nonCircleProperty)) (-> '(?0, nm:propertyOf, nm:domainRelation)) (-> '(?2, nm:propertyOf,
-                 nm:domainRelation)) (-> '(?0, nm:inverseProperty, ?2))
-D2[3]    ACTION (-> '(?0, nm:beAncestorDomainOf, ?2))
-D3[3]    ACTION (-> '(?0, nm:beAncestorDomainOf, ?2))
-D4[3]    ACTION (-> '(?0, nm:hasTag, ?2))
-D5[3]    ACTION (-> '(nd:Global, nm:hasTag, ?0))
-DC1[2]   EXEC   (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d))) (-> p2d '(nd:Global nm:beParentDomainOf ?d)))
-RR1[3]   ACTION (-> '(?0, nm:hasDescendant, ?2))
-RR2[3]   ACTION (-> '(?0, nm:hasDescendant, ?2))
-RR3[2]   EXEC   (remove-stmt ?0)
-RR4[2]   EXEC   (remove-stmt ?0)
-RR5[3]   EXEC   (remove-stmt ?0)
-RR6[2]   EXEC   (remove-stmt ?1)
-RR7[2]   EXEC   (remove-stmt ?1)
-AC1[4]   EXEC   (remove-stmt '(?a nm:beParentTagOf ?c)) (remove-stmt '(?c nm:beChildTagOf ?a))
-AC2[2]   EXEC   (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2))) (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag)) (-> p2d '(?t
-                 nm:hasAutoRelatedTag (to-atom ?t1)))))
-AC3[4]   EXEC   (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (->
-                 '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
-AC4[4]   EXEC   (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))) '(?f nm:beParentTagOf (to-atom (strcat (to-string
-                 ?ins) "-" (get-uri-name ?f)))))
-AC5[2]   EXEC   (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr
-                 ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
-AC6[2]   EXEC   (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr
-                 nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom ( 
-                 )))))...
-AC7[2]   EXEC   (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr
-                 nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t)))
-AC8[2]   EXEC   (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr
-                 nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t)))
+TV1[2]   0     EXPR  (defvar ?tagName)
+         1     EXPR  (defvar ?mainTag)
+         2     EXPR  (defvar ?mainTagVersion)
+         3     EXPR  (defvar ?pos)
+         4     EXPR  (setq ?tagName (to-string ?tag))
+         5     EXPR  (setq ?pos (str-last-index-of ?tagName "v"))
+         6     EXPR  (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string
+                      ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (-> '(?tag nm:isVersionOf ?mainTag) '(?tag nm:beDefinedByTag
+                      )))))...
+TC1[3]   0     ADD   (-> '(?2, nm:beDefinedByTag, nt:$TClass))
+CC1[3]   0     ADD   (-> '(?0, nm:beParentTagOf, ?2))
+         1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TCollection))
+TG1[3]   0     ADD   (-> '(?0, nm:hasGroupChild, ?2))
+TG3[3]   0     ADD   (-> '(nt:$TGROUP, nm:hasRelatedTag, ?2))
+C1[4]    0     ADD   (-> '(?2, ?3, ?0))
+C2[2]    0     EXPR  (print "a=" ?a ", p=" ?p "\\n")
+         1     EXPR  (error p2d-conflict ?0)
+C3[3]    0     ADD   (-> '(?0, nm:typeOf, nm:tag))
+C4[4]    0     EXPR  (error p2d-conflict '(?0 ?1))
+C5[3]    0     ADD   (-> '(?2, ?1, ?0))
+C6[3]    0     ADD   (-> '(?0, nm:typeOf, ?2))
+C7[4]    0     EXPR  (if (has-stmt p2d '(?b ?p ?a)) (error '("Circle found" '(?a ?p ?b) '(?b ?p ?a))))
+C8[3]    0     ADD   (-> '(?0, nm:typeOf, nm:tag))
+         1     ADD   (-> '(?2, nm:typeOf, nm:tag))
+T1[3]    0     EXPR  (error p2d-conflict '("Can't alias to alias tag" ?0 1))
+T2[4]    0     ADD   (-> '(?3, ?1, ?2))
+T3[4]    0     ADD   (-> '(?0, ?1, ?3))
+T4[3]    0     ADD   (-> '(?0, nm:propertyOf, nm:tagProperty))
+T5[2]    0     ADD   (-> '(?1, nm:propertyOf, nm:tagRelation))
+T8[3]    0     ADD   (-> '(?0, nm:propertyOf, nm:nonSelfDefine))
+         1     ADD   (-> '(?2, nm:propertyOf, nm:nonSelfDefine))
+         2     ADD   (-> '(?0, nm:propertyOf, nm:nonCircleProperty))
+         3     ADD   (-> '(?2, nm:propertyOf, nm:nonCircleProperty))
+         4     ADD   (-> '(?0, nm:propertyOf, nm:tagRelation))
+         5     ADD   (-> '(?2, nm:propertyOf, nm:tagRelation))
+         6     ADD   (-> '(?0, nm:inverseProperty, ?2))
+TA5[2]   0     ADD   (-> '(?0, nm:typeOf, nm:tag))
+D1[3]    0     ADD   (-> '(?0, nm:propertyOf, nm:nonSelfDefine))
+         1     ADD   (-> '(?2, nm:propertyOf, nm:nonSelfDefine))
+         2     ADD   (-> '(?0, nm:propertyOf, nm:nonCircleProperty))
+         3     ADD   (-> '(?2, nm:propertyOf, nm:nonCircleProperty))
+         4     ADD   (-> '(?0, nm:propertyOf, nm:domainRelation))
+         5     ADD   (-> '(?2, nm:propertyOf, nm:domainRelation))
+         6     ADD   (-> '(?0, nm:inverseProperty, ?2))
+D2[3]    0     ADD   (-> '(?0, nm:beAncestorDomainOf, ?2))
+D3[3]    0     ADD   (-> '(?0, nm:beAncestorDomainOf, ?2))
+D4[3]    0     ADD   (-> '(?0, nm:hasTag, ?2))
+D5[3]    0     ADD   (-> '(nd:Global, nm:hasTag, ?0))
+DC1[2]   0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d))) (-> p2d '(nd:Global nm:beParentDomainOf ?d)))
+RR1[3]   0     ADD   (-> '(?0, nm:hasDescendant, ?2))
+RR2[3]   0     ADD   (-> '(?0, nm:hasDescendant, ?2))
+RR3[2]   0     EXPR  (remove-stmt ?0)
+RR4[2]   0     EXPR  (remove-stmt ?0)
+RR5[3]   0     EXPR  (remove-stmt ?0)
+RR6[2]   0     EXPR  (remove-stmt ?1)
+RR7[2]   0     EXPR  (remove-stmt ?1)
+AC1[4]   0     EXPR  (remove-stmt '(?a nm:beParentTagOf ?c))
+         1     EXPR  (remove-stmt '(?c nm:beChildTagOf ?a))
+AC2[2]   0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2))) (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag)) (-> p2d '(?t
+                      nm:hasAutoRelatedTag (to-atom ?t1)))))
+AC3[4]   0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (->
+                      '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
+AC4[4]   0     EXPR  (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))) '(?f nm:beParentTagOf (to-atom (strcat (to-string
+                      ?ins) "-" (get-uri-name ?f)))))
+AC5[2]   0     ADD   (-> '(?0, nm:beChildTagOf, nt:$BEGINNER))
+         1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TOPIC))
+         2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (->
+                      '(?t nm:beDefinedByTag ?dn)))))
+AC6[2]   0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr
+                      nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom ( 
+                      )))))...
+AC7[2]   0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr
+                      nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t)))
+AC8[2]   0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr
+                      nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t)))
 ========================================================================================================================================================
 
 priority info:

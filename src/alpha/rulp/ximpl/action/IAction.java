@@ -1,11 +1,13 @@
 package alpha.rulp.ximpl.action;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.rule.IRContext;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public interface IAction {
 
-	public void doAction(IRReteNode node, IRReteEntry entry) throws RException;
+	public void doAction(IRReteEntry entry, IRContext context) throws RException;
+
+	public RActionType getActionType();
 
 }

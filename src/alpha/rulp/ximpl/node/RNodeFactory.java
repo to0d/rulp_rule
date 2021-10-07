@@ -2,7 +2,6 @@ package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_ROOT;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
@@ -20,12 +19,10 @@ import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.ActionUtil;
-import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.entry.XREntryQueueEmpty;
-import alpha.rulp.ximpl.entry.XREntryQueueExecuteStmt;
 import alpha.rulp.ximpl.entry.XREntryQueueMulitEntryList;
 import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
 
@@ -659,46 +656,14 @@ public class RNodeFactory {
 		// Entry length
 		node.setEntryLength(entryLength);
 
-		// Try build action queue
-		List<IAction> actionNodes = null;
+		// Build action nodes
+		XREntryQueueAction entryQueue = new XREntryQueueAction(node);
 
-		if (!actionStmtList.isEmpty()) {
-
-			boolean canBuildActionQueue = true;
-
-			actionNodes = new ArrayList<>();
-
-			for (IRExpr actionStmt : actionStmtList) {
-
-				List<IAction> acNodes = ActionUtil.tryBuildActionNodes(varEntry, actionStmt);
-				if (acNodes == null) {
-					canBuildActionQueue = false;
-					break;
-				}
-
-				actionNodes.addAll(acNodes);
-			}
-
-			if (!canBuildActionQueue) {
-				actionNodes = null;
-			}
+		for (IRExpr actionStmt : actionStmtList) {
+			entryQueue.addActions(ActionUtil.buildActionNodes(varEntry, actionStmt));
 		}
 
-		// Action entry queue
-		if (actionNodes != null) {
-
-			XREntryQueueAction entryQueue = new XREntryQueueAction(node);
-			entryQueue.addActionNodes(actionNodes);
-			node.setEntryQueue(entryQueue);
-
-		}
-		// Exec entry queue
-		else {
-
-			XREntryQueueExecuteStmt entryQueue = new XREntryQueueExecuteStmt(node);
-			entryQueue.addActionStmts(actionStmtList);
-			node.setEntryQueue(entryQueue);
-		}
+		node.setEntryQueue(entryQueue);
 
 		// Var entry
 		node.setVarEntry(varEntry);

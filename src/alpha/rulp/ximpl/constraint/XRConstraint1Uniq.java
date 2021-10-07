@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.rule.IRRListener1;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;

@@ -60,7 +60,6 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public boolean addReteEntry(IRReteEntry entry) throws RException;
 
-	public void cleanNode() throws RException;
 
 	public int doGC();
 

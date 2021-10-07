@@ -56,7 +56,53 @@ public class ActionUtil {
 					return false;
 				}
 
-				actionList.add(addStmtAction((IRList) ex, varEntry));
+				IRList varStmt = (IRList) ex;
+
+				int stmtSize = varStmt.size();
+				int inheritIndexs[] = new int[stmtSize];
+				IRObject stmtObjs[] = new IRObject[stmtSize];
+				int inheritCount = 0;
+
+				for (int i = 0; i < stmtSize; ++i) {
+
+					IRObject obj = varStmt.get(i);
+
+					if (!RulpUtil.isVarAtom(obj)) {
+						stmtObjs[i] = obj;
+						inheritIndexs[i] = -1;
+						continue;
+					}
+
+					int inheritIndex = -1;
+
+					for (int j = 0; j < varEntry.length; ++j) {
+
+						IRObject varObj = varEntry[j];
+						if (varObj == null) {
+							continue;
+						}
+
+						if (ReteUtil.equal(obj, varObj)) {
+							inheritIndex = j;
+							break;
+						}
+					}
+
+					if (inheritIndex == -1) {
+						return false;
+					}
+
+					inheritIndexs[i] = inheritIndex;
+					stmtObjs[i] = null;
+					inheritCount++;
+				}
+
+				if (inheritCount == 0) {
+					throw new RException("not var found: " + varStmt);
+				}
+
+				actionList.add(
+						new XActionAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize, varStmt.getNamedName()));
 			}
 
 			return true;
@@ -145,58 +191,6 @@ public class ActionUtil {
 		}
 	}
 
-	public static IAction addStmtAction(IRList varStmt, IRObject[] varEntry) throws RException {
-
-		if (!ReteUtil.isReteStmt(varStmt)) {
-			throw new RException("invalid var stmt: " + varStmt);
-		}
-
-		int stmtSize = varStmt.size();
-		int inheritIndexs[] = new int[stmtSize];
-		IRObject stmtObjs[] = new IRObject[stmtSize];
-		int inheritCount = 0;
-
-		for (int i = 0; i < stmtSize; ++i) {
-
-			IRObject obj = varStmt.get(i);
-
-			if (!RulpUtil.isVarAtom(obj)) {
-				stmtObjs[i] = obj;
-				inheritIndexs[i] = -1;
-				continue;
-			}
-
-			int inheritIndex = -1;
-
-			for (int j = 0; j < varEntry.length; ++j) {
-
-				IRObject varObj = varEntry[j];
-				if (varObj == null) {
-					continue;
-				}
-
-				if (ReteUtil.equal(obj, varObj)) {
-					inheritIndex = j;
-					break;
-				}
-			}
-
-			if (inheritIndex == -1) {
-				throw new RException("Inherit Index not found: " + varStmt);
-			}
-
-			inheritIndexs[i] = inheritIndex;
-			stmtObjs[i] = null;
-			inheritCount++;
-		}
-
-		if (inheritCount == 0) {
-			throw new RException("not var found: " + varStmt);
-		}
-
-		return new XActionAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize, varStmt.getNamedName());
-	}
-
 	public static List<String> buildRelatedStmtUniqNames(IRExpr expr) throws RException {
 
 		ArrayList<String> uniqNames = new ArrayList<>();
@@ -204,12 +198,13 @@ public class ActionUtil {
 		return uniqNames;
 	}
 
-	public static List<IAction> tryBuildActionNodes(IRObject[] varEntry, IRExpr expr) throws RException {
+	public static List<IAction> buildActionNodes(IRObject[] varEntry, IRExpr expr) throws RException {
 
 		List<IAction> actionList = new ArrayList<>();
 
 		if (!_buildActionNodes(expr, varEntry, actionList)) {
-			return null;
+			actionList.clear();
+			actionList.add(new XActionExecExpr(expr));
 		}
 
 		return actionList;

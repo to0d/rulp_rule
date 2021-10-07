@@ -1253,6 +1253,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public void clean() throws RException {
+
+	}
+
+	@Override
 	public void delete(IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		if (modelFrame != null) {
@@ -1346,7 +1351,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		int update = node.update();
 
 		node.setReteStage(RReteStage.InActive);
-		node.cleanNode();
+		node.clean();
 
 		if (node.getReteType() == RReteType.RULE) {
 
@@ -1416,23 +1421,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return nodeGraph.getNodeByTree(condList);
 	}
 
-	@Override
-	public int fixStatement(IRList stmt) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addFixedStatement: " + stmt);
-		}
-
-		int actualAddStmt = _addReteEntry(stmt, RReteStatus.FIXED_);
-
-		// active stmt listeners
-		if (actualAddStmt > 0) {
-			stmtListenUpdater.update(this);
-		}
-
-		return actualAddStmt;
-	}
-
 //	@Override
 //	public IRIterator<IRObject> listObjects() throws RException {
 //
@@ -1453,6 +1441,23 @@ public class XRModel extends AbsRInstance implements IRModel {
 //			}
 //		};
 //	}
+
+	@Override
+	public int fixStatement(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> addFixedStatement: " + stmt);
+		}
+
+		int actualAddStmt = _addReteEntry(stmt, RReteStatus.FIXED_);
+
+		// active stmt listeners
+		if (actualAddStmt > 0) {
+			stmtListenUpdater.update(this);
+		}
+
+		return actualAddStmt;
+	}
 
 	@Override
 	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
@@ -1562,11 +1567,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		};
 	}
 
-	@Override
-	public IREntryTable getEntryTable() {
-		return entryTable;
-	}
-
 //	@Override
 //	public IRMember getMember(String name) throws RException {
 //
@@ -1592,6 +1592,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 //
 //		return mbr;
 //	}
+
+	@Override
+	public IREntryTable getEntryTable() {
+		return entryTable;
+	}
 
 	@Override
 	public IRFrame getFrame() {

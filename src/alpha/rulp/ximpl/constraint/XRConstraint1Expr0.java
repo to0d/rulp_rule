@@ -8,7 +8,6 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 

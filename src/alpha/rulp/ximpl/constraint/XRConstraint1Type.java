@@ -2,12 +2,10 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.rule.Constant.A_Type;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1Type extends AbsRConstraint1 implements IRConstraint1Type {

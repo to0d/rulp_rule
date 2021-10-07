@@ -71,6 +71,7 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRRuleCounter;
 import alpha.rulp.rule.RCountType;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.constraint.IRConstraint;
 import alpha.rulp.ximpl.entry.IFixEntry;
@@ -81,6 +82,7 @@ import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
+import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
@@ -1572,20 +1574,44 @@ public class OptimizeUtil {
 		sb.append("\n");
 	}
 
-	private static void _printNodeInfo5Queue(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+	private static void _printNodeInfo5Action(StringBuffer sb, IRModel model, List<IRReteNode> nodes)
+			throws RException {
 
-		sb.append("node info5: queue\n");
+		ArrayList<IRReteNode> ruleNodes = new ArrayList<>();
+
+		for (IRReteNode node : nodes) {
+
+			if (node.getReteType() != RReteType.RULE) {
+				continue;
+			}
+
+			ruleNodes.add(node);
+		}
+
+		if (ruleNodes.isEmpty()) {
+			return;
+		}
+
+		sb.append("node info5: action\n");
 		sb.append(SEP_LINE1);
 
 		List<List<String>> result = new ArrayList<>();
-		List<Integer> maxLen = toList(8, 6, 136);
+		List<Integer> maxLen = toList(8, 5, 5, 136);
 
-		result.add(toList("NODE[n]", "Type", "Description"));
+		result.add(toList("NODE[n]", "Index", "Type", "Action"));
 
-		for (IRReteNode node : nodes) {
-			IREntryQueue entryQueue = node.getEntryQueue();
-			result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]", "" + entryQueue.getQueueType(),
-					entryQueue.getQueueDescription()));
+		for (IRReteNode node : ruleNodes) {
+
+			XREntryQueueAction entryQueue = (XREntryQueueAction) node.getEntryQueue();
+			LinkedList<IAction> actions = entryQueue.getActionStmtList();
+
+			result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]", "0",
+					actions.size() > 0 ? "" + actions.get(0).getActionType() : "",
+					actions.size() > 0 ? actions.get(0).toString() : ""));
+
+			for (int i = 1; i < actions.size(); ++i) {
+				result.add(toList("", "" + i, "" + actions.get(i).getActionType(), actions.get(i).toString()));
+			}
 		}
 
 		int index = 0;
@@ -1772,7 +1798,7 @@ public class OptimizeUtil {
 
 			// Output node constraint
 			_printNodeInfo4(sb, model, nodes);
-			_printNodeInfo5Queue(sb, model, nodes);
+			_printNodeInfo5Action(sb, model, nodes);
 		}
 
 		/****************************************************/

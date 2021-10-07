@@ -2,10 +2,8 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.rule.Constant.A_EQUAL_INDEX;
 
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
