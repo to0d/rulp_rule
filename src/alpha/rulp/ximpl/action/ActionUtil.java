@@ -12,6 +12,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
@@ -19,7 +20,7 @@ import alpha.rulp.ximpl.factor.XRFactorAddStmt;
 
 public class ActionUtil {
 
-	private static boolean _buildActionNodes(IRExpr expr, IRObject[] varEntry, List<IAction> actionList)
+	private static boolean _buildActionNodes(IRModel model, IRExpr expr, IRObject[] varEntry, List<IAction> actionList)
 			throws RException {
 
 		if (expr.isEmpty()) {
@@ -29,7 +30,7 @@ public class ActionUtil {
 		IRObject e0 = expr.get(0);
 		switch (e0.getType()) {
 		case ATOM:
-			return _buildActionNodes(RulpUtil.asAtom(e0).getName(), expr, varEntry, actionList);
+			return _buildActionNodes(model, RulpUtil.asAtom(e0).getName(), expr, varEntry, actionList);
 
 		default:
 			return false;
@@ -37,7 +38,7 @@ public class ActionUtil {
 
 	}
 
-	private static boolean _buildActionNodes(String factorName, IRExpr expr, IRObject[] varEntry,
+	private static boolean _buildActionNodes(IRModel model, String factorName, IRExpr expr, IRObject[] varEntry,
 			List<IAction> actionList) throws RException {
 
 		if (factorName == null) {
@@ -48,11 +49,22 @@ public class ActionUtil {
 		case F_ADD_STMT:
 		case F_DEFS_S:
 
+			int index = 0;
+
 			IRIterator<? extends IRObject> it1 = expr.listIterator(1);
-			while (it1.hasNext()) {
+			NEXT: while (it1.hasNext()) {
 
 				IRObject ex = it1.next();
+				index++;
+
 				if (!ReteUtil.isReteStmt(ex)) {
+
+					// (-> m '(stmt))
+					if (index == 1 && ex.getType() == RType.ATOM
+							&& RulpUtil.asAtom(ex).asString().equals(model.getModelName())) {
+						continue NEXT;
+					}
+
 					return false;
 				}
 
@@ -117,7 +129,7 @@ public class ActionUtil {
 					return false;
 				}
 
-				if (!_buildActionNodes((IRExpr) ex, varEntry, actionList)) {
+				if (!_buildActionNodes(model, (IRExpr) ex, varEntry, actionList)) {
 					return false;
 				}
 			}
@@ -198,11 +210,11 @@ public class ActionUtil {
 		return uniqNames;
 	}
 
-	public static List<IAction> buildActionNodes(IRObject[] varEntry, IRExpr expr) throws RException {
+	public static List<IAction> buildActions(IRModel model, IRObject[] varEntry, IRExpr expr) throws RException {
 
 		List<IAction> actionList = new ArrayList<>();
 
-		if (!_buildActionNodes(expr, varEntry, actionList)) {
+		if (!_buildActionNodes(model, expr, varEntry, actionList)) {
 			actionList.clear();
 			actionList.add(new XActionExecExpr(expr));
 		}

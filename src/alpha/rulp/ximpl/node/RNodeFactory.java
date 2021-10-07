@@ -660,7 +660,7 @@ public class RNodeFactory {
 		XREntryQueueAction entryQueue = new XREntryQueueAction(node);
 
 		for (IRExpr actionStmt : actionStmtList) {
-			entryQueue.addActions(ActionUtil.buildActionNodes(varEntry, actionStmt));
+			entryQueue.addActions(ActionUtil.buildActions(model, varEntry, actionStmt));
 		}
 
 		node.setEntryQueue(entryQueue);
