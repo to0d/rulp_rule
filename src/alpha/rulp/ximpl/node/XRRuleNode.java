@@ -29,7 +29,6 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.rule.RRunState;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
@@ -202,19 +201,19 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			}
 		}
 
-		IRFrame consFrame = RulpFactory.createFrame(this.getFrame(), "NF-" + getNodeName());
-		RulpUtil.incRef(consFrame);
-
-		try {
+//		IRFrame consFrame = RulpFactory.createFrame(this.getFrame(), "NF-" + getNodeName());
+//		RulpUtil.incRef(consFrame);
+//
+//		try {
 			for (IRConstraint1 constraint : this.constraint1List) {
 				if (!constraint.addEntry(entry, this)) {
 					return false;
 				}
 			}
-		} finally {
-			consFrame.release();
-			RulpUtil.decRef(consFrame);
-		}
+//		} finally {
+//			consFrame.release();
+//			RulpUtil.decRef(consFrame);
+//		}
 
 		return true;
 	}

@@ -142,7 +142,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 	public IRFrame getFrame() throws RException {
 
 		if (queueFrame == null) {
-			queueFrame = RulpFactory.createFrame(node.getFrame(), "NF-" + node.getNodeName());
+			queueFrame = RulpFactory.createFrame(node.getFrame(), "QF-" + node.getNodeName());
 			RulpUtil.incRef(queueFrame);
 		}
 

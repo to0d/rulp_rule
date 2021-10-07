@@ -151,7 +151,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 		if (!rst.isEmpty()) {
 
-			IRFrame qdFrame = RulpFactory.createFrame(frame, "Query-Do");
+			IRFrame qdFrame = RulpFactory.createFrame(frame, "QUERY-STMT");
 			RulpUtil.incRef(qdFrame);
 			RuleUtil.setDefaultModel(qdFrame, model);
 

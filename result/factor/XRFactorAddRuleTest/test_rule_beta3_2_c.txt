@@ -170,7 +170,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
-Node<RULE1> frame:id=4, name=NF-RULE1, lvl=4, ref=1/2, entry=7, pid=3(MODEL), subject=NF-RULE1
+Node<RULE1> frame:id=4, name=NF-RULE1, lvl=4, ref=1/1, entry=7, pid=3(MODEL), subject=NF-RULE1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -201,8 +201,8 @@ Total runtime info:
      Interpreter call id/level:       61        0
              CPS support/count:    false        0
                Frame max level:        4
-                  Frame max id:        6
-           Frame free id count:        1
+                  Frame max id:        5
+           Frame free id count:        0
 ==========================================================================================================================
 
 Expression compute count:
@@ -246,7 +246,7 @@ Object create count:
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:            4            2            2
+       frame:            2            0            2
  interpreter:            1            0
   frameEntry:          245            0
       lambda:            0            0
@@ -273,7 +273,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
-id=4, name=NF-RULE1, lvl=4, ref=1/2, entry=7, pid=3(MODEL), subject=NF-RULE1
+id=4, name=NF-RULE1, lvl=4, ref=1/1, entry=7, pid=3(MODEL), subject=NF-RULE1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
