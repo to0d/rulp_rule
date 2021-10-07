@@ -471,8 +471,8 @@ public class ReteUtil {
 
 			ArrayList<IRObject> vars = new ArrayList<>();
 
-			for (int index = reteTree.size() - ModifierCount; index > 0; --index) {
-				for (IRObject v : buildTreeVarList((IRList) reteTree.get(index - 1), new HashMap<>())) {
+			for (int index = 0; index < reteTree.size() - ModifierCount; ++index) {
+				for (IRObject v : buildTreeVarList((IRList) reteTree.get(index), new HashMap<>())) {
 					if (_tryPutVarIndex(indexMap, v, vars.size())) {
 						vars.add(v);
 					}
