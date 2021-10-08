@@ -72,7 +72,6 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_2_uniq_1() {
 
 		_setup();
-		// XRModel.TRACE_RETE = true;
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_2_uniq_1.rulp");
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_2_uniq_1.txt");
 	}
@@ -81,10 +80,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_3_not_null_1() {
 
 		_setup();
-		// XRModel.TRACE_RETE = true;
-
-		_test("(new model m)");
-		_test("(add-constraint m name1:'(?x ?y ?z) '(not-null on ?x))", "1");
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_3_not_null_1.rulp");
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_3_not_null_1.txt");
 	}
 

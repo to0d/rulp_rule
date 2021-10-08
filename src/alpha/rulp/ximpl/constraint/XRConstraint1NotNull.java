@@ -10,9 +10,11 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstraint1 {
 
-	private int index;
+	private String _constraintExpression = null;
 
 	private int[] constraintIndex;
+
+	private int index;
 
 	public XRConstraint1NotNull(int index) {
 		super();
@@ -29,7 +31,12 @@ public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstrain
 
 	@Override
 	public String getConstraintExpression() {
-		return String.format("(not-null ?%d)", index);
+
+		if (_constraintExpression == null) {
+			_constraintExpression = String.format("'(not-null ?%d)", index);
+		}
+		
+		return _constraintExpression;
 	}
 
 	@Override

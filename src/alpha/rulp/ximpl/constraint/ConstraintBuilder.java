@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.S_QUESTION;
-import static alpha.rulp.rule.Constant.A_Type;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_Uniq;
 
 import java.util.ArrayList;
@@ -296,6 +296,18 @@ public class ConstraintBuilder {
 		}
 	}
 
+	private IRConstraint1 _notNullConstraint(RConstraint cons) throws RException {
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.createConstraintNotNull(_getColumnIndex(cons.onObject));
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
 	private IRConstraint1 _maxConstraint(RConstraint cons) throws RException {
 
 		switch (cons.onObject.getType()) {
@@ -345,6 +357,10 @@ public class ConstraintBuilder {
 
 				case A_Uniq:
 					constraintList.add(_uniqConstraint(cons));
+					break;
+					
+				case A_NOT_NULL:
+					constraintList.add(_notNullConstraint(cons));
 					break;
 
 				default:

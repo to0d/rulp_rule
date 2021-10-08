@@ -1,7 +1,6 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.rule.Constant.A_Type;
-import static alpha.rulp.rule.Constant.A_Uniq;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
 import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
@@ -67,6 +66,30 @@ public class ModelUtil {
 		}
 
 		return subGraph;
+	}
+
+	public static boolean addConstraint(IRModel model, IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		IRInterpreter interpreter = model.getInterpreter();
+		IRFrame frame = model.getFrame();
+
+		switch (constraint.getConstraintName()) {
+		case A_Type:
+			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
+			interpreter.compute(frame,
+					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, model,
+							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
+							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
+							RType.toObject(typeConstraint.getColumnType())));
+			break;
+
+		case A_Uniq:
+		case A_NOT_NULL:
+		default:
+			break;
+		}
+
+		return node.addConstraint1(constraint);
 	}
 
 	public static IRRule addRule(IRModel model, String ruleName, String condExpr,
@@ -282,29 +305,5 @@ public class ModelUtil {
 		}
 
 		return null;
-	}
-
-	public static boolean addConstraint(IRModel model, IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		IRInterpreter interpreter = model.getInterpreter();
-		IRFrame frame = model.getFrame();
-
-		switch (constraint.getConstraintName()) {
-		case A_Type:
-			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
-			interpreter.compute(frame,
-					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, model,
-							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
-							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
-							RType.toObject(typeConstraint.getColumnType())));
-			break;
-
-		case A_Uniq:
-
-		default:
-			break;
-		}
-
-		return node.addConstraint1(constraint);
 	}
 }

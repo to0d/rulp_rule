@@ -2,7 +2,7 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.S_QUESTION;
-import static alpha.rulp.rule.Constant.A_Max;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -230,6 +230,7 @@ public class ConstraintFactory {
 		return new XRConstraint1Uniq(uniqColumnIndexs);
 	}
 
+	 
 	static IRConstraint1 createSingleConstraint(IRList constraintList) {
 
 		IRIterator<? extends IRObject> iterator = constraintList.iterator();
@@ -311,6 +312,16 @@ public class ConstraintFactory {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = S_QUESTION;
+			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+
+			return cons;
+		}
+
+		// (not-nil on ?x)
+		if (consListSize == 3 && _isAtom(constraintlist, 0, A_NOT_NULL) && _isAtom(constraintlist, 1, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_NOT_NULL;
 			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
 
 			return cons;
