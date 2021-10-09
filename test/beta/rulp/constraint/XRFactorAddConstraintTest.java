@@ -121,14 +121,9 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	@Test
 	void test_6_max_1() {
 
-		_test("(new model m)");
-		_test("(add-constraint m n1:'(?x) '(type int on ?x))", "1");
-		_test("(add-constraint m n1:'(?x) '(max 10 on ?x))", "1");
-		_test("(add-stmt m n1:'(1))", "");
-		_test("(add-stmt m n1:'(10))", "");
-		_test("(add-stmt m n1:'(11))", "");
-		_test("(query-stmt m ?x from n1:'(?x))", "");
+		_test_script("result/constraint/XRFactorAddConstraintTest/test_6_max_1.rulp");
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_6_max_1.txt");
+	
 	}
 
 }

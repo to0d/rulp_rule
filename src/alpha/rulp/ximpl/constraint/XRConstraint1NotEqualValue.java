@@ -8,20 +8,13 @@ import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1NotEqualValue extends AbsRConstraint1 implements IRConstraint1 {
-
-	private int index;
-
-	private int[] constraintIndex;
+public class XRConstraint1NotEqualValue extends AbsRConstraint1Index1 implements IRConstraint1 {
 
 	private IRObject obj;
 
 	public XRConstraint1NotEqualValue(int index, IRObject obj) {
-		super();
-		this.index = index;
+		super(index);
 		this.obj = obj;
-		this.constraintIndex = new int[1];
-		this.constraintIndex[0] = index;
 	}
 
 	@Override
@@ -32,11 +25,6 @@ public class XRConstraint1NotEqualValue extends AbsRConstraint1 implements IRCon
 	@Override
 	public String getConstraintExpression() {
 		return String.format("(not-qual ?%d %s)", index, "" + obj);
-	}
-
-	@Override
-	public int[] getConstraintIndex() {
-		return constraintIndex;
 	}
 
 	@Override

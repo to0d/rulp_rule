@@ -1,7 +1,9 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.S_QUESTION;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Max;
+import static alpha.rulp.rule.Constant.A_NOT_NULL;
+import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
 
 import java.util.ArrayList;
@@ -310,23 +312,15 @@ public class ConstraintBuilder {
 
 	private IRConstraint1 _maxConstraint(RConstraint cons) throws RException {
 
+		if (cons.constraintValue == null
+				|| (cons.constraintValue.getType() != RType.INT && cons.constraintValue.getType() != RType.FLOAT)) {
+			throw new RException("Invalid column type: " + cons.constraintValue);
+		}
+
 		switch (cons.onObject.getType()) {
 		case INT:
 		case ATOM:
-			return ConstraintFactory.createConstraintUniq(_getColumnIndex(cons.onObject));
-
-		case LIST:
-
-			IRList onList = (IRList) cons.onObject;
-
-			int uniqIndexCount = onList.size();
-			int[] columnIndexs = new int[uniqIndexCount];
-
-			for (int i = 0; i < uniqIndexCount; ++i) {
-				columnIndexs[i] = _getColumnIndex(onList.get(i));
-			}
-
-			return ConstraintFactory.createConstraintUniq(columnIndexs);
+			return ConstraintFactory.createConstraintMax(_getColumnIndex(cons.onObject), cons.constraintValue);
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);
@@ -358,9 +352,13 @@ public class ConstraintBuilder {
 				case A_Uniq:
 					constraintList.add(_uniqConstraint(cons));
 					break;
-					
+
 				case A_NOT_NULL:
 					constraintList.add(_notNullConstraint(cons));
+					break;
+
+				case A_Max:
+					constraintList.add(_maxConstraint(cons));
 					break;
 
 				default:

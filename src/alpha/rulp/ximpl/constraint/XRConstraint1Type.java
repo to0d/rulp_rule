@@ -8,28 +8,21 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Type extends AbsRConstraint1 implements IRConstraint1Type {
+public class XRConstraint1Type extends AbsRConstraint1Index1 implements IRConstraint1Type {
 
 	private String _constraintExpression = null;
 
-	private final int columnIndex;
-
 	private final RType columnType;
 
-	private int[] constraintIndex;
-
 	public XRConstraint1Type(int columnIndex, RType columnType) {
-		super();
-		this.columnIndex = columnIndex;
+		super(columnIndex);
 		this.columnType = columnType;
-		this.constraintIndex = new int[1];
-		this.constraintIndex[0] = columnIndex;
 	}
 
 	@Override
 	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
 
-		IRObject columnValue = entry.get(columnIndex);
+		IRObject columnValue = entry.get(index);
 		if (columnValue == null) {
 			return true;
 		}
@@ -39,7 +32,7 @@ public class XRConstraint1Type extends AbsRConstraint1 implements IRConstraint1T
 
 	@Override
 	public int getColumnIndex() {
-		return columnIndex;
+		return index;
 	}
 
 	@Override
@@ -51,16 +44,11 @@ public class XRConstraint1Type extends AbsRConstraint1 implements IRConstraint1T
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(type %s on %d)", RType.toObject(columnType).asString(),
-					columnIndex);
+			_constraintExpression = String.format("'(%s %s on %d)", A_Type, RType.toObject(columnType).asString(),
+					index);
 		}
 
 		return _constraintExpression;
-	}
-
-	@Override
-	public int[] getConstraintIndex() {
-		return constraintIndex;
 	}
 
 	@Override

@@ -8,19 +8,12 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstraint1 {
+public class XRConstraint1NotNull extends AbsRConstraint1Index1 implements IRConstraint1 {
 
 	private String _constraintExpression = null;
 
-	private int[] constraintIndex;
-
-	private int index;
-
 	public XRConstraint1NotNull(int index) {
-		super();
-		this.index = index;
-		this.constraintIndex = new int[1];
-		this.constraintIndex[0] = index;
+		super(index);
 	}
 
 	@Override
@@ -35,13 +28,8 @@ public class XRConstraint1NotNull extends AbsRConstraint1 implements IRConstrain
 		if (_constraintExpression == null) {
 			_constraintExpression = String.format("'(not-null ?%d)", index);
 		}
-		
-		return _constraintExpression;
-	}
 
-	@Override
-	public int[] getConstraintIndex() {
-		return constraintIndex;
+		return _constraintExpression;
 	}
 
 	@Override
