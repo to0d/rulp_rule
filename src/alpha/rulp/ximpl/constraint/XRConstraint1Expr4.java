@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.lang.Constant.A_EXPRESSION;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,15 +17,14 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Expr4 extends AbsRConstraint1 implements IRConstraint1Expr {
-
-	protected IRExpr expr;
+public class XRConstraint1Expr4 extends AbsRConstraint1Expr implements IRConstraint1Expr {
 
 	protected LinkedList<IRList> matchStmtList;
 
 	public XRConstraint1Expr4(IRExpr expr, List<IRList> matchStmtList) {
-		super();
-		this.expr = expr;
+
+		super(expr);
+
 		this.matchStmtList = new LinkedList<>(matchStmtList);
 	}
 
@@ -37,26 +34,6 @@ public class XRConstraint1Expr4 extends AbsRConstraint1 implements IRConstraint1
 		IRExpr newExpr = (IRExpr) rebuiltIndexExpr(expr);
 		IRObject rst = context.getInterpreter().compute(context.getFrame(), newExpr);
 		return RulpUtil.asBoolean(rst).asBoolean();
-	}
-
-	@Override
-	public String getConstraintExpression() {
-		return "" + expr;
-	}
-
-	@Override
-	public int[] getConstraintIndex() {
-		return null;
-	}
-
-	@Override
-	public String getConstraintName() {
-		return A_EXPRESSION;
-	}
-
-	@Override
-	public IRExpr getExpr() {
-		return expr;
 	}
 
 	public IRObject rebuiltIndexExpr(IRObject obj) throws RException {

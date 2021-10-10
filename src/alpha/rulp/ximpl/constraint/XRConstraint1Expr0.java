@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.lang.Constant.A_EXPRESSION;
-
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
@@ -11,36 +9,17 @@ import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Expr0 extends AbsRConstraint1 implements IRConstraint1Expr {
-
-	protected IRObject[] varEntry;
+public class XRConstraint1Expr0 extends AbsRConstraint1Expr implements IRConstraint1Expr {
 
 	protected IRVar[] _vars = null;
 
-	protected IRExpr expr;
+	protected IRObject[] varEntry;
 
 	public XRConstraint1Expr0(IRExpr expr, IRObject[] varEntry) {
 
-		super();
-		this.expr = expr;
+		super(expr);
+
 		this.varEntry = varEntry;
-	}
-
-	public IRVar[] getVars(IRFrame frame) throws RException {
-
-		if (_vars == null) {
-
-			_vars = new IRVar[varEntry.length];
-
-			for (int i = 0; i < this.varEntry.length; ++i) {
-				IRObject obj = varEntry[i];
-				if (obj != null) {
-					_vars[i] = frame.addVar(RulpUtil.asAtom(obj).getName());
-				}
-			}
-		}
-
-		return _vars;
 	}
 
 	@Override
@@ -63,23 +42,20 @@ public class XRConstraint1Expr0 extends AbsRConstraint1 implements IRConstraint1
 		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
-	@Override
-	public String getConstraintExpression() {
-		return "" + expr;
-	}
+	public IRVar[] getVars(IRFrame frame) throws RException {
 
-	@Override
-	public IRExpr getExpr() {
-		return expr;
-	}
+		if (_vars == null) {
 
-	@Override
-	public int[] getConstraintIndex() {
-		return null;
-	}
+			_vars = new IRVar[varEntry.length];
 
-	@Override
-	public String getConstraintName() {
-		return A_EXPRESSION;
+			for (int i = 0; i < this.varEntry.length; ++i) {
+				IRObject obj = varEntry[i];
+				if (obj != null) {
+					_vars[i] = frame.addVar(RulpUtil.asAtom(obj).getName());
+				}
+			}
+		}
+
+		return _vars;
 	}
 }
