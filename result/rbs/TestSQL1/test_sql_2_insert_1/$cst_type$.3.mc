@@ -1,0 +1,8 @@
+$cst_type$:'("_RBS_TABLE" 0 string)
+$cst_type$:'("_RBS_TABLE" 1 int)
+$cst_type$:'("_RBS_COLUMN" 0 string)
+$cst_type$:'("_RBS_COLUMN" 1 string)
+$cst_type$:'("_RBS_COLUMN" 2 int)
+$cst_type$:'("t1" 0 int)
+$cst_type$:'("t1" 1 bool)
+$cst_type$:'("t1" 2 float)

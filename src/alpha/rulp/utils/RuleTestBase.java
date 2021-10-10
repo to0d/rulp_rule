@@ -24,6 +24,66 @@ import alpha.rulp.ximpl.scope.XRScope;
 
 public class RuleTestBase extends RulpTestBase {
 
+	protected static String getClassPathName(Class<?> c, int tailIndex) {
+
+		if (c == null || tailIndex < 0) {
+			return null;
+		}
+
+		String fullName = c.getCanonicalName();
+		if (fullName == null) {
+			return null;
+		}
+
+		String[] names = fullName.split("\\.");
+		if (names == null || tailIndex >= names.length) {
+			return null;
+		}
+
+		return names[names.length - tailIndex - 1];
+	}
+
+	protected String getPackageName() {
+		return this.getClass().getPackage().getName();
+	}
+
+	static String BETA_RULP_PRE = "beta.rulp.";
+
+	protected String getCachePath() {
+
+		String packageName = getPackageName();
+
+		if (!packageName.startsWith(BETA_RULP_PRE)) {
+			throw new RuntimeException("Invalid package: " + packageName);
+		}
+
+		String packageShortName = packageName.substring(BETA_RULP_PRE.length());
+		String className = getClassPathName(this.getClass(), 0);
+		String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
+
+		return "result" + File.separator + packageShortName + File.separator + className + File.separator + methodName;
+
+	}
+
+	protected void _clean_model_cache() {
+
+		String cachePath = getCachePath();
+
+		if (FileUtil.isExistDirectory(cachePath)) {
+			for (File file : new File(cachePath).listFiles()) {
+				if (file.isFile()) {
+					file.delete();
+				}
+			}
+		}
+	}
+
+	protected void _save_model_cache(String modelName) {
+		String cachePath = getCachePath();
+		_test("(set-model-cache-path " + modelName + " \"" + cachePath + "\")");
+		_test("(save-model " + modelName + ")");
+	}
+
 	static class TestEntry {
 
 		private String _key;
@@ -469,6 +529,10 @@ public class RuleTestBase extends RulpTestBase {
 			fail(e.toString());
 		}
 
+	}
+
+	protected void _statsInfo(String modelName) {
+		_statsInfo(modelName, getCachePath() + ".txt");
 	}
 
 	protected void _statsInfo(String modelName, String expectFile) {
