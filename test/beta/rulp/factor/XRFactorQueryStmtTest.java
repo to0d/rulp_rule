@@ -188,13 +188,27 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 
 		_setup();
 
-		// XRModel.TRACE_RETE = true;
+		_test("(new model m)");
+		_test("(add-stmt m name1:'(a 1))");
+		_test("(add-stmt m name1:'(b 10))");
+		_test("(add-stmt m name1:'(b 100))");
+		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) (> ?y 1))", "'('(b 10) '(b 100))");
+		
+		_mCount(1, "m");
+		_eCount(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	void test_7_where_2() {
+
+		_setup();
 
 		_test("(new model m)");
 		_test("(add-stmt m name1:'(a 1))");
 		_test("(add-stmt m name1:'(b 10))");
 		_test("(add-stmt m name1:'(b 100))");
-		_test("(query-stmt m '(?a) from name1:'(?x ?b) where (> ?b 1))", "'(b)");
+		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) where (> ?y 1))", "'(b)");
 
 		_mCount(1, "m");
 		_eCount(1, "m");

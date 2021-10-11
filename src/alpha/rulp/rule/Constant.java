@@ -47,6 +47,8 @@ public interface Constant {
 
 	String A_Priority = "priority";
 
+	String A_Where = "where";
+
 	String A_Reasoned = "reasoned";
 
 	String A_Removed = "removed";
@@ -196,6 +198,8 @@ public interface Constant {
 	IRAtom O_Running = RulpFactory.createAtom(A_Running);
 
 	IRAtom O_State = RulpFactory.createAtom(A_State);
+	
+	IRAtom O_Where = RulpFactory.createAtom(A_Where);
 
 	IRAtom O_Type = RulpFactory.createAtom(A_Type);
 

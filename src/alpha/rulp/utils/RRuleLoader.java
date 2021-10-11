@@ -2,7 +2,7 @@ package alpha.rulp.utils;
 
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
-import static alpha.rulp.rule.Constant.F_ADD_LAZY_STMT;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_ADD_NODE;
 import static alpha.rulp.rule.Constant.F_ADD_RULE;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
@@ -117,6 +117,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, O_State);
 		RulpUtil.addFrameObject(systemFrame, O_Priority);
 		RulpUtil.addFrameObject(systemFrame, O_On);
+		RulpUtil.addFrameObject(systemFrame, O_Where);
 
 		RulpUtil.addFrameObject(systemFrame, new XRModelClass(A_MODEL, systemFrame));
 

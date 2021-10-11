@@ -1,12 +1,12 @@
 package alpha.rulp.rule;
 
-import static alpha.rulp.lang.Constant.A_FROM;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.F_DO;
 import static alpha.rulp.lang.Constant.O_From;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_On;
-import static alpha.rulp.rule.Constant.A_Priority;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_State;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.O_Limit;
@@ -26,7 +26,8 @@ public enum RModifiter {
 	TYPE(3), // type
 	DO(4), // do
 	PRIORITY(5), // priority
-	ON(6);// on
+	ON(6), // on
+	WHERE(7); // where
 
 	public static RModifiter toModifiter(String keyName) {
 
@@ -51,6 +52,9 @@ public enum RModifiter {
 
 		case A_Priority:
 			return RModifiter.PRIORITY;
+			
+		case A_Where:
+			return RModifiter.WHERE;
 
 		default:
 			return null;
@@ -80,6 +84,9 @@ public enum RModifiter {
 
 		case ON:
 			return O_On;
+			
+		case WHERE:
+			return O_Where;
 
 		default:
 			return O_Nil;

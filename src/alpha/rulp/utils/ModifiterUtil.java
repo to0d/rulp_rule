@@ -32,6 +32,7 @@ public class ModifiterUtil {
 		public int state = 0;
 		public RType type = null;
 		public IRObject on = null;
+		public ArrayList<IRExpr> whereList = new ArrayList<>();
 
 		public String asString() throws RException {
 
@@ -83,9 +84,9 @@ public class ModifiterUtil {
 		}
 	}
 
-	static int[] MV_LEN = { -1, 1, -1, 1, -1, 1, 1 };
+	static int[] MV_LEN = { -1, 1, -1, 1, -1, 1, 1, -1 };
 
-	static RType[] MV_TYP = { null, RType.INT, null, RType.ATOM, RType.EXPR, RType.INT, null };
+	static RType[] MV_TYP = { null, RType.INT, null, RType.ATOM, RType.EXPR, RType.INT, null,RType.EXPR };
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {
 
