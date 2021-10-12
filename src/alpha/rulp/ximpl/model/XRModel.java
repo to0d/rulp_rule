@@ -1759,6 +1759,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public boolean isReasonning() {
+		return nodeContext != null;
+	}
+
+	@Override
 	public List<? extends IRCacheWorker> listCacheWorkers() {
 		return new ArrayList<>(cacheWorkerList);
 	}

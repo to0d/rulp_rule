@@ -56,7 +56,7 @@
     (if (equal ?m::?cst-init true)
         (return))
             
-    (add-rule ?m::$cst$ 
+    (add-rule "CST01" ?m::$cst$ 
         if  $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) 
         do 
             (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))

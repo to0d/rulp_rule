@@ -81,17 +81,16 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 
 		_setup();
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_3_not_null_1.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_3_not_null_1.txt");
+		_statsInfo("m");
 	}
+
 
 	@Test
 	void test_4_expr_1() {
 
 		_setup();
-		_test("(new model m)");
-		_test("(add-constraint m (> ?z 1) on name1:'(?x ?y ?z))"); // user define expression constraint
-
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_4_expr_1.txt");
+		_test_script();
+		_statsInfo("m");
 	}
 
 	@Test

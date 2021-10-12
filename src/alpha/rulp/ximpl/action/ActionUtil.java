@@ -175,7 +175,7 @@ public class ActionUtil {
 
 				IRList stmt = RulpUtil.asList(stmtIt.next());
 
-				if (!ReteUtil.isAlphaMatchTree(stmt)) {
+				if (!ReteUtil.isActionEntry(stmt)) {
 					throw new RException("Invalid stmt found: " + stmt);
 				}
 

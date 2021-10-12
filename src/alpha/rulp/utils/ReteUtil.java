@@ -872,6 +872,27 @@ public class ReteUtil {
 	public static boolean isAlphaMatchTree(IRList matchTree) throws RException {
 		return isValidStmtLen(matchTree.size()) && ReteUtil.isEntryValueType(matchTree.get(0).getType());
 	}
+	
+	public static boolean isActionEntry(IRList actionEntry) throws RException {
+		return isValidStmtLen(actionEntry.size()) && ReteUtil.isActionEntryValueType(actionEntry.get(0).getType());
+	}
+	
+	public static boolean isActionEntryValueType(RType type) throws RException {
+
+		switch (type) {
+		case INT:
+		case ATOM:
+		case FLOAT:
+		case STRING:
+		case LONG:
+		case DOUBLE:
+		case BOOL:
+		case EXPR:
+			return true;
+		default:
+			return false;
+		}
+	}
 
 	public static boolean isAnyVar(IRObject obj) {
 		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(S_QUESTION);

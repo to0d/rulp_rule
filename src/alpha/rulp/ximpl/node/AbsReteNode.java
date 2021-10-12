@@ -180,12 +180,13 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 					++addEntryFailCount;
 
-					if (RReteType.isRootType(this.getReteType())) {
+					if (RReteType.isRootType(this.getReteType()) && !this.getModel().isReasonning()) {
 						throw new RException(
 								String.format("Unable to add entry<%s> due to constraint<%s>", entry, cons));
-					} else {
-						return false;
+
 					}
+
+					return false;
 				}
 			}
 		}
