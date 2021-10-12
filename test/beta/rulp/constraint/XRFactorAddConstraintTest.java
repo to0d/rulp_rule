@@ -88,10 +88,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_4_expr_1() {
 
 		_setup();
-		// XRModel.TRACE_RETE = true;
-
 		_test("(new model m)");
-		_test("(add-table m name1:'(? ? ?))");
 		_test("(add-constraint m (> ?z 1) on name1:'(?x ?y ?z))"); // user define expression constraint
 
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_4_expr_1.txt");
@@ -123,7 +120,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_6_max_1.rulp");
 		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_6_max_1.txt");
-	
+
 	}
 
 }

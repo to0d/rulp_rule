@@ -22,6 +22,24 @@ public class ModelVarTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_1_int_var_1_x() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-constraint m n1:'(?x) '(max 40 on ?x))");
+		_test("(add-constraint m n1:'(?x) '(min 37 on ?x))");
+
+		_test("(s::define ?age int 37 40)", "&?age");
+		_test("(s::assert (= (% ?age 2) 0))");
+		_test("(s::query '(?age) '(limit 1))", "'('(38))");
+
+		_smCount(1, "s");
+		_scopeInfo("s", "test/beta/rulp/scope/var_test_1_int_var_1.txt");
+
+		_saveTest();
+	}
+
+	@Test
 	void test_1_int_var_2() {
 
 		_setup();
