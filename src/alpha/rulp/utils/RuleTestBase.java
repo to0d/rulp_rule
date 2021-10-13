@@ -57,8 +57,6 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
-	static String BETA_RULP_PRE = "beta.rulp.";
-
 	static boolean PRIME_MODE = true;
 
 	static String ruleStatusFile = "result/rule_status.txt";
@@ -157,25 +155,6 @@ public class RuleTestBase extends RulpTestBase {
 			}
 		}
 
-	}
-
-	protected static String getClassPathName(Class<?> c, int tailIndex) {
-
-		if (c == null || tailIndex < 0) {
-			return null;
-		}
-
-		String fullName = c.getCanonicalName();
-		if (fullName == null) {
-			return null;
-		}
-
-		String[] names = fullName.split("\\.");
-		if (names == null || tailIndex >= names.length) {
-			return null;
-		}
-
-		return names[names.length - tailIndex - 1];
 	}
 
 	static void openTestEntry() throws IOException {
@@ -540,27 +519,4 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
-	protected void _test_script() {
-		_test_script(getCachePath() + ".rulp");
-	}
-
-	protected String getCachePath() {
-
-		String packageName = getPackageName();
-
-		if (!packageName.startsWith(BETA_RULP_PRE)) {
-			throw new RuntimeException("Invalid package: " + packageName);
-		}
-
-		String packageShortName = packageName.substring(BETA_RULP_PRE.length());
-		String className = getClassPathName(this.getClass(), 0);
-		String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
-
-		return "result" + File.separator + packageShortName + File.separator + className + File.separator + methodName;
-
-	}
-
-	protected String getPackageName() {
-		return this.getClass().getPackage().getName();
-	}
 }
