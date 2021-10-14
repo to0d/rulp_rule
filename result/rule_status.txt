@@ -135,6 +135,8 @@ beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-rStatus-R1:sc=[], a
 beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-rStatus-R2:sc=[], b0=[1,0,1,99,1,0,0,4,1,0,1/0,0,1], ru=[1,0,2,99,2,1,0,0,1],
 beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1:1-eCount:size=3, max-id=3, dup=0, null=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1:1-mCount:stmt=0, rule=0, match=0, fetch=5, exec=3, idle=1, state=5/3, max-queue=2, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_2:1-eCount:size=3, max-id=3, dup=0, null=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_2:1-mCount:stmt=0, rule=0, match=0, fetch=5, exec=3, idle=1, state=5/3, max-queue=2, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-eCount:size=2, max-id=2, dup=0, null=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-mCount:stmt=2, rule=0, match=0, fetch=2, exec=0, idle=0, state=1/1, max-queue=1, uniq-obj=0, entry-cnt=2, entry-maxid=2, waste-node=1, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-mStatus:sc=[0,2],

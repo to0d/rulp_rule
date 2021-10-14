@@ -82,22 +82,23 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		}
 
 		IRObject rstExpr = args.get(argIndex++);
-		ArrayList<IRList> condList = new ArrayList<>();
-		ArrayList<IRExpr> doList = null;
+		List<IRList> condList = new ArrayList<>();
+		List<IRExpr> doList = null;
 		int queryLimit = -1; // 0: all, -1: default
 
 		/********************************************/
 		// Check modifier
 		/********************************************/
 		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(argIndex), interpreter, frame);
+
 		for (RModifiter processingModifier : data.processedModifier) {
 
 			switch (processingModifier) {
 
 			// from '(a b c) (factor)
 			case FROM:
-				if (data.fromList.isEmpty()) {
-					throw new RException("require condList for modifier: " + A_FROM + ", args=" + args);
+				if (data.fromList == null || data.fromList.isEmpty()) {
+					throw new RException("require condList for modifier: " + processingModifier + ", args=" + args);
 				}
 
 				condList.addAll(data.fromList);
@@ -108,16 +109,28 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 				queryLimit = data.limit;
 				if (queryLimit <= 0) {
 					throw new RException(
-							"invalid value<" + queryLimit + "> for modifier: " + A_Limit + ", args=" + args);
+							"invalid value<" + queryLimit + "> for modifier: " + processingModifier + ", args=" + args);
 				}
 
 				break;
 
 			case DO:
-				doList = data.doList;
-				if (doList.isEmpty()) {
-					throw new RException("invalid do actions<" + doList + "> for modifier: " + F_DO + ", args=" + args);
+
+				if (data.doList == null || data.doList.isEmpty()) {
+					throw new RException("invalid do actions<" + doList + "> for modifier: " + processingModifier
+							+ ", args=" + args);
 				}
+
+				doList = data.doList;
+				break;
+
+			case WHERE:
+
+				if (data.whereList.isEmpty()) {
+					throw new RException("require whereList for modifier: " + processingModifier + ", args=" + args);
+				}
+
+				condList.addAll(data.whereList);
 				break;
 
 			default:

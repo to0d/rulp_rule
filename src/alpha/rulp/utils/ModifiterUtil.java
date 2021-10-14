@@ -24,15 +24,15 @@ public class ModifiterUtil {
 
 	public static class ModifiterData {
 
-		public ArrayList<IRExpr> doList = new ArrayList<>();
-		public ArrayList<IRList> fromList = new ArrayList<>();
+		public List<IRExpr> doList;
+		public List<IRList> fromList;
 		public int limit = -1;
+		public IRObject on = null;
 		public int priority = -1;
 		public List<RModifiter> processedModifier = new LinkedList<>();
 		public int state = 0;
 		public RType type = null;
-		public IRObject on = null;
-		public ArrayList<IRExpr> whereList = new ArrayList<>();
+		public ArrayList<IRExpr> whereList;
 
 		public String asString() throws RException {
 
@@ -86,7 +86,7 @@ public class ModifiterUtil {
 
 	static int[] MV_LEN = { -1, 1, -1, 1, -1, 1, 1, -1 };
 
-	static RType[] MV_TYP = { null, RType.INT, null, RType.ATOM, RType.EXPR, RType.INT, null,RType.EXPR };
+	static RType[] MV_TYP = { null, RType.INT, null, RType.ATOM, RType.EXPR, RType.INT, null, RType.EXPR };
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {
 
@@ -300,6 +300,11 @@ public class ModifiterUtil {
 
 				// from '(a b c) (factor)
 				case FROM:
+
+					if (processData.fromList == null) {
+						processData.fromList = new ArrayList<>();
+					}
+
 					processData.fromList.add((IRList) _compute(obj, frame));
 					break;
 
@@ -310,7 +315,21 @@ public class ModifiterUtil {
 
 				// do
 				case DO:
+
+					if (processData.doList == null) {
+						processData.doList = new ArrayList<>();
+					}
+
 					processData.doList.add((IRExpr) _compute(obj, frame));
+					break;
+
+				case WHERE:
+
+					if (processData.whereList == null) {
+						processData.whereList = new ArrayList<>();
+					}
+
+					processData.whereList.add((IRExpr) _compute(obj, frame));
 					break;
 
 				default:
