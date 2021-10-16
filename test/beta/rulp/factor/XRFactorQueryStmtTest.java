@@ -162,28 +162,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_6_distinct_1() {
-
-		_setup();
-
-		_test("(new model m)");
-		_test("(add-stmt m '(a b c1))");
-		_test("(add-stmt m '(a b c2) )");
-		_test("(add-stmt m '(a2 b c2))");
-		_test("(query-stmt m ?a from '(?a ?b ?c))", "'(a a2)");
-		_test("(query-stmt m ?a from '(?a ?b ?c) limit 1)", "'(a)");
-
-		_test("(add-stmt m (query-stmt n1:'(?a ?b) from '(?a ?b ?)))", "");
-		_test("(list-stmt m n1:'(?...))", "'(a a2)");
-		_test("(list-stmt m n1:'(?x ?...))", "'(a a2)");
-
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
-	}
-
-	@Test
-	void test_7_where_1() {
+	void test_7_where_1_expr_1_a() {
 
 		_setup();
 
@@ -192,6 +171,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(add-stmt m name1:'(b 10))");
 		_test("(add-stmt m name1:'(b 100))");
 		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) (> ?y 1))", "'('(b 10) '(b 100))");
+		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) where (> ?y 1))", "'('(b 10) '(b 100))");
 
 		_mCount(1, "m");
 		_eCount(1, "m");
@@ -199,7 +179,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_7_where_2() {
+	void test_7_where_1_expr_1_b() {
 
 		_setup();
 
@@ -207,7 +187,27 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(add-stmt m name1:'(a 1))");
 		_test("(add-stmt m name1:'(b 10))");
 		_test("(add-stmt m name1:'(b 100))");
-		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) where (> ?y 1))", "'('(b 10) '(b 100))");
+
+		_mCount(1, "m");
+		_eCount(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	void test_7_where_1_uniq_1() {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(add-stmt m '(a b c1))");
+		_test("(add-stmt m '(a b c2) )");
+		_test("(add-stmt m '(a2 b c2))");
+		_test("(query-stmt m ?a from '(?a ?b ?c))", "'(a a a2)");
+		_test("(query-stmt m ?a from '(?a ?b ?c) where '(uniq on ?x))", "'(a)");
+
+		_test("(add-stmt m (query-stmt n1:'(?a ?b) from '(?a ?b ?)))", "");
+		_test("(list-stmt m n1:'(?...))", "'(a a2)");
+		_test("(list-stmt m n1:'(?x ?...))", "'(a a2)");
 
 		_mCount(1, "m");
 		_eCount(1, "m");

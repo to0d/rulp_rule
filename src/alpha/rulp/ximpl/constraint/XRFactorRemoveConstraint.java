@@ -65,8 +65,8 @@ public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFac
 			throw new RException("named node not found: " + namedList);
 		}
 
-		List<String> constraintList = new ConstraintBuilder(namedList).match(node,
-				RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
+		List<String> constraintList = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList)))
+				.match(node, RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
 		if (constraintList.isEmpty()) {
 			return RulpFactory.createList();
 		}

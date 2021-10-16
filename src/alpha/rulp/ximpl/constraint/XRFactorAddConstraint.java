@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import alpha.rulp.lang.IRFrame;
@@ -9,6 +10,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
@@ -76,8 +78,13 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 			}
 		}
 
-		List<IRConstraint1> constraintList = new ConstraintBuilder(namedList)
-				.build(RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
+		List<IRConstraint1> constraintList = new ArrayList<>();
+		IRIterator<? extends IRObject> it = args.listIterator(argIndex);
+		ConstraintBuilder cb = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList)));
+		while (it.hasNext()) {
+			constraintList.add(cb.build(it.next(), interpreter, frame));
+		}
+
 		if (constraintList.isEmpty()) {
 			throw new RException("no constraint list: " + args);
 		}

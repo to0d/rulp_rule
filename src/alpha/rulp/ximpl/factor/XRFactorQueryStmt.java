@@ -1,9 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.lang.Constant.A_FROM;
-import static alpha.rulp.lang.Constant.F_DO;
 import static alpha.rulp.lang.Constant.O_Nil;
-import static alpha.rulp.rule.Constant.A_Limit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +81,8 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		IRObject rstExpr = args.get(argIndex++);
 		List<IRList> condList = new ArrayList<>();
 		List<IRExpr> doList = null;
+		List<IRExpr> conditionList = null;
+
 		int queryLimit = -1; // 0: all, -1: default
 
 		/********************************************/
@@ -130,7 +129,10 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 					throw new RException("require whereList for modifier: " + processingModifier + ", args=" + args);
 				}
 
-				condList.addAll(data.whereList);
+				if (conditionList == null) {
+					conditionList = new ArrayList<>();
+				}
+
 				break;
 
 			default:

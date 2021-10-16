@@ -34,7 +34,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 
 		_test("(add-constraint m name6:'(?x ?y ?z) (!= ?x nil))", "1");
 		_test("(add-constraint m name6:'(?x ?y ?z) (> ?y 5))", "1");
-		_test("(add-constraint m name6:'(?x ?y ?z) (< ?x 10))", "1");
+		_test("(add-constraint m name6:'(?x ?y ?) (< ?x 10))", "1");
 
 		_test("(add-constraint m name7:'(?x ?y ?z) '(type int on ?x))", "1");
 

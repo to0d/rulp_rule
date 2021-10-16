@@ -95,14 +95,22 @@ public class ConstraintBuilder {
 		return true;
 	}
 
-	private IRList namedList;
+	private IRObject[] varEntry;
 
 	private Map<String, Integer> varIndexMap = new HashMap<>();
 
-	public ConstraintBuilder(IRList namedList) throws RException {
+	public ConstraintBuilder(IRObject[] varEntry) throws RException {
 		super();
-		this.namedList = namedList;
-		ReteUtil.buildTreeVarList(namedList, varIndexMap);
+		this.varEntry = varEntry;
+
+		for (int i = 0; i < varEntry.length; ++i) {
+
+			IRObject obj = varEntry[i];
+			if (obj != null && RulpUtil.isVarAtom(obj)) {
+				varIndexMap.put(RulpUtil.asAtom(obj).getName(), i);
+			}
+
+		}
 	}
 
 	private IRConstraint1 _exprConstraint(IRExpr rightExpr) throws RException {
@@ -115,8 +123,6 @@ public class ConstraintBuilder {
 				externalVarList.add(v);
 			}
 		}
-
-		IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList));
 
 		if (!externalVarList.isEmpty()) {
 
@@ -136,9 +142,8 @@ public class ConstraintBuilder {
 		/*********************************************************/
 		// (equal ?a b) or (not-equal ?a b)
 		/*********************************************************/
-		ArrayList<IRObject> alphaVarList = RulpUtil.toArray(namedList);
-
-		IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr, alphaVarList);
+		IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr,
+				RulpUtil.toArray2(varEntry));
 		if (expr1MatchNode != null) {
 			return expr1MatchNode;
 		}
@@ -327,56 +332,36 @@ public class ConstraintBuilder {
 		}
 	}
 
-	public List<IRConstraint1> build(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public IRConstraint1 build(IRObject obj, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		/********************************************/
-		// Check constraint list
-		/********************************************/
-		ArrayList<IRConstraint1> constraintList = new ArrayList<>();
+		switch (obj.getType()) {
 
-		IRIterator<? extends IRObject> it = args.iterator();
-		while (it.hasNext()) {
+		case LIST:
 
-			IRObject obj = it.next();
+			RConstraint cons = ConstraintFactory.toConstraint((IRList) obj, interpreter, frame);
+			switch (cons.constraintName) {
+			case A_Type:
+				return _typeConstraint(cons);
 
-			switch (obj.getType()) {
+			case A_Uniq:
+				return _uniqConstraint(cons);
 
-			case LIST:
+			case A_NOT_NULL:
+				return _notNullConstraint(cons);
 
-				RConstraint cons = ConstraintFactory.toConstraint((IRList) obj, interpreter, frame);
-				switch (cons.constraintName) {
-				case A_Type:
-					constraintList.add(_typeConstraint(cons));
-					break;
-
-				case A_Uniq:
-					constraintList.add(_uniqConstraint(cons));
-					break;
-
-				case A_NOT_NULL:
-					constraintList.add(_notNullConstraint(cons));
-					break;
-
-				case A_Max:
-					constraintList.add(_maxConstraint(cons));
-					break;
-
-				default:
-					throw new RException("unsupport constraint: " + cons.constraintName);
-				}
-				break;
-
-			case EXPR:
-				constraintList.add(_exprConstraint((IRExpr) obj));
-				break;
+			case A_Max:
+				return _maxConstraint(cons);
 
 			default:
-				throw new RException("no constraint list: " + obj);
+				throw new RException("unsupport constraint: " + cons.constraintName);
 			}
 
-		}
+		case EXPR:
+			return _exprConstraint((IRExpr) obj);
 
-		return constraintList;
+		default:
+			throw new RException("no constraint list: " + obj);
+		}
 	}
 
 	public List<String> match(IRNamedNode node, IRList args, IRInterpreter interpreter, IRFrame frame)

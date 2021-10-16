@@ -314,7 +314,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			} else {
 
-				ArrayList<IRObject> list = RulpUtil.toArray(reteTree);
+				List<IRObject> list = RulpUtil.toArray(reteTree);
 
 				list.set(lastValuePos, tmpVarBuilder.next());
 
@@ -583,7 +583,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		// alpha node
 		if (RReteType.isAlphaType(leftNode.getReteType()) || RReteType.isRootType(leftNode.getReteType())) {
 
-			ArrayList<IRObject> alphaVarList = RulpUtil.toArray(leftTree);
+			List<IRObject> alphaVarList = RulpUtil.toArray(leftTree);
 
 			IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr, alphaVarList);
 			if (expr1MatchNode != null) {
@@ -598,6 +598,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			// Find left last alpha node
 			IRReteNode leftAlphaNode = leftNode.getParentNodes()[0];
 			IRObject leftParentObj = leftTree.get(0);
+
 			while (leftAlphaNode.getReteType() == RReteType.EXPR1) {
 				leftAlphaNode = leftAlphaNode.getParentNodes()[0];
 				leftParentObj = RulpUtil.asList(leftParentObj).get(0);
@@ -605,7 +606,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			if (RReteType.isAlphaType(leftAlphaNode.getReteType()) || leftAlphaNode.getReteType() == RReteType.ROOT0) {
 
-				ArrayList<IRObject> alphaVarList = RulpUtil.toArray(RulpUtil.asList(leftParentObj));
+				List<IRObject> alphaVarList = RulpUtil.toArray(RulpUtil.asList(leftParentObj));
 
 				IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr, alphaVarList);
 				if (expr1MatchNode != null) {

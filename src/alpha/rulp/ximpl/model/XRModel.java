@@ -66,6 +66,7 @@ import alpha.rulp.ximpl.cache.XRStmtFileCacher;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
 import alpha.rulp.ximpl.entry.IREntryTable;
+import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNamedNode;
@@ -837,7 +838,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throws RException {
 
 		IRReteNode queryNode = this.findNode(condList);
-		XRUniqObjQueue objQueue = new XRUniqObjQueue(this, rstExpr, condList);
+		IRResultQueue objQueue = ModelFactory.createResultQueue(this, rstExpr, condList);
 
 		int queryEntryIndex = 0;
 
@@ -856,7 +857,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				// limit <= 0 means query all
 				if (limit > 0 && objQueue.size() >= limit) {
-					return objQueue.getRstList();
+					return objQueue.getResultList();
 				}
 			}
 		}
@@ -912,7 +913,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 								// limit <= 0 means query all
 								if (limit > 0 && objQueue.size() >= limit) {
-									return objQueue.getRstList();
+									return objQueue.getResultList();
 								}
 							}
 						}
@@ -932,7 +933,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			this._setRunState(RRunState.Partial);
-			return objQueue.getRstList();
+			return objQueue.getResultList();
 
 		} finally {
 

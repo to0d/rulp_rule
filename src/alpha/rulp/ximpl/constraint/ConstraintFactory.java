@@ -65,8 +65,7 @@ public class ConstraintFactory {
 		return new XRConstraint1Expr0(expr, varEntry);
 	}
 
-	public static IRConstraint1 createConstraintExpr1Node(IRExpr expr, ArrayList<IRObject> leftVarList)
-			throws RException {
+	public static IRConstraint1 createConstraintExpr1Node(IRExpr expr, List<IRObject> leftVarList) throws RException {
 
 		int size = expr.size();
 
@@ -229,7 +228,6 @@ public class ConstraintFactory {
 		return new XRConstraint1Uniq(uniqColumnIndexs);
 	}
 
-	 
 	static IRConstraint1 createSingleConstraint(IRList constraintList) {
 
 		IRIterator<? extends IRObject> iterator = constraintList.iterator();

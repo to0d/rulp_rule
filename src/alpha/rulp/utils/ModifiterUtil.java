@@ -32,7 +32,7 @@ public class ModifiterUtil {
 		public List<RModifiter> processedModifier = new LinkedList<>();
 		public int state = 0;
 		public RType type = null;
-		public ArrayList<IRExpr> whereList;
+		public ArrayList<IRObject> whereList;
 
 		public String asString() throws RException {
 
@@ -329,7 +329,7 @@ public class ModifiterUtil {
 						processData.whereList = new ArrayList<>();
 					}
 
-					processData.whereList.add((IRExpr) _compute(obj, frame));
+					processData.whereList.add(_compute(obj, frame));
 					break;
 
 				default:

@@ -19,7 +19,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRUniqObjQueue implements IRResultQueue {
+public class XRUniqResultQueue implements IRResultQueue {
 
 	private IRVar[] _vars;
 
@@ -35,13 +35,14 @@ public class XRUniqObjQueue implements IRResultQueue {
 
 	private Set<String> uniqNames = new HashSet<>();
 
-	public XRUniqObjQueue(IRModel model, IRObject rstExpr, IRList condList) {
+	public XRUniqResultQueue(IRModel model, IRObject rstExpr, IRList condList) {
 		super();
 		this.model = model;
 		this.rstExpr = rstExpr;
 		this.condList = condList;
 	}
 
+	@Override
 	public boolean addEntry(IRReteEntry entry) throws RException {
 
 		if (entry == null || entry.isDroped()) {
@@ -79,7 +80,8 @@ public class XRUniqObjQueue implements IRResultQueue {
 		return queryFrame;
 	}
 
-	public List<? extends IRObject> getRstList() {
+	@Override
+	public List<? extends IRObject> getResultList() {
 		return rstList;
 	}
 
@@ -106,6 +108,7 @@ public class XRUniqObjQueue implements IRResultQueue {
 		return _vars;
 	}
 
+	@Override
 	public int size() {
 		return rstList.size();
 	}

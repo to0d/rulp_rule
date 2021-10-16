@@ -141,7 +141,7 @@ public class ModelUtil {
 		/*****************************************************/
 		// Add rule to group
 		/*****************************************************/
-		ArrayList<IRObject> rules = RulpUtil.toArray(getRuleGroupRuleList(model, groupName));
+		List<IRObject> rules = RulpUtil.toArray(getRuleGroupRuleList(model, groupName));
 		if (!rules.contains(rule)) {
 			IRVar var = RulpUtil.asVar(model.getMember(F_MBR_RULE_GROUP_PRE + groupName).getValue());
 			ArrayList<IRObject> newRules = new ArrayList<>(rules);

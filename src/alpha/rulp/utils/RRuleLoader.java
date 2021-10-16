@@ -2,7 +2,7 @@ package alpha.rulp.utils;
 
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.F_ADD_LAZY_STMT;
 import static alpha.rulp.rule.Constant.F_ADD_NODE;
 import static alpha.rulp.rule.Constant.F_ADD_RULE;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
@@ -48,6 +48,7 @@ import static alpha.rulp.rule.Constant.O_Runnable;
 import static alpha.rulp.rule.Constant.O_Running;
 import static alpha.rulp.rule.Constant.O_State;
 import static alpha.rulp.rule.Constant.O_Type;
+import static alpha.rulp.rule.Constant.O_Where;
 import static alpha.rulp.ximpl.rbs.Constant.RBS_NS;
 
 import java.io.IOException;
