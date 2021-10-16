@@ -219,8 +219,6 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 
 		_setup();
 
-		// XRModel.TRACE_RETE = true;
-
 		_test("(new model m)");
 		_test("(add-stmt m '(n1 p1 100))");
 		_test("(add-stmt m '(n2 p2 200))");
@@ -228,8 +226,8 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_mCount(1, "m");
 		_eCount(1, "m");
 		_mStatus(1, "m");
-
-		_test("(query-stmt m '(?n ?v) from '(?n p2 ?v) (> ?v 150) do (remove-stmt '(?n ? ?v)))", "nil");
+		_test("(query-stmt m '(?n ?v) from '(?n p2 ?v) (> ?v 150) do (return (remove-stmt '(?n ? ?v))))",
+				"'('('(n2 p2 200)))");
 		_mCount(2, "m");
 		_eCount(2, "m");
 		_mStatus(2, "m");
@@ -237,6 +235,25 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(list-stmt m)", "'('(n1 p1 100))");
 
 		_saveTest();
-		_statsInfo("m", "result/factor/XRFactorQueryStmtTest/test_8_do_1.txt");
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_8_do_2() {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(add-rule m if n1:'(?x) (< ?x 3) do (-> m n1:'((+ ?x 1))))");
+		_test("(add-stmt m n1:'(1))");
+		_test("(list-stmt m)", "'(n1:'(1))");
+		_test("(query-stmt m ?x from n1:'(?x) do (return (remove-stmt n1:'(?x))))", "'('(n1:'(1)) '() '())");
+		_test("(list-stmt m)", "'()");
+
+		_mCount(1, "m");
+		_eCount(1, "m");
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
 	}
 }

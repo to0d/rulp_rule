@@ -27,6 +27,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.error.RReturn;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
@@ -164,13 +165,13 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			subGraph = ModelUtil.activeRuleGroup(model, ruleGroupName);
 		}
 
-		List<? extends IRObject> rst;
+		List<? extends IRObject> queryList;
 
 		try {
 
-			rst = model.query(rstExpr, RulpFactory.createList(condList), queryLimit);
+			queryList = model.query(rstExpr, RulpFactory.createList(condList), queryLimit);
 			if (doList == null) {
-				return RulpFactory.createList(rst);
+				return RulpFactory.createList(queryList);
 			}
 
 		} finally {
@@ -183,76 +184,83 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			}
 		}
 
-		if (!rst.isEmpty()) {
+		if (queryList.isEmpty()) {
+			return RulpFactory.createList();
+		}
 
-			IRFrame qdFrame = RulpFactory.createFrame(frame, "QUERY-STMT");
-			RulpUtil.incRef(qdFrame);
-			RuleUtil.setDefaultModel(qdFrame, model);
+		IRFrame qdFrame = RulpFactory.createFrame(frame, "QUERY-STMT");
+		RulpUtil.incRef(qdFrame);
+		RuleUtil.setDefaultModel(qdFrame, model);
 
-			int varListSize = 0;
-			ArrayList<IRVar> varList = null;
-			IRVar atomVar = null;
+		int varListSize = 0;
+		ArrayList<IRVar> varList = null;
+		IRVar atomVar = null;
 
-			if (rstExpr.getType() == RType.LIST) {
+		if (rstExpr.getType() == RType.LIST) {
 
-				varList = new ArrayList<>();
+			varList = new ArrayList<>();
 
-				IRList rstList = RulpUtil.asList(rstExpr);
-				varListSize = rstList.size();
+			IRList rstList = RulpUtil.asList(rstExpr);
+			varListSize = rstList.size();
 
-				for (int i = 0; i < varListSize; ++i) {
+			for (int i = 0; i < varListSize; ++i) {
 
-					IRObject rstObj = rstList.get(i);
-					IRVar var = null;
+				IRObject rstObj = rstList.get(i);
+				IRVar var = null;
 
-					if (RulpUtil.isVarAtom(rstObj)) {
-						var = qdFrame.addVar(RulpUtil.asAtom(rstObj).getName());
-					}
-
-					varList.add(var);
+				if (RulpUtil.isVarAtom(rstObj)) {
+					var = qdFrame.addVar(RulpUtil.asAtom(rstObj).getName());
 				}
 
-			} else {
-				atomVar = qdFrame.addVar(RulpUtil.asAtom(rstExpr).getName());
+				varList.add(var);
 			}
 
-			try {
+		} else {
+			atomVar = qdFrame.addVar(RulpUtil.asAtom(rstExpr).getName());
+		}
 
-				for (IRObject rstObj : rst) {
+		try {
 
-					/***************************************/
-					// Update frame var
-					/***************************************/
-					if (atomVar != null) {
-						atomVar.setValue(rstObj);
+			ArrayList<IRObject> resultList = new ArrayList<>();
 
-					} else {
+			for (IRObject queryResult : queryList) {
 
-						IRList rstList = RulpUtil.asList(rstObj);
+				/***************************************/
+				// Update frame var
+				/***************************************/
+				if (atomVar != null) {
+					atomVar.setValue(queryResult);
+				} else {
 
-						for (int i = 0; i < varListSize; ++i) {
-							IRVar var = varList.get(i);
-							if (var != null) {
-								var.setValue(rstList.get(i));
-							}
+					IRList queryRsultList = RulpUtil.asList(queryResult);
+
+					for (int i = 0; i < varListSize; ++i) {
+						IRVar var = varList.get(i);
+						if (var != null) {
+							var.setValue(queryRsultList.get(i));
 						}
 					}
+				}
 
-					/***************************************/
-					// Compute do actions
-					/***************************************/
+				/***************************************/
+				// Compute do actions
+				/***************************************/
+				try {
 					for (IRExpr expr : doList) {
 						interpreter.compute(qdFrame, expr);
 					}
+				} catch (RReturn r) {
+					resultList.add(r.getReturnValue());
 				}
-
-			} finally {
-				qdFrame.release();
-				RulpUtil.decRef(qdFrame);
 			}
 
+			return RulpFactory.createList(resultList);
+
+		} finally {
+
+			qdFrame.release();
+			RulpUtil.decRef(qdFrame);
 		}
 
-		return O_Nil;
 	}
 }
