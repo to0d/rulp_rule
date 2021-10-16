@@ -17,12 +17,16 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.constraint.ConstraintBuilder;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
@@ -79,9 +83,13 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		}
 
 		IRObject rstExpr = args.get(argIndex++);
+		if (rstExpr.getType() != RType.LIST && !RulpUtil.isVarAtom(rstExpr)) {
+			throw new RException("unsupport rstExpr: " + rstExpr);
+		}
+
 		List<IRList> condList = new ArrayList<>();
 		List<IRExpr> doList = null;
-		List<IRExpr> conditionList = null;
+		List<IRConstraint1> constraintList = null;
 
 		int queryLimit = -1; // 0: all, -1: default
 
@@ -129,8 +137,16 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 					throw new RException("require whereList for modifier: " + processingModifier + ", args=" + args);
 				}
 
-				if (conditionList == null) {
-					conditionList = new ArrayList<>();
+				if (constraintList == null) {
+					constraintList = new ArrayList<>();
+				}
+
+				IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
+						rstExpr.getType() == RType.LIST ? (IRList) rstExpr : RulpFactory.createList(rstExpr)));
+
+				ConstraintBuilder cb = new ConstraintBuilder(varEntry);
+				for (IRObject where : data.whereList) {
+					constraintList.add(cb.build(where, interpreter, frame));
 				}
 
 				break;
@@ -151,11 +167,14 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		List<? extends IRObject> rst;
 
 		try {
+
 			rst = model.query(rstExpr, RulpFactory.createList(condList), queryLimit);
 			if (doList == null) {
 				return RulpFactory.createList(rst);
 			}
+
 		} finally {
+
 			/********************************************/
 			// Recovery all nodes' priority
 			/********************************************/
@@ -193,16 +212,8 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 					varList.add(var);
 				}
 
-			} else if (rstExpr.getType() == RType.ATOM) {
-
-				if (!RulpUtil.isVarAtom(rstExpr)) {
-					throw new RException("unsupport rstExpr: " + rstExpr);
-				}
-
-				atomVar = qdFrame.addVar(RulpUtil.asAtom(rstExpr).getName());
-
 			} else {
-				throw new RException("unsupport rstExpr: " + rstExpr);
+				atomVar = qdFrame.addVar(RulpUtil.asAtom(rstExpr).getName());
 			}
 
 			try {

@@ -177,12 +177,12 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
-Node<B3002> frame:id=4, name=NF-B3002, lvl=4, ref=1/1, entry=2, pid=3(MODEL), subject=NF-B3002
+Node<B3002> frame:id=5, name=NF-B3002, lvl=4, ref=1/1, entry=2, pid=3(MODEL), subject=NF-B3002
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?a                   : 7        4        1    var        b : type=atom       
-?b                   : 8        4        1    var        b : type=atom       
+?a                   : 10       5        1    var        b : type=atom       
+?b                   : 11       5        1    var        b : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=7, row=4, column=7(1), value-max=1, value-unit=1^x
@@ -276,21 +276,21 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
-id=4, name=NF-B3002, lvl=4, ref=1/1, entry=2, pid=3(MODEL), subject=NF-B3002
+id=4, name=QUERY, lvl=4, ref=0/0, entry=3, pid=3(MODEL), subject=QUERY
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?a                   : 7        4        1    var        b : type=atom       
-?b                   : 8        4        1    var        b : type=atom       
+default_model        : 7        4        3    instance   m : class=model     
+?a                   : 8        4        1    var        b : type=atom       
+?b                   : 9        4        1    var        a : type=atom       
 ==========================================================================================================================
 
-id=5, name=QUERY, lvl=4, ref=0/0, entry=3, pid=3(MODEL), subject=QUERY
+id=5, name=NF-B3002, lvl=4, ref=1/1, entry=2, pid=3(MODEL), subject=NF-B3002
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 9        5        3    instance   m : class=model     
 ?a                   : 10       5        1    var        b : type=atom       
-?b                   : 11       5        1    var        a : type=atom       
+?b                   : 11       5        1    var        b : type=atom       
 ==========================================================================================================================
 
 Global frame tree:
@@ -299,8 +299,8 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-                ->FRAME(NF-B3002): id=4, lvl=4, subject=NF-B3002
-                ->FRAME(QUERY): id=5, lvl=4, subject=QUERY
+                ->FRAME(QUERY): id=4, lvl=4, subject=QUERY
+                ->FRAME(NF-B3002): id=5, lvl=4, subject=NF-B3002
 
 Global Subject list:
 

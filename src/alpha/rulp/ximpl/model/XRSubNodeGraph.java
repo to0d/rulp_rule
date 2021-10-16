@@ -74,31 +74,6 @@ public class XRSubNodeGraph {
 		}
 	}
 
-	public void disableAllOtherNodes(int minPriority, int toPriority) throws RException {
-
-		for (IRReteNode node : nodeGraph.getNodeMatrix().getAllNodes()) {
-
-			if (RReteType.isRootType(node.getReteType())) {
-				continue;
-			}
-
-			if (sourceMap.containsKey(node)) {
-				continue;
-			}
-
-			if (node.getPriority() < minPriority) {
-				continue;
-			}
-
-			QuerySourceInfo info = new QuerySourceInfo();
-			info.node = node;
-			info.oldPriority = node.getPriority();
-			node.setPriority(toPriority);
-
-			sourceMap.put(node, info);
-		}
-	}
-
 	public void addRule(IRRule ruleNode, int priority) throws RException {
 
 		ModelUtil.travelReteParentNodeByPostorder(ruleNode, (node) -> {
@@ -183,6 +158,31 @@ public class XRSubNodeGraph {
 
 	public boolean containNode(IRReteNode node) {
 		return sourceMap.containsKey(node);
+	}
+
+	public void disableAllOtherNodes(int minPriority, int toPriority) throws RException {
+
+		for (IRReteNode node : nodeGraph.getNodeMatrix().getAllNodes()) {
+
+			if (RReteType.isRootType(node.getReteType())) {
+				continue;
+			}
+
+			if (sourceMap.containsKey(node)) {
+				continue;
+			}
+
+			if (node.getPriority() < minPriority) {
+				continue;
+			}
+
+			QuerySourceInfo info = new QuerySourceInfo();
+			info.node = node;
+			info.oldPriority = node.getPriority();
+			node.setPriority(toPriority);
+
+			sourceMap.put(node, info);
+		}
 	}
 
 	public List<IRReteNode> getAllNodes() {
