@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.lang.Constant.O_Nil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,25 +8,24 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
-import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
-import alpha.rulp.ximpl.error.RReturn;
+import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.ModelFactory;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
 public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -84,11 +81,11 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		}
 
 		IRObject rstExpr = args.get(argIndex++);
-		if (rstExpr.getType() != RType.LIST && !RulpUtil.isVarAtom(rstExpr)) {
+		if (rstExpr.getType() != RType.EXPR && rstExpr.getType() != RType.LIST && !RulpUtil.isVarAtom(rstExpr)) {
 			throw new RException("unsupport rstExpr: " + rstExpr);
 		}
 
-		List<IRList> condList = new ArrayList<>();
+		List<IRList> fromList = new ArrayList<>();
 		List<IRExpr> doList = null;
 		List<IRConstraint1> constraintList = null;
 
@@ -109,7 +106,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 					throw new RException("require condList for modifier: " + processingModifier + ", args=" + args);
 				}
 
-				condList.addAll(data.fromList);
+				fromList.addAll(data.fromList);
 				break;
 
 			// limit 1
@@ -165,14 +162,31 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			subGraph = ModelUtil.activeRuleGroup(model, ruleGroupName);
 		}
 
-		List<? extends IRObject> queryList;
+		IRList condList = RulpFactory.createList(fromList);
+		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, condList);
+
+		/********************************************/
+		// Add do expression
+		/********************************************/
+		if (doList != null) {
+			for (IRExpr expr : doList) {
+				resultQueue.addDoExpr(expr);
+			}
+		}
+
+		/********************************************/
+		// Add constraint
+		/********************************************/
+		if (constraintList != null) {
+			for (IRConstraint1 c : constraintList) {
+				resultQueue.addConstraint(c);
+			}
+		}
 
 		try {
 
-			queryList = model.query(rstExpr, RulpFactory.createList(condList), queryLimit);
-			if (doList == null) {
-				return RulpFactory.createList(queryList);
-			}
+			model.query(resultQueue, condList, queryLimit);
+			return RulpFactory.createList(resultQueue.getResultList());
 
 		} finally {
 
@@ -182,85 +196,8 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			if (subGraph != null) {
 				subGraph.rollback();
 			}
+
+			resultQueue.close();
 		}
-
-		if (queryList.isEmpty()) {
-			return RulpFactory.createList();
-		}
-
-		IRFrame qdFrame = RulpFactory.createFrame(frame, "QUERY-STMT");
-		RulpUtil.incRef(qdFrame);
-		RuleUtil.setDefaultModel(qdFrame, model);
-
-		int varListSize = 0;
-		ArrayList<IRVar> varList = null;
-		IRVar atomVar = null;
-
-		if (rstExpr.getType() == RType.LIST) {
-
-			varList = new ArrayList<>();
-
-			IRList rstList = RulpUtil.asList(rstExpr);
-			varListSize = rstList.size();
-
-			for (int i = 0; i < varListSize; ++i) {
-
-				IRObject rstObj = rstList.get(i);
-				IRVar var = null;
-
-				if (RulpUtil.isVarAtom(rstObj)) {
-					var = qdFrame.addVar(RulpUtil.asAtom(rstObj).getName());
-				}
-
-				varList.add(var);
-			}
-
-		} else {
-			atomVar = qdFrame.addVar(RulpUtil.asAtom(rstExpr).getName());
-		}
-
-		try {
-
-			ArrayList<IRObject> resultList = new ArrayList<>();
-
-			for (IRObject queryResult : queryList) {
-
-				/***************************************/
-				// Update frame var
-				/***************************************/
-				if (atomVar != null) {
-					atomVar.setValue(queryResult);
-				} else {
-
-					IRList queryRsultList = RulpUtil.asList(queryResult);
-
-					for (int i = 0; i < varListSize; ++i) {
-						IRVar var = varList.get(i);
-						if (var != null) {
-							var.setValue(queryRsultList.get(i));
-						}
-					}
-				}
-
-				/***************************************/
-				// Compute do actions
-				/***************************************/
-				try {
-					for (IRExpr expr : doList) {
-						interpreter.compute(qdFrame, expr);
-					}
-				} catch (RReturn r) {
-					resultList.add(r.getReturnValue());
-				}
-			}
-
-			return RulpFactory.createList(resultList);
-
-		} finally {
-
-			qdFrame.release();
-			RulpUtil.decRef(qdFrame);
-		}
-
 	}
 }

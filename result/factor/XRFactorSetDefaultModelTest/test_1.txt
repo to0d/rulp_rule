@@ -157,11 +157,11 @@ Child Count:
   total:       1       1
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        5    instance   m : class=model     
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 node update info: model-exec-count=10, row=3, column=10(1), value-max=1, value-unit=1^x
@@ -183,8 +183,8 @@ Total runtime info:
      Interpreter call id/level:       76        0
              CPS support/count:    false        0
                Frame max level:        4
-                  Frame max id:        6
-           Frame free id count:        0
+                  Frame max id:        5
+           Frame free id count:        1
 ==========================================================================================================================
 
 Expression compute count:
@@ -223,20 +223,20 @@ Object create count:
         list:           43            0           43
         expr:          518            0          518
        array:            1            0            1
-         var:           25            0           25
+         var:           25            4           21
         func:          104            0          104
     template:            1            0            1
        macro:            3            0            3
     instance:            1            0            1
        class:            6            0            6
       member:          159            0          159
-       frame:            3            0            3
+       frame:            3            2            1
  interpreter:            1            0
   frameEntry:          251            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=3
+Global frame list: total=1
 
 id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
@@ -246,34 +246,16 @@ root                 : 1        2        0    frame      root
 system               : 2        2        0    frame      system              
 main                 : 3        2        2    frame      main                
 rbs                  : 4        2        1    instance   rbs : class=namespace
-m                    : 6        2        5    instance   m : class=model     
-default_model        : 7        2        5    instance   m : class=model     
+m                    : 6        2        3    instance   m : class=model     
+default_model        : 7        2        3    instance   m : class=model     
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=3/3, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        5    instance   m : class=model     
-==========================================================================================================================
-
-id=4, name=QUERY, lvl=4, ref=0/0, entry=3, pid=3(MODEL), subject=QUERY
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-default_model        : 8        4        5    instance   m : class=model     
-?x                   : 9        4        1    var        x : type=atom       
-?y                   : 10       4        1    var        y : type=atom       
-==========================================================================================================================
-
-id=5, name=QUERY, lvl=4, ref=0/0, entry=3, pid=3(MODEL), subject=QUERY
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-default_model        : 11       5        5    instance   m : class=model     
-?x                   : 12       5        1    var        y : type=atom       
-?y                   : 13       5        1    var        x : type=atom       
+default_model        : 5        3        3    instance   m : class=model     
 ==========================================================================================================================
 
 Global frame tree:
@@ -282,19 +264,17 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
-                ->FRAME(QUERY): id=4, lvl=4, subject=QUERY
-                ->FRAME(QUERY): id=5, lvl=4, subject=QUERY
 
 Global Subject list:
 
-name=m, lvl=1, ref=5/5, parent=model, final=false, mbrs=4, frame=null
+name=m, lvl=1, ref=3/4, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access   Final    Static   Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?cst-init            : DEFAULT  false    false    1    var        false : type=bool
 ?model-state         : DEFAULT  false    false    1    var        completed : type=atom
 ?rbs-init            : DEFAULT  false    false    1    var        false : type=bool
-this                 : DEFAULT  false    false    5    instance   m : class=model
+this                 : DEFAULT  false    false    3    instance   m : class=model
 ==========================================================================================================================
 
 name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null

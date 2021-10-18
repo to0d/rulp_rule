@@ -91,7 +91,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(add-rule m if '(?a ?p ?b) '(?b ?p ?a) do (-> '(?b ?p ?b)))");
 		_test("(add-stmt m '(a p b))");
 		_test("(add-stmt m '(b p a))");
-		_test("(query-stmt m '(?a) from '(?a ?p ?b))", "'('(a) '(b))");
+		_test("(query-stmt m ?a from '(?a ?p ?b) where '(uniq on ?a))", "'(a b)");
 
 		_mStatus(1, "m");
 		_oStatus(1, "m");

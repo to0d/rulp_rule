@@ -13,6 +13,7 @@ import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.entry.IREntryTable;
+import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 
@@ -59,14 +60,12 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public int doGC() throws RException;
 
 	public int execute(IRReteNode node) throws RException;
-	
-	public boolean isReasonning();
 
 	public IRReteNode findNode(IRList condList) throws RException;
 
-//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
-
 	public int fixStatement(IRList stmt) throws RException;
+
+//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
 
 	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
 
@@ -86,9 +85,11 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean hasStatement(IRList filter) throws RException;
 
+	public boolean isCacheEnable();
+
 // public IRIterator<? extends IRObject> listObjects() throws RException;
 
-	public boolean isCacheEnable();
+	public boolean isReasonning();
 
 	public List<? extends IRCacheWorker> listCacheWorkers();
 
@@ -96,7 +97,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public List<? extends IRList> listStatements(IRList filter, int statusMask, int listCount) throws RException;
 
-	public List<? extends IRObject> query(IRObject rstExpr, IRList condList, int limit) throws RException;
+	public void query(IRResultQueue resultQueue, IRList condList, int limit) throws RException;
 
 	public IRRule removeRule(String ruleName) throws RException;
 

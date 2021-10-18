@@ -114,40 +114,40 @@ beta.rulp.factor.XRFactorQueryStmtTest:test_1:1-mCount:stmt=4, rule=0, match=0, 
 beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_1:1-eCount:size=6, max-id=6, dup=0, null=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_1:1-mCount:stmt=4, rule=0, match=0, fetch=22, exec=15, idle=8, state=5/7, max-queue=6, uniq-obj=6, entry-cnt=6, entry-maxid=6, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_2:1-eCount:size=6, max-id=6, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_2:1-mCount:stmt=4, rule=0, match=0, fetch=17, exec=12, idle=5, state=2/2, max-queue=6, uniq-obj=6, entry-cnt=6, entry-maxid=6, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_2:1-mCount:stmt=4, rule=0, match=0, fetch=17, exec=12, idle=5, state=5/3, max-queue=6, uniq-obj=6, entry-cnt=6, entry-maxid=6, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_2:1-mStatus:sc=[0,4], a0=[3,0,2,0,6,1,0,10,6,0,8,0,1/0,6], b0=[1,0,3,0,3,2,0,4,2,0,1/0,0,2], wk=[1,0,0,-99,1],
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_a_join:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_a_join:1-mCount:stmt=2, rule=0, match=0, fetch=8, exec=8, idle=3, state=2/2, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_a_join:1-mCount:stmt=2, rule=0, match=0, fetch=8, exec=8, idle=3, state=5/3, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_a_join:1-mStatus:sc=[0,2], a0=[3,0,2,0,4,1,0,5,3,0,3/0,3], b0=[1,0,3,0,3,2,0,1,1,0,1/0,0,1],
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:1-mCount:stmt=2, rule=0, match=0, fetch=8, exec=8, idle=3, state=2/2, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:1-mCount:stmt=2, rule=0, match=0, fetch=8, exec=8, idle=3, state=5/3, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:1-mStatus:sc=[0,2], a0=[3,0,2,0,4,1,0,5,3,0,3/0,3], b0=[1,0,3,0,3,2,0,1,1,0,1/0,0,1],
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:2-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:2-mCount:stmt=2, rule=0, match=0, fetch=9, exec=8, idle=3, state=2/2, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:2-mCount:stmt=2, rule=0, match=0, fetch=9, exec=8, idle=3, state=5/3, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:2-mStatus:sc=[0,2], a0=[3,0,2,0,4,1,0,5,3,0,3/0,3], b0=[1,0,3,0,3,2,0,1,1,0,2/0,0,1],
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_query_1_already_has_data:1-eCount:size=1, max-id=1, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_query_1_already_has_data:1-mCount:stmt=1, rule=0, match=0, fetch=3, exec=4, idle=1, state=2/2, max-queue=3, uniq-obj=3, entry-cnt=1, entry-maxid=1, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_3_query_1_already_has_data:1-mCount:stmt=1, rule=0, match=0, fetch=3, exec=4, idle=1, state=5/3, max-queue=3, uniq-obj=3, entry-cnt=1, entry-maxid=1, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_3_query_1_already_has_data:1-mStatus:sc=[0,1], a0=[2,0,2,0,3,1,0,2,2,0,2/0,2],
 beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-eCount:size=4, max-id=4, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-mCount:stmt=3, rule=2, match=0, fetch=16, exec=13, idle=6, state=2/2, max-queue=7, uniq-obj=8, entry-cnt=4, entry-maxid=4, waste-node=2, waste-match=2
+beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-mCount:stmt=3, rule=2, match=0, fetch=16, exec=13, idle=6, state=5/3, max-queue=7, uniq-obj=8, entry-cnt=4, entry-maxid=4, waste-node=2, waste-match=2
 beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-mStatus:sc=[0,2,1], a0=[3,3,2,99,7,2,0,8,4,0,6/0,2,2], b0=[1,0,1,99,1,0,0,4,1,0,1/0,0,1], ru=[2,0,3,99,3,2,0,0,1],
 beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-rStatus-R1:sc=[], a0=[2,2,2,99,4,1,0,5,3,0,5/0,2,1], ru=[1,0,3,99,1,1],
 beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-rStatus-R2:sc=[], b0=[1,0,1,99,1,0,0,4,1,0,1/0,0,1], ru=[1,0,2,99,2,1,0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1:1-mCount:stmt=0, rule=0, match=0, fetch=5, exec=3, idle=1, state=5/3, max-queue=2, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_a:1-eCount:size=3, max-id=3, dup=0, null=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_a:1-mCount:stmt=0, rule=0, match=0, fetch=5, exec=3, idle=1, state=5/3, max-queue=2, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_b:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_b:1-mCount:stmt=0, rule=0, match=0, fetch=0, exec=0, idle=0, state=1/1, max-queue=0, uniq-obj=0, entry-cnt=3, entry-maxid=3, waste-node=1, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_2:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_2:1-mCount:stmt=0, rule=0, match=0, fetch=5, exec=3, idle=1, state=5/3, max-queue=2, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_b:1-mCount:stmt=0, rule=0, match=0, fetch=3, exec=1, idle=0, state=5/3, max-queue=1, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_uniq_1:1-eCount:size=3, max-id=3, dup=0, null=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_uniq_1:1-mCount:stmt=3, rule=0, match=0, fetch=6, exec=2, idle=1, state=5/5, max-queue=1, uniq-obj=3, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-eCount:size=2, max-id=2, dup=0, null=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-mCount:stmt=2, rule=0, match=0, fetch=2, exec=0, idle=0, state=1/1, max-queue=1, uniq-obj=0, entry-cnt=2, entry-maxid=2, waste-node=1, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-mStatus:sc=[0,2],
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:2-eCount:size=1, max-id=2, dup=0, null=1
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:2-mCount:stmt=1, rule=0, match=2, fetch=10, exec=7, idle=2, state=5/3, max-queue=3, uniq-obj=3, entry-cnt=1, entry-maxid=2, waste-node=0, waste-match=0
 beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:2-mStatus:sc=[0,1,0,0,1], a0=[3,0,2,0,3,0,0,5,3,0,3/0,0,0,0,3], e0=[1,0,2,0,2,1,0,1,1,0,1/0,0,0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-eCount:size=0, max-id=3, dup=0, null=3
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-mCount:stmt=0, rule=1, match=0, fetch=12, exec=8, idle=2, state=5/3, max-queue=3, uniq-obj=2, entry-cnt=0, entry-maxid=3, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-mStatus:sc=[], n0=[0,1,0,2], e0=[1,0,1,99,3,0,0,3,2,0,2/0,0,0,1,1], ru=[1,0,2,99,3,1,0,0,2],
+beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-eCount:size=0, max-id=1, dup=0, null=1
+beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-mCount:stmt=0, rule=1, match=0, fetch=4, exec=4, idle=3, state=5/3, max-queue=3, uniq-obj=2, entry-cnt=0, entry-maxid=1, waste-node=2, waste-match=0
+beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-mStatus:sc=[], n0=[0,1,0,1], e0=[1,0,1,99,2,1], ru=[1,0,2,99,1,1],
 beta.rulp.factor.XRFactorRemoveStmtTest:test_3_varargs_1:1-eCount:size=1, max-id=2, dup=0, null=1
 beta.rulp.factor.XRFactorRemoveStmtTest:test_3_varargs_1:1-mCount:stmt=0, rule=0, match=1, fetch=1, exec=1, idle=0, state=1/1, max-queue=1, uniq-obj=0, entry-cnt=1, entry-maxid=2, waste-node=1, waste-match=0
 beta.rulp.factor.XRFactorRemoveStmtTest:test_3_varargs_1:1-mStatus:sc=[0,0,0,0,1], n0=[0,1,1],
@@ -282,8 +282,8 @@ beta.rulp.partial.PartialReasonTest:test_3_alias_full:1-mStatus:sc=[157,2,10,0,0
 beta.rulp.partial.PartialReasonTest:test_4_alias_query_all:1-eCount:size=200, max-id=201, dup=4, null=1
 beta.rulp.partial.PartialReasonTest:test_4_alias_query_all:1-mCount:stmt=326, rule=41, match=0, fetch=7986, exec=263, idle=183, state=5/3, max-queue=77, uniq-obj=74, entry-cnt=200, entry-maxid=201, waste-node=95, waste-match=2984
 beta.rulp.partial.PartialReasonTest:test_4_alias_query_all:1-mStatus:sc=[157,2,10,0,0,157,0,0,49], vc=[1, 0, 0, 1, 0], a0=[35,210,2,99,123,6,0,4308,235,0,1719/218,0,17,0,0,218], a1=[1,0,1,99,1,0,0,1/0,0,0,0,0,0,0,1], b0=[20,0,4,99,41,19,0,475,30,0,30/22,0,8,0,0,22], b1=[9,0,5,99,1,1], b2=[10,0,4,99,22,1,0,459,34,0,34/26,4,4,0,0,26], e0=[4,0,3,99,2,1,0,4], e1=[7,0,5,99,17,1,0,538,534,0,497/502,4,28,0,0,502], ru=[41,0,6,99,38,22,0,0,106,49],
-beta.rulp.partial.PartialReasonTest:test_5_alias_query_1:1-eCount:size=128, max-id=128, dup=0, null=0
-beta.rulp.partial.PartialReasonTest:test_5_alias_query_1:1-mCount:stmt=242, rule=41, match=0, fetch=2899, exec=129, idle=92, state=2/2, max-queue=77, uniq-obj=74, entry-cnt=128, entry-maxid=128, waste-node=111, waste-match=1020
+beta.rulp.partial.PartialReasonTest:test_5_alias_query_1:1-eCount:size=128, max-id=129, dup=0, null=1
+beta.rulp.partial.PartialReasonTest:test_5_alias_query_1:1-mCount:stmt=242, rule=41, match=0, fetch=2899, exec=129, idle=92, state=5/3, max-queue=77, uniq-obj=74, entry-cnt=128, entry-maxid=129, waste-node=111, waste-match=1020
 beta.rulp.partial.PartialReasonTest:test_5_alias_query_1:1-mStatus:sc=[119,2,2,0,0,119], vc=[1, 0, 0, 1, 0], a0=[35,210,2,99,57,6,0,1540,160,0,601/156,0,4,0,0,156], a1=[1,0,1,99,1,0,0,1/0,0,0,0,0,0,0,1], b0=[20,0,4,99,20,17,0,37,4,0,2/0,0,4], b1=[9,0,5,99,1,1], b2=[10,0,4,99,10,1,0,185,26,0,11/22,2,2,0,0,22], e0=[4,0,3,99,1,1], e1=[7,0,5,99,7,1,0,264,262,0,108/258,2,2,0,0,258], ru=[41,0,6,99,26,22,0,0,27],
 beta.rulp.partial.PartialReasonTest:test_6_root_based_rule:1-eCount:size=2, max-id=2, dup=0, null=0
 beta.rulp.partial.PartialReasonTest:test_6_root_based_rule:1-mCount:stmt=2, rule=1, match=0, fetch=4, exec=5, idle=1, state=5/3, max-queue=2, uniq-obj=3, entry-cnt=2, entry-maxid=2, waste-node=0, waste-match=0
@@ -426,7 +426,7 @@ beta.rulp.rule.VarChangeTest:test_1_expr_tree_9:1-mStatus:sc=[0,0,1], n0=[0,1,1]
 beta.rulp.rule.VarChangeTest:test_2_contant_bool_1:1-mStatus:sc=[0,2,2,0,0,0,0,0,1], vc=[1, 0, 0, 3, 0], a1=[1,0,1,99,3,0,0,3,2,0,2/0,0,0,0,0,1], b1=[1,0,2,99,2,0,0,3,3,0,3/0,0,3], ru=[1,0,3,99,2,0,0,0,3,1],
 beta.rulp.rule.VarChangeTest:test_2_contant_bool_2:1-mStatus:sc=[0,2,2,0,0,0,0,0,1], vc=[1, 0, 0, 4, 1], a1=[1,0,1,99,7,4,0,3,2,0,2/0,0,0,0,0,1], b1=[1,0,2,99,6,4,0,3,3,0,3/0,0,3], ru=[1,0,3,99,6,4,0,0,3,1],
 beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-eCount:size=21, max-id=21, dup=0, null=0
-beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-mCount:stmt=3, rule=0, match=0, fetch=28, exec=7, idle=3, state=2/2, max-queue=4, uniq-obj=7, entry-cnt=21, entry-maxid=21, waste-node=0, waste-match=0
+beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-mCount:stmt=3, rule=0, match=0, fetch=28, exec=7, idle=3, state=5/3, max-queue=4, uniq-obj=7, entry-cnt=21, entry-maxid=21, waste-node=0, waste-match=0
 beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-mStatus:sc=[0,3], a0=[1,0,1,0,1,0,0,3,3,0,21/0,3], b3=[2,0,3,0,5,3,0,18,4,0,4/0,0,4],
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-eCount:size=2, max-id=2, dup=0, null=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-mCount:stmt=2, rule=0, match=0, fetch=6, exec=7, idle=3, state=5/2, max-queue=4, uniq-obj=3, entry-cnt=2, entry-maxid=2, waste-node=0, waste-match=0

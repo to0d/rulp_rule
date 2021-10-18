@@ -834,11 +834,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return updateQueue.pop();
 	}
 
-	protected List<? extends IRObject> _queryCond(IRObject rstExpr, IRList condList, final int limit)
-			throws RException {
-
-		IRReteNode queryNode = this.findNode(condList);
-		IRResultQueue objQueue = ModelFactory.createResultQueue(this, rstExpr, condList);
+	protected void _queryCond(IRResultQueue objQueue, IRReteNode queryNode, final int limit) throws RException {
 
 		int queryEntryIndex = 0;
 
@@ -857,7 +853,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				// limit <= 0 means query all
 				if (limit > 0 && objQueue.size() >= limit) {
-					return objQueue.getResultList();
+					return;
 				}
 			}
 		}
@@ -865,11 +861,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
-//		int maxPriority = ModelUtil.getNodeMaxPriority(this);
-//		if (maxPriority > RETE_PRIORITY_MAXIMUM) {
-//			throw new RException("invailid priority found: " + maxPriority);
-//		}
-
 		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
 		subGraph.buildSourceNodeGraph(queryNode);
 
@@ -913,7 +904,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 								// limit <= 0 means query all
 								if (limit > 0 && objQueue.size() >= limit) {
-									return objQueue.getResultList();
+									return;
 								}
 							}
 						}
@@ -932,14 +923,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			}
 
-			this._setRunState(RRunState.Partial);
-			return objQueue.getResultList();
+			return;
 
 		} finally {
 
 			this.isProcessing = false;
 			this.modelPriority = oldModelPriority;
-
+			this._setRunState(RRunState.Partial);
 			subGraph.rollback();
 		}
 	}
@@ -1789,10 +1779,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public List<? extends IRObject> query(IRObject rstExpr, IRList condList, int limit) throws RException {
+	public void query(IRResultQueue resultQueue, IRList condList, int limit) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> query: rst=" + rstExpr + ", cond=" + condList + ", limit=" + limit);
+			System.out.println("==> query: cond=" + condList + ", limit=" + limit);
 		}
 
 		/*****************************************************/
@@ -1802,7 +1792,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Can't query, the model is running");
 		}
 
-		return _queryCond(rstExpr, condList, limit);
+		IRReteNode queryNode = this.findNode(condList);
+		_queryCond(resultQueue, queryNode, limit);
 	}
 
 	@Override

@@ -24,6 +24,7 @@ public class ModelFactory {
 		/******************************************************/
 		IRFrame queryFrame = RulpFactory.createFrame(model.getFrame(), "QUERY");
 		RuleUtil.setDefaultModel(queryFrame, model);
+		RulpUtil.incRef(queryFrame);
 
 		/******************************************************/
 		// Build var list

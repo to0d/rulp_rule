@@ -46,7 +46,17 @@ public class ConstraintFactory {
 			return false;
 		}
 
-		return ((IRAtom) obj).getName().equals(name);
+		return RulpUtil.asAtom(obj).getName().equals(name);
+	}
+
+	static boolean _isFactor(IRList list, int index, String name) throws RException {
+
+		IRObject obj = list.get(index);
+		if (obj.getType() != RType.FACTOR) {
+			return false;
+		}
+
+		return RulpUtil.asFactor(obj).getName().equals(name);
 	}
 
 	public static IRConstraint2 createConstraint2EntryOrder() {
@@ -285,7 +295,8 @@ public class ConstraintFactory {
 		}
 
 		// (uniq on ?x)
-		if (consListSize == 3 && _isAtom(constraintlist, 0, A_Uniq) && _isAtom(constraintlist, 1, A_On)) {
+		if (consListSize == 3 && (_isAtom(constraintlist, 0, A_Uniq) || _isFactor(constraintlist, 0, A_Uniq))
+				&& _isAtom(constraintlist, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Uniq;

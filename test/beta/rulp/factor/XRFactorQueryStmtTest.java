@@ -171,26 +171,26 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(add-stmt m name1:'(b 10))");
 		_test("(add-stmt m name1:'(b 100))");
 		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) (> ?y 1))", "'('(b 10) '(b 100))");
-		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) where (> ?y 1))", "'('(b 10) '(b 100))");
 
 		_mCount(1, "m");
 		_eCount(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
 	void test_7_where_1_expr_1_b() {
 
 		_setup();
-
 		_test("(new model m)");
 		_test("(add-stmt m name1:'(a 1))");
 		_test("(add-stmt m name1:'(b 10))");
 		_test("(add-stmt m name1:'(b 100))");
-
+		_test("(query-stmt m '(?x ?y) from name1:'(?x ?y) where (> ?y 1))", "'('(b 10) '(b 100))");
 		_mCount(1, "m");
 		_eCount(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -203,11 +203,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(add-stmt m '(a b c2) )");
 		_test("(add-stmt m '(a2 b c2))");
 		_test("(query-stmt m ?a from '(?a ?b ?c))", "'(a a a2)");
-		_test("(query-stmt m ?a from '(?a ?b ?c) where '(uniq on ?x))", "'(a)");
-
-		_test("(add-stmt m (query-stmt n1:'(?a ?b) from '(?a ?b ?)))", "");
-		_test("(list-stmt m n1:'(?...))", "'(a a2)");
-		_test("(list-stmt m n1:'(?x ?...))", "'(a a2)");
+		_test("(query-stmt m ?a from '(?a ?b ?c) where '(uniq on ?a))", "'(a a2)");
 
 		_mCount(1, "m");
 		_eCount(1, "m");
@@ -226,8 +222,8 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_mCount(1, "m");
 		_eCount(1, "m");
 		_mStatus(1, "m");
-		_test("(query-stmt m '(?n ?v) from '(?n p2 ?v) (> ?v 150) do (return (remove-stmt '(?n ? ?v))))",
-				"'('('(n2 p2 200)))");
+		_test("(query-stmt m '(?n ?v ?x) from '(?n p2 ?v) (> ?v 150) do (defvar ?x (size-of (remove-stmt '(?n ? ?v)))))",
+				"'('(n2 200 1))");
 		_mCount(2, "m");
 		_eCount(2, "m");
 		_mStatus(2, "m");
@@ -247,7 +243,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(add-rule m if n1:'(?x) (< ?x 3) do (-> m n1:'((+ ?x 1))))");
 		_test("(add-stmt m n1:'(1))");
 		_test("(list-stmt m)", "'(n1:'(1))");
-		_test("(query-stmt m ?x from n1:'(?x) do (return (remove-stmt n1:'(?x))))", "'('(n1:'(1)) '() '())");
+		_test("(query-stmt m ?x from n1:'(?x) do (remove-stmt n1:'(?x)))", "'(1)");
 		_test("(list-stmt m)", "'()");
 
 		_mCount(1, "m");
@@ -255,5 +251,17 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
+	}
+
+	@Test
+	void test_8_do_3() {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(add-stmt m '(n1 p1 100))");
+		_test("(add-stmt m '(n2 p2 200))");
+		_test("(list-stmt m)", "'('(n1 p1 100) '(n2 p2 200))");
+		_test("(query-stmt m (+ ?z 1) from '(?x ?y ?z))", "'(101 201)");
 	}
 }

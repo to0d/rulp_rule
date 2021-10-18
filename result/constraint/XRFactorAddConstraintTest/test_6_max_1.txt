@@ -89,11 +89,11 @@ Ref Bit Map: total=3, max-id=3, create=3, removed=0, group-size=10, group-count=
 3 [3]
 ========================================================================================================================================================
 
-Model<m> frame:id=6, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=4, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 21       6        2    instance   m : class=model     
+default_model        : 21       4        2    instance   m : class=model     
 ==========================================================================================================================
 
 node update info: model-exec-count=0, row=0, column=0(-1), value-max=-1, value-unit=0^x
