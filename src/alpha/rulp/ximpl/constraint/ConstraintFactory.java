@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.constraint;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.rule.Constant.A_Max;
+import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_Type;
@@ -194,6 +195,10 @@ public class ConstraintFactory {
 		return new XRConstraint1Max(columnIndex, maxValue);
 	}
 
+	public static IRConstraint1 createConstraintMin(int columnIndex, IRObject maxValue) {
+		return new XRConstraint1Min(columnIndex, maxValue);
+	}
+
 	public static IRConstraint1 createConstraintNotEqualIndex(int idx1, int idx2) {
 		return new XRConstraint1NotEqualIndex(idx1, idx2);
 
@@ -310,6 +315,16 @@ public class ConstraintFactory {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Max;
+			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
+			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+			return cons;
+		}
+
+		// (min 10 on ?x)
+		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Min) && _isAtom(constraintlist, 2, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Min;
 			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
 			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
 			return cons;

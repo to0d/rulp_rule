@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.rule.Constant.A_Max;
+import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -332,6 +333,23 @@ public class ConstraintBuilder {
 		}
 	}
 
+	private IRConstraint1 _minConstraint(RConstraint cons) throws RException {
+
+		if (cons.constraintValue == null
+				|| (cons.constraintValue.getType() != RType.INT && cons.constraintValue.getType() != RType.FLOAT)) {
+			throw new RException("Invalid column type: " + cons.constraintValue);
+		}
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.createConstraintMin(_getColumnIndex(cons.onObject), cons.constraintValue);
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
 	public IRConstraint1 build(IRObject obj, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		switch (obj.getType()) {
@@ -351,6 +369,9 @@ public class ConstraintBuilder {
 
 			case A_Max:
 				return _maxConstraint(cons);
+
+			case A_Min:
+				return _minConstraint(cons);
 
 			default:
 				throw new RException("unsupport constraint: " + cons.constraintName);

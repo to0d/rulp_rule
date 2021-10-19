@@ -3,10 +3,8 @@ package alpha.rulp.ximpl.search;
 import java.util.ArrayList;
 import java.util.List;
 
-import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
-import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
@@ -14,20 +12,15 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
-import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.ModifiterUtil.ModifiterData;
-import alpha.rulp.ximpl.constraint.ConstraintBuilder;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
-import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
 public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 

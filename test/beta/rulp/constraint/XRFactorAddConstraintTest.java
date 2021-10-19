@@ -12,7 +12,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_setup();
 		// XRModel.TRACE_RETE = true;
 
-		_clean_cache("result/constraint/XRFactorAddConstraintTest/test_1_type_1");
+		_clean_model_cache();
 
 		_test("(new model m)");
 		_test("(add-node m name1:'(3))", "1");
@@ -37,50 +37,51 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m name6:'(?x ?y ?) (< ?x 10))", "1");
 
 		_test("(add-constraint m name7:'(?x ?y ?z) '(type int on ?x))", "1");
+		_test("(add-constraint m name8:'(?x ?y) '(max 5 on ?x))", "1");
+		_test("(add-constraint m name8:'(?x ?y) '(min 5 on ?y))", "1");
+		_test("(add-constraint m name8:'(?x ?y) '(not-null on ?x))", "1");
 
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_1.txt");
-
-		_test("(set-model-cache-path m \"result/constraint/XRFactorAddConstraintTest/test_1_type_1\")");
-		_test("(save-model m)");
+		_statsInfo("m");
+		_save_model_cache("m");
 	}
 
 	@Test
 	void test_1_type_2_fail_add_stmt() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_2_fail_add_stmt.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_2_fail_add_stmt.txt");
+		_test_script();
+		_statsInfo("m");
 	}
 
 	@Test
 	void test_1_type_3_fail_add_constraint() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_3_fail_add_constraint.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_3_fail_add_constraint.txt");
+		_test_script();
+		_statsInfo("m");
 	}
 
 	@Test
 	void test_1_type_4_fail_merge_constraint() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_1_type_4_fail_merge_constraint.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_1_type_4_fail_merge_constraint.txt");
+		_test_script();
+		_statsInfo("m");
 	}
 
 	@Test
 	void test_2_uniq_1() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_2_uniq_1.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_2_uniq_1.txt");
+		_test_script();
+		_statsInfo("m");
 	}
 
 	@Test
 	void test_3_not_null_1() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_3_not_null_1.rulp");
+		_test_script();
 		_statsInfo("m");
 	}
 
@@ -96,29 +97,36 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_5_var_1() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_1.rulp");
+		_test_script();
 	}
 
 	@Test
 	void test_5_var_2() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_2.rulp");
+		_test_script();
 	}
 
 	@Test
 	void test_5_var_3() {
 
 		_setup();
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_5_var_3.rulp");
+		_test_script();
 	}
 
 	@Test
 	void test_6_max_1() {
 
-		_test_script("result/constraint/XRFactorAddConstraintTest/test_6_max_1.rulp");
+		_setup();
+		_test_script();
 		_statsInfo("m");
-
 	}
 
+	@Test
+	void test_7_min_1() {
+
+		_setup();
+		_test_script();
+		_statsInfo("m");
+	}
 }

@@ -37,6 +37,8 @@ public interface Constant {
 
 	String A_Max = "max";
 
+	String A_Min = "min";
+
 	String A_MODEL = "model";
 
 	String A_Name = "name";
