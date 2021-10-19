@@ -462,6 +462,10 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
+	protected void _scopeInfo(String scopeName) {
+		_scopeInfo(scopeName, getCachePath() + ".scope.txt");
+	}
+
 	@Override
 	protected void _setup() {
 		super._setup();

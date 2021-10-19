@@ -84,7 +84,6 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 
-
 	@Test
 	void test_4_expr_1() {
 
@@ -118,7 +117,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_6_max_1() {
 
 		_test_script("result/constraint/XRFactorAddConstraintTest/test_6_max_1.rulp");
-		_statsInfo("m", "result/constraint/XRFactorAddConstraintTest/test_6_max_1.txt");
+		_statsInfo("m");
 
 	}
 

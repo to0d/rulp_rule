@@ -141,6 +141,8 @@ public interface Constant {
 
 	String F_QUERY_STMT = "query-stmt";
 
+	String F_SEARCH_STMT = "search-stmt";
+
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
@@ -198,7 +200,7 @@ public interface Constant {
 	IRAtom O_Running = RulpFactory.createAtom(A_Running);
 
 	IRAtom O_State = RulpFactory.createAtom(A_State);
-	
+
 	IRAtom O_Where = RulpFactory.createAtom(A_Where);
 
 	IRAtom O_Type = RulpFactory.createAtom(A_Type);
