@@ -569,7 +569,7 @@ public class TestRule extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/TestRule/test_7_null_expr_2.txt");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -585,9 +585,7 @@ public class TestRule extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-
-		_statsInfo("m", "result/rule/TestRule/test_9_stmtchange_1.txt");
-
+		_statsInfo("m");
 	}
 
 	@Test
