@@ -211,6 +211,21 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_9_order_by_1() {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(add-stmt m n1:'(10))");
+		_test("(add-stmt m n1:'(100))");
+		_test("(add-stmt m n1:'(1))");
+
+		_test("(query-stmt m ?x from n1:'(?x))", "'(10 100 1)");
+		_test("(query-stmt m ?x from n1:'(?x) limit 1)", "'(10)");
+		_test("(query-stmt m ?x from n1:'(?x) order by ?x)", "'(10)");
+	}
+
+	@Test
 	void test_8_do_1() {
 
 		_setup();

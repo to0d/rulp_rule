@@ -1,10 +1,20 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.lang.Constant.A_FROM;
+import static alpha.rulp.lang.Constant.F_DO;
 import static alpha.rulp.lang.Constant.O_Nil;
+import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.A_On;
+import static alpha.rulp.rule.Constant.A_Priority;
+import static alpha.rulp.rule.Constant.A_State;
+import static alpha.rulp.rule.Constant.A_Type;
+import static alpha.rulp.rule.Constant.A_Where;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
@@ -15,7 +25,6 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
-import alpha.rulp.rule.RModifiter;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
@@ -29,7 +38,7 @@ public class ModifiterUtil {
 		public int limit = -1;
 		public IRObject on = null;
 		public int priority = -1;
-		public List<RModifiter> processedModifier = new LinkedList<>();
+		public List<Modifier> processedModifier = new LinkedList<>();
 		public int state = 0;
 		public RType type = null;
 		public ArrayList<IRObject> whereList;
@@ -37,20 +46,20 @@ public class ModifiterUtil {
 		public String asString() throws RException {
 
 			ArrayList<IRObject> list = new ArrayList<>();
-			for (RModifiter modifiter : processedModifier) {
+			for (Modifier modifiter : processedModifier) {
 
-				list.add(RModifiter.toObject(modifiter));
+				list.add(RulpFactory.createAtom(modifiter.name));
 
-				switch (modifiter) {
-				case FROM:
+				switch (modifiter.name) {
+				case A_FROM:
 					list.addAll(fromList);
 					break;
 
-				case LIMIT:
+				case A_Limit:
 					list.add(RulpFactory.createInteger(limit));
 					break;
 
-				case STATE:
+				case A_State:
 					for (RReteStatus status : RReteStatus.ALL_RETE_STATUS) {
 						if (ReteUtil.matchReteStatus(status, state)) {
 							list.add(RReteStatus.toObject(status));
@@ -58,19 +67,19 @@ public class ModifiterUtil {
 					}
 					break;
 
-				case TYPE:
+				case A_Type:
 					list.add(RType.toObject(type));
 					break;
 
-				case DO:
+				case F_DO:
 					list.addAll(doList);
 					break;
 
-				case PRIORITY:
+				case A_Priority:
 					list.add(RulpFactory.createInteger(priority));
 					break;
 
-				case ON:
+				case A_On:
 					list.add(on);
 					break;
 
@@ -84,9 +93,42 @@ public class ModifiterUtil {
 		}
 	}
 
-	static int[] MV_LEN = { -1, 1, -1, 1, -1, 1, 1, -1 };
+	public static class Modifier {
+		public String name;
+		public RType valueType;
+		public int valueLength;
+	}
 
-	static RType[] MV_TYP = { null, RType.INT, null, RType.ATOM, RType.EXPR, RType.INT, null, RType.EXPR };
+	static Map<String, Modifier> modifierMap = new HashMap<>();
+
+	static void _registerModifier(String name, RType valueType, int valueLength) {
+
+		Modifier modifiter = new Modifier();
+		modifiter.name = name;
+		modifiter.valueType = valueType;
+		modifiter.valueLength = valueLength;
+
+		modifierMap.put(name, modifiter);
+	}
+
+	static {
+		_registerModifier(A_FROM, null, -1);
+		_registerModifier(A_Limit, RType.INT, 1);
+		_registerModifier(A_State, null, -1);
+		_registerModifier(A_Type, RType.ATOM, 1);
+		_registerModifier(F_DO, RType.EXPR, -1);
+		_registerModifier(A_Priority, RType.INT, 1);
+		_registerModifier(A_On, null, 1);
+		_registerModifier(A_Where, RType.EXPR, -1);
+	}
+
+	public static Modifier getModifiter(String keyName) {
+		return modifierMap.get(keyName);
+	}
+
+//	static int[] MV_LEN = { -1, 1, -1, 1, -1, 1, 1, -1 };
+//
+//	static RType[] MV_TYP = { null, RType.INT, null, RType.ATOM, RType.EXPR, RType.INT, null, RType.EXPR };
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {
 
@@ -219,7 +261,7 @@ public class ModifiterUtil {
 			IRFrame frame) throws RException {
 
 		ModifiterData processData = new ModifiterData();
-		RModifiter processingModifier = null;
+		Modifier processingModifier = null;
 
 		/********************************************/
 		// Check modifier
@@ -231,9 +273,10 @@ public class ModifiterUtil {
 			boolean isModifier = false;
 
 			if (obj.getType() == RType.ATOM) {
-				RModifiter aModifiter = RModifiter.toModifiter(RulpUtil.asAtom(obj).getName());
-				if (aModifiter != null) {
-					processingModifier = aModifiter;
+
+				Modifier modifiter = getModifiter(RulpUtil.asAtom(obj).getName());
+				if (modifiter != null) {
+					processingModifier = modifiter;
 					isModifier = true;
 				}
 			}
@@ -246,7 +289,7 @@ public class ModifiterUtil {
 
 				processData.processedModifier.add(processingModifier);
 
-				int modifiterValueMaxSize = MV_LEN[processingModifier.getIndex()];
+				int modifiterValueMaxSize = processingModifier.valueLength;
 				if (modifiterValueMaxSize == 0) {
 					processingModifier = null;
 					continue;
@@ -258,27 +301,27 @@ public class ModifiterUtil {
 
 				if (modifiterValueMaxSize == 1) {
 
-					RType type = MV_TYP[processingModifier.getIndex()];
+					RType type = processingModifier.valueType;
 					IRObject value = interpreter.compute(frame, iterator.next());
 					if (type != null && value.getType() != type) {
 						throw new RException(String.format("value<%s> type<%s:%s> not match for modifier: %s", value,
 								value.getType(), type, processingModifier));
 					}
 
-					switch (processingModifier) {
-					case LIMIT:
+					switch (processingModifier.name) {
+					case A_Limit:
 						processData.limit = RulpUtil.asInteger(interpreter.compute(frame, value)).asInteger();
 						break;
 
-					case TYPE:
+					case A_Type:
 						processData.type = RType.toType(RulpUtil.asAtom(value).asString());
 						break;
 
-					case PRIORITY:
+					case A_Priority:
 						processData.priority = RulpUtil.asInteger(interpreter.compute(frame, value)).asInteger();
 						break;
 
-					case ON:
+					case A_On:
 						processData.on = value;
 						break;
 
@@ -296,10 +339,10 @@ public class ModifiterUtil {
 					throw new RException("not modifier: " + obj);
 				}
 
-				switch (processingModifier) {
+				switch (processingModifier.name) {
 
 				// from '(a b c) (factor)
-				case FROM:
+				case A_FROM:
 
 					if (processData.fromList == null) {
 						processData.fromList = new ArrayList<>();
@@ -309,12 +352,12 @@ public class ModifiterUtil {
 					break;
 
 				// limit 1
-				case STATE:
+				case A_State:
 					processData.state = _updateStatus(processData.state, obj);
 					break;
 
 				// do
-				case DO:
+				case F_DO:
 
 					if (processData.doList == null) {
 						processData.doList = new ArrayList<>();
@@ -323,7 +366,7 @@ public class ModifiterUtil {
 					processData.doList.add((IRExpr) _compute(obj, frame));
 					break;
 
-				case WHERE:
+				case A_Where:
 
 					if (processData.whereList == null) {
 						processData.whereList = new ArrayList<>();

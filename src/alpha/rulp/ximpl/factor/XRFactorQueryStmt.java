@@ -1,4 +1,8 @@
 package alpha.rulp.ximpl.factor;
+import static alpha.rulp.lang.Constant.A_FROM;
+import static alpha.rulp.lang.Constant.F_DO;
+import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.A_Where;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +15,11 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
@@ -96,12 +100,12 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		/********************************************/
 		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(argIndex), interpreter, frame);
 
-		for (RModifiter processingModifier : data.processedModifier) {
+		for (Modifier processingModifier : data.processedModifier) {
 
-			switch (processingModifier) {
+			switch (processingModifier.name) {
 
 			// from '(a b c) (factor)
-			case FROM:
+			case A_FROM:
 				if (data.fromList == null || data.fromList.isEmpty()) {
 					throw new RException("require condList for modifier: " + processingModifier + ", args=" + args);
 				}
@@ -110,7 +114,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 				break;
 
 			// limit 1
-			case LIMIT:
+			case A_Limit:
 				queryLimit = data.limit;
 				if (queryLimit <= 0) {
 					throw new RException(
@@ -119,7 +123,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 				break;
 
-			case DO:
+			case F_DO:
 
 				if (data.doList == null || data.doList.isEmpty()) {
 					throw new RException("invalid do actions<" + doList + "> for modifier: " + processingModifier
@@ -129,7 +133,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 				doList = data.doList;
 				break;
 
-			case WHERE:
+			case A_Where:
 
 				if (data.whereList.isEmpty()) {
 					throw new RException("require whereList for modifier: " + processingModifier + ", args=" + args);

@@ -1,4 +1,6 @@
 package alpha.rulp.ximpl.search;
+import static alpha.rulp.lang.Constant.A_FROM;
+import static alpha.rulp.rule.Constant.A_Limit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +11,10 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -79,12 +81,12 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 		/********************************************/
 		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(argIndex), interpreter, frame);
 
-		for (RModifiter processingModifier : data.processedModifier) {
+		for (Modifier processingModifier : data.processedModifier) {
 
-			switch (processingModifier) {
+			switch (processingModifier.name) {
 
 			// from '(a b c) (factor)
-			case FROM:
+			case A_FROM:
 				if (data.fromList == null || data.fromList.isEmpty()) {
 					throw new RException("require condList for modifier: " + processingModifier + ", args=" + args);
 				}
@@ -93,7 +95,7 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 				break;
 
 			// limit 1
-			case LIMIT:
+			case A_Limit:
 				limit = data.limit;
 				if (limit <= 0) {
 					throw new RException(

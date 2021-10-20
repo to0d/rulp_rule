@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.A_Priority;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -10,11 +11,11 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRunnable;
-import alpha.rulp.rule.RModifiter;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -73,17 +74,17 @@ public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleF
 		// Check modifier
 		/********************************************/
 		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(argIndex), interpreter, frame);
-		for (RModifiter processingModifier : data.processedModifier) {
+		for (Modifier processingModifier : data.processedModifier) {
 
-			switch (processingModifier) {
+			switch (processingModifier.name) {
 
 			// priority 1
-			case PRIORITY:
+			case A_Priority:
 				priority = data.priority;
 				break;
 
 			// limit 1
-			case LIMIT:
+			case A_Limit:
 				limit = data.limit;
 				if (limit <= 0) {
 					throw new RException("invalid value<" + limit + "> for modifier: " + A_Limit + ", args=" + args);
