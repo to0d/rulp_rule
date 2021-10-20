@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.lang.Constant.F_DO;
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_IF;
 
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class XRFactorAddRule extends AbsRFactorAdapter implements IRuleFactor {
 			ArrayList<IRObject> condObjs = new ArrayList<>();
 			while (argIndex < size) {
 				IRObject cond = args.get(argIndex++);
-				if (RulpUtil.isAtom(cond, F_DO)) {
+				if (RulpUtil.isAtom(cond, A_DO)) {
 					break;
 				}
 				condObjs.add(cond);

@@ -1,7 +1,7 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
-import static alpha.rulp.lang.Constant.F_DO;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_On;
@@ -71,7 +71,7 @@ public class ModifiterUtil {
 					list.add(RType.toObject(type));
 					break;
 
-				case F_DO:
+				case A_DO:
 					list.addAll(doList);
 					break;
 
@@ -116,7 +116,7 @@ public class ModifiterUtil {
 		_registerModifier(A_Limit, RType.INT, 1);
 		_registerModifier(A_State, null, -1);
 		_registerModifier(A_Type, RType.ATOM, 1);
-		_registerModifier(F_DO, RType.EXPR, -1);
+		_registerModifier(A_DO, RType.EXPR, -1);
 		_registerModifier(A_Priority, RType.INT, 1);
 		_registerModifier(A_On, null, 1);
 		_registerModifier(A_Where, RType.EXPR, -1);
@@ -357,7 +357,7 @@ public class ModifiterUtil {
 					break;
 
 				// do
-				case F_DO:
+				case A_DO:
 
 					if (processData.doList == null) {
 						processData.doList = new ArrayList<>();

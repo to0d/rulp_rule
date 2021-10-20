@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.action;
 
-import static alpha.rulp.lang.Constant.F_DO;
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
 
@@ -119,7 +119,7 @@ public class ActionUtil {
 
 			return true;
 
-		case F_DO:
+		case A_DO:
 
 			IRIterator<? extends IRObject> it2 = expr.listIterator(1);
 			while (it2.hasNext()) {
@@ -184,7 +184,7 @@ public class ActionUtil {
 
 			break;
 
-		case F_DO:
+		case A_DO:
 
 			IRIterator<? extends IRObject> it = expr.listIterator(1);
 			while (it.hasNext()) {

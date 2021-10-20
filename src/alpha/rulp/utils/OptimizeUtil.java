@@ -1,7 +1,7 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_B_NOT;
-import static alpha.rulp.lang.Constant.F_DO;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.F_IF;
 import static alpha.rulp.lang.Constant.MAX_COUNTER_SIZE;
@@ -644,7 +644,7 @@ public class OptimizeUtil {
 			} else {
 
 				ArrayList<IRObject> doList = new ArrayList<>();
-				doList.add(RulpFactory.createAtom(F_DO));
+				doList.add(RulpFactory.createAtom(A_DO));
 				doList.addAll(ReteUtil.toExprList(actions));
 
 				newAction = RulpFactory.createExpression(RulpFactory.createAtom(F_IF),

@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.factor;
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
-import static alpha.rulp.lang.Constant.F_DO;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Where;
 
@@ -123,7 +123,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 				break;
 
-			case F_DO:
+			case A_DO:
 
 				if (data.doList == null || data.doList.isEmpty()) {
 					throw new RException("invalid do actions<" + doList + "> for modifier: " + processingModifier
