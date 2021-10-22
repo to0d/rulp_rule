@@ -1,9 +1,7 @@
 package alpha.rulp.ximpl.search;
+
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Limit;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -15,7 +13,6 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
-import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -72,47 +69,39 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 			throw new RException("unsupport rstExpr: " + rstExpr);
 		}
 
-		List<IRList> fromList = new ArrayList<>();
-
+		IRList condList = null;
 		int limit = -1; // 0: all, -1: default
 
 		/********************************************/
 		// Check modifier
 		/********************************************/
-		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(argIndex), interpreter, frame);
 
-		for (Modifier processingModifier : data.processedModifier) {
+		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame)) {
 
-			switch (processingModifier.name) {
+			switch (modifier.name) {
 
 			// from '(a b c) (factor)
 			case A_FROM:
-				if (data.fromList == null || data.fromList.isEmpty()) {
-					throw new RException("require condList for modifier: " + processingModifier + ", args=" + args);
-				}
-
-				fromList.addAll(data.fromList);
+				condList = RulpUtil.asList(modifier.obj);
 				break;
 
 			// limit 1
 			case A_Limit:
-				limit = data.limit;
+				limit = RulpUtil.asInteger(modifier.obj).asInteger();
 				if (limit <= 0) {
-					throw new RException(
-							"invalid value<" + limit + "> for modifier: " + processingModifier + ", args=" + args);
+					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
 				break;
 
 			default:
-				throw new RException("unsupport modifier: " + processingModifier);
+				throw new RException("unsupport modifier: " + modifier.name);
 			}
 		}
 
 		/********************************************/
 		// Run as rule group
 		/********************************************/
-		IRList condList = RulpFactory.createList(fromList);
 		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, condList);
 
 		try {

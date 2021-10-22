@@ -2555,7 +2555,7 @@ Object create count:
         atom:         2471            0         2471
          int:            1            0            1
       string:          109            0          109
-        list:          699            0          699
+        list:          702            0          702
         expr:         1003            0         1003
        array:            1            0            1
          var:          172          140           32

@@ -200,7 +200,7 @@ Object create count:
         atom:          993            0          993
          int:            4            0            4
       string:           29            0           29
-        list:           40            0           40
+        list:           41            0           41
         expr:          520            0          520
        array:            1            0            1
          var:           27            4           23

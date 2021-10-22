@@ -12,12 +12,10 @@ import static alpha.rulp.rule.Constant.A_Where;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
-import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
@@ -26,109 +24,176 @@ import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.RReteStatus;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 
 public class ModifiterUtil {
 
-	public static class ModifiterData {
+	static abstract class AModifierSingle implements IModifier {
 
-		public List<IRExpr> doList;
-		public List<IRList> fromList;
-		public int limit = -1;
-		public IRObject on = null;
-		public int priority = -1;
-		public List<Modifier> processedModifier = new LinkedList<>();
-		public int state = 0;
-		public RType type = null;
-		public ArrayList<IRObject> whereList;
+		private final String name;
 
-		public String asString() throws RException {
-
-			ArrayList<IRObject> list = new ArrayList<>();
-			for (Modifier modifiter : processedModifier) {
-
-				list.add(RulpFactory.createAtom(modifiter.name));
-
-				switch (modifiter.name) {
-				case A_FROM:
-					list.addAll(fromList);
-					break;
-
-				case A_Limit:
-					list.add(RulpFactory.createInteger(limit));
-					break;
-
-				case A_State:
-					for (RReteStatus status : RReteStatus.ALL_RETE_STATUS) {
-						if (ReteUtil.matchReteStatus(status, state)) {
-							list.add(RReteStatus.toObject(status));
-						}
-					}
-					break;
-
-				case A_Type:
-					list.add(RType.toObject(type));
-					break;
-
-				case A_DO:
-					list.addAll(doList);
-					break;
-
-				case A_Priority:
-					list.add(RulpFactory.createInteger(priority));
-					break;
-
-				case A_On:
-					list.add(on);
-					break;
-
-				default:
-					throw new RException("Invalid Modifiter: " + modifiter);
-				}
-
-			}
-
-			return RulpUtil.toString(RulpFactory.createList(list));
+		public AModifierSingle(String name) {
+			super();
+			this.name = name;
 		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+	}
+
+	static interface IModifier {
+
+		public String getName();
+
+		public Modifier process(ModifierList list) throws RException;
 	}
 
 	public static class Modifier {
 		public String name;
-		public RType valueType;
-		public int valueLength;
+		public IRObject obj;
+
+		public String toString() {
+			return String.format("(%s %s)", name, "" + obj);
+		}
 	}
 
-	static Map<String, Modifier> modifierMap = new HashMap<>();
-
-	static void _registerModifier(String name, RType valueType, int valueLength) {
-
-		Modifier modifiter = new Modifier();
-		modifiter.name = name;
-		modifiter.valueType = valueType;
-		modifiter.valueLength = valueLength;
-
-		modifierMap.put(name, modifiter);
+	static class ModifierList {
+		public int fromIndex;
+		public List<IRObject> list;
 	}
+
+	static class XModifier1 extends AModifierSingle implements IModifier {
+
+		protected final RType[] types;
+
+		public XModifier1(String name, RType... types) {
+			super(name);
+			this.types = types;
+		}
+
+		@Override
+		public Modifier process(ModifierList list) throws RException {
+
+			if (list.fromIndex >= list.list.size()) {
+				throw new RException("no value specified for modifier: " + getName());
+			}
+
+			IRObject obj = list.list.get(list.fromIndex);
+			if (typeIndex(obj) == -1) {
+				throw new RException("invalid value '" + obj + "' specified for modifier: " + getName());
+			}
+
+			list.fromIndex++;
+
+			Modifier modifer = new Modifier();
+			modifer.name = this.getName();
+			modifer.obj = obj;
+
+			return modifer;
+		}
+
+		public int typeIndex(IRObject obj) {
+
+			for (int i = 0; i < types.length; ++i) {
+				if (obj.getType() == types[i]) {
+					return i;
+				}
+			}
+
+			return -1;
+		}
+
+	}
+
+	static class XModifier2 extends XModifier1 implements IModifier {
+
+		public XModifier2(String name, RType... types) {
+			super(name, types);
+		}
+
+		@Override
+		public Modifier process(ModifierList list) throws RException {
+
+			ArrayList<IRObject> objList = new ArrayList<>();
+
+			while (list.fromIndex < list.list.size()) {
+
+				IRObject obj = list.list.get(list.fromIndex);
+				if (typeIndex(obj) == -1) {
+					break;
+				}
+
+				objList.add(obj);
+				list.fromIndex++;
+			}
+
+			if (objList.isEmpty()) {
+				throw new RException("no value specified for modifier: " + getName());
+			}
+
+			Modifier modifer = new Modifier();
+			modifer.name = this.getName();
+			modifer.obj = RulpFactory.createList(objList);
+
+			return modifer;
+		}
+
+	}
+
+	static class XModifierState extends AModifierSingle implements IModifier {
+
+		public XModifierState(String name) {
+			super(name);
+		}
+
+		@Override
+		public Modifier process(ModifierList list) throws RException {
+
+			int mask = 0;
+			int num = 0;
+
+			while (list.fromIndex < list.list.size()) {
+
+				IRObject obj = list.list.get(list.fromIndex);
+				RReteStatus status = RReteStatus.toStatus(obj);
+				if (status == null) {
+					break;
+				}
+
+				mask = ReteUtil.updateMask(status, mask);
+				list.fromIndex++;
+				num++;
+			}
+
+			if (num == 0) {
+				throw new RException("no value specified for modifier: " + getName());
+			}
+
+			Modifier modifer = new Modifier();
+			modifer.name = this.getName();
+			modifer.obj = RulpFactory.createInteger(mask);
+
+			return modifer;
+		}
+
+	}
+
+	static Map<String, IModifier> modifierMap = new HashMap<>();
 
 	static {
-		_registerModifier(A_FROM, null, -1);
-		_registerModifier(A_Limit, RType.INT, 1);
-		_registerModifier(A_State, null, -1);
-		_registerModifier(A_Type, RType.ATOM, 1);
-		_registerModifier(A_DO, RType.EXPR, -1);
-		_registerModifier(A_Priority, RType.INT, 1);
-		_registerModifier(A_On, null, 1);
-		_registerModifier(A_Where, RType.EXPR, -1);
-	}
 
-	public static Modifier getModifiter(String keyName) {
-		return modifierMap.get(keyName);
-	}
+		modifierMap.put(A_FROM, new XModifier2(A_FROM, RType.LIST, RType.EXPR));
+		modifierMap.put(A_Where, new XModifier2(A_Where, RType.LIST, RType.EXPR));
+		modifierMap.put(A_DO, new XModifier2(A_DO, RType.EXPR));
+		modifierMap.put(A_Limit, new XModifier1(A_Limit, RType.INT));
+		modifierMap.put(A_Priority, new XModifier1(A_Priority, RType.INT));
+		modifierMap.put(A_On, new XModifier1(A_On, RType.ATOM, RType.LIST));
+		modifierMap.put(A_Type, new XModifier1(A_Type, RType.ATOM));
+		modifierMap.put(A_State, new XModifierState(A_State));
 
-//	static int[] MV_LEN = { -1, 1, -1, 1, -1, 1, 1, -1 };
-//
-//	static RType[] MV_TYP = { null, RType.INT, null, RType.ATOM, RType.EXPR, RType.INT, null, RType.EXPR };
+	}
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {
 
@@ -205,184 +270,40 @@ public class ModifiterUtil {
 		}
 	}
 
-	static boolean _isComputable(IRFrame curFrame, IRObject obj) throws RException {
-
-		if (obj == null) {
-			return false;
-		}
-
-		switch (obj.getType()) {
-		case INT:
-		case LONG:
-		case FLOAT:
-		case BOOL:
-		case STRING:
-		case NIL:
-		case FACTOR:
-		case FUNC:
-		case ARRAY:
-			return false;
-
-		case ATOM:
-			return curFrame.getEntry(((IRAtom) obj).getName()) != null;
-
-		case VAR:
-		case EXPR:
-		case MEMBER:
-			return true;
-
-		case LIST:
-
-			IRIterator<? extends IRObject> iter = ((IRList) obj).iterator();
-			while (iter.hasNext()) {
-				if (_isComputable(curFrame, iter.next())) {
-					return true;
-				}
-			}
-
-			return false;
-
-		default:
-			return true;
-		}
+	public static IModifier getModifiter(String keyName) {
+		return modifierMap.get(keyName);
 	}
 
-	static int _updateStatus(int mask, IRObject obj) throws RException {
+	public static List<Modifier> parseModifiterList(IRIterator<? extends IRObject> iterator, IRFrame frame)
+			throws RException {
 
-		RReteStatus status = RReteStatus.toStatus(obj);
-		if (status == null) {
-			throw new RException("Not ReteStatus: " + obj);
-		}
-
-		return ReteUtil.updateMask(status, mask);
-	}
-
-	public static ModifiterData parseModifiterList(IRIterator<? extends IRObject> iterator, IRInterpreter interpreter,
-			IRFrame frame) throws RException {
-
-		ModifiterData processData = new ModifiterData();
-		Modifier processingModifier = null;
-
-		/********************************************/
-		// Check modifier
-		/********************************************/
+		ArrayList<IRObject> objList = new ArrayList<>();
 		while (iterator.hasNext()) {
-
-			IRObject obj = iterator.next();
-
-			boolean isModifier = false;
-
-			if (obj.getType() == RType.ATOM) {
-
-				Modifier modifiter = getModifiter(RulpUtil.asAtom(obj).getName());
-				if (modifiter != null) {
-					processingModifier = modifiter;
-					isModifier = true;
-				}
-			}
-
-			if (isModifier) {
-
-				if (processData.processedModifier.contains(processingModifier)) {
-					throw new RException("duplicated modifier: " + obj);
-				}
-
-				processData.processedModifier.add(processingModifier);
-
-				int modifiterValueMaxSize = processingModifier.valueLength;
-				if (modifiterValueMaxSize == 0) {
-					processingModifier = null;
-					continue;
-				}
-
-				if (!iterator.hasNext()) {
-					throw new RException("require value for modifier: " + obj);
-				}
-
-				if (modifiterValueMaxSize == 1) {
-
-					RType type = processingModifier.valueType;
-					IRObject value = interpreter.compute(frame, iterator.next());
-					if (type != null && value.getType() != type) {
-						throw new RException(String.format("value<%s> type<%s:%s> not match for modifier: %s", value,
-								value.getType(), type, processingModifier));
-					}
-
-					switch (processingModifier.name) {
-					case A_Limit:
-						processData.limit = RulpUtil.asInteger(interpreter.compute(frame, value)).asInteger();
-						break;
-
-					case A_Type:
-						processData.type = RType.toType(RulpUtil.asAtom(value).asString());
-						break;
-
-					case A_Priority:
-						processData.priority = RulpUtil.asInteger(interpreter.compute(frame, value)).asInteger();
-						break;
-
-					case A_On:
-						processData.on = value;
-						break;
-
-					default:
-						throw new RException("unsupport modifier: " + processingModifier);
-
-					}
-
-					processingModifier = null;
-				}
-
-			} else {
-
-				if (processingModifier == null) {
-					throw new RException("not modifier: " + obj);
-				}
-
-				switch (processingModifier.name) {
-
-				// from '(a b c) (factor)
-				case A_FROM:
-
-					if (processData.fromList == null) {
-						processData.fromList = new ArrayList<>();
-					}
-
-					processData.fromList.add((IRList) _compute(obj, frame));
-					break;
-
-				// limit 1
-				case A_State:
-					processData.state = _updateStatus(processData.state, obj);
-					break;
-
-				// do
-				case A_DO:
-
-					if (processData.doList == null) {
-						processData.doList = new ArrayList<>();
-					}
-
-					processData.doList.add((IRExpr) _compute(obj, frame));
-					break;
-
-				case A_Where:
-
-					if (processData.whereList == null) {
-						processData.whereList = new ArrayList<>();
-					}
-
-					processData.whereList.add(_compute(obj, frame));
-					break;
-
-				default:
-					throw new RException("unsupport modifier: " + processingModifier);
-				}
-			}
-
+			objList.add(_compute(iterator.next(), frame));
 		}
 
-		return processData;
-	}
+		ModifierList list = new ModifierList();
+		list.list = objList;
+		list.fromIndex = 0;
 
+		ArrayList<Modifier> mdata = new ArrayList<>();
+
+		while (list.fromIndex < list.list.size()) {
+
+			IRObject obj = list.list.get(list.fromIndex++);
+			if (obj.getType() != RType.ATOM && obj.getType() != RType.FACTOR) {
+				throw new RException("unsupport modifier: " + obj);
+			}
+
+			IModifier modifiter = getModifiter(obj.asString());
+			if (modifiter == null) {
+				throw new RException("unsupport modifier: " + obj);
+			}
+
+			mdata.add(modifiter.process(list));
+		}
+
+		return mdata;
+
+	}
 }

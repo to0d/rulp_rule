@@ -14,9 +14,9 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
-import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorListStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -24,7 +24,6 @@ public class XRFactorListStmt extends AbsRFactorAdapter implements IRFactor, IRu
 	public XRFactorListStmt(String factorName) {
 		super(factorName);
 	}
-
 
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
@@ -64,35 +63,36 @@ public class XRFactorListStmt extends AbsRFactorAdapter implements IRFactor, IRu
 		/********************************************/
 		// Check modifier
 		/********************************************/
-		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(fromArgIndex), interpreter, frame);
-		for (Modifier processingModifier : data.processedModifier) {
+		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(fromArgIndex), frame)) {
 
-			switch (processingModifier.name) {
+			switch (modifier.name) {
 
 			// from '(a b c)
 			case A_FROM:
-				if (data.fromList.size() != 1 || data.fromList.get(0).getType() != RType.LIST) {
-					throw new RException("invalid value<" + data.fromList + "> for modifier: " + A_FROM);
+
+				IRList fromList = RulpUtil.asList(modifier.obj);
+				if (fromList.size() != 1 || fromList.get(0).getType() != RType.LIST) {
+					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
-				stmtFilter = data.fromList.get(0);
+				stmtFilter = RulpUtil.asList(fromList.get(0));
 				break;
 
 			case A_State:
-				statusMask = data.state;
+				statusMask = RulpUtil.asInteger(modifier.obj).asInteger();
 				break;
 
 			// limit 1
 			case A_Limit:
-				queryLimit = data.limit;
+				queryLimit = RulpUtil.asInteger(modifier.obj).asInteger();
 				if (queryLimit <= 0) {
-					throw new RException("invalid value<" + queryLimit + "> for modifier: " + A_Limit);
+					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
 				break;
 
 			default:
-				throw new RException("unsupport modifier: " + processingModifier);
+				throw new RException("unsupport modifier: " + modifier.name);
 			}
 		}
 

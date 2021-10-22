@@ -16,7 +16,6 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
-import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -73,27 +72,26 @@ public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleF
 		/********************************************/
 		// Check modifier
 		/********************************************/
-		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(argIndex), interpreter, frame);
-		for (Modifier processingModifier : data.processedModifier) {
+		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame)) {
 
-			switch (processingModifier.name) {
+			switch (modifier.name) {
 
 			// priority 1
 			case A_Priority:
-				priority = data.priority;
+				priority = RulpUtil.asInteger(modifier.obj).asInteger();
 				break;
 
 			// limit 1
 			case A_Limit:
-				limit = data.limit;
+				limit = RulpUtil.asInteger(modifier.obj).asInteger();
 				if (limit <= 0) {
-					throw new RException("invalid value<" + limit + "> for modifier: " + A_Limit + ", args=" + args);
+					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
 				break;
 
 			default:
-				throw new RException("unsupport modifier: " + processingModifier);
+				throw new RException("unsupport modifier: " + modifier.name);
 			}
 		}
 

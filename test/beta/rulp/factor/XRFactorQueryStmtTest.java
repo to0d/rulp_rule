@@ -148,14 +148,15 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 
 		_setup();
 
-		// XRModel.TRACE_RETE = true;
-
 		_test("(new model m)");
 		_test("(add-stmt m '(d1 nm:hasTag tag1))");
 		_test("(add-stmt m '(d1 nm:hasTag tag2))");
 		_test("(add-stmt m '(d2 nm:hasTag tag3))");
 		_test("(add-stmt m '(d1 nm:typeOf domain))");
 		_test("(add-stmt m '(d2 nm:typeOf domain))");
+		_test("(query-stmt m ?d from '(?d nm:typeOf domain))", "'(d1 d2)");
+		_test("(query-stmt m ?t from '(d1 nm:hasTag ?t))", "'(tag1 tag2)");
+		_test("(query-stmt m ?t from '(d2 nm:hasTag ?t))", "'(tag3)");
 
 		_test("(foreach (?domain (query-stmt m ?d from '(?d nm:typeOf domain))) (return '(?domain (size-of (query-stmt m ?t from '(?domain nm:hasTag ?t))))))",
 				"'('(d1 2) '(d2 1))");

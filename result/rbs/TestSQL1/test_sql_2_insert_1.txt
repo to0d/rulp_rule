@@ -305,7 +305,7 @@ Object create count:
         atom:         1271            0         1271
        float:            1            0            1
       string:           60            0           60
-        list:          112            0          112
+        list:          120            0          120
         expr:          733            0          733
        array:            2            0            2
          var:          141          117           24

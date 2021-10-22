@@ -1,13 +1,10 @@
 package alpha.rulp.ximpl.factor;
+
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Where;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRMember;
@@ -20,13 +17,11 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
-import alpha.rulp.utils.ModifiterUtil.ModifiterData;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
@@ -89,72 +84,42 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			throw new RException("unsupport rstExpr: " + rstExpr);
 		}
 
-		List<IRList> fromList = new ArrayList<>();
-		List<IRExpr> doList = null;
-		List<IRConstraint1> constraintList = null;
-
+		IRList condList = null;
+		IRList doList = null;
+		IRList whereList = null;
 		int queryLimit = -1; // 0: all, -1: default
 
 		/********************************************/
 		// Check modifier
 		/********************************************/
-		ModifiterData data = ModifiterUtil.parseModifiterList(args.listIterator(argIndex), interpreter, frame);
+		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame)) {
 
-		for (Modifier processingModifier : data.processedModifier) {
-
-			switch (processingModifier.name) {
+			switch (modifier.name) {
 
 			// from '(a b c) (factor)
 			case A_FROM:
-				if (data.fromList == null || data.fromList.isEmpty()) {
-					throw new RException("require condList for modifier: " + processingModifier + ", args=" + args);
-				}
-
-				fromList.addAll(data.fromList);
+				condList = RulpUtil.asList(modifier.obj);
 				break;
 
 			// limit 1
 			case A_Limit:
-				queryLimit = data.limit;
+				queryLimit = RulpUtil.asInteger(modifier.obj).asInteger();
 				if (queryLimit <= 0) {
-					throw new RException(
-							"invalid value<" + queryLimit + "> for modifier: " + processingModifier + ", args=" + args);
+					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
 				break;
 
 			case A_DO:
-
-				if (data.doList == null || data.doList.isEmpty()) {
-					throw new RException("invalid do actions<" + doList + "> for modifier: " + processingModifier
-							+ ", args=" + args);
-				}
-
-				doList = data.doList;
+				doList = RulpUtil.asList(modifier.obj);
 				break;
 
 			case A_Where:
-
-				if (data.whereList.isEmpty()) {
-					throw new RException("require whereList for modifier: " + processingModifier + ", args=" + args);
-				}
-
-				if (constraintList == null) {
-					constraintList = new ArrayList<>();
-				}
-
-				IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
-						rstExpr.getType() == RType.LIST ? (IRList) rstExpr : RulpFactory.createList(rstExpr)));
-
-				ConstraintBuilder cb = new ConstraintBuilder(varEntry);
-				for (IRObject where : data.whereList) {
-					constraintList.add(cb.build(where, interpreter, frame));
-				}
-
+				whereList = RulpUtil.asList(modifier.obj);
 				break;
 
 			default:
-				throw new RException("unsupport modifier: " + processingModifier);
+				throw new RException("unsupport modifier: " + modifier.name);
 			}
 		}
 
@@ -166,24 +131,28 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			subGraph = ModelUtil.activeRuleGroup(model, ruleGroupName);
 		}
 
-		IRList condList = RulpFactory.createList(fromList);
 		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, condList);
 
 		/********************************************/
 		// Add do expression
 		/********************************************/
 		if (doList != null) {
-			for (IRExpr expr : doList) {
-				resultQueue.addDoExpr(expr);
+			for (IRObject doObj : RulpUtil.toArray(doList)) {
+				resultQueue.addDoExpr(RulpUtil.asExpression(doObj));
 			}
 		}
 
 		/********************************************/
 		// Add constraint
 		/********************************************/
-		if (constraintList != null) {
-			for (IRConstraint1 c : constraintList) {
-				resultQueue.addConstraint(c);
+		if (whereList != null) {
+
+			IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
+					rstExpr.getType() == RType.LIST ? (IRList) rstExpr : RulpFactory.createList(rstExpr)));
+
+			ConstraintBuilder cb = new ConstraintBuilder(varEntry);
+			for (IRObject where : RulpUtil.toArray(whereList)) {
+				resultQueue.addConstraint(cb.build(where, interpreter, frame));
 			}
 		}
 
