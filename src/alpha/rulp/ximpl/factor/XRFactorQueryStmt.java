@@ -2,7 +2,7 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
-import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_Where;
 
 import alpha.rulp.lang.IRFrame;
@@ -84,10 +84,11 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			throw new RException("unsupport rstExpr: " + rstExpr);
 		}
 
-		IRList condList = null;
-		IRList doList = null;
+		IRList fromList = null;
 		IRList whereList = null;
+		IRList doList = null;
 		int queryLimit = -1; // 0: all, -1: default
+		IRList orderByList = null;
 
 		/********************************************/
 		// Check modifier
@@ -98,7 +99,15 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 			// from '(a b c) (factor)
 			case A_FROM:
-				condList = RulpUtil.asList(modifier.obj);
+				fromList = RulpUtil.asList(modifier.obj);
+				break;
+
+			case A_Where:
+				whereList = RulpUtil.asList(modifier.obj);
+				break;
+
+			case A_DO:
+				doList = RulpUtil.asList(modifier.obj);
 				break;
 
 			// limit 1
@@ -110,12 +119,8 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 				break;
 
-			case A_DO:
-				doList = RulpUtil.asList(modifier.obj);
-				break;
-
-			case A_Where:
-				whereList = RulpUtil.asList(modifier.obj);
+			case A_Order_by:
+				orderByList = RulpUtil.asList(modifier.obj);
 				break;
 
 			default:
@@ -131,7 +136,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			subGraph = ModelUtil.activeRuleGroup(model, ruleGroupName);
 		}
 
-		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, condList);
+		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, fromList);
 
 		/********************************************/
 		// Add do expression
@@ -156,9 +161,24 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 			}
 		}
 
+		/******************************************************************************/
+		// If there is an "order", which means query all possible result, and then order
+		// the result, set the queryLimit to -1
+		/******************************************************************************/
+		int finalLimit = -1;
+		if (orderByList != null) {
+			finalLimit = queryLimit;
+			queryLimit = -1;
+
+			// Check order format
+			for (IRObject orderOption : RulpUtil.toArray(orderByList)) {
+
+			}
+		}
+
 		try {
 
-			model.query(resultQueue, condList, queryLimit);
+			model.query(resultQueue, fromList, queryLimit);
 			return RulpFactory.createList(resultQueue.getResultList());
 
 		} finally {

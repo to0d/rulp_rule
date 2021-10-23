@@ -224,6 +224,9 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(query-stmt m ?x from n1:'(?x))", "'(10 100 1)");
 		_test("(query-stmt m ?x from n1:'(?x) limit 1)", "'(10)");
 		_test("(query-stmt m ?x from n1:'(?x) order by ?x)", "'(10)");
+		_test("(query-stmt m ?x from n1:'(?x) order by ?x desc)", "'(10)");
+		_test("(query-stmt m ?x from n1:'(?x) order by ?x asc)", "'(10)");
+		_test("(query-stmt m ?x from n1:'(?x) order by ?x limit 2)", "'(10)");
 	}
 
 	@Test
@@ -279,5 +282,16 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(add-stmt m '(n2 p2 200))");
 		_test("(list-stmt m)", "'('(n1 p1 100) '(n2 p2 200))");
 		_test("(query-stmt m (+ ?z 1) from '(?x ?y ?z))", "'(101 201)");
+	}
+	
+	@Test
+	void test_8_do_4() {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(add-stmt m n1:'(n1 10))");
+		_test("(add-stmt m n1:'(n2 20))");
+		_test("(query-stmt m ?y from n1:'(?x ?y) do (setq ?y (* ?y 3)))", "'(30 60)");
 	}
 }

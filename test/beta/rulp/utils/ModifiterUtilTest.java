@@ -42,10 +42,6 @@ class ModifiterUtilTest extends RulpTestBase {
 		}
 	}
 
-//	void _test_modifiter_list(String inputList) {
-//		_test_modifiter_list(inputList, inputList);
-//	}
-
 	@Test
 	void test_1() {
 		_test_modifiter_list("'(type atom)", "[(type atom)]");
@@ -53,6 +49,10 @@ class ModifiterUtilTest extends RulpTestBase {
 		_test_modifiter_list("'(limit 1)", "[(limit 1)]");
 		_test_modifiter_list("'(state defined)", "[(state 1)]");
 		_test_modifiter_list("'(do (a b))", "[(do '((a b)))]");
+		_test_modifiter_list("'(order by ?x)", "[(order by '('(?x nil)))]");
+		_test_modifiter_list("'(order by ?x desc)", "[(order by '('(?x desc)))]");
+		_test_modifiter_list("'(order by '(?x ?y))", "[(order by '('('(?x ?y) nil)))]");
+		_test_modifiter_list("'(order by ?x desc '(?x ?y))", "[(order by '('(?x desc) '('(?x ?y) nil)))]");
 	}
 
 	@Test

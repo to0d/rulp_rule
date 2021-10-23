@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.search;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.A_Order_by;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -40,7 +41,6 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 		}
 
 		IRModel model = null;
-
 		int argIndex = 1;
 
 		/**************************************************/
@@ -65,11 +65,12 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 		}
 
 		IRObject rstExpr = args.get(argIndex++);
-		if (rstExpr.getType() != RType.EXPR && rstExpr.getType() != RType.LIST && !RulpUtil.isVarAtom(rstExpr)) {
-			throw new RException("unsupport rstExpr: " + rstExpr);
+		if (rstExpr.getType() != RType.LIST || RulpUtil.asList(rstExpr).getNamedName() == null) {
+			throw new RException("unsupport search expr: " + rstExpr);
 		}
 
-		IRList condList = null;
+		IRList fromList = null;
+		IRList orderByList = null;
 		int limit = -1; // 0: all, -1: default
 
 		/********************************************/
@@ -82,7 +83,7 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 
 			// from '(a b c) (factor)
 			case A_FROM:
-				condList = RulpUtil.asList(modifier.obj);
+				fromList = RulpUtil.asList(modifier.obj);
 				break;
 
 			// limit 1
@@ -93,6 +94,9 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 				}
 
 				break;
+			case A_Order_by:
+				orderByList = RulpUtil.asList(modifier.obj);
+				break;
 
 			default:
 				throw new RException("unsupport modifier: " + modifier.name);
@@ -102,11 +106,11 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 		/********************************************/
 		// Run as rule group
 		/********************************************/
-		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, condList);
+		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, fromList);
 
 		try {
 
-			model.query(resultQueue, condList, limit);
+			model.query(resultQueue, fromList, limit);
 			return RulpFactory.createList(resultQueue.getResultList());
 
 		} finally {

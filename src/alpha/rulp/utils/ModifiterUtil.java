@@ -1,11 +1,11 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.lang.Constant.A_DO;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_On;
-import static alpha.rulp.rule.Constant.A_Priority;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_State;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Where;
@@ -28,29 +28,15 @@ import alpha.rulp.runtime.IRIterator;
 
 public class ModifiterUtil {
 
-	static abstract class AModifierSingle implements IModifier {
-
-		private final String name;
-
-		public AModifierSingle(String name) {
-			super();
-			this.name = name;
-		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
-	}
-
 	static interface IModifier {
 
 		public String getName();
 
-		public Modifier process(ModifierList list) throws RException;
+		public Modifier process(ModifierData list) throws RException;
 	}
 
 	public static class Modifier {
+
 		public String name;
 		public IRObject obj;
 
@@ -59,25 +45,33 @@ public class ModifiterUtil {
 		}
 	}
 
-	static class ModifierList {
+	static class ModifierData {
 		public int fromIndex;
 		public List<IRObject> list;
 	}
 
-	static class XModifier1 extends AModifierSingle implements IModifier {
+	static class XModifier1 implements IModifier {
+
+		protected final String name;
 
 		protected final RType[] types;
 
 		public XModifier1(String name, RType... types) {
-			super(name);
+			super();
+			this.name = name;
 			this.types = types;
 		}
 
 		@Override
-		public Modifier process(ModifierList list) throws RException {
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public Modifier process(ModifierData list) throws RException {
 
 			if (list.fromIndex >= list.list.size()) {
-				throw new RException("no value specified for modifier: " + getName());
+				throw new RException("not enough object for modifier: " + getName());
 			}
 
 			IRObject obj = list.list.get(list.fromIndex);
@@ -114,7 +108,7 @@ public class ModifiterUtil {
 		}
 
 		@Override
-		public Modifier process(ModifierList list) throws RException {
+		public Modifier process(ModifierData list) throws RException {
 
 			ArrayList<IRObject> objList = new ArrayList<>();
 
@@ -142,14 +136,87 @@ public class ModifiterUtil {
 
 	}
 
-	static class XModifierState extends AModifierSingle implements IModifier {
+	static class XModifierOrderBy implements IModifier {
 
-		public XModifierState(String name) {
-			super(name);
+		@Override
+		public Modifier process(ModifierData list) throws RException {
+
+			// order by ?x
+			// order by ?x asc
+			// order by '(?x ?y) desc
+			// order by ?x asc ?y desc
+
+			// by
+			{
+				if (list.fromIndex >= list.list.size()) {
+					throw new RException("not enough object for modifier: " + getName());
+				}
+
+				IRObject by = list.list.get(list.fromIndex);
+				if (!RulpUtil.isAtom(by) && !RulpUtil.asAtom(by).asString().equals(A_By)) {
+					throw new RException("unexpect object<" + by + "> for modifier: " + getName());
+				}
+
+				list.fromIndex++;
+			}
+
+			ArrayList<IRObject> objList = new ArrayList<>();
+
+			// ?x
+			while (list.fromIndex < list.list.size()) {
+
+				IRObject obj = list.list.get(list.fromIndex);
+				if (obj.getType() != RType.LIST && !RulpUtil.isVarAtom(obj)) {
+					break;
+				}
+
+				list.fromIndex++;
+				IRObject order = O_Nil;
+
+				if (list.fromIndex < list.list.size()) {
+					IRObject obj2 = list.list.get(list.fromIndex);
+					if (RulpUtil.isAtom(obj2, A_Desc) || RulpUtil.isAtom(obj2, A_Asc)) {
+						order = obj2;
+						list.fromIndex++;
+					}
+				}
+
+				objList.add(RulpFactory.createList(obj, order));
+			}
+
+			if (objList.isEmpty()) {
+				throw new RException("no value specified for modifier: " + getName());
+			}
+
+			Modifier modifer = new Modifier();
+			modifer.name = this.getName();
+			modifer.obj = RulpFactory.createList(objList);
+			return modifer;
 		}
 
 		@Override
-		public Modifier process(ModifierList list) throws RException {
+		public String getName() {
+			return A_Order_by;
+		}
+
+	}
+
+	static class XModifierState implements IModifier {
+
+		protected final String name;
+
+		public XModifierState(String name) {
+			super();
+			this.name = name;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public Modifier process(ModifierData list) throws RException {
 
 			int mask = 0;
 			int num = 0;
@@ -183,7 +250,6 @@ public class ModifiterUtil {
 	static Map<String, IModifier> modifierMap = new HashMap<>();
 
 	static {
-
 		modifierMap.put(A_FROM, new XModifier2(A_FROM, RType.LIST, RType.EXPR));
 		modifierMap.put(A_Where, new XModifier2(A_Where, RType.LIST, RType.EXPR));
 		modifierMap.put(A_DO, new XModifier2(A_DO, RType.EXPR));
@@ -192,7 +258,7 @@ public class ModifiterUtil {
 		modifierMap.put(A_On, new XModifier1(A_On, RType.ATOM, RType.LIST));
 		modifierMap.put(A_Type, new XModifier1(A_Type, RType.ATOM));
 		modifierMap.put(A_State, new XModifierState(A_State));
-
+		modifierMap.put(A_Order, new XModifierOrderBy());
 	}
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {
@@ -270,7 +336,7 @@ public class ModifiterUtil {
 		}
 	}
 
-	public static IModifier getModifiter(String keyName) {
+	static IModifier _getModifiter(String keyName) {
 		return modifierMap.get(keyName);
 	}
 
@@ -282,7 +348,7 @@ public class ModifiterUtil {
 			objList.add(_compute(iterator.next(), frame));
 		}
 
-		ModifierList list = new ModifierList();
+		ModifierData list = new ModifierData();
 		list.list = objList;
 		list.fromIndex = 0;
 
@@ -295,7 +361,7 @@ public class ModifiterUtil {
 				throw new RException("unsupport modifier: " + obj);
 			}
 
-			IModifier modifiter = getModifiter(obj.asString());
+			IModifier modifiter = _getModifiter(obj.asString());
 			if (modifiter == null) {
 				throw new RException("unsupport modifier: " + obj);
 			}

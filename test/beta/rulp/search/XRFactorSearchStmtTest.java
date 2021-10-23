@@ -11,10 +11,11 @@ class XRFactorSearchStmtTest extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(add-constraint m q1:'(?x) '(type int on ?x) '(max 40 on ?x) '(min 37 on ?x))");
-		_test("(add-constraint m q1:'(?x) (= (% ?age 2) 0))");
-		_test("(search-stmt m ?x from q1:'(?x) limit 1 order by ?x asc)", "");
-
+		_test("(add-constraint m v1:'(?x) '(type int on ?x) '(max 40 on ?x) '(min 37 on ?x))");
+		_test("(add-constraint m v1:'(?x) (= (% ?age 2) 0))");
+		_test("(search m v2:'(?x) from v1:'(?x) limit 1 order by ?x asc)", "");
+		_test("(list-stmt ?m from v2:'(?x))", "'()");
+		
 		_mCount(1, "m");
 		_eCount(1, "m");
 		_saveTest();

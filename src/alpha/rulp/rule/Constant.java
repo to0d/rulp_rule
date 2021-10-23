@@ -5,13 +5,19 @@ import alpha.rulp.utils.RulpFactory;
 
 public interface Constant {
 
+	String A_Asc = "asc";
+
 	String A_Assumed = "assumed";
+
+	String A_By = "by";
 
 	String A_Completed = "completed";
 
 	String A_DEFAULT_MODEL = "default_model";
 
 	String A_Defined = "defined";
+
+	String A_Desc = "desc";
 
 	String A_ENTRY = "entry";
 
@@ -20,12 +26,6 @@ public interface Constant {
 	String A_EQUAL_INDEX = "equal-index";
 
 	String A_EQUAL_VALUE = "equal-value";
-
-	String A_NOT_EQUAL_INDEX = "not-equal-index";
-
-	String A_NOT_EQUAL_VALUE = "not-equal-value";
-
-	String A_NOT_NULL = "not-null";
 
 	String A_Failed = "failed";
 
@@ -36,20 +36,28 @@ public interface Constant {
 	String A_M_TRACE = "?model-trace";
 
 	String A_Max = "max";
-
+	
 	String A_Min = "min";
-
+	
 	String A_MODEL = "model";
 
 	String A_Name = "name";
 
+	String A_NOT_EQUAL_INDEX = "not-equal-index";
+
+	String A_NOT_EQUAL_VALUE = "not-equal-value";
+
+	String A_NOT_NULL = "not-null";
+
 	String A_On = "on";
+
+	String A_Order = "order";
+
+	String A_Order_by = "order by";
 
 	String A_Partial = "partial";
 
 	String A_Priority = "priority";
-
-	String A_Where = "where";
 
 	String A_Reasoned = "reasoned";
 
@@ -76,6 +84,8 @@ public interface Constant {
 	String A_Uniq = "uniq";
 
 	String A_VIEW = "view";
+
+	String A_Where = "where";
 
 	IRAtom C_ENTRY = RulpFactory.createAtom(A_ENTRY);
 
@@ -143,13 +153,13 @@ public interface Constant {
 
 	String F_QUERY_STMT = "query-stmt";
 
-	String F_SEARCH_STMT = "search-stmt";
-
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
 
 	String F_SAVE_MODEL = "save-model";
+
+	String F_SEARCH_STMT = "search-stmt";
 
 	String F_SET = "set";
 
@@ -203,9 +213,9 @@ public interface Constant {
 
 	IRAtom O_State = RulpFactory.createAtom(A_State);
 
-	IRAtom O_Where = RulpFactory.createAtom(A_Where);
-
 	IRAtom O_Type = RulpFactory.createAtom(A_Type);
+
+	IRAtom O_Where = RulpFactory.createAtom(A_Where);
 
 	int RETE_PRIORITY_ASSUMED = 9;
 
