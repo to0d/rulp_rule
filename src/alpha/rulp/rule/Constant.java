@@ -36,9 +36,9 @@ public interface Constant {
 	String A_M_TRACE = "?model-trace";
 
 	String A_Max = "max";
-	
+
 	String A_Min = "min";
-	
+
 	String A_MODEL = "model";
 
 	String A_Name = "name";
@@ -246,8 +246,6 @@ public interface Constant {
 	int STMT_MIN_LEN = 1;
 
 	String V_M_CST_INIT = "?cst-init";
-
-	String V_M_RBS_INIT = "?rbs-init";
 
 	String V_M_STATE = "?model-state";
 }

@@ -1,0 +1,36 @@
+
+
+(defun mts::init-mts ((?m model))
+
+    (use namespace mts)   
+    
+    (if (equal ?m::?mts-init true) 
+        (return)) 
+
+    (set-default-model ?m)
+
+    ;; table definition
+    (add-node       _RBS_TABLE:'(2))
+    (add-constraint _RBS_TABLE:'(?_name_ ?_column_count) '(type string on ?_name_) '(type int on ?_column_count))
+    (add-stmt       _RBS_TABLE:'("_RBS_TABLE" 2))
+    (add-stmt       _RBS_TABLE:'("_RBS_COLUMN" 4))
+    
+    ;; column definition 
+    (add-node       _RBS_COLUMN:'(4))
+    (add-constraint _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_table_))
+    (add-constraint _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type string on ?_column_))
+    (add-constraint _RBS_COLUMN:'(?_table_ ?_column_ ?_index_ ?_type_) '(type int on ?_index_))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "TABLE_NAME"   0 string))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_NAME"  1 string))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_INDEX" 2 int))
+    (add-stmt       _RBS_COLUMN:'("_RBS_TABLE" "COLUMN_TYPE"  3 nil))
+
+    (setq ?current_schema::?mts-init true)
+)
+
+
+
+
+
+
+

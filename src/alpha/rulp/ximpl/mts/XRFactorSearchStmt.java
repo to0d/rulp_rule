@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.search;
+package alpha.rulp.ximpl.mts;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Limit;

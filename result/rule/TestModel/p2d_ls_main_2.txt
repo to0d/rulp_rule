@@ -7,6 +7,7 @@ mbr=get-uri-name, name=(get-uri-name nil), type=func, property='(public)
 mbr=get-version-number, name=(get-version-number nil), type=func, property='(public)
 mbr=hasGroupChild, name=hasGroupChild, type=macro, property='(public)
 mbr=main, name=main, type=frame, property='(public)
+mbr=mts, name=mts, type=instance, property='(public), instance-class=namespace
 mbr=p2d, name=p2d, type=instance, property='(public), instance-class=model
 mbr=rbs, name=rbs, type=instance, property='(public), instance-class=namespace
 mbr=root, name=root, type=frame, property='(public)

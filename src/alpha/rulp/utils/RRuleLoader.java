@@ -50,6 +50,7 @@ import static alpha.rulp.rule.Constant.O_Running;
 import static alpha.rulp.rule.Constant.O_State;
 import static alpha.rulp.rule.Constant.O_Type;
 import static alpha.rulp.rule.Constant.O_Where;
+import static alpha.rulp.ximpl.mts.Constant.MTS_NS;
 import static alpha.rulp.ximpl.rbs.Constant.RBS_NS;
 
 import java.io.IOException;
@@ -91,9 +92,10 @@ import alpha.rulp.ximpl.factor.XRFactorStart;
 import alpha.rulp.ximpl.factor.XRFactorStateOf;
 import alpha.rulp.ximpl.factor.XRFactorTraceRule;
 import alpha.rulp.ximpl.model.XRModelClass;
+import alpha.rulp.ximpl.mts.MTSUtil;
+import alpha.rulp.ximpl.mts.XRFactorSearchStmt;
 import alpha.rulp.ximpl.rbs.RBSUtil;
 import alpha.rulp.ximpl.scope.ScopeFactory;
-import alpha.rulp.ximpl.search.XRFactorSearchStmt;
 
 public class RRuleLoader implements IRObjectLoader {
 
@@ -176,6 +178,11 @@ public class RRuleLoader implements IRObjectLoader {
 		// RBS init
 		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), RBS_NS, (inp, frame) -> {
 			RBSUtil.init(inp, frame);
+		});
+
+		// MTS init
+		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), MTS_NS, (inp, frame) -> {
+			MTSUtil.init(inp, frame);
 		});
 
 		// Native Class Initialization

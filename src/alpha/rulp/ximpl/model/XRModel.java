@@ -4,7 +4,6 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
-import static alpha.rulp.rule.Constant.V_M_RBS_INIT;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
@@ -15,6 +14,7 @@ import static alpha.rulp.rule.RRunState.Halting;
 import static alpha.rulp.rule.RRunState.Partial;
 import static alpha.rulp.rule.RRunState.Runnable;
 import static alpha.rulp.rule.RRunState.Running;
+import static alpha.rulp.ximpl.rbs.Constant.V_M_RBS_INIT;
 
 import java.io.File;
 import java.io.IOException;

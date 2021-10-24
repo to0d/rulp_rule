@@ -123,7 +123,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        2    instance   m : class=model     
+default_model        : 6        3        2    instance   m : class=model     
 ==========================================================================================================================
 
 node update info: model-exec-count=14, row=4, column=12(1), value-max=1, value-unit=1^x
@@ -143,7 +143,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       70        0
+     Interpreter call id/level:       71        0
              CPS support/count:    false        0
                Frame max level:        4
                   Frame max id:        5
@@ -157,18 +157,18 @@ Expression compute count:
     factor:       69
 ==========================================================================================================================
 
-Callable stats info: callId=70, row=11, column=36(2), value-max=2, value-unit=2^x
+Callable stats info: callId=71, row=11, column=36(2), value-max=2, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         122222222222222222222222222222221221 max=2, unit=2^x
+   Frame    RType  Count  Ref Object                         12222222222222222222222222222222.222 max=2, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor     43    0 defun                              22222222222112212122121  1 2    
     root   factor      7    0 alias                          1221                        1       
     root   factor      6    0 defclass                                       1  1 1  1 1   1     
     root   factor      3    0 deftemplate                                               21       
     root   factor      3    0 defmacro                                      1             11     
-  system   factor      2    0 query-stmt                                                       11
-    root   factor      1    0 new                                                            1   
-  system   factor      1    0 list-stmt                                                       1  
+  system   factor      2    0 query-stmt                                                        2
+    root   factor      1    0 new                                                             1  
+  system   factor      1    0 list-stmt                                                        1 
     root   factor      1    0 defvar                            1                                
   system   factor      1    0 add-stmt                                                        1  
   system   factor      1    0 add-lazy-stmt                                                    1 
@@ -178,27 +178,27 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:          992            0          992
+        atom:          994            0          994
       string:           29            0           29
-        list:           39            0           39
+        list:           40            0           40
         expr:          510            0          510
        array:            1            0            1
          var:           23            2           21
         func:          104            0          104
     template:            1            0            1
        macro:            3            0            3
-    instance:            1            0            1
+    instance:            2            0            2
        class:            6            0            6
-      member:          159            0          159
+      member:          160            0          160
        frame:            3            2            1
  interpreter:            1            0
-  frameEntry:          249            0
+  frameEntry:          250            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=5, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -206,7 +206,8 @@ root                 : 1        2        0    frame      root
 system               : 2        2        0    frame      system              
 main                 : 3        2        2    frame      main                
 rbs                  : 4        2        1    instance   rbs : class=namespace
-m                    : 6        2        2    instance   m : class=model     
+mts                  : 5        2        1    instance   mts : class=namespace
+m                    : 7        2        2    instance   m : class=model     
 ==========================================================================================================================
 
 
@@ -214,7 +215,7 @@ id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        2    instance   m : class=model     
+default_model        : 6        3        2    instance   m : class=model     
 ==========================================================================================================================
 
 Global frame tree:
@@ -234,6 +235,13 @@ Name                 : Access   Final    Static   Ref  Type       Value
 ?model-state         : DEFAULT  false    false    1    var        completed : type=atom
 ?rbs-init            : DEFAULT  false    false    1    var        false : type=bool
 this                 : DEFAULT  false    false    2    instance   m : class=model
+==========================================================================================================================
+
+name=mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
+==========================================================================================================================
+Name                 : Access   Final    Static   Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+this                 : DEFAULT  false    false    1    instance   mts : class=namespace
 ==========================================================================================================================
 
 name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null

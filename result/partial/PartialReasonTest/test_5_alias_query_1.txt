@@ -2397,7 +2397,7 @@ Model<p2d> frame:id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        2    instance   p2d : class=model   
+default_model        : 6        3        2    instance   p2d : class=model   
 ==========================================================================================================================
 
 node update info: model-exec-count=129, row=23, column=65(2), value-max=1, value-unit=1^x
@@ -2436,7 +2436,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       68        0
+     Interpreter call id/level:       69        0
              CPS support/count:    false        0
                Frame max level:        4
                   Frame max id:        5
@@ -2450,49 +2450,49 @@ Expression compute count:
     factor:      145
 ==========================================================================================================================
 
-Callable stats info: callId=68, row=12, column=35(2), value-max=41, value-unit=2^x
+Callable stats info: callId=69, row=12, column=35(2), value-max=41, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         12222222222222222222222222222222821 max=79, unit=2^x
+   Frame    RType  Count  Ref Object                         12222222222222222222222222222222.82 max=80, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     47    0 defun                              22222222222112212122121  1 23  
-  system   factor     41    0 add-rule                                                       7  
-  system   factor     28    0 fix-stmt                                                       6  
+    root   factor     47    0 defun                              22222222222112212122121  1 2 3 
+  system   factor     41    0 add-rule                                                        7 
+  system   factor     28    0 fix-stmt                                                        6 
     root   factor      7    0 alias                          1221                        1      
     root   factor      6    0 defclass                                       1  1 1  1 1   1    
-    root   factor      5    0 defmacro                                      1             11 2  
-    root   factor      3    0 defvar                            1                            2  
+    root   factor      5    0 defmacro                                      1             11  2 
+    root   factor      3    0 defvar                            1                             2 
     root   factor      3    0 deftemplate                                               21      
-  system   factor      2    0 add-stmt                                                        2 
+  system   factor      2    0 add-stmt                                                        11
   system   factor      1    0 query-stmt                                                       1
-    root   factor      1    0 new                                                            1  
-    root   factor      1    0 load                                                           1  
+    root   factor      1    0 new                                                             1 
+    root   factor      1    0 load                                                            1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2460            0         2460
+        atom:         2462            0         2462
       string:           97            0           97
-        list:          600            0          600
+        list:          601            0          601
         expr:          927            0          927
        array:            1            0            1
          var:           24            1           23
         func:          108            0          108
     template:            1            0            1
        macro:            5            0            5
-    instance:            1            0            1
+    instance:            2            0            2
        class:            6            0            6
-      member:          159            0          159
+      member:          160            0          160
        frame:            2            1            1
  interpreter:            1            0
-  frameEntry:          255            0
+  frameEntry:          256            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=13, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=14, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2500,15 +2500,16 @@ root                 : 1        2        0    frame      root
 system               : 2        2        0    frame      system              
 main                 : 3        2        2    frame      main                
 rbs                  : 4        2        1    instance   rbs : class=namespace
-p2d                  : 6        2        2    instance   p2d : class=model   
-#ns_tag              : 7        2        1    var        nt: : type=string   
-#ns_domain           : 8        2        1    var        nd: : type=string   
-get-uri-name         : 9        2        1    func       (get-uri-name nil) : frame=main
-get-suffix           : 10       2        1    func       (get-suffix nil nil) : frame=main
-get-field-name       : 11       2        1    func       (get-field-name nil) : frame=main
-get-new-ns           : 12       2        1    macro      get-new-ns          
-get-version-number   : 13       2        1    func       (get-version-number nil) : frame=main
-hasGroupChild        : 14       2        1    macro      hasGroupChild       
+mts                  : 5        2        1    instance   mts : class=namespace
+p2d                  : 7        2        2    instance   p2d : class=model   
+#ns_tag              : 8        2        1    var        nt: : type=string   
+#ns_domain           : 9        2        1    var        nd: : type=string   
+get-uri-name         : 10       2        1    func       (get-uri-name nil) : frame=main
+get-suffix           : 11       2        1    func       (get-suffix nil nil) : frame=main
+get-field-name       : 12       2        1    func       (get-field-name nil) : frame=main
+get-new-ns           : 13       2        1    macro      get-new-ns          
+get-version-number   : 14       2        1    func       (get-version-number nil) : frame=main
+hasGroupChild        : 15       2        1    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2516,7 +2517,7 @@ id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 5        3        2    instance   p2d : class=model   
+default_model        : 6        3        2    instance   p2d : class=model   
 ==========================================================================================================================
 
 Global frame tree:
@@ -2527,6 +2528,13 @@ Global frame tree:
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
 
 Global Subject list:
+
+name=mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
+==========================================================================================================================
+Name                 : Access   Final    Static   Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+this                 : DEFAULT  false    false    1    instance   mts : class=namespace
+==========================================================================================================================
 
 name=p2d, lvl=1, ref=2/3, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================

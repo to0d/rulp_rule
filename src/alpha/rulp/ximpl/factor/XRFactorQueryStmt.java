@@ -2,7 +2,8 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Where;
 
 import alpha.rulp.lang.IRFrame;
