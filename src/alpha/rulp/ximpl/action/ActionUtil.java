@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.action;
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
+import static alpha.rulp.rule.Constant.F_TRY_ADD_STMT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.XRFactorAddStmt;
+import alpha.rulp.ximpl.factor.XRFactorTryAddStmt;
 
 public class ActionUtil {
 
@@ -182,6 +184,16 @@ public class ActionUtil {
 				uniqNames.add(ReteUtil.uniqName(stmt));
 			}
 
+			break;
+
+		case F_TRY_ADD_STMT:
+
+			IRList stmt = RulpUtil.asList(XRFactorTryAddStmt.getStmtObject(expr));
+			if (!ReteUtil.isActionEntry(stmt)) {
+				throw new RException("Invalid stmt found: " + stmt);
+			}
+
+			uniqNames.add(ReteUtil.uniqName(stmt));
 			break;
 
 		case A_DO:

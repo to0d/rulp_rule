@@ -34,6 +34,7 @@ import static alpha.rulp.rule.Constant.F_SIZE_OF_MODEL;
 import static alpha.rulp.rule.Constant.F_START;
 import static alpha.rulp.rule.Constant.F_STATE_OF;
 import static alpha.rulp.rule.Constant.F_TRACE_RULE;
+import static alpha.rulp.rule.Constant.F_TRY_ADD_STMT;
 import static alpha.rulp.rule.Constant.O_Assumed;
 import static alpha.rulp.rule.Constant.O_Completed;
 import static alpha.rulp.rule.Constant.O_Defined;
@@ -91,6 +92,7 @@ import alpha.rulp.ximpl.factor.XRFactorSizeOfModel;
 import alpha.rulp.ximpl.factor.XRFactorStart;
 import alpha.rulp.ximpl.factor.XRFactorStateOf;
 import alpha.rulp.ximpl.factor.XRFactorTraceRule;
+import alpha.rulp.ximpl.factor.XRFactorTryAddStmt;
 import alpha.rulp.ximpl.model.XRModelClass;
 import alpha.rulp.ximpl.mts.MTSUtil;
 import alpha.rulp.ximpl.mts.XRFactorSearchStmt;
@@ -141,6 +143,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddNode(F_ADD_NODE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorFixStmt(F_FIX_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorSearchStmt(F_SEARCH_STMT));
+		RulpUtil.addFrameObject(systemFrame, new XRFactorTryAddStmt(F_TRY_ADD_STMT));
 
 //		RulpUtil.setMember(modelClass, F_ADD_LAZY_STMT, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
 

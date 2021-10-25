@@ -46,7 +46,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public void addStatementListener(IRList condList, IRRListener1<IRList> listener) throws RException;
 
 	public int addStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
-
+	
 	public void addUpdateNode(IRReteNode node) throws RException;
 
 	public int assumeStatement(IRList stmt) throws RException;
@@ -65,9 +65,9 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public int fixStatement(IRList stmt) throws RException;
 
-//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
-
 	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
+
+//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
 
 	public String getCachePath();
 
@@ -87,9 +87,9 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean isCacheEnable();
 
-// public IRIterator<? extends IRObject> listObjects() throws RException;
-
 	public boolean isReasonning();
+
+// public IRIterator<? extends IRObject> listObjects() throws RException;
 
 	public List<? extends IRCacheWorker> listCacheWorkers();
 
@@ -111,6 +111,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 			throws RException;
 
 	public void setNodeContext(RNodeContext nodeContext);
+
+	public boolean tryAddStatement(IRList stmt) throws RException;
 
 //	public int updateStatements(IRList expr) throws RException;
 }

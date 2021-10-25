@@ -1,43 +1,38 @@
 package alpha.rulp.ximpl.factor;
 
-import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorAddStmt extends AbsRFactorAdapter implements IRuleFactor {
+public class XRFactorTryAddStmt extends AbsRFactorAdapter implements IRuleFactor {
+
+	public XRFactorTryAddStmt(String factorName) {
+		super(factorName);
+	}
+
+	public static IRObject getStmtObject(IRList args) throws RException {
+
+		if (args.size() == 2) {
+			return args.get(1);
+		} else {
+			return args.get(2);
+		}
+	}
 
 	public static IRObject getModelObject(IRList args) throws RException {
 
-		IRObject obj = args.get(1);
-
-		if (obj instanceof IRModel || obj instanceof IRAtom) {
-			return obj;
-		} else {
+		if (args.size() == 2) {
 			return null;
-		}
-	}
-
-	public static IRIterator<? extends IRObject> getStmtList(IRList args) throws RException {
-
-		IRObject obj = args.get(1);
-		if (obj instanceof IRModel || obj instanceof IRAtom) {
-			return args.listIterator(2);
 		} else {
-			return args.listIterator(1);
+			return args.get(1);
 		}
-	}
-
-	public XRFactorAddStmt(String factorName) {
-		super(factorName);
 	}
 
 	@Override
@@ -47,7 +42,7 @@ public class XRFactorAddStmt extends AbsRFactorAdapter implements IRuleFactor {
 		// Check parameters
 		/********************************************/
 		int argSize = args.size();
-		if (argSize < 2) {
+		if (argSize != 2 && argSize != 3) {
 			throw new RException("Invalid parameters: " + args);
 		}
 
@@ -66,16 +61,8 @@ public class XRFactorAddStmt extends AbsRFactorAdapter implements IRuleFactor {
 			model = RuleUtil.asModel(interpreter.compute(frame, mo));
 		}
 
-		/**************************************************/
-		// Process add statements
-		/**************************************************/
-		int count = 0;
-		IRIterator<? extends IRObject> it = getStmtList(args);
-		while (it.hasNext()) {
-			count += model.addStatement(RulpUtil.asList(interpreter.compute(frame, it.next())));
-		}
+		IRList stmt = RulpUtil.asList(interpreter.compute(frame, getStmtObject(args)));
 
-		return RulpFactory.createInteger(count);
+		return RulpFactory.createBoolean(model.tryAddStatement(stmt));
 	}
-
 }

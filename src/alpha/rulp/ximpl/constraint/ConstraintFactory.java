@@ -1,13 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
-import static alpha.rulp.lang.Constant.S_QUESTION;
-import static alpha.rulp.rule.Constant.A_Max;
-import static alpha.rulp.rule.Constant.A_Min;
-import static alpha.rulp.rule.Constant.A_NOT_NULL;
-import static alpha.rulp.rule.Constant.A_On;
-import static alpha.rulp.rule.Constant.A_Type;
-import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 
 import java.util.ArrayList;
@@ -16,14 +9,11 @@ import java.util.List;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
-import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
-import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 
 public class ConstraintFactory {

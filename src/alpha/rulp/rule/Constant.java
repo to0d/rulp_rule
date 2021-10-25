@@ -102,6 +102,8 @@ public interface Constant {
 	String F_ADD_RULE = "add-rule";
 
 	String F_ADD_STMT = "add-stmt";
+	
+	String F_TRY_ADD_STMT = "try-add-stmt";
 
 	String F_ASSUME_STMT = "assume-stmt";
 

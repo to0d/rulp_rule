@@ -2086,6 +2086,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
+	@Override
+	public boolean tryAddStatement(IRList stmt) throws RException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 //	@Override
 //	public int updateStatements(IRList condList) throws RException {
 //

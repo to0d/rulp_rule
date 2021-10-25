@@ -78,6 +78,8 @@ public class ModelUtil {
 		switch (constraint.getConstraintName()) {
 		case A_Type:
 			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
+
+			// $cst_type$:'(?node ?index ?type)
 			interpreter.compute(frame,
 					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, model,
 							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
