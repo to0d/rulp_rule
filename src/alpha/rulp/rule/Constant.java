@@ -82,6 +82,8 @@ public interface Constant {
 	String A_Type = "type";
 
 	String A_Uniq = "uniq";
+	
+	String A_One_Of = "one-of";
 
 	String A_VIEW = "view";
 

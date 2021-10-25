@@ -28,36 +28,14 @@ import alpha.rulp.utils.RulpUtil;
 
 public class ConstraintFactory {
 
-	public static class RConstraint {
-		String constraintName;
-		IRObject constraintValue;
-		IRObject onObject;
-	}
+//	static class TableColumnConstraint {
+//		Boolean notNull = null;
+//		RType type = null;
+//		Boolean uniq = null;
+//	}
 
-	static class TableColumnConstraint {
-		Boolean notNull = null;
-		RType type = null;
-		Boolean uniq = null;
-	}
-
-	static boolean _isAtom(IRList list, int index, String name) throws RException {
-
-		IRObject obj = list.get(index);
-		if (obj.getType() != RType.ATOM) {
-			return false;
-		}
-
-		return RulpUtil.asAtom(obj).getName().equals(name);
-	}
-
-	static boolean _isFactor(IRList list, int index, String name) throws RException {
-
-		IRObject obj = list.get(index);
-		if (obj.getType() != RType.FACTOR) {
-			return false;
-		}
-
-		return RulpUtil.asFactor(obj).getName().equals(name);
+	public static IRConstraint1 createConstraint1OneOf(int index, IRList valueList) {
+		return new XRConstraint1OneOf(index, valueList);
 	}
 
 	public static IRConstraint2 createConstraint2EntryOrder() {
@@ -252,104 +230,36 @@ public class ConstraintFactory {
 
 	}
 
-	static TableColumnConstraint[] getColumnConstraint(IRList tableList) throws RException {
+//	static TableColumnConstraint[] getColumnConstraint(IRList tableList) throws RException {
+//
+//		int tableLen = tableList.size();
+//		TableColumnConstraint[] columnConstraint = new TableColumnConstraint[tableLen];
+//
+//		int constraintCount = 0;
+//
+//		for (int i = 0; i < tableLen; ++i) {
+//
+//			IRObject columnObj = tableList.get(i);
+//			switch (columnObj.getType()) {
+//			case ATOM:
+//				// atom should be: ?x or ?
+//				if (!RulpUtil.isVarAtom(columnObj) && !ReteUtil.isAnyVar(columnObj)) {
+//					throw new RException("Invalid atom column: " + columnObj);
+//				}
+//				break;
+//
+//			case LIST:
+//
+//			default:
+//				throw new RException("unsupport column: " + columnObj);
+//			}
+//		}
+//
+//		if (constraintCount == 0) {
+//			return null;
+//		}
+//
+//		return columnConstraint;
+//	}
 
-		int tableLen = tableList.size();
-		TableColumnConstraint[] columnConstraint = new TableColumnConstraint[tableLen];
-
-		int constraintCount = 0;
-
-		for (int i = 0; i < tableLen; ++i) {
-
-			IRObject columnObj = tableList.get(i);
-			switch (columnObj.getType()) {
-			case ATOM:
-				// atom should be: ?x or ?
-				if (!RulpUtil.isVarAtom(columnObj) && !ReteUtil.isAnyVar(columnObj)) {
-					throw new RException("Invalid atom column: " + columnObj);
-				}
-				break;
-
-			case LIST:
-
-			default:
-				throw new RException("unsupport column: " + columnObj);
-			}
-		}
-
-		if (constraintCount == 0) {
-			return null;
-		}
-
-		return columnConstraint;
-	}
-
-	static RConstraint toConstraint(IRList constraintlist, IRInterpreter interpreter, IRFrame frame) throws RException {
-
-		int consListSize = constraintlist.size();
-
-		// (type int on ?x)
-		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Type) && _isAtom(constraintlist, 2, A_On)) {
-
-			RConstraint cons = new RConstraint();
-			cons.constraintName = A_Type;
-			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
-			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
-
-			return cons;
-		}
-
-		// (uniq on ?x)
-		if (consListSize == 3 && (_isAtom(constraintlist, 0, A_Uniq) || _isFactor(constraintlist, 0, A_Uniq))
-				&& _isAtom(constraintlist, 1, A_On)) {
-
-			RConstraint cons = new RConstraint();
-			cons.constraintName = A_Uniq;
-			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
-
-			return cons;
-		}
-
-		// (max 10 on ?x)
-		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Max) && _isAtom(constraintlist, 2, A_On)) {
-
-			RConstraint cons = new RConstraint();
-			cons.constraintName = A_Max;
-			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
-			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
-			return cons;
-		}
-
-		// (min 10 on ?x)
-		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Min) && _isAtom(constraintlist, 2, A_On)) {
-
-			RConstraint cons = new RConstraint();
-			cons.constraintName = A_Min;
-			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
-			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
-			return cons;
-		}
-
-		// (? on ?x)
-		if (consListSize == 3 && _isAtom(constraintlist, 0, S_QUESTION) && _isAtom(constraintlist, 1, A_On)) {
-
-			RConstraint cons = new RConstraint();
-			cons.constraintName = S_QUESTION;
-			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
-
-			return cons;
-		}
-
-		// (not-nil on ?x)
-		if (consListSize == 3 && _isAtom(constraintlist, 0, A_NOT_NULL) && _isAtom(constraintlist, 1, A_On)) {
-
-			RConstraint cons = new RConstraint();
-			cons.constraintName = A_NOT_NULL;
-			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
-
-			return cons;
-		}
-
-		throw new RException("unsupport constraint list: " + constraintlist);
-	}
 }

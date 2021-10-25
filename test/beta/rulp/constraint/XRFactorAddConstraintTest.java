@@ -41,6 +41,8 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m name8:'(?x ?y) '(min 5 on ?y))", "1");
 		_test("(add-constraint m name8:'(?x ?y) '(not-null on ?x))", "1");
 
+		_test("(add-constraint m name9:'(?x ?y) '(one-of '(a b c) on ?x))", "1");
+
 		_statsInfo("m");
 		_save_model_cache("m");
 	}
@@ -129,4 +131,13 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_8_one_of_1() {
+
+		_setup();
+		_test_script();
+		_statsInfo("m");
+	}
+
 }

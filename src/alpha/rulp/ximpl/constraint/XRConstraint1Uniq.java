@@ -98,16 +98,16 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 		return uniqColumnIndexs;
 	}
 
+	@Override
+	public String getConstraintName() {
+		return A_Uniq;
+	}
+
 	public int[] getUniqColumnIndexs() {
 		return uniqColumnIndexs;
 	}
 
 	public int getUniqIndexCount() {
 		return uniqColumnIndexs.length;
-	}
-
-	@Override
-	public String getConstraintName() {
-		return A_Uniq;
 	}
 }

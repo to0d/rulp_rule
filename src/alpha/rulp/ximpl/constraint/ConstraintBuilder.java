@@ -4,6 +4,8 @@ import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
+import static alpha.rulp.rule.Constant.A_On;
+import static alpha.rulp.rule.Constant.A_One_Of;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
 
@@ -24,10 +26,116 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.constraint.ConstraintFactory.RConstraint;
 import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class ConstraintBuilder {
+
+	static class RConstraint {
+		String constraintName;
+		IRObject constraintValue;
+		IRObject onObject;
+	}
+
+	static boolean _isAtom(IRList list, int index, String name) throws RException {
+
+		IRObject obj = list.get(index);
+		if (obj.getType() != RType.ATOM) {
+			return false;
+		}
+
+		return RulpUtil.asAtom(obj).getName().equals(name);
+	}
+
+	static boolean _isFactor(IRList list, int index, String name) throws RException {
+
+		IRObject obj = list.get(index);
+		if (obj.getType() != RType.FACTOR) {
+			return false;
+		}
+
+		return RulpUtil.asFactor(obj).getName().equals(name);
+	}
+
+	static RConstraint _toConstraint(IRList constraintlist, IRInterpreter interpreter, IRFrame frame)
+			throws RException {
+
+		int consListSize = constraintlist.size();
+
+		// (type int on ?x)
+		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Type) && _isAtom(constraintlist, 2, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Type;
+			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
+			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+
+			return cons;
+		}
+
+		// (uniq on ?x)
+		if (consListSize == 3 && (_isAtom(constraintlist, 0, A_Uniq) || _isFactor(constraintlist, 0, A_Uniq))
+				&& _isAtom(constraintlist, 1, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Uniq;
+			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+
+			return cons;
+		}
+
+		// (max 10 on ?x)
+		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Max) && _isAtom(constraintlist, 2, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Max;
+			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
+			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+			return cons;
+		}
+
+		// (min 10 on ?x)
+		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Min) && _isAtom(constraintlist, 2, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Min;
+			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
+			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+			return cons;
+		}
+
+		// (? on ?x)
+		if (consListSize == 3 && _isAtom(constraintlist, 0, S_QUESTION) && _isAtom(constraintlist, 1, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = S_QUESTION;
+			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+
+			return cons;
+		}
+
+		// (not-nil on ?x)
+		if (consListSize == 3 && _isAtom(constraintlist, 0, A_NOT_NULL) && _isAtom(constraintlist, 1, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_NOT_NULL;
+			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+
+			return cons;
+		}
+
+		// (one-of '(a b c) on ?x)
+		if (consListSize == 4 && _isAtom(constraintlist, 0, A_One_Of) && _isAtom(constraintlist, 2, A_On)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_One_Of;
+			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
+			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+
+			return cons;
+		}
+
+		throw new RException("unsupport constraint list: " + constraintlist);
+	}
 
 	public static boolean matchIndexs(int[] idx1, int[] idx2) throws RException {
 
@@ -182,6 +290,108 @@ public class ConstraintBuilder {
 		}
 	}
 
+	private Set<String> _matchConstraint(RConstraint cons, IRNamedNode node) throws RException {
+
+		Set<String> matchedConstraints = new HashSet<>();
+
+		RType columnType = null;
+
+		/**********************************************/
+		// Column type
+		/**********************************************/
+		if (cons.constraintName.equals(A_Type) && !ReteUtil.isAnyVar(cons.constraintValue)) {
+			columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
+			if (columnType == null || !ReteUtil.isEntryValueType(columnType)) {
+				throw new RException("Invalid column type: " + columnType);
+			}
+		}
+
+		/**********************************************/
+		// Column index
+		/**********************************************/
+		int columnIndexs[] = _toIndex(cons.onObject);
+
+		/**********************************************/
+		// Check
+		/**********************************************/
+		int totalConstraintCount = node.getConstraint1Count();
+		for (int i = 0; i < totalConstraintCount; ++i) {
+
+			IRConstraint1 constraint = node.getConstraint1(i);
+			if (!cons.constraintName.equals(S_QUESTION)
+					&& !cons.constraintName.equals(constraint.getConstraintName())) {
+				continue;
+			}
+
+			if (columnIndexs != null && !matchIndexs(constraint.getConstraintIndex(), columnIndexs)) {
+				continue;
+			}
+
+			matchedConstraints.add(constraint.getConstraintExpression());
+		}
+
+		return matchedConstraints;
+	}
+
+	private IRConstraint1 _maxConstraint(RConstraint cons) throws RException {
+
+		if (cons.constraintValue == null
+				|| (cons.constraintValue.getType() != RType.INT && cons.constraintValue.getType() != RType.FLOAT)) {
+			throw new RException("Invalid column type: " + cons.constraintValue);
+		}
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.createConstraintMax(_getColumnIndex(cons.onObject), cons.constraintValue);
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
+	private IRConstraint1 _minConstraint(RConstraint cons) throws RException {
+
+		if (cons.constraintValue == null
+				|| (cons.constraintValue.getType() != RType.INT && cons.constraintValue.getType() != RType.FLOAT)) {
+			throw new RException("Invalid column type: " + cons.constraintValue);
+		}
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.createConstraintMin(_getColumnIndex(cons.onObject), cons.constraintValue);
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
+	private IRConstraint1 _notNullConstraint(RConstraint cons) throws RException {
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.createConstraintNotNull(_getColumnIndex(cons.onObject));
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
+	private IRConstraint1 _oneOfConstraint(RConstraint cons) throws RException {
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.createConstraint1OneOf(_getColumnIndex(cons.onObject),
+					RulpUtil.asList(cons.constraintValue));
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
 	private int[] _toIndex(IRObject obj) throws RException {
 
 		int columnIndexs[] = null;
@@ -226,49 +436,6 @@ public class ConstraintBuilder {
 		return columnIndexs;
 	}
 
-	private Set<String> _matchConstraint(RConstraint cons, IRNamedNode node) throws RException {
-
-		Set<String> matchedConstraints = new HashSet<>();
-
-		RType columnType = null;
-
-		/**********************************************/
-		// Column type
-		/**********************************************/
-		if (cons.constraintName.equals(A_Type) && !ReteUtil.isAnyVar(cons.constraintValue)) {
-			columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
-			if (columnType == null || !ReteUtil.isEntryValueType(columnType)) {
-				throw new RException("Invalid column type: " + columnType);
-			}
-		}
-
-		/**********************************************/
-		// Column index
-		/**********************************************/
-		int columnIndexs[] = _toIndex(cons.onObject);
-
-		/**********************************************/
-		// Check
-		/**********************************************/
-		int totalConstraintCount = node.getConstraint1Count();
-		for (int i = 0; i < totalConstraintCount; ++i) {
-
-			IRConstraint1 constraint = node.getConstraint1(i);
-			if (!cons.constraintName.equals(S_QUESTION)
-					&& !cons.constraintName.equals(constraint.getConstraintName())) {
-				continue;
-			}
-
-			if (columnIndexs != null && !matchIndexs(constraint.getConstraintIndex(), columnIndexs)) {
-				continue;
-			}
-
-			matchedConstraints.add(constraint.getConstraintExpression());
-		}
-
-		return matchedConstraints;
-	}
-
 	private IRConstraint1 _typeConstraint(RConstraint cons) throws RException {
 
 		RType columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
@@ -304,59 +471,13 @@ public class ConstraintBuilder {
 		}
 	}
 
-	private IRConstraint1 _notNullConstraint(RConstraint cons) throws RException {
-
-		switch (cons.onObject.getType()) {
-		case INT:
-		case ATOM:
-			return ConstraintFactory.createConstraintNotNull(_getColumnIndex(cons.onObject));
-
-		default:
-			throw new RException("Invalid column: " + cons.onObject);
-		}
-	}
-
-	private IRConstraint1 _maxConstraint(RConstraint cons) throws RException {
-
-		if (cons.constraintValue == null
-				|| (cons.constraintValue.getType() != RType.INT && cons.constraintValue.getType() != RType.FLOAT)) {
-			throw new RException("Invalid column type: " + cons.constraintValue);
-		}
-
-		switch (cons.onObject.getType()) {
-		case INT:
-		case ATOM:
-			return ConstraintFactory.createConstraintMax(_getColumnIndex(cons.onObject), cons.constraintValue);
-
-		default:
-			throw new RException("Invalid column: " + cons.onObject);
-		}
-	}
-
-	private IRConstraint1 _minConstraint(RConstraint cons) throws RException {
-
-		if (cons.constraintValue == null
-				|| (cons.constraintValue.getType() != RType.INT && cons.constraintValue.getType() != RType.FLOAT)) {
-			throw new RException("Invalid column type: " + cons.constraintValue);
-		}
-
-		switch (cons.onObject.getType()) {
-		case INT:
-		case ATOM:
-			return ConstraintFactory.createConstraintMin(_getColumnIndex(cons.onObject), cons.constraintValue);
-
-		default:
-			throw new RException("Invalid column: " + cons.onObject);
-		}
-	}
-
 	public IRConstraint1 build(IRObject obj, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		switch (obj.getType()) {
 
 		case LIST:
 
-			RConstraint cons = ConstraintFactory.toConstraint((IRList) obj, interpreter, frame);
+			RConstraint cons = _toConstraint((IRList) obj, interpreter, frame);
 			switch (cons.constraintName) {
 			case A_Type:
 				return _typeConstraint(cons);
@@ -372,6 +493,9 @@ public class ConstraintBuilder {
 
 			case A_Min:
 				return _minConstraint(cons);
+
+			case A_One_Of:
+				return _oneOfConstraint(cons);
 
 			default:
 				throw new RException("unsupport constraint: " + cons.constraintName);
@@ -397,8 +521,7 @@ public class ConstraintBuilder {
 
 			switch (obj.getType()) {
 			case LIST:
-				matchedConstraints.addAll(
-						_matchConstraint(ConstraintFactory.toConstraint((IRList) obj, interpreter, frame), node));
+				matchedConstraints.addAll(_matchConstraint(_toConstraint((IRList) obj, interpreter, frame), node));
 				break;
 
 			case EXPR:
