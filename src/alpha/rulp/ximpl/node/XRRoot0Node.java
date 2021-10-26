@@ -29,42 +29,6 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 		entryTable.addReference(entry, this);
 	}
 
-	protected boolean _insertStmt(String stmtUniqName, IRList stmt, RReteStatus newStatus, RNodeContext context)
-			throws RException {
-
-		int stmtLen = stmt.size();
-
-		IRObject[] newElements = new IRObject[stmtLen];
-		for (int i = 0; i < stmtLen; ++i) {
-
-			IRObject obj = stmt.get(i);
-			if (obj == null) {
-				obj = O_Nil;
-			}
-
-			newElements[i] = obj;
-		}
-
-		IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus, true);
-		if (!addReteEntry(newEntry)) {
-			entryTable.removeEntry(newEntry);
-			return false;
-		}
-
-		/*******************************************************/
-		// Add reference
-		/*******************************************************/
-		if (context != null) {
-			entryTable.addReference(newEntry, context.currentNode, context.currentEntry);
-		} else {
-			entryTable.addReference(newEntry, this);
-		}
-
-		stmtMap.put(stmtUniqName, newEntry);
-		return true;
-
-	}
-
 	@Override
 	public int doGC() {
 
@@ -94,27 +58,47 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 		IRReteEntry oldEntry = getStmt(stmtUniqName);
 
 		/*******************************************************/
-		// Entry not exist
+		// Insert entry
+		// - Entry not exist
+		// - or marked as "drop" (removed by entry table automatically)
 		/*******************************************************/
-		if (oldEntry == null) {
-			return _insertStmt(stmtUniqName, stmt, newStatus, context);
+		if (oldEntry == null || oldEntry.getStatus() == null) {
+			int stmtLen = stmt.size();
+
+			IRObject[] newElements = new IRObject[stmtLen];
+			for (int i = 0; i < stmtLen; ++i) {
+
+				IRObject obj = stmt.get(i);
+				if (obj == null) {
+					obj = O_Nil;
+				}
+
+				newElements[i] = obj;
+			}
+
+			IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus, true);
+			if (!addReteEntry(newEntry)) {
+				entryTable.removeEntry(newEntry);
+				return false;
+			}
+
+			/*******************************************************/
+			// Add reference
+			/*******************************************************/
+			if (context != null) {
+				entryTable.addReference(newEntry, context.currentNode, context.currentEntry);
+			} else {
+				entryTable.addReference(newEntry, this);
+			}
+
+			stmtMap.put(stmtUniqName, newEntry);
+			return true;
 		}
 
 		/*******************************************************/
 		// Entry needs be updated
 		/*******************************************************/
 		RReteStatus oldStatus = oldEntry.getStatus();
-
-		// This entry is marked as "drop" (removed by entry table automatically)
-		if (oldStatus == null) {
-
-			// remove old entry
-			stmtMap.remove(stmtUniqName);
-
-			// add it again
-			return _insertStmt(stmtUniqName, stmt, newStatus, context);
-		}
-
 		RReteStatus finalStatus = ReteUtil.getReteStatus(oldStatus, newStatus);
 		if (finalStatus == null) {
 			throw new RException(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
