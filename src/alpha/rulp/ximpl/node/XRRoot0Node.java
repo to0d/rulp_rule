@@ -100,10 +100,6 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 			return _insertStmt(stmtUniqName, stmt, newStatus, context);
 		}
 
-		// Add this in this branch, the value will be updated in addEntry() in previous
-		// branch
-		entryQueue.incNodeUpdateCount();
-
 		/*******************************************************/
 		// Entry needs be updated
 		/*******************************************************/
@@ -120,13 +116,8 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 		}
 
 		RReteStatus finalStatus = ReteUtil.getReteStatus(oldStatus, newStatus);
-
-		// Invalid status
 		if (finalStatus == null) {
-			if (RuleUtil.isModelTrace()) {
-				System.out.println(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
-				return false;
-			}
+			throw new RException(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
 		}
 
 		if (finalStatus != oldStatus) {
@@ -154,6 +145,9 @@ public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 		else {
 			entryQueue.incEntryRedundant();
 		}
+
+		// Add this in this branch
+		entryQueue.incNodeUpdateCount();
 
 		/*******************************************************/
 		// Add reference

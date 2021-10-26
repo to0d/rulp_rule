@@ -8,6 +8,7 @@ import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
+import static alpha.rulp.rule.RReteStatus.TEMP__;
 import static alpha.rulp.rule.RRunState.Completed;
 import static alpha.rulp.rule.RRunState.Failed;
 import static alpha.rulp.rule.RRunState.Halting;
@@ -209,7 +210,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 						stmt = RulpFactory.createNamedList(stmt.iterator(), stmtName);
 					}
 
-					if (node.addStmt(stmt, DEFINE, null)) {
+					if (_addStmt(node, stmt, DEFINE)) {
 						cacheUpdateCount++;
 						stmtCount++;
 					}
@@ -418,6 +419,89 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return _addReteEntry(rootNode, stmt, toStatus);
 	}
 
+	protected boolean _addStmt(IRRootNode rootNode, IRList stmt, RReteStatus toStatus) throws RException {
+
+//		if (RuleUtil.isModelTrace()) {
+//			System.out.println(String.format("%s: addEntry(%s, %s)", rootNode.getNodeName(), "" + stmt, "" + toStatus));
+//		}
+//
+//		String stmtUniqName = ReteUtil.uniqName(stmt);
+//		IRReteEntry oldEntry = rootNode.getStmt(stmtUniqName);
+//
+//		/*******************************************************/
+//		// Entry not exist
+//		/*******************************************************/
+//		if (oldEntry == null) {
+//			return _insertStmt(stmtUniqName, stmt, newStatus, context);
+//		}
+//
+//		// Add this in this branch, the value will be updated in addEntry() in previous
+//		// branch
+//		entryQueue.incNodeUpdateCount();
+//
+//		/*******************************************************/
+//		// Entry needs be updated
+//		/*******************************************************/
+//		RReteStatus oldStatus = oldEntry.getStatus();
+//
+//		// This entry is marked as "drop" (removed by entry table automatically)
+//		if (oldStatus == null) {
+//
+//			// remove old entry
+//			stmtMap.remove(stmtUniqName);
+//
+//			// add it again
+//			return _insertStmt(stmtUniqName, stmt, newStatus, context);
+//		}
+//
+//		RReteStatus finalStatus = ReteUtil.getReteStatus(oldStatus, newStatus);
+//
+//		// Invalid status
+//		if (finalStatus == null) {
+//			if (RuleUtil.isModelTrace()) {
+//				System.out.println(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
+//				return false;
+//			}
+//		}
+//
+//		if (finalStatus != oldStatus) {
+//
+//			switch (finalStatus) {
+//			case ASSUME:
+//			case DEFINE:
+//			case REASON:
+//			case FIXED_:
+//				entryTable.setEntryStatus(oldEntry, finalStatus);
+//				break;
+//			case TEMP__:
+//				entryTable.setEntryStatus(oldEntry, finalStatus);
+//				break;
+//
+//			case REMOVE:
+//				entryTable.removeEntryReference(oldEntry, this);
+//				break;
+//			default:
+//				throw new RException("Unknown status: " + finalStatus);
+//			}
+//
+//		}
+//		// status not changed
+//		else {
+//			entryQueue.incEntryRedundant();
+//		}
+//
+//		/*******************************************************/
+//		// Add reference
+//		/*******************************************************/
+//		if (finalStatus != REMOVE && finalStatus != TEMP__ && context != null) {
+//			entryTable.addReference(oldEntry, context.currentNode, context.currentEntry);
+//		}
+//
+//		return true;
+
+		return rootNode.addStmt(stmt, toStatus, nodeContext);
+	}
+
 	protected int _addReteEntry(IRRootNode rootNode, IRList stmt, RReteStatus toStatus) throws RException {
 
 //		XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) rootNode.getEntryQueue();
@@ -429,7 +513,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		// there is no any update
-		if (!rootNode.addStmt(stmt, toStatus, nodeContext)) {
+		if (!_addStmt(rootNode, stmt, toStatus)) {
 			return 0;
 		}
 
@@ -1557,32 +1641,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		};
 	}
-
-//	@Override
-//	public IRMember getMember(String name) throws RException {
-//
-//		IRMember mbr = super.getMember(name);
-//		if (mbr == null) {
-//
-//			switch (name) {
-//			case V_M_STATE:
-//			case V_M_RBS_INIT:
-//				mbr = RulpFactory.createMember(this, name, getVar(name));
-//				mbr.setAccessType(RAccessType.PUBLIC);
-//				mbr.setFinal(false);
-//				mbr.setStatic(false);
-//				break;
-//
-//			default:
-//			}
-//
-//			if (mbr != null) {
-//				this.setMember(name, mbr);
-//			}
-//		}
-//
-//		return mbr;
-//	}
 
 	@Override
 	public IREntryTable getEntryTable() {
