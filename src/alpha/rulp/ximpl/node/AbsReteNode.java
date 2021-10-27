@@ -175,17 +175,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			nodeMatchCount++;
 
 			for (IRConstraint1 cons : constraint1List) {
-
 				if (!cons.addEntry(entry, this)) {
-
 					++addEntryFailCount;
-
-					if (RReteType.isRootType(this.getReteType()) && !this.getModel().isReasonning()) {
-						throw new RException(
-								String.format("Unable to add entry<%s> due to constraint<%s>", entry, cons));
-
-					}
-
 					return false;
 				}
 			}

@@ -92,7 +92,7 @@ public class XRExprNode3 extends XRReteNode1 {
 		}
 
 		/*********************************************/
-		// - no left variable in expr - '(?a ?b ?c) (factor ?x)
+		// - No left variable in expr - '(?a ?b ?c) (factor ?x)
 		// - No need to pass any entry
 		/*********************************************/
 		if (!_match()) {

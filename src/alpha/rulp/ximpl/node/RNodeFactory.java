@@ -586,9 +586,6 @@ public class RNodeFactory {
 		// Entry queue
 		node.setEntryQueue(new XREntryQueueMulitEntryList(stmtLen));
 
-		// Entry table
-		node.setEntryTable(model.getEntryTable());
-
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);
 
@@ -623,9 +620,6 @@ public class RNodeFactory {
 
 		// Entry queue
 		node.setEntryQueue(new XREntryQueueMulitEntryList(stmtLen));
-
-		// Entry table
-		node.setEntryTable(model.getEntryTable());
 
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);

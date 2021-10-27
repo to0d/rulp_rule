@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
@@ -64,6 +65,7 @@ import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.cache.XRStmtFileCacher;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
 import alpha.rulp.ximpl.entry.IREntryTable;
@@ -402,10 +404,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("not support stmt: " + stmt);
 		}
 
-//		if (stmt.toString().equals("'(nt:t1 nm:hasFieldTag nt:t1-te)")) {
-//			System.out.println();
-//		}
-
 		IRRootNode rootNode;
 		String namedName = stmt.getNamedName();
 		if (namedName == null) {
@@ -419,92 +417,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return _addReteEntry(rootNode, stmt, toStatus);
 	}
 
-	protected boolean _addStmt(IRRootNode rootNode, IRList stmt, RReteStatus toStatus) throws RException {
-
-//		if (RuleUtil.isModelTrace()) {
-//			System.out.println(String.format("%s: addEntry(%s, %s)", rootNode.getNodeName(), "" + stmt, "" + toStatus));
-//		}
-//
-//		String stmtUniqName = ReteUtil.uniqName(stmt);
-//		IRReteEntry oldEntry = rootNode.getStmt(stmtUniqName);
-//
-//		/*******************************************************/
-//		// Entry not exist
-//		/*******************************************************/
-//		if (oldEntry == null) {
-//			return _insertStmt(stmtUniqName, stmt, newStatus, context);
-//		}
-//
-//		// Add this in this branch, the value will be updated in addEntry() in previous
-//		// branch
-//		entryQueue.incNodeUpdateCount();
-//
-//		/*******************************************************/
-//		// Entry needs be updated
-//		/*******************************************************/
-//		RReteStatus oldStatus = oldEntry.getStatus();
-//
-//		// This entry is marked as "drop" (removed by entry table automatically)
-//		if (oldStatus == null) {
-//
-//			// remove old entry
-//			stmtMap.remove(stmtUniqName);
-//
-//			// add it again
-//			return _insertStmt(stmtUniqName, stmt, newStatus, context);
-//		}
-//
-//		RReteStatus finalStatus = ReteUtil.getReteStatus(oldStatus, newStatus);
-//
-//		// Invalid status
-//		if (finalStatus == null) {
-//			if (RuleUtil.isModelTrace()) {
-//				System.out.println(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
-//				return false;
-//			}
-//		}
-//
-//		if (finalStatus != oldStatus) {
-//
-//			switch (finalStatus) {
-//			case ASSUME:
-//			case DEFINE:
-//			case REASON:
-//			case FIXED_:
-//				entryTable.setEntryStatus(oldEntry, finalStatus);
-//				break;
-//			case TEMP__:
-//				entryTable.setEntryStatus(oldEntry, finalStatus);
-//				break;
-//
-//			case REMOVE:
-//				entryTable.removeEntryReference(oldEntry, this);
-//				break;
-//			default:
-//				throw new RException("Unknown status: " + finalStatus);
-//			}
-//
-//		}
-//		// status not changed
-//		else {
-//			entryQueue.incEntryRedundant();
-//		}
-//
-//		/*******************************************************/
-//		// Add reference
-//		/*******************************************************/
-//		if (finalStatus != REMOVE && finalStatus != TEMP__ && context != null) {
-//			entryTable.addReference(oldEntry, context.currentNode, context.currentEntry);
-//		}
-//
-//		return true;
-
-		return rootNode.addStmt(stmt, toStatus, nodeContext);
-	}
-
 	protected int _addReteEntry(IRRootNode rootNode, IRList stmt, RReteStatus toStatus) throws RException {
-
-//		XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) rootNode.getEntryQueue();
 
 		int oldSize = 0;
 		if (this.nodeContext != null) {
@@ -528,6 +441,118 @@ public class XRModel extends AbsRInstance implements IRModel {
 		cacheUpdateCount++;
 		addUpdateNode(rootNode);
 		return 1;
+	}
+
+	protected boolean _addStmt(IRRootNode rootNode, IRList stmt, RReteStatus newStatus) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out
+					.println(String.format("%s: addEntry(%s, %s)", rootNode.getNodeName(), "" + stmt, "" + newStatus));
+		}
+
+		String stmtUniqName = ReteUtil.uniqName(stmt);
+		IRReteEntry oldEntry = rootNode.getStmt(stmtUniqName);
+
+		/*******************************************************/
+		// Insert entry
+		// - Entry not exist
+		// - or marked as "drop" (removed by entry table automatically)
+		/*******************************************************/
+		if (oldEntry == null || oldEntry.getStatus() == null) {
+			int stmtLen = stmt.size();
+
+			IRObject[] newElements = new IRObject[stmtLen];
+			for (int i = 0; i < stmtLen; ++i) {
+
+				IRObject obj = stmt.get(i);
+				if (obj == null) {
+					obj = O_Nil;
+				}
+
+				newElements[i] = obj;
+			}
+
+			IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus, true);
+
+			/*******************************************************/
+			// Check constraint
+			/*******************************************************/
+			IRConstraint1 cons = rootNode.unmatchConstraint(newEntry);
+			if (cons != null) {
+				if (nodeContext == null) {
+					throw new RException(
+							String.format("Unable to add entry<%s> due to constraint<%s>", newEntry, cons));
+				} else {
+					entryTable.removeEntry(newEntry);
+					return false;
+				}
+			}
+
+			if (!rootNode.addReteEntry(newEntry)) {
+				entryTable.removeEntry(newEntry);
+				return false;
+			}
+
+			/*******************************************************/
+			// Add reference
+			/*******************************************************/
+			if (nodeContext != null) {
+				entryTable.addReference(newEntry, nodeContext.currentNode, nodeContext.currentEntry);
+			} else {
+				entryTable.addReference(newEntry, rootNode);
+			}
+
+			return true;
+		}
+
+		/*******************************************************/
+		// Entry needs be updated
+		/*******************************************************/
+		RReteStatus oldStatus = oldEntry.getStatus();
+		RReteStatus finalStatus = ReteUtil.getReteStatus(oldStatus, newStatus);
+		if (finalStatus == null) {
+			throw new RException(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
+		}
+
+		IREntryQueue entryQueue = rootNode.getEntryQueue();
+
+		if (finalStatus != oldStatus) {
+
+			switch (finalStatus) {
+			case ASSUME:
+			case DEFINE:
+			case REASON:
+			case FIXED_:
+				entryTable.setEntryStatus(oldEntry, finalStatus);
+				break;
+			case TEMP__:
+				entryTable.setEntryStatus(oldEntry, finalStatus);
+				break;
+
+			case REMOVE:
+				entryTable.removeEntryReference(oldEntry, rootNode);
+				break;
+			default:
+				throw new RException("Unknown status: " + finalStatus);
+			}
+
+		}
+		// status not changed
+		else {
+			entryQueue.incEntryRedundant();
+		}
+
+		// Add this in this branch
+		entryQueue.incNodeUpdateCount();
+
+		/*******************************************************/
+		// Add reference
+		/*******************************************************/
+		if (finalStatus != REMOVE && finalStatus != TEMP__ && nodeContext != null) {
+			entryTable.addReference(oldEntry, nodeContext.currentNode, nodeContext.currentEntry);
+		}
+
+		return true;
 	}
 
 	protected void _checkActiveNode() throws RException {
@@ -1808,11 +1833,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public boolean isReasonning() {
-		return nodeContext != null;
-	}
-
-	@Override
 	public List<? extends IRCacheWorker> listCacheWorkers() {
 		return new ArrayList<>(cacheWorkerList);
 	}
@@ -2055,8 +2075,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.isProcessing = true;
 		this.needRestart = false;
 		this.activeUpdate++;
-
-//		boolean running = false;
 
 		try {
 

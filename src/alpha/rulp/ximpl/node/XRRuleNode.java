@@ -201,19 +201,11 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 			}
 		}
 
-//		IRFrame consFrame = RulpFactory.createFrame(this.getFrame(), "NF-" + getNodeName());
-//		RulpUtil.incRef(consFrame);
-//
-//		try {
-			for (IRConstraint1 constraint : this.constraint1List) {
-				if (!constraint.addEntry(entry, this)) {
-					return false;
-				}
+		for (IRConstraint1 constraint : this.constraint1List) {
+			if (!constraint.addEntry(entry, this)) {
+				return false;
 			}
-//		} finally {
-//			consFrame.release();
-//			RulpUtil.decRef(consFrame);
-//		}
+		}
 
 		return true;
 	}

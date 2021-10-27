@@ -46,7 +46,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public void addStatementListener(IRList condList, IRRListener1<IRList> listener) throws RException;
 
 	public int addStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
-	
+
 	public void addUpdateNode(IRReteNode node) throws RException;
 
 	public int assumeStatement(IRList stmt) throws RException;
@@ -86,8 +86,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public boolean hasStatement(IRList filter) throws RException;
 
 	public boolean isCacheEnable();
-
-	public boolean isReasonning();
 
 // public IRIterator<? extends IRObject> listObjects() throws RException;
 
