@@ -1,39 +1,18 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.rule.IRRule;
-import alpha.rulp.ximpl.model.XRSubNodeGraph.QuerySourceInfo;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class XRSubNodeGraph implements IRSubNodeGraph {
-
-	static class QuerySourceEntry {
-
-		IRReteNode fromNode;
-		IRReteNode sourceNode;
-
-		public QuerySourceEntry(IRReteNode fromNode, IRReteNode sourceNode) {
-			super();
-			this.fromNode = fromNode;
-			this.sourceNode = sourceNode;
-		}
-	}
 
 	static class QuerySourceInfo {
 		public IRReteNode node;
@@ -102,7 +81,7 @@ public class XRSubNodeGraph implements IRSubNodeGraph {
 
 			sourceMap.put(node, info);
 		}
-		
+
 	}
 
 	@Override

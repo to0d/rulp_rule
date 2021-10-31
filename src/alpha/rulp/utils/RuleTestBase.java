@@ -230,6 +230,10 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
+	protected void _dumpEntryTable(String modelName) {
+		_dumpEntryTable(modelName, getCachePath() + ".dump_entry.txt");
+	}
+
 	protected void _dumpEntryTable(String modelName, String expectFile) {
 
 		try {

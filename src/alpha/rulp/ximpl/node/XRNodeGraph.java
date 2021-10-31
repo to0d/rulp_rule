@@ -130,6 +130,30 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
+	public static boolean isSymmetricBetaNode(IRReteNode node) {
+
+		if (!RReteType.isBetaType(node.getReteType())) {
+			return false;
+		}
+
+		if (node.getParentNodes()[0] != node.getParentNodes()[1]) {
+			return false;
+		}
+
+		IRBetaNode betaNode = (IRBetaNode) node;
+
+		List<JoinIndex> joinIndexs = betaNode.getJoinIndexList();
+		if (joinIndexs != null) {
+			for (JoinIndex ji : joinIndexs) {
+				if (ji.leftIndex != ji.rightIndex) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	protected int anonymousRuleIndex = 0;
 
 	protected int anonymousWorkIndex = 0;
@@ -139,6 +163,8 @@ public class XRNodeGraph implements IRNodeGraph {
 	protected int maxNodeIndex = 0;
 
 	protected int maxRootStmtLen = 0;
+
+	protected int maxRuleId = -1;
 
 	protected IRModel model;
 
@@ -752,51 +778,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		throw new RException("Invalid tree found: " + reteTree);
 	}
 
-	public static boolean isSymmetricBetaNode(IRReteNode node) {
-
-		if (!RReteType.isBetaType(node.getReteType())) {
-			return false;
-		}
-
-		if (node.getParentNodes()[0] != node.getParentNodes()[1]) {
-			return false;
-		}
-
-		IRBetaNode betaNode = (IRBetaNode) node;
-
-		List<JoinIndex> joinIndexs = betaNode.getJoinIndexList();
-		if (joinIndexs != null) {
-			for (JoinIndex ji : joinIndexs) {
-				if (ji.leftIndex != ji.rightIndex) {
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	protected IRReteNode _processNodeModifier(IRReteNode node, String modifier) throws RException {
-
-		switch (modifier) {
-
-		// beta: '(?a) '(?b) entry-order
-		case A_ENTRY_ORDER:
-
-			// This constraint will be only added to "symmetric" betaNode
-			if (isSymmetricBetaNode(node)) {
-				RuleUtil.asBetaNode(node).addConstraint2(ConstraintFactory.createConstraint2EntryOrder());
-			}
-
-			break;
-
-		default:
-			throw new RException("invalid modifier: " + modifier);
-		}
-
-		return node;
-	}
-
 	protected IRReteNode _buildRootNode(int stmtLen) throws RException {
 
 		IRRootNode rootNode = rootNodeArray[stmtLen];
@@ -1061,7 +1042,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		return RulpUtil.asList(objs.get(0));
 	}
 
-	protected Set<IRReteNode> _listAlphaSourceNodes(IRReteNode node) throws RException {
+	protected Set<IRReteNode> _listSourceNodesForAlphaNode(IRReteNode node) throws RException {
 
 		XGraphInfo info = (XGraphInfo) node.getGraphInfo();
 
@@ -1081,21 +1062,24 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Update rule's action nodes
 		/******************************************************/
-		NEXT_RULE: for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
+		if (info.lastRuleIndex < maxRuleId) {
 
-			// the rule has been processed
-			if (ruleNode.getNodeId() <= info.lastRuleIndex) {
-				continue;
-			}
+			NEXT_RULE: for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
 
-			info.lastRuleIndex = ruleNode.getNodeId();
+				// the rule has been processed
+				if (ruleNode.getNodeId() <= info.lastRuleIndex) {
+					continue;
+				}
 
-			XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
+				info.lastRuleIndex = ruleNode.getNodeId();
 
-			for (IRList ruleActionUniqStmt : ruleNodeInfo.getRuleActionUniqStmtList(this)) {
-				if (ReteUtil.matchUniqStmt(ruleActionUniqStmt, info.alphaUniqStmt)) {
-					info.sourceNodes.add(ruleNode);
-					continue NEXT_RULE;
+				XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
+
+				for (IRList ruleActionUniqStmt : ruleNodeInfo.getRuleActionUniqStmtList(this)) {
+					if (ReteUtil.matchUniqStmt(ruleActionUniqStmt, info.alphaUniqStmt)) {
+						info.sourceNodes.add(ruleNode);
+						continue NEXT_RULE;
+					}
 				}
 			}
 		}
@@ -1103,7 +1087,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		return info.sourceNodes;
 	}
 
-	protected Set<IRReteNode> _listRootOrNamedSourceNodes(IRReteNode node) throws RException {
+	protected Set<IRReteNode> _listSourceNodesForRootNode(IRReteNode node) throws RException {
 
 		XGraphInfo info = (XGraphInfo) node.getGraphInfo();
 
@@ -1127,27 +1111,51 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Update rule's action nodes
 		/******************************************************/
-		NEXT_RULE: for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
+		if (info.lastRuleIndex < maxRuleId) {
 
-			// the rule has been processed
-			if (ruleNode.getNodeId() <= info.lastRuleIndex) {
-				continue;
-			}
+			NEXT_RULE: for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
 
-			info.lastRuleIndex = ruleNode.getNodeId();
+				// the rule has been processed
+				if (ruleNode.getNodeId() <= info.lastRuleIndex) {
+					continue;
+				}
 
-			XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
+				info.lastRuleIndex = ruleNode.getNodeId();
 
-			for (IRList ruleActionUniqStmt : ruleNodeInfo.getRuleActionUniqStmtList(this)) {
-				if (ruleActionUniqStmt.size() == node.getEntryLength()
-						&& RuleUtil.equal(namedName, ruleActionUniqStmt.getNamedName())) {
-					info.sourceNodes.add(ruleNode);
-					continue NEXT_RULE;
+				XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
+
+				for (IRList ruleActionUniqStmt : ruleNodeInfo.getRuleActionUniqStmtList(this)) {
+					if (ruleActionUniqStmt.size() == node.getEntryLength()
+							&& RuleUtil.equal(namedName, ruleActionUniqStmt.getNamedName())) {
+						info.sourceNodes.add(ruleNode);
+						continue NEXT_RULE;
+					}
 				}
 			}
 		}
 
 		return info.sourceNodes;
+	}
+
+	protected IRReteNode _processNodeModifier(IRReteNode node, String modifier) throws RException {
+
+		switch (modifier) {
+
+		// beta: '(?a) '(?b) entry-order
+		case A_ENTRY_ORDER:
+
+			// This constraint will be only added to "symmetric" betaNode
+			if (isSymmetricBetaNode(node)) {
+				RuleUtil.asBetaNode(node).addConstraint2(ConstraintFactory.createConstraint2EntryOrder());
+			}
+
+			break;
+
+		default:
+			throw new RException("invalid modifier: " + modifier);
+		}
+
+		return node;
 	}
 
 	protected void _setNodeArray(IRReteNode node) {
@@ -1249,6 +1257,10 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		if (parentNode.getEntryQueue().size() > 0) {
 			model.addUpdateNode(ruleNode);
+		}
+
+		if (ruleNode.getNodeId() > maxRuleId) {
+			maxRuleId = ruleNode.getNodeId();
 		}
 
 		return ruleNode;
@@ -1510,11 +1522,11 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		switch (node.getReteType()) {
 		case ALPH0:
-			return _listAlphaSourceNodes(node);
+			return _listSourceNodesForAlphaNode(node);
 
 		case ROOT0:
 		case NAME0:
-			return _listRootOrNamedSourceNodes(node);
+			return _listSourceNodesForRootNode(node);
 
 		default:
 			return Collections.emptySet();
