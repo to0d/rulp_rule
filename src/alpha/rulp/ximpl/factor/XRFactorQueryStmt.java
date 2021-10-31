@@ -23,10 +23,10 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.entry.IRResultQueue;
+import alpha.rulp.ximpl.model.IRSubNodeGraph;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
 import alpha.rulp.ximpl.model.ModelUtil;
-import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
 public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -132,9 +132,9 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 		/********************************************/
 		// Run as rule group
 		/********************************************/
-		XRSubNodeGraph subGraph = null;
+		IRSubNodeGraph subGraph = null;
 		if (ruleGroupName != null) {
-			subGraph = ModelUtil.activeRuleGroup(model, ruleGroupName);
+			subGraph = ModelUtil.buildSubNodeGroupForRuleGroup(model, ruleGroupName);
 		}
 
 		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, fromList);

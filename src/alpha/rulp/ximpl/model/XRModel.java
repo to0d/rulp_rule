@@ -970,8 +970,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
-		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
-		subGraph.buildSourceNodeGraph(queryNode);
+		IRSubNodeGraph subGraph = ModelUtil.buildSubNodeGroupForQuery(this, queryNode);
 
 		/******************************************************/
 		// Invoke running
