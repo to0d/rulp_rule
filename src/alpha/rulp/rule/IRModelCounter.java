@@ -8,8 +8,6 @@ public interface IRModelCounter {
 
 	public int getNodeIdleCount();
 
-//	public int getObjectCount();
-
 	public int getProcessQueueMaxNodeCount();
 
 	public int getQueryFetchCount();

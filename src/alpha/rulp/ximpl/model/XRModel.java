@@ -345,7 +345,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected boolean cacheEnable = false;
 
-	private int cacheUpdateCount = 0;
+	protected int cacheUpdateCount = 0;
 
 	protected final LinkedList<XRCacheWorker> cacheWorkerList = new LinkedList<>();
 
@@ -361,7 +361,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected String modelCachePath = null;
 
-	protected XRRModelCounter modelCounter = new XRRModelCounter();
+	protected final XRRModelCounter modelCounter;
 
 	protected IRFrame modelFrame;
 
@@ -396,6 +396,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	public XRModel(String modelName, IRClass rclass, IRFrame frame) throws RException {
 		super(rclass, modelName, frame);
 		this.nodeGraph = new XRNodeGraph(this, entryTable);
+		this.modelCounter = new XRRModelCounter(this);
 	}
 
 	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
@@ -913,7 +914,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				int update = execute(node);
 				if (update > 0) {
-					modelCounter.queryMatchCount++;
+					modelCounter.incQueryMatchCount();
 				}
 
 				return false;
@@ -1086,7 +1087,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			this.modelRunState = newState;
-			++modelCounter.stateChangeCount;
+			modelCounter.incStateChangeCount();
 
 			if (modelStatsVar != null) {
 				modelStatsVar.setValue(RRunState.toObject(newState));
@@ -1444,9 +1445,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> " + node.toString());
 		}
 
-		int oldQueryMatchCount = modelCounter.queryMatchCount;
+		int oldQueryMatchCount = modelCounter.getQueryMatchCount();
 
-		++modelCounter.nodeExecCount;
+		modelCounter.incNodeExecCount();
 
 		int update = node.update();
 
@@ -1464,7 +1465,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		if (update > 0) {
 
-			node.incExecCount(modelCounter.nodeExecCount);
+			node.incExecCount(modelCounter.getNodeExecuteCount());
 
 			for (IRReteNode child : node.getChildNodes(true)) {
 
@@ -1501,11 +1502,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 		} else {
-			++modelCounter.nodeIdleCount;
+			modelCounter.incNodeIdleCount();
 		}
 
-		if (modelCounter.queryMatchCount > oldQueryMatchCount) {
-			node.addQueryMatchCount(modelCounter.queryMatchCount - oldQueryMatchCount);
+		if (modelCounter.getQueryMatchCount() > oldQueryMatchCount) {
+			node.addQueryMatchCount(modelCounter.getQueryMatchCount() - oldQueryMatchCount);
 		}
 
 		return update;
@@ -1520,27 +1521,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	public IRReteNode findNode(IRList condList) throws RException {
 		return nodeGraph.getNodeByTree(condList);
 	}
-
-//	@Override
-//	public IRIterator<IRObject> listObjects() throws RException {
-//
-//		return new IRIterator<IRObject>() {
-//
-//			protected int index = 0;
-//			protected ArrayList<IRObject> objList = allObjectList;
-//			protected int size = allObjectList.size();
-//
-//			@Override
-//			public boolean hasNext() throws RException {
-//				return index < size;
-//			}
-//
-//			@Override
-//			public IRObject next() throws RException {
-//				return objList.get(index++);
-//			}
-//		};
-//	}
 
 	@Override
 	public int fixStatement(IRList stmt) throws RException {
@@ -1592,79 +1572,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public IRModelCounter getCounter() {
-
-		return new IRModelCounter() {
-
-			@Override
-			public IRModel getModel() {
-				return XRModel.this;
-			}
-
-			@Override
-			public int getNodeExecuteCount() {
-				return modelCounter.getNodeExecuteCount();
-			}
-
-			@Override
-			public int getNodeIdleCount() {
-				return modelCounter.getNodeIdleCount();
-			}
-
-//			@Override
-//			public int getObjectCount() {
-//				return allObjectList.size();
-//			}
-
-			@Override
-			public int getProcessQueueMaxNodeCount() {
-				return updateQueue.getMaxNodeCount();
-			}
-
-			@Override
-			public int getQueryFetchCount() {
-
-				int totalCount = 0;
-
-				for (IRReteNode node : nodeGraph.getNodeMatrix().getAllNodes()) {
-					totalCount += node.getEntryQueue().getQueryFetchCount();
-				}
-
-				return totalCount;
-			}
-
-			@Override
-			public int getQueryMatchCount() {
-				return modelCounter.getQueryMatchCount();
-			}
-
-			@Override
-			public int getRuleCount() {
-				return nodeGraph.listNodes(RReteType.RULE).size();
-			}
-
-			@Override
-			public int getStateChangeCount() {
-				return modelCounter.getStateChangeCount();
-			}
-
-			@Override
-			public int getStatementCount() {
-
-				int totalCount = 0;
-				int nullCount = 0;
-				int dropCount = 0;
-
-				for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
-					IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
-					totalCount += rootEntryCounter.getEntryTotalCount();
-					nullCount += rootEntryCounter.getEntryNullCount();
-					dropCount += rootEntryCounter.getEntryCount(REMOVE);
-				}
-
-				return totalCount - nullCount - dropCount;
-			}
-
-		};
+		return modelCounter;
 	}
 
 	@Override
