@@ -335,7 +335,7 @@ public class TestP2d extends RuleTestBase {
 
 	@Test
 	public void test_tag_auto_domain_common_tag() {
-
+		_setup();
 		_test("(load \"result/p2d.rulp\")");
 
 		_test("(add-stmt p2d '(nt:AS400-Concept nm:typeOf nm:tag))");
@@ -358,7 +358,7 @@ public class TestP2d extends RuleTestBase {
 
 	@Test
 	public void test_tag_auto_group_tag() {
-
+		_setup();
 		_test("(load \"result/p2d.rulp\")");
 
 		_test("(add-stmt p2d '(nt:List-OJ nm:typeOf nm:tag))");
@@ -378,7 +378,7 @@ public class TestP2d extends RuleTestBase {
 
 	@Test
 	public void test_tag_auto_item_tag() {
-
+		_setup();
 		_test("(load \"result/p2d.rulp\")");
 
 		_test("(add-stmt p2d '(nt:RFE-88111 nm:typeOf nm:tag))");
