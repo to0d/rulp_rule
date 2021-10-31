@@ -1503,8 +1503,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 			modelCounter.incNodeIdleCount();
 		}
 
-		if (modelCounter.getQueryMatchCount() > oldQueryMatchCount) {
-			node.addQueryMatchCount(modelCounter.getQueryMatchCount() - oldQueryMatchCount);
+		int newQueryMatchCount = modelCounter.getQueryMatchCount();
+		if (newQueryMatchCount > oldQueryMatchCount) {
+			node.addQueryMatchCount(newQueryMatchCount - oldQueryMatchCount);
 		}
 
 		return update;
@@ -2074,13 +2075,4 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return false;
 	}
 
-//	@Override
-//	public int updateStatements(IRList condList) throws RException {
-//
-//		if (RuleUtility.isModelTrace()) {
-//			System.out.println("==> updateStatements: " + condList);
-//		}
-//
-//		return _update(this.findNode(condList));
-//	}
 }

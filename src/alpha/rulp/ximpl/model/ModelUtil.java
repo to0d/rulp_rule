@@ -256,14 +256,11 @@ public class ModelUtil {
 
 		IRIterator<? extends IRObject> it = ruleList.iterator();
 		while (it.hasNext()) {
-
 			ModelUtil.travelReteParentNodeByPostorder(RuleUtil.asRule(it.next()), (node) -> {
-
 				if (!subGraph.containNode(node) && node.getPriority() < RETE_PRIORITY_MAXIMUM
 						&& node.getPriority() > RETE_PRIORITY_DISABLED) {
 					subGraph.addNode(node, RETE_PRIORITY_DEFAULT);
 				}
-
 				return false;
 			});
 		}
