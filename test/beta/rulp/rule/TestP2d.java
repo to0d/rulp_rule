@@ -95,6 +95,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(list-stmt p2d from '(?x nm:typeOf nm:tag))",
 				"'('(tb nm:typeOf nm:tag) '(ta nm:typeOf nm:tag) '(tc nm:typeOf nm:tag))");
 
+		_test("(size-of (list-stmt p2d))", "167");
 		_mStatus(1, "p2d");
 		_mCount(1, "p2d");
 		_eCount(1, "p2d");
@@ -120,11 +121,13 @@ public class TestP2d extends RuleTestBase {
 		_test("(query-stmt p2d '(?x) from '(?x nm:typeOf nm:tag))", "'('(tb) '(ta) '(tc))");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
+		_test("(size-of (list-stmt p2d))", "164");
 		_mStatus(1, "p2d");
 		_mCount(1, "p2d");
 		_eCount(1, "p2d");
 		_saveTest();
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("p2d")));
+
+		_statsInfo("p2d");
 	}
 
 	@Test
