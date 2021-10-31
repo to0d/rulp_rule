@@ -11,13 +11,13 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.ModelUtil;
 import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor, IRuleFactor {

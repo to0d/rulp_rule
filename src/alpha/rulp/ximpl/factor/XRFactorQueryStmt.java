@@ -15,7 +15,6 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.ReteUtil;
@@ -26,6 +25,7 @@ import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
+import alpha.rulp.ximpl.model.ModelUtil;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
 public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {

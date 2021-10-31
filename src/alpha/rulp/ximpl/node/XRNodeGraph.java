@@ -31,7 +31,6 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.MatchTree;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
@@ -44,6 +43,7 @@ import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
+import alpha.rulp.ximpl.model.ModelUtil;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
 
 public class XRNodeGraph implements IRNodeGraph {

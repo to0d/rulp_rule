@@ -1,7 +1,6 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.O_False;
-import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_DEFAULT_MODEL;
 import static alpha.rulp.rule.Constant.A_M_TRACE;
 
@@ -17,14 +16,12 @@ import alpha.rulp.lang.RError;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.IRRListener3;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.ximpl.error.RIException;
-import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.RReteType;
@@ -83,30 +80,6 @@ public class RuleUtil {
 			return rt;
 		}
 
-	}
-
-	static class RuleActionFactor extends AbsRFactorAdapter {
-
-		private IRRListener3<IRList, IRRule, IRFrame> actioner;
-
-		private IRRule rule;
-
-		public RuleActionFactor(String factorName, IRRListener3<IRList, IRRule, IRFrame> actioner) {
-			super(factorName);
-			this.actioner = actioner;
-		}
-
-		@Override
-		public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
-
-			IRList list = (IRList) interpreter.compute(frame, RulpFactory.createList(args.listIterator(1)));
-			actioner.doAction(list, rule, frame);
-			return O_Nil;
-		}
-
-		public void setRule(IRRule rule) {
-			this.rule = rule;
-		}
 	}
 
 	static class SingleStmtItrator implements IRIterator<IRList> {

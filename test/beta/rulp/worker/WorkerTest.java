@@ -9,9 +9,9 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRWorker;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.ximpl.model.ModelUtil;
 
 public class WorkerTest extends RuleTestBase {
 

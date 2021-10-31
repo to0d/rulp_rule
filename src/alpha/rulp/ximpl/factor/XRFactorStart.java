@@ -13,13 +13,13 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRunnable;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.ModelUtil;
 import alpha.rulp.ximpl.model.XRSubNodeGraph;
 
 public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleFactor {

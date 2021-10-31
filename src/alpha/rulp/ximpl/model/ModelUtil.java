@@ -1,5 +1,6 @@
-package alpha.rulp.utils;
+package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -32,10 +33,13 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
-import alpha.rulp.utils.RuleUtil.RuleActionFactor;
+import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
-import alpha.rulp.ximpl.model.XRSubNodeGraph;
+import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRRuleNode;
 
@@ -43,6 +47,30 @@ public class ModelUtil {
 
 	public static interface IReteNodeVisitor {
 		public boolean visit(IRReteNode node) throws RException;
+	}
+
+	static class RuleActionFactor extends AbsRFactorAdapter {
+
+		private IRRListener3<IRList, IRRule, IRFrame> actioner;
+
+		private IRRule rule;
+
+		public RuleActionFactor(String factorName, IRRListener3<IRList, IRRule, IRFrame> actioner) {
+			super(factorName);
+			this.actioner = actioner;
+		}
+
+		@Override
+		public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
+
+			IRList list = (IRList) interpreter.compute(frame, RulpFactory.createList(args.listIterator(1)));
+			actioner.doAction(list, rule, frame);
+			return O_Nil;
+		}
+
+		public void setRule(IRRule rule) {
+			this.rule = rule;
+		}
 	}
 
 	private static AtomicInteger anonymousRuleActionIndex = new AtomicInteger(0);

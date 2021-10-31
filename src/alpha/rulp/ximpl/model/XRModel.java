@@ -51,7 +51,6 @@ import alpha.rulp.rule.RRunState;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.FileUtil;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
 import alpha.rulp.utils.ReteUtil;

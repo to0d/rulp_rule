@@ -15,7 +15,6 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.rule.IRReteNode.JoinIndex;
 import alpha.rulp.rule.IRWorker;
-import alpha.rulp.utils.ModelUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.ActionUtil;
@@ -25,6 +24,7 @@ import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.entry.XREntryQueueEmpty;
 import alpha.rulp.ximpl.entry.XREntryQueueMulitEntryList;
 import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
+import alpha.rulp.ximpl.model.ModelUtil;
 
 public class RNodeFactory {
 
