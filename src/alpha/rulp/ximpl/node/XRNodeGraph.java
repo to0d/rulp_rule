@@ -3,6 +3,9 @@ package alpha.rulp.ximpl.node;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 
@@ -42,11 +45,25 @@ import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
+import alpha.rulp.ximpl.model.IRSubNodeGraph;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.ModelUtil;
+import alpha.rulp.ximpl.model.XRSubNodeGraph;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
 
 public class XRNodeGraph implements IRNodeGraph {
+
+	static class QuerySourceEntry {
+
+		IRReteNode fromNode;
+		IRReteNode sourceNode;
+
+		public QuerySourceEntry(IRReteNode fromNode, IRReteNode sourceNode) {
+			super();
+			this.fromNode = fromNode;
+			this.sourceNode = sourceNode;
+		}
+	}
 
 	static class ReteNodeList {
 		public ArrayList<IRReteNode> nodes = new ArrayList<>();
@@ -1300,6 +1317,80 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
+	public IRSubNodeGraph buildSourceSubGroup(IRReteNode queryNode) throws RException {
+
+		XRSubNodeGraph subGraph = new XRSubNodeGraph(this);
+
+		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
+
+		/******************************************************/
+		// Build source graph
+		/******************************************************/
+		LinkedList<QuerySourceEntry> visitStack = new LinkedList<>();
+		visitStack.add(new QuerySourceEntry(null, queryNode));
+		Set<IRReteNode> visitedNodes = new HashSet<>();
+
+		while (!visitStack.isEmpty()) {
+
+			QuerySourceEntry entry = visitStack.pop();
+			IRReteNode fromNode = entry.fromNode;
+			IRReteNode sourceNode = entry.sourceNode;
+
+			// ignore visited node
+			if (visitedNodes.contains(sourceNode)) {
+				continue;
+			}
+
+			visitedNodes.add(sourceNode);
+
+			if (sourceNode.getPriority() <= RETE_PRIORITY_DISABLED) {
+				continue;
+			}
+
+			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
+				continue;
+			}
+
+			int new_priority = RETE_PRIORITY_PARTIAL_MAX;
+			if (sourceNode != queryNode) {
+				new_priority = Math.min(sourceNode.getPriority(), fromNode.getPriority()) - 1;
+				if (new_priority < RETE_PRIORITY_PARTIAL_MIN) {
+					new_priority = RETE_PRIORITY_PARTIAL_MIN;
+				}
+			}
+
+			subGraph.addNode(sourceNode, new_priority);
+
+			if (sourceNode.getParentNodes() != null) {
+				for (IRReteNode newSrcNode : sourceNode.getParentNodes()) {
+					visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
+				}
+			}
+
+			for (IRReteNode newSrcNode : getBindFromNodes(sourceNode)) {
+				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
+			}
+
+			for (IRReteNode newSrcNode : listSourceNodes(sourceNode)) {
+				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
+			}
+		}
+
+		ModelUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+
+			if (!subGraph.containNode(node)) {
+				subGraph.addNode(node, RETE_PRIORITY_PARTIAL_MIN);
+				visitStack.add(new QuerySourceEntry(null, node));
+				visitedNodes.add(node);
+			}
+
+			return false;
+		});
+
+		return subGraph;
+	}
+
+	@Override
 	public int doOptimize() throws RException {
 
 		int optCount = 0;
@@ -1532,5 +1623,4 @@ public class XRNodeGraph implements IRNodeGraph {
 			return Collections.emptySet();
 		}
 	}
-
 }

@@ -301,6 +301,8 @@ beta.rulp.rule.TestModel:test_4_stmt_listener_alpha_2:1-mStatus:sc=[0,3], a0=[2,
 beta.rulp.rule.TestModel:test_4_stmt_listener_alpha_2:1-oStatus:shared=0
 beta.rulp.rule.TestModel:test_4_stmt_listener_root_1:1-mStatus:sc=[0,3],
 beta.rulp.rule.TestModel:test_4_stmt_listener_root_1:1-oStatus:shared=0
+beta.rulp.rule.TestModel:test_4_stmt_listener_rule_1:1-mStatus:sc=[0,2,1,0,0,0,0,0,1], a0=[3,3,2,99,7,1,0,7,4,0,6/0,3,1], b2=[1,0,3,99,3,1,0,3,2,0,2/0,1,1], ru=[1,0,4,99,2,0,0,0,2,1],
+beta.rulp.rule.TestModel:test_4_stmt_listener_rule_1:1-oStatus:shared=0
 beta.rulp.rule.TestP2d:test_domain_beParentDomainOf_Global:1-eCount:size=229, max-id=229, dup=0, null=0
 beta.rulp.rule.TestP2d:test_domain_beParentDomainOf_Global:1-mCount:stmt=331, rule=41, match=3, fetch=9613, exec=453, idle=330, state=0/5, max-queue=46, uniq-obj=73, entry-cnt=229, entry-maxid=229, waste-node=90, waste-match=4216
 beta.rulp.rule.TestP2d:test_domain_beParentDomainOf_Global:1-mStatus:sc=[157,4,13,0,0,157,0,0,42], vc=[1, 0, 0, 4, 0], a0=[36,197,2,99,243,2,0,4880,285,0,2780/271,8,6,0,0,271], a1=[1,0,1,99,4,0,0,4,2,0,18/0,0,0,0,0,1], b0=[20,0,4,99,48,35,0,241,37,0,37/22,0,15,0,0,22], b1=[9,0,5,99,18,14,0,17,17,0,17/0,0,17], b2=[10,0,4,99,59,5,0,1285,40,0,40/26,1,13,0,0,26], e0=[4,0,3,99], e1=[7,0,5,99,37,0,0,699,699,0,565/628,19,52,0,0,628], ru=[41,0,6,99,20,0,0,0,121,42,0,3],

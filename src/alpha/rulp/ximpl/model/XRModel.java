@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import alpha.rulp.error.RConstraintConflict;
 import alpha.rulp.lang.IRClass;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;
@@ -398,14 +399,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.modelCounter = new XRRModelCounter(this);
 	}
 
-	protected IRRootNode _findRootNode(String namedName, int stmtLen) throws RException {
-		if (namedName == null) {
-			return nodeGraph.getRootNode(stmtLen);
-		} else {
-			return nodeGraph.getNamedNode(namedName, stmtLen);
-		}
-	}
-
 	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
 
 		if (!ReteUtil.isReteStmtNoVar(stmt)) {
@@ -481,8 +474,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 			IRConstraint1 cons = rootNode.unmatchConstraint(newEntry);
 			if (cons != null) {
 				if (nodeContext == null) {
-					throw new RException(
-							String.format("Unable to add entry<%s> due to constraint<%s>", newEntry, cons));
+					throw new RConstraintConflict(
+							String.format("Unable to add entry<%s> due to constraint<%s>", newEntry, cons), rootNode,
+							newEntry, cons);
 				} else {
 					entryTable.removeEntry(newEntry);
 					return false;
@@ -603,6 +597,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		super._delete();
+	}
+
+	protected IRRootNode _findRootNode(String namedName, int stmtLen) throws RException {
+		if (namedName == null) {
+			return nodeGraph.getRootNode(stmtLen);
+		} else {
+			return nodeGraph.getNamedNode(namedName, stmtLen);
+		}
 	}
 
 	protected void _fireLoadNodeAction(IRReteNode node, IRObject cacheKey) throws RException {
@@ -964,7 +966,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
-		IRSubNodeGraph subGraph = ModelUtil.buildSubNodeGroupForQuery(this, queryNode);
+		IRSubNodeGraph subGraph = this.nodeGraph.buildSourceSubGroup(queryNode);
 
 		/******************************************************/
 		// Invoke running
@@ -1121,6 +1123,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		});
 
 		return count.get();
+	}
+
+	protected void _checkConflict(IRRootNode rootNode) throws RException {
+
 	}
 
 	@Override
@@ -1776,34 +1782,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public boolean tryAddStatement(IRList stmt) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> tryAddStatement: " + stmt);
-		}
-
-//		RReteStatus status = _getNewStmtStatus();
-//
-//		int actualAddStmt = 0;
-//		while (stmtIterator.hasNext()) {
-//
-//			IRList stmt = stmtIterator.next();
-//			if (RuleUtil.isModelTrace()) {
-//				System.out.println("\t(" + stmt + ")");
-//			}
-//
-//			actualAddStmt += _addReteEntry(stmt, status);
-//		}
-//
-//		// active stmt listeners
-//		if (actualAddStmt > 0) {
-//			stmtListenUpdater.update(this);
-//		}
-
-		return false;
-	}
-
-	@Override
 	public IRRule removeRule(String ruleName) throws RException {
 		// TODO Auto-generated method stub
 		return null;
@@ -2083,6 +2061,35 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.isProcessing = false;
 			this.modelPriority = oldModelPriority;
 		}
+	}
+
+	@Override
+	public boolean tryAddStatement(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> tryAddStatement: " + stmt);
+		}
+
+		RReteStatus status = _getNewStmtStatus();
+
+		// no need verify, return succ
+		if (_addReteEntry(stmt, status) == 0) {
+			return true;
+		}
+
+		// verify
+		if (stmt.getNamedName() != null) {
+
+			try {
+				_checkConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
+			} catch (RConstraintConflict e) {
+				removeStatement(stmt);
+				return false;
+			}
+		}
+
+		stmtListenUpdater.update(this);
+		return true;
 	}
 
 }

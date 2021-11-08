@@ -10,8 +10,6 @@ import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,18 +48,6 @@ public class ModelUtil {
 
 	public static interface IReteNodeVisitor {
 		public boolean visit(IRReteNode node) throws RException;
-	}
-
-	static class QuerySourceEntry {
-
-		IRReteNode fromNode;
-		IRReteNode sourceNode;
-
-		public QuerySourceEntry(IRReteNode fromNode, IRReteNode sourceNode) {
-			super();
-			this.fromNode = fromNode;
-			this.sourceNode = sourceNode;
-		}
 	}
 
 	static class RuleActionFactor extends AbsRFactorAdapter {
@@ -179,81 +165,6 @@ public class ModelUtil {
 		model.getNodeGraph().bindNode(fromNode, toNode);
 	}
 
-	public static IRSubNodeGraph buildSubNodeGroupForQuery(IRModel model, IRReteNode queryNode) throws RException {
-
-		IRNodeGraph nodeGraph = model.getNodeGraph();
-
-		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
-
-		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
-
-		/******************************************************/
-		// Build source graph
-		/******************************************************/
-		LinkedList<QuerySourceEntry> visitStack = new LinkedList<>();
-		visitStack.add(new QuerySourceEntry(null, queryNode));
-		Set<IRReteNode> visitedNodes = new HashSet<>();
-
-		while (!visitStack.isEmpty()) {
-
-			QuerySourceEntry entry = visitStack.pop();
-			IRReteNode fromNode = entry.fromNode;
-			IRReteNode sourceNode = entry.sourceNode;
-
-			// ignore visited node
-			if (visitedNodes.contains(sourceNode)) {
-				continue;
-			}
-
-			visitedNodes.add(sourceNode);
-
-			if (sourceNode.getPriority() <= RETE_PRIORITY_DISABLED) {
-				continue;
-			}
-
-			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
-				continue;
-			}
-
-			int new_priority = RETE_PRIORITY_PARTIAL_MAX;
-			if (sourceNode != queryNode) {
-				new_priority = Math.min(sourceNode.getPriority(), fromNode.getPriority()) - 1;
-				if (new_priority < RETE_PRIORITY_PARTIAL_MIN) {
-					new_priority = RETE_PRIORITY_PARTIAL_MIN;
-				}
-			}
-
-			subGraph.addNode(sourceNode, new_priority);
-
-			if (sourceNode.getParentNodes() != null) {
-				for (IRReteNode newSrcNode : sourceNode.getParentNodes()) {
-					visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-				}
-			}
-
-			for (IRReteNode newSrcNode : nodeGraph.getBindFromNodes(sourceNode)) {
-				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-			}
-
-			for (IRReteNode newSrcNode : nodeGraph.listSourceNodes(sourceNode)) {
-				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-			}
-		}
-
-		ModelUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
-
-			if (!subGraph.containNode(node)) {
-				subGraph.addNode(node, RETE_PRIORITY_PARTIAL_MIN);
-				visitStack.add(new QuerySourceEntry(null, node));
-				visitedNodes.add(node);
-			}
-
-			return false;
-		});
-
-		return subGraph;
-	}
-
 	public static IRSubNodeGraph buildSubNodeGroupForRuleGroup(IRModel model, String ruleGroupName) throws RException {
 
 		IRNodeGraph nodeGraph = model.getNodeGraph();
@@ -280,81 +191,6 @@ public class ModelUtil {
 		for (IRReteNode node : subGraph.getAllNodes()) {
 			model.addUpdateNode(node);
 		}
-
-		return subGraph;
-	}
-
-	public static IRSubNodeGraph buildSubNodeGroupForSearch(IRModel model, IRReteNode queryNode) throws RException {
-
-		IRNodeGraph nodeGraph = model.getNodeGraph();
-
-		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
-
-		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
-
-		/******************************************************/
-		// Build source graph
-		/******************************************************/
-		LinkedList<QuerySourceEntry> visitStack = new LinkedList<>();
-		visitStack.add(new QuerySourceEntry(null, queryNode));
-		Set<IRReteNode> visitedNodes = new HashSet<>();
-
-		while (!visitStack.isEmpty()) {
-
-			QuerySourceEntry entry = visitStack.pop();
-			IRReteNode fromNode = entry.fromNode;
-			IRReteNode sourceNode = entry.sourceNode;
-
-			// ignore visited node
-			if (visitedNodes.contains(sourceNode)) {
-				continue;
-			}
-
-			visitedNodes.add(sourceNode);
-
-			if (sourceNode.getPriority() <= RETE_PRIORITY_DISABLED) {
-				continue;
-			}
-
-			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
-				continue;
-			}
-
-			int new_priority = RETE_PRIORITY_PARTIAL_MAX;
-			if (sourceNode != queryNode) {
-				new_priority = Math.min(sourceNode.getPriority(), fromNode.getPriority()) - 1;
-				if (new_priority < RETE_PRIORITY_PARTIAL_MIN) {
-					new_priority = RETE_PRIORITY_PARTIAL_MIN;
-				}
-			}
-
-			subGraph.addNode(sourceNode, new_priority);
-
-			if (sourceNode.getParentNodes() != null) {
-				for (IRReteNode newSrcNode : sourceNode.getParentNodes()) {
-					visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-				}
-			}
-
-			for (IRReteNode newSrcNode : nodeGraph.getBindFromNodes(sourceNode)) {
-				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-			}
-
-			for (IRReteNode newSrcNode : nodeGraph.listSourceNodes(sourceNode)) {
-				visitStack.add(new QuerySourceEntry(sourceNode, newSrcNode));
-			}
-		}
-
-		ModelUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
-
-			if (!subGraph.containNode(node)) {
-				subGraph.addNode(node, RETE_PRIORITY_PARTIAL_MIN);
-				visitStack.add(new QuerySourceEntry(null, node));
-				visitedNodes.add(node);
-			}
-
-			return false;
-		});
 
 		return subGraph;
 	}

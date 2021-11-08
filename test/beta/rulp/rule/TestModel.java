@@ -197,11 +197,10 @@ public class TestModel extends RuleTestBase {
 	@Test
 	void test_4_stmt_listener_alpha_1() {
 
-		ArrayList<IRList> stmts = new ArrayList<>();
-
 		_setup();
 		_test("(new model m)");
 
+		ArrayList<IRList> stmts = new ArrayList<>();
 		try {
 			_model("m").addStatementListener(RuleUtil.toCondList("'(?n typeof node)"), (stmt) -> {
 				stmts.add(stmt);
@@ -231,12 +230,11 @@ public class TestModel extends RuleTestBase {
 	@Test
 	void test_4_stmt_listener_alpha_2() {
 
-		ArrayList<IRList> stmts = new ArrayList<>();
-
 		_setup();
 		_test("(new model m)");
 		_test("(add-stmt m '(a typeof node))");
 
+		ArrayList<IRList> stmts = new ArrayList<>();
 		try {
 			_model("m").addStatementListener(RuleUtil.toCondList("'(?n typeof node)"), (stmt) -> {
 				stmts.add(stmt);
@@ -265,11 +263,10 @@ public class TestModel extends RuleTestBase {
 	@Test
 	void test_4_stmt_listener_root_1() {
 
-		ArrayList<IRList> stmts = new ArrayList<>();
-
 		_setup();
 		_test("(new model m)");
 
+		ArrayList<IRList> stmts = new ArrayList<>();
 		try {
 			_model("m").addStatementListener(RuleUtil.toCondList("'(?x ?y ?z)"), (stmt) -> {
 				stmts.add(stmt);
@@ -286,6 +283,49 @@ public class TestModel extends RuleTestBase {
 		try {
 			String out = RulpUtil.toString(RulpFactory.createList(stmts));
 			assertEquals("'('(a typeof node) '(b typeof node) '(c typeof node))", out);
+		} catch (RException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+
+		_mStatus(1, "m");
+		_oStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	void test_4_stmt_listener_rule_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if '(?a ?p ?b) '(?p p2 c) do (-> '(?b ?p ?a)))");
+
+		ArrayList<IRList> stmts = new ArrayList<>();
+		try {
+			_model("m").addStatementListener(RuleUtil.toCondList("'(?x typeof ?z)"), (stmt) -> {
+				stmts.add(stmt);
+			});
+		} catch (RException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+
+		_test("(add-stmt m '(a typeof b))");
+		_test("(add-stmt m '(typeof p2 c))");
+
+		try {
+			String out = RulpUtil.toString(RulpFactory.createList(stmts));
+			assertEquals("'('(a b))", out);
+		} catch (RException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+
+		_test("(start m)");
+
+		try {
+			String out = RulpUtil.toString(RulpFactory.createList(stmts));
+			assertEquals("'('(a b) '(b a))", out);
 		} catch (RException e) {
 			e.printStackTrace();
 			fail(e.toString());
