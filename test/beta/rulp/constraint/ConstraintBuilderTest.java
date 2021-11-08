@@ -44,7 +44,7 @@ class ConstraintBuilderTest extends RuleTestBase {
 
 	@Test
 	void test() {
-
+		_setup();
 		_test_match_indexs("", "", true);
 		_test_match_indexs("1", "1", true);
 		_test_match_indexs("1", "1,1", false);

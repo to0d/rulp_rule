@@ -215,6 +215,7 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_buildVarList() {
+		_setup();
 		_test_buildVarList("'(a ?x b)", "[?x]");
 		_test_buildVarList("'(a ?x ?y)", "[?x, ?y]");
 		_test_buildVarList("'(?y ?x ?y)", "[?y, ?x]");
@@ -223,7 +224,7 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_entry_uniqname() {
-
+		_setup();
 		_test_entry_uniqname("'(?p1 p2 c)", "?0 p2 c");
 		_test_entry_uniqname("'(?x ?x z)", "?0 ?0 z");
 		_test_entry_uniqname("'(?x ?y z)", "?0 ?1 z");
@@ -231,7 +232,7 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_getReteStatus() {
-
+		_setup();
 		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, DEFINE));
 		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, REASON));
 		assertEquals(DEFINE, ReteUtil.getReteStatus(DEFINE, ASSUME));
@@ -354,7 +355,7 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_matchUniqStmt() {
-
+		_setup();
 		_test_matchUniqStmt("'(a b c)", "'(?0 ?1 ?2)", true);
 		_test_matchUniqStmt("'(a a ?0)", "'(?0 ?1 ?2)", true);
 		_test_matchUniqStmt("'(a ?0 ?0)", "'(?0 ?1 ?2)", true);
@@ -376,7 +377,7 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_tree_uniqname() {
-
+		_setup();
 		_test_tree_uniqname("'('(?p1 p2 c) '(?x1 ?p1 ?x2))", "'('(?0 p2 c) '(?1 ?0 ?2))");
 
 		_test_tree_uniqname("'('('(?y ?p2 ?z) '('(a ?p1 b) '('(?x ?p1 b) '(?x ?p2 b)))))",
@@ -401,19 +402,19 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_tree_uniqname_with_expr() {
-
+		_setup();
 		_test_tree_uniqname("'('(?p1 p2 c) (not-equal ?p1 a))", "'('(?0 p2 c) (not-equal ?0 a))");
 	}
 
 	@Test
 	void test_tree_uniqname_with_var_expression() {
-
+		_setup();
 		_test_tree_uniqname("'('(?p1 p2 ?v) (var-changed ?s1 v1 ?v))", "'('(?0 p2 ?1) (var-changed ?s1 v1 ?1))");
 	}
 
 	@Test
 	void test_tree_uniqVarList() {
-
+		_setup();
 		_test_tree_uniqVarList("'('(?p1 p2 c) '(?x1 ?p1 ?x2))", "[?p1, ?x1, ?x2]");
 		_test_tree_uniqVarList("'('('(?y ?p2 ?z) '('(a ?p1 b) '('(?x ?p1 b) '(?x ?p2 b)))))", "[?y, ?p2, ?z, ?p1, ?x]");
 		_test_tree_uniqVarList("'('(?p1 ?p2 ?p3))", "[?p1, ?p2, ?p3]");
@@ -422,6 +423,7 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_updateMask() {
+		_setup();
 		assertEquals(1, ReteUtil.updateMask(DEFINE, 0));
 		assertEquals(2, ReteUtil.updateMask(REASON, 0));
 		assertEquals(4, ReteUtil.updateMask(ASSUME, 0));

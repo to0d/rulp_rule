@@ -44,6 +44,7 @@ class ModifiterUtilTest extends RulpTestBase {
 
 	@Test
 	void test_1() {
+		_setup();
 		_test_modifiter_list("'(type atom)", "[(type atom)]");
 		_test_modifiter_list("'(from '(a b))", "[(from '('(a b)))]");
 		_test_modifiter_list("'(limit 1)", "[(limit 1)]");
@@ -57,6 +58,7 @@ class ModifiterUtilTest extends RulpTestBase {
 
 	@Test
 	void test_2() {
+		_setup();
 		_test_modifiter_list("'(limit 1 type atom state defined)", "[(limit 1), (type atom), (state 1)]");
 	}
 }

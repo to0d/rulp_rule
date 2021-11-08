@@ -76,6 +76,8 @@ class OptimizeUtilTest extends RulpTestBase {
 	@Test
 	void test_optimize_expr() {
 
+		_setup();
+
 		_test_optimize_expr("a");
 		_test_optimize_expr("1");
 		_test_optimize_expr("1.1");
@@ -93,6 +95,9 @@ class OptimizeUtilTest extends RulpTestBase {
 
 	@Test
 	void test_optimize_rule() {
+
+		_setup();
+
 		_test_optimize_rule("'(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty)", "(-> '(?a nm:typeOf nm:tag))",
 				"'('(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty))", "'((-> '(?a nm:typeOf nm:tag)))");
 	}

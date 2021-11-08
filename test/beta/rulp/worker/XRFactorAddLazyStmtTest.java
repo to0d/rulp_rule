@@ -87,6 +87,8 @@ class XRFactorAddLazyStmtTest extends RuleTestBase {
 	@Test
 	public void test_4_variable_length_entry() {
 
+		_setup();
+
 		_test("(new model m)");
 		_test("(add-lazy-stmt m '(?n hasRelated ?key ?path) '('(a hasRelated k1 \"path 1\") "
 				+ "'(a hasRelated k2 \"path 2\") '(a hasRelated k3 \"path 3\") '(b hasRelated k2 \"path 4\")))");

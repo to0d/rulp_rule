@@ -48,6 +48,8 @@ class FixIndexArraylTest extends RuleTestBase {
 	@Test
 	void test1_def_cap() {
 
+		_setup();
+
 		FixIndexArray fa = new FixIndexArray(0);
 
 		{
@@ -90,6 +92,8 @@ class FixIndexArraylTest extends RuleTestBase {
 	@Test
 	void test2_expand() {
 
+		_setup();
+
 		FixIndexArray fa = new FixIndexArray(4);
 
 		{
@@ -131,6 +135,8 @@ class FixIndexArraylTest extends RuleTestBase {
 
 	@Test
 	void test3_two_list() {
+
+		_setup();
 
 		FixIndexArray fa = new FixIndexArray(4);
 

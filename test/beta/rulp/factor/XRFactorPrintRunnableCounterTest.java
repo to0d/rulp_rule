@@ -8,7 +8,7 @@ class XRFactorPrintRunnableCounterTest extends RuleTestBase {
 
 	@Test
 	void test_1() {
-
+		_setup();
 		_test("(new model m)");
 		_test("(add-stmt m '(a typeof node))");
 		_test("(add-stmt m '(b typeof node))");

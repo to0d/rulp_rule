@@ -176,7 +176,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 
 	@Test
 	void test_rule_beta3_5() {
-
+		_setup();
 		_test("(new model m)");
 
 		// Should be beta3

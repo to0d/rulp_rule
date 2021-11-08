@@ -398,20 +398,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.modelCounter = new XRRModelCounter(this);
 	}
 
+	protected IRRootNode _findRootNode(String namedName, int stmtLen) throws RException {
+		if (namedName == null) {
+			return nodeGraph.getRootNode(stmtLen);
+		} else {
+			return nodeGraph.getNamedNode(namedName, stmtLen);
+		}
+	}
+
 	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
 
 		if (!ReteUtil.isReteStmtNoVar(stmt)) {
 			throw new RException("not support stmt: " + stmt);
 		}
 
-		IRRootNode rootNode;
-		String namedName = stmt.getNamedName();
-		if (namedName == null) {
-			rootNode = nodeGraph.getRootNode(stmt.size());
-		} else {
-			rootNode = nodeGraph.getNamedNode(namedName, stmt.size());
-		}
-
+		IRRootNode rootNode = _findRootNode(stmt.getNamedName(), stmt.size());
 		_checkCache(rootNode);
 
 		return _addReteEntry(rootNode, stmt, toStatus);
@@ -846,14 +847,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		if (ReteUtil.getStmtVarCount(filter) == 0) {
 
-			IRRootNode rootNode = null;
-
-			if (filter.getNamedName() == null) {
-				rootNode = nodeGraph.getRootNode(filter.size());
-			} else {
-				rootNode = nodeGraph.getNamedNode(filter.getNamedName(), filter.size());
-			}
-
+			IRRootNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
 			_checkCache(rootNode);
 
 			String uniqName = ReteUtil.uniqName(filter);
@@ -1782,6 +1776,34 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public boolean tryAddStatement(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> tryAddStatement: " + stmt);
+		}
+
+//		RReteStatus status = _getNewStmtStatus();
+//
+//		int actualAddStmt = 0;
+//		while (stmtIterator.hasNext()) {
+//
+//			IRList stmt = stmtIterator.next();
+//			if (RuleUtil.isModelTrace()) {
+//				System.out.println("\t(" + stmt + ")");
+//			}
+//
+//			actualAddStmt += _addReteEntry(stmt, status);
+//		}
+//
+//		// active stmt listeners
+//		if (actualAddStmt > 0) {
+//			stmtListenUpdater.update(this);
+//		}
+
+		return false;
+	}
+
+	@Override
 	public IRRule removeRule(String ruleName) throws RException {
 		// TODO Auto-generated method stub
 		return null;
@@ -1904,13 +1926,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				nodeName = null;
 			}
 
-			IRRootNode node;
-			if (nodeName == null) {
-				node = this.nodeGraph.getRootNode(stmtLen);
-			} else {
-				node = this.nodeGraph.getNamedNode(nodeName, stmtLen);
-			}
-
+			IRRootNode node = _findRootNode(nodeName, stmtLen);
 			// cache has been created
 			if (node.getCacheWorker() != null) {
 				continue;
@@ -2067,12 +2083,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.isProcessing = false;
 			this.modelPriority = oldModelPriority;
 		}
-	}
-
-	@Override
-	public boolean tryAddStatement(IRList stmt) throws RException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

@@ -177,6 +177,7 @@ class AndOrTreeUtilTest extends RuleTestBase {
 
 	@Test
 	void test() {
+		_setup();
 		_test_all("(and A B)", "[(A B)]");
 		_test_all("(and (or A B) C)", "[(A C), (B C)]");
 		_test_all("(and (or A B) (or C D))", "[(A C), (A D), (B C), (B D)]");
