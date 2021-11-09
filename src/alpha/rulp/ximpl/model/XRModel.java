@@ -75,6 +75,7 @@ import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRRootNode;
+import alpha.rulp.ximpl.node.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRNodeGraph;
@@ -966,7 +967,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
-		IRSubNodeGraph subGraph = this.nodeGraph.buildSourceSubGroup(queryNode);
+		IRNodeSubGraph subGraph = this.nodeGraph.buildSourceSubGraph(queryNode);
 
 		/******************************************************/
 		// Invoke running

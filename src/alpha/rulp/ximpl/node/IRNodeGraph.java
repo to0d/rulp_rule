@@ -8,7 +8,6 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
-import alpha.rulp.ximpl.model.IRSubNodeGraph;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 
 public interface IRNodeGraph {
@@ -19,7 +18,7 @@ public interface IRNodeGraph {
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
 
-	public IRSubNodeGraph buildSourceSubGroup(IRReteNode queryNode) throws RException;
+	public IRNodeSubGraph buildSourceSubGraph(IRReteNode queryNode) throws RException;
 
 	public int doOptimize() throws RException;
 
@@ -52,5 +51,7 @@ public interface IRNodeGraph {
 	public List<? extends IRReteNode> listNodes(RReteType reteType);
 
 	public Collection<? extends IRReteNode> listSourceNodes(IRReteNode node) throws RException;
+
+	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException;
 
 }

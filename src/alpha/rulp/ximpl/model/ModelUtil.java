@@ -7,8 +7,6 @@ import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
 import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 
 import java.util.ArrayList;
@@ -32,7 +30,6 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -40,7 +37,6 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
-import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRRuleNode;
 
@@ -163,36 +159,6 @@ public class ModelUtil {
 		IRReteNode fromNode = model.getNodeGraph().addWorker(null, worker);
 		IRReteNode toNode = model.findNode(condList);
 		model.getNodeGraph().bindNode(fromNode, toNode);
-	}
-
-	public static IRSubNodeGraph buildSubNodeGroupForRuleGroup(IRModel model, String ruleGroupName) throws RException {
-
-		IRNodeGraph nodeGraph = model.getNodeGraph();
-		XRSubNodeGraph subGraph = new XRSubNodeGraph(nodeGraph);
-
-		IRList ruleList = ModelUtil.getRuleGroupRuleList(model, ruleGroupName);
-		if (ruleList.size() == 0) {
-			throw new RException("no rule found for group: " + ruleGroupName);
-		}
-
-		IRIterator<? extends IRObject> it = ruleList.iterator();
-		while (it.hasNext()) {
-			ModelUtil.travelReteParentNodeByPostorder(RuleUtil.asRule(it.next()), (node) -> {
-				if (!subGraph.containNode(node) && node.getPriority() < RETE_PRIORITY_MAXIMUM
-						&& node.getPriority() > RETE_PRIORITY_DISABLED) {
-					subGraph.addNode(node, RETE_PRIORITY_DEFAULT);
-				}
-				return false;
-			});
-		}
-
-		subGraph.disableAllOtherNodes(RETE_PRIORITY_DEFAULT, RETE_PRIORITY_DISABLED);
-
-		for (IRReteNode node : subGraph.getAllNodes()) {
-			model.addUpdateNode(node);
-		}
-
-		return subGraph;
 	}
 
 	public static void createModelVar(IRModel model, String varName, IRObject value) throws RException {

@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.model;
+package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 
@@ -9,10 +9,8 @@ import java.util.Map;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.RReteType;
 
-public class XRSubNodeGraph implements IRSubNodeGraph {
+public class XRNodeSubGraph implements IRNodeSubGraph {
 
 	static class QuerySourceInfo {
 		public IRReteNode node;
@@ -25,7 +23,7 @@ public class XRSubNodeGraph implements IRSubNodeGraph {
 
 	private Map<IRReteNode, QuerySourceInfo> sourceMap = new HashMap<>();
 
-	public XRSubNodeGraph(IRNodeGraph nodeGraph) {
+	public XRNodeSubGraph(IRNodeGraph nodeGraph) {
 		super();
 		this.nodeGraph = nodeGraph;
 	}

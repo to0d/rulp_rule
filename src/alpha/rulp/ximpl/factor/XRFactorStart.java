@@ -9,7 +9,6 @@ import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
-import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRunnable;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
@@ -18,9 +17,8 @@ import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.model.IRSubNodeGraph;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.model.ModelUtil;
+import alpha.rulp.ximpl.node.IRNodeSubGraph;
 
 public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -98,9 +96,9 @@ public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleF
 		/********************************************/
 		// Run as rule group
 		/********************************************/
-		IRSubNodeGraph subGraph = null;
+		IRNodeSubGraph subGraph = null;
 		if (ruleGroupName != null) {
-			subGraph = ModelUtil.buildSubNodeGroupForRuleGroup((IRModel) runObj, ruleGroupName);
+			subGraph = RuleUtil.asModel((IRObject) runObj).getNodeGraph().buildRuleGroupSubGraph(ruleGroupName);
 		}
 
 		try {
