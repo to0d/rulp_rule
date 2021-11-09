@@ -1,6 +1,5 @@
 package alpha.rulp.rule;
 
-import java.util.Collection;
 import java.util.List;
 
 import alpha.rulp.lang.IRInstance;
@@ -87,11 +86,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean isCacheEnable();
 
-// public IRIterator<? extends IRObject> listObjects() throws RException;
-
 	public List<? extends IRCacheWorker> listCacheWorkers();
-
-	public Collection<? extends IRReteNode> listSourceNodes(IRList condList) throws RException;
 
 	public List<? extends IRList> listStatements(IRList filter, int statusMask, int listCount) throws RException;
 
@@ -112,5 +107,4 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean tryAddStatement(IRList stmt) throws RException;
 
-//	public int updateStatements(IRList expr) throws RException;
 }

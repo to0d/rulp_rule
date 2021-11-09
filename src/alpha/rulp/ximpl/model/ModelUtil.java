@@ -10,6 +10,7 @@ import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -228,6 +229,10 @@ public class ModelUtil {
 		return RulpUtil.asList(RulpUtil.asVar(mbr.getValue()).getValue());
 	}
 
+	public static Collection<? extends IRReteNode> listSourceNodes(IRModel model, IRList condList) throws RException {
+		return model.getNodeGraph().listSourceNodes(model.findNode(condList));
+	}
+
 	public static int recalcuatePriority(IRModel model, IRReteNode node) throws RException {
 
 		int priority = 0;
@@ -312,5 +317,4 @@ public class ModelUtil {
 
 		return null;
 	}
-
 }

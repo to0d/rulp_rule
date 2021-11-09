@@ -15,6 +15,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.model.ModelUtil;
 
 class SourceNodesTest extends RuleTestBase {
 
@@ -28,7 +29,8 @@ class SourceNodesTest extends RuleTestBase {
 			IRExpr expr = RulpUtil.asExpression(objs.get(0));
 
 			List<String> uniqNames = new ArrayList<>();
-			for (IRReteNode node : _model("m").listSourceNodes(expr)) {
+
+			for (IRReteNode node : ModelUtil.listSourceNodes(_model("m"), expr)) {
 				uniqNames.add(node.getUniqName());
 			}
 
@@ -92,7 +94,7 @@ class SourceNodesTest extends RuleTestBase {
 		_expectSourceNames("('(?a ?b ?c))", "[]");
 		_expectSourceNames("(name1:'(?a ?b ?c))", "[R1]");
 	}
-	
+
 	@Test
 	void test_listSourceNodes_5() {
 

@@ -16,6 +16,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.ModelUtil;
 
 public class XRFactorListSourceNodes extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -37,7 +38,7 @@ public class XRFactorListSourceNodes extends AbsRFactorAdapter implements IRFact
 		IRModel model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
 		IRList condList = RulpUtil.asExpression(args.get(2));
 
-		List<IRReteNode> sourceNodes = new ArrayList<>(model.listSourceNodes(condList));
+		List<IRReteNode> sourceNodes = new ArrayList<>(ModelUtil.listSourceNodes(model, condList));
 		Collections.sort(sourceNodes, (n1, n2) -> {
 			return n1.getNodeName().compareTo(n2.getNodeName());
 		});
