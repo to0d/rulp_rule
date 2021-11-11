@@ -24,7 +24,6 @@ import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.entry.XREntryQueueEmpty;
 import alpha.rulp.ximpl.entry.XREntryQueueMulitEntryList;
 import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
-import alpha.rulp.ximpl.model.ModelUtil;
 
 public class RNodeFactory {
 
@@ -285,7 +284,7 @@ public class RNodeFactory {
 
 	public static IRReteNode createBeta3Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
-			InheritIndex[] inheritIndexs, IRConstraint1 matchNode) throws RException {
+			InheritIndex[] inheritIndexs) throws RException {
 
 		XRBeta3Node node = new XRBeta3Node();
 
@@ -320,11 +319,6 @@ public class RNodeFactory {
 
 		// Inherit Index
 		node.setInheritIndexs(inheritIndexs);
-
-		// match mode
-		if (matchNode != null) {
-			ModelUtil.addConstraint(model, node, matchNode);
-		}
 
 		return node;
 	}
@@ -367,7 +361,7 @@ public class RNodeFactory {
 	}
 
 	public static IRReteNode createExpr0Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IRReteNode parentNode, IRConstraint1 matchNode, IRObject[] varEntry) throws RException {
+			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRReteNode1 node = new XRReteNode1();
 
@@ -393,9 +387,6 @@ public class RNodeFactory {
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
 		parentNode.addChildNode(node);
 
-		// constant
-		ModelUtil.addConstraint(model, node, matchNode);
-
 		// var entry
 		node.setVarEntry(varEntry);
 
@@ -403,7 +394,7 @@ public class RNodeFactory {
 	}
 
 	public static IRReteNode createExpr1Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IRReteNode parentNode, IRConstraint1 matchNode, IRObject[] varEntry) throws RException {
+			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRReteNode1 node = new XRReteNode1();
 
@@ -429,9 +420,6 @@ public class RNodeFactory {
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
 		parentNode.addChildNode(node);
 
-		// constant
-		ModelUtil.addConstraint(model, node, matchNode);
-
 		// var entry
 		node.setVarEntry(varEntry);
 
@@ -439,7 +427,7 @@ public class RNodeFactory {
 	}
 
 	public static IRReteNode createExpr2Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IRReteNode parentNode, IRConstraint1 matchNode, IRObject[] varEntry) throws RException {
+			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRReteNode1 node = new XRReteNode1();
 
@@ -465,9 +453,6 @@ public class RNodeFactory {
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
 		parentNode.addChildNode(node);
 
-		// constant
-		ModelUtil.addConstraint(model, node, matchNode);
-
 		// var entry
 		node.setVarEntry(varEntry);
 
@@ -475,8 +460,7 @@ public class RNodeFactory {
 	}
 
 	public static IRReteNode createExpr3Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRConstraint1 matchNode,
-			IRObject[] varEntry) throws RException {
+			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRExprNode3 node = new XRExprNode3();
 
@@ -507,9 +491,6 @@ public class RNodeFactory {
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
 		parentNode.addChildNode(node);
-
-		// constant
-		ModelUtil.addConstraint(model, node, matchNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -551,8 +532,8 @@ public class RNodeFactory {
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
 		parentNode.addChildNode(node);
 
-		// constant
-		ModelUtil.addConstraint(model, node, matchNode);
+//		// constant
+//		ModelUtil.addConstraint(model, node, matchNode);
 
 		// var entry
 		node.setVarEntry(varEntry);

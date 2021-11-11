@@ -17,7 +17,6 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.model.ModelUtil;
 import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -94,7 +93,7 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 		/********************************************/
 		int updateCount = 0;
 		for (IRConstraint1 cons : constraintList) {
-			if (ModelUtil.addConstraint(model, node, cons)) {
+			if (model.getNodeGraph().addConstraint(node, cons)) {
 				updateCount++;
 			}
 		}

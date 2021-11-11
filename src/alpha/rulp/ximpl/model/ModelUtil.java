@@ -1,12 +1,8 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_Nil;
-import static alpha.rulp.rule.Constant.A_NOT_NULL;
-import static alpha.rulp.rule.Constant.A_Type;
-import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
-import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +19,6 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RAccessType;
 import alpha.rulp.lang.RException;
-import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRListener3;
 import alpha.rulp.rule.IRReteNode;
@@ -34,8 +29,6 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
-import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.node.RReteType;
 
@@ -70,32 +63,6 @@ public class ModelUtil {
 	}
 
 	private static AtomicInteger anonymousRuleActionIndex = new AtomicInteger(0);
-
-	public static boolean addConstraint(IRModel model, IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		IRInterpreter interpreter = model.getInterpreter();
-		IRFrame frame = model.getFrame();
-
-		switch (constraint.getConstraintName()) {
-		case A_Type:
-			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
-
-			// $cst_type$:'(?node ?index ?type)
-			interpreter.compute(frame,
-					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, model,
-							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
-							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
-							RType.toObject(typeConstraint.getColumnType())));
-			break;
-
-		case A_Uniq:
-		case A_NOT_NULL:
-		default:
-			break;
-		}
-
-		return node.addConstraint1(constraint);
-	}
 
 	public static IRRule addRule(IRModel model, String ruleName, String condExpr,
 			IRRListener3<IRList, IRRule, IRFrame> actioner) throws RException {
