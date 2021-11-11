@@ -9,7 +9,6 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.model.ModelUtil;
 
 public class XRFactorSetRulePriority extends AbsRFactorAdapter implements IRuleFactor {
 
@@ -26,7 +25,7 @@ public class XRFactorSetRulePriority extends AbsRFactorAdapter implements IRuleF
 
 		IRRule rule = RuleUtil.asRule(interpreter.compute(frame, args.get(1)));
 		int priority = RulpUtil.asInteger(interpreter.compute(frame, args.get(2))).asInteger();
-		ModelUtil.setRulePriority(rule, priority);
+		rule.getModel().getNodeGraph().setRulePriority(rule, priority);
 
 		return rule;
 	}

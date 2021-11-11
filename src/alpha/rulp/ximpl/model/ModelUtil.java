@@ -7,7 +7,6 @@ import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
 import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +38,6 @@ import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.node.RReteType;
-import alpha.rulp.ximpl.node.XRRuleNode;
 
 public class ModelUtil {
 
@@ -247,34 +245,33 @@ public class ModelUtil {
 		return priority;
 	}
 
-	public static void setRulePriority(IRRule rule, int priority) throws RException {
-
-		if (priority < 0 || priority > RETE_PRIORITY_MAXIMUM) {
-			throw new RException("Invalid priority: " + priority);
-		}
-
-		if (rule.getPriority() == priority) {
-			return;
-		}
-
-		XRRuleNode ruleNode = (XRRuleNode) rule;
-		ruleNode.setPriority(priority);
-
-		IRModel model = ruleNode.getModel();
-
-		/******************************************************/
-		// Update all rule node priority
-		/******************************************************/
-		ModelUtil.travelReteParentNodeByPostorder(ruleNode, (node) -> {
-
-			if (node.getReteType() != RReteType.ROOT0 && node != ruleNode) {
-				int newPriority = ModelUtil.recalcuatePriority(model, node);
-				node.setPriority(newPriority);
-			}
-
-			return false;
-		});
-	}
+//	public static void setRulePriority(IRRule rule, int priority) throws RException {
+//
+//		if (priority < 0 || priority > RETE_PRIORITY_MAXIMUM) {
+//			throw new RException("Invalid priority: " + priority);
+//		}
+//
+//		if (rule.getPriority() == priority) {
+//			return;
+//		}
+//
+//		XRRuleNode ruleNode = (XRRuleNode) rule;
+//		ruleNode.setPriority(priority);
+//
+//		IRModel model = ruleNode.getModel();
+//
+//		/******************************************************/
+//		// Update all rule node priority
+//		/******************************************************/
+//		ModelUtil.travelReteParentNodeByPostorder(ruleNode, (node) -> {
+//			if (node.getReteType() != RReteType.ROOT0 && node != ruleNode) {
+//				int newPriority = ModelUtil.recalcuatePriority(model, node);
+//				node.setPriority(newPriority);
+//			}
+//
+//			return false;
+//		});
+//	}
 
 	public static IRReteNode travelReteParentNodeByPostorder(IRReteNode node, IReteNodeVisitor visitor)
 			throws RException {

@@ -118,7 +118,7 @@ public class TestP2d extends RuleTestBase {
 
 		_test("(query-stmt p2d '(?x ?y) from '(?x nm:hasAliasTag ?y))", "'('(ta tb) '(ta tc))");
 		_test("(query-stmt p2d '(?x ?y) from '(?x nm:beAliasTo ?y))", "'('(tb ta) '(tc ta))");
-		_test("(query-stmt p2d '(?x) from '(?x nm:typeOf nm:tag))", "'('(tb) '(ta) '(tc))");
+		_test("(query-stmt p2d '(?x) from '(?x nm:typeOf nm:tag))", "'('(ta) '(tb) '(tc))");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
 		_test("(size-of (list-stmt p2d))", "164");

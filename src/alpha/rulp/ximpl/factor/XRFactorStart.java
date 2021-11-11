@@ -18,7 +18,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRNodeSubGraph;
+import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
 
 public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -103,17 +103,25 @@ public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleF
 
 		try {
 
+			/********************************************/
+			// Activate sub group
+			/********************************************/
+			if (subGraph != null) {
+				subGraph.activate(runObj.getPriority());
+			}
+
 			int step = runObj.start(priority, limit);
 			return RulpFactory.createInteger(step);
 
 		} finally {
 
 			/********************************************/
-			// Recovery all nodes' priority
+			// Recovery sub group
 			/********************************************/
 			if (subGraph != null) {
 				subGraph.rollback();
 			}
+
 		}
 
 	}

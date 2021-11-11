@@ -3,7 +3,6 @@ package alpha.rulp.ximpl.model;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MIN;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
@@ -73,7 +72,7 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.IRNodeSubGraph;
+import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.IRRootNode;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
@@ -584,6 +583,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
+	protected void _checkConflict(IRRootNode rootNode) throws RException {
+
+	}
+
 	@Override
 	protected void _delete() throws RException {
 
@@ -971,17 +974,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Invoke running
 		/******************************************************/
-		int oldModelPriority = this.modelPriority;
-		this.modelPriority = RETE_PRIORITY_PARTIAL_MIN;
+//		int oldModelPriority = this.modelPriority;
+//		this.modelPriority = RETE_PRIORITY_PARTIAL_MIN;
 		this.isProcessing = true;
 		this.activeUpdate++;
 		this._setRunState(RRunState.Running);
 
-		for (IRReteNode node : subGraph.getAllNodes()) {
-			if (node.getPriority() >= modelPriority) {
-				updateQueue.push(node);
-			}
-		}
+		/********************************************/
+		// Activate sub group
+		/********************************************/
+		subGraph.activate(this.getPriority());
 
 		try {
 
@@ -1032,7 +1034,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		} finally {
 
 			this.isProcessing = false;
-			this.modelPriority = oldModelPriority;
+//			this.modelPriority = oldModelPriority;
 			this._setRunState(RRunState.Partial);
 			subGraph.rollback();
 		}
@@ -1123,10 +1125,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		});
 
 		return count.get();
-	}
-
-	protected void _checkConflict(IRRootNode rootNode) throws RException {
-
 	}
 
 	@Override

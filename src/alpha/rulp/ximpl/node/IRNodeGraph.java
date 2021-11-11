@@ -12,11 +12,23 @@ import alpha.rulp.ximpl.model.IReteNodeMatrix;
 
 public interface IRNodeGraph {
 
+	public interface IRNodeSubGraph {
+
+		public List<IRReteNode> getSubNodes();
+
+		public void activate(int priority) throws RException;
+
+		public void rollback() throws RException;
+
+	}
+
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException;
 
 	public IRReteNode addWorker(String name, IRWorker worker) throws RException;
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
+
+	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException;
 
 	public IRNodeSubGraph buildSourceSubGraph(IRReteNode queryNode) throws RException;
 
@@ -34,9 +46,9 @@ public interface IRNodeGraph {
 
 	public IRNamedNode getNamedNode(String name, int stmtLen) throws RException;
 
-	public IRReteNode getNodeById(int nodeId);
+	public IRReteNode getNodeById(int nodeId);;
 
-	public IRReteNode getNodeByTree(IRList tree) throws RException;;
+	public IRReteNode getNodeByTree(IRList tree) throws RException;
 
 	public IReteNodeMatrix getNodeMatrix();
 
@@ -52,6 +64,8 @@ public interface IRNodeGraph {
 
 	public Collection<? extends IRReteNode> listSourceNodes(IRReteNode node) throws RException;
 
-	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException;
+	public void setNodePriority(IRReteNode node, int priority) throws RException;
+
+	public void setRulePriority(IRRule rule, int priority) throws RException;
 
 }

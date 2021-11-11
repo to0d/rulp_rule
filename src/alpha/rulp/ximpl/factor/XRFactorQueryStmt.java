@@ -25,7 +25,7 @@ import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
-import alpha.rulp.ximpl.node.IRNodeSubGraph;
+import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
 
 public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -178,13 +178,20 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 		try {
 
+			/********************************************/
+			// Activate sub group
+			/********************************************/
+			if (subGraph != null) {
+				subGraph.activate(model.getPriority());
+			}
+
 			model.query(resultQueue, fromList, queryLimit);
 			return RulpFactory.createList(resultQueue.getResultList());
 
 		} finally {
 
 			/********************************************/
-			// Recovery all nodes' priority
+			// Recovery sub group
 			/********************************************/
 			if (subGraph != null) {
 				subGraph.rollback();

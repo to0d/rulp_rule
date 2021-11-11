@@ -589,7 +589,7 @@ public class RNodeFactory {
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);
 
-		// Node Default Priority
+		// Node priority
 		node.setPriority(0);
 
 		return node;
@@ -624,7 +624,7 @@ public class RNodeFactory {
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);
 
-		// Node Default Priority
+		// Node priority
 		node.setPriority(RETE_PRIORITY_ROOT);
 
 		return node;

@@ -109,7 +109,7 @@ public class XRFactorAddRule extends AbsRFactorAdapter implements IRuleFactor {
 			/**************************************************/
 			if (ruleGroupName != null) {
 				ModelUtil.addRuleToGroup(model, rule, ruleGroupName);
-				ModelUtil.setRulePriority(rule, 0);
+				model.getNodeGraph().setRulePriority(rule, 0);
 			}
 
 			return rule;
