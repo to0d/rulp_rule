@@ -20,8 +20,9 @@ public interface IRNodeGraph {
 
 		public List<IRReteNode> getSubNodes();
 
-		public void rollback() throws RException;
+		public boolean isEmpty();
 
+		public void rollback() throws RException;
 	}
 
 	public void addAddConstraintListener(IRRListener2<IRReteNode, IRConstraint1> listener);
@@ -33,6 +34,8 @@ public interface IRNodeGraph {
 	public IRReteNode addWorker(String name, IRWorker worker) throws RException;
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
+
+	public IRNodeSubGraph buildConstraintCheckSubGraph(IRNamedNode rootNode) throws RException;
 
 	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException;
 
@@ -46,9 +49,9 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException;
 
-	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
+	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;;
 
-	public int getMaxRootStmtLen();;
+	public int getMaxRootStmtLen();
 
 	public IRNamedNode getNamedNode(String name, int stmtLen) throws RException;
 

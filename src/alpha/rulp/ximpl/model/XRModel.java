@@ -359,8 +359,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected IRInterpreter interpreter;
 
-	protected boolean isProcessing = false;
-
 	protected XRRListener2Adapter<IRReteNode, IRObject> loadNodeListener = null;
 
 	protected String modelCachePath = null;
@@ -384,6 +382,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected RNodeContext nodeContext = null;
 
 	protected final IRNodeGraph nodeGraph;
+
+	protected int processingLevel = 0;
 
 	protected final LinkedList<IRReteNode> restartingNodeList = new LinkedList<>();
 
@@ -613,8 +613,30 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
-	protected void _checkConflict(IRRootNode rootNode) throws RException {
+	protected void _checkConstraintConflict(IRNamedNode rootNode) throws RException {
 
+		/******************************************************/
+		// Build subgraph
+		/******************************************************/
+		IRNodeSubGraph subGraph = this.nodeGraph.buildConstraintCheckSubGraph(rootNode);
+		if (subGraph.isEmpty()) {
+			return;
+		}
+
+		/********************************************/
+		// Activate sub group
+		/********************************************/
+		subGraph.activate(this.getPriority());
+
+		this.processingLevel++;
+
+		try {
+			_run(-1);
+		} finally {
+			this.processingLevel--;
+			this._setRunState(RRunState.Partial);
+			subGraph.rollback();
+		}
 	}
 
 	@Override
@@ -699,7 +721,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	protected boolean _isInClosingPhase() {
-		return this.isProcessing && getRunState() == RRunState.Completed;
+		return this.processingLevel > 0 && getRunState() == RRunState.Completed;
 	}
 
 	protected List<IRReteEntry> _listAllStatements(int mask, int count) throws RException {
@@ -997,16 +1019,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		/******************************************************/
-		// Build source graph
+		// Build subgraph
 		/******************************************************/
 		IRNodeSubGraph subGraph = this.nodeGraph.buildSourceSubGraph(queryNode);
 
 		/******************************************************/
 		// Invoke running
 		/******************************************************/
-//		int oldModelPriority = this.modelPriority;
-//		this.modelPriority = RETE_PRIORITY_PARTIAL_MIN;
-		this.isProcessing = true;
+		this.processingLevel++;
 		this.activeUpdate++;
 		this._setRunState(RRunState.Running);
 
@@ -1063,11 +1083,94 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		} finally {
 
-			this.isProcessing = false;
-//			this.modelPriority = oldModelPriority;
+			this.processingLevel--;
 			this._setRunState(RRunState.Partial);
 			subGraph.rollback();
 		}
+	}
+
+	protected int _run(int maxStep) throws RException {
+
+		this.activeUpdate++;
+
+		int runTimes = 0;
+		int execTimes = 0;
+
+		RUN: for (; runTimes == 0 || _hasUpdateNode() || this.needRestart; ++runTimes) {
+
+			RRunState state = this.getRunState();
+
+			switch (state) {
+			// Something wrong
+			case Failed:
+			case Halting:
+				break RUN;
+
+			case Completed: // closing status
+			case Running: // working status
+				break;
+
+			case Runnable:
+			case Partial:
+				_setRunState(RRunState.Running);
+				break;
+
+			default:
+				throw new RException("unknown state: " + state);
+			}
+
+			// no more working nodes & need restart
+			if (!updateQueue.hasNext() && this.needRestart) {
+
+				for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
+					updateQueue.push(rootNode);
+				}
+
+				for (IRReteNode waitingNode : restartingNodeList) {
+					updateQueue.push(waitingNode);
+				}
+
+				restartingNodeList.clear();
+				this.needRestart = false;
+				_setRunState(RRunState.Running);
+				continue;
+			}
+
+			// need exit with runnable status
+			if (maxStep > 0 && runTimes >= maxStep) {
+				_setRunState(RRunState.Runnable, true);
+				break RUN;
+			}
+
+			IRReteNode node = _nextUpdateNode();
+			if (node != null) {
+
+				switch (node.getRunState()) {
+				case Completed:
+				case Runnable:
+				case Running:
+					++execTimes;
+					execute(node);
+					break;
+
+				// don't process 'Failed' or 'Halting' node
+				case Failed:
+				case Halting:
+					continue;
+
+				default:
+					throw new RException("unknown state: " + node.getRunState());
+				}
+			}
+
+			if (!updateQueue.hasNext()) {
+				_setRunState(RRunState.Completed);
+			}
+
+		} // while
+
+		return execTimes;
+
 	}
 
 	protected XRCacheWorker _setNodeCache(IRRootNode node, IRStmtLoader loader, IRStmtSaver saver, IRObject cacheKey)
@@ -1796,7 +1899,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/*****************************************************/
 		// Does not support query when running
 		/*****************************************************/
-		if (this.isProcessing) {
+		if (processingLevel > 0) {
 			throw new RException("Can't query, the model is running");
 		}
 
@@ -1982,7 +2085,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// the function must be called in model internal
 		// like rule action body
 		/*****************************************************/
-		if (this.isProcessing) {
+		if (processingLevel > 0) {
 
 			RRunState state = this.getRunState();
 			if (state == RRunState.Halting || state == RRunState.Runnable) {
@@ -1993,95 +2096,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return 0;
 		}
 
-		int oldModelPriority = this.modelPriority;
-
-		this.modelPriority = priority;
-		this.isProcessing = true;
 		this.needRestart = false;
-		this.activeUpdate++;
+		int oldModelPriority = this.modelPriority;
+		this.modelPriority = priority;
 
 		try {
-
-			int runTimes = 0;
-			int execTimes = 0;
-
-			RUN: for (; runTimes == 0 || _hasUpdateNode() || this.needRestart; ++runTimes) {
-
-				RRunState state = this.getRunState();
-
-				switch (state) {
-				// Something wrong
-				case Failed:
-				case Halting:
-					break RUN;
-
-				case Completed: // closing status
-				case Running: // working status
-					break;
-
-				case Runnable:
-				case Partial:
-					_setRunState(RRunState.Running);
-					break;
-
-				default:
-					throw new RException("unknown state: " + state);
-				}
-
-				// no more working nodes & need restart
-				if (!updateQueue.hasNext() && this.needRestart) {
-
-					for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
-						updateQueue.push(rootNode);
-					}
-
-					for (IRReteNode waitingNode : restartingNodeList) {
-						updateQueue.push(waitingNode);
-					}
-
-					restartingNodeList.clear();
-					this.needRestart = false;
-					_setRunState(RRunState.Running);
-					continue;
-				}
-
-				// need exit with runnable status
-				if (maxStep > 0 && runTimes >= maxStep) {
-					_setRunState(RRunState.Runnable, true);
-					break RUN;
-				}
-
-				IRReteNode node = _nextUpdateNode();
-				if (node != null) {
-
-					switch (node.getRunState()) {
-					case Completed:
-					case Runnable:
-					case Running:
-						++execTimes;
-						execute(node);
-						break;
-
-					// don't process 'Failed' or 'Halting' node
-					case Failed:
-					case Halting:
-						continue;
-
-					default:
-						throw new RException("unknown state: " + node.getRunState());
-					}
-				}
-
-				if (!updateQueue.hasNext()) {
-					_setRunState(RRunState.Completed);
-				}
-
-			} // while
-
-			return execTimes;
-
+			this.processingLevel++;
+			return _run(maxStep);
 		} finally {
-			this.isProcessing = false;
+			this.processingLevel--;
 			this.modelPriority = oldModelPriority;
 		}
 	}
@@ -2093,26 +2116,26 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> tryAddStatement: " + stmt);
 		}
 
-		RReteStatus status = _getNewStmtStatus();
+		try {
 
-		// no need verify, return succ
-		if (_addReteEntry(stmt, status) == 0) {
-			return true;
-		}
+			RReteStatus status = _getNewStmtStatus();
 
-		// verify
-		if (stmt.getNamedName() != null) {
-
-			try {
-				_checkConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
-			} catch (RConstraintConflict e) {
-				removeStatement(stmt);
-				return false;
+			// no need verify, return true
+			if (_addReteEntry(stmt, status) == 0) {
+				return true;
 			}
-		}
 
-		stmtListenUpdater.update(this);
-		return true;
+			// verify
+			if (stmt.getNamedName() != null) {
+				_checkConstraintConflict((IRNamedNode) _findRootNode(stmt.getNamedName(), stmt.size()));
+			}
+			stmtListenUpdater.update(this);
+			return true;
+
+		} catch (RConstraintConflict e) {
+			removeStatement(stmt);
+			return false;
+		}
 	}
 
 }
