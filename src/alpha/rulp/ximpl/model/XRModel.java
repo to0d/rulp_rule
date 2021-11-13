@@ -502,12 +502,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 			/*******************************************************/
 			IRConstraint1 cons = rootNode.unmatchConstraint(newEntry);
 			if (cons != null) {
+				entryTable.removeEntry(newEntry);
 				if (nodeContext == null) {
 					throw new RConstraintConflict(
 							String.format("Unable to add entry<%s> due to constraint<%s>", newEntry, cons), rootNode,
 							newEntry, cons);
 				} else {
-					entryTable.removeEntry(newEntry);
 					return false;
 				}
 			}
