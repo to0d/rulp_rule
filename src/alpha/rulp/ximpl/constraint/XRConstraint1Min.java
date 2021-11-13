@@ -9,20 +9,25 @@ import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Min extends AbsRConstraint1Index1 implements IRConstraint1 {
+public class XRConstraint1Min extends AbsRConstraint1Index1 implements IRConstraint1Min {
 
 	private String _constraintExpression = null;
 
-	private final IRObject maxValue;
+	private final IRObject minValue;
 
 	public XRConstraint1Min(int columnIndex, IRObject maxValue) {
 		super(columnIndex);
-		this.maxValue = maxValue;
+		this.minValue = maxValue;
 	}
 
 	@Override
 	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
-		return RulpUtil.computeRelationalExpression(RRelationalOperator.GE, entry.get(index), maxValue);
+		return RulpUtil.computeRelationalExpression(RRelationalOperator.GE, entry.get(index), minValue);
+	}
+
+	@Override
+	public int getColumnIndex() {
+		return index;
 	}
 
 	@Override
@@ -38,6 +43,11 @@ public class XRConstraint1Min extends AbsRConstraint1Index1 implements IRConstra
 	@Override
 	public String getConstraintName() {
 		return A_Min;
+	}
+
+	@Override
+	public IRObject getValue() {
+		return minValue;
 	}
 
 }

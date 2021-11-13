@@ -11,11 +11,11 @@
 Unable to add entry<n1:'(11)> due to constraint<max:'(max on 0)>
 at main: (add-stmt m n1:'(11))
 ;eof
-(list-stmt m)
+(list-stmt m from n1:'(?x))
 ;=>'(n1:'(1) n1:'(10))
 (remove-constraint m n1:'(1) '(? on ?))
 ;=>'('(max on 0))
 (add-stmt m n1:'(11))
 ;=>1
-(list-stmt m)
+(list-stmt m from n1:'(?x))
 ;=>'(n1:'(1) n1:'(10) n1:'(11))

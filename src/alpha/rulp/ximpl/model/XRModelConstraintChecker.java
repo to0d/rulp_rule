@@ -6,6 +6,9 @@ import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
@@ -14,10 +17,18 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1Max;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
+import alpha.rulp.ximpl.constraint.IRConstraint1Min;
 
 public class XRModelConstraintChecker implements IRRListener2<IRReteNode, IRConstraint1> {
 
+	static final String F_CST_ADD_CONSTRAINT_MAX = "add_cst_constraint_max";
+
+	static final String F_CST_ADD_CONSTRAINT_MIN = "add_cst_constraint_min";
+
+	static final String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
+	private Map<String, IRAtom> atomMap = new HashMap<>();
 	private XRModel model;
 
 	public XRModelConstraintChecker(XRModel model) {
@@ -25,15 +36,43 @@ public class XRModelConstraintChecker implements IRRListener2<IRReteNode, IRCons
 		this.model = model;
 	}
 
-	static final String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
+	protected void _addMaxConstraint(IRReteNode node, IRConstraint1Max constraint) throws RException {
 
-	private IRAtom atomAddCstConstraintType = null;
+		// $cst_max$:'(?node ?index ?value)
+		model.getInterpreter().compute(model.getFrame(),
+				RulpFactory.createExpression(_getAtom(F_CST_ADD_CONSTRAINT_MAX), model,
+						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
+						RulpFactory.createInteger(constraint.getColumnIndex()), constraint.getValue()));
+	}
 
-	public IRAtom getAtomAddCstConstraintType() {
-		if (atomAddCstConstraintType == null) {
-			atomAddCstConstraintType = RulpFactory.createAtom(F_CST_ADD_CONSTRAINT_TYPE);
+	protected void _addMinConstraint(IRReteNode node, IRConstraint1Min constraint) throws RException {
+
+		// $cst_max$:'(?node ?index ?value)
+		model.getInterpreter().compute(model.getFrame(),
+				RulpFactory.createExpression(_getAtom(F_CST_ADD_CONSTRAINT_MIN), model,
+						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
+						RulpFactory.createInteger(constraint.getColumnIndex()), constraint.getValue()));
+	}
+
+	protected void _addTypeConstraint(IRReteNode node, IRConstraint1Type constraint) throws RException {
+
+		// $cst_type$:'(?node ?index ?type)
+		model.getInterpreter().compute(model.getFrame(),
+				RulpFactory.createExpression(_getAtom(F_CST_ADD_CONSTRAINT_TYPE), model,
+						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
+						RulpFactory.createInteger(constraint.getColumnIndex()),
+						RType.toObject(constraint.getColumnType())));
+	}
+
+	protected IRAtom _getAtom(String name) {
+
+		IRAtom atom = atomMap.get(name);
+		if (atom == null) {
+			atom = RulpFactory.createAtom(name);
+			atomMap.put(name, atom);
 		}
-		return atomAddCstConstraintType;
+
+		return atom;
 	}
 
 	@Override
@@ -41,19 +80,17 @@ public class XRModelConstraintChecker implements IRRListener2<IRReteNode, IRCons
 
 		switch (constraint.getConstraintName()) {
 		case A_Type:
-
-			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
-
-			// $cst_type$:'(?node ?index ?type)
-			model.getInterpreter().compute(model.getFrame(),
-					RulpFactory.createExpression(getAtomAddCstConstraintType(), model,
-							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
-							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
-							RType.toObject(typeConstraint.getColumnType())));
+			_addTypeConstraint(node, (IRConstraint1Type) constraint);
 			break;
+
 		case A_Max:
+			_addMaxConstraint(node, (IRConstraint1Max) constraint);
+			break;
 
 		case A_Min:
+			_addMinConstraint(node, (IRConstraint1Min) constraint);
+			break;
+
 		case A_Uniq:
 		case A_NOT_NULL:
 		default:

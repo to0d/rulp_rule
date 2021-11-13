@@ -256,7 +256,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       74        0
+     Interpreter call id/level:       76        0
              CPS support/count:    false        0
                Frame max level:        5
                   Frame max id:        6
@@ -267,48 +267,48 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       73
+    factor:       75
 ==========================================================================================================================
 
-Callable stats info: callId=74, row=14, column=38(2), value-max=2, value-unit=2^x
+Callable stats info: callId=76, row=14, column=39(2), value-max=2, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         12222222222222222222222222222222.22321 max=3, unit=2^x
+   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.22321 max=3, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     43    0 defun                              22222222222112212122121  1 2      
-    root   factor      7    0 alias                          1221                        1         
-    root   factor      6    0 defclass                                       1  1 1  1 1   1       
-    root   factor      3    0 deftemplate                                               21         
-    root   factor      3    0 defmacro                                      1             11       
-  system   factor      2    0 list-stmt                                                         11 
-  system   factor      2    0 add-rule                                                        11   
-  system   factor      1    0 state-of                                                           1 
-  system   factor      1    0 start                                                             1  
-  system   factor      1    0 remove-stmt                                                       1  
-    root   factor      1    0 new                                                             1    
-  system   factor      1    0 gc-model                                                            1
-    root   factor      1    0 defvar                            1                                  
-  system   factor      1    0 add-stmt                                                         1   
+    root   factor     45    0 defun                              22222222222112212122121  1 22      
+    root   factor      7    0 alias                          1221                        1          
+    root   factor      6    0 defclass                                       1  1 1  1 1   1        
+    root   factor      3    0 deftemplate                                               21          
+    root   factor      3    0 defmacro                                      1             11        
+  system   factor      2    0 list-stmt                                                          11 
+  system   factor      2    0 add-rule                                                         11   
+  system   factor      1    0 state-of                                                            1 
+  system   factor      1    0 start                                                              1  
+  system   factor      1    0 remove-stmt                                                        1  
+    root   factor      1    0 new                                                              1    
+  system   factor      1    0 gc-model                                                             1
+    root   factor      1    0 defvar                            1                                   
+  system   factor      1    0 add-stmt                                                          1   
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1011            0         1011
-      string:           29            0           29
-        list:           46            0           46
-        expr:          521            0          521
+        atom:         1083            0         1083
+      string:           37            0           37
+        list:           54            0           54
+        expr:          545            0          545
        array:            1            0            1
          var:           23            0           23
-        func:          104            0          104
+        func:          106            0          106
     template:            1            0            1
        macro:            3            0            3
     instance:            2            0            2
        class:            6            0            6
-      member:          160            0          160
+      member:          162            0          162
        frame:            3            1            2
  interpreter:            1            0
-  frameEntry:          250            0
+  frameEntry:          252            0
       lambda:            0            0
 ==========================================================================================================================
 
