@@ -74,6 +74,14 @@
                (error add-constraint-fail (+ "type-constraint:'(" ?node " " ?index " " ?type "), " ?c))  limit 1)
 )
 
+(defun add_cst_constraint_max ((?m model) (?node string) ?index (?value int))
+    (init_cst_rule ?m)        
+    (add-stmt ?m $cst_max$:'(?node ?index ?value))
+    (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
+            do (remove-stmt ?m $cst_max$:'(?node ?index ?value)) 
+               (error add-constraint-fail (+ "type-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
+)
+
 
 ;;(defun add_cst_constraint_index_1 ((?m model) (?node string) ?index ?cst_type)
 ;;    (init_cst_rule ?m)        

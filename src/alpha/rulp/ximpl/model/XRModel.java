@@ -4,7 +4,7 @@ import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
-import static alpha.rulp.rule.Constant.O_CST_ADD_CONSTRAINT_TYPE;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import alpha.rulp.error.RConstraintConflict;
+import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRClass;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;
@@ -403,31 +404,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		super(rclass, modelName, frame);
 		this.nodeGraph = new XRNodeGraph(this, entryTable);
 		this.modelCounter = new XRRModelCounter(this);
-		this.nodeGraph.addAddConstraintListener((n, c) -> {
-			_addConstraintAction(n, c);
-		});
-	}
-
-	protected void _addConstraintAction(IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		switch (constraint.getConstraintName()) {
-		case A_Type:
-
-			IRConstraint1Type typeConstraint = (IRConstraint1Type) constraint;
-
-			// $cst_type$:'(?node ?index ?type)
-			interpreter.compute(getFrame(),
-					RulpFactory.createExpression(O_CST_ADD_CONSTRAINT_TYPE, this,
-							RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
-							RulpFactory.createInteger(typeConstraint.getColumnIndex()),
-							RType.toObject(typeConstraint.getColumnType())));
-			break;
-
-		case A_Uniq:
-		case A_NOT_NULL:
-		default:
-			break;
-		}
+		this.nodeGraph.addAddConstraintListener(new XRModelConstraintChecker(this));
 	}
 
 	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {

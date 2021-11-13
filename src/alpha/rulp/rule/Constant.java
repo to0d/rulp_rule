@@ -82,7 +82,7 @@ public interface Constant {
 	String A_Type = "type";
 
 	String A_Uniq = "uniq";
-	
+
 	String A_One_Of = "one-of";
 
 	String A_VIEW = "view";
@@ -102,14 +102,12 @@ public interface Constant {
 	String F_ADD_RULE = "add-rule";
 
 	String F_ADD_STMT = "add-stmt";
-	
+
 	String F_TRY_ADD_STMT = "try-add-stmt";
 
 	String F_ASSUME_STMT = "assume-stmt";
 
 	String F_CREATE = "create";
-
-	String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
 
 	String F_DEF_QUERY_COUNTER = "def-query-counter";
 
@@ -190,8 +188,6 @@ public interface Constant {
 	IRAtom O_Assumed = RulpFactory.createAtom(A_Assumed);
 
 	IRAtom O_Completed = RulpFactory.createAtom(A_Completed);
-
-	IRAtom O_CST_ADD_CONSTRAINT_TYPE = RulpFactory.createAtom(F_CST_ADD_CONSTRAINT_TYPE);
 
 	IRAtom O_Defined = RulpFactory.createAtom(A_Defined);
 
