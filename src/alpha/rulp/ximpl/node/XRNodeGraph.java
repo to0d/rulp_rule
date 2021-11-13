@@ -1013,13 +1013,15 @@ public class XRNodeGraph implements IRNodeGraph {
 			visitedNodes.add(node);
 
 			List<IRReteNode> affectNodes = affectNodeMap.get(node);
-			if (affectNodes == null) {
+			if (affectNodes != null) {
+				subGraph.addNode(node);
+				visitStack.addAll(affectNodes);
 				continue;
 			}
 
-			subGraph.addNode(node);
-
-			visitStack.addAll(affectNodes);
+			if (node.getReteType() == RReteType.NAME0 && node.getConstraint1Count() > 0) {
+				subGraph.addNode(node);
+			}
 		}
 
 		for (IRReteNode node : new ArrayList<>(subGraph.subNodeList)) {

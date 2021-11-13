@@ -379,6 +379,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected boolean needRestart = false;
 
+	protected int tryLevel = 0;
+
 	protected RNodeContext nodeContext = null;
 
 	protected final IRNodeGraph nodeGraph;
@@ -503,7 +505,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			IRConstraint1 cons = rootNode.unmatchConstraint(newEntry);
 			if (cons != null) {
 				entryTable.removeEntry(newEntry);
-				if (nodeContext == null) {
+				if (nodeContext == null || this.tryLevel > 0) {
 					throw new RConstraintConflict(
 							String.format("Unable to add entry<%s> due to constraint<%s>", newEntry, cons), rootNode,
 							newEntry, cons);
@@ -2118,6 +2120,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		try {
 
+			this.tryLevel++;
+
 			RReteStatus status = _getNewStmtStatus();
 
 			// no need verify, return true
@@ -2134,6 +2138,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		} catch (RConstraintConflict e) {
 			removeStatement(stmt);
+			this.tryLevel--;
 			return false;
 		}
 	}
