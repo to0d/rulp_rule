@@ -398,7 +398,7 @@ beta.rulp.rule.TestRule:test_6_var_expr_2:1-mStatus:sc=[0,1], a0=[1,1,1,99,1,0,0
 beta.rulp.rule.TestRule:test_6_var_expr_3:1-mStatus:sc=[0,1,1,0,0,0,0,0,1], a0=[1,1,1,99,2,0,0,2,2,0,2/0,1,1], e3=[1,0,2,99,2,0,0,2,2,0,2/0,0,2], ru=[1,0,3,99,2,0,0,0,2,1],
 beta.rulp.rule.TestRule:test_6_var_expr_4:1-mStatus:sc=[0,1,1,0,0,0,0,0,1], a0=[1,1,1,99,2,0,0,2,2,0,2/0,1,1], e0=[1,0,2,99,2,0,0,2,2,0,2/0,1,1], ru=[1,0,3,99,2,0,0,0,2,1],
 beta.rulp.rule.TestRule:test_6_var_expr_5:1-mStatus:sc=[0,1,2], a0=[1,0,1,99,3,0,0,3,3,0,3/0,1,2], e0=[1,0,2,99,3,0,0,3,2,0,2/0,1,1], e2=[1,0,3,99,2,0,0,2,2,0,2/0,1,1], ru=[1,0,4,99,2,0,0,0,2],
-beta.rulp.rule.TestRule:test_6_var_expr_6:1-mStatus:sc=[], n0=[0,2,4,1], e0=[1,0,1,99,1,0,0,4,2,0,2/0,2], ru=[1,0,2,99,1,0,0,0,2],
+beta.rulp.rule.TestRule:test_6_var_expr_6:1-mStatus:sc=[], n0=[0,2,4,2], e0=[1,0,1,99,1,0,0,4,2,0,2/0,2], ru=[1,0,2,99,1,0,0,0,2],
 beta.rulp.rule.TestRule:test_6_var_expr_7:1-mStatus:sc=[], n0=[0,1,2,1], ru=[1,0,1,99,1,0,0,0,2],
 beta.rulp.rule.TestRule:test_6_var_expr_8:1-mStatus:sc=[], n0=[0,2,1,5,3], vc=[1, 0, 0, 2, 1], a1=[1,0,1,99,2,1,0,1,1,0,1/0,0,0,0,0,1], b1=[1,0,2,99,3,2,0,1,1,0,1/0,0,1], ru=[1,0,3,99,3,2,0,0,1],
 beta.rulp.rule.TestRule:test_7_null_expr_1:1-mStatus:sc=[0,1,1], a0=[1,0,1,99,1,0,0,1,1,0,1/0,1], e0=[1,0,2,99,1,0,0,1,1,0,1/0,1], ru=[1,0,3,99,1,0,0,0,1],

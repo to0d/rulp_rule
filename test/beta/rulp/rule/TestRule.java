@@ -475,8 +475,7 @@ public class TestRule extends RuleTestBase {
 		_test("(add-stmt m name1:'(f2 9))");
 
 		_test("(start m)");
-		_test("(list-stmt m)",
-				"'(name1:'(f1 1) name1:'(f1 9) name1:'(f2 1) name1:'(f2 9) name2:'(f1 9) name2:'(f2 1))");
+		_test("(list-stmt m from name2:'(?...))", "'(name2:'(f1 9) name2:'(f2 1))");
 
 		_mStatus(1, "m");
 		_saveTest();

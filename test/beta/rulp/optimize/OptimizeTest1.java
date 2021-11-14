@@ -16,7 +16,6 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(start m)", "0");
 		_test("(state-of m)", "completed");
 
-//		System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
@@ -32,7 +31,6 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(start m)", "0");
 		_test("(state-of m)", "completed");
 
-//		System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
@@ -42,7 +40,7 @@ public class OptimizeTest1 extends RuleTestBase {
 	void test_bad_expr_2_equal_1() {
 
 		_setup();
-		_test_script("result/optimize/OptimizeTest1/test_bad_expr_2_equal_1.rulp");
+		_test_script();
 	}
 
 	@Test
@@ -79,8 +77,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
-
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_beta_join_same_node_1.txt");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -96,8 +93,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
-
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_beta_join_same_node_2.txt");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -111,8 +107,8 @@ public class OptimizeTest1 extends RuleTestBase {
 				"RR5");
 		_test("(start m)", "0");
 		_test("(state-of m)", "completed");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_equal_1.txt");
 
+		_statsInfo("m");
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
@@ -124,7 +120,8 @@ public class OptimizeTest1 extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-rule m if '(?a ?p ?b) (equal p1 ?p) (equal p2 ?p) do (remove-stmt ?0))", "RU000");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_equal_2.txt");
+
+		_statsInfo("m");
 	}
 
 	@Test
@@ -133,7 +130,8 @@ public class OptimizeTest1 extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-rule m if n1:'(?a ?p ?b) (equal p1 ?p) (equal p2 ?p) do (remove-stmt ?0))", "RU000");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_equal_3_named.txt");
+
+		_statsInfo("m");
 	}
 
 	@Test
@@ -145,13 +143,11 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(add-rule \"RR5\" m if '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) (not (equal nm:hasRelation ?p)) do (remove-stmt ?0))");
 		_test("(start m)", "0");
 		_test("(state-of m)", "completed");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_not_equal_1_orignal.txt");
 
+		_statsInfo("m");
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
-
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
 	}
 
 	@Test
@@ -163,8 +159,8 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(add-rule \"RR5\" m if '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not-equal nm:hasAutoRelatedTag ?p) (not-equal nm:hasRelation ?p) do (remove-stmt ?0))");
 		_test("(start m)", "0");
 		_test("(state-of m)", "completed");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_not_equal_2.txt");
 
+		_statsInfo("m");
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
@@ -180,8 +176,8 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(add-rule \"RR5\" m if '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) (not (equal nm:hasRelation ?p)) do (remove-stmt ?0))");
 		_test("(start m)", "0");
 		_test("(state-of m)", "completed");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_not_equal_3.txt");
 
+		_statsInfo("m");
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
@@ -200,8 +196,8 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(start m)", "8");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a p1 b) '(a pauto b) '(px of tr))");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_not_equal_4.txt");
 
+		_statsInfo("m");
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
@@ -218,8 +214,8 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(start m)", "20");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a3 p3 b3) '(a3 p2 b3) '(a3 p4 b3))");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_not_equal_5.txt");
 
+		_statsInfo("m");
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
@@ -236,8 +232,8 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(start m)", "20");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a2 p2 b2) '(b2 p2 a2) '(a2 p4 b2) '(b2 p4 a2))");
-		_statsInfo("m", "result/optimize/OptimizeTest1/test_not_equal_6.txt");
 
+		_statsInfo("m");
 		_mStatus(1, "m");
 		_oStatus(1, "m");
 		_saveTest();
