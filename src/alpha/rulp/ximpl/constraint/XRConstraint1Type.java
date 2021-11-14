@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_Type;
+import static alpha.rulp.rule.Constant.*;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -44,8 +44,8 @@ public class XRConstraint1Type extends AbsRConstraint1Index1 implements IRConstr
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s %s on %d)", A_Type, RType.toObject(columnType).asString(),
-					index);
+			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(),
+					RType.toObject(columnType).asString(), index);
 		}
 
 		return _constraintExpression;

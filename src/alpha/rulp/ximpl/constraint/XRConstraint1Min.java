@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_Min;
+import static alpha.rulp.rule.Constant.*;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -34,7 +34,7 @@ public class XRConstraint1Min extends AbsRConstraint1Index1 implements IRConstra
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s on %d)", A_Min, index);
+			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(), minValue, index);
 		}
 
 		return _constraintExpression;

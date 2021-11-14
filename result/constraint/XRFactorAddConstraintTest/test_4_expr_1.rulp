@@ -6,7 +6,7 @@
 ;=>1
 (add-stmt m name1:'(b 1))
 ;err:
-Unable to add entry<name1:'(b 1)> due to constraint<expr:(> ?y 1)>
+Unable to add entry<name1:'(b 1)> due to constraint<(> ?y 1)>
 at main: (add-stmt m name1:'(b 1))
 ;eof
 (list-stmt m)

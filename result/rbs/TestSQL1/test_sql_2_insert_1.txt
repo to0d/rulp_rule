@@ -58,16 +58,16 @@ node info4:
 ========================================================================================================================================================
  NODE[n]  Update   Fail   Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-N0001[2]       3      0   C1:type:'(type string on 0)
-                          C1:type:'(type int on 1)
-N0007[4]       7      0   C1:type:'(type string on 0)
-                          C1:type:'(type string on 1)
-                          C1:type:'(type int on 2)
-N0009[3]       1      0   C1:type:'(type int on 0)
-                          C1:type:'(type bool on 1)
-                          C1:type:'(type float on 2)
-A0008[2]       1      2   C1:equal-value:(equal ?0 t1)
-E1004[4]       0      8   C1:not-equal-index:(not-qual a::?2 b::?3)
+N0001[2]       3      0   C1:'(type string on ?0)
+                          C1:'(type int on ?1)
+N0007[4]       7      0   C1:'(type string on ?0)
+                          C1:'(type string on ?1)
+                          C1:'(type int on ?2)
+N0009[3]       1      0   C1:'(type int on ?0)
+                          C1:'(type bool on ?1)
+                          C1:'(type float on ?2)
+A0008[2]       1      2   C1:(equal-value ?0 t1)
+E1004[4]       0      8   C1:(not-equal-index L::?2 R::?3)
 ========================================================================================================================================================
 
 node info5: action
@@ -246,13 +246,13 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      270
+    factor:      276
       func:       42
 ==========================================================================================================================
 
-Callable stats info: callId=72, row=42, column=37(2), value-max=29, value-unit=2^x
+Callable stats info: callId=72, row=43, column=37(2), value-max=29, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.597 max=205, unit=2^x
+   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.597 max=211, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor     47    0 defun                              22222222222112212122121  1 22 2  
     root   factor     34    0 return                                                            64
@@ -274,14 +274,15 @@ Callable stats info: callId=72, row=42, column=37(2), value-max=29, value-unit=2
     root   factor      6    0 get-of-list                                                       4 
   system funcList      6    1 get                                                               4 
     root   factor      6    0 defclass                                       1  1 1  1 1   1      
+    root   factor      6    0 +                                                                 4 
   system template      5    1 use                                                              122
     root   factor      5    0 frame-of                                                         122
     root   factor      5    0 add_search_frame                                                 122
     root   factor      4    0 not                                                               31
+    root   factor      3    0 to-atom                                                           3 
   system   factor      3    0 set-default-model                                                 21
     root   factor      3    0 defmacro                                      1             11      
   system   factor      3    0 add-node                                                          3 
-    root   factor      3    0 +                                                                 3 
     root   factor      2    0 to-string                                                         11
     main   member      2    0 rbs::init-sql-schema                                              11
     main   member      2    0 rbs::has-sql-table-names                                          11
@@ -302,11 +303,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1346            0         1346
+        atom:         1351            0         1351
        float:            1            0            1
-      string:           68            0           68
+      string:           72            0           72
         list:          129            0          129
-        expr:          757            0          757
+        expr:          759            0          759
        array:            2            0            2
          var:          141          117           24
         func:          112            0          112

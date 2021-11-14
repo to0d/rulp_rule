@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_One_Of;
+import static alpha.rulp.rule.Constant.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +45,7 @@ public class XRConstraint1OneOf extends AbsRConstraint1Index1 implements IRConst
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("(%s ?%d %s)", A_One_Of, index, "" + valueList);
+			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(), "" + valueList, index);
 		}
 
 		return _constraintExpression;

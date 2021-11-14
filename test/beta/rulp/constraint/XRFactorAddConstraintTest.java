@@ -29,7 +29,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m name3:'(? ?y ?) '(type bool on ?y))", "1");
 		_test("(add-constraint m name4:'(? ?y ?) '(type atom on ?y))", "1");
 		_test("(add-constraint m name4:'(? ? ?z) '(type string on ?z))", "1");
-		_test("(add-constraint m name5:'(?...)   '(type string on 2))", "1");
+		_test("(add-constraint m name5:'(?...)   '(type string on ?2))", "1");
 		_test("(add-constraint m name5:'(?x ?y ?z) '(uniq on '(?x ?y)))", "1");
 
 		_test("(add-constraint m name6:'(?x ?y ?z) (!= ?x nil))", "1");
@@ -118,6 +118,14 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 
 	@Test
 	void test_6_max_1() {
+
+		_setup();
+		_test_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_6_max_2_remove_dup() {
 
 		_setup();
 		_test_script();

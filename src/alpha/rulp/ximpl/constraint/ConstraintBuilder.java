@@ -26,6 +26,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.StringUtil;
 import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class ConstraintBuilder {
@@ -268,26 +269,25 @@ public class ConstraintBuilder {
 
 	private int _getColumnIndex(IRObject obj) throws RException {
 
-		if (obj.getType() == RType.INT) {
-			return RulpUtil.asInteger(obj).asInteger();
-
-		} else if (obj.getType() == RType.ATOM) {
-
-			String columnName = RulpUtil.asAtom(obj).getName();
-			if (columnName.equals(S_QUESTION)) {
-				return -1;
-			}
-
-			if (!varIndexMap.containsKey(columnName)) {
-				throw new RException("invalid column: " + obj);
-			}
-
-			return varIndexMap.get(columnName);
-
-		} else {
-
+		if (obj.getType() != RType.ATOM) {
 			throw new RException("Invalid column: " + obj);
 		}
+
+		String columnName = RulpUtil.asAtom(obj).getName();
+		if (columnName.equals(S_QUESTION)) {
+			return -1;
+		}
+
+		if (varIndexMap.containsKey(columnName)) {
+			return varIndexMap.get(columnName);
+		}
+
+		String varName = columnName.substring(1);
+		if (StringUtil.isNumber(varName)) {
+			return Integer.valueOf(varName);
+		}
+
+		throw new RException("invalid column: " + obj);
 	}
 
 	private Set<String> _matchConstraint(RConstraint cons, IRNamedNode node) throws RException {

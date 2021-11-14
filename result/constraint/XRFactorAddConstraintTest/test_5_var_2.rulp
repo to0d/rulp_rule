@@ -7,4 +7,4 @@
 (add-constraint m (to-named-list ?node '(?table ?column ?index ?type)) '(type string on ?table))
 ;=>1
 (list-constraint m name1:'(?...))
-;=>'('(type string on 0))
+;=>'('(type string on ?0))

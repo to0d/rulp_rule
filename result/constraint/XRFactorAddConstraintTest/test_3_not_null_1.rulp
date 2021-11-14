@@ -8,13 +8,13 @@
 ;=>1
 (add-stmt m name1:'(nil c))
 ;err:
-Unable to add entry<name1:'(nil c)> due to constraint<not-null:'(not-null ?0)>
+Unable to add entry<name1:'(nil c)> due to constraint<'(not-null on ?0)>
 at main: (add-stmt m name1:'(nil c))
 ;eof
 (list-stmt m)
 ;=>'(name1:'(a b))
 (remove-constraint m name1:'(2) '(? on ?))
-;=>'('(not-null ?0))
+;=>'('(not-null on ?0))
 (add-stmt m name1:'(nil c))
 ;=>1
 (list-stmt m)

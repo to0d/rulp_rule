@@ -1,5 +1,7 @@
 (new model m)
 ;=>m
+(add-constraint m n1:'(?x) '(max 20 on ?x))
+;=>1
 (add-constraint m n1:'(?x) '(max 10 on ?x))
 ;=>1
 (add-stmt m n1:'(1))
@@ -14,7 +16,7 @@ at main: (add-stmt m n1:'(11))
 (list-stmt m from n1:'(?x))
 ;=>'(n1:'(1) n1:'(10))
 (remove-constraint m n1:'(1) '(? on ?))
-;=>'('(max 10 on ?0))
+;=>'('(max 10 on ?0) '(max 20 on ?0))
 (add-stmt m n1:'(11))
 ;=>1
 (list-stmt m from n1:'(?x))

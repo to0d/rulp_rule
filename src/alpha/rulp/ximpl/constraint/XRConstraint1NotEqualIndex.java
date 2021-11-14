@@ -9,6 +9,8 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1NotEqualIndex extends AbsRConstraint1 implements IRConstraint1 {
 
+	private String _constraintExpression = null;
+
 	private int[] constraintIndex;
 
 	private int idx1;
@@ -40,7 +42,12 @@ public class XRConstraint1NotEqualIndex extends AbsRConstraint1 implements IRCon
 
 	@Override
 	public String getConstraintExpression() {
-		return String.format("(not-qual a::?%d b::?%d)", idx1, idx2);
+
+		if (_constraintExpression == null) {
+			_constraintExpression = String.format("(%s L::?%d R::?%d)", getConstraintName(), idx1, idx2);
+		}
+
+		return _constraintExpression;
 	}
 
 	@Override

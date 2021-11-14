@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_NOT_NULL;
+import static alpha.rulp.rule.Constant.*;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -26,7 +26,7 @@ public class XRConstraint1NotNull extends AbsRConstraint1Index1 implements IRCon
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(not-null ?%d)", index);
+			_constraintExpression = String.format("'(%s on ?%d)", getConstraintName(), index);
 		}
 
 		return _constraintExpression;

@@ -30,7 +30,7 @@
         (add-stmt _RBS_COLUMN:'(?table_name_str ?column_name ?column_index ?column_type))
         
         (if (not (equal ?column_type nil)) 
-            (add-constraint (to-named-list ?table_name_str '(?...)) '(type ?column_type on ?column_index)))
+            (add-constraint (to-named-list ?table_name_str '(?...)) '(type ?column_type on (to-atom (+ "?" ?column_index)))))
         
         (setq ?column_index (+ ?column_index 1))        
     )

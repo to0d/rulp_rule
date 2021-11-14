@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_Uniq;
+import static alpha.rulp.rule.Constant.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,11 +83,21 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			ArrayList<IRObject> indexs = new ArrayList<>();
-			for (int i : uniqColumnIndexs) {
-				indexs.add(RulpFactory.createInteger(i));
+
+			if (uniqColumnIndexs.length == 1) {
+				_constraintExpression = String.format("'(%s on ?%d)", getConstraintName(), uniqColumnIndexs[0]);
+
+			} else {
+
+				ArrayList<IRObject> indexs = new ArrayList<>();
+				for (int i : uniqColumnIndexs) {
+					indexs.add(RulpFactory.createAtom("?" + i));
+				}
+
+				_constraintExpression = String.format("'(%s on %s)", getConstraintName(),
+						RulpFactory.createList(indexs));
 			}
-			_constraintExpression = String.format("'(uniq on %s)", RulpFactory.createList(indexs));
+
 		}
 
 		return _constraintExpression;

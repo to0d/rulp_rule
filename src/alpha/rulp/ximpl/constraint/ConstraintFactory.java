@@ -14,15 +14,10 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 
 public class ConstraintFactory {
-
-//	static class TableColumnConstraint {
-//		Boolean notNull = null;
-//		RType type = null;
-//		Boolean uniq = null;
-//	}
 
 	public static IRConstraint1 createConstraint1OneOf(int index, IRList valueList) {
 		return new XRConstraint1OneOf(index, valueList);
@@ -41,6 +36,9 @@ public class ConstraintFactory {
 	}
 
 	public static IRConstraint1 createConstraintExpr0Node(IRExpr expr, IRObject[] varEntry) throws RException {
+
+//		List<IRObject> varObjs = ReteUtil.uniqVarList(expr);
+
 		return new XRConstraint1Expr0(expr, varEntry);
 	}
 

@@ -10,7 +10,7 @@
 ;=>1
 (add-stmt m name1:'(x y bad))
 ;err:
-Unable to add entry<name1:'(x y bad)> due to constraint<type:'(type int on 2)>
+Unable to add entry<name1:'(x y bad)> due to constraint<'(type int on ?2)>
 at main: (add-stmt m name1:'(x y bad))
 ;eof
 (list-stmt m)

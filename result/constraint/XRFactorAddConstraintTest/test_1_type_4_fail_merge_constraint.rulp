@@ -16,4 +16,4 @@ at MODEL: (add_cst_constraint_type m "name1" 2 float)
 at main: (add-constraint m name1:'(? ? ?x) '(type float on ?x))
 ;eof
 (list-constraint m name1:'(3))
-;=>'('(type int on 2))
+;=>'('(type int on ?2))

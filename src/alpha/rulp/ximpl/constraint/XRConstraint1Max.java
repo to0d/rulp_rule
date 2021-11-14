@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_Max;
+import static alpha.rulp.rule.Constant.*;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -29,7 +29,7 @@ public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstra
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s on %d)", A_Max, index);
+			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(), maxValue, index);
 		}
 
 		return _constraintExpression;

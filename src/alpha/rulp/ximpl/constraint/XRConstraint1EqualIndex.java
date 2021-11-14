@@ -9,6 +9,8 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1EqualIndex extends AbsRConstraint1 implements IRConstraint1 {
 
+	private String _constraintExpression = null;
+
 	private int[] constraintIndex;
 
 	private int idx1;
@@ -38,7 +40,12 @@ public class XRConstraint1EqualIndex extends AbsRConstraint1 implements IRConstr
 
 	@Override
 	public String getConstraintExpression() {
-		return String.format("(equal ?%d ?%d)", idx1, idx2);
+
+		if (_constraintExpression == null) {
+			_constraintExpression = String.format("(%s ?%d ?%d)", getConstraintName(), idx1, idx2);
+		}
+
+		return _constraintExpression;
 	}
 
 	@Override

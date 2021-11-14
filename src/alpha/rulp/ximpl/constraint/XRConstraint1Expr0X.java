@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.lang.Constant.A_EXPRESSION;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
@@ -9,15 +10,18 @@ import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Expr0 extends AbsRConstraint1Expr implements IRConstraint1Expr {
+public class XRConstraint1Expr0X extends AbsRConstraint1 implements IRConstraint1Expr {
 
 	protected IRVar[] _vars = null;
 
 	protected IRObject[] varEntry;
 
-	public XRConstraint1Expr0(IRExpr expr, IRObject[] varEntry) {
+	private int[] uniqColumnIndexs;
 
-		super(expr);
+	protected IRExpr expr;
+
+	public XRConstraint1Expr0X(IRExpr expr, IRObject[] varEntry) {
+
 		this.varEntry = varEntry;
 	}
 
@@ -56,5 +60,26 @@ public class XRConstraint1Expr0 extends AbsRConstraint1Expr implements IRConstra
 		}
 
 		return _vars;
+	}
+
+	@Override
+	public int[] getConstraintIndex() {
+		return uniqColumnIndexs;
+	}
+
+	@Override
+	public String getConstraintExpression() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getConstraintName() {
+		return A_EXPRESSION;
+	}
+
+	@Override
+	public IRExpr getExpr() {
+		return expr;
 	}
 }

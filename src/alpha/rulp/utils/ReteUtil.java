@@ -136,11 +136,9 @@ public class ReteUtil {
 				if (newName == null) {
 					newName = S_QUESTION + varMap.size();
 					varMap.put(atomName, newName);
-
 					if (varList != null) {
 						varList.add(obj);
 					}
-
 				}
 
 				atomName = newName;
@@ -872,11 +870,11 @@ public class ReteUtil {
 	public static boolean isAlphaMatchTree(IRList matchTree) throws RException {
 		return isValidStmtLen(matchTree.size()) && ReteUtil.isEntryValueType(matchTree.get(0).getType());
 	}
-	
+
 	public static boolean isActionEntry(IRList actionEntry) throws RException {
 		return isValidStmtLen(actionEntry.size()) && ReteUtil.isActionEntryValueType(actionEntry.get(0).getType());
 	}
-	
+
 	public static boolean isActionEntryValueType(RType type) throws RException {
 
 		switch (type) {
