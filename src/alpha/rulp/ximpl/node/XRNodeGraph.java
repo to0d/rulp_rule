@@ -1635,6 +1635,8 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		IRList matchTree = MatchTree.build(actualMatchStmtList);
+		matchTree = OptimizeUtil.optimizeMatchTree(matchTree);
+
 		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder());
 
 		XRRuleNode ruleNode = RNodeFactory.createRuleNode(model, _getNextNodeId(), ruleName,

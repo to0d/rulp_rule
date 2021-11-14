@@ -2503,6 +2503,72 @@ public class OptimizeUtil {
 		return rule;
 	}
 
+	protected static boolean _canOptimizeMatchTree(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+
+			IRList list = RulpUtil.asList(obj);
+			int size = list.size();
+			for (int i = 0; i < size; ++i) {
+				if (_canOptimizeMatchTree(list.get(i))) {
+					return true;
+				}
+			}
+
+			// '('(?0 ?1 ?2) (not-equal ?2 ?0)) -> '('(?0 ?1 ?2) (not-equal ?0 ?1))
+			if (size == 2) {
+				IRObject o0 = list.get(0);
+				IRObject o1 = list.get(1);
+				if (o0.getType() == RType.LIST && o1.getType() == RType.EXPR) {
+					IRExpr e1 = RulpUtil.asExpression(o1);
+					if (e1.size() == 3) {
+						String f0 = e1.get(0).asString();
+						if (f0.equals(F_NOT_EQUAL) || f0.equals(F_EQUAL)) {
+
+							String a = e1.get(1).asString();
+							String b = e1.get(2).asString();
+
+							// '(?a ?p ?b) (equal ?a ?a) -> '(?a ?p ?b)
+							// '(?a ?p ?b) (not-equal ?a ?a) -> '(?a ?p ?b) (false)
+
+							IRList l0 = RulpUtil.asList(o0);
+
+							// '(?a ?p ?b) (equal value ?a) -> '(?a ?p ?b) (equal ?a value)
+							// '(?a ?p ?b) (not-equal value ?a) -> '(?a ?p ?b) (not-equal ?a value)
+						}
+
+					}
+				}
+			}
+
+			return false;
+
+		case EXPR:
+		default:
+			return false;
+		}
+	}
+
+	protected static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+		case EXPR:
+		default:
+			return obj;
+		}
+	}
+
+	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
+
+		if (!_canOptimizeMatchTree(matchTree)) {
+			return matchTree;
+		}
+
+		return (IRList) _buildOptimizeMatchTree(matchTree);
+	}
+
 	public static String printNodeInfo(IRModel model) throws RException {
 
 		StringBuffer sb = new StringBuffer();
