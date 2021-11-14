@@ -44,7 +44,7 @@ public class XRConstraint1NotEqualIndex extends AbsRConstraint1 implements IRCon
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("(%s L::?%d R::?%d)", getConstraintName(), idx1, idx2);
+			_constraintExpression = String.format("'(%s ?%d ?%d)", getConstraintName(), idx1, idx2);
 		}
 
 		return _constraintExpression;

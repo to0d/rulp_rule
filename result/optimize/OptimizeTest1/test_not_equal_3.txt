@@ -64,8 +64,8 @@ node info4:
 A0004[3]       0      0   C1:(equal-value ?1 nm:propertyOf)
 A0005[3]       0      0   C1:(equal-value ?2 nm:tagRelation)
 A0008[3]       0      0   C1:(equal-value ?1 nm:hasAutoRelatedTag)
-E1002[3]       0      0   C1:(not-equal-value ?1 nm:hasRelation)
-E1003[3]       0      0   C1:(not-equal-value ?1 nm:hasAutoRelatedTag)
+E1002[3]       0      0   C1:'(not-equal-value ?1 nm:hasRelation)
+E1003[3]       0      0   C1:'(not-equal-value ?1 nm:hasAutoRelatedTag)
 ========================================================================================================================================================
 
 node info5: action

@@ -5,7 +5,9 @@ import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
@@ -15,7 +17,9 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.RuntimeUtil;
 
 public class ConstraintFactory {
 
@@ -37,9 +41,41 @@ public class ConstraintFactory {
 
 	public static IRConstraint1 createConstraintExpr0Node(IRExpr expr, IRObject[] varEntry) throws RException {
 
-//		List<IRObject> varObjs = ReteUtil.uniqVarList(expr);
+		int varEntryLen = varEntry.length;
 
-		return new XRConstraint1Expr0(expr, varEntry);
+		IRObject[] newVarEntry = new IRObject[varEntryLen];
+		Map<String, IRObject> rebuildVarMap = new HashMap<>();
+
+		for (IRObject var : ReteUtil.uniqVarList(expr)) {
+			FIND: for (int i = 0; i < varEntryLen; ++i) {
+				IRObject eVar = varEntry[i];
+				if (eVar != null && var.asString().equals(eVar.asString())) {
+					IRAtom idxVar = RulpFactory.createAtom("?" + i);
+					rebuildVarMap.put(var.asString(), idxVar);
+					newVarEntry[i] = idxVar;
+					break FIND;
+				}
+			}
+		}
+
+		if (rebuildVarMap.isEmpty()) {
+			return new XRConstraint1Expr0(expr, varEntry);
+		}
+
+		int[] constraintIndex = new int[rebuildVarMap.size()];
+		int cIndex = 0;
+		for (int i = 0; i < varEntryLen; ++i) {
+			if (newVarEntry[i] != null) {
+				constraintIndex[cIndex] = i;
+			}
+		}
+
+		/*****************************************/
+		// Build expr
+		/*****************************************/
+		IRExpr newExpr = RulpUtil.asExpression(RuntimeUtil.rebuild(expr, rebuildVarMap));
+
+		return new XRConstraint1Expr0X(newExpr, newVarEntry, constraintIndex);
 	}
 
 	public static IRConstraint1 createConstraintExpr1Node(IRExpr expr, List<IRObject> leftVarList) throws RException {
