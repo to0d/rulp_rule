@@ -1,7 +1,8 @@
 package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.rule.Constant.A_Max;
-import static alpha.rulp.rule.Constant.A_Min;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -10,18 +11,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
+import alpha.rulp.lang.IRExpr;
+import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
-import alpha.rulp.rule.IRRListener2;
 import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1Expr;
 import alpha.rulp.ximpl.constraint.IRConstraint1Max;
-import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.constraint.IRConstraint1Min;
+import alpha.rulp.ximpl.constraint.IRConstraint1Type;
+import alpha.rulp.ximpl.constraint.XRConstraint1Expr0X;
+
+import static alpha.rulp.lang.Constant.A_EXPRESSION;
 
 public class XRModelConstraintChecker {
 
@@ -85,22 +93,122 @@ public class XRModelConstraintChecker {
 		return atom;
 	}
 
-	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+	protected int _getExprLevel(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+		case EXPR:
+
+			int max_level = 0;
+			IRIterator<? extends IRObject> it = ((IRList) obj).iterator();
+			while (it.hasNext()) {
+
+				int level = _getExprLevel(it.next());
+				if (max_level < level) {
+					max_level = level;
+				}
+			}
+
+			return obj.getType() == RType.LIST ? max_level : (max_level + 1);
+
+		default:
+			return 0;
+		}
+	}
+
+	protected boolean _addExprConstraint_NotEqual(IRReteNode node, IRConstraint1Expr constraint, IRExpr expr)
+			throws RException {
+
+		// (!= ?0 nil)
+		return model.getNodeGraph().addConstraint(node, constraint);
+	}
+
+	protected IRConstraint1 _rebuildExprConstraint(IRReteNode node, IRConstraint1Expr constraint) throws RException {
+
+		IRExpr expr = constraint.getExpr();
+		switch (expr.get(0).asString()) {
+		case F_NOT_EQUAL: // not-equal
+		case F_O_NE: // !=
+
+			if (_getExprLevel(expr) == 1 && expr.size() == 3 && constraint instanceof XRConstraint1Expr0X) {
+
+				// (!= ?0 value)
+				// (!= value ?0)
+				XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
+				if (consExprX.getConstraintIndex().length == 1) {
+
+					int constraintIndex = consExprX.getConstraintIndex()[0];
+					String constraintIndexName = String.format("?%d", constraintIndex);
+					IRObject value = null;
+
+					// (!= ?0 value)
+					if (expr.get(1).asString().equals(constraintIndexName)) {
+						value = expr.get(2);
+					} else if (expr.get(2).asString().equals(constraintIndexName)) {
+						value = expr.get(1);
+					}
+
+					if (value != null) {
+
+						// (!= ?0 nil)
+						if (value.asString().equals(A_NIL)) {
+							return ConstraintFactory.createConstraintNotNull(constraintIndex);
+						} else {
+							return ConstraintFactory.createConstraintNotEqualValue(constraintIndex, value);
+						}
+					}
+
+				}
+
+			}
+
+			break;
+
+		default:
+		}
+
+		return null;
+	}
+
+	protected IRConstraint1 _rebuildConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		switch (constraint.getConstraintName()) {
+		case A_EXPRESSION:
+			return _rebuildExprConstraint(node, (IRConstraint1Expr) constraint);
+
+		default:
+		}
+
+		return null;
+	}
+
+	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		IRConstraint1 lastConstraint = constraint;
+		while (true) {
+
+			IRConstraint1 newConstraint = _rebuildConstraint(node, lastConstraint);
+			if (newConstraint == null) {
+				break;
+			}
+
+			lastConstraint = newConstraint;
+		}
+
+		switch (lastConstraint.getConstraintName()) {
 		case A_Type:
-			return _addTypeConstraint(node, (IRConstraint1Type) constraint);
+			return _addTypeConstraint(node, (IRConstraint1Type) lastConstraint);
 
 		case A_Max:
-			return _addMaxConstraint(node, (IRConstraint1Max) constraint);
+			return _addMaxConstraint(node, (IRConstraint1Max) lastConstraint);
 
 		case A_Min:
-			return _addMinConstraint(node, (IRConstraint1Min) constraint);
+			return _addMinConstraint(node, (IRConstraint1Min) lastConstraint);
 
 		case A_Uniq:
 		case A_NOT_NULL:
 		default:
-			return model.getNodeGraph().addConstraint(node, constraint);
+			return model.getNodeGraph().addConstraint(node, lastConstraint);
 		}
 	}
 }

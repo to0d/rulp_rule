@@ -2,20 +2,13 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.A_EXPRESSION;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.RuntimeUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1Expr0X extends AbsRConstraint1 implements IRConstraint1Expr {

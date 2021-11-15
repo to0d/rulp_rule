@@ -5,7 +5,6 @@ import java.util.List;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRRListener2;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;

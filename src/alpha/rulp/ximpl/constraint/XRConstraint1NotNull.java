@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_NOT_NULL;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
