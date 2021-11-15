@@ -21,11 +21,19 @@ public class XRConstraint1Expr0X extends AbsRConstraint1 implements IRConstraint
 
 	protected IRExpr expr;
 
-	public XRConstraint1Expr0X(IRExpr expr, IRObject[] varEntry, int[] constraintIndex) throws RException {
+	protected int externalVarCount;
+
+	public int getExternalVarCount() {
+		return externalVarCount;
+	}
+
+	public XRConstraint1Expr0X(IRExpr expr, IRObject[] varEntry, int[] constraintIndex, int externalVarCount)
+			throws RException {
 
 		this.expr = expr;
 		this.varEntry = varEntry;
 		this.constraintIndex = constraintIndex;
+		this.externalVarCount = externalVarCount;
 	}
 
 	@Override

@@ -45,16 +45,26 @@ public class ConstraintFactory {
 
 		IRObject[] newVarEntry = new IRObject[varEntryLen];
 		Map<String, IRObject> rebuildVarMap = new HashMap<>();
+		int externalVarCount = 0;
 
 		for (IRObject var : ReteUtil.uniqVarList(expr)) {
+
+			int findIndex = -1;
+
 			FIND: for (int i = 0; i < varEntryLen; ++i) {
 				IRObject eVar = varEntry[i];
 				if (eVar != null && var.asString().equals(eVar.asString())) {
-					IRAtom idxVar = RulpFactory.createAtom("?" + i);
-					rebuildVarMap.put(var.asString(), idxVar);
-					newVarEntry[i] = idxVar;
+					findIndex = i;
 					break FIND;
 				}
+			}
+
+			if (findIndex != -1) {
+				IRAtom idxVar = RulpFactory.createAtom("?" + findIndex);
+				rebuildVarMap.put(var.asString(), idxVar);
+				newVarEntry[findIndex] = idxVar;
+			} else {
+				externalVarCount++;
 			}
 		}
 
@@ -75,7 +85,7 @@ public class ConstraintFactory {
 		/*****************************************/
 		IRExpr newExpr = RulpUtil.asExpression(RuntimeUtil.rebuild(expr, rebuildVarMap));
 
-		return new XRConstraint1Expr0X(newExpr, newVarEntry, constraintIndex);
+		return new XRConstraint1Expr0X(newExpr, newVarEntry, constraintIndex, externalVarCount);
 	}
 
 	public static IRConstraint1 createConstraintExpr1Node(IRExpr expr, List<IRObject> leftVarList) throws RException {

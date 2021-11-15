@@ -1,0 +1,26 @@
+(new model m)
+;=>m
+(defvar ?v 1)
+;=>&?v
+(add-constraint m name1:'(?x ?y) (!= ?y ?v))
+;=>1
+(add-stmt m name1:'(a 2))
+;=>1
+(add-stmt m name1:'(b 1))
+;err:
+Unable to add entry<name1:'(b 1)> due to constraint<(!= ?1 ?v)>
+at main: (add-stmt m name1:'(b 1))
+;eof
+(list-stmt m)
+;=>'(name1:'(a 2))
+(setq ?v 3)
+;=>&?v
+(add-stmt m name1:'(b 1))
+;=>1
+(add-stmt m name1:'(c 3))
+;err:
+Unable to add entry<name1:'(c 3)> due to constraint<(!= ?1 ?v)>
+at main: (add-stmt m name1:'(c 3))
+;eof
+(list-stmt m)
+;=>'(name1:'(a 2) name1:'(b 1))

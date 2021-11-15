@@ -135,7 +135,7 @@ public class XRModelConstraintChecker {
 				// (!= ?0 value)
 				// (!= value ?0)
 				XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
-				if (consExprX.getConstraintIndex().length == 1) {
+				if (consExprX.getConstraintIndex().length == 1 && consExprX.getExternalVarCount() == 0) {
 
 					int constraintIndex = consExprX.getConstraintIndex()[0];
 					String constraintIndexName = String.format("?%d", constraintIndex);

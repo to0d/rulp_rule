@@ -97,6 +97,14 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_4_expr_2_not_equal_var() {
+
+		_setup();
+		_test_script();
+		_statsInfo("m");
+	}
+
+	@Test
 	void test_5_var_1() {
 
 		_setup();
