@@ -239,8 +239,8 @@ Node<RU000> frame:id=8, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=3(MODEL), su
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 28       8        3    instance   m : class=model     
-?n                   : 29       8        1    var        10 : type=int       
+default_model        : 30       8        3    instance   m : class=model     
+?n                   : 31       8        1    var        10 : type=int       
 ==========================================================================================================================
 
 node update info: model-exec-count=30, row=4, column=31(1), value-max=1, value-unit=1^x
@@ -271,33 +271,36 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      108
+    factor:      122
       func:        6
 ==========================================================================================================================
 
-Callable stats info: callId=73, row=21, column=37(2), value-max=11, value-unit=2^x
+Callable stats info: callId=73, row=24, column=37(2), value-max=11, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.556 max=22, unit=2^x
+   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.666 max=22, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor     45    0 defun                              22222222222112212122121  1 22    
   system   factor     13    0 add-stmt                                                         115
-    root   factor     10    0 +                                                                  5
+    root   factor     12    0 +                                                                115
     root   factor      7    0 alias                          1221                        1        
     root   factor      6    0 defclass                                       1  1 1  1 1   1      
+    root   factor      5    0 return                                                           23 
     root   factor      4    0 do                                                               22 
-    root   factor      3    0 return                                                           12 
+  system   factor      4    0 add-constraint                                                   22 
   system   factor      3    0 query-stmt                                                       111
+    root   factor      3    0 defvar                            1                              11 
     root   factor      3    0 deftemplate                                               21        
     root   factor      3    0 defmacro                                      1             11      
+    root   factor      2    0 to-named-list                                                    11 
+    root   factor      2    0 to-atom                                                          11 
   system     func      2    1 (init_cst_rule type#model)                                       11 
     root   factor      2    0 if                                                               11 
     root   factor      2    0 equal_def                                                        11 
   system funcList      2    1 equal                                                            11 
   system   factor      2    0 add-rule                                                         11 
-  system   factor      2    0 add-constraint                                                   11 
+    root   factor      2    0 >                                                                11 
     root   factor      1    0 setq                                                             1  
     root   factor      1    0 new                                                              1  
-    root   factor      1    0 defvar                            1                                 
   system     func      1    1 (add_cst_constraint_type type#                                   1  
   system     func      1    1 (add_cst_constraint_max type#m                                    1 
 ==========================================================================================================================
@@ -306,12 +309,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1051            0         1051
-      string:           39            0           39
-        list:           67            0           67
-        expr:          555            0          555
+        atom:         1101            0         1101
+      string:           44            0           44
+        list:           75            0           75
+        expr:          576            0          576
        array:            1            0            1
-         var:           39           15           24
+         var:           41           17           24
         func:          106            0          106
     template:            1            0            1
        macro:            3            0            3
@@ -320,7 +323,7 @@ Object create count:
       member:          164            0          164
        frame:           25           23            2
  interpreter:            1            0
-  frameEntry:          271            0
+  frameEntry:          273            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -350,8 +353,8 @@ id=8, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 28       8        3    instance   m : class=model     
-?n                   : 29       8        1    var        10 : type=int       
+default_model        : 30       8        3    instance   m : class=model     
+?n                   : 31       8        1    var        10 : type=int       
 ==========================================================================================================================
 
 Global frame tree:

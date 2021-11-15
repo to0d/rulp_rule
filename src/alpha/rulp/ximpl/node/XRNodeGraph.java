@@ -64,6 +64,10 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	static class XGraphInfo implements IGraphInfo {
 
+		public int actionNodeLastRuleIndex = -1;
+
+		public Set<IRReteNode> actionNodes = null;
+
 		public IRList alphaUniqStmt = null;
 
 		public List<IRReteNode> bindFromNodeList = null;
@@ -81,10 +85,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		public int sourceNodeLastRuleIndex = -1;
 
 		public Set<IRReteNode> sourceNodes = null;
-
-		public int actionNodeLastRuleIndex = -1;
-
-		public Set<IRReteNode> actionNodes = null;
 
 		public XGraphInfo(IRReteNode node) {
 			this.node = node;
@@ -221,6 +221,11 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		@Override
+		public boolean isEmpty() {
+			return subNodeSet.isEmpty();
+		}
+
+		@Override
 		public void rollback() throws RException {
 
 			if (activateMap == null) {
@@ -239,11 +244,6 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			activateMap = null;
-		}
-
-		@Override
-		public boolean isEmpty() {
-			return subNodeSet.isEmpty();
 		}
 	}
 
@@ -271,65 +271,13 @@ public class XRNodeGraph implements IRNodeGraph {
 		return true;
 	}
 
-	protected Map<String, IRNodeSubGraph> _ruleGroupSubGraphMap = null;
-
-	protected Map<IRReteNode, IRNodeSubGraph> _sourceSubGraphMap = null;
+	protected Map<IRReteNode, List<IRReteNode>> _affectNodeMap = null;
 
 	protected Map<IRReteNode, IRNodeSubGraph> _constraintCheckSubGraphMap = null;
 
-	protected Map<IRReteNode, List<IRReteNode>> _affectNodeMap = null;
+	protected Map<String, IRNodeSubGraph> _ruleGroupSubGraphMap = null;
 
-	protected Map<IRReteNode, List<IRReteNode>> _openAffectNodeMap(IRNamedNode rootNode) throws RException {
-
-		if (_affectNodeMap == null) {
-			_affectNodeMap = new HashMap<>();
-
-			for (IRReteNode node : listNodes(RReteType.NAME0)) {
-
-				if (node.getConstraint1Count() == 0) {
-					continue;
-				}
-
-				// Build named -> rule map
-				List<IRRule> relatedRules = ((XGraphInfo) node.getGraphInfo()).relatedRules;
-				if (relatedRules != null) {
-
-					List<IRReteNode> affectList = _affectNodeMap.get(node);
-					if (affectList == null) {
-						affectList = new LinkedList<>();
-						_affectNodeMap.put(node, affectList);
-					}
-
-					for (IRRule rn : relatedRules) {
-						if (!affectList.contains(rn)) {
-							affectList.add(rn);
-						}
-					}
-				}
-
-				// Build rule -> named map
-				for (IRReteNode sourceNode : _listSourceNodesForRootNode(node)) {
-
-					if (sourceNode.getReteType() == RReteType.RULE) {
-
-						List<IRReteNode> affectList = _affectNodeMap.get(sourceNode);
-						if (affectList == null) {
-							affectList = new LinkedList<>();
-							_affectNodeMap.put(sourceNode, affectList);
-						}
-
-						if (!affectList.contains(node)) {
-							affectList.add(node);
-						}
-					}
-				}
-			}
-		}
-
-		return _affectNodeMap;
-	}
-
-	protected XRRListener2Adapter<IRReteNode, IRConstraint1> addConstraintListener = null;
+	protected Map<IRReteNode, IRNodeSubGraph> _sourceSubGraphMap = null;
 
 	protected int anonymousRuleIndex = 0;
 
@@ -1341,15 +1289,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		return _findReteNode(MatchTree.build(matchStmtList), new XTempVarBuilder());
 	}
 
-	protected void _fireAddConstraintAction(IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		if (addConstraintListener == null) {
-			return;
-		}
-
-		addConstraintListener.doAction(node, constraint);
-	}
-
 	protected int _getNextNodeId() {
 		return ++maxNodeIndex;
 	}
@@ -1475,60 +1414,55 @@ public class XRNodeGraph implements IRNodeGraph {
 		return info.sourceNodes;
 	}
 
-//	protected Set<IRReteNode> _listActionRuleNodes(IRRootNode node) throws RException {
-//
-//		XGraphInfo info = (XGraphInfo) node.getGraphInfo();
-//
-//		if (node.getReteType() != RReteType.ALPH0) {
-//			throw new RException("not alpha node: " + node);
-//		}
-//
-//		if (info.actionNodes == null) {
-//			info.actionNodes = new HashSet<>();
-//		}
-//
-//		if (info.actionNodeLastRuleIndex < 0) {
-//			info.actionNodeLastRuleIndex = 0;
-//		}
-//
-//		/******************************************************/
-//		// Update rule's action nodes
-//		/******************************************************/
-//		if (info.actionNodeLastRuleIndex < maxRuleId) {
-//
-//			NEXT_RULE: for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
-//
-//				// the rule has been processed
-//				if (ruleNode.getNodeId() <= info.sourceNodeLastRuleIndex) {
-//					continue;
-//				}
-//
-//				info.actionNodeLastRuleIndex = ruleNode.getNodeId();
-//
-//				XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
-//
-//				for (IRList ruleActionUniqStmt : ruleNodeInfo.getRuleActionUniqStmtList(this)) {
-//
-//					ArrayList<IRList> matchStmt = new ArrayList<>();
-//					matchStmt.add(ruleActionUniqStmt);
-//
-//					IRReteNode aNode = _findReteNode(matchStmt);
-//					while (!RReteType.isRootType(aNode.getReteType())) {
-//						aNode = aNode.getParentNodes()[0];
-//					}
-//					
-//					info.actionNodes.add(ruleNode);
-//
-//					if (ReteUtil.matchUniqStmt(ruleActionUniqStmt, info.alphaUniqStmt)) {
-//						info.sourceNodes.add(ruleNode);
-//						continue NEXT_RULE;
-//					}
-//				}
-//			}
-//		}
-//
-//		return info.sourceNodes;
-//	}
+	protected Map<IRReteNode, List<IRReteNode>> _openAffectNodeMap(IRNamedNode rootNode) throws RException {
+
+		if (_affectNodeMap == null) {
+			_affectNodeMap = new HashMap<>();
+
+			for (IRReteNode node : listNodes(RReteType.NAME0)) {
+
+				if (node.getConstraint1Count() == 0) {
+					continue;
+				}
+
+				// Build named -> rule map
+				List<IRRule> relatedRules = ((XGraphInfo) node.getGraphInfo()).relatedRules;
+				if (relatedRules != null) {
+
+					List<IRReteNode> affectList = _affectNodeMap.get(node);
+					if (affectList == null) {
+						affectList = new LinkedList<>();
+						_affectNodeMap.put(node, affectList);
+					}
+
+					for (IRRule rn : relatedRules) {
+						if (!affectList.contains(rn)) {
+							affectList.add(rn);
+						}
+					}
+				}
+
+				// Build rule -> named map
+				for (IRReteNode sourceNode : _listSourceNodesForRootNode(node)) {
+
+					if (sourceNode.getReteType() == RReteType.RULE) {
+
+						List<IRReteNode> affectList = _affectNodeMap.get(sourceNode);
+						if (affectList == null) {
+							affectList = new LinkedList<>();
+							_affectNodeMap.put(sourceNode, affectList);
+						}
+
+						if (!affectList.contains(node)) {
+							affectList.add(node);
+						}
+					}
+				}
+			}
+		}
+
+		return _affectNodeMap;
+	}
 
 	protected IRReteNode _processNodeModifier(IRReteNode node, String modifier) throws RException {
 
@@ -1562,19 +1496,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public void addAddConstraintListener(IRRListener2<IRReteNode, IRConstraint1> listener) {
-
-		if (addConstraintListener == null) {
-			addConstraintListener = new XRRListener2Adapter<>();
-		}
-
-		addConstraintListener.addListener(listener);
-	}
-
-	@Override
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		_fireAddConstraintAction(node, constraint);
 
 		if (!node.addConstraint1(constraint)) {
 			return false;
@@ -1719,22 +1641,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException {
-
-		if (_ruleGroupSubGraphMap == null) {
-			_ruleGroupSubGraphMap = new HashMap<>();
-		}
-
-		IRNodeSubGraph subGraph = _ruleGroupSubGraphMap.get(ruleGroupName);
-		if (subGraph == null) {
-			subGraph = _buildSubGraphRuleGroup(ruleGroupName);
-			_ruleGroupSubGraphMap.put(ruleGroupName, subGraph);
-		}
-
-		return subGraph;
-	}
-
-	@Override
 	public IRNodeSubGraph buildConstraintCheckSubGraph(IRNamedNode rootNode) throws RException {
 
 		if (_constraintCheckSubGraphMap == null) {
@@ -1745,6 +1651,22 @@ public class XRNodeGraph implements IRNodeGraph {
 		if (subGraph == null) {
 			subGraph = _buildSubGraphConstraintCheck(rootNode);
 			_constraintCheckSubGraphMap.put(rootNode, subGraph);
+		}
+
+		return subGraph;
+	}
+
+	@Override
+	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException {
+
+		if (_ruleGroupSubGraphMap == null) {
+			_ruleGroupSubGraphMap = new HashMap<>();
+		}
+
+		IRNodeSubGraph subGraph = _ruleGroupSubGraphMap.get(ruleGroupName);
+		if (subGraph == null) {
+			subGraph = _buildSubGraphRuleGroup(ruleGroupName);
+			_ruleGroupSubGraphMap.put(ruleGroupName, subGraph);
 		}
 
 		return subGraph;

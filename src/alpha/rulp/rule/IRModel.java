@@ -11,6 +11,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -104,6 +105,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 			throws RException;
 
 	public void setNodeContext(RNodeContext nodeContext);
+
+	public boolean tryAddConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public boolean tryAddStatement(IRList stmt) throws RException;
 

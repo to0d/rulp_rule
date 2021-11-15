@@ -277,24 +277,29 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      179
+    factor:      256
       func:       33
 ==========================================================================================================================
 
-Callable stats info: callId=92, row=22, column=47(2), value-max=4, value-unit=2^x
+Callable stats info: callId=92, row=26, column=47(2), value-max=6, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.2225666522651 max=24, unit=2^x
+   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.2226777622761 max=38, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor     45    0 defun                              22222222222112212122121  1 22              
+    root   factor     32    0 return                                                              24443  43 
+  system   factor     29    0 add-constraint                                                      2333322331
     root   factor     22    0 do                                                                  23332  32 
-    root   factor     21    0 return                                                              13332  32 
-  system   factor     18    0 add-constraint                                                      1222222221
+    root   factor     12    0 defvar                            1                                 12221  21 
+    root   factor     11    0 to-named-list                                                       12221  21 
+    root   factor     11    0 to-atom                                                             12221  21 
   system   factor     11    0 query-stmt                                                          12221  21 
   system     func     11    1 (init_cst_rule type#model)                                          12221  21 
     root   factor     11    0 if                                                                  12221  21 
     root   factor     11    0 equal_def                                                           12221  21 
   system funcList     11    1 equal                                                               12221  21 
   system   factor     11    0 add-stmt                                                            12221  21 
+    root   factor     11    0 >                                                                   12221  21 
+    root   factor     11    0 +                                                                   12221  21 
   system     func      9    1 (add_cst_constraint_type type#                                      12221  1  
     root   factor      7    0 alias                          1221                        1                  
     root   factor      6    0 defclass                                       1  1 1  1 1   1                
@@ -303,7 +308,6 @@ Callable stats info: callId=92, row=22, column=47(2), value-max=4, value-unit=2^
     root   factor      3    0 defmacro                                      1             11                
     root   factor      1    0 setq                                                                1         
     root   factor      1    0 new                                                              1            
-    root   factor      1    0 defvar                            1                                           
   system     func      1    1 (add_cst_constraint_min type#m                                              1 
   system     func      1    1 (add_cst_constraint_max type#m                                             1  
   system   factor      1    0 add-rule                                                            1         
@@ -313,12 +317,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1263            0         1263
-      string:           48            0           48
-        list:          138            0          138
-        expr:          641            0          641
+        atom:         1274            0         1274
+      string:           62            0           62
+        list:          155            0          155
+        expr:          662            0          662
        array:            1            0            1
-         var:          100           77           23
+         var:          111           88           23
         func:          106            0          106
     template:            1            0            1
        macro:            3            0            3
@@ -327,7 +331,7 @@ Object create count:
       member:          164            0          164
        frame:           67           66            1
  interpreter:            1            0
-  frameEntry:          348            0
+  frameEntry:          359            0
       lambda:            0            0
 ==========================================================================================================================
 

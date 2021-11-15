@@ -191,6 +191,17 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
+	public void clean() throws RException {
+
+		if (nodeFrame != null && nodeFrame.listEntries().isEmpty()) {
+			nodeFrame.release();
+			RulpUtil.decRef(nodeFrame);
+			nodeFrame = null;
+		}
+
+	}
+
+	@Override
 	public void decRef() throws RException {
 
 	}
@@ -267,6 +278,17 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
+	public IRFrame getFrame() throws RException {
+
+		if (nodeFrame == null) {
+			nodeFrame = _createNodeFrame();
+			RulpUtil.incRef(nodeFrame);
+		}
+
+		return nodeFrame;
+	}
+
+	@Override
 	public IGraphInfo getGraphInfo() {
 		return graphInfo;
 	}
@@ -274,6 +296,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public InheritIndex[] getInheritIndex() {
 		return inheritIndexs;
+	}
+
+	@Override
+	public IRInterpreter getInterpreter() {
+		return this.getModel().getInterpreter();
 	}
 
 	@Override
@@ -294,33 +321,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public int getNodeFailedCount() {
 		return 0;
-	}
-
-	@Override
-	public IRFrame getFrame() throws RException {
-
-		if (nodeFrame == null) {
-			nodeFrame = _createNodeFrame();
-			RulpUtil.incRef(nodeFrame);
-		}
-
-		return nodeFrame;
-	}
-
-	@Override
-	public IRInterpreter getInterpreter() {
-		return this.getModel().getInterpreter();
-	}
-
-	@Override
-	public void clean() throws RException {
-
-		if (nodeFrame != null && nodeFrame.listEntries().isEmpty()) {
-			nodeFrame.release();
-			RulpUtil.decRef(nodeFrame);
-			nodeFrame = null;
-		}
-
 	}
 
 	@Override

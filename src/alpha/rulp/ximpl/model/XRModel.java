@@ -354,6 +354,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final LinkedList<XRCacheWorker> cacheWorkerList = new LinkedList<>();
 
+	protected final XRModelConstraintChecker constraintChecker;
+
 	protected final IREntryTable entryTable = new XREntryTable();
 
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
@@ -380,8 +382,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected boolean needRestart = false;
 
-	protected int tryLevel = 0;
-
 	protected RNodeContext nodeContext = null;
 
 	protected final IRNodeGraph nodeGraph;
@@ -398,13 +398,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected IRTransaction transaction = null;
 
+	protected int tryAddStatmentLevel = 0;
+
 	protected final XRUpdateQueue updateQueue = new XRUpdateQueue();
 
 	public XRModel(String modelName, IRClass rclass, IRFrame frame) throws RException {
 		super(rclass, modelName, frame);
 		this.nodeGraph = new XRNodeGraph(this, entryTable);
 		this.modelCounter = new XRRModelCounter(this);
-		this.nodeGraph.addAddConstraintListener(new XRModelConstraintChecker(this));
+		this.constraintChecker = new XRModelConstraintChecker(this);
 	}
 
 	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
@@ -482,7 +484,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			IRConstraint1 cons = rootNode.unmatchConstraint(newEntry);
 			if (cons != null) {
 				entryTable.removeEntry(newEntry);
-				if (nodeContext == null || this.tryLevel > 0) {
+				if (nodeContext == null || this.tryAddStatmentLevel > 0) {
 					throw new RConstraintConflict(
 							String.format("Unable to add entry<%s> due to constraint<%s>", newEntry, cons), rootNode,
 							newEntry, cons);
@@ -2088,6 +2090,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
+	protected int tryAddConstraintLevel = 0;
+
+	@Override
+	public boolean tryAddConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		if (this.tryAddConstraintLevel > 0) {
+			return this.nodeGraph.addConstraint(node, constraint);
+		}
+
+		try {
+			this.tryAddConstraintLevel++;
+			return constraintChecker.addConstraint(node, constraint);
+		} finally {
+			this.tryAddConstraintLevel--;
+		}
+
+	}
+
 	@Override
 	public boolean tryAddStatement(IRList stmt) throws RException {
 
@@ -2097,7 +2117,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		try {
 
-			this.tryLevel++;
+			this.tryAddStatmentLevel++;
 
 			RReteStatus status = _getNewStmtStatus();
 
@@ -2110,14 +2130,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 			if (stmt.getNamedName() != null) {
 				_checkConstraintConflict((IRNamedNode) _findRootNode(stmt.getNamedName(), stmt.size()));
 			}
+
 			stmtListenUpdater.update(this);
 			return true;
 
 		} catch (RConstraintConflict e) {
 			removeStatement(stmt);
-			this.tryLevel--;
+			this.tryAddStatmentLevel--;
 			return false;
 		}
 	}
-
 }

@@ -10,25 +10,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
+import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRRListener2;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Max;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.constraint.IRConstraint1Min;
 
-public class XRModelConstraintChecker implements IRRListener2<IRReteNode, IRConstraint1> {
+public class XRModelConstraintChecker {
 
 	static final String F_CST_ADD_CONSTRAINT_MAX = "add_cst_constraint_max";
 
 	static final String F_CST_ADD_CONSTRAINT_MIN = "add_cst_constraint_min";
 
 	static final String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
+
 	private Map<String, IRAtom> atomMap = new HashMap<>();
+
 	private XRModel model;
 
 	public XRModelConstraintChecker(XRModel model) {
@@ -36,32 +40,38 @@ public class XRModelConstraintChecker implements IRRListener2<IRReteNode, IRCons
 		this.model = model;
 	}
 
-	protected void _addMaxConstraint(IRReteNode node, IRConstraint1Max constraint) throws RException {
+	protected boolean _addMaxConstraint(IRReteNode node, IRConstraint1Max constraint) throws RException {
 
 		// $cst_max$:'(?node ?index ?value)
-		model.getInterpreter().compute(model.getFrame(),
+		IRObject rst = model.getInterpreter().compute(model.getFrame(),
 				RulpFactory.createExpression(_getAtom(F_CST_ADD_CONSTRAINT_MAX), model,
 						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 						RulpFactory.createInteger(constraint.getColumnIndex()), constraint.getValue()));
+
+		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
-	protected void _addMinConstraint(IRReteNode node, IRConstraint1Min constraint) throws RException {
+	protected boolean _addMinConstraint(IRReteNode node, IRConstraint1Min constraint) throws RException {
 
 		// $cst_max$:'(?node ?index ?value)
-		model.getInterpreter().compute(model.getFrame(),
+		IRObject rst = model.getInterpreter().compute(model.getFrame(),
 				RulpFactory.createExpression(_getAtom(F_CST_ADD_CONSTRAINT_MIN), model,
 						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 						RulpFactory.createInteger(constraint.getColumnIndex()), constraint.getValue()));
+
+		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
-	protected void _addTypeConstraint(IRReteNode node, IRConstraint1Type constraint) throws RException {
+	protected boolean _addTypeConstraint(IRReteNode node, IRConstraint1Type constraint) throws RException {
 
 		// $cst_type$:'(?node ?index ?type)
-		model.getInterpreter().compute(model.getFrame(),
+		IRObject rst = model.getInterpreter().compute(model.getFrame(),
 				RulpFactory.createExpression(_getAtom(F_CST_ADD_CONSTRAINT_TYPE), model,
 						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 						RulpFactory.createInteger(constraint.getColumnIndex()),
 						RType.toObject(constraint.getColumnType())));
+
+		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
 	protected IRAtom _getAtom(String name) {
@@ -75,26 +85,22 @@ public class XRModelConstraintChecker implements IRRListener2<IRReteNode, IRCons
 		return atom;
 	}
 
-	@Override
-	public void doAction(IRReteNode node, IRConstraint1 constraint) throws RException {
+	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		switch (constraint.getConstraintName()) {
 		case A_Type:
-			_addTypeConstraint(node, (IRConstraint1Type) constraint);
-			break;
+			return _addTypeConstraint(node, (IRConstraint1Type) constraint);
 
 		case A_Max:
-			_addMaxConstraint(node, (IRConstraint1Max) constraint);
-			break;
+			return _addMaxConstraint(node, (IRConstraint1Max) constraint);
 
 		case A_Min:
-			_addMinConstraint(node, (IRConstraint1Min) constraint);
-			break;
+			return _addMinConstraint(node, (IRConstraint1Min) constraint);
 
 		case A_Uniq:
 		case A_NOT_NULL:
 		default:
-			break;
+			return model.getNodeGraph().addConstraint(node, constraint);
 		}
 	}
 }

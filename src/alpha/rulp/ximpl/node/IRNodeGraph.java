@@ -25,8 +25,6 @@ public interface IRNodeGraph {
 		public void rollback() throws RException;
 	}
 
-	public void addAddConstraintListener(IRRListener2<IRReteNode, IRConstraint1> listener);
-
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException;
