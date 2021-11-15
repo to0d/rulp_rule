@@ -33,6 +33,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(add-constraint m name5:'(?x ?y ?z) '(uniq on '(?x ?y)))", "1");
 
 		_test("(add-constraint m name6:'(?x ?y ?z) (!= ?x nil))", "1");
+		_test("(add-constraint m name6:'(?x ?y ?z) (!= 1 ?z))", "1");
 		_test("(add-constraint m name6:'(?x ?y ?z) (> ?y 5))", "1");
 		_test("(add-constraint m name6:'(?x ?y ?) (< ?x 10))", "1");
 
