@@ -1921,6 +1921,17 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
+	public boolean removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		if (node.removeConstraint(constraint.getConstraintExpression()) == null) {
+			return false;
+		}
+
+		_graphChanged();
+		return true;
+	}
+
+	@Override
 	public void setNodePriority(IRReteNode node, int priority) throws RException {
 
 		if (node.getPriority() == priority) {

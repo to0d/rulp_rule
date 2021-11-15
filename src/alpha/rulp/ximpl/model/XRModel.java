@@ -392,7 +392,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected IRTransaction transaction = null;
 
+	protected int tryAddConstraintLevel = 0;
+
 	protected int tryAddStatmentLevel = 0;
+
+	protected int tryRemoveConstraintLevel = 0;
 
 	protected final XRUpdateQueue updateQueue = new XRUpdateQueue();
 
@@ -2084,8 +2088,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
-	protected int tryAddConstraintLevel = 0;
-
 	@Override
 	public boolean tryAddConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
@@ -2132,6 +2134,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 			removeStatement(stmt);
 			this.tryAddStatmentLevel--;
 			return false;
+		}
+	}
+
+	@Override
+	public boolean tryRemoveConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		if (this.tryRemoveConstraintLevel > 0) {
+			return this.nodeGraph.removeConstraint(node, constraint);
+		}
+
+		try {
+			this.tryRemoveConstraintLevel++;
+			return constraintChecker.removeConstraint(node, constraint);
+		} finally {
+			this.tryRemoveConstraintLevel--;
 		}
 	}
 }

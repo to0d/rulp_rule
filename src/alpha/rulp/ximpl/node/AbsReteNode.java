@@ -58,8 +58,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected IRModel model;
 
-//	protected IRFrame nodeFrame = null;
-
 	protected int nodeExecCount = 0;
 
 	protected IRFrame nodeFrame = null;

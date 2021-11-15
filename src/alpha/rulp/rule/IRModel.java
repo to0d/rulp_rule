@@ -110,4 +110,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean tryAddStatement(IRList stmt) throws RException;
 
+	public boolean tryRemoveConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
+
 }

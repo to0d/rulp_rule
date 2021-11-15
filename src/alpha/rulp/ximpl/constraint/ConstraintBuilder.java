@@ -290,9 +290,9 @@ public class ConstraintBuilder {
 		throw new RException("invalid column: " + obj);
 	}
 
-	private Set<String> _matchConstraint(RConstraint cons, IRNamedNode node) throws RException {
+	private Set<IRConstraint1> _matchConstraint(RConstraint cons, IRNamedNode node) throws RException {
 
-		Set<String> matchedConstraints = new HashSet<>();
+		Set<IRConstraint1> matchedConstraints = new HashSet<>();
 
 		RType columnType = null;
 
@@ -327,7 +327,7 @@ public class ConstraintBuilder {
 				continue;
 			}
 
-			matchedConstraints.add(constraint.getConstraintExpression());
+			matchedConstraints.add(constraint);
 		}
 
 		return matchedConstraints;
@@ -509,10 +509,10 @@ public class ConstraintBuilder {
 		}
 	}
 
-	public List<String> match(IRNamedNode node, IRList args, IRInterpreter interpreter, IRFrame frame)
+	public List<IRConstraint1> match(IRNamedNode node, IRList args, IRInterpreter interpreter, IRFrame frame)
 			throws RException {
 
-		Set<String> matchedConstraints = new HashSet<>();
+		Set<IRConstraint1> matchedConstraints = new HashSet<>();
 
 		IRIterator<? extends IRObject> it = args.iterator();
 		while (it.hasNext()) {
@@ -525,7 +525,7 @@ public class ConstraintBuilder {
 				break;
 
 			case EXPR:
-				matchedConstraints.add(_exprConstraint((IRExpr) obj).getConstraintExpression());
+				matchedConstraints.add(_exprConstraint((IRExpr) obj));
 				break;
 
 			default:

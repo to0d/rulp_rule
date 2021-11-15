@@ -46,9 +46,9 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException;
 
-	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;;
+	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
 
-	public int getMaxRootStmtLen();
+	public int getMaxRootStmtLen();;
 
 	public IRNamedNode getNamedNode(String name, int stmtLen) throws RException;
 
@@ -69,6 +69,8 @@ public interface IRNodeGraph {
 	public List<? extends IRReteNode> listNodes(RReteType reteType);
 
 	public Collection<? extends IRReteNode> listSourceNodes(IRReteNode node) throws RException;
+
+	public boolean removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public void setNodePriority(IRReteNode node, int priority) throws RException;
 

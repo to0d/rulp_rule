@@ -65,28 +65,26 @@ public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFac
 			throw new RException("named node not found: " + namedList);
 		}
 
-		List<String> constraintList = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList)))
-				.match(node, RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
+		List<IRConstraint1> constraintList = new ConstraintBuilder(
+				ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList))).match(node,
+						RulpFactory.createList(args.listIterator(argIndex)), interpreter, frame);
 		if (constraintList.isEmpty()) {
 			return RulpFactory.createList();
 		}
 
-		/********************************************/
-		// Remove matched Constraint
-		/********************************************/
-		ArrayList<IRConstraint1> removedConstraintList = new ArrayList<>();
-		for (String des : constraintList) {
-			IRConstraint1 removedCons = node.removeConstraint(des);
-			if (removedCons == null) {
-				throw new RException("constraint not found: " + des);
-			}
-			removedConstraintList.add(removedCons);
-		}
-
-		Collections.sort(removedConstraintList, (c1, c2) -> {
+		Collections.sort(constraintList, (c1, c2) -> {
 			return c1.getConstraintExpression().compareTo(c2.getConstraintExpression());
 		});
 
-		return RulpFactory.createList(removedConstraintList);
+		/********************************************/
+		// Remove matched Constraint
+		/********************************************/
+		for (IRConstraint1 constraint : constraintList) {
+			if (!model.tryRemoveConstraint(node, constraint)) {
+				throw new RException(node + ": fail to remove constraint: " + constraint.getConstraintExpression());
+			}
+		}
+
+		return RulpFactory.createList(constraintList);
 	}
 }
