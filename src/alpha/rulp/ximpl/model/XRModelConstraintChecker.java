@@ -157,9 +157,23 @@ public class XRModelConstraintChecker {
 							return ConstraintFactory.createConstraintNotEqualValue(constraintIndex, value);
 						}
 					}
-
 				}
 
+//				// (!= ?0 ?1)
+//				if (consExprX.getConstraintIndex().length == 2 && consExprX.getExternalVarCount() == 0) {
+//
+//					int constraintIndex1 = consExprX.getConstraintIndex()[0];
+//					int constraintIndex2 = consExprX.getConstraintIndex()[1];
+//
+//					if (constraintIndex1 > constraintIndex2) {
+//
+//						int tmp = constraintIndex1;
+//						constraintIndex1 = constraintIndex2;
+//						constraintIndex2 = tmp;
+//					}
+//
+//					return ConstraintFactory.createConstraintNotEqualIndex(constraintIndex1, constraintIndex2);
+//				}
 			}
 
 			break;
