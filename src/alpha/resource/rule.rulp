@@ -62,6 +62,10 @@
             (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
             (-> $invalid_constraint$:'(?msg))
     )
+    
+    (add-rule "CST02" ?m::$cst$ if $cst_type$:'(?node ?index ?type1) do (-> $cst_node$:'(?node type)))
+    (add-rule "CST03" ?m::$cst$ if $cst_max$:'(?node ?index ?value)  do (-> $cst_node$:'(?node max)))
+    (add-rule "CST04" ?m::$cst$ if $cst_min$:'(?node ?index ?value)  do (-> $cst_node$:'(?node min)))
 
     (setq ?m::?cst-init true)
 )

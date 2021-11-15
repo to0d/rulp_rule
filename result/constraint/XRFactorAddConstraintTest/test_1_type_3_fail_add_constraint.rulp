@@ -17,5 +17,5 @@ at _$fun$_add_cst_constraint_type: (do (init_cst_rule ?m) (add-stmt ?m $cst_type
 at MODEL: (add_cst_constraint_type m "name1" 2 int)
 at main: (add-constraint m name1:'(? ? ?x) '(type int on ?x))
 ;eof
-(list-stmt m)
-;=>'(name1:'(a b 1) name1:'(x y 2) name1:'(x y bad) $cst_type$:'("name1" 2 int))
+(list-stmt m from name1:'(?...))
+;=>'(name1:'(a b 1) name1:'(x y 2) name1:'(x y bad))
