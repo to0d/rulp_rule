@@ -1,7 +1,6 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.A_EXPRESSION;
-import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
@@ -18,6 +17,7 @@ import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRIterator;
@@ -161,13 +161,9 @@ public class XRModelConstraintChecker {
 					}
 
 					if (value != null) {
-
 						// (!= ?0 nil)
-						if (value.asString().equals(A_NIL)) {
-							return ConstraintFactory.createConstraintNotNull(constraintIndex);
-						} else {
-							return ConstraintFactory.createConstraintNotEqualValue(constraintIndex, value);
-						}
+						return ConstraintFactory.createConstraintCompareValue(RRelationalOperator.NE, constraintIndex,
+								value);
 					}
 				}
 

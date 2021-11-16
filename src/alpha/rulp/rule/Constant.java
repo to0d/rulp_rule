@@ -47,6 +47,10 @@ public interface Constant {
 
 	String A_NOT_EQUAL_VALUE = "not-equal-value";
 
+	String A_CMP_VALUE = "cmp-value";
+
+	String A_CMP_INDEX = "cmp-index";
+
 	String A_NOT_NULL = "not-null";
 
 	String A_On = "on";
