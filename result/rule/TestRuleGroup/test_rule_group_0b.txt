@@ -180,7 +180,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       75        0
+     Interpreter call id/level:       78        0
              CPS support/count:    false        0
                Frame max level:        2
                   Frame max id:        4
@@ -191,37 +191,37 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       73
+    factor:       76
 ==========================================================================================================================
 
-Callable stats info: callId=75, row=11, column=38(2), value-max=2, value-unit=2^x
+Callable stats info: callId=78, row=11, column=40(2), value-max=2, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         122222222222222222222222222222222.2222 max=2, unit=2^x
+   Frame    RType  Count  Ref Object                         1222222222222222222222222222222222112221 max=2, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     45    0 defun                              22222222222112212122121  1 22     
-    root   factor      7    0 alias                          1221                        1         
-    root   factor      6    0 defclass                                       1  1 1  1 1   1       
-  system   factor      3    0 list-stmt                                                         111
-    root   factor      3    0 deftemplate                                               21         
-    root   factor      3    0 defmacro                                      1             11       
-  system   factor      2    0 start                                                              11
-    root   factor      1    0 new                                                              1   
-    root   factor      1    0 defvar                            1                                  
-  system   factor      1    0 add-stmt                                                          1  
-  system   factor      1    0 add-rule                                                         1   
+    root   factor     48    0 defun                              22222222222112212122121  1 2221     
+    root   factor      7    0 alias                          1221                        1           
+    root   factor      6    0 defclass                                       1  1 1  1 1   1         
+  system   factor      3    0 list-stmt                                                           111
+    root   factor      3    0 deftemplate                                               21           
+    root   factor      3    0 defmacro                                      1             11         
+  system   factor      2    0 start                                                               11 
+    root   factor      1    0 new                                                               1    
+    root   factor      1    0 defvar                            1                                    
+  system   factor      1    0 add-stmt                                                           1   
+  system   factor      1    0 add-rule                                                           1   
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1128            0         1128
-      string:           44            0           44
-        list:           50            0           50
-        expr:          565            0          565
+        atom:         1232            0         1232
+      string:           47            0           47
+        list:           59            0           59
+        expr:          615            0          615
        array:            1            0            1
          var:           23            0           23
-        func:          106            0          106
+        func:          109            0          109
     template:            1            0            1
        macro:            3            0            3
     instance:            2            0            2
@@ -229,7 +229,7 @@ Object create count:
       member:          169            0          169
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          249            0
+  frameEntry:          252            0
       lambda:            0            0
 ==========================================================================================================================
 

@@ -8,9 +8,11 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -76,15 +78,34 @@ public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFac
 			return c1.getConstraintExpression().compareTo(c2.getConstraintExpression());
 		});
 
+		List<IRObject> removedConstraintList = new ArrayList<>();
+
 		/********************************************/
 		// Remove matched Constraint
 		/********************************************/
-		for (IRConstraint1 constraint : constraintList) {
-			if (!model.tryRemoveConstraint(node, constraint)) {
+		NEXT: for (IRConstraint1 constraint : constraintList) {
+
+			IRObject removedObj = model.tryRemoveConstraint(node, constraint);
+			if (removedObj == null) {
 				throw new RException(node + ": fail to remove constraint: " + constraint.getConstraintExpression());
+			}
+
+			// expand '('(type int on ?0))
+			if (removedObj.getType() == RType.LIST) {
+				IRList removedList = RulpUtil.asList(removedObj);
+				IRIterator<? extends IRObject> it = removedList.iterator();
+				while (it.hasNext()) {
+					removedConstraintList.add(it.next());
+				}
+			} else {
+				removedConstraintList.add(removedObj);
 			}
 		}
 
-		return RulpFactory.createList(constraintList);
+		Collections.sort(removedConstraintList, (o1, o2) -> {
+			return o1.asString().compareTo(o2.asString());
+		});
+
+		return RulpFactory.createList(removedConstraintList);
 	}
 }

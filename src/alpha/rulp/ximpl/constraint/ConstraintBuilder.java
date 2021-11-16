@@ -399,17 +399,13 @@ public class ConstraintBuilder {
 		switch (obj.getType()) {
 		case ATOM:
 
-			String columnName = RulpUtil.asAtom(obj).getName();
-			if (columnName.equals(S_QUESTION)) {
+			int index = _getColumnIndex(obj);
+			if (index == -1) {
 				return null;
 			}
 
-			if (!varIndexMap.containsKey(columnName)) {
-				throw new RException("invalid column: " + columnName);
-			}
-
 			columnIndexs = new int[1];
-			columnIndexs[0] = varIndexMap.get(columnName);
+			columnIndexs[0] = index;
 			break;
 
 		case INT:

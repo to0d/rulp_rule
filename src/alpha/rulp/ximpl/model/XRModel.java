@@ -2138,7 +2138,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public boolean tryRemoveConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+	public IRObject tryRemoveConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		if (this.tryRemoveConstraintLevel > 0) {
 			return this.nodeGraph.removeConstraint(node, constraint);

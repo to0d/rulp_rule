@@ -1921,14 +1921,15 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public boolean removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
-		if (node.removeConstraint(constraint.getConstraintExpression()) == null) {
-			return false;
+		IRConstraint1 removedConstraint = node.removeConstraint(constraint.getConstraintExpression());
+
+		if (removedConstraint != null) {
+			_graphChanged();
 		}
 
-		_graphChanged();
-		return true;
+		return removedConstraint;
 	}
 
 	@Override

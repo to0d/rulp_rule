@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import alpha.rulp.lang.IRList;
+import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
@@ -70,7 +71,7 @@ public interface IRNodeGraph {
 
 	public Collection<? extends IRReteNode> listSourceNodes(IRReteNode node) throws RException;
 
-	public boolean removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
+	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public void setNodePriority(IRReteNode node, int priority) throws RException;
 

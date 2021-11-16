@@ -39,7 +39,7 @@ public class XRModelConstraintChecker {
 
 	static final String F_CST_ADD_CONSTRAINT_TYPE = "add_cst_constraint_type";
 
-	static final String F_CST_RMV_CONSTRAINT_MAX = "remove_cst_constraint_type";
+	static final String F_CST_RMV_CONSTRAINT_MAX = "remove_cst_constraint_max";
 
 	static final String F_CST_RMV_CONSTRAINT_MIN = "remove_cst_constraint_min";
 
@@ -195,38 +195,32 @@ public class XRModelConstraintChecker {
 		return null;
 	}
 
-	protected boolean _removeMaxConstraint(IRReteNode node, IRConstraint1Max constraint) throws RException {
+	protected IRObject _removeMaxConstraint(IRReteNode node, IRConstraint1Max constraint) throws RException {
 
 		// $cst_max$:'(?node ?index ?value)
-		IRObject rst = model.getInterpreter().compute(model.getFrame(),
+		return model.getInterpreter().compute(model.getFrame(),
 				RulpFactory.createExpression(_getAtom(F_CST_RMV_CONSTRAINT_MAX), model,
 						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 						RulpFactory.createInteger(constraint.getColumnIndex()), constraint.getValue()));
-
-		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
-	protected boolean _removeMinConstraint(IRReteNode node, IRConstraint1Min constraint) throws RException {
+	protected IRObject _removeMinConstraint(IRReteNode node, IRConstraint1Min constraint) throws RException {
 
 		// $cst_max$:'(?node ?index ?value)
-		IRObject rst = model.getInterpreter().compute(model.getFrame(),
+		return model.getInterpreter().compute(model.getFrame(),
 				RulpFactory.createExpression(_getAtom(F_CST_RMV_CONSTRAINT_MIN), model,
 						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 						RulpFactory.createInteger(constraint.getColumnIndex()), constraint.getValue()));
-
-		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
-	protected boolean _removeTypeConstraint(IRReteNode node, IRConstraint1Type constraint) throws RException {
+	protected IRObject _removeTypeConstraint(IRReteNode node, IRConstraint1Type constraint) throws RException {
 
 		// $cst_type$:'(?node ?index ?type)
-		IRObject rst = model.getInterpreter().compute(model.getFrame(),
+		return model.getInterpreter().compute(model.getFrame(),
 				RulpFactory.createExpression(_getAtom(F_CST_RMV_CONSTRAINT_TYPE), model,
 						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 						RulpFactory.createInteger(constraint.getColumnIndex()),
 						RType.toObject(constraint.getColumnType())));
-
-		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
@@ -259,7 +253,7 @@ public class XRModelConstraintChecker {
 		}
 	}
 
-	public boolean removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		switch (constraint.getConstraintName()) {
 		case A_Type:
