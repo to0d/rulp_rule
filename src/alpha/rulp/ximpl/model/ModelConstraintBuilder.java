@@ -4,7 +4,6 @@ import static alpha.rulp.lang.Constant.A_EXPRESSION;
 import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
-import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
@@ -19,6 +18,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleUtil;
@@ -32,7 +32,7 @@ import alpha.rulp.ximpl.constraint.IRConstraint1Min;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.constraint.XRConstraint1Expr0X;
 
-public class XRModelConstraintChecker {
+public class ModelConstraintBuilder {
 
 	static final String F_CST_ADD_CONSTRAINT_MAX = "add_cst_constraint_max";
 
@@ -48,9 +48,9 @@ public class XRModelConstraintChecker {
 
 	private Map<String, IRAtom> atomMap = new HashMap<>();
 
-	private XRModel model;
+	private IRModel model;
 
-	public XRModelConstraintChecker(XRModel model) {
+	public ModelConstraintBuilder(IRModel model) {
 		super();
 		this.model = model;
 	}
@@ -244,7 +244,6 @@ public class XRModelConstraintChecker {
 			return _addMinConstraint(node, (IRConstraint1Min) lastConstraint);
 
 		case A_Uniq:
-		case A_NOT_NULL:
 		default:
 			return model.getNodeGraph().addConstraint(node, lastConstraint);
 		}
@@ -263,7 +262,6 @@ public class XRModelConstraintChecker {
 			return _removeMinConstraint(node, (IRConstraint1Min) constraint);
 
 		case A_Uniq:
-		case A_NOT_NULL:
 		default:
 			return model.getNodeGraph().removeConstraint(node, constraint);
 		}

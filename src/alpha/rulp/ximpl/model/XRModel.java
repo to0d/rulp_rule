@@ -348,7 +348,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final LinkedList<XRCacheWorker> cacheWorkerList = new LinkedList<>();
 
-	protected final XRModelConstraintChecker constraintChecker;
+	protected final ModelConstraintBuilder constraintChecker;
 
 	protected final IREntryTable entryTable = new XREntryTable();
 
@@ -404,7 +404,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		super(rclass, modelName, frame);
 		this.nodeGraph = new XRNodeGraph(this, entryTable);
 		this.modelCounter = new XRRModelCounter(this);
-		this.constraintChecker = new XRModelConstraintChecker(this);
+		this.constraintChecker = new ModelConstraintBuilder(this);
 	}
 
 	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
