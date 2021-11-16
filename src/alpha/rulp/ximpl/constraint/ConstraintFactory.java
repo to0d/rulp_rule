@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
+import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 
 import java.util.ArrayList;
@@ -224,7 +225,7 @@ public class ConstraintFactory {
 	}
 
 	public static IRConstraint1 createConstraintNotNull(int index) {
-		return new XRConstraint1NotNull(index);
+		return createConstraintCompareValue(RRelationalOperator.NE, index, O_Nil);
 	}
 
 	public static IRConstraint1 createConstraintType(int columnIndex, RType columnType) {
