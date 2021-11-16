@@ -1,10 +1,18 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.lang.Constant.F_EQUAL;
+import static alpha.rulp.lang.Constant.F_O_EQ;
+import static alpha.rulp.lang.Constant.F_O_GE;
+import static alpha.rulp.lang.Constant.F_O_GT;
+import static alpha.rulp.lang.Constant.F_O_LE;
+import static alpha.rulp.lang.Constant.F_O_LT;
+import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.lang.Constant.S_QUESTION_C;
 import static alpha.rulp.lang.Constant.S_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
+import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
@@ -36,6 +44,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRString;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRReteNode.InheritIndex;
@@ -482,16 +491,6 @@ public class ReteUtil {
 		throw new RException("Invalid tree node found: " + reteTree);
 	}
 
-	public static boolean isBetaTree(IRList reteTree, int treeSize) throws RException {
-		return treeSize == 2 && reteTree.getType() == RType.LIST && reteTree.get(0).getType() == RType.LIST
-				&& reteTree.get(1).getType() == RType.LIST;
-	}
-
-	public static boolean isBeta3Tree(IRList reteTree, int treeSize) throws RException {
-		return treeSize == 3 && reteTree.get(0).getType() == RType.LIST && reteTree.get(1).getType() == RType.LIST
-				&& reteTree.get(2).getType() == RType.EXPR;
-	}
-
 	public static ArrayList<IRObject> buildVarList(IRList reteTree) throws RException {
 		ArrayList<IRObject> varList = new ArrayList<>();
 		buildVarList(reteTree, varList, new HashSet<String>());
@@ -549,42 +548,6 @@ public class ReteUtil {
 
 		return varList;
 	}
-
-//	public static boolean equal(IRObject a, IRObject b) {
-//
-//		if (a == null || a == O_Nil) {
-//			return b == null || b == O_Nil;
-//		}
-//
-//		if (b == null || b == O_Nil) {
-//			return false;
-//		}
-//
-//		RType type = a.getType();
-//		if (type != b.getType()) {
-//			return false;
-//		}
-//
-//		switch (type) {
-//		case INT:
-//			return ((IRInteger) a).asInteger() == ((IRInteger) b).asInteger();
-//
-//		case FLOAT:
-//			return ((IRFloat) a).asFloat() == ((IRFloat) b).asFloat();
-//
-//		case STRING:
-//			return ((IRString) a).asString().equals(((IRString) b).asString());
-//
-//		case BOOL:
-//			return ((IRBoolean) a).asBoolean() == ((IRBoolean) b).asBoolean();
-//
-//		case ATOM:
-//			return ((IRAtom) a).getName().equals(((IRAtom) b).getName());
-//
-//		default:
-//			return false;
-//		}
-//	}
 
 	public static IRNamedNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 
@@ -805,6 +768,25 @@ public class ReteUtil {
 		return reteStatusConvertArray[fromStatus.getIndex()][toStatus.getIndex()];
 	}
 
+	public static int getReteTreeModifierCount(IRList tree) throws RException {
+
+		if (tree.isEmpty()) {
+			return 0;
+		}
+
+		int modifierCount = 0;
+		for (int index = tree.size() - 1; index >= 0; --index) {
+			IRObject obj = tree.get(index);
+			if (obj.getType() == RType.ATOM && isReteTreeModifierAtom(RulpUtil.asAtom(obj))) {
+				++modifierCount;
+				continue;
+			}
+			break;
+		}
+
+		return modifierCount;
+	}
+
 	public static String getRootUniqName(int stmtLen) {
 
 		String uniqName = "'(";
@@ -866,10 +848,6 @@ public class ReteUtil {
 		return -1;
 	}
 
-	public static boolean isAlphaMatchTree(IRList matchTree) throws RException {
-		return isValidStmtLen(matchTree.size()) && ReteUtil.isEntryValueType(matchTree.get(0).getType());
-	}
-
 	public static boolean isActionEntry(IRList actionEntry) throws RException {
 		return isValidStmtLen(actionEntry.size()) && ReteUtil.isActionEntryValueType(actionEntry.get(0).getType());
 	}
@@ -891,8 +869,22 @@ public class ReteUtil {
 		}
 	}
 
+	public static boolean isAlphaMatchTree(IRList matchTree) throws RException {
+		return isValidStmtLen(matchTree.size()) && ReteUtil.isEntryValueType(matchTree.get(0).getType());
+	}
+
 	public static boolean isAnyVar(IRObject obj) {
 		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(S_QUESTION);
+	}
+
+	public static boolean isBeta3Tree(IRList reteTree, int treeSize) throws RException {
+		return treeSize == 3 && reteTree.get(0).getType() == RType.LIST && reteTree.get(1).getType() == RType.LIST
+				&& reteTree.get(2).getType() == RType.EXPR;
+	}
+
+	public static boolean isBetaTree(IRList reteTree, int treeSize) throws RException {
+		return treeSize == 2 && reteTree.getType() == RType.LIST && reteTree.get(0).getType() == RType.LIST
+				&& reteTree.get(1).getType() == RType.LIST;
 	}
 
 	public static boolean isCond(IRList cond) throws RException {
@@ -1062,36 +1054,6 @@ public class ReteUtil {
 		return true;
 	}
 
-	public static boolean isReteTreeModifierAtom(IRAtom obj) throws RException {
-
-		switch (obj.getName()) {
-		case A_ENTRY_ORDER:
-			return true;
-
-		default:
-			return false;
-		}
-	}
-
-	public static int getReteTreeModifierCount(IRList tree) throws RException {
-
-		if (tree.isEmpty()) {
-			return 0;
-		}
-
-		int modifierCount = 0;
-		for (int index = tree.size() - 1; index >= 0; --index) {
-			IRObject obj = tree.get(index);
-			if (obj.getType() == RType.ATOM && isReteTreeModifierAtom(RulpUtil.asAtom(obj))) {
-				++modifierCount;
-				continue;
-			}
-			break;
-		}
-
-		return modifierCount;
-	}
-
 	public static boolean isReteTree(IRObject tree) throws RException {
 
 		if (tree.getType() != RType.LIST) {
@@ -1133,6 +1095,17 @@ public class ReteUtil {
 		} else {
 
 			return ReteUtil.isReteStmt(list);
+		}
+	}
+
+	public static boolean isReteTreeModifierAtom(IRAtom obj) throws RException {
+
+		switch (obj.getName()) {
+		case A_ENTRY_ORDER:
+			return true;
+
+		default:
+			return false;
 		}
 	}
 
@@ -1539,6 +1512,34 @@ public class ReteUtil {
 
 	public static IRReteNode[] toNodesArray(IRReteNode... nodes) {
 		return nodes;
+	}
+
+	public static RRelationalOperator toRelationalOperator(String name) {
+
+		switch (name) {
+		case F_EQUAL:
+		case F_O_EQ:
+			return RRelationalOperator.EQ;
+
+		case F_NOT_EQUAL:
+		case F_O_NE:
+			return RRelationalOperator.NE;
+
+		case F_O_GE:
+			return RRelationalOperator.GE;
+
+		case F_O_GT:
+			return RRelationalOperator.GT;
+
+		case F_O_LE:
+			return RRelationalOperator.LE;
+
+		case F_O_LT:
+			return RRelationalOperator.LT;
+
+		default:
+			return null;
+		}
 	}
 
 	public static String uniqName(IRList tree) throws RException {

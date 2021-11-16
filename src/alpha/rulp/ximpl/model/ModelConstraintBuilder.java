@@ -1,12 +1,10 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.A_EXPRESSION;
-import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
-import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +19,7 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -138,55 +137,34 @@ public class ModelConstraintBuilder {
 	protected IRConstraint1 _rebuildExprConstraint(IRReteNode node, IRConstraint1Expr constraint) throws RException {
 
 		IRExpr expr = constraint.getExpr();
-		switch (expr.get(0).asString()) {
-		case F_NOT_EQUAL: // not-equal
-		case F_O_NE: // !=
+		RRelationalOperator op = null;
 
-			if (_getExprLevel(expr) == 1 && expr.size() == 3 && constraint instanceof XRConstraint1Expr0X) {
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && _getExprLevel(expr) == 1
+				&& expr.size() == 3 && constraint instanceof XRConstraint1Expr0X) {
 
-				// (!= ?0 value)
-				// (!= value ?0)
-				XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
-				if (consExprX.getConstraintIndex().length == 1 && consExprX.getExternalVarCount() == 0) {
+			XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
+			if (consExprX.getConstraintIndex().length == 1 && consExprX.getExternalVarCount() == 0) {
 
-					int constraintIndex = consExprX.getConstraintIndex()[0];
-					String constraintIndexName = String.format("?%d", constraintIndex);
-					IRObject value = null;
+				int constraintIndex = consExprX.getConstraintIndex()[0];
+				String constraintIndexName = String.format("?%d", constraintIndex);
 
-					// (!= ?0 value)
-					if (expr.get(1).asString().equals(constraintIndexName)) {
-						value = expr.get(2);
-					} else if (expr.get(2).asString().equals(constraintIndexName)) {
-						value = expr.get(1);
-					}
-
-					if (value != null) {
-						// (!= ?0 nil)
-						return ConstraintFactory.createConstraintCompareValue(RRelationalOperator.NE, constraintIndex,
-								value);
-					}
+				// (op ?0 value)
+				if (expr.get(1).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.createConstraintCompareValue(op, constraintIndex, expr.get(2));
 				}
 
-				// (!= ?0 ?1)
-				if (consExprX.getConstraintIndex().length == 2 && consExprX.getExternalVarCount() == 0) {
-
-					int constraintIndex1 = consExprX.getConstraintIndex()[0];
-					int constraintIndex2 = consExprX.getConstraintIndex()[1];
-
-					if (constraintIndex1 > constraintIndex2) {
-
-						int tmp = constraintIndex1;
-						constraintIndex1 = constraintIndex2;
-						constraintIndex2 = tmp;
-					}
-
-					return ConstraintFactory.createConstraintNotEqualIndex(constraintIndex1, constraintIndex2);
+				// (op value ?0)
+				if (expr.get(2).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.createConstraintCompareValue(RRelationalOperator.toOpposite(op),
+							constraintIndex, expr.get(1));
 				}
 			}
 
-			break;
-
-		default:
+			// (!= ?0 ?1)
+			if (consExprX.getConstraintIndex().length == 2 && consExprX.getExternalVarCount() == 0) {
+				return ConstraintFactory.createConstraintCompareIndex(op, consExprX.getConstraintIndex()[0],
+						consExprX.getConstraintIndex()[1]);
+			}
 		}
 
 		return null;

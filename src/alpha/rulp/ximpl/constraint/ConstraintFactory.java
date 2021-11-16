@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.lang.Constant.*;
-import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
+import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.lang.Constant.O_Nil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,34 +107,6 @@ public class ConstraintFactory {
 		return new XRConstraint1Expr0X(newExpr, newVarEntry, constraintIndex, externalVarCount);
 	}
 
-	public static RRelationalOperator toRelationalOperator(String name) {
-
-		switch (name) {
-		case F_EQUAL:
-		case F_O_EQ:
-			return RRelationalOperator.EQ;
-
-		case F_NOT_EQUAL:
-		case F_O_NE:
-			return RRelationalOperator.NE;
-
-		case F_O_GE:
-			return RRelationalOperator.GE;
-
-		case F_O_GT:
-			return RRelationalOperator.GT;
-
-		case F_O_LE:
-			return RRelationalOperator.LE;
-
-		case F_O_LT:
-			return RRelationalOperator.LT;
-
-		default:
-			return null;
-		}
-	}
-
 	public static IRConstraint1 createConstraintExpr1Node(IRExpr expr, List<IRObject> leftVarList) throws RException {
 
 		int size = expr.size();
@@ -152,7 +124,7 @@ public class ConstraintFactory {
 			return null;
 		}
 
-		RRelationalOperator op = toRelationalOperator(RulpUtil.asAtom(e0).getName());
+		RRelationalOperator op = ReteUtil.toRelationalOperator(RulpUtil.asAtom(e0).getName());
 		if (op == null) {
 			return null;
 		}
