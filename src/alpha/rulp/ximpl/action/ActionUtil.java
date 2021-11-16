@@ -96,7 +96,7 @@ public class ActionUtil {
 							continue;
 						}
 
-						if (ReteUtil.equal(obj, varObj)) {
+						if (RulpUtil.equal(obj, varObj)) {
 							inheritIndex = j;
 							break;
 						}

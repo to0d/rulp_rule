@@ -12,7 +12,6 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.OptimizeUtil;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -68,14 +67,14 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 		this.nodeMatchCount++;
 
 		if (primaryJoinIndex != null) {
-			if (!ReteUtil.equal(leftEntry.get(primaryJoinIndex.leftIndex),
+			if (!RulpUtil.equal(leftEntry.get(primaryJoinIndex.leftIndex),
 					rightEntry.get(primaryJoinIndex.rightIndex))) {
 				return false;
 			}
 		}
 
 		for (JoinIndex joinIndex : joinIndexList) {
-			if (!ReteUtil.equal(leftEntry.get(joinIndex.leftIndex), rightEntry.get(joinIndex.rightIndex))) {
+			if (!RulpUtil.equal(leftEntry.get(joinIndex.leftIndex), rightEntry.get(joinIndex.rightIndex))) {
 				return false;
 			}
 		}

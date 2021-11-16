@@ -1,7 +1,6 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.A_NIL;
-import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.lang.Constant.S_QUESTION_C;
 import static alpha.rulp.lang.Constant.S_QUESTION_LIST;
@@ -551,41 +550,41 @@ public class ReteUtil {
 		return varList;
 	}
 
-	public static boolean equal(IRObject a, IRObject b) {
-
-		if (a == null || a == O_Nil) {
-			return b == null || b == O_Nil;
-		}
-
-		if (b == null || b == O_Nil) {
-			return false;
-		}
-
-		RType type = a.getType();
-		if (type != b.getType()) {
-			return false;
-		}
-
-		switch (type) {
-		case INT:
-			return ((IRInteger) a).asInteger() == ((IRInteger) b).asInteger();
-
-		case FLOAT:
-			return ((IRFloat) a).asFloat() == ((IRFloat) b).asFloat();
-
-		case STRING:
-			return ((IRString) a).asString().equals(((IRString) b).asString());
-
-		case BOOL:
-			return ((IRBoolean) a).asBoolean() == ((IRBoolean) b).asBoolean();
-
-		case ATOM:
-			return ((IRAtom) a).getName().equals(((IRAtom) b).getName());
-
-		default:
-			return false;
-		}
-	}
+//	public static boolean equal(IRObject a, IRObject b) {
+//
+//		if (a == null || a == O_Nil) {
+//			return b == null || b == O_Nil;
+//		}
+//
+//		if (b == null || b == O_Nil) {
+//			return false;
+//		}
+//
+//		RType type = a.getType();
+//		if (type != b.getType()) {
+//			return false;
+//		}
+//
+//		switch (type) {
+//		case INT:
+//			return ((IRInteger) a).asInteger() == ((IRInteger) b).asInteger();
+//
+//		case FLOAT:
+//			return ((IRFloat) a).asFloat() == ((IRFloat) b).asFloat();
+//
+//		case STRING:
+//			return ((IRString) a).asString().equals(((IRString) b).asString());
+//
+//		case BOOL:
+//			return ((IRBoolean) a).asBoolean() == ((IRBoolean) b).asBoolean();
+//
+//		case ATOM:
+//			return ((IRAtom) a).getName().equals(((IRAtom) b).getName());
+//
+//		default:
+//			return false;
+//		}
+//	}
 
 	public static IRNamedNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 

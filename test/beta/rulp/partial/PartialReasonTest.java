@@ -10,7 +10,7 @@ public class PartialReasonTest extends RuleTestBase {
 	void test_1_full() {
 
 		_setup();
-		
+
 		_test("(new model m)", "m");
 		_test("(add-rule \"R1\" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )", "R1");
 		_test("(add-rule \"R2\" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )", "R2");
@@ -35,7 +35,7 @@ public class PartialReasonTest extends RuleTestBase {
 	void test_1_full_b() {
 
 		_setup();
-		
+
 		_test("(new model m)", "m");
 		_test("(add-rule \"R1\" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )", "R1");
 		_test("(add-rule \"R2\" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )", "R2");
@@ -66,7 +66,7 @@ public class PartialReasonTest extends RuleTestBase {
 	void test_2_partial_r2_not_work() {
 
 		_setup();
-		
+
 		_test("(new model m)", "m");
 		_test("(add-rule \"R1\" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )", "R1");
 		_test("(add-rule \"R2\" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )", "R2");
@@ -91,22 +91,17 @@ public class PartialReasonTest extends RuleTestBase {
 	public void test_3_alias_full() {
 
 		_setup();
-		
-		// XRModel.TRACE_RETE = true;
+
 		_test("(load \"result/p2d.rulp\")");
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tb))");
 		_test("(add-stmt p2d '(tc nm:hasAliasTag td))");
-
 		_test("(start p2d)", "280");
 		_test("(state-of p2d)", "completed");
-
 		_test("(list-stmt p2d from '(tb nm:beAliasTo ?x))", "'('(tb nm:beAliasTo ta))");
 
 		_mStatus(1, "p2d");
 		_mCount(1, "p2d");
 		_eCount(1, "p2d");
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("p2d")));
-
 		_saveTest();
 	}
 
@@ -114,8 +109,7 @@ public class PartialReasonTest extends RuleTestBase {
 	public void test_4_alias_query_all() {
 
 		_setup();
-		
-		// XRModel.TRACE_RETE = true;
+
 		_test("(load \"result/p2d.rulp\")");
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tb))");
 		_test("(add-stmt p2d '(tc nm:hasAliasTag td))");
@@ -124,7 +118,6 @@ public class PartialReasonTest extends RuleTestBase {
 		_mStatus(1, "p2d");
 		_mCount(1, "p2d");
 		_eCount(1, "p2d");
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("p2d")));
 
 		_saveTest();
 	}
@@ -133,8 +126,7 @@ public class PartialReasonTest extends RuleTestBase {
 	public void test_5_alias_query_1() {
 
 		_setup();
-		
-		// XRModel.TRACE_RETE = true;
+
 		_test("(load \"result/p2d.rulp\")");
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tb))");
 		_test("(add-stmt p2d '(tc nm:hasAliasTag td))");
@@ -143,18 +135,15 @@ public class PartialReasonTest extends RuleTestBase {
 		_mStatus(1, "p2d");
 		_mCount(1, "p2d");
 		_eCount(1, "p2d");
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("p2d")));
-
 		_saveTest();
-		_statsInfo("p2d", "result/partial/PartialReasonTest/test_5_alias_query_1.txt");
-
+		_statsInfo("p2d");
 	}
 
 	@Test
 	void test_6_root_based_rule() {
 
 		_setup();
-		
+
 		// XRModel.TRACE_RETE = true;
 
 		_test("(new model m)");

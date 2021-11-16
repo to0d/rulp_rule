@@ -134,4 +134,5 @@ class XRFactorRemoveConstraintTest extends RuleTestBase {
 		_test("(list-constraint m name1:'(?...))", "'()");
 		_test("(list-stmt m from $cst_node$:'(?...))", "'()");
 	}
+
 }

@@ -1,11 +1,14 @@
 package alpha.rulp.ximpl.model;
 
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_EXPRESSION;
+import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.rule.Constant.A_Max;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
+import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +31,6 @@ import alpha.rulp.ximpl.constraint.IRConstraint1Max;
 import alpha.rulp.ximpl.constraint.IRConstraint1Min;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
 import alpha.rulp.ximpl.constraint.XRConstraint1Expr0X;
-
-import static alpha.rulp.lang.Constant.A_EXPRESSION;
 
 public class XRModelConstraintChecker {
 
