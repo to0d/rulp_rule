@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -26,11 +27,9 @@ class OptimizeUtilTest extends RulpTestBase {
 			for (IRObject obj : RulpFactory.createParser().parse(inputExpr)) {
 				exprList.add(obj);
 			}
-
 			assertEquals(inputExpr, 1, exprList.size());
-
 			IRObject obj = exprList.get(0);
-			obj = OptimizeUtil.optimizeExpr(obj);
+			obj = OptimizeUtil.optimizeExpr((IRExpr) obj);
 			assertEquals(inputExpr, expectExpr, RulpUtil.toString(obj));
 
 		} catch (RException e) {
@@ -78,14 +77,8 @@ class OptimizeUtilTest extends RulpTestBase {
 
 		_setup();
 
-		_test_optimize_expr("a");
-		_test_optimize_expr("1");
-		_test_optimize_expr("1.1");
-		_test_optimize_expr("\"abc\"");
 		_test_optimize_expr("()");
-		_test_optimize_expr("'()");
 		_test_optimize_expr("(a b c)");
-		_test_optimize_expr("'(a b c)");
 
 		// (not (equal a b)) ==> (not-equal a b)
 		_test_optimize_expr("(not a)");

@@ -198,20 +198,6 @@ public class MatchTree {
 
 		static MTreeNode buildNode(IRList stmt) throws RException {
 
-			// (not (equal a b)) ==> (not-equal a b)
-			if (stmt.size() == 2 && OptimizeUtil.matchExprFactor(stmt, F_B_NOT)
-					&& OptimizeUtil.matchExprFactor(stmt.get(1), F_EQUAL)) {
-
-				ArrayList<IRObject> optiArray = new ArrayList<>();
-				IRIterator<? extends IRObject> childExprIter = ((IRExpr) stmt.get(1)).listIterator(1);
-				optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
-				while (childExprIter.hasNext()) {
-					optiArray.add(childExprIter.next());
-				}
-
-				stmt = RulpFactory.createExpression(optiArray);
-			}
-
 			MTreeNode node = new MTreeNode();
 			node.tree = stmt;
 			node.level = 0;
@@ -715,12 +701,33 @@ public class MatchTree {
 		ArrayList<IRList> varStmtList = new ArrayList<>();
 		Set<String> stmtVarNames = new HashSet<>();
 
-		for (IRList stmt : matchStmtList) {
+		NEXT: for (IRList stmt : matchStmtList) {
 
 			// const expr
 			if (stmt.getType() == RType.LIST && ReteUtil.getStmtVarCount(stmt) == 0) {
 				constStmtList.add(stmt);
 				continue;
+			}
+
+			if (stmt.getType() == RType.EXPR) {
+
+				IRObject rst = OptimizeUtil.optimizeExpr((IRExpr) stmt);
+
+				switch (rst.getType()) {
+				case EXPR:
+					stmt = (IRList) rst;
+					break;
+				case BOOL:
+					if (RulpUtil.asBoolean(rst).asBoolean()) {
+						continue NEXT;
+					} else {
+						throw new RException("false tree found: " + matchStmtList);
+					}
+
+				default:
+					throw new RException("Invalid optimize result: " + rst);
+				}
+
 			}
 
 			varStmtList.add(stmt);

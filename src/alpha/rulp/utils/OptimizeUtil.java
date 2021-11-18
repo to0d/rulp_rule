@@ -159,6 +159,68 @@ public class OptimizeUtil {
 	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, ALPH2, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2,
 			BETA3 };
 
+	protected static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+		case EXPR:
+		default:
+			return obj;
+		}
+	}
+
+	protected static boolean _canOptimizeMatchTree(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+
+			IRList list = RulpUtil.asList(obj);
+			int size = list.size();
+			for (int i = 0; i < size; ++i) {
+				if (_canOptimizeMatchTree(list.get(i))) {
+					return true;
+				}
+			}
+
+			// '('(?0 ?1 ?2) (not-equal ?2 ?0)) -> '('(?0 ?1 ?2) (not-equal ?0 ?1))
+			if (size == 2) {
+
+				IRObject o0 = list.get(0);
+				IRObject o1 = list.get(1);
+
+				if (o0.getType() == RType.LIST && o1.getType() == RType.EXPR) {
+
+					IRExpr e1 = RulpUtil.asExpression(o1);
+
+					if (e1.size() == 3) {
+
+						String f0 = e1.get(0).asString();
+						if (f0.equals(F_NOT_EQUAL) || f0.equals(F_EQUAL)) {
+
+							String a = e1.get(1).asString();
+							String b = e1.get(2).asString();
+
+							// '(?a ?p ?b) (equal ?a ?a) -> '(?a ?p ?b)
+							// '(?a ?p ?b) (not-equal ?a ?a) -> '(?a ?p ?b) (false)
+
+							IRList l0 = RulpUtil.asList(o0);
+
+							// '(?a ?p ?b) (equal value ?a) -> '(?a ?p ?b) (equal ?a value)
+							// '(?a ?p ?b) (not-equal value ?a) -> '(?a ?p ?b) (not-equal ?a value)
+						}
+
+					}
+				}
+			}
+
+			return false;
+
+		case EXPR:
+		default:
+			return false;
+		}
+	}
+
 	private static List<String> _formatTableResult(List<List<String>> result, List<Integer> maxColumnLen) {
 
 		ArrayList<String> lines = new ArrayList<>();
@@ -490,71 +552,71 @@ public class OptimizeUtil {
 		return node.getNodeExecCount() == 0 || node.getNodeExecCount() == node.getNodeIdleCount();
 	}
 
-	private static IRObject _optimizeExpr(IRObject obj) throws RException {
-
-		if (obj.getType() != RType.EXPR) {
-			return null;
-		}
-
-		IRExpr expr = (IRExpr) obj;
-		int size = expr.size();
-		int update = 0;
-
-		/*******************************************************/
-		// Optimize child
-		/*******************************************************/
-		{
-
-			ArrayList<IRObject> optiArray = null;
-
-			for (int i = 0; i < size; ++i) {
-
-				IRObject e = expr.get(i);
-				IRObject optiE = null;
-
-				if ((optiE = _optimizeExpr(e)) != null) {
-
-					if (optiArray == null) {
-						optiArray = new ArrayList<>();
-
-						// Copy previous elements
-						for (int j = 0; j < i - 1; ++j) {
-							optiArray.add(expr.get(j));
-						}
-					}
-
-					optiArray.add(optiE);
-
-				} else {
-
-					if (optiArray != null) {
-						optiArray.add(e);
-					}
-				}
-			}
-
-			if (optiArray != null) {
-				expr = RulpFactory.createExpression(optiArray);
-				++update;
-			}
-		}
-
-		// (not (equal a b)) ==> (not-equal a b)
-		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
-
-			ArrayList<IRObject> optiArray = new ArrayList<>();
-			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
-			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
-			while (childExprIter.hasNext()) {
-				optiArray.add(childExprIter.next());
-			}
-
-			expr = RulpFactory.createExpression(optiArray);
-			++update;
-		}
-
-		return update > 0 ? expr : null;
-	}
+//	private static IRObject _optimizeExpr(IRObject obj) throws RException {
+//
+//		if (obj.getType() != RType.EXPR) {
+//			return null;
+//		}
+//
+//		IRExpr expr = (IRExpr) obj;
+//		int size = expr.size();
+//		int update = 0;
+//
+//		/*******************************************************/
+//		// Optimize child
+//		/*******************************************************/
+//		{
+//
+//			ArrayList<IRObject> optiArray = null;
+//
+//			for (int i = 0; i < size; ++i) {
+//
+//				IRObject e = expr.get(i);
+//				IRObject optiE = null;
+//
+//				if ((optiE = _optimizeExpr(e)) != null) {
+//
+//					if (optiArray == null) {
+//						optiArray = new ArrayList<>();
+//
+//						// Copy previous elements
+//						for (int j = 0; j < i - 1; ++j) {
+//							optiArray.add(expr.get(j));
+//						}
+//					}
+//
+//					optiArray.add(optiE);
+//
+//				} else {
+//
+//					if (optiArray != null) {
+//						optiArray.add(e);
+//					}
+//				}
+//			}
+//
+//			if (optiArray != null) {
+//				expr = RulpFactory.createExpression(optiArray);
+//				++update;
+//			}
+//		}
+//
+//		// (not (equal a b)) ==> (not-equal a b)
+//		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
+//
+//			ArrayList<IRObject> optiArray = new ArrayList<>();
+//			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
+//			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
+//			while (childExprIter.hasNext()) {
+//				optiArray.add(childExprIter.next());
+//			}
+//
+//			expr = RulpFactory.createExpression(optiArray);
+//			++update;
+//		}
+//
+//		return update > 0 ? expr : null;
+//	}
 
 	private static Pair<IRList, IRList> _optimizeRule_1(Pair<IRList, IRList> rule, IRFrame frame) throws RException {
 
@@ -2455,7 +2517,7 @@ public class OptimizeUtil {
 		}
 
 		return wasteMap;
-	}
+	};
 
 	public static boolean matchExprFactor(IRObject obj, String factorName) throws RException {
 
@@ -2474,16 +2536,60 @@ public class OptimizeUtil {
 
 	}
 
-	public static IRObject optimizeExpr(IRObject obj) throws RException {
+	public static IRObject optimizeExpr(IRExpr expr) throws RException {
 
-		IRObject optiObj = null;
+		OPT: while (true) {
 
-		while ((optiObj = _optimizeExpr(obj)) != null) {
-			obj = optiObj;
+			// (not (equal a b)) ==> (not-equal a b)
+			if (expr.size() == 2 && OptimizeUtil.matchExprFactor(expr, F_B_NOT)
+					&& OptimizeUtil.matchExprFactor(expr.get(1), F_EQUAL)) {
+
+				ArrayList<IRObject> optiArray = new ArrayList<>();
+				IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
+				optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
+				while (childExprIter.hasNext()) {
+					optiArray.add(childExprIter.next());
+				}
+
+				expr = RulpFactory.createExpression(optiArray);
+				continue OPT;
+			}
+
+			break;
 		}
 
-		return obj;
-	};
+		// (= ?a ?a) ==> true
+		// (!= ?a ?a) ==> false
+		// (> ?a ?a) ==> false
+		// (< ?a ?a) ==> false
+		// (>= ?a ?a) ==> true
+		// (<= ?a ?a) ==> true
+		if (expr.size() == 3) {
+
+		}
+
+		return expr;
+	}
+
+//	public static IRObject optimizeExpr(IRObject obj) throws RException {
+//
+//		IRObject optiObj = null;
+//
+//		while ((optiObj = _optimizeExpr(obj)) != null) {
+//			obj = optiObj;
+//		}
+//
+//		return obj;
+//	}
+
+	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
+
+		if (!_canOptimizeMatchTree(matchTree)) {
+			return matchTree;
+		}
+
+		return (IRList) _buildOptimizeMatchTree(matchTree);
+	}
 
 	public static Pair<IRList, IRList> optimizeRule(IRList condList, IRList actionList, IRFrame frame)
 			throws RException {
@@ -2501,77 +2607,6 @@ public class OptimizeUtil {
 		} while (false);
 
 		return rule;
-	}
-
-	protected static boolean _canOptimizeMatchTree(IRObject obj) throws RException {
-
-		switch (obj.getType()) {
-		case LIST:
-
-			IRList list = RulpUtil.asList(obj);
-			int size = list.size();
-			for (int i = 0; i < size; ++i) {
-				if (_canOptimizeMatchTree(list.get(i))) {
-					return true;
-				}
-			}
-
-			// '('(?0 ?1 ?2) (not-equal ?2 ?0)) -> '('(?0 ?1 ?2) (not-equal ?0 ?1))
-			if (size == 2) {
-
-				IRObject o0 = list.get(0);
-				IRObject o1 = list.get(1);
-
-				if (o0.getType() == RType.LIST && o1.getType() == RType.EXPR) {
-
-					IRExpr e1 = RulpUtil.asExpression(o1);
-
-					if (e1.size() == 3) {
-
-						String f0 = e1.get(0).asString();
-						if (f0.equals(F_NOT_EQUAL) || f0.equals(F_EQUAL)) {
-
-							String a = e1.get(1).asString();
-							String b = e1.get(2).asString();
-
-							// '(?a ?p ?b) (equal ?a ?a) -> '(?a ?p ?b)
-							// '(?a ?p ?b) (not-equal ?a ?a) -> '(?a ?p ?b) (false)
-
-							IRList l0 = RulpUtil.asList(o0);
-
-							// '(?a ?p ?b) (equal value ?a) -> '(?a ?p ?b) (equal ?a value)
-							// '(?a ?p ?b) (not-equal value ?a) -> '(?a ?p ?b) (not-equal ?a value)
-						}
-
-					}
-				}
-			}
-
-			return false;
-
-		case EXPR:
-		default:
-			return false;
-		}
-	}
-
-	protected static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
-
-		switch (obj.getType()) {
-		case LIST:
-		case EXPR:
-		default:
-			return obj;
-		}
-	}
-
-	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
-
-		if (!_canOptimizeMatchTree(matchTree)) {
-			return matchTree;
-		}
-
-		return (IRList) _buildOptimizeMatchTree(matchTree);
 	}
 
 	public static String printNodeInfo(IRModel model) throws RException {
