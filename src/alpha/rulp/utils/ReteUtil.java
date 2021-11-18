@@ -1484,7 +1484,7 @@ public class ReteUtil {
 
 			} else if (RulpUtil.isExpression(cond)) {
 
-				matchStmtList.add((IRExpr) builder.build(OptimizeUtil.optimizeExpr(cond)));
+				matchStmtList.add((IRExpr) builder.build(cond));
 
 			} else if (ReteUtil.isReteTree(cond)) {
 

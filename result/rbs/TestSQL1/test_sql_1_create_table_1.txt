@@ -129,7 +129,7 @@ E1004(EXPR1):               '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (
 B0003(BETA0):               '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
            0: N0002(NAME0)  $cst_type$:'(?0 ?1 ?2)
            1: N0002(NAME0)  $cst_type$:'(?0 ?1 ?2)
- CST01(RULE):               $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not-equal ?type1 ?type2) ==> (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg))
+ CST01(RULE):               $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) ==> (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg))
            0: E1004(EXPR1)  '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
  CST02(RULE):               $cst_type$:'(?node ?index ?type1) ==> (-> $cst_node$:'(?node type))
            0: N0002(NAME0)  $cst_type$:'(?0 ?1 ?2)
@@ -406,7 +406,7 @@ Object create count:
         atom:         1542            0         1542
       string:           89            0           89
         list:          175            0          175
-        expr:          828            0          828
+        expr:          829            0          829
        array:            2            0            2
          var:          133          109           24
         func:          115            0          115

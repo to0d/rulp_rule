@@ -106,9 +106,9 @@ B2006(BETA2):               '('('('(?0 ?1 ?2) (!= ?1 nm:hasRelation)) (not-equal
 B2009(BETA2):               '('('('('(?0 ?1 ?2) (!= ?1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
            0: B2006(BETA2)  '('('('(?0 ?1 ?2) (!= ?1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
            1: A0008(ALPH0)  '(?0 nm:hasAutoRelatedTag ?1)
-    T7(RULE):               '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not-equal nm:hasAutoRelatedTag ?p) (not-equal nm:hasRelation ?p) ==> (-> '(?a nm:hasRelation ?b))
+    T7(RULE):               '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) (not (equal nm:hasRelation ?p)) ==> (-> '(?a nm:hasRelation ?b))
            0: B2006(BETA2)  '('('('(?0 ?1 ?2) (!= ?1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
-   RR5(RULE):               '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not-equal nm:hasAutoRelatedTag ?p) (not-equal nm:hasRelation ?p) ==> (remove-stmt ?0)
+   RR5(RULE):               '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) (not (equal nm:hasRelation ?p)) ==> (remove-stmt ?0)
            0: B2009(BETA2)  '('('('('(?0 ?1 ?2) (!= ?1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
 ========================================================================================================================================================
 
@@ -283,7 +283,7 @@ Object create count:
         atom:         1272            0         1272
       string:           48            0           48
         list:           74            0           74
-        expr:          632            0          632
+        expr:          636            0          636
        array:            1            0            1
          var:           21            0           21
         func:          109            0          109

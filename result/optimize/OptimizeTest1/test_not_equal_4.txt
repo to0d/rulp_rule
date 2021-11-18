@@ -107,9 +107,9 @@ B2006(BETA2):               '('('('(?0 ?1 ?2) (!= ?1 p2)) (not-equal p1 ?1)) '(?
 B2009(BETA2):               '('('('('(?0 ?1 ?2) (!= ?1 p2)) (not-equal p1 ?1)) '(?1 of tr)) '(?0 pauto ?2))
            0: B2006(BETA2)  '('('('(?0 ?1 ?2) (!= ?1 p2)) (not-equal p1 ?1)) '(?1 of tr))
            1: A0008(ALPH0)  '(?0 pauto ?1)
- RU000(RULE):               '(?a ?p ?b) '(?p of tr) (not-equal p1 ?p) (not-equal p2 ?p) ==> (-> '(?a p4 ?b))
+ RU000(RULE):               '(?a ?p ?b) '(?p of tr) (not (equal p1 ?p)) (not (equal p2 ?p)) ==> (-> '(?a p4 ?b))
            0: B2006(BETA2)  '('('('(?0 ?1 ?2) (!= ?1 p2)) (not-equal p1 ?1)) '(?1 of tr))
- RU001(RULE):               '(?a2 pauto ?b2) '(?a2 ?p2 ?b2) '(?p2 of tr) (not-equal p1 ?p2) (not-equal p2 ?p2) ==> (-> '(?a2 p5 ?b2))
+ RU001(RULE):               '(?a2 pauto ?b2) '(?a2 ?p2 ?b2) '(?p2 of tr) (not (equal p1 ?p2)) (not (equal p2 ?p2)) ==> (-> '(?a2 p5 ?b2))
            0: B2009(BETA2)  '('('('('(?0 ?1 ?2) (!= ?1 p2)) (not-equal p1 ?1)) '(?1 of tr)) '(?0 pauto ?2))
 ========================================================================================================================================================
 
@@ -295,7 +295,7 @@ Object create count:
         atom:         1294            0         1294
       string:           46            0           46
         list:           80            0           80
-        expr:          636            0          636
+        expr:          640            0          640
        array:            1            0            1
          var:           21            0           21
         func:          109            0          109
