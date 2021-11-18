@@ -11,14 +11,12 @@ import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
-import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -99,29 +97,6 @@ public class ModelConstraintBuilder {
 		return atom;
 	}
 
-	protected int _getExprLevel(IRObject obj) throws RException {
-
-		switch (obj.getType()) {
-		case LIST:
-		case EXPR:
-
-			int max_level = 0;
-			IRIterator<? extends IRObject> it = ((IRList) obj).iterator();
-			while (it.hasNext()) {
-
-				int level = _getExprLevel(it.next());
-				if (max_level < level) {
-					max_level = level;
-				}
-			}
-
-			return obj.getType() == RType.LIST ? max_level : (max_level + 1);
-
-		default:
-			return 0;
-		}
-	}
-
 	protected IRConstraint1 _rebuildConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		switch (constraint.getConstraintName()) {
@@ -139,7 +114,7 @@ public class ModelConstraintBuilder {
 		IRExpr expr = constraint.getExpr();
 		RRelationalOperator op = null;
 
-		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && _getExprLevel(expr) == 1
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
 				&& expr.size() == 3 && constraint instanceof XRConstraint1Expr0X) {
 
 			XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
@@ -186,6 +161,7 @@ public class ModelConstraintBuilder {
 				RulpFactory.createExpression(_getAtom(F_CST_RMV_CONSTRAINT_MIN), model,
 						RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
 						RulpFactory.createInteger(constraint.getColumnIndex()), constraint.getValue()));
+
 	}
 
 	protected IRObject _removeTypeConstraint(IRReteNode node, IRConstraint1Type constraint) throws RException {

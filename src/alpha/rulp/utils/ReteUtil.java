@@ -1588,4 +1588,27 @@ public class ReteUtil {
 		Collections.sort(c);
 		return c;
 	}
+
+	public static int getExprLevel(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+		case EXPR:
+
+			int max_level = 0;
+			IRIterator<? extends IRObject> it = ((IRList) obj).iterator();
+			while (it.hasNext()) {
+
+				int level = getExprLevel(it.next());
+				if (max_level < level) {
+					max_level = level;
+				}
+			}
+
+			return obj.getType() == RType.LIST ? max_level : (max_level + 1);
+
+		default:
+			return 0;
+		}
+	}
 }

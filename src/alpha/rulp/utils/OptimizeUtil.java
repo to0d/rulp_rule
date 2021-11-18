@@ -2518,11 +2518,16 @@ public class OptimizeUtil {
 
 			// '('(?0 ?1 ?2) (not-equal ?2 ?0)) -> '('(?0 ?1 ?2) (not-equal ?0 ?1))
 			if (size == 2) {
+
 				IRObject o0 = list.get(0);
 				IRObject o1 = list.get(1);
+
 				if (o0.getType() == RType.LIST && o1.getType() == RType.EXPR) {
+
 					IRExpr e1 = RulpUtil.asExpression(o1);
+
 					if (e1.size() == 3) {
+
 						String f0 = e1.get(0).asString();
 						if (f0.equals(F_NOT_EQUAL) || f0.equals(F_EQUAL)) {
 
