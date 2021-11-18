@@ -244,7 +244,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(add-rule m if '(?a ?p ?b) (not (equal ?a ?b)) do (-> '(?b p2 ?a)))");
 		_test("(add-rule m if '(?a2 ?p2 ?b2) '(?b2 ?p2 ?a2) (not (equal ?a2 ?b2)) do (-> '(?a2 p4 ?b2)))");
 		_test("(add-stmt m '(a2 p2 b2))");
-		_test("(start m)", "20");
+		_test("(start m)", "17");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a2 p2 b2) '(b2 p2 a2) '(a2 p4 b2) '(b2 p4 a2))");
 

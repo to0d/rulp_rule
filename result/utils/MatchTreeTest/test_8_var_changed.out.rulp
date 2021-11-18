@@ -12,12 +12,12 @@
 
 ;; 1 var, 0 join, 1 expr
 '(?p1 p2 c) (not-equal ?p1 a) (var-changed ?s1 v1 v2) ; input
-'('('(?p1 p2 c) (not-equal ?p1 a)) (var-changed ?s1 v1 v2)) ; output
+'('('(?p1 p2 c) (!= ?p1 a)) (var-changed ?s1 v1 v2)) ; output
 ;expr: 
 '(
     '(
         '(?p1 p2 c)
-        (not-equal ?p1 a)
+        (!= ?p1 a)
      )
     (var-changed ?s1 v1 v2)
  )
@@ -74,13 +74,13 @@
 
 ;; 2 var, 0 join, 1 expr
 '(?p1 p2 c) (not-equal ?p1 a) (var-changed ?s1 v11 v12) (var-changed ?s2 v21 v22) ; input
-'('('('(?p1 p2 c) (not-equal ?p1 a)) (var-changed ?s1 v11 v12)) (var-changed ?s2 v21 v22)) ; output
+'('('('(?p1 p2 c) (!= ?p1 a)) (var-changed ?s1 v11 v12)) (var-changed ?s2 v21 v22)) ; output
 ;expr: 
 '(
     '(
         '(
             '(?p1 p2 c)
-            (not-equal ?p1 a)
+            (!= ?p1 a)
          )
         (var-changed ?s1 v11 v12)
      )

@@ -49,10 +49,10 @@ R0001[3]  '(?0 ?1 ?2)
 A0004[3]  '(?0 nm:propertyOf ?1)
 A0005[3]  '(?0 nm:propertyOf nm:tagRelation)
 A0008[3]  '(?0 nm:hasAutoRelatedTag ?1)
-E1002[3]  '('(?0 ?1 ?2) (equal nm:hasRelation ?1))
-E1003[3]  '('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1))
-B2006[3]  '('('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) [join(1/0)]
-B2009[3]  '('('('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2)) [join(0/0),join(2/2)]
+E1002[3]  '('(?0 ?1 ?2) (= ?1 nm:hasRelation))
+E1003[3]  '('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1))
+B2006[3]  '('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) [join(1/0)]
+B2009[3]  '('('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2)) [join(0/0),join(2/2)]
    T7[3]  (-> '(?a nm:hasRelation ?b))
   RR5[3]  (remove-stmt ?0)
 ========================================================================================================================================================
@@ -96,20 +96,20 @@ A0005(ALPH0):               '(?0 nm:propertyOf nm:tagRelation)
            0: A0004(ALPH0)  '(?0 nm:propertyOf ?1)
 A0008(ALPH0):               '(?0 nm:hasAutoRelatedTag ?1)
            0: R0001(ROOT0)  '(?0 ?1 ?2)
-E1002(EXPR1):               '('(?0 ?1 ?2) (equal nm:hasRelation ?1))
+E1002(EXPR1):               '('(?0 ?1 ?2) (= ?1 nm:hasRelation))
            0: R0001(ROOT0)  '(?0 ?1 ?2)
-E1003(EXPR1):               '('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1))
-           0: E1002(EXPR1)  '('(?0 ?1 ?2) (equal nm:hasRelation ?1))
-B2006(BETA2):               '('('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
-           0: E1003(EXPR1)  '('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1))
+E1003(EXPR1):               '('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1))
+           0: E1002(EXPR1)  '('(?0 ?1 ?2) (= ?1 nm:hasRelation))
+B2006(BETA2):               '('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
+           0: E1003(EXPR1)  '('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1))
            1: A0005(ALPH0)  '(?0 nm:propertyOf nm:tagRelation)
-B2009(BETA2):               '('('('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
-           0: B2006(BETA2)  '('('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
+B2009(BETA2):               '('('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
+           0: B2006(BETA2)  '('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
            1: A0008(ALPH0)  '(?0 nm:hasAutoRelatedTag ?1)
     T7(RULE):               '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (equal nm:hasAutoRelatedTag ?p) (equal nm:hasRelation ?p) ==> (-> '(?a nm:hasRelation ?b))
-           0: B2006(BETA2)  '('('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
+           0: B2006(BETA2)  '('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
    RR5(RULE):               '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (equal nm:hasAutoRelatedTag ?p) (equal nm:hasRelation ?p) ==> (remove-stmt ?0)
-           0: B2009(BETA2)  '('('('('(?0 ?1 ?2) (equal nm:hasRelation ?1)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
+           0: B2009(BETA2)  '('('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
 ========================================================================================================================================================
 
 node bind info:
@@ -283,7 +283,7 @@ Object create count:
         atom:         1264            0         1264
       string:           48            0           48
         list:           74            0           74
-        expr:          622            0          622
+        expr:          624            0          624
        array:            1            0            1
          var:           21            0           21
         func:          109            0          109

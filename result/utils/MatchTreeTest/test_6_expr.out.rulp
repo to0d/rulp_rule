@@ -1,23 +1,23 @@
 ;;---------------------------------------------------------;;
 '(?a p1 ?b) '(?b p2 c) (not-equal ?a a) ; input
-'('('(?a p1 ?b) (not-equal ?a a)) '(?b p2 c)) ; output
+'('('(?a p1 ?b) (!= ?a a)) '(?b p2 c)) ; output
 ;expr: 
 '(
     '(
         '(?a p1 ?b)
-        (not-equal ?a a)
+        (!= ?a a)
      )
     '(?b p2 c)
  )
 
 
 '(?a p1 ?b) (not-equal ?a a) '(?b p2 c) ; input
-'('('(?a p1 ?b) (not-equal ?a a)) '(?b p2 c)) ; output
+'('('(?a p1 ?b) (!= ?a a)) '(?b p2 c)) ; output
 ;expr: 
 '(
     '(
         '(?a p1 ?b)
-        (not-equal ?a a)
+        (!= ?a a)
      )
     '(?b p2 c)
  )

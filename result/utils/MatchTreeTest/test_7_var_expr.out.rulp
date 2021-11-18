@@ -40,22 +40,22 @@
 
 
 '(?a p1 ?b) (not-equal ?c a) ; input
-'('(?a p1 ?b) (not-equal ?c a)) ; output
+'('(?a p1 ?b) (!= ?c a)) ; output
 ;expr: 
 '(
     '(?a p1 ?b)
-    (not-equal ?c a)
+    (!= ?c a)
  )
 
 
 
 '(?a p1 ?b) '(?b p1 ?b) (not-equal ?c a) ; input
-'('('(?a p1 ?b) (not-equal ?c a)) '(?b p1 ?b)) ; output
+'('('(?a p1 ?b) (!= ?c a)) '(?b p1 ?b)) ; output
 ;expr: 
 '(
     '(
         '(?a p1 ?b)
-        (not-equal ?c a)
+        (!= ?c a)
      )
     '(?b p1 ?b)
  )
@@ -63,12 +63,12 @@
 
 
 '(?a p1 ?b) (equal ?a p2) (not-equal ?c a) ; input
-'('('(?a p1 ?b) (not-equal ?c a)) (equal ?a p2)) ; output
+'('('(?a p1 ?b) (!= ?c a)) (equal ?a p2)) ; output
 ;expr: 
 '(
     '(
         '(?a p1 ?b)
-        (not-equal ?c a)
+        (!= ?c a)
      )
     (equal ?a p2)
  )
@@ -76,12 +76,12 @@
 
 
 '(?a p1 ?b) (equal ?c p2) (not-equal ?c a) ; input
-'('('(?a p1 ?b) (not-equal ?c a)) (equal ?c p2)) ; output
+'('('(?a p1 ?b) (!= ?c a)) (equal ?c p2)) ; output
 ;expr: 
 '(
     '(
         '(?a p1 ?b)
-        (not-equal ?c a)
+        (!= ?c a)
      )
     (equal ?c p2)
  )

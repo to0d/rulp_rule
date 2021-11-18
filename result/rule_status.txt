@@ -252,8 +252,8 @@ beta.rulp.optimize.OptimizeTest1:test_not_equal_4:1-mStatus:sc=[0,3], a0=[3,0,2,
 beta.rulp.optimize.OptimizeTest1:test_not_equal_4:1-oStatus:shared=5
 beta.rulp.optimize.OptimizeTest1:test_not_equal_5:1-mStatus:sc=[0,1,2,0,0,0,0,0,4], a0=[1,1,1,99,3,0,0,3,1,0,3/0,0,1], b2=[1,0,2,99,3,1,0,3,3,0,3/0,1,2], e1=[1,0,1,99,3,0,0,3,3,0,6/0,1,2], ru=[2,0,3,99,5,0,0,0,6,4],
 beta.rulp.optimize.OptimizeTest1:test_not_equal_5:1-oStatus:shared=1
-beta.rulp.optimize.OptimizeTest1:test_not_equal_6:1-mStatus:sc=[0,1,3,0,0,0,0,0,5], b2=[1,0,2,99,3,0,0,10,4,0,4/0,1,3], e1=[2,0,1,99,6,0,0,8,8,0,9/0,2,6], ru=[2,0,3,99,5,0,0,0,8,5],
-beta.rulp.optimize.OptimizeTest1:test_not_equal_6:1-oStatus:shared=0
+beta.rulp.optimize.OptimizeTest1:test_not_equal_6:1-mStatus:sc=[0,1,3,0,0,0,0,0,5], b2=[1,0,2,99,3,0,0,10,4,0,4/0,1,3], e1=[1,0,1,99,3,0,0,4,4,0,9/0,1,3], ru=[2,0,3,99,5,0,0,0,8,5],
+beta.rulp.optimize.OptimizeTest1:test_not_equal_6:1-oStatus:shared=1
 beta.rulp.optimize.OptimizeTest1:test_not_equal_7:1-mStatus:sc=[0,1,3,0,0,0,0,0,5], b2=[1,0,2,99,3,0,0,10,4,0,4/0,1,3], e1=[2,0,1,99,6,0,0,8,8,0,9/0,2,6], ru=[2,0,3,99,5,0,0,0,8,5],
 beta.rulp.optimize.OptimizeTest1:test_not_equal_7:1-oStatus:shared=0
 beta.rulp.optimize.OptimizeTest2:test_tag_alias_1_full_with_single_child_optimize:1-eCount:size=207, max-id=207, dup=8, null=0

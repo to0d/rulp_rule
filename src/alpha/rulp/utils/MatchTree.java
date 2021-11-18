@@ -11,6 +11,7 @@ import java.util.Set;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRIterator;
 
@@ -202,20 +203,32 @@ public class MatchTree {
 
 		static MTreeNode buildNode(MTreeNode n1, MTreeNode n2) throws RException {
 
-//			int type = _getType(n1.tree, n2.tree);
-//			switch (type) {
-//			case LINK_E_V:
-//				return 1;
-//			
-//			default:
-//				break;
-//			}
-
 			if (compare(n1, n2) > 0) {
 				return buildNode(n2, n1);
 			}
 
 			MTreeNode node = new MTreeNode();
+
+			RRelationalOperator op = null;
+
+			if (n1.level == 0 && n1.tree.getType() == RType.LIST && n2.level == 0 && n2.tree.getType() == RType.EXPR
+					&& n2.tree.size() == 3 && (op = ReteUtil.toRelationalOperator(n2.tree.get(0).asString())) != null) {
+
+				List<String> list1 = RulpUtil.toStringList(n1.tree);
+
+				int idx1 = list1.indexOf(n2.tree.get(1).asString());
+				int idx2 = list1.indexOf(n2.tree.get(2).asString());
+
+				// '(?a ?b ?c) (!= ?c ?b) ==> '(?a ?b ?c) (!= ?b ?c)
+				// '(?a ?b ?c) (> 1 ?b) ==> '(?a ?b ?c) (<= ?b 1)
+				// '(?a ?b ?c) (< ?x ?b) ==> '(?a ?b ?c) (> ?b ?x)
+				if ((idx1 == -1 && idx2 >= 0) || (idx1 >= 0 && idx2 >= 0 && idx1 > idx2)) {
+					n2.tree = RulpFactory.createExpression(RRelationalOperator.toOpposite(op).getAtom(), n2.tree.get(2),
+							n2.tree.get(1));
+				} else {
+					n2.tree = RulpFactory.createExpression(op.getAtom(), n2.tree.get(1), n2.tree.get(2));
+				}
+			}
 
 			if (n1.tree.getType() == RType.EXPR) {
 				node.tree = RulpFactory.createExpression(n1.tree, n2.tree);
