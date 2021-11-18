@@ -1,5 +1,9 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.lang.Constant.F_B_NOT;
+import static alpha.rulp.lang.Constant.F_EQUAL;
+import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -192,6 +197,20 @@ public class MatchTree {
 		}
 
 		static MTreeNode buildNode(IRList stmt) throws RException {
+
+			// (not (equal a b)) ==> (not-equal a b)
+			if (stmt.size() == 2 && OptimizeUtil.matchExprFactor(stmt, F_B_NOT)
+					&& OptimizeUtil.matchExprFactor(stmt.get(1), F_EQUAL)) {
+
+				ArrayList<IRObject> optiArray = new ArrayList<>();
+				IRIterator<? extends IRObject> childExprIter = ((IRExpr) stmt.get(1)).listIterator(1);
+				optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
+				while (childExprIter.hasNext()) {
+					optiArray.add(childExprIter.next());
+				}
+
+				stmt = RulpFactory.createExpression(optiArray);
+			}
 
 			MTreeNode node = new MTreeNode();
 			node.tree = stmt;

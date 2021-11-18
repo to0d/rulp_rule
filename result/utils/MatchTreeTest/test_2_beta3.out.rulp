@@ -38,12 +38,12 @@
 
 ;;---------------------------------------------------------;;
 '(?x ?y ?z) '(?a ?b ?c) (not (equal ?x ?a)) ; input
-'('(?a ?b ?c) '(?x ?y ?z) (not (equal ?x ?a))) ; output
+'('(?a ?b ?c) '(?x ?y ?z) (not-equal ?x ?a)) ; output
 ;expr: 
 '(
     '(?a ?b ?c)
     '(?x ?y ?z)
-    (not (equal ?x ?a))
+    (not-equal ?x ?a)
  )
 
 

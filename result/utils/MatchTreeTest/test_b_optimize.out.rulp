@@ -355,11 +355,11 @@
 
 
 '(?a ?b ?c) (not (equal ?a ?b)) ; input
-'('(?a ?b ?c) (not (equal ?a ?b))) ; output
+'('(?a ?b ?c) (!= ?a ?b)) ; output
 ;expr: 
 '(
     '(?a ?b ?c)
-    (not (equal ?a ?b))
+    (!= ?a ?b)
  )
 
 

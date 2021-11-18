@@ -26,7 +26,7 @@
 
 ;;---------------------------------------------------------;;
 '(?a ?p ?b) '(?a ?p ?c) '(?p nm:propertyOf nm:singlePropery) (not (equal ?b ?c)) ; input
-'('('('(?a ?p ?c) '(?p nm:propertyOf nm:singlePropery)) '(?a ?p ?b)) (not (equal ?b ?c))) ; output
+'('('('(?a ?p ?c) '(?p nm:propertyOf nm:singlePropery)) '(?a ?p ?b)) (not-equal ?b ?c)) ; output
 ;expr: 
 '(
     '(
@@ -36,14 +36,14 @@
          )
         '(?a ?p ?b)
      )
-    (not (equal ?b ?c))
+    (not-equal ?b ?c)
  )
 
 
 
 ;;---------------------------------------------------------;;
 '(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) '(?b ?p ?a) (not (equal ?a ?b)) ; input
-'('('(?a ?p ?b) '(?p nm:propertyOf nm:nonCircleProperty)) '('(?b ?p ?a) (not (equal ?a ?b)))) ; output
+'('('(?a ?p ?b) '(?p nm:propertyOf nm:nonCircleProperty)) '('(?b ?p ?a) (!= ?b ?a))) ; output
 ;expr: 
 '(
     '(
@@ -52,18 +52,18 @@
      )
     '(
         '(?b ?p ?a)
-        (not (equal ?a ?b))
+        (!= ?b ?a)
      )
  )
 
 
 '(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) (not (equal ?a ?b)) ; input
-'('('(?a ?p ?b) (not (equal ?a ?b))) '(?p nm:propertyOf nm:nonCircleProperty)) ; output
+'('('(?a ?p ?b) (!= ?a ?b)) '(?p nm:propertyOf nm:nonCircleProperty)) ; output
 ;expr: 
 '(
     '(
         '(?a ?p ?b)
-        (not (equal ?a ?b))
+        (!= ?a ?b)
      )
     '(?p nm:propertyOf nm:nonCircleProperty)
  )
@@ -72,7 +72,7 @@
 
 ;;---------------------------------------------------------;;
 '(tag nm:beClassTagOf ?t1) '(tag nm:hasFieldTag ?t2) '(?t1 ?p1 ?t3) '(?p1 nm:propertyOf nm:tagRelation) '(?t2 ?p2 ?t3) '(?p2 nm:propertyOf nm:tagRelation) '(domain nm:hasTag ?t3) (not (equal ?t3 tag)) (not (equal ?t3 nt:$TGROUP)) ; input
-'('('('('('(?t1 ?p1 ?t3) (not (equal ?t3 tag))) '(tag nm:beClassTagOf ?t1)) '(?p1 nm:propertyOf nm:tagRelation)) '('('('(?t2 ?p2 ?t3) (not (equal ?t3 nt:$TGROUP))) '(tag nm:hasFieldTag ?t2)) '(domain nm:hasTag ?t3))) '(?p2 nm:propertyOf nm:tagRelation)) ; output
+'('('('('('(?t1 ?p1 ?t3) (!= ?t3 tag)) '(tag nm:beClassTagOf ?t1)) '(?p1 nm:propertyOf nm:tagRelation)) '('('('(?t2 ?p2 ?t3) (!= ?t3 nt:$TGROUP)) '(tag nm:hasFieldTag ?t2)) '(domain nm:hasTag ?t3))) '(?p2 nm:propertyOf nm:tagRelation)) ; output
 ;expr: 
 '(
     '(
@@ -80,7 +80,7 @@
             '(
                 '(
                     '(?t1 ?p1 ?t3)
-                    (not (equal ?t3 tag))
+                    (!= ?t3 tag)
                  )
                 '(tag nm:beClassTagOf ?t1)
              )
@@ -90,7 +90,7 @@
             '(
                 '(
                     '(?t2 ?p2 ?t3)
-                    (not (equal ?t3 nt:$TGROUP))
+                    (!= ?t3 nt:$TGROUP)
                  )
                 '(tag nm:hasFieldTag ?t2)
              )
@@ -102,7 +102,7 @@
 
 
 '(tag nm:beClassTagOf ?t1) '(tag nm:hasFieldTag ?t2) '(?t1 ?p1 ?t3) '(?p1 nm:propertyOf nm:tagRelation) '(?t2 ?p2 ?t3) '(?p2 nm:propertyOf nm:tagRelation) '(domain nm:hasTag ?t3) (not (equal ?t3 tag)) (not (equal ?t3 nt:$TGROUP)) (not (equal ?p2 nm:hasDescendant)) ; input
-'('('('('('(?t1 ?p1 ?t3) (not (equal ?t3 nt:$TGROUP))) (not (equal ?t3 tag))) '(tag nm:beClassTagOf ?t1)) '(?p1 nm:propertyOf nm:tagRelation)) '('('('('(?t2 ?p2 ?t3) (not (equal ?p2 nm:hasDescendant))) '(tag nm:hasFieldTag ?t2)) '(domain nm:hasTag ?t3)) '(?p2 nm:propertyOf nm:tagRelation))) ; output
+'('('('('('(?t1 ?p1 ?t3) (!= ?t3 nt:$TGROUP)) (not-equal ?t3 tag)) '(tag nm:beClassTagOf ?t1)) '(?p1 nm:propertyOf nm:tagRelation)) '('('('('(?t2 ?p2 ?t3) (!= ?p2 nm:hasDescendant)) '(tag nm:hasFieldTag ?t2)) '(domain nm:hasTag ?t3)) '(?p2 nm:propertyOf nm:tagRelation))) ; output
 ;expr: 
 '(
     '(
@@ -110,9 +110,9 @@
             '(
                 '(
                     '(?t1 ?p1 ?t3)
-                    (not (equal ?t3 nt:$TGROUP))
+                    (!= ?t3 nt:$TGROUP)
                  )
-                (not (equal ?t3 tag))
+                (not-equal ?t3 tag)
              )
             '(tag nm:beClassTagOf ?t1)
          )
@@ -123,7 +123,7 @@
             '(
                 '(
                     '(?t2 ?p2 ?t3)
-                    (not (equal ?p2 nm:hasDescendant))
+                    (!= ?p2 nm:hasDescendant)
                  )
                 '(tag nm:hasFieldTag ?t2)
              )
@@ -137,7 +137,7 @@
 
 ;;---------------------------------------------------------;;
 '(nt:ProgrammingLanguage ?p1 ?t1) '(?p1 nm:propertyOf nm:tagRelation) (not (equal ?p1 nm:hasFieldTag)) '(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t1) '(nd:Global nm:hasTag ?t2) ; input
-'('('('(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t2)) '(nd:Global nm:hasTag ?t1)) '('('(nt:ProgrammingLanguage ?p1 ?t1) (not (equal ?p1 nm:hasFieldTag))) '(?p1 nm:propertyOf nm:tagRelation))) ; output
+'('('('(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t2)) '(nd:Global nm:hasTag ?t1)) '('('(nt:ProgrammingLanguage ?p1 ?t1) (!= ?p1 nm:hasFieldTag)) '(?p1 nm:propertyOf nm:tagRelation))) ; output
 ;expr: 
 '(
     '(
@@ -150,7 +150,7 @@
     '(
         '(
             '(nt:ProgrammingLanguage ?p1 ?t1)
-            (not (equal ?p1 nm:hasFieldTag))
+            (!= ?p1 nm:hasFieldTag)
          )
         '(?p1 nm:propertyOf nm:tagRelation)
      )
@@ -158,7 +158,7 @@
 
 
 '(nt:ProgrammingLanguage ?p1 ?t1) '(?p1 nm:propertyOf nm:tagRelation) (not (equal ?p1 nm:hasFieldTag)) (not (equal ?p1 nm:beClassTagOf)) '(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t1) '(nd:Global nm:hasTag ?t2) ; input
-'('('('('(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t2)) '(nd:Global nm:hasTag ?t1)) '('('(nt:ProgrammingLanguage ?p1 ?t1) (not (equal ?p1 nm:beClassTagOf))) (not (equal ?p1 nm:hasFieldTag)))) '(?p1 nm:propertyOf nm:tagRelation)) ; output
+'('('('('(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t2)) '(nd:Global nm:hasTag ?t1)) '('('(nt:ProgrammingLanguage ?p1 ?t1) (!= ?p1 nm:beClassTagOf)) (not-equal ?p1 nm:hasFieldTag))) '(?p1 nm:propertyOf nm:tagRelation)) ; output
 ;expr: 
 '(
     '(
@@ -172,9 +172,9 @@
         '(
             '(
                 '(nt:ProgrammingLanguage ?p1 ?t1)
-                (not (equal ?p1 nm:beClassTagOf))
+                (!= ?p1 nm:beClassTagOf)
              )
-            (not (equal ?p1 nm:hasFieldTag))
+            (not-equal ?p1 nm:hasFieldTag)
          )
      )
     '(?p1 nm:propertyOf nm:tagRelation)
@@ -182,7 +182,7 @@
 
 
 '(nt:ProgrammingLanguage ?p1 ?t1) '(?p1 nm:propertyOf nm:tagRelation) (not (equal ?p1 nm:hasFieldTag)) (not (equal ?p1 nm:beClassTagOf)) (not (equal ?p1 nm:beParentTagOf)) '(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t1) '(nd:Global nm:hasTag ?t2) ; input
-'('('('('('(nt:ProgrammingLanguage ?p1 ?t1) (not (equal ?p1 nm:beParentTagOf))) (not (equal ?p1 nm:hasFieldTag))) (not (equal ?p1 nm:beClassTagOf))) '('('(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t2)) '(nd:Global nm:hasTag ?t1))) '(?p1 nm:propertyOf nm:tagRelation)) ; output
+'('('('('('(nt:ProgrammingLanguage ?p1 ?t1) (!= ?p1 nm:beParentTagOf)) (not-equal ?p1 nm:hasFieldTag)) (not-equal ?p1 nm:beClassTagOf)) '('('(?t2 nm:defineTag ?t1) '(nd:Global nm:hasTag ?t2)) '(nd:Global nm:hasTag ?t1))) '(?p1 nm:propertyOf nm:tagRelation)) ; output
 ;expr: 
 '(
     '(
@@ -190,11 +190,11 @@
             '(
                 '(
                     '(nt:ProgrammingLanguage ?p1 ?t1)
-                    (not (equal ?p1 nm:beParentTagOf))
+                    (!= ?p1 nm:beParentTagOf)
                  )
-                (not (equal ?p1 nm:hasFieldTag))
+                (not-equal ?p1 nm:hasFieldTag)
              )
-            (not (equal ?p1 nm:beClassTagOf))
+            (not-equal ?p1 nm:beClassTagOf)
          )
         '(
             '(
