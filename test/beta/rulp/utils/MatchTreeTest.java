@@ -187,4 +187,11 @@ class MatchTreeTest extends RuleTestBase {
 		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_a_force_node.in.rulp",
 				"result/utils/MatchTreeTest/test_a_force_node.out.rulp");
 	}
+
+	@Test
+	void test_b_optimize() {
+		_setup();
+		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_b_optimize.in.rulp",
+				"result/utils/MatchTreeTest/test_b_optimize.out.rulp");
+	}
 }
