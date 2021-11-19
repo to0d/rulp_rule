@@ -220,10 +220,10 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_mStatus(1, "m");
 		_saveTest();
 	}
-	
+
 	@Test
 	void test_9_fun_a() {
-		
+
 		_setup();
 		_test("(defun f1 (?x) (setq ?x1 ?x))");
 		_test("(new model m)", "m");

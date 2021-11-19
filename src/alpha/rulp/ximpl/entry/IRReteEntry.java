@@ -23,7 +23,7 @@ public interface IRReteEntry extends IRList, IFixEntry {
 	public int getReferenceCount();
 
 	public Iterator<? extends IRReference> getReferenceIterator();
-	
+
 	public RReteStatus getStatus();
 
 	public boolean isStmt();

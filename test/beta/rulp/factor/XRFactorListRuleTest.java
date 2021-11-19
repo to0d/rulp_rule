@@ -18,9 +18,9 @@ class XRFactorListRuleTest extends RuleTestBase {
 		_test("(list-rule m)", "'(R1 R2)");
 		_test("(list-with-state (list-rule m) failed)", "'()");
 		_test("(list-without-state (list-rule m) Failed)", "'(R1 R2)");
-		
+
 		_test("(start m)");
-		
+
 		_test("(list-with-state (list-rule m) failed)", "'(R1)");
 		_test("(list-without-state (list-rule m) failed)", "'(R2)");
 	}

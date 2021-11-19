@@ -38,7 +38,7 @@ public class XRFactorHasStmt extends AbsRFactorAdapter implements IRFactor, IRul
 			}
 
 			filter = RulpUtil.asList(interpreter.compute(frame, args.get(1)));
-		
+
 		} else {
 			model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
 			filter = RulpUtil.asList(interpreter.compute(frame, args.get(2)));

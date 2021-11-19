@@ -2558,6 +2558,7 @@ public class OptimizeUtil {
 				continue OPT;
 			}
 
+			// (op ?a ?a)
 			RRelationalOperator op = null;
 			if (expr.size() == 3 && ReteUtil.getExprLevel(expr) == 1
 					&& (op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null
@@ -2580,6 +2581,8 @@ public class OptimizeUtil {
 				default:
 				}
 			}
+
+			// (factor 1 2)
 
 			break;
 		}

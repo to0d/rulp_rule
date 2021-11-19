@@ -69,7 +69,7 @@ public class XRRModelCounter implements IRModelCounter {
 
 	@Override
 	public int getQueryFetchCount() {
-		
+
 		int totalCount = 0;
 
 		for (IRReteNode node : model.nodeGraph.getNodeMatrix().getAllNodes()) {
@@ -81,17 +81,17 @@ public class XRRModelCounter implements IRModelCounter {
 
 	@Override
 	public int getRuleCount() {
-		return  model.nodeGraph.listNodes(RReteType.RULE).size();
+		return model.nodeGraph.listNodes(RReteType.RULE).size();
 	}
 
 	@Override
 	public int getStatementCount() {
-		
+
 		int totalCount = 0;
 		int nullCount = 0;
 		int dropCount = 0;
 
-		for (IRReteNode rootNode :  model.nodeGraph.listNodes(RReteType.ROOT0)) {
+		for (IRReteNode rootNode : model.nodeGraph.listNodes(RReteType.ROOT0)) {
 			IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
 			totalCount += rootEntryCounter.getEntryTotalCount();
 			nullCount += rootEntryCounter.getEntryNullCount();

@@ -283,7 +283,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_test("(list-stmt m)", "'('(n1 p1 100) '(n2 p2 200))");
 		_test("(query-stmt m (+ ?z 1) from '(?x ?y ?z))", "'(101 201)");
 	}
-	
+
 	@Test
 	void test_8_do_4() {
 

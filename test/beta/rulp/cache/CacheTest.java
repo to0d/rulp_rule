@@ -117,7 +117,7 @@ public class CacheTest extends RuleTestBase {
 
 		_statsInfo("m", "result/cache/CacheTest/test_1_model_cache_4a.txt");
 		_dumpEntryTable("m", "result/cache/CacheTest/test_1_model_cache_4a.dump.txt");
-		
+
 		new File("result/cache/CacheTest/cache_4/name3.3.mc").delete();
 	}
 

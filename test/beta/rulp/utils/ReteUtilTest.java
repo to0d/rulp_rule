@@ -267,7 +267,7 @@ class ReteUtilTest extends RuleTestBase {
 		assertEquals(null, ReteUtil.getReteStatus(FIXED_, REMOVE));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, FIXED_));
 		assertEquals(FIXED_, ReteUtil.getReteStatus(FIXED_, TEMP__));
-		
+
 		assertEquals(DEFINE, ReteUtil.getReteStatus(TEMP__, DEFINE));
 		assertEquals(REASON, ReteUtil.getReteStatus(TEMP__, REASON));
 		assertEquals(ASSUME, ReteUtil.getReteStatus(TEMP__, ASSUME));
