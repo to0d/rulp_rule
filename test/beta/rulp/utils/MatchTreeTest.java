@@ -80,18 +80,20 @@ class MatchTreeTest extends RuleTestBase {
 					stmtList.add(ReteUtil.asReteStmt(obj));
 				}
 
-				IRList tree = MatchTree.build(stmtList);
-//				assertTrue(inputStmt, ReteUtility.isReteTree(tree));
-
-				String treeOutput = RulpUtil.toString(tree);
 				outLines.add(inputStmt + " ; input");
-				outLines.add(treeOutput + " ; output");
-				outLines.add(";expr: ");
 
-				ArrayList<String> formatLines = new ArrayList<>();
-				formatLines.add(treeOutput);
+				try {
+					IRList tree = MatchTree.build(stmtList);
+					String treeOutput = RulpUtil.toString(tree);
+					outLines.add(treeOutput + " ; output");
+					outLines.add(";expr: ");
+					ArrayList<String> formatLines = new ArrayList<>();
+					formatLines.add(treeOutput);
+					outLines.addAll(FormatUtil.format(formatLines));
+				} catch (RException e) {
+					outLines.add(";err:" + e.getMessage());
+				}
 
-				outLines.addAll(FormatUtil.format(formatLines));
 				outLines.add("\r\n");
 
 			}
