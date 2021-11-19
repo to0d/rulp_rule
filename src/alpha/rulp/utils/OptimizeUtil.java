@@ -1,9 +1,14 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.A_DO;
-import static alpha.rulp.lang.Constant.F_B_NOT;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.F_IF;
+import static alpha.rulp.lang.Constant.F_O_ADD;
+import static alpha.rulp.lang.Constant.F_O_BY;
+import static alpha.rulp.lang.Constant.F_O_DIV;
+import static alpha.rulp.lang.Constant.F_O_POWER;
+import static alpha.rulp.lang.Constant.F_O_SUB;
 import static alpha.rulp.lang.Constant.MAX_COUNTER_SIZE;
 import static alpha.rulp.lang.Constant.O_False;
 import static alpha.rulp.lang.Constant.O_True;
@@ -73,6 +78,7 @@ import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRRuleCounter;
 import alpha.rulp.rule.RCountType;
+import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
@@ -222,6 +228,51 @@ public class OptimizeUtil {
 		default:
 			return false;
 		}
+	}
+
+	public static boolean isConstOperatorName(String name) {
+
+		switch (name) {
+		case F_O_BY:
+		case F_O_ADD:
+		case F_O_DIV:
+		case F_O_SUB:
+		case F_O_POWER:
+		case F_O_EQ:
+		case F_EQUAL:
+		case F_O_NE:
+		case F_NOT_EQUAL:
+		case F_O_GT:
+		case F_O_GE:
+		case F_O_LE:
+		case F_O_LT:
+//		case F_STR_LENGTH:
+			return true;
+
+		default:
+			return false;
+		}
+	}
+
+	protected static boolean _containConstExpr(IRExpr expr) throws RException {
+
+		int constCount = 0;
+
+		IRIterator<? extends IRObject> it = expr.listIterator(1);
+		while (it.hasNext()) {
+			IRObject ex = it.next();
+			if (ex.getType() == RType.EXPR) {
+				if (_containConstExpr((IRExpr) ex)) {
+					return true;
+				}
+			} else {
+				if (isConstObject(ex)) {
+					constCount++;
+				}
+			}
+		}
+
+		return constCount == (expr.size() - 1) && isConstOperatorName(expr.get(0).asString());
 	}
 
 	private static List<String> _formatTableResult(List<List<String>> result, List<Integer> maxColumnLen) {
@@ -551,10 +602,6 @@ public class OptimizeUtil {
 		}
 	}
 
-	private static boolean _isInactiveNode(IRReteNode node) {
-		return node.getNodeExecCount() == 0 || node.getNodeExecCount() == node.getNodeIdleCount();
-	}
-
 //	private static IRObject _optimizeExpr(IRObject obj) throws RException {
 //
 //		if (obj.getType() != RType.EXPR) {
@@ -621,7 +668,12 @@ public class OptimizeUtil {
 //		return update > 0 ? expr : null;
 //	}
 
-	private static Pair<IRList, IRList> _optimizeRule_1(Pair<IRList, IRList> rule, IRFrame frame) throws RException {
+	private static boolean _isInactiveNode(IRReteNode node) {
+		return node.getNodeExecCount() == 0 || node.getNodeExecCount() == node.getNodeIdleCount();
+	}
+
+	private static Pair<IRList, IRList> _optimizeRule_1(Pair<IRList, IRList> rule, IRInterpreter interpreter,
+			IRFrame frame) throws RException {
 
 		IRList conds = rule.getKey();
 		IRList actions = rule.getValue();
@@ -690,7 +742,7 @@ public class OptimizeUtil {
 			/*************************************************/
 
 			try {
-				if (MatchTree.build(newCondList) == null) {
+				if (MatchTree.build(newCondList, interpreter, frame) == null) {
 					continue;
 				}
 			} catch (RException e) {
@@ -2110,6 +2162,58 @@ public class OptimizeUtil {
 
 	}
 
+	protected static IRObject _rebuildConstExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame)
+			throws RException {
+
+		if (!_containConstExpr(expr)) {
+			return expr;
+		}
+
+		ArrayList<IRObject> elements = null;
+
+		int constCount = 0;
+
+		IRIterator<? extends IRObject> it = expr.listIterator(1);
+		while (it.hasNext()) {
+
+			boolean update = false;
+
+			IRObject element = it.next();
+			if (element.getType() == RType.EXPR) {
+				IRObject rst = _rebuildConstExpr((IRExpr) element, interpreter, frame);
+				if (rst != element) {
+					update = true;
+					element = rst;
+				}
+			}
+
+			if (isConstObject(element)) {
+				constCount++;
+			}
+
+			if (update || elements != null) {
+
+				if (elements == null) {
+					elements = new ArrayList<>();
+					elements.add(expr.get(0));
+				}
+
+				elements.add(element);
+			}
+		}
+
+		IRObject rst = expr;
+		if (elements != null) {
+			rst = RulpFactory.createExpression(elements);
+		}
+
+		if (constCount == (expr.size() - 1) && isConstOperatorName(expr.get(0).asString())) {
+			rst = RuntimeUtil.compute(rst, interpreter, frame);
+		}
+
+		return rst;
+	}
+
 	private static String _simpleCountStr(String str) {
 
 		while (!str.isEmpty()) {
@@ -2441,7 +2545,7 @@ public class OptimizeUtil {
 	public static String formatRuleCount(IRRuleCounter counter) throws RException {
 		return String.format("stmt=%d, entry=%d, node=%d, exec=%d, update=%d", counter.getStatementCount(),
 				counter.getEntryCount(), counter.getNodeCount(), counter.getExecuteCount(), counter.getUpdateCount());
-	}
+	};
 
 	public static int getSharedNodeCount(IRModel model) throws RException {
 
@@ -2520,7 +2624,24 @@ public class OptimizeUtil {
 		}
 
 		return wasteMap;
-	};
+	}
+
+	public static boolean isConstObject(IRObject obj) {
+
+		switch (obj.getType()) {
+		case INT:
+		case BOOL:
+		case DOUBLE:
+		case FLOAT:
+		case LONG:
+		case NIL:
+		case STRING:
+			return true;
+
+		default:
+			return false;
+		}
+	}
 
 	public static boolean matchExprFactor(IRObject obj, String factorName) throws RException {
 
@@ -2539,7 +2660,7 @@ public class OptimizeUtil {
 
 	}
 
-	public static IRObject optimizeExpr(IRExpr expr) throws RException {
+	public static IRObject optimizeExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		OPT: while (true) {
 
@@ -2582,13 +2703,17 @@ public class OptimizeUtil {
 				}
 			}
 
-			// (factor 1 2)
+			// (op ?a (+ 1 2)) => const expression
+			if (_containConstExpr(expr)) {
+				IRObject rst = _rebuildConstExpr(expr, interpreter, frame);
+				if (rst.getType() == RType.EXPR) {
+					expr = (IRExpr) rst;
+				} else {
+					return rst;
+				}
+			}
 
 			break;
-		}
-
-		if (expr.size() == 3) {
-
 		}
 
 		return expr;
@@ -2614,14 +2739,14 @@ public class OptimizeUtil {
 		return (IRList) _buildOptimizeMatchTree(matchTree);
 	}
 
-	public static Pair<IRList, IRList> optimizeRule(IRList condList, IRList actionList, IRFrame frame)
-			throws RException {
+	public static Pair<IRList, IRList> optimizeRule(IRList condList, IRList actionList, IRInterpreter interpreter,
+			IRFrame frame) throws RException {
 
 		Pair<IRList, IRList> rule = new Pair<>(condList, actionList);
 
 		do {
 
-			Pair<IRList, IRList> rst = _optimizeRule_1(rule, frame);
+			Pair<IRList, IRList> rst = _optimizeRule_1(rule, interpreter, frame);
 			if (rst != null) {
 				rule = rst;
 				continue;

@@ -30,7 +30,7 @@ public class ModelFactory {
 		// Build var list
 		/******************************************************/
 		List<IRList> matchStmtList = ReteUtil.toCondList(condList, model.getNodeGraph());
-		IRList matchTree = MatchTree.build(matchStmtList);
+		IRList matchTree = MatchTree.build(matchStmtList, model.getInterpreter(), model.getFrame());
 		IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree));
 		IRVar[] vars = new IRVar[varEntry.length];
 

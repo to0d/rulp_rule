@@ -247,19 +247,10 @@ public class TestRule extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c)) )");
-		_test("(add-stmt m '(x p y))");
-		_test("(add-stmt m '(y p z))");
-		_test("(start m)");
-		_test("(list-stmt m)", "'('(x p y) '(y p z))");
-
-		_test("(add-stmt m '(p x y))");
-		_test("(start m)");
-		_test("(list-stmt m)", "'('(x p y) '(y p z) '(p x y))");
-
-		_mStatus(1, "m");
-		_saveTest();
-		_statsInfo("m");
+		_test_error("(add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c)) )",
+				"false tree found: ['(p x y), '(?a p ?b), '(?b p ?c), (= 1 2)]\n"
+						+ "fail to add rule<(add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c)))>\n"
+						+ "at main: (add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c)))");
 	}
 
 	@Test

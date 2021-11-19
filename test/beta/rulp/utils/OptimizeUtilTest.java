@@ -12,6 +12,7 @@ import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
 import alpha.rulp.utils.RulpFactory;
@@ -23,16 +24,19 @@ class OptimizeUtilTest extends RulpTestBase {
 	void _test_optimize(String inputExpr, String expectExpr) {
 
 		try {
+
+			IRInterpreter interpreter = _getInterpreter();
+
 			LinkedList<IRObject> exprList = new LinkedList<>();
 			for (IRObject obj : RulpFactory.createParser().parse(inputExpr)) {
 				exprList.add(obj);
 			}
 			assertEquals(inputExpr, 1, exprList.size());
 			IRObject obj = exprList.get(0);
-			obj = OptimizeUtil.optimizeExpr((IRExpr) obj);
+			obj = OptimizeUtil.optimizeExpr((IRExpr) obj, interpreter, interpreter.getMainFrame());
 			assertEquals(inputExpr, expectExpr, RulpUtil.toString(obj));
 
-		} catch (RException e) {
+		} catch (RException | IOException e) {
 			e.printStackTrace();
 			fail(e.toString());
 		}
@@ -50,6 +54,8 @@ class OptimizeUtilTest extends RulpTestBase {
 
 		try {
 
+			IRInterpreter interpreter = _getInterpreter();
+
 			LinkedList<IRObject> condList = new LinkedList<>();
 			for (IRObject obj : RulpFactory.createParser().parse(condExpr)) {
 				condList.add(obj);
@@ -61,7 +67,7 @@ class OptimizeUtilTest extends RulpTestBase {
 			}
 
 			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRule(RulpFactory.createList(condList),
-					RulpFactory.createList(actionList), _getInterpreter().getMainFrame());
+					RulpFactory.createList(actionList), interpreter, interpreter.getMainFrame());
 
 			assertEquals(expectCondExpr, RulpUtil.toString(rst.getKey()));
 			assertEquals(expectActionExpr, RulpUtil.toString(rst.getValue()));

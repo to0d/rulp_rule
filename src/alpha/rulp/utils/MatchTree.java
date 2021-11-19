@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Set;
 
 import alpha.rulp.lang.IRExpr;
+import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
+import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 
 public class MatchTree {
@@ -688,7 +690,7 @@ public class MatchTree {
 //		return RulpFactory.createList(newElements);
 //	}
 
-	public static IRList build(List<IRList> matchStmtList) throws RException {
+	public static IRList build(List<IRList> matchStmtList, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		/**************************************************/
 		// Create const/var stmts
@@ -707,7 +709,7 @@ public class MatchTree {
 
 			if (stmt.getType() == RType.EXPR) {
 
-				IRObject rst = OptimizeUtil.optimizeExpr((IRExpr) stmt);
+				IRObject rst = OptimizeUtil.optimizeExpr((IRExpr) stmt, interpreter, frame);
 
 				switch (rst.getType()) {
 				case EXPR:

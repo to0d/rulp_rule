@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.ReteUtil;
@@ -26,18 +27,20 @@ class MatchTreeTest extends RuleTestBase {
 
 		try {
 
+			IRInterpreter interpreter = _getInterpreter();
+
 			LinkedList<IRList> stmtList = new LinkedList<>();
 			for (IRObject obj : RulpFactory.createParser().parse(matchList)) {
 				stmtList.add(ReteUtil.asReteStmt(obj));
 			}
 
-			IRList tree = MatchTree.build(stmtList);
+			IRList tree = MatchTree.build(stmtList, interpreter, interpreter.getMainFrame());
 			assertTrue(matchList, ReteUtil.isReteTree(tree));
 
 			String treeOutput = RulpUtil.toString(tree);
 			assertEquals(String.format("input=%s", matchList), expectTree, treeOutput);
 
-		} catch (RException e) {
+		} catch (RException | IOException e) {
 			e.printStackTrace();
 			fail(e.toString());
 		}
@@ -48,15 +51,17 @@ class MatchTreeTest extends RuleTestBase {
 
 		try {
 
+			IRInterpreter interpreter = _getInterpreter();
+
 			LinkedList<IRList> stmtList = new LinkedList<>();
 			for (IRObject obj : RulpFactory.createParser().parse(matchList)) {
 				stmtList.add(ReteUtil.asReteStmt(obj));
 			}
 
-			MatchTree.build(stmtList);
+			MatchTree.build(stmtList, interpreter, interpreter.getMainFrame());
 			fail("should fail");
 
-		} catch (RException e) {
+		} catch (RException | IOException e) {
 			assertEquals(String.format("input=%s", matchList), expectException, e.getMessage());
 		}
 
@@ -66,6 +71,7 @@ class MatchTreeTest extends RuleTestBase {
 
 		try {
 
+			IRInterpreter interpreter = _getInterpreter();
 			ArrayList<String> outLines = new ArrayList<>();
 
 			for (String inputStmt : FileUtil.openTxtFile(inputFile, "utf-8")) {
@@ -83,7 +89,7 @@ class MatchTreeTest extends RuleTestBase {
 				outLines.add(inputStmt + " ; input");
 
 				try {
-					IRList tree = MatchTree.build(stmtList);
+					IRList tree = MatchTree.build(stmtList, interpreter, interpreter.getMainFrame());
 					String treeOutput = RulpUtil.toString(tree);
 					outLines.add(treeOutput + " ; output");
 					outLines.add(";expr: ");

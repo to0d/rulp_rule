@@ -1284,7 +1284,8 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	protected IRReteNode _findReteNode(List<IRList> matchStmtList) throws RException {
-		return _findReteNode(MatchTree.build(matchStmtList), new XTempVarBuilder());
+		return _findReteNode(MatchTree.build(matchStmtList, this.model.getInterpreter(), this.model.getFrame()),
+				new XTempVarBuilder());
 	}
 
 	protected int _getNextNodeId() {
@@ -1554,7 +1555,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 		}
 
-		IRList matchTree = MatchTree.build(actualMatchStmtList);
+		IRList matchTree = MatchTree.build(actualMatchStmtList, this.model.getInterpreter(), this.model.getFrame());
 //		matchTree = OptimizeUtil.optimizeMatchTree(matchTree);
 
 		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder());
