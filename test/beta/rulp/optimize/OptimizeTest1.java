@@ -139,7 +139,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(new model m)", "m");
 		_test("(add-rule m if '(?a ?p ?b) (equal ?a ?a) do (-> '(?b ?p ?a)))");
 		_test("(add-stmt m '(a2 p b2))");
-		_test("(start m)", "7");
+		_test("(start m)", "5");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a2 p b2) '(b2 p a2))");
 
@@ -254,20 +254,4 @@ public class OptimizeTest1 extends RuleTestBase {
 		_saveTest();
 	}
 
-	@Test
-	void test_not_equal_7() {
-
-		_setup();
-		_test("(new model m)", "m");
-		_test("(add-rule m if '(?a ?p ?b) (not (equal ?a ?a)) do (-> '(?b ?p ?a)))");
-		_test("(add-stmt m '(a2 p b2))");
-		_test("(start m)", "20");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a2 p2 b2) '(b2 p2 a2) '(a2 p4 b2) '(b2 p4 a2))");
-
-		_statsInfo("m");
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
-	}
 }

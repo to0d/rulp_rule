@@ -5,6 +5,8 @@ import static alpha.rulp.lang.Constant.F_B_NOT;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.F_IF;
 import static alpha.rulp.lang.Constant.MAX_COUNTER_SIZE;
+import static alpha.rulp.lang.Constant.O_False;
+import static alpha.rulp.lang.Constant.O_True;
 import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_ASSUMED;
@@ -62,6 +64,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModelCounter;
@@ -2555,15 +2558,32 @@ public class OptimizeUtil {
 				continue OPT;
 			}
 
+			RRelationalOperator op = null;
+			if (expr.size() == 3 && ReteUtil.getExprLevel(expr) == 1
+					&& (op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null
+					&& expr.get(1).asString().equals(expr.get(2).asString())) {
+
+				switch (op) {
+				case EQ: // (= ?a ?a) ==> true
+					return O_True;
+				case GE: // (>= ?a ?a) ==> true
+					return O_True;
+				case GT: // (> ?a ?a) ==> false
+					return O_False;
+				case LE: // (<= ?a ?a) ==> true
+					return O_True;
+				case LT: // (< ?a ?a) ==> false
+					return O_False;
+				case NE:// (!= ?a ?a) ==> false
+					return O_False;
+
+				default:
+				}
+			}
+
 			break;
 		}
 
-		// (= ?a ?a) ==> true
-		// (!= ?a ?a) ==> false
-		// (> ?a ?a) ==> false
-		// (< ?a ?a) ==> false
-		// (>= ?a ?a) ==> true
-		// (<= ?a ?a) ==> true
 		if (expr.size() == 3) {
 
 		}

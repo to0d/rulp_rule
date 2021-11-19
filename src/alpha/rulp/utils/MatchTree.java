@@ -1,9 +1,5 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.lang.Constant.F_B_NOT;
-import static alpha.rulp.lang.Constant.F_EQUAL;
-import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
