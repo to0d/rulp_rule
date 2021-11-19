@@ -81,7 +81,10 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 		IRIterator<? extends IRObject> it = args.listIterator(argIndex);
 		ConstraintBuilder cb = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList)));
 		while (it.hasNext()) {
-			constraintList.add(cb.build(it.next(), interpreter, frame));
+			IRConstraint1 cons = cb.build(it.next(), interpreter, frame);
+			if (cons != null) {
+				constraintList.add(cons);
+			}
 		}
 
 		if (constraintList.isEmpty()) {

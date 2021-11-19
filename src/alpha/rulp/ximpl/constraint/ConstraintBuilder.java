@@ -24,6 +24,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
@@ -223,9 +224,27 @@ public class ConstraintBuilder {
 		}
 	}
 
-	private IRConstraint1 _exprConstraint(IRExpr rightExpr) throws RException {
+	private IRConstraint1 _exprConstraint(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		ArrayList<IRObject> rightVarList = ReteUtil.buildVarList(rightExpr);
+		IRObject rst = OptimizeUtil.optimizeExpr(expr, interpreter, frame);
+
+		switch (rst.getType()) {
+		case EXPR:
+			expr = (IRExpr) rst;
+			break;
+
+		case BOOL:
+			if (RulpUtil.asBoolean(rst).asBoolean()) {
+				return null;
+			} else {
+				throw new RException("false expr constraint found: " + expr);
+			}
+
+		default:
+			throw new RException("Can't optimize constraint: " + expr);
+		}
+
+		ArrayList<IRObject> rightVarList = ReteUtil.buildVarList(expr);
 		ArrayList<IRObject> externalVarList = new ArrayList<>();
 
 		for (IRObject v : rightVarList) {
@@ -240,20 +259,19 @@ public class ConstraintBuilder {
 			// '(?a ?b ?c) (factor ?a ?x) - has left variable in expr
 			/*********************************************************/
 			if (externalVarList.size() != rightVarList.size()) {
-				return ConstraintFactory.createConstraintExpr0Node(rightExpr, varEntry);
+				return ConstraintFactory.createConstraintExpr0Node(expr, varEntry);
 			}
 
 			/*********************************************************/
 			// '(?a ?b ?c) (factor ?x) - no left variable in expr
 			/*********************************************************/
-			return ConstraintFactory.createConstraintExpr3Node(rightExpr);
+			return ConstraintFactory.createConstraintExpr3Node(expr);
 		}
 
 		/*********************************************************/
 		// (equal ?a b) or (not-equal ?a b)
 		/*********************************************************/
-		IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr,
-				RulpUtil.toArray2(varEntry));
+		IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(expr, RulpUtil.toArray2(varEntry));
 		if (expr1MatchNode != null) {
 			return expr1MatchNode;
 		}
@@ -263,7 +281,7 @@ public class ConstraintBuilder {
 		/*********************************************************/
 		// Expr0: (factor ?a b)
 		/*********************************************************/
-		return ConstraintFactory.createConstraintExpr0Node(rightExpr, varEntry);
+		return ConstraintFactory.createConstraintExpr0Node(expr, varEntry);
 
 	}
 
@@ -498,7 +516,7 @@ public class ConstraintBuilder {
 			}
 
 		case EXPR:
-			return _exprConstraint((IRExpr) obj);
+			return _exprConstraint((IRExpr) obj, interpreter, frame);
 
 		default:
 			throw new RException("no constraint list: " + obj);
@@ -521,7 +539,10 @@ public class ConstraintBuilder {
 				break;
 
 			case EXPR:
-				matchedConstraints.add(_exprConstraint((IRExpr) obj));
+				IRConstraint1 cons = _exprConstraint((IRExpr) obj, interpreter, frame);
+				if (cons != null) {
+					matchedConstraints.add(cons);
+				}
 				break;
 
 			default:

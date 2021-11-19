@@ -22,6 +22,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
@@ -157,7 +158,10 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 			ConstraintBuilder cb = new ConstraintBuilder(varEntry);
 			for (IRObject where : RulpUtil.toArray(whereList)) {
-				resultQueue.addConstraint(cb.build(where, interpreter, frame));
+				IRConstraint1 cons = cb.build(where, interpreter, frame);
+				if (cons != null) {
+					resultQueue.addConstraint(cons);
+				}
 			}
 		}
 
