@@ -87,10 +87,6 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 			}
 		}
 
-		if (constraintList.isEmpty()) {
-			throw new RException("no constraint list: " + args);
-		}
-
 		/********************************************/
 		// Update Constraint
 		/********************************************/
