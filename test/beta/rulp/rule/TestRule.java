@@ -291,6 +291,20 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
+	public void test_4_const_expr_4() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if '(?a p ?b) (> ?b (- 10 5)) do (-> m '(?a p (- ?b 1))))");
+		_test("(add-stmt m '(x p 8))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(x p 8) '(x p 7) '(x p 6) '(x p 5))");
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
+
+	@Test
 	public void test_4_const_stmt() {
 
 		_setup();

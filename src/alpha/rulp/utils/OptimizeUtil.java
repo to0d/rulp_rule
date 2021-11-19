@@ -2172,13 +2172,13 @@ public class OptimizeUtil {
 		ArrayList<IRObject> elements = null;
 
 		int constCount = 0;
+		int size = expr.size();
 
-		IRIterator<? extends IRObject> it = expr.listIterator(1);
-		while (it.hasNext()) {
+		for (int i = 1; i < size; ++i) {
 
 			boolean update = false;
+			IRObject element = expr.get(i);
 
-			IRObject element = it.next();
 			if (element.getType() == RType.EXPR) {
 				IRObject rst = _rebuildConstExpr((IRExpr) element, interpreter, frame);
 				if (rst != element) {
@@ -2192,10 +2192,11 @@ public class OptimizeUtil {
 			}
 
 			if (update || elements != null) {
-
 				if (elements == null) {
 					elements = new ArrayList<>();
-					elements.add(expr.get(0));
+					for (int ii = 0; ii < i; ++ii) {
+						elements.add(expr.get(ii));
+					}
 				}
 
 				elements.add(element);
