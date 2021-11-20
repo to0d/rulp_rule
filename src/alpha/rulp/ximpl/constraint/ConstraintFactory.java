@@ -82,20 +82,47 @@ public class ConstraintFactory {
 			return new XRConstraint1Expr0(expr, varEntry);
 		}
 
-		int[] constraintIndex = new int[rebuildVarMap.size()];
+		int[] constraintIndexs = new int[rebuildVarMap.size()];
 		int cIndex = 0;
 		for (int i = 0; i < varEntryLen; ++i) {
 			if (newVarEntry[i] != null) {
-				constraintIndex[cIndex] = i;
+				constraintIndexs[cIndex] = i;
 			}
 		}
 
 		/*****************************************/
 		// Build expr
 		/*****************************************/
-		IRExpr newExpr = RulpUtil.asExpression(RuntimeUtil.rebuild(expr, rebuildVarMap));
+		expr = RulpUtil.asExpression(RuntimeUtil.rebuild(expr, rebuildVarMap));
 
-		return new XRConstraint1Expr0X(newExpr, newVarEntry, constraintIndex, externalVarCount);
+		RRelationalOperator op = null;
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
+				&& expr.size() == 3) {
+
+			if (constraintIndexs.length == 1 && externalVarCount == 0) {
+
+				int constraintIndex = constraintIndexs[0];
+				String constraintIndexName = String.format("?%d", constraintIndex);
+
+				// (op ?0 value)
+				if (expr.get(1).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.compareValue(op, constraintIndex, expr.get(2));
+				}
+
+				// (op value ?0)
+				if (expr.get(2).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.compareValue(RRelationalOperator.oppositeOf(op), constraintIndex,
+							expr.get(1));
+				}
+			}
+
+			// (!= ?0 ?1)
+			if (constraintIndexs.length == 2 && externalVarCount == 0) {
+				return ConstraintFactory.compareIndex(op, constraintIndexs[0], constraintIndexs[1]);
+			}
+		}
+
+		return new XRConstraint1Expr0X(expr, newVarEntry, constraintIndexs, externalVarCount);
 	}
 
 	public static IRConstraint1 expr1(IRExpr expr, List<IRObject> leftVarList) throws RException {
