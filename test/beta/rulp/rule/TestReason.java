@@ -10,9 +10,9 @@ public class TestReason extends RuleTestBase {
 	public void test_2_auto_delete() {
 
 		_setup();
-		_test_script("result/rule/TestReason/test_2_auto_delete.rulp");
-		_statsInfo("m", "result/rule/TestReason/test_2_auto_delete.txt");
-		_dumpEntryTable("m", "result/rule/TestReason/test_2_auto_delete.dump.txt");
+		_test_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
 	}
 
 	@Test
@@ -31,15 +31,14 @@ public class TestReason extends RuleTestBase {
 		_test("(list-stmt m)", "'('(a p c))");
 		_dumpEntryTable("m", "result/rule/TestReason/test_3_circle_reason_a.dump.2.txt");
 
-		_statsInfo("m", "result/rule/TestReason/test_3_circle_reason_a.txt");
+		_statsInfo("m");
 	}
 
 	@Test
 	public void test_3_circle_reason_b_named() {
 		_setup();
-		// _enableTrace();
-		_test_script("result/rule/TestReason/test_3_circle_reason_b_named.rulp");
-		_statsInfo("m", "result/rule/TestReason/test_3_circle_reason_b_named.txt");
-		_dumpEntryTable("m", "result/rule/TestReason/test_3_circle_reason_b_named.dump.txt");
+		_test_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
 	}
 }

@@ -179,4 +179,41 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_save_model_cache("m");
 	}
 
+	@Test
+	void test_10_similar_constraint_with_rule_1() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n1:'(?a ?p (- ?b 1))))");
+		_test("(add-constraint m n1:'(?x ?y ?z) (> ?z 3))", "1");
+		_test("(add-stmt m n1:'(a b 5))");
+		_test("(start m)", "6");
+		_test("(state-of m)", "completed");
+		_test("(list-stmt m from n1:'(?a ?p ?b))", "'(n1:'(a b 5) n1:'(a b 4))");
+
+		_mStatus(1, "m");
+		_oStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_10_similar_constraint_with_rule_2() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n2:'(?b)))");
+		_test("(add-rule m if n1:'(?a ?p ?b) (> ?b 4) do (-> n3:'(?b)))");
+		_test("(add-stmt m n1:'(a b 5))");
+		_test("(start m)", "5");
+		_test("(state-of m)", "completed");
+		_test("(list-stmt m)", "'(n1:'(a b 5) n2:'(5) n3:'(5))");
+
+		_mStatus(1, "m");
+		_oStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
 }

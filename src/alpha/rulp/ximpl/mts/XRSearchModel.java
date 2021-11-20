@@ -1,7 +1,6 @@
 package alpha.rulp.ximpl.mts;
 
 import alpha.rulp.lang.IRList;
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.RRunState;
