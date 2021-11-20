@@ -10,6 +10,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
@@ -21,10 +22,11 @@ import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
+import alpha.rulp.ximpl.node.IRNamedNode;
 
-public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorSearchModel extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
-	public XRFactorSearchStmt(String factorName) {
+	public XRFactorSearchModel(String factorName) {
 		super(factorName);
 	}
 
@@ -64,6 +66,9 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 			}
 		}
 
+		/********************************************/
+		// Check result expression
+		/********************************************/
 		IRObject rstExpr = args.get(argIndex++);
 		if (rstExpr.getType() != RType.LIST || RulpUtil.asList(rstExpr).getNamedName() == null) {
 			throw new RException("unsupport search expr: " + rstExpr);
@@ -103,20 +108,22 @@ public class XRFactorSearchStmt extends AbsRFactorAdapter implements IRFactor, I
 			}
 		}
 
+		return MTSUtil.createSearchModel(model, (IRList) rstExpr, fromList);
+
 		/********************************************/
 		// Run as rule group
 		/********************************************/
-		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, fromList);
+//		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, fromList);
 
-		try {
-
-			model.query(resultQueue, fromList, limit);
-			return RulpFactory.createList(resultQueue.getResultList());
-
-		} finally {
-
-			resultQueue.close();
-		}
+//		try {
+//
+////			model.query(resultQueue, fromList, limit);
+////			return RulpFactory.createList(resultQueue.getResultList());
+//
+//		} finally {
+//
+//			resultQueue.close();
+//		}
 	}
 
 }

@@ -25,7 +25,7 @@ import static alpha.rulp.rule.Constant.F_QUERY_STMT;
 import static alpha.rulp.rule.Constant.F_REMOVE_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_REMOVE_STMT;
 import static alpha.rulp.rule.Constant.F_SAVE_MODEL;
-import static alpha.rulp.rule.Constant.F_SEARCH_STMT;
+import static alpha.rulp.rule.Constant.F_SEARCH_MODEL;
 import static alpha.rulp.rule.Constant.F_SET_DEFAULT_MODEL;
 import static alpha.rulp.rule.Constant.F_SET_MODEL_CACHE_PATH;
 import static alpha.rulp.rule.Constant.F_SET_NODE_CACHE_PATH;
@@ -95,7 +95,7 @@ import alpha.rulp.ximpl.factor.XRFactorTraceRule;
 import alpha.rulp.ximpl.factor.XRFactorTryAddStmt;
 import alpha.rulp.ximpl.model.XRModelClass;
 import alpha.rulp.ximpl.mts.MTSUtil;
-import alpha.rulp.ximpl.mts.XRFactorSearchStmt;
+import alpha.rulp.ximpl.mts.XRFactorSearchModel;
 import alpha.rulp.ximpl.rbs.RBSUtil;
 import alpha.rulp.ximpl.scope.ScopeFactory;
 
@@ -142,8 +142,8 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorTraceRule(F_TRACE_RULE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddNode(F_ADD_NODE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorFixStmt(F_FIX_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSearchStmt(F_SEARCH_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorTryAddStmt(F_TRY_ADD_STMT));
+		RulpUtil.addFrameObject(systemFrame, new XRFactorSearchModel(F_SEARCH_MODEL));
 
 //		RulpUtil.setMember(modelClass, F_ADD_LAZY_STMT, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
 

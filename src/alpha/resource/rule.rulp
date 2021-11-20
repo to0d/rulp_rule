@@ -88,7 +88,6 @@
     (return (remove-constraint ?m (to-named-list ?node '(?...)) '(type ?type on (to-atom (+ "?" ?index)))))
 )
 
-
 (defun add_cst_constraint_max ((?m model) (?node string) ?index (?value int))
     (init_cst_rule ?m)        
     (add-stmt ?m $cst_max$:'(?node ?index ?value))

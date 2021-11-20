@@ -157,7 +157,7 @@ public interface Constant {
 
 	String F_SAVE_MODEL = "save-model";
 
-	String F_SEARCH_STMT = "search-stmt";
+	String F_SEARCH_MODEL = "search-model";
 
 	String F_SET = "set";
 
