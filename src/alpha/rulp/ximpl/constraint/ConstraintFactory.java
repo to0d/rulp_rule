@@ -13,6 +13,7 @@ import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
+import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
@@ -38,6 +39,10 @@ public class ConstraintFactory {
 		}
 
 		return new XRConstraint1CompareValue(op, index, obj);
+	}
+
+	public static IRConstraint1 compareVar(RRelationalOperator op, int index, IRVar var) {
+		return new XRConstraint1CompareVar(op, index, var);
 	}
 
 	public static IRConstraint1 compareIndex(RRelationalOperator op, int idx1, int idx2) {

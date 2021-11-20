@@ -545,6 +545,24 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
+	public void test_6_var_expr_a() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x1 1)");
+		_test("(defvar ?x2 3)");
+		_test("(add-rule m if '(?a p ?b) (> ?b ?x1) do (-> m n1:'(?b)))");
+		_test("(add-rule m if '(?a p ?b) (> ?b ?x2) do (-> m n2:'(?b)))");
+		_test("(add-stmt m '(a p 2))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a p 2) n1:'(2))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
+
+	@Test
 	public void test_7_null_expr_1() {
 
 		_setup();
