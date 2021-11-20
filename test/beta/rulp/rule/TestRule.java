@@ -633,4 +633,21 @@ public class TestRule extends RuleTestBase {
 		_saveTest();
 	}
 
+	@Test
+	public void test_d_type_expr_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule m if n1:'(?a p ?b) (type int on ?b) do (-> n2:'(?b)))");
+		_test("(add-stmt m '(x p 0))");
+		_test("(add-stmt m '(x p a))");
+		_test("(add-stmt m '(x p 1))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(x p 0) '(x p a) '(x p 1) n2:'(0) n2:'(1))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
+
 }
