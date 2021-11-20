@@ -125,19 +125,19 @@ public class ModelConstraintBuilder {
 
 				// (op ?0 value)
 				if (expr.get(1).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.createConstraintCompareValue(op, constraintIndex, expr.get(2));
+					return ConstraintFactory.compareValue(op, constraintIndex, expr.get(2));
 				}
 
 				// (op value ?0)
 				if (expr.get(2).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.createConstraintCompareValue(RRelationalOperator.toOpposite(op),
-							constraintIndex, expr.get(1));
+					return ConstraintFactory.compareValue(RRelationalOperator.oppositeOf(op), constraintIndex,
+							expr.get(1));
 				}
 			}
 
 			// (!= ?0 ?1)
 			if (consExprX.getConstraintIndex().length == 2 && consExprX.getExternalVarCount() == 0) {
-				return ConstraintFactory.createConstraintCompareIndex(op, consExprX.getConstraintIndex()[0],
+				return ConstraintFactory.compareIndex(op, consExprX.getConstraintIndex()[0],
 						consExprX.getConstraintIndex()[1]);
 			}
 		}

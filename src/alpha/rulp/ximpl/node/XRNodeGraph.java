@@ -25,6 +25,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
@@ -383,7 +384,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 						ReteUtil.uniqName(reteTree), stmtLen, parentNode, varEntry);
 
-				addConstraint(alph0Node, ConstraintFactory.createConstraintEqualIndex(0, 1));
+				addConstraint(alph0Node, ConstraintFactory.compareIndex(RRelationalOperator.EQ, 0, 1));
 
 				return alph0Node;
 			}
@@ -428,7 +429,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 					XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 							ReteUtil.uniqName(reteTree), stmtLen, parentNode, varEntry);
-					addConstraint(alph0Node, ConstraintFactory.createConstraintEqualIndex(lastSamePos, lastVarPos));
+					addConstraint(alph0Node,
+							ConstraintFactory.compareIndex(RRelationalOperator.EQ, lastSamePos, lastVarPos));
 					return alph0Node;
 				}
 			}
@@ -472,7 +474,8 @@ public class XRNodeGraph implements IRNodeGraph {
 				XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 						ReteUtil.uniqName(reteTree), stmtLen, parentNode,
 						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-				addConstraint(alph0Node, ConstraintFactory.createConstraintEqualValue(lastValuePos, lastValue));
+				addConstraint(alph0Node,
+						ConstraintFactory.compareValue(RRelationalOperator.EQ, lastValuePos, lastValue));
 				return alph0Node;
 			}
 		}
@@ -619,9 +622,9 @@ public class XRNodeGraph implements IRNodeGraph {
 				IRExpr expr = RulpUtil.asExpression(reteTree.get(2));
 				// Optimize: '(?x ?y ?z) '(?a ?b ?c) (equal ?x ?a) ==> '(?x ?y ?z) '(?x ?b ?c)
 
-				matchNode = ConstraintFactory.createConstraintExpr1Node(expr, thisVarList);
+				matchNode = ConstraintFactory.expr1(expr, thisVarList);
 				if (matchNode == null) {
-					matchNode = ConstraintFactory.createConstraintExpr0Node(expr, varEntry);
+					matchNode = ConstraintFactory.expr0(expr, varEntry);
 				}
 
 				if (matchNode == null) {
@@ -704,8 +707,8 @@ public class XRNodeGraph implements IRNodeGraph {
 				IRReteNode node = RNodeFactory.createExpr2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 						entryLen, leftNode, varEntry);
 
-				addConstraint(node, ConstraintFactory.createConstraintExpr0Node(rightExpr,
-						ReteUtil._varEntry(ReteUtil.buildTreeVarList(leftTree))));
+				addConstraint(node,
+						ConstraintFactory.expr0(rightExpr, ReteUtil._varEntry(ReteUtil.buildTreeVarList(leftTree))));
 
 				return node;
 
@@ -731,7 +734,7 @@ public class XRNodeGraph implements IRNodeGraph {
 						varEntry.length, leftNode.getEntryLength(), entryTable, leftNode, varEntry);
 
 				// constant
-				addConstraint(node, ConstraintFactory.createConstraintExpr3Node(rightExpr));
+				addConstraint(node, ConstraintFactory.expr3(rightExpr));
 
 				return node;
 			}
@@ -745,7 +748,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			List<IRObject> alphaVarList = RulpUtil.toArray(leftTree);
 
-			IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr, alphaVarList);
+			IRConstraint1 expr1MatchNode = ConstraintFactory.expr1(rightExpr, alphaVarList);
 			if (expr1MatchNode != null) {
 
 				IRReteNode node = RNodeFactory.createExpr1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
@@ -774,7 +777,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				List<IRObject> alphaVarList = RulpUtil.toArray(RulpUtil.asList(leftParentObj));
 
-				IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr, alphaVarList);
+				IRConstraint1 expr1MatchNode = ConstraintFactory.expr1(rightExpr, alphaVarList);
 				if (expr1MatchNode != null) {
 					IRReteNode node = RNodeFactory.createExpr1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 							leftNode.getEntryLength(), leftNode, leftNode.getVarEntry());
@@ -785,7 +788,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		} else {
 
-			IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(rightExpr, leftVarList);
+			IRConstraint1 expr1MatchNode = ConstraintFactory.expr1(rightExpr, leftVarList);
 			if (expr1MatchNode != null) {
 				IRReteNode node = RNodeFactory.createExpr1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 						leftVarList.size(), leftNode, ReteUtil._varEntry(leftVarList));
@@ -806,7 +809,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				leftNode, varEntry);
 
 		// constant
-		addConstraint(node, ConstraintFactory.createConstraintExpr0Node(rightExpr, varEntry));
+		addConstraint(node, ConstraintFactory.expr0(rightExpr, varEntry));
 
 		return node;
 	}
@@ -1135,7 +1138,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 		// (?varName a ?tmp)
-		addConstraint(alph0Node, ConstraintFactory.createConstraintEqualValue(2, obj));
+		addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, 2, obj));
 		return alph0Node;
 	}
 
@@ -1188,9 +1191,8 @@ public class XRNodeGraph implements IRNodeGraph {
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			// (?varName a ?tmp)
-			addConstraint(alph0Node, ConstraintFactory.createConstraintEqualValue(1, reteTree.get(2)));
-			addConstraint(alph0Node, ConstraintFactory.createConstraintEqualValue(2, reteTree.get(3)));
-
+			addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, 1, reteTree.get(2)));
+			addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, 2, reteTree.get(3)));
 			return alph0Node;
 		}
 
@@ -1212,7 +1214,7 @@ public class XRNodeGraph implements IRNodeGraph {
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			// (?varName a ?tmp)
-			addConstraint(alph0Node, ConstraintFactory.createConstraintEqualValue(lastVarPos - 1, lastValue));
+			addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, lastVarPos - 1, lastValue));
 			return alph0Node;
 		}
 
@@ -1472,7 +1474,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			// This constraint will be only added to "symmetric" betaNode
 			if (isSymmetricBetaNode(node)) {
-				RuleUtil.asBetaNode(node).addConstraint2(ConstraintFactory.createConstraint2EntryOrder());
+				RuleUtil.asBetaNode(node).addConstraint2(ConstraintFactory.entryOrder());
 			}
 
 			break;
@@ -1568,7 +1570,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		setNodePriority(ruleNode, priority);
 
 		for (IRExpr expr : indexExprList) {
-			addConstraint(ruleNode, ConstraintFactory.createConstraintExpr4Node(expr, actualMatchStmtList));
+			addConstraint(ruleNode, ConstraintFactory.expr4(expr, actualMatchStmtList));
 		}
 
 		/******************************************************/

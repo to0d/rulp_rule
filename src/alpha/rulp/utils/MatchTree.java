@@ -226,7 +226,7 @@ public class MatchTree {
 				// '(?a ?b ?c) (> 1 ?b) ==> '(?a ?b ?c) (<= ?b 1)
 				// '(?a ?b ?c) (< ?x ?b) ==> '(?a ?b ?c) (> ?b ?x)
 				if ((idx1 == -1 && idx2 >= 0) || (idx1 >= 0 && idx2 >= 0 && idx1 > idx2)) {
-					n2.tree = RulpFactory.createExpression(RRelationalOperator.toOpposite(op).getAtom(), n2.tree.get(2),
+					n2.tree = RulpFactory.createExpression(RRelationalOperator.oppositeOf(op).getAtom(), n2.tree.get(2),
 							n2.tree.get(1));
 				} else {
 					n2.tree = RulpFactory.createExpression(op.getAtom(), n2.tree.get(1), n2.tree.get(2));

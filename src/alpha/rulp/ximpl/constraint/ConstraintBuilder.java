@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.lang.Constant.S_QUESTION;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
@@ -21,6 +22,7 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
@@ -259,19 +261,19 @@ public class ConstraintBuilder {
 			// '(?a ?b ?c) (factor ?a ?x) - has left variable in expr
 			/*********************************************************/
 			if (externalVarList.size() != rightVarList.size()) {
-				return ConstraintFactory.createConstraintExpr0Node(expr, varEntry);
+				return ConstraintFactory.expr0(expr, varEntry);
 			}
 
 			/*********************************************************/
 			// '(?a ?b ?c) (factor ?x) - no left variable in expr
 			/*********************************************************/
-			return ConstraintFactory.createConstraintExpr3Node(expr);
+			return ConstraintFactory.expr3(expr);
 		}
 
 		/*********************************************************/
 		// (equal ?a b) or (not-equal ?a b)
 		/*********************************************************/
-		IRConstraint1 expr1MatchNode = ConstraintFactory.createConstraintExpr1Node(expr, RulpUtil.toArray2(varEntry));
+		IRConstraint1 expr1MatchNode = ConstraintFactory.expr1(expr, RulpUtil.toArray2(varEntry));
 		if (expr1MatchNode != null) {
 			return expr1MatchNode;
 		}
@@ -281,7 +283,7 @@ public class ConstraintBuilder {
 		/*********************************************************/
 		// Expr0: (factor ?a b)
 		/*********************************************************/
-		return ConstraintFactory.createConstraintExpr0Node(expr, varEntry);
+		return ConstraintFactory.expr0(expr, varEntry);
 
 	}
 
@@ -361,7 +363,7 @@ public class ConstraintBuilder {
 		switch (cons.onObject.getType()) {
 		case INT:
 		case ATOM:
-			return ConstraintFactory.createConstraintMax(_getColumnIndex(cons.onObject), cons.constraintValue);
+			return ConstraintFactory.max(_getColumnIndex(cons.onObject), cons.constraintValue);
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);
@@ -378,7 +380,7 @@ public class ConstraintBuilder {
 		switch (cons.onObject.getType()) {
 		case INT:
 		case ATOM:
-			return ConstraintFactory.createConstraintMin(_getColumnIndex(cons.onObject), cons.constraintValue);
+			return ConstraintFactory.min(_getColumnIndex(cons.onObject), cons.constraintValue);
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);
@@ -390,7 +392,7 @@ public class ConstraintBuilder {
 		switch (cons.onObject.getType()) {
 		case INT:
 		case ATOM:
-			return ConstraintFactory.createConstraintNotNull(_getColumnIndex(cons.onObject));
+			return ConstraintFactory.compareValue(RRelationalOperator.NE, _getColumnIndex(cons.onObject), O_Nil);
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);
@@ -402,8 +404,7 @@ public class ConstraintBuilder {
 		switch (cons.onObject.getType()) {
 		case INT:
 		case ATOM:
-			return ConstraintFactory.createConstraint1OneOf(_getColumnIndex(cons.onObject),
-					RulpUtil.asList(cons.constraintValue));
+			return ConstraintFactory.oneOf(_getColumnIndex(cons.onObject), RulpUtil.asList(cons.constraintValue));
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);
@@ -457,7 +458,7 @@ public class ConstraintBuilder {
 			throw new RException("Invalid column type: " + columnType);
 		}
 
-		return ConstraintFactory.createConstraintType(_getColumnIndex(cons.onObject), columnType);
+		return ConstraintFactory.type(_getColumnIndex(cons.onObject), columnType);
 	}
 
 	private IRConstraint1 _uniqConstraint(RConstraint cons) throws RException {
@@ -465,7 +466,7 @@ public class ConstraintBuilder {
 		switch (cons.onObject.getType()) {
 		case INT:
 		case ATOM:
-			return ConstraintFactory.createConstraintUniq(_getColumnIndex(cons.onObject));
+			return ConstraintFactory.uniq(_getColumnIndex(cons.onObject));
 
 		case LIST:
 
@@ -478,7 +479,7 @@ public class ConstraintBuilder {
 				columnIndexs[i] = _getColumnIndex(onList.get(i));
 			}
 
-			return ConstraintFactory.createConstraintUniq(columnIndexs);
+			return ConstraintFactory.uniq(columnIndexs);
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);
