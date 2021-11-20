@@ -77,7 +77,7 @@
             do (remove-stmt ?m $cst_type$:'(?node ?index ?type)) 
                (error add-constraint-fail (+ "type-constraint:'(" ?node " " ?index " " ?type "), " ?c))  limit 1)
     
-    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) '(type ?type on (to-atom (+ "?" ?index)))))
+    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) (type ?type on (to-atom (+ "?" ?index)))))
     (return (> ?update 0))
 )
 
@@ -85,7 +85,7 @@
     (init_cst_rule ?m)
     (defvar ?drop-stmt-list (remove-stmt ?m $cst_type$:'(?node ?index ?type)))
     (if (is-empty ?drop-stmt-list) (return '()))
-    (return (remove-constraint ?m (to-named-list ?node '(?...)) '(type ?type on (to-atom (+ "?" ?index)))))
+    (return (remove-constraint ?m (to-named-list ?node '(?...)) (type ?type on (to-atom (+ "?" ?index)))))
 )
 
 (defun add_cst_constraint_max ((?m model) (?node string) ?index (?value int))
@@ -95,7 +95,7 @@
             do (remove-stmt ?m $cst_max$:'(?node ?index ?value)) 
                (error add-constraint-fail (+ "max-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
     
-    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) '(max ?value on (to-atom (+ "?" ?index)))))
+    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) (max ?value on (to-atom (+ "?" ?index)))))
     (return (> ?update 0))
 )
 
@@ -103,7 +103,7 @@
     (init_cst_rule ?m)        
     (defvar ?drop-stmt-list (remove-stmt ?m $cst_max$:'(?node ?index ?value)))
     (if (is-empty ?drop-stmt-list) (return '()))
-    (return (remove-constraint ?m (to-named-list ?node '(?...)) '(max ?value on (to-atom (+ "?" ?index)))))
+    (return (remove-constraint ?m (to-named-list ?node '(?...)) (max ?value on (to-atom (+ "?" ?index)))))
 )
 
 (defun add_cst_constraint_min ((?m model) (?node string) ?index (?value int))
@@ -113,7 +113,7 @@
             do (remove-stmt ?m $cst_min$:'(?node ?index ?value)) 
                (error add-constraint-fail (+ "min-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
 
-    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) '(min ?value on (to-atom (+ "?" ?index)))))
+    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) (min ?value on (to-atom (+ "?" ?index)))))
     (return (> ?update 0))
 )
 
@@ -121,7 +121,7 @@
     (init_cst_rule ?m)        
     (defvar ?drop-stmt-list (remove-stmt ?m $cst_min$:'(?node ?index ?value)))
     (if (is-empty ?drop-stmt-list) (return '()))
-    (return (remove-constraint ?m (to-named-list ?node '(?...)) '(min ?value on (to-atom (+ "?" ?index)))))
+    (return (remove-constraint ?m (to-named-list ?node '(?...)) (min ?value on (to-atom (+ "?" ?index)))))
 )
 
 

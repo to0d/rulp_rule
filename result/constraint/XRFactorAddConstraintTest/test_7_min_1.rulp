@@ -1,6 +1,6 @@
 (new model m)
 ;=>m
-(add-constraint m n1:'(?x) '(min 5 on ?x))
+(add-constraint m n1:'(?x) (min 5 on ?x))
 ;=>1
 (add-stmt m n1:'(10))
 ;=>1
@@ -8,13 +8,13 @@
 ;=>1
 (add-stmt m n1:'(1))
 ;err:
-Unable to add entry<n1:'(1)> due to constraint<'(min 5 on ?0)>
+Unable to add entry<n1:'(1)> due to constraint<(min 5 on ?0)>
 at main: (add-stmt m n1:'(1))
 ;eof
 (list-stmt m from n1:'(?x))
 ;=>'(n1:'(10) n1:'(20))
-(remove-constraint m n1:'(1) '(? on ?))
-;=>'('(min 5 on ?0))
+(remove-constraint m n1:'(1) (? on ?))
+;=>'((min 5 on ?0))
 (add-stmt m n1:'(1))
 ;=>1
 (list-stmt m from n1:'(?x))

@@ -44,7 +44,7 @@ public class XRConstraint1Type extends AbsRConstraint1Index1 implements IRConstr
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(),
+			_constraintExpression = String.format("(%s %s on ?%d)", getConstraintName(),
 					RType.toObject(columnType).asString(), index);
 		}
 

@@ -33,7 +33,7 @@ public class XRConstraint1CompareIndex extends AbsRConstraint1 implements IRCons
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s %s ?%d ?%d)", getConstraintName(), op.getAtom(),
+			_constraintExpression = String.format("(%s %s ?%d ?%d)", getConstraintName(), op.getAtom(),
 					constraintIndex[0], constraintIndex[1]);
 		}
 

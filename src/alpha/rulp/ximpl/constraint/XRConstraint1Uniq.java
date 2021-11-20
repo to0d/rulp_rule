@@ -85,7 +85,7 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 		if (_constraintExpression == null) {
 
 			if (uniqColumnIndexs.length == 1) {
-				_constraintExpression = String.format("'(%s on ?%d)", getConstraintName(), uniqColumnIndexs[0]);
+				_constraintExpression = String.format("(%s on ?%d)", getConstraintName(), uniqColumnIndexs[0]);
 
 			} else {
 
@@ -94,7 +94,7 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 					indexs.add(RulpFactory.createAtom("?" + i));
 				}
 
-				_constraintExpression = String.format("'(%s on %s)", getConstraintName(),
+				_constraintExpression = String.format("(%s on %s)", getConstraintName(),
 						RulpFactory.createList(indexs));
 			}
 

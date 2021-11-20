@@ -32,7 +32,7 @@ public class XRConstraint1CompareValue extends AbsRConstraint1Index1 implements 
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s %s ?%d %s)", getConstraintName(), op.getAtom(), index,
+			_constraintExpression = String.format("(%s %s ?%d %s)", getConstraintName(), op.getAtom(), index,
 					"" + obj);
 		}
 

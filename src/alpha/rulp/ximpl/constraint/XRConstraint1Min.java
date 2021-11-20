@@ -34,7 +34,7 @@ public class XRConstraint1Min extends AbsRConstraint1Index1 implements IRConstra
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(), minValue, index);
+			_constraintExpression = String.format("(%s %s on ?%d)", getConstraintName(), minValue, index);
 		}
 
 		return _constraintExpression;

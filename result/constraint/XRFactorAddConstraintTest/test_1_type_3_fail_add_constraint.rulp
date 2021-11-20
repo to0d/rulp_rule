@@ -8,14 +8,14 @@
 ;=>1
 (add-stmt m name1:'(x y bad))
 ;=>1
-(add-constraint m name1:'(? ? ?x) '(type int on ?x))
+(add-constraint m name1:'(? ? ?x) (type int on ?x))
 ;err:
-Unable to add constraint<'(type int on ?2)> due to entry<name1:'(x y bad)>
-at DO: (add-constraint ?m (to-named-list ?node '(?...)) '(type ?type on (to-atom (+ ...
-at DO: (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) '(type ?type...
+Unable to add constraint<(type int on ?2)> due to entry<name1:'(x y bad)>
+at DO: (add-constraint ?m (to-named-list ?node '(?...)) (type ?type on (to-atom (+ "...
+at DO: (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) (type ?type ...
 at _$fun$_add_cst_constraint_type: (do (init_cst_rule ?m) (add-stmt ?m $cst_type$:'(?node ?index ?type)) (query-...
 at MODEL: (add_cst_constraint_type m "name1" 2 int)
-at main: (add-constraint m name1:'(? ? ?x) '(type int on ?x))
+at main: (add-constraint m name1:'(? ? ?x) (type int on ?x))
 ;eof
 (list-stmt m from name1:'(?...))
 ;=>'(name1:'(a b 1) name1:'(x y 2) name1:'(x y bad))

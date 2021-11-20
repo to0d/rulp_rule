@@ -29,7 +29,7 @@ public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstra
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(), maxValue, index);
+			_constraintExpression = String.format("(%s %s on ?%d)", getConstraintName(), maxValue, index);
 		}
 
 		return _constraintExpression;

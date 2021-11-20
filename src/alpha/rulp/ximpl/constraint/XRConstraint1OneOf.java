@@ -45,7 +45,7 @@ public class XRConstraint1OneOf extends AbsRConstraint1Index1 implements IRConst
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("'(%s %s on ?%d)", getConstraintName(), "" + valueList, index);
+			_constraintExpression = String.format("(%s %s on ?%d)", getConstraintName(), "" + valueList, index);
 		}
 
 		return _constraintExpression;

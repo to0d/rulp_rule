@@ -60,85 +60,83 @@ public class ConstraintBuilder {
 		return RulpUtil.asFactor(obj).getName().equals(name);
 	}
 
-	static RConstraint _toConstraint(IRList constraintlist, IRInterpreter interpreter, IRFrame frame)
-			throws RException {
+	static RConstraint _toConstraint(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		int consListSize = constraintlist.size();
+		int consListSize = expr.size();
 
 		// (type int on ?x)
-		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Type) && _isAtom(constraintlist, 2, A_On)) {
+		if (consListSize == 4 && _isAtom(expr, 0, A_Type) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Type;
-			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
-			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+			cons.constraintValue = interpreter.compute(frame, expr.get(1));
+			cons.onObject = interpreter.compute(frame, expr.get(3));
 
 			return cons;
 		}
 
 		// (uniq on ?x)
-		if (consListSize == 3 && (_isAtom(constraintlist, 0, A_Uniq) || _isFactor(constraintlist, 0, A_Uniq))
-				&& _isAtom(constraintlist, 1, A_On)) {
+		if (consListSize == 3 && (_isAtom(expr, 0, A_Uniq) || _isFactor(expr, 0, A_Uniq)) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Uniq;
-			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+			cons.onObject = interpreter.compute(frame, expr.get(2));
 
 			return cons;
 		}
 
 		// (max 10 on ?x)
-		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Max) && _isAtom(constraintlist, 2, A_On)) {
+		if (consListSize == 4 && _isAtom(expr, 0, A_Max) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Max;
-			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
-			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+			cons.constraintValue = interpreter.compute(frame, expr.get(1));
+			cons.onObject = interpreter.compute(frame, expr.get(3));
 			return cons;
 		}
 
 		// (min 10 on ?x)
-		if (consListSize == 4 && _isAtom(constraintlist, 0, A_Min) && _isAtom(constraintlist, 2, A_On)) {
+		if (consListSize == 4 && _isAtom(expr, 0, A_Min) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Min;
-			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
-			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+			cons.constraintValue = interpreter.compute(frame, expr.get(1));
+			cons.onObject = interpreter.compute(frame, expr.get(3));
 			return cons;
 		}
 
 		// (? on ?x)
-		if (consListSize == 3 && _isAtom(constraintlist, 0, S_QUESTION) && _isAtom(constraintlist, 1, A_On)) {
+		if (consListSize == 3 && _isAtom(expr, 0, S_QUESTION) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = S_QUESTION;
-			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+			cons.onObject = interpreter.compute(frame, expr.get(2));
 
 			return cons;
 		}
 
 		// (not-nil on ?x)
-		if (consListSize == 3 && _isAtom(constraintlist, 0, A_NOT_NULL) && _isAtom(constraintlist, 1, A_On)) {
+		if (consListSize == 3 && _isAtom(expr, 0, A_NOT_NULL) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_NOT_NULL;
-			cons.onObject = interpreter.compute(frame, constraintlist.get(2));
+			cons.onObject = interpreter.compute(frame, expr.get(2));
 
 			return cons;
 		}
 
 		// (one-of '(a b c) on ?x)
-		if (consListSize == 4 && _isAtom(constraintlist, 0, A_One_Of) && _isAtom(constraintlist, 2, A_On)) {
+		if (consListSize == 4 && _isAtom(expr, 0, A_One_Of) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_One_Of;
-			cons.constraintValue = interpreter.compute(frame, constraintlist.get(1));
-			cons.onObject = interpreter.compute(frame, constraintlist.get(3));
+			cons.constraintValue = interpreter.compute(frame, expr.get(1));
+			cons.onObject = interpreter.compute(frame, expr.get(3));
 
 			return cons;
 		}
 
-		throw new RException("unsupport constraint list: " + constraintlist);
+		return null;
 	}
 
 	public static boolean matchIndexs(int[] idx1, int[] idx2) throws RException {
@@ -486,13 +484,10 @@ public class ConstraintBuilder {
 		}
 	}
 
-	public IRConstraint1 build(IRObject obj, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public IRConstraint1 build(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		switch (obj.getType()) {
-
-		case LIST:
-
-			RConstraint cons = _toConstraint((IRList) obj, interpreter, frame);
+		RConstraint cons = _toConstraint(expr, interpreter, frame);
+		if (cons != null) {
 			switch (cons.constraintName) {
 			case A_Type:
 				return _typeConstraint(cons);
@@ -513,15 +508,11 @@ public class ConstraintBuilder {
 				return _oneOfConstraint(cons);
 
 			default:
-				throw new RException("unsupport constraint: " + cons.constraintName);
+				throw new RException("unsupport constraint: " + expr);
 			}
-
-		case EXPR:
-			return _exprConstraint((IRExpr) obj, interpreter, frame);
-
-		default:
-			throw new RException("no constraint list: " + obj);
 		}
+
+		return _exprConstraint(expr, interpreter, frame);
 	}
 
 	public List<IRConstraint1> match(IRNamedNode node, IRList args, IRInterpreter interpreter, IRFrame frame)
@@ -533,22 +524,24 @@ public class ConstraintBuilder {
 		while (it.hasNext()) {
 
 			IRObject obj = it.next();
-
-			switch (obj.getType()) {
-			case LIST:
-				matchedConstraints.addAll(_matchConstraint(_toConstraint((IRList) obj, interpreter, frame), node));
-				break;
-
-			case EXPR:
-				IRConstraint1 cons = _exprConstraint((IRExpr) obj, interpreter, frame);
-				if (cons != null) {
-					matchedConstraints.add(cons);
-				}
-				break;
-
-			default:
+			if (obj.getType() != RType.EXPR) {
 				throw new RException("no constraint list: " + obj);
 			}
+
+			IRExpr expr = (IRExpr) obj;
+
+			RConstraint cons = _toConstraint(expr, interpreter, frame);
+			if (cons != null) {
+
+				matchedConstraints.addAll(_matchConstraint(cons, node));
+
+			} else {
+				IRConstraint1 cons1 = _exprConstraint(expr, interpreter, frame);
+				if (cons1 != null) {
+					matchedConstraints.add(cons1);
+				}
+			}
+
 		}
 
 		return new ArrayList<>(matchedConstraints);

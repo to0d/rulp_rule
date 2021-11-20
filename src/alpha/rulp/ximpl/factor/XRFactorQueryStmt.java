@@ -6,6 +6,7 @@ import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Where;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRMember;
@@ -158,7 +159,7 @@ public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IR
 
 			ConstraintBuilder cb = new ConstraintBuilder(varEntry);
 			for (IRObject where : RulpUtil.toArray(whereList)) {
-				IRConstraint1 cons = cb.build(where, interpreter, frame);
+				IRConstraint1 cons = cb.build((IRExpr) where, interpreter, frame);
 				if (cons != null) {
 					resultQueue.addConstraint(cons);
 				}

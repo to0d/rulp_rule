@@ -2,19 +2,19 @@
 ;=>m
 (add-node m name1:'(2))
 ;=>1
-(add-constraint m name1:'(?x ?y) '(not-null on ?x))
+(add-constraint m name1:'(?x ?y) (not-null on ?x))
 ;=>1
 (add-stmt m name1:'(a b))
 ;=>1
 (add-stmt m name1:'(nil c))
 ;err:
-Unable to add entry<name1:'(nil c)> due to constraint<'(cmp-value != ?0 nil)>
+Unable to add entry<name1:'(nil c)> due to constraint<(cmp-value != ?0 nil)>
 at main: (add-stmt m name1:'(nil c))
 ;eof
 (list-stmt m)
 ;=>'(name1:'(a b))
-(remove-constraint m name1:'(2) '(? on ?))
-;=>'('(cmp-value != ?0 nil))
+(remove-constraint m name1:'(2) (? on ?))
+;=>'((cmp-value != ?0 nil))
 (add-stmt m name1:'(nil c))
 ;=>1
 (list-stmt m)

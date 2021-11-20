@@ -12,7 +12,7 @@ class XRFactorTryAddStmtTest extends RuleTestBase {
 		_setup();
 
 		_test("(new model m)", "m");
-		_test("(add-constraint m n1:'(?x) '(type int on ?x))");
+		_test("(add-constraint m n1:'(?x) (type int on ?x))");
 		_test("(try-add-stmt m n1:'(1))", "true");
 		_test("(try-add-stmt m n1:'(2))", "true");
 		_test("(try-add-stmt m n1:'(1))", "true"); // duplicated
@@ -29,7 +29,7 @@ class XRFactorTryAddStmtTest extends RuleTestBase {
 		_setup();
 
 		_test("(new model m)", "m");
-		_test("(add-constraint m n1:'(?x) '(type int on ?x))");
+		_test("(add-constraint m n1:'(?x) (type int on ?x))");
 		_test("(add-constraint m n2:'(?x) (< ?x 5))");
 		_test("(add-rule m if n1:'(?x) do (-> m n2:'(?x)))", "RU000");
 		_test("(try-add-stmt m n1:'(1))", "true");
