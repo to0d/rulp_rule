@@ -368,15 +368,15 @@ B0100[2]  '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0)) [join(0/2),joi
 B0103[3]  '('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) [join(2/0)]
 B0110[3]  '('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) [join(0/0)]
 B0115[3]  '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) [join(0/0)]
-B1007[2]  '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed)) []
-B1043[4]  '('('('(?0 ?1 ?2) (!= ?0 ?2)) '(?1 nm:propertyOf nm:nonCircleProperty)) (var-changed ?model-state running completed)) []
-B1079[2]  '('('(?0 nm:typeOf nm:domain) (!= ?0 nd:Global)) (var-changed ?model-state running completed)) []
-B1105[4]  '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed)) []
-B1107[2]  '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed)) []
-B1112[4]  '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed)) []
-B1118[4]  '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed)) []
-B1121[2]  '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed)) []
-B1124[2]  '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed)) []
+B1007[2]  '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
+B1043[4]  '('('('(?0 ?1 ?2) (!= ?0 ?2)) '(?1 nm:propertyOf nm:nonCircleProperty)) (var-changed ?model-state running completed))
+B1079[2]  '('('(?0 nm:typeOf nm:domain) (!= ?0 nd:Global)) (var-changed ?model-state running completed))
+B1105[4]  '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
+B1107[2]  '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
+B1112[4]  '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+B1118[4]  '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+B1121[2]  '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
+B1124[2]  '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 B2027[3]  '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty)) [join(1/0)]
 B2030[3]  '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) [join(1/0)]
 B2035[3]  '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:symmetricProperty)) [join(1/0)]

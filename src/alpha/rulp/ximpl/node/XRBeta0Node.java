@@ -57,25 +57,18 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 		return primaryMap;
 	}
 
-	protected ArrayList<JoinIndex> joinIndexList = new ArrayList<>();
-
-	protected JoinIndex primaryJoinIndex = null;
+	protected ArrayList<JoinIndex> joinIndexList = null;
 
 	@Override
 	protected boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
 
 		this.nodeMatchCount++;
 
-		if (primaryJoinIndex != null) {
-			if (!RulpUtil.equal(leftEntry.get(primaryJoinIndex.leftIndex),
-					rightEntry.get(primaryJoinIndex.rightIndex))) {
-				return false;
-			}
-		}
-
-		for (JoinIndex joinIndex : joinIndexList) {
-			if (!RulpUtil.equal(leftEntry.get(joinIndex.leftIndex), rightEntry.get(joinIndex.rightIndex))) {
-				return false;
+		if (joinIndexList != null) {
+			for (JoinIndex joinIndex : joinIndexList) {
+				if (!RulpUtil.equal(leftEntry.get(joinIndex.leftIndex), rightEntry.get(joinIndex.rightIndex))) {
+					return false;
+				}
 			}
 		}
 
@@ -137,13 +130,13 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 		ArrayList<String> keysList = new ArrayList<>();
 
 		Map<String, List<IRReteEntry>> leftPrimaryMap = _buildPrimaryMap(parentNodes[0].getEntryQueue(), leftBegin,
-				leftEnd, primaryJoinIndex.leftIndex, null, keysList);
+				leftEnd, getPrimaryJoinIndex().leftIndex, null, keysList);
 		if (leftPrimaryMap.isEmpty()) {
 			return 0;
 		}
 
 		Map<String, List<IRReteEntry>> rightPrimaryMap = _buildPrimaryMap(parentNodes[1].getEntryQueue(), rightBegin,
-				rightEnd, primaryJoinIndex.rightIndex, leftPrimaryMap.keySet(), null);
+				rightEnd, getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet(), null);
 		if (rightPrimaryMap.isEmpty()) {
 			return 0;
 		}
@@ -185,7 +178,7 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 			return false;
 		}
 
-		if (primaryJoinIndex == null) {
+		if (getPrimaryJoinIndex() == null) {
 			return false;
 		}
 
@@ -204,12 +197,15 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 		return maxUpdateCount > MAP_MATCH_MIN_COUNT;
 	}
 
+	protected JoinIndex getPrimaryJoinIndex() {
+		return joinIndexList == null ? null : joinIndexList.get(0);
+	}
+
 	public void addJoinIndex(JoinIndex joinIndex) {
 
-		if (primaryJoinIndex == null) {
-			primaryJoinIndex = joinIndex;
+		if (joinIndexList == null) {
+			joinIndexList = new ArrayList<>();
 		}
-
 		joinIndexList.add(joinIndex);
 	}
 

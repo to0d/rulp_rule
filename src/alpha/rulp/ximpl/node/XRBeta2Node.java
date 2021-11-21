@@ -220,13 +220,13 @@ public class XRBeta2Node extends XRBeta0Node {
 		ArrayList<String> keysList = new ArrayList<>();
 
 		Map<String, List<Integer>> leftPrimaryMap = _buildPrimaryIndexMap(parentNodes[0].getEntryQueue(), leftBegin,
-				leftEnd, primaryJoinIndex.leftIndex, null, keysList, true);
+				leftEnd, getPrimaryJoinIndex().leftIndex, null, keysList, true);
 		if (leftPrimaryMap.isEmpty()) {
 			return 0;
 		}
 
 		Map<String, List<Integer>> rightPrimaryMap = _buildPrimaryIndexMap(parentNodes[1].getEntryQueue(), rightBegin,
-				rightEnd, primaryJoinIndex.rightIndex, leftPrimaryMap.keySet(), null, false);
+				rightEnd, getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet(), null, false);
 		if (rightPrimaryMap.isEmpty()) {
 			return 0;
 		}
