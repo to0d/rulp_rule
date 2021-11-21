@@ -50,7 +50,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/rule/VarChangeTest/test_1_expr_tree_3.txt");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -88,8 +88,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-
-		_statsInfo("m", "result/rule/VarChangeTest/test_1_expr_tree_5.txt");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -145,8 +144,6 @@ public class VarChangeTest extends RuleTestBase {
 
 		_setup();
 
-//		XRModel.TRACE_RETE = true;
-
 		_test("(new model m)");
 		_test("(defvar ?x)");
 		_test("(defvar ?xurl \"abc\")");
@@ -158,8 +155,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-
-		_statsInfo("m", "result/rule/VarChangeTest/test_1_expr_tree_9.txt");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -190,7 +186,7 @@ public class VarChangeTest extends RuleTestBase {
 		_mStatus(1, "m");
 		_saveTest();
 
-		_statsInfo("m", "result/rule/VarChangeTest/test_2_contant_bool_1.txt");
+		_statsInfo("m");
 
 	}
 
@@ -218,7 +214,7 @@ public class VarChangeTest extends RuleTestBase {
 		_mStatus(1, "m");
 		_saveTest();
 
-		_statsInfo("m", "result/rule/VarChangeTest/test_2_contant_bool_2.txt");
+		_statsInfo("m");
 
 	}
 
@@ -226,6 +222,6 @@ public class VarChangeTest extends RuleTestBase {
 	void test_2_scope_1() {
 
 		_setup();
-		_test_script("result/rule/VarChangeTest/test_2_scope_1.rulp");
+		_test_script();
 	}
 }
