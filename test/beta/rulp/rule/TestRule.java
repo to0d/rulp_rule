@@ -342,7 +342,7 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
-	public void test_5_waste_var() {
+	public void test_5_waste_var_1() {
 
 		_setup();
 		_test("(new model m)");
@@ -370,6 +370,24 @@ public class TestRule extends RuleTestBase {
 		_test("(add-stmt m '(z p z2))");
 		_test("(start m)");
 		_test("(list-stmt m)", "'('(x p y) '(y p z) '(z p z2))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
+
+	@Test
+	public void test_5_waste_var_3() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x 1)");
+		_test("(add-rule m if (var-changed ?x ?from ?to) '(?a p ?b) '(?b p ?c) do (-> m '(?a p ?c)) )");
+		_test("(add-stmt m '(x p y))");
+		_test("(add-stmt m '(y p z))");
+		_test("(setq ?x 2)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(x p y) '(y p z))");
 
 		_mStatus(1, "m");
 		_saveTest();
