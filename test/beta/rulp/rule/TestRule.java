@@ -387,7 +387,7 @@ public class TestRule extends RuleTestBase {
 		_test("(add-stmt m '(y p z))");
 		_test("(setq ?x 2)");
 		_test("(start m)");
-		_test("(list-stmt m)", "'('(x p y) '(y p z))");
+		_test("(list-stmt m)", "'('(x p y) '(y p z) '(x p z))");
 
 		_mStatus(1, "m");
 		_saveTest();

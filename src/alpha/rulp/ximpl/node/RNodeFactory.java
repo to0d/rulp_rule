@@ -220,7 +220,7 @@ public class RNodeFactory {
 		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
 		leftNode.addChildNode(node);
 		rightNode.addChildNode(node);
-		leftNode.setChildNodeUpdateMode(node, false);
+//		leftNode.setChildNodeUpdateMode(node, false);
 
 		// var entry
 		node.setVarEntry(varEntry);

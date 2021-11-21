@@ -95,7 +95,7 @@ public class PartialReasonTest extends RuleTestBase {
 		_test("(load \"result/p2d.rulp\")");
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tb))");
 		_test("(add-stmt p2d '(tc nm:hasAliasTag td))");
-		_test("(start p2d)", "280");
+		_test("(start p2d)", "283");
 		_test("(state-of p2d)", "completed");
 		_test("(list-stmt p2d from '(tb nm:beAliasTo ?x))", "'('(tb nm:beAliasTo ta))");
 

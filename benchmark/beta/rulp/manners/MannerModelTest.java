@@ -11,12 +11,12 @@ public class MannerModelTest extends RuleTestBase {
 
 		_setup();
 
-		_test_script("benchmark/beta/rulp/manners/manner_can_sit_forward_1.rulp");
+		_test_script();
 
 		_mStatus(1, "mm");
 		_oStatus(1, "mm");
 		_saveTest();
-		_statsInfo("mm", "benchmark/beta/rulp/manners/manner_can_sit_forward_1.txt");
+		_statsInfo("mm");
 	}
 
 	@Test
@@ -24,12 +24,12 @@ public class MannerModelTest extends RuleTestBase {
 
 		_setup();
 
-		_test_script("benchmark/beta/rulp/manners/manner_can_sit_backward_2.rulp");
+		_test_script();
 		_test("(canSitTogether guess-1 guess-2)");
 
 		_mStatus(1, "mm");
 		_oStatus(1, "mm");
 		_saveTest();
-		_statsInfo("mm", "benchmark/beta/rulp/manners/manner_can_sit_backward_2.txt");
+		_statsInfo("mm");
 	}
 }

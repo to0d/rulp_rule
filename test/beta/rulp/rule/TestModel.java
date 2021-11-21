@@ -185,7 +185,7 @@ public class TestModel extends RuleTestBase {
 		_test("(add-stmt m '(b hasChild c))");
 		_test("(add-stmt m '(a hasChild c))");
 
-		_test("(start m)", "11");
+		_test("(start m)", "12");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a hasChild b) '(a hasChild c))");
 

@@ -41,7 +41,7 @@ public class XRBeta1Node extends XRBeta0Node {
 		/********************************************************/
 		IRReteNode leftNode = parentNodes[0];
 		if (rightNode.getReteType() == RReteType.CONST && !rightConstNodeIsRun) {
-			leftNode.setChildNodeUpdateMode(this, true);
+//			leftNode.setChildNodeUpdateMode(this, true);
 			rightConstNodeIsRun = true;
 		}
 
