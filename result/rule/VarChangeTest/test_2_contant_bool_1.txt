@@ -38,7 +38,7 @@ node info3:
 R0001[2]  '(?0 ?1)
 V0002[3]  (var-changed ?x ?0 ?1)
 A1003[3]  (var-changed ?x ?0 true)
-B1004[4]  '('(?0 ?1) (var-changed ?x ?2 true)) []
+B1004[4]  '('(?0 ?1) (var-changed ?x ?v true)) []
 RU000[4]  (-> '(?b ?a))
 ========================================================================================================================================================
 
@@ -73,11 +73,11 @@ R0001(ROOT0):               '(?0 ?1)
   V0002(VAR):               (var-changed ?x ?0 ?1)
 A1003(ALPH1):               (var-changed ?x ?0 true)
            0: V0002(VAR)    (var-changed ?x ?0 ?1)
-B1004(BETA1):               '('(?0 ?1) (var-changed ?x ?2 true))
+B1004(BETA1):               '('(?0 ?1) (var-changed ?x ?v true))
            0: R0001(ROOT0)  '(?0 ?1)
            1: A1003(ALPH1)  (var-changed ?x ?0 true)
  RU000(RULE):               (var-changed ?x ?v true) '(?a ?b) ==> (-> '(?b ?a))
-           0: B1004(BETA1)  '('(?0 ?1) (var-changed ?x ?2 true))
+           0: B1004(BETA1)  '('(?0 ?1) (var-changed ?x ?v true))
 ========================================================================================================================================================
 
 node bind info:
@@ -249,7 +249,7 @@ Object create count:
         atom:         1242            0         1242
       string:           46            0           46
         list:           53            0           53
-        expr:          632            0          632
+        expr:          634            0          634
        array:            1            0            1
          var:           22            0           22
         func:          109            0          109

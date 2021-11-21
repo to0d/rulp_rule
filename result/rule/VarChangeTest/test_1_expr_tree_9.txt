@@ -46,7 +46,7 @@ N0001[2]  url-entry:'(?0 ?1)
 V0002[3]  (var-changed ?x ?0 ?1)
 A2003[2]  (var-changed ?x ?0)
 E2004[2]  ((var-changed ?x ?0) (str-start-with ?0 ?1))
-B0005[3]  '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?2))) [join(1/1)]
+B0005[3]  '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?xurl))) [join(1/1)]
 RU000[3]  (-> m '(a b ?url ?url-name))
 ========================================================================================================================================================
 
@@ -84,11 +84,11 @@ A2003(ALPH2):               (var-changed ?x ?0)
            0: V0002(VAR)    (var-changed ?x ?0 ?1)
 E2004(EXPR2):               ((var-changed ?x ?0) (str-start-with ?0 ?1))
            0: A2003(ALPH2)  (var-changed ?x ?0)
-B0005(BETA0):               '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?2)))
+B0005(BETA0):               '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?xurl)))
            0: N0001(NAME0)  url-entry:'(?0 ?1)
            1: E2004(EXPR2)  ((var-changed ?x ?0) (str-start-with ?0 ?1))
  RU000(RULE):               (var-changed ?x ?url) (str-start-with ?url ?xurl) url-entry:'(?url-name ?url) ==> (-> m '(a b ?url ?url-name))
-           0: B0005(BETA0)  '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?2)))
+           0: B0005(BETA0)  '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?xurl)))
 ========================================================================================================================================================
 
 node bind info:
@@ -266,10 +266,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1238            0         1238
+        atom:         1240            0         1240
       string:           49            0           49
         list:           49            0           49
-        expr:          628            0          628
+        expr:          634            0          634
        array:            1            0            1
          var:           24            0           24
         func:          109            0          109

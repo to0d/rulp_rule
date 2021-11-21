@@ -24,6 +24,7 @@ import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -126,7 +127,98 @@ public class ReteUtil {
 		return varIndex;
 	}
 
-	private static String _toUniq(IRObject obj, Map<String, String> varMap, List<IRObject> varList) throws RException {
+	static class ReplaceMap implements Map<String, IRObject> {
+
+		private Map<String, String> nameMap;
+
+		public ReplaceMap(Map<String, String> nameMap) {
+			super();
+			this.nameMap = nameMap;
+		}
+
+		private Map<Object, IRObject> objectMap;
+
+		@Override
+		public int size() {
+			return nameMap.size();
+		}
+
+		@Override
+		public boolean isEmpty() {
+			return nameMap.isEmpty();
+		}
+
+		@Override
+		public boolean containsKey(Object key) {
+			return nameMap.containsKey(key);
+		}
+
+		@Override
+		public boolean containsValue(Object value) {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public IRObject get(Object key) {
+
+			IRObject obj = null;
+			if (objectMap != null) {
+				obj = objectMap.get(key);
+			}
+
+			if (obj == null) {
+				String objName = nameMap.get(key);
+				if (objName != null) {
+					obj = RulpFactory.createAtom(objName);
+					if (objectMap == null) {
+						objectMap = new HashMap<>();
+					}
+					objectMap.put(key, obj);
+				}
+			}
+
+			return obj;
+		}
+
+		@Override
+		public IRObject put(String key, IRObject value) {
+			return objectMap.put(key, value);
+		}
+
+		@Override
+		public IRObject remove(Object key) {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public void putAll(Map<? extends String, ? extends IRObject> m) {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public void clear() {
+			nameMap.clear();
+			objectMap.clear();
+		}
+
+		@Override
+		public Set<String> keySet() {
+			return nameMap.keySet();
+		}
+
+		@Override
+		public Collection<IRObject> values() {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public Set<Entry<String, IRObject>> entrySet() {
+			throw new RuntimeException("Not support");
+		}
+
+	}
+
+	private static String _toUniq(IRObject obj, Map<String, String> varMap) throws RException {
 
 		if (obj == null) {
 			return A_NIL;
@@ -139,14 +231,11 @@ public class ReteUtil {
 		case ATOM:
 
 			String atomName = ((IRAtom) obj).getName();
-			if (RulpUtil.isVarName(atomName)) {
+			if (varMap != null && RulpUtil.isVarName(atomName)) {
 				String newName = varMap.get(atomName);
 				if (newName == null) {
 					newName = S_QUESTION + varMap.size();
 					varMap.put(atomName, newName);
-					if (varList != null) {
-						varList.add(obj);
-					}
 				}
 
 				atomName = newName;
@@ -177,13 +266,23 @@ public class ReteUtil {
 
 		case LIST:
 
-			IRList list = (IRList) obj;
-			String name = list.getNamedName();
+		{
 
-			if (name == null)
-				return "'(" + _toUniqIterator(list.iterator(), varMap, varList) + ")";
-			else
-				return name + ":'(" + _toUniqIterator(list.iterator(), varMap, varList) + ")";
+			IRList list = (IRList) obj;
+			String out = list.getNamedName() == null ? "" : (list.getNamedName() + ":");
+
+			// the external var in right expression should be not changed
+			// '(?a ?b ?c) (> ?b ?x)
+			if (list.size() == 2 && list.get(0).getType() == RType.LIST && list.get(1).getType() == RType.EXPR) {
+				out += "'(" + _toUniq(list.get(0), varMap) + " "
+						+ _toUniq(RuntimeUtil.rebuild(list.get(1), new ReplaceMap(varMap)), null) + ")";
+
+			} else {
+				out += "'(" + _toUniqIterator(list.iterator(), varMap) + ")";
+			}
+
+			return out;
+		}
 
 		case EXPR:
 
@@ -202,7 +301,7 @@ public class ReteUtil {
 					// e1 must be a var name
 					String out = "(" + name0 + " " + RulpUtil.asAtom(expr.get(1)).getName();
 					for (int i = 2; i < expr.size(); ++i) {
-						out += " " + _toUniq(expr.get(i), varMap, varList);
+						out += " " + _toUniq(expr.get(i), varMap);
 					}
 
 					out += ")";
@@ -214,7 +313,7 @@ public class ReteUtil {
 				}
 			}
 
-			return "(" + _toUniqIterator(((IRList) obj).iterator(), varMap, varList) + ")";
+			return "(" + _toUniqIterator(((IRList) obj).iterator(), varMap) + ")";
 
 		case FUNC:
 			return ((IRFunction) obj).getSignature();
@@ -228,8 +327,7 @@ public class ReteUtil {
 		}
 	}
 
-	private static String _toUniq(IRObject[] entry, Map<String, String> varMap, List<IRObject> varList)
-			throws RException {
+	private static String _toUniq(IRObject[] entry, Map<String, String> varMap) throws RException {
 
 		StringBuffer sb = new StringBuffer();
 		int i = 0;
@@ -238,14 +336,14 @@ public class ReteUtil {
 				sb.append(' ');
 			}
 
-			sb.append(_toUniq(e, varMap, varList));
+			sb.append(_toUniq(e, varMap));
 		}
 
 		return sb.toString();
 	}
 
-	private static String _toUniqIterator(IRIterator<? extends IRObject> iterator, Map<String, String> varMap,
-			List<IRObject> varList) throws RException {
+	private static String _toUniqIterator(IRIterator<? extends IRObject> iterator, Map<String, String> varMap)
+			throws RException {
 
 		StringBuffer sb = new StringBuffer();
 		int i = 0;
@@ -254,7 +352,7 @@ public class ReteUtil {
 				sb.append(' ');
 			}
 
-			sb.append(_toUniq(iterator.next(), varMap, varList));
+			sb.append(_toUniq(iterator.next(), varMap));
 		}
 
 		return sb.toString();
@@ -1566,19 +1664,15 @@ public class ReteUtil {
 	}
 
 	public static String uniqName(IRList tree) throws RException {
-		return _toUniq(tree, new HashMap<>(), null);
-	}
-
-	public static String uniqName(IRObject obj) throws RException {
-		return _toUniq(obj, new HashMap<>(), null);
+		return _toUniq(tree, new HashMap<>());
 	}
 
 	public static String uniqName(IRObject[] entry) throws RException {
-		return _toUniq(entry, new HashMap<>(), null);
+		return _toUniq(entry, new HashMap<>());
 	}
 
 	public static String uniqName(IRReteEntry entry) throws RException {
-		return _toUniq(entry, new HashMap<>(), null);
+		return _toUniq(entry, new HashMap<>());
 	}
 
 	public static int updateMask(RReteStatus status, int mask) {
