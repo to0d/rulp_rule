@@ -190,29 +190,6 @@ class ReteUtilTest extends RuleTestBase {
 		}
 	}
 
-	protected void _test_tree_uniqVarList(String inputTree, String expectVarList) {
-
-		try {
-
-			LinkedList<IRList> stmtList = new LinkedList<>();
-			for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
-				stmtList.add(RulpUtil.asList(obj));
-			}
-
-			assertEquals(1, stmtList.size());
-			IRList tree = stmtList.get(0);
-
-			assertTrue(inputTree, ReteUtil.isReteTree(tree));
-
-			String varList = ReteUtil.buildVarList(tree).toString();
-			assertEquals(inputTree, expectVarList, varList);
-
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
-	}
-
 	@Test
 	void test_buildVarList() {
 		_setup();
@@ -220,6 +197,10 @@ class ReteUtilTest extends RuleTestBase {
 		_test_buildVarList("'(a ?x ?y)", "[?x, ?y]");
 		_test_buildVarList("'(?y ?x ?y)", "[?y, ?x]");
 		_test_buildVarList("'(? ?y ?)", "[?y]");
+		_test_buildVarList("'('(?p1 p2 c) '(?x1 ?p1 ?x2))", "[?p1, ?x1, ?x2]");
+		_test_buildVarList("'('('(?y ?p2 ?z) '('(a ?p1 b) '('(?x ?p1 b) '(?x ?p2 b)))))", "[?y, ?p2, ?z, ?p1, ?x]");
+		_test_buildVarList("'('(?p1 ?p2 ?p3))", "[?p1, ?p2, ?p3]");
+		_test_buildVarList("'('(?x ?p2 ?x))", "[?x, ?p2]");
 	}
 
 	@Test
@@ -428,10 +409,7 @@ class ReteUtilTest extends RuleTestBase {
 	@Test
 	void test_tree_uniqVarList() {
 		_setup();
-		_test_tree_uniqVarList("'('(?p1 p2 c) '(?x1 ?p1 ?x2))", "[?p1, ?x1, ?x2]");
-		_test_tree_uniqVarList("'('('(?y ?p2 ?z) '('(a ?p1 b) '('(?x ?p1 b) '(?x ?p2 b)))))", "[?y, ?p2, ?z, ?p1, ?x]");
-		_test_tree_uniqVarList("'('(?p1 ?p2 ?p3))", "[?p1, ?p2, ?p3]");
-		_test_tree_uniqVarList("'('(?x ?p2 ?x))", "[?x, ?p2]");
+
 	}
 
 	@Test

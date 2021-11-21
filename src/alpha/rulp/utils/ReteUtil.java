@@ -1581,12 +1581,6 @@ public class ReteUtil {
 		return _toUniq(entry, new HashMap<>(), null);
 	}
 
-	public static List<IRObject> uniqVarList(IRList tree) throws RException {
-		ArrayList<IRObject> varList = new ArrayList<>();
-		_toUniq(tree, new HashMap<>(), varList);
-		return varList;
-	}
-
 	public static int updateMask(RReteStatus status, int mask) {
 		return status.getMask() | mask;
 	}
