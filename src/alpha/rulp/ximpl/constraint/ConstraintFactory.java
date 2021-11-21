@@ -62,7 +62,7 @@ public class ConstraintFactory {
 		Map<String, IRObject> rebuildVarMap = new HashMap<>();
 		int externalVarCount = 0;
 
-		for (IRObject var : ReteUtil.uniqVarList(expr)) {
+		for (IRObject var : ReteUtil.buildVarList(expr)) {
 
 			int findIndex = -1;
 

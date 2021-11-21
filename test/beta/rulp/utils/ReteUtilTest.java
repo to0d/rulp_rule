@@ -204,7 +204,7 @@ class ReteUtilTest extends RuleTestBase {
 
 			assertTrue(inputTree, ReteUtil.isReteTree(tree));
 
-			String varList = ReteUtil.uniqVarList(tree).toString();
+			String varList = ReteUtil.buildVarList(tree).toString();
 			assertEquals(inputTree, expectVarList, varList);
 
 		} catch (RException e) {
@@ -402,8 +402,21 @@ class ReteUtilTest extends RuleTestBase {
 
 	@Test
 	void test_tree_uniqname_with_expr() {
+
 		_setup();
+
 		_test_tree_uniqname("'('(?p1 p2 c) (not-equal ?p1 a))", "'('(?0 p2 c) (not-equal ?0 a))");
+	}
+
+	@Test
+	void test_tree_uniqname_with_external_var() {
+
+		_setup();
+
+		_test_tree_uniqname("'('(?a ?b ?c) (> ?c ?x))", "'('(?0 ?1 ?2) (> ?2 ?x))");
+		_test_tree_uniqname("'('('(?a1 p1 ?b1) (!= ?a1 ?x2)) (!= ?a1 ?x1))",
+				"'('('(?0 p1 ?1) (!= ?0 ?x2)) (!= ?0 ?x1))");
+
 	}
 
 	@Test

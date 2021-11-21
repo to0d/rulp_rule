@@ -202,4 +202,11 @@ class MatchTreeTest extends RuleTestBase {
 		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_b_optimize.in.rulp",
 				"result/utils/MatchTreeTest/test_b_optimize.out.rulp");
 	}
+
+	@Test
+	void test_c_external_var() {
+		_setup();
+		_test_buildMatchTree_From_File("result/utils/MatchTreeTest/test_c_external_var.in.rulp",
+				"result/utils/MatchTreeTest/test_c_external_var.out.rulp");
+	}
 }

@@ -887,8 +887,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			_checkCache(rootNode);
 
 			String uniqName = ReteUtil.uniqName(filter);
-//			XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) rootNode.getEntryQueue();
-
 			IRReteEntry oldEntry = rootNode.getStmt(uniqName);
 			if (oldEntry == null) {
 				return Collections.emptyList();
