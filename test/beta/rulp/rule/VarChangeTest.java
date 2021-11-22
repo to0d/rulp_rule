@@ -263,4 +263,23 @@ public class VarChangeTest extends RuleTestBase {
 		_saveTest();
 		_statsInfo("m");
 	}
+
+	@Test
+	public void test_3_same_3() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x 1)");
+		_test("(defun f1 (?v) ((return (> ?v 1))))");
+		_test("(add-rule m if (var-changed ?x ?f1 ?t1) (f1 ?t1) do (-> m n1:'(?t1)))");
+		_test("(add-rule m if (var-changed ?x ?f2 ?t2) (f1 ?t2) do (-> m n2:'(?t2)))");
+		_test("(setq ?x 2)");
+		_test("(setq ?x 3)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'(n1:'(2) n2:'(2) n1:'(3) n2:'(3))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
 }
