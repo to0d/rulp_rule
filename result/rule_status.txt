@@ -442,6 +442,7 @@ beta.rulp.rule.VarChangeTest:test_1_expr_tree_9:1-mStatus:sc=[0,0,1], n0=[0,1,1]
 beta.rulp.rule.VarChangeTest:test_2_contant_bool_1:1-mStatus:sc=[0,2,2,0,0,0,0,0,1], vc=[1, 0, 0, 3, 0], a1=[1,0,1,99,3,0,0,3,2,0,2/0,0,0,0,0,1], b1=[1,0,2,99,6,4,0,3,3,0,3/0,0,3], ru=[1,0,3,99,2,0,0,0,3,1],
 beta.rulp.rule.VarChangeTest:test_2_contant_bool_2:1-mStatus:sc=[0,2,2,0,0,0,0,0,1], vc=[1, 0, 0, 4, 1], a1=[1,0,1,99,4,1,0,3,2,0,2/0,0,0,0,0,1], b1=[1,0,2,99,8,6,0,3,3,0,3/0,0,3], ru=[1,0,3,99,6,4,0,0,3,1],
 beta.rulp.rule.VarChangeTest:test_3_same_1:1-mStatus:sc=[], n0=[0,2,2], vc=[1, 0, 0, 1, 0], ru=[2,0,1,99,2,0,0,0,2],
+beta.rulp.rule.VarChangeTest:test_3_same_2:1-mStatus:sc=[], n0=[0,3,1,1], vc=[1, 0, 0, 1, 0], a1=[1,0,1,99,1,0,0,1,1,0,2/0,0,0,0,0,1], b1=[2,0,2,99,2,0,0,2,2,0,2/0,0,2], ru=[2,0,3,99,2,0,0,0,2],
 beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-eCount:size=21, max-id=21, dup=0, null=0
 beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-mCount:stmt=3, rule=0, match=0, fetch=28, exec=6, idle=2, state=5/3, max-queue=4, uniq-obj=7, entry-cnt=21, entry-maxid=21, waste-node=0, waste-match=0
 beta.rulp.scope.ModelVarTest:test_2_atom_var_1:1-mStatus:sc=[0,3], a0=[1,0,1,0,1,0,0,3,3,0,21/0,3], b3=[2,0,3,0,4,2,0,18,4,0,4/0,0,4],
