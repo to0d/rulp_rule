@@ -11,6 +11,14 @@ public interface Constant {
 
 	String A_By = "by";
 
+	String A_CMP_ENTRY_INDEX = "cmp-entry-index";
+
+	String A_CMP_ENTRY_VALUE = "cmp-entry-value";
+
+	String A_CMP_ENTRY_VAR = "cmp-entry-var";
+
+	String A_CMP_VAR_VALUE = "cmp-var-value";
+
 	String A_Completed = "completed";
 
 	String A_DEFAULT_MODEL = "default_model";
@@ -34,20 +42,16 @@ public interface Constant {
 	String A_Max = "max";
 
 	String A_Min = "min";
-
+	
 	String A_MODEL = "model";
 
 	String A_Name = "name";
 
-	String A_CMP_ENTRY_VALUE = "cmp-entry-value";
-
-	String A_CMP_ENTRY_VAR = "cmp-entry-var";
-
-	String A_CMP_ENTRY_INDEX = "cmp-entry-index";
-
 	String A_NOT_NULL = "not-null";
 
 	String A_On = "on";
+
+	String A_One_Of = "one-of";
 
 	String A_Order = "order";
 
@@ -81,8 +85,6 @@ public interface Constant {
 
 	String A_Uniq = "uniq";
 
-	String A_One_Of = "one-of";
-
 	String A_VIEW = "view";
 
 	String A_Where = "where";
@@ -100,8 +102,6 @@ public interface Constant {
 	String F_ADD_RULE = "add-rule";
 
 	String F_ADD_STMT = "add-stmt";
-
-	String F_TRY_ADD_STMT = "try-add-stmt";
 
 	String F_ASSUME_STMT = "assume-stmt";
 
@@ -175,11 +175,13 @@ public interface Constant {
 
 	String F_START = "start";
 
-//	String F_UPDATE_STMT = "update-stmt";
-
 	String F_STATE_OF = "state-of";
 
+//	String F_UPDATE_STMT = "update-stmt";
+
 	String F_TRACE_RULE = "trace-rule";
+
+	String F_TRY_ADD_STMT = "try-add-stmt";
 
 	String F_VAR_CHANGED = "var-changed";
 

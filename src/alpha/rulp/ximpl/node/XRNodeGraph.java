@@ -384,7 +384,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 						ReteUtil.uniqName(reteTree), stmtLen, parentNode, varEntry);
 
-				addConstraint(alph0Node, ConstraintFactory.compareIndex(RRelationalOperator.EQ, 0, 1));
+				addConstraint(alph0Node, ConstraintFactory.cmpEntryIndex(RRelationalOperator.EQ, 0, 1));
 
 				return alph0Node;
 			}
@@ -430,7 +430,7 @@ public class XRNodeGraph implements IRNodeGraph {
 					XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 							ReteUtil.uniqName(reteTree), stmtLen, parentNode, varEntry);
 					addConstraint(alph0Node,
-							ConstraintFactory.compareIndex(RRelationalOperator.EQ, lastSamePos, lastVarPos));
+							ConstraintFactory.cmpEntryIndex(RRelationalOperator.EQ, lastSamePos, lastVarPos));
 					return alph0Node;
 				}
 			}
@@ -475,7 +475,7 @@ public class XRNodeGraph implements IRNodeGraph {
 						ReteUtil.uniqName(reteTree), stmtLen, parentNode,
 						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 				addConstraint(alph0Node,
-						ConstraintFactory.compareValue(RRelationalOperator.EQ, lastValuePos, lastValue));
+						ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, lastValuePos, lastValue));
 				return alph0Node;
 			}
 		}
@@ -1138,7 +1138,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 		// (?varName a ?tmp)
-		addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, 2, obj));
+		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
 		return alph0Node;
 	}
 
@@ -1191,8 +1191,8 @@ public class XRNodeGraph implements IRNodeGraph {
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			// (?varName a ?tmp)
-			addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, 1, reteTree.get(2)));
-			addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, 2, reteTree.get(3)));
+			addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 1, reteTree.get(2)));
+			addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, reteTree.get(3)));
 			return alph0Node;
 		}
 
@@ -1214,7 +1214,7 @@ public class XRNodeGraph implements IRNodeGraph {
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			// (?varName a ?tmp)
-			addConstraint(alph0Node, ConstraintFactory.compareValue(RRelationalOperator.EQ, lastVarPos - 1, lastValue));
+			addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, lastVarPos - 1, lastValue));
 			return alph0Node;
 		}
 

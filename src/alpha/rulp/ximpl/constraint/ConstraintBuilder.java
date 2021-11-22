@@ -390,7 +390,7 @@ public class ConstraintBuilder {
 		switch (cons.onObject.getType()) {
 		case INT:
 		case ATOM:
-			return ConstraintFactory.compareValue(RRelationalOperator.NE, _getColumnIndex(cons.onObject), O_Nil);
+			return ConstraintFactory.cmpEntryValue(RRelationalOperator.NE, _getColumnIndex(cons.onObject), O_Nil);
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);

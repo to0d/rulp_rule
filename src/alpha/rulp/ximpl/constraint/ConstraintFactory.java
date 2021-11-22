@@ -45,19 +45,19 @@ public class ConstraintFactory {
 
 				// (op ?0 value)
 				if (expr.get(1).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareValue(op, constraintIndex, expr.get(2));
+					return ConstraintFactory.cmpEntryValue(op, constraintIndex, expr.get(2));
 				}
 
 				// (op value ?0)
 				if (expr.get(2).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareValue(RRelationalOperator.oppositeOf(op), constraintIndex,
+					return ConstraintFactory.cmpEntryValue(RRelationalOperator.oppositeOf(op), constraintIndex,
 							expr.get(1));
 				}
 			}
 
 			// (!= ?0 ?1)
 			if (consExprX.getConstraintIndex().length == 2 && consExprX.getExternalVarCount() == 0) {
-				return ConstraintFactory.compareIndex(op, consExprX.getConstraintIndex()[0],
+				return ConstraintFactory.cmpEntryIndex(op, consExprX.getConstraintIndex()[0],
 						consExprX.getConstraintIndex()[1]);
 			}
 		}
@@ -65,7 +65,7 @@ public class ConstraintFactory {
 		return constraint;
 	}
 
-	public static IRConstraint1 compareIndex(RRelationalOperator op, int idx1, int idx2) {
+	public static IRConstraint1 cmpEntryIndex(RRelationalOperator op, int idx1, int idx2) {
 
 		if (idx1 > idx2) {
 			return new XRConstraint1CompareEntryIndex(RRelationalOperator.oppositeOf(op), idx2, idx1);
@@ -74,7 +74,7 @@ public class ConstraintFactory {
 		}
 	}
 
-	public static IRConstraint1 compareValue(RRelationalOperator op, int index, IRObject obj) {
+	public static IRConstraint1 cmpEntryValue(RRelationalOperator op, int index, IRObject obj) {
 
 		if (obj.getType() == RType.ATOM && obj.asString().equals(A_NIL)) {
 			obj = O_Nil;
@@ -83,24 +83,12 @@ public class ConstraintFactory {
 		return new XRConstraint1CompareEntryValue(op, index, obj);
 	}
 
-	public static IRConstraint1 compareVar(RRelationalOperator op, int index, IRVar var) {
-		return new XRConstraint1CompareEntryVar(op, index, var);
-	}
-
-	public static IRConstraint1 compareVar(RRelationalOperator op, int index, IRObject varObj, IRFrame frame)
+	public static IRConstraint1 cmpEntryVar(RRelationalOperator op, int index, IRObject varObj, IRFrame frame)
 			throws RException {
-
-		if (varObj.getType() == RType.VAR) {
-			return compareVar(op, index, (IRVar) varObj);
-		}
-
-		if (varObj.getType() == RType.ATOM) {
-
-		}
 
 		switch (varObj.getType()) {
 		case VAR:
-			return compareVar(op, index, (IRVar) varObj);
+			return cmpEntryVar(op, index, (IRVar) varObj);
 
 		case ATOM:
 
@@ -109,12 +97,16 @@ public class ConstraintFactory {
 				throw new RException("var not found: " + varObj);
 			}
 
-			return compareVar(op, index, varEntry.getValue(), frame);
+			return cmpEntryVar(op, index, varEntry.getValue(), frame);
 
 		default:
 		}
 
 		throw new RException("Invalid var: " + varObj);
+	}
+
+	public static IRConstraint1 cmpEntryVar(RRelationalOperator op, int index, IRVar var) {
+		return new XRConstraint1CompareEntryVar(op, index, var);
 	}
 
 	public static IRConstraint2 entryOrder() {
@@ -178,19 +170,19 @@ public class ConstraintFactory {
 
 				// (op ?0 value)
 				if (expr.get(1).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareValue(op, constraintIndex, expr.get(2));
+					return ConstraintFactory.cmpEntryValue(op, constraintIndex, expr.get(2));
 				}
 
 				// (op value ?0)
 				if (expr.get(2).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareValue(RRelationalOperator.oppositeOf(op), constraintIndex,
+					return ConstraintFactory.cmpEntryValue(RRelationalOperator.oppositeOf(op), constraintIndex,
 							expr.get(1));
 				}
 			}
 
 			// (!= ?0 ?1)
 			if (constraintIndexs.length == 2 && externalVarCount == 0) {
-				return ConstraintFactory.compareIndex(op, constraintIndexs[0], constraintIndexs[1]);
+				return ConstraintFactory.cmpEntryIndex(op, constraintIndexs[0], constraintIndexs[1]);
 			}
 
 			if (constraintIndexs.length == 1 && externalVarCount == 1) {
@@ -200,12 +192,12 @@ public class ConstraintFactory {
 
 				// (op ?0 value)
 				if (expr.get(1).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareVar(op, constraintIndex, expr.get(2), frame);
+					return ConstraintFactory.cmpEntryVar(op, constraintIndex, expr.get(2), frame);
 				}
 
 				// (op value ?0)
 				if (expr.get(2).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareVar(RRelationalOperator.oppositeOf(op), constraintIndex,
+					return ConstraintFactory.cmpEntryVar(RRelationalOperator.oppositeOf(op), constraintIndex,
 							expr.get(1), frame);
 				}
 
@@ -286,17 +278,17 @@ public class ConstraintFactory {
 
 		// (equal v b)
 		if (leftVarIndex != -1 && rightVarIndex == -1) {
-			return ConstraintFactory.compareValue(op, leftVarIndex, a2);
+			return ConstraintFactory.cmpEntryValue(op, leftVarIndex, a2);
 		}
 
 		// (equal a v)
 		if (leftVarIndex == -1 && rightVarIndex != -1) {
-			return ConstraintFactory.compareValue(RRelationalOperator.oppositeOf(op), rightVarIndex, a1);
+			return ConstraintFactory.cmpEntryValue(RRelationalOperator.oppositeOf(op), rightVarIndex, a1);
 		}
 
 		// (equal v1 v2)
 		if (leftVarIndex != -1 && rightVarIndex != -1 && leftVarIndex != rightVarIndex) {
-			return ConstraintFactory.compareIndex(op, leftVarIndex, rightVarIndex);
+			return ConstraintFactory.cmpEntryIndex(op, leftVarIndex, rightVarIndex);
 		}
 
 		return null;
