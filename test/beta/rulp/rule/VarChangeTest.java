@@ -276,7 +276,7 @@ public class VarChangeTest extends RuleTestBase {
 		_test("(setq ?x 2)");
 		_test("(setq ?x 3)");
 		_test("(start m)");
-		_test("(list-stmt m)", "'(n1:'(2) n2:'(2) n1:'(3) n2:'(3))");
+		_test("(list-stmt m)", "'(n1:'(3) n2:'(3))");
 
 		_mStatus(1, "m");
 		_saveTest();

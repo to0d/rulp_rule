@@ -560,6 +560,7 @@ public class TestRule extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test

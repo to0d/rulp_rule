@@ -218,7 +218,7 @@ public class ReteUtil {
 
 	}
 
-	private static String _toUniq(IRObject obj, Map<String, String> varMap) throws RException {
+	private static String _toUniq(IRObject obj, Map<String, String> varMap, boolean create) throws RException {
 
 		if (obj == null) {
 			return A_NIL;
@@ -234,8 +234,12 @@ public class ReteUtil {
 			if (varMap != null && RulpUtil.isVarName(atomName)) {
 				String newName = varMap.get(atomName);
 				if (newName == null) {
-					newName = S_QUESTION + varMap.size();
-					varMap.put(atomName, newName);
+					if (create) {
+						newName = S_QUESTION + varMap.size();
+						varMap.put(atomName, newName);
+					} else {
+						newName = atomName;
+					}
 				}
 
 				atomName = newName;
@@ -264,9 +268,7 @@ public class ReteUtil {
 		case BOOL:
 			return "" + ((IRBoolean) obj).asBoolean();
 
-		case LIST:
-
-		{
+		case LIST: {
 
 			IRList list = (IRList) obj;
 			String out = list.getNamedName() == null ? "" : (list.getNamedName() + ":");
@@ -274,11 +276,11 @@ public class ReteUtil {
 			// the external var in right expression should be not changed
 			// '(?a ?b ?c) (> ?b ?x)
 			if (list.size() == 2 && list.get(0).getType() == RType.LIST && list.get(1).getType() == RType.EXPR) {
-				out += "'(" + _toUniq(list.get(0), varMap) + " "
-						+ _toUniq(RuntimeUtil.rebuild(list.get(1), new ReplaceMap(varMap)), null) + ")";
+				out += "'(" + _toUniq(list.get(0), varMap, true) + " "
+						+ _toUniq(RuntimeUtil.rebuild(list.get(1), new ReplaceMap(varMap)), null, true) + ")";
 
 			} else {
-				out += "'(" + _toUniqIterator(list.iterator(), varMap) + ")";
+				out += "'(" + _toUniqIterator(list.iterator(), varMap, true) + ")";
 			}
 
 			return out;
@@ -353,7 +355,7 @@ public class ReteUtil {
 				}
 			}
 
-			return "(" + _toUniqIterator(((IRList) obj).iterator(), varMap) + ")";
+			return "(" + _toUniqIterator(((IRList) obj).iterator(), varMap, false) + ")";
 
 		case FUNC:
 			return ((IRFunction) obj).getSignature();
@@ -371,7 +373,7 @@ public class ReteUtil {
 //		return "";
 //	}
 
-	private static String _toUniq(IRObject[] entry, Map<String, String> varMap) throws RException {
+	private static String _toUniq(IRObject[] entry, Map<String, String> varMap, boolean create) throws RException {
 
 		StringBuffer sb = new StringBuffer();
 		int i = 0;
@@ -380,14 +382,14 @@ public class ReteUtil {
 				sb.append(' ');
 			}
 
-			sb.append(_toUniq(e, varMap));
+			sb.append(_toUniq(e, varMap, create));
 		}
 
 		return sb.toString();
 	}
 
-	private static String _toUniqIterator(IRIterator<? extends IRObject> iterator, Map<String, String> varMap)
-			throws RException {
+	private static String _toUniqIterator(IRIterator<? extends IRObject> iterator, Map<String, String> varMap,
+			boolean create) throws RException {
 
 		StringBuffer sb = new StringBuffer();
 		int i = 0;
@@ -396,7 +398,7 @@ public class ReteUtil {
 				sb.append(' ');
 			}
 
-			sb.append(_toUniq(iterator.next(), varMap));
+			sb.append(_toUniq(iterator.next(), varMap, create));
 		}
 
 		return sb.toString();
@@ -1708,15 +1710,15 @@ public class ReteUtil {
 	}
 
 	public static String uniqName(IRList tree) throws RException {
-		return _toUniq(tree, new HashMap<>());
+		return _toUniq(tree, new HashMap<>(), true);
 	}
 
 	public static String uniqName(IRObject[] entry) throws RException {
-		return _toUniq(entry, new HashMap<>());
+		return _toUniq(entry, new HashMap<>(), true);
 	}
 
 	public static String uniqName(IRReteEntry entry) throws RException {
-		return _toUniq(entry, new HashMap<>());
+		return _toUniq(entry, new HashMap<>(), true);
 	}
 
 	public static int updateMask(RReteStatus status, int mask) {

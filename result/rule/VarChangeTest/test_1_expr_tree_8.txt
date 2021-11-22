@@ -38,7 +38,7 @@ node info3:
 R0005[3]  '(?0 ?1 ?2)
 V0001[3]  (var-changed ?x ?x.old ?x.new)
 A2002[2]  (var-changed ?x ?x.new)
-E2003[2]  ((var-changed ?x ?x.new) (str-start-with ?0 ?1))
+E2003[2]  ((var-changed ?x ?x.new) (str-start-with ?x.new ?xurl))
 RU000[2]  (-> m '(a b ?url))
 ========================================================================================================================================================
 
@@ -73,10 +73,10 @@ R0005(ROOT0):               '(?0 ?1 ?2)
   V0001(VAR):               (var-changed ?x ?x.old ?x.new)
 A2002(ALPH2):               (var-changed ?x ?x.new)
            0: V0001(VAR)    (var-changed ?x ?x.old ?x.new)
-E2003(EXPR2):               ((var-changed ?x ?x.new) (str-start-with ?0 ?1))
+E2003(EXPR2):               ((var-changed ?x ?x.new) (str-start-with ?x.new ?xurl))
            0: A2002(ALPH2)  (var-changed ?x ?x.new)
  RU000(RULE):               (var-changed ?x ?url) (str-start-with ?url ?xurl) ==> (-> m '(a b ?url))
-           0: E2003(EXPR2)  ((var-changed ?x ?x.new) (str-start-with ?0 ?1))
+           0: E2003(EXPR2)  ((var-changed ?x ?x.new) (str-start-with ?x.new ?xurl))
 ========================================================================================================================================================
 
 node bind info:
