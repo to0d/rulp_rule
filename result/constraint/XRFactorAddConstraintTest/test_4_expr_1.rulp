@@ -6,13 +6,13 @@
 ;=>1
 (add-stmt m name1:'(b 1))
 ;err:
-Unable to add entry<name1:'(b 1)> due to constraint<(cmp-value > ?1 1)>
+Unable to add entry<name1:'(b 1)> due to constraint<(cmp-entry-value > ?1 1)>
 at main: (add-stmt m name1:'(b 1))
 ;eof
 (list-stmt m)
 ;=>'(name1:'(a 2))
 (remove-constraint m name1:'(2) (? on ?))
-;=>'((cmp-value > ?1 1))
+;=>'((cmp-entry-value > ?1 1))
 (add-stmt m name1:'(a 2))
 ;=>1
 (list-stmt m)

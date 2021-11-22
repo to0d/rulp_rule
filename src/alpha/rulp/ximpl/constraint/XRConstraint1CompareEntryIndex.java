@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_CMP_INDEX;
+import static alpha.rulp.rule.Constant.A_CMP_ENTRY_INDEX;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
@@ -8,7 +8,7 @@ import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1CompareIndex extends AbsRConstraint1 implements IRConstraint1 {
+public class XRConstraint1CompareEntryIndex extends AbsRConstraint1 implements IRConstraint1 {
 
 	private String _constraintExpression = null;
 
@@ -16,7 +16,7 @@ public class XRConstraint1CompareIndex extends AbsRConstraint1 implements IRCons
 
 	private RRelationalOperator op;
 
-	public XRConstraint1CompareIndex(RRelationalOperator op, int idx1, int idx2) {
+	public XRConstraint1CompareEntryIndex(RRelationalOperator op, int idx1, int idx2) {
 		super();
 		this.op = op;
 		this.constraintIndex = new int[2];
@@ -47,6 +47,6 @@ public class XRConstraint1CompareIndex extends AbsRConstraint1 implements IRCons
 
 	@Override
 	public String getConstraintName() {
-		return A_CMP_INDEX;
+		return A_CMP_ENTRY_INDEX;
 	}
 }

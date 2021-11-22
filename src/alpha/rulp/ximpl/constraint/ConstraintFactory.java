@@ -68,9 +68,9 @@ public class ConstraintFactory {
 	public static IRConstraint1 compareIndex(RRelationalOperator op, int idx1, int idx2) {
 
 		if (idx1 > idx2) {
-			return new XRConstraint1CompareIndex(RRelationalOperator.oppositeOf(op), idx2, idx1);
+			return new XRConstraint1CompareEntryIndex(RRelationalOperator.oppositeOf(op), idx2, idx1);
 		} else {
-			return new XRConstraint1CompareIndex(op, idx1, idx2);
+			return new XRConstraint1CompareEntryIndex(op, idx1, idx2);
 		}
 	}
 
@@ -80,11 +80,11 @@ public class ConstraintFactory {
 			obj = O_Nil;
 		}
 
-		return new XRConstraint1CompareValue(op, index, obj);
+		return new XRConstraint1CompareEntryValue(op, index, obj);
 	}
 
 	public static IRConstraint1 compareVar(RRelationalOperator op, int index, IRVar var) {
-		return new XRConstraint1CompareVar(op, index, var);
+		return new XRConstraint1CompareEntryVar(op, index, var);
 	}
 
 	public static IRConstraint1 compareVar(RRelationalOperator op, int index, IRObject varObj, IRFrame frame)
