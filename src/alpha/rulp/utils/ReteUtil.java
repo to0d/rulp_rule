@@ -310,6 +310,9 @@ public class ReteUtil {
 						if (RulpUtil.isVarAtom(newValue)) {
 							String newVarName = varName + ".new";
 							out += " " + newVarName;
+							if (varMap != null) {
+								varMap.put(newValue.asString(), newVarName);
+							}
 						} else {
 							out += " " + newValue;
 						}
@@ -322,6 +325,9 @@ public class ReteUtil {
 						if (RulpUtil.isVarAtom(oldValue)) {
 							String oldVarName = varName + ".old";
 							out += " " + oldVarName;
+							if (varMap != null) {
+								varMap.put(oldValue.asString(), oldVarName);
+							}
 						} else {
 							out += " " + oldValue;
 						}
@@ -330,6 +336,9 @@ public class ReteUtil {
 						if (RulpUtil.isVarAtom(newValue)) {
 							String newVarName = varName + ".new";
 							out += " " + newVarName;
+							if (varMap != null) {
+								varMap.put(newValue.asString(), newVarName);
+							}
 						} else {
 							out += " " + newValue;
 						}
