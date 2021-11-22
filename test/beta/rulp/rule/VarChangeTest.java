@@ -35,6 +35,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -66,6 +67,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -105,6 +107,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -121,6 +124,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -137,6 +141,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -213,9 +218,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_mStatus(1, "m");
 		_saveTest();
-
 		_statsInfo("m");
-
 	}
 
 	@Test
@@ -223,5 +226,23 @@ public class VarChangeTest extends RuleTestBase {
 
 		_setup();
 		_test_script();
+	}
+
+	@Test
+	public void test_3_same_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(defvar ?x)");
+		_test("(add-rule m if (var-changed ?x ?f1 ?t1) do (-> m n1:'(?t1)) )");
+		_test("(add-rule m if (var-changed ?x ?f2 ?t2) do (-> m n2:'(?t2)) )");
+		_test("(setq ?x c)");
+		_test("(setq ?x d)");
+		_test("(start m)");
+		_test("(list-stmt m)", "'(n1:'(d) n2:'(d))");
+
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
 	}
 }
