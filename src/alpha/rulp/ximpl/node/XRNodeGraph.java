@@ -624,7 +624,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				matchNode = ConstraintFactory.expr1(expr, thisVarList);
 				if (matchNode == null) {
-					matchNode = ConstraintFactory.expr0(expr, varEntry);
+					matchNode = ConstraintFactory.expr0(expr, varEntry, this.model.getFrame());
 				}
 
 				if (matchNode == null) {
@@ -707,8 +707,8 @@ public class XRNodeGraph implements IRNodeGraph {
 				IRReteNode node = RNodeFactory.createExpr2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 						entryLen, leftNode, varEntry);
 
-				addConstraint(node,
-						ConstraintFactory.expr0(rightExpr, ReteUtil._varEntry(ReteUtil.buildTreeVarList(leftTree))));
+				addConstraint(node, ConstraintFactory.expr0(rightExpr,
+						ReteUtil._varEntry(ReteUtil.buildTreeVarList(leftTree)), this.model.getFrame()));
 
 				return node;
 
@@ -809,7 +809,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				leftNode, varEntry);
 
 		// constant
-		addConstraint(node, ConstraintFactory.expr0(rightExpr, varEntry));
+		addConstraint(node, ConstraintFactory.expr0(rightExpr, varEntry, this.model.getFrame()));
 
 		return node;
 	}
@@ -1498,6 +1498,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	@Override
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		constraint = ConstraintFactory.rebuildConstraint(node, constraint);
 
 		if (!node.addConstraint1(constraint)) {
 			return false;

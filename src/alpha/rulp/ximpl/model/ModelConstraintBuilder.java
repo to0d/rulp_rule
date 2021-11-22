@@ -1,6 +1,5 @@
 package alpha.rulp.ximpl.model;
 
-import static alpha.rulp.lang.Constant.A_EXPRESSION;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_Type;
@@ -10,24 +9,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
-import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
-import alpha.rulp.ximpl.constraint.IRConstraint1Expr;
 import alpha.rulp.ximpl.constraint.IRConstraint1Max;
 import alpha.rulp.ximpl.constraint.IRConstraint1Min;
 import alpha.rulp.ximpl.constraint.IRConstraint1Type;
-import alpha.rulp.ximpl.constraint.XRConstraint1Expr0X;
 
 public class ModelConstraintBuilder {
 
@@ -97,53 +91,7 @@ public class ModelConstraintBuilder {
 		return atom;
 	}
 
-	protected IRConstraint1 _rebuildConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		switch (constraint.getConstraintName()) {
-		case A_EXPRESSION:
-			return _rebuildExprConstraint(node, (IRConstraint1Expr) constraint);
-
-		default:
-		}
-
-		return null;
-	}
-
-	protected IRConstraint1 _rebuildExprConstraint(IRReteNode node, IRConstraint1Expr constraint) throws RException {
-
-		IRExpr expr = constraint.getExpr();
-		RRelationalOperator op = null;
-
-		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
-				&& expr.size() == 3 && constraint instanceof XRConstraint1Expr0X) {
-
-			XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
-			if (consExprX.getConstraintIndex().length == 1 && consExprX.getExternalVarCount() == 0) {
-
-				int constraintIndex = consExprX.getConstraintIndex()[0];
-				String constraintIndexName = String.format("?%d", constraintIndex);
-
-				// (op ?0 value)
-				if (expr.get(1).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareValue(op, constraintIndex, expr.get(2));
-				}
-
-				// (op value ?0)
-				if (expr.get(2).asString().equals(constraintIndexName)) {
-					return ConstraintFactory.compareValue(RRelationalOperator.oppositeOf(op), constraintIndex,
-							expr.get(1));
-				}
-			}
-
-			// (!= ?0 ?1)
-			if (consExprX.getConstraintIndex().length == 2 && consExprX.getExternalVarCount() == 0) {
-				return ConstraintFactory.compareIndex(op, consExprX.getConstraintIndex()[0],
-						consExprX.getConstraintIndex()[1]);
-			}
-		}
-
-		return null;
-	}
+	
 
 	protected IRObject _removeMaxConstraint(IRReteNode node, IRConstraint1Max constraint) throws RException {
 
@@ -176,30 +124,21 @@ public class ModelConstraintBuilder {
 
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
-		IRConstraint1 lastConstraint = constraint;
-		while (true) {
+		constraint = ConstraintFactory.rebuildConstraint(node, constraint);
 
-			IRConstraint1 newConstraint = _rebuildConstraint(node, lastConstraint);
-			if (newConstraint == null) {
-				break;
-			}
-
-			lastConstraint = newConstraint;
-		}
-
-		switch (lastConstraint.getConstraintName()) {
+		switch (constraint.getConstraintName()) {
 		case A_Type:
-			return _addTypeConstraint(node, (IRConstraint1Type) lastConstraint);
+			return _addTypeConstraint(node, (IRConstraint1Type) constraint);
 
 		case A_Max:
-			return _addMaxConstraint(node, (IRConstraint1Max) lastConstraint);
+			return _addMaxConstraint(node, (IRConstraint1Max) constraint);
 
 		case A_Min:
-			return _addMinConstraint(node, (IRConstraint1Min) lastConstraint);
+			return _addMinConstraint(node, (IRConstraint1Min) constraint);
 
 		case A_Uniq:
 		default:
-			return model.getNodeGraph().addConstraint(node, lastConstraint);
+			return model.getNodeGraph().addConstraint(node, constraint);
 		}
 	}
 

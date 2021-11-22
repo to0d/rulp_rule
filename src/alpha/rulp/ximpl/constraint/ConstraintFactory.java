@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.lang.Constant.A_EXPRESSION;
 import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.lang.Constant.O_Nil;
 
@@ -11,12 +12,15 @@ import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
+import alpha.rulp.lang.IRFrame;
+import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -24,12 +28,50 @@ import alpha.rulp.utils.RuntimeUtil;
 
 public class ConstraintFactory {
 
-	public static IRConstraint1 oneOf(int index, IRList valueList) {
-		return new XRConstraint1OneOf(index, valueList);
+	protected static IRConstraint1 _rebuildExprConstraint(IRReteNode node, IRConstraint1Expr constraint)
+			throws RException {
+
+		IRExpr expr = constraint.getExpr();
+		RRelationalOperator op = null;
+
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
+				&& expr.size() == 3 && constraint instanceof XRConstraint1Expr0X) {
+
+			XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
+			if (consExprX.getConstraintIndex().length == 1 && consExprX.getExternalVarCount() == 0) {
+
+				int constraintIndex = consExprX.getConstraintIndex()[0];
+				String constraintIndexName = String.format("?%d", constraintIndex);
+
+				// (op ?0 value)
+				if (expr.get(1).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.compareValue(op, constraintIndex, expr.get(2));
+				}
+
+				// (op value ?0)
+				if (expr.get(2).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.compareValue(RRelationalOperator.oppositeOf(op), constraintIndex,
+							expr.get(1));
+				}
+			}
+
+			// (!= ?0 ?1)
+			if (consExprX.getConstraintIndex().length == 2 && consExprX.getExternalVarCount() == 0) {
+				return ConstraintFactory.compareIndex(op, consExprX.getConstraintIndex()[0],
+						consExprX.getConstraintIndex()[1]);
+			}
+		}
+
+		return constraint;
 	}
 
-	public static IRConstraint2 entryOrder() {
-		return new XRConstraint2EntryOrder();
+	public static IRConstraint1 compareIndex(RRelationalOperator op, int idx1, int idx2) {
+
+		if (idx1 > idx2) {
+			return new XRConstraint1CompareIndex(RRelationalOperator.oppositeOf(op), idx2, idx1);
+		} else {
+			return new XRConstraint1CompareIndex(op, idx1, idx2);
+		}
 	}
 
 	public static IRConstraint1 compareValue(RRelationalOperator op, int index, IRObject obj) {
@@ -45,16 +87,41 @@ public class ConstraintFactory {
 		return new XRConstraint1CompareVar(op, index, var);
 	}
 
-	public static IRConstraint1 compareIndex(RRelationalOperator op, int idx1, int idx2) {
+	public static IRConstraint1 compareVar(RRelationalOperator op, int index, IRObject varObj, IRFrame frame)
+			throws RException {
 
-		if (idx1 > idx2) {
-			return new XRConstraint1CompareIndex(RRelationalOperator.oppositeOf(op), idx2, idx1);
-		} else {
-			return new XRConstraint1CompareIndex(op, idx1, idx2);
+		if (varObj.getType() == RType.VAR) {
+			return compareVar(op, index, (IRVar) varObj);
 		}
+
+		if (varObj.getType() == RType.ATOM) {
+
+		}
+
+		switch (varObj.getType()) {
+		case VAR:
+			return compareVar(op, index, (IRVar) varObj);
+
+		case ATOM:
+
+			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry((IRAtom) varObj, frame);
+			if (varEntry == null) {
+				throw new RException("var not found: " + varObj);
+			}
+
+			return compareVar(op, index, varEntry.getValue(), frame);
+
+		default:
+		}
+
+		throw new RException("Invalid var: " + varObj);
 	}
 
-	public static IRConstraint1 expr0(IRExpr expr, IRObject[] varEntry) throws RException {
+	public static IRConstraint2 entryOrder() {
+		return new XRConstraint2EntryOrder();
+	}
+
+	public static IRConstraint1 expr0(IRExpr expr, IRObject[] varEntry, IRFrame frame) throws RException {
 
 		int varEntryLen = varEntry.length;
 
@@ -124,6 +191,24 @@ public class ConstraintFactory {
 			// (!= ?0 ?1)
 			if (constraintIndexs.length == 2 && externalVarCount == 0) {
 				return ConstraintFactory.compareIndex(op, constraintIndexs[0], constraintIndexs[1]);
+			}
+
+			if (constraintIndexs.length == 1 && externalVarCount == 1) {
+
+				int constraintIndex = constraintIndexs[0];
+				String constraintIndexName = String.format("?%d", constraintIndex);
+
+				// (op ?0 value)
+				if (expr.get(1).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.compareVar(op, constraintIndex, expr.get(2), frame);
+				}
+
+				// (op value ?0)
+				if (expr.get(2).asString().equals(constraintIndexName)) {
+					return ConstraintFactory.compareVar(RRelationalOperator.oppositeOf(op), constraintIndex,
+							expr.get(1), frame);
+				}
+
 			}
 		}
 
@@ -231,6 +316,35 @@ public class ConstraintFactory {
 
 	public static IRConstraint1 min(int columnIndex, IRObject maxValue) {
 		return new XRConstraint1Min(columnIndex, maxValue);
+	}
+
+	public static IRConstraint1 oneOf(int index, IRList valueList) {
+		return new XRConstraint1OneOf(index, valueList);
+	}
+
+	public static IRConstraint1 rebuildConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		IRConstraint1 lastConstraint = constraint;
+		while (true) {
+
+			IRConstraint1 newConstraint = lastConstraint;
+
+			switch (constraint.getConstraintName()) {
+			case A_EXPRESSION:
+				newConstraint = _rebuildExprConstraint(node, (IRConstraint1Expr) lastConstraint);
+
+			default:
+			}
+
+			// no change
+			if (newConstraint == lastConstraint) {
+				break;
+			}
+
+			lastConstraint = newConstraint;
+		}
+
+		return lastConstraint;
 	}
 
 	public static IRConstraint1 type(int columnIndex, RType columnType) {

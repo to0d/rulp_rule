@@ -2100,7 +2100,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		} finally {
 			this.tryAddConstraintLevel--;
 		}
-
 	}
 
 	@Override

@@ -259,7 +259,7 @@ public class ConstraintBuilder {
 			// '(?a ?b ?c) (factor ?a ?x) - has left variable in expr
 			/*********************************************************/
 			if (externalVarList.size() != rightVarList.size()) {
-				return ConstraintFactory.expr0(expr, varEntry);
+				return ConstraintFactory.expr0(expr, varEntry, frame);
 			}
 
 			/*********************************************************/
@@ -281,7 +281,7 @@ public class ConstraintBuilder {
 		/*********************************************************/
 		// Expr0: (factor ?a b)
 		/*********************************************************/
-		return ConstraintFactory.expr0(expr, varEntry);
+		return ConstraintFactory.expr0(expr, varEntry, frame);
 
 	}
 
