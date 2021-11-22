@@ -298,10 +298,41 @@ public class ReteUtil {
 				// (var-changed varName new-value)
 				case F_VAR_CHANGED:
 
+					String varName = RulpUtil.asAtom(expr.get(1)).getName();
+
 					// e1 must be a var name
-					String out = "(" + name0 + " " + RulpUtil.asAtom(expr.get(1)).getName();
-					for (int i = 2; i < expr.size(); ++i) {
-						out += " " + _toUniq(expr.get(i), varMap);
+					String out = "(" + name0 + " " + varName;
+
+					// (var-changed varName new-value)
+					if (expr.size() == 3) {
+
+						IRObject newValue = expr.get(2);
+						if (RulpUtil.isVarAtom(newValue)) {
+							String newVarName = varName + ".new";
+							out += " " + newVarName;
+						} else {
+							out += " " + newValue;
+						}
+
+					}
+					// (var-changed varName old-value new-value)
+					else {
+
+						IRObject oldValue = expr.get(2);
+						if (RulpUtil.isVarAtom(oldValue)) {
+							String oldVarName = varName + ".old";
+							out += " " + oldVarName;
+						} else {
+							out += " " + oldValue;
+						}
+
+						IRObject newValue = expr.get(3);
+						if (RulpUtil.isVarAtom(newValue)) {
+							String newVarName = varName + ".new";
+							out += " " + newVarName;
+						} else {
+							out += " " + newValue;
+						}
 					}
 
 					out += ")";
@@ -326,6 +357,10 @@ public class ReteUtil {
 
 		}
 	}
+
+//	private static String _changeVarNewName(String varName) {
+//		return "";
+//	}
 
 	private static String _toUniq(IRObject[] entry, Map<String, String> varMap) throws RException {
 

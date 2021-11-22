@@ -40,11 +40,11 @@ node info3:
  NODE[n]  Description
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 R0007[3]  '(?0 ?1 ?2)
-V0001[3]  (var-changed ?x ?0 ?1)
-V0003[3]  (var-changed ?y ?0 ?1)
-A2002[2]  (var-changed ?x ?0)
-A2004[2]  (var-changed ?y ?0)
-B3005[4]  '((var-changed ?x ?0) (var-changed ?y ?1))
+V0001[3]  (var-changed ?x ?x.old ?x.new)
+V0003[3]  (var-changed ?y ?y.old ?y.new)
+A2002[2]  (var-changed ?x ?x.new)
+A2004[2]  (var-changed ?y ?y.new)
+B3005[4]  '((var-changed ?x ?x.new) (var-changed ?y ?y.new))
 RU000[4]  (-> m '(a ?xv ?yv))
 ========================================================================================================================================================
 
@@ -69,17 +69,17 @@ node source info:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 R0007(ROOT0):               '(?0 ?1 ?2)
            0: RU000(RULE) 
-  V0001(VAR):               (var-changed ?x ?0 ?1)
-  V0003(VAR):               (var-changed ?y ?0 ?1)
-A2002(ALPH2):               (var-changed ?x ?0)
-           0: V0001(VAR)    (var-changed ?x ?0 ?1)
-A2004(ALPH2):               (var-changed ?y ?0)
-           0: V0003(VAR)    (var-changed ?y ?0 ?1)
-B3005(BETA3):               '((var-changed ?x ?0) (var-changed ?y ?1))
-           0: A2002(ALPH2)  (var-changed ?x ?0)
-           1: A2004(ALPH2)  (var-changed ?y ?0)
+  V0001(VAR):               (var-changed ?x ?x.old ?x.new)
+  V0003(VAR):               (var-changed ?y ?y.old ?y.new)
+A2002(ALPH2):               (var-changed ?x ?x.new)
+           0: V0001(VAR)    (var-changed ?x ?x.old ?x.new)
+A2004(ALPH2):               (var-changed ?y ?y.new)
+           0: V0003(VAR)    (var-changed ?y ?y.old ?y.new)
+B3005(BETA3):               '((var-changed ?x ?x.new) (var-changed ?y ?y.new))
+           0: A2002(ALPH2)  (var-changed ?x ?x.new)
+           1: A2004(ALPH2)  (var-changed ?y ?y.new)
  RU000(RULE):               (var-changed ?x ?xv) (var-changed ?y ?yv) ==> (-> m '(a ?xv ?yv))
-           0: B3005(BETA3)  '((var-changed ?x ?0) (var-changed ?y ?1))
+           0: B3005(BETA3)  '((var-changed ?x ?x.new) (var-changed ?y ?y.new))
 ========================================================================================================================================================
 
 node bind info:

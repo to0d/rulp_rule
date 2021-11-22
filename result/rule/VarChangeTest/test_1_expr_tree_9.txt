@@ -43,10 +43,10 @@ node info3:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 R0007[4]  '(?0 ?1 ?2 ?3)
 N0001[2]  url-entry:'(?0 ?1)
-V0002[3]  (var-changed ?x ?0 ?1)
-A2003[2]  (var-changed ?x ?0)
-E2004[2]  ((var-changed ?x ?0) (str-start-with ?0 ?1))
-B0005[3]  '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?xurl))) [join(1/1)]
+V0002[3]  (var-changed ?x ?x.old ?x.new)
+A2003[2]  (var-changed ?x ?x.new)
+E2004[2]  ((var-changed ?x ?x.new) (str-start-with ?0 ?1))
+B0005[3]  '(url-entry:'(?0 ?1) ((var-changed ?x ?x.new) (str-start-with ?1 ?xurl))) [join(1/1)]
 RU000[3]  (-> m '(a b ?url ?url-name))
 ========================================================================================================================================================
 
@@ -79,16 +79,16 @@ node source info:
 R0007(ROOT0):               '(?0 ?1 ?2 ?3)
            0: RU000(RULE) 
 N0001(NAME0):               url-entry:'(?0 ?1)
-  V0002(VAR):               (var-changed ?x ?0 ?1)
-A2003(ALPH2):               (var-changed ?x ?0)
-           0: V0002(VAR)    (var-changed ?x ?0 ?1)
-E2004(EXPR2):               ((var-changed ?x ?0) (str-start-with ?0 ?1))
-           0: A2003(ALPH2)  (var-changed ?x ?0)
-B0005(BETA0):               '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?xurl)))
+  V0002(VAR):               (var-changed ?x ?x.old ?x.new)
+A2003(ALPH2):               (var-changed ?x ?x.new)
+           0: V0002(VAR)    (var-changed ?x ?x.old ?x.new)
+E2004(EXPR2):               ((var-changed ?x ?x.new) (str-start-with ?0 ?1))
+           0: A2003(ALPH2)  (var-changed ?x ?x.new)
+B0005(BETA0):               '(url-entry:'(?0 ?1) ((var-changed ?x ?x.new) (str-start-with ?1 ?xurl)))
            0: N0001(NAME0)  url-entry:'(?0 ?1)
-           1: E2004(EXPR2)  ((var-changed ?x ?0) (str-start-with ?0 ?1))
+           1: E2004(EXPR2)  ((var-changed ?x ?x.new) (str-start-with ?0 ?1))
  RU000(RULE):               (var-changed ?x ?url) (str-start-with ?url ?xurl) url-entry:'(?url-name ?url) ==> (-> m '(a b ?url ?url-name))
-           0: B0005(BETA0)  '(url-entry:'(?0 ?1) ((var-changed ?x ?1) (str-start-with ?1 ?xurl)))
+           0: B0005(BETA0)  '(url-entry:'(?0 ?1) ((var-changed ?x ?x.new) (str-start-with ?1 ?xurl)))
 ========================================================================================================================================================
 
 node bind info:

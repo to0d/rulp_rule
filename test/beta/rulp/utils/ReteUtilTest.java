@@ -403,7 +403,7 @@ class ReteUtilTest extends RuleTestBase {
 	@Test
 	void test_tree_uniqname_with_var_expression() {
 		_setup();
-		_test_tree_uniqname("'('(?p1 p2 ?v) (var-changed ?s1 v1 ?v))", "'('(?0 p2 ?1) (var-changed ?s1 v1 ?1))");
+		_test_tree_uniqname("'('(?p1 p2 ?v) (var-changed ?s1 v1 ?v))", "'('(?0 p2 ?1) (var-changed ?s1 v1 ?s1.new))");
 	}
 
 	@Test

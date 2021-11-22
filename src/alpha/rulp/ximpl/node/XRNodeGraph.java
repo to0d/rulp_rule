@@ -1197,7 +1197,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		/*****************************************************/
-		// (var-changed ?varName ?v1 value2)
+		// (var-changed ?varName ?v1 value)
 		// (var-changed ?varName value ?v2)
 		/*****************************************************/
 		if (lastValue != null) {
@@ -1208,13 +1208,14 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
-			// (?varName a ?tmp)
-
+			// (?varName ?v1 ?tmp)
 			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
-			// (?varName a ?tmp)
-			addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, lastVarPos - 1, lastValue));
+			// (= ?tmp value)
+			addConstraint(alph0Node,
+					ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, lastVarPos - 1, lastValue));
+
 			return alph0Node;
 		}
 
