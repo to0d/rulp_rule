@@ -105,6 +105,32 @@ public class ConstraintFactory {
 		throw new RException("Invalid var: " + varObj);
 	}
 
+	public static IRConstraint1 cmpVarVal(RRelationalOperator op, IRVar var, IRObject val) {
+		return new XRConstraint1CompareVarValue(op, var, val);
+	}
+
+	public static IRConstraint1 cmpVarVal(RRelationalOperator op, IRObject varObj, IRObject val, IRFrame frame)
+			throws RException {
+
+		switch (varObj.getType()) {
+		case VAR:
+			return cmpVarVal(op, (IRVar) varObj, val);
+
+		case ATOM:
+
+			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry((IRAtom) varObj, frame);
+			if (varEntry == null) {
+				throw new RException("var not found: " + varObj);
+			}
+
+			return cmpVarVal(op, varEntry.getValue(), val, frame);
+
+		default:
+		}
+
+		throw new RException("Invalid var: " + varObj);
+	}
+
 	public static IRConstraint1 cmpEntryVar(RRelationalOperator op, int index, IRVar var) {
 		return new XRConstraint1CompareEntryVar(op, index, var);
 	}
@@ -119,7 +145,9 @@ public class ConstraintFactory {
 
 		IRObject[] newVarEntry = new IRObject[varEntryLen];
 		Map<String, IRObject> rebuildVarMap = new HashMap<>();
+
 		int externalVarCount = 0;
+		ArrayList<String> externalVarNames = new ArrayList<>();
 
 		for (IRObject var : ReteUtil.buildVarList(expr)) {
 
@@ -139,6 +167,10 @@ public class ConstraintFactory {
 				newVarEntry[findIndex] = idxVar;
 			} else {
 				externalVarCount++;
+				String externalVarName = var.asString();
+				if (!externalVarNames.contains(externalVarName)) {
+					externalVarNames.add(externalVarName);
+				}
 			}
 		}
 
@@ -163,6 +195,7 @@ public class ConstraintFactory {
 		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
 				&& expr.size() == 3) {
 
+			// (op ?0 value)
 			if (constraintIndexs.length == 1 && externalVarCount == 0) {
 
 				int constraintIndex = constraintIndexs[0];
@@ -185,20 +218,39 @@ public class ConstraintFactory {
 				return ConstraintFactory.cmpEntryIndex(op, constraintIndexs[0], constraintIndexs[1]);
 			}
 
+			// (op ?0 var)
 			if (constraintIndexs.length == 1 && externalVarCount == 1) {
 
 				int constraintIndex = constraintIndexs[0];
 				String constraintIndexName = String.format("?%d", constraintIndex);
 
-				// (op ?0 value)
+				// (op ?0 var)
 				if (expr.get(1).asString().equals(constraintIndexName)) {
 					return ConstraintFactory.cmpEntryVar(op, constraintIndex, expr.get(2), frame);
 				}
 
-				// (op value ?0)
+				// (op var ?0)
 				if (expr.get(2).asString().equals(constraintIndexName)) {
 					return ConstraintFactory.cmpEntryVar(RRelationalOperator.oppositeOf(op), constraintIndex,
 							expr.get(1), frame);
+				}
+
+			}
+
+			// (op var val)
+			if (constraintIndexs.length == 0 && externalVarCount == 1) {
+
+				String externalVarName = externalVarNames.get(0);
+
+				// (op ?0 var)
+				if (expr.get(1).asString().equals(externalVarName)) {
+					return ConstraintFactory.cmpVarVal(op, expr.get(1), expr.get(2), frame);
+				}
+
+				// (op var ?0)
+				if (expr.get(2).asString().equals(externalVarName)) {
+					return ConstraintFactory.cmpVarVal(RRelationalOperator.oppositeOf(op), expr.get(2), expr.get(1),
+							frame);
 				}
 
 			}
