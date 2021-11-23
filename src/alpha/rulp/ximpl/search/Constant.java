@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.mts;
+package alpha.rulp.ximpl.search;
 
 public interface Constant {
 

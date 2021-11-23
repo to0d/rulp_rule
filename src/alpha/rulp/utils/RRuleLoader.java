@@ -25,7 +25,7 @@ import static alpha.rulp.rule.Constant.F_QUERY_STMT;
 import static alpha.rulp.rule.Constant.F_REMOVE_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_REMOVE_STMT;
 import static alpha.rulp.rule.Constant.F_SAVE_MODEL;
-import static alpha.rulp.rule.Constant.F_SEARCH_MODEL;
+import static alpha.rulp.rule.Constant.F_SEARCH;
 import static alpha.rulp.rule.Constant.F_SET_DEFAULT_MODEL;
 import static alpha.rulp.rule.Constant.F_SET_MODEL_CACHE_PATH;
 import static alpha.rulp.rule.Constant.F_SET_NODE_CACHE_PATH;
@@ -51,8 +51,8 @@ import static alpha.rulp.rule.Constant.O_Running;
 import static alpha.rulp.rule.Constant.O_State;
 import static alpha.rulp.rule.Constant.O_Type;
 import static alpha.rulp.rule.Constant.O_Where;
-import static alpha.rulp.ximpl.mts.Constant.MTS_NS;
 import static alpha.rulp.ximpl.rbs.Constant.RBS_NS;
+import static alpha.rulp.ximpl.search.Constant.MTS_NS;
 
 import java.io.IOException;
 
@@ -94,10 +94,10 @@ import alpha.rulp.ximpl.factor.XRFactorStateOf;
 import alpha.rulp.ximpl.factor.XRFactorTraceRule;
 import alpha.rulp.ximpl.factor.XRFactorTryAddStmt;
 import alpha.rulp.ximpl.model.XRModelClass;
-import alpha.rulp.ximpl.mts.MTSUtil;
-import alpha.rulp.ximpl.mts.XRFactorSearchModel;
 import alpha.rulp.ximpl.rbs.RBSUtil;
 import alpha.rulp.ximpl.scope.ScopeFactory;
+import alpha.rulp.ximpl.search.SearchUtil;
+import alpha.rulp.ximpl.search.XRFactorSearch;
 
 public class RRuleLoader implements IRObjectLoader {
 
@@ -143,7 +143,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddNode(F_ADD_NODE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorFixStmt(F_FIX_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorTryAddStmt(F_TRY_ADD_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSearchModel(F_SEARCH_MODEL));
+		RulpUtil.addFrameObject(systemFrame, new XRFactorSearch(F_SEARCH));
 
 //		RulpUtil.setMember(modelClass, F_ADD_LAZY_STMT, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
 
@@ -185,7 +185,7 @@ public class RRuleLoader implements IRObjectLoader {
 
 		// MTS init
 		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), MTS_NS, (inp, frame) -> {
-			MTSUtil.init(inp, frame);
+			SearchUtil.init(inp, frame);
 		});
 
 		// Native Class Initialization

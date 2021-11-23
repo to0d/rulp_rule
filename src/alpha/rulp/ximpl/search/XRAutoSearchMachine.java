@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.mts;
+package alpha.rulp.ximpl.search;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
@@ -6,7 +6,7 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.RRunState;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
 
-public class XRSearchModel extends AbsRInstance implements IRSearchModel {
+public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMachine {
 
 	private IRModel model;
 

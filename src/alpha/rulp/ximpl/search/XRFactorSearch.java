@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.mts;
+package alpha.rulp.ximpl.search;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Limit;
@@ -19,9 +19,9 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorSearchModel extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorSearch extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
-	public XRFactorSearchModel(String factorName) {
+	public XRFactorSearch(String factorName) {
 		super(factorName);
 	}
 
@@ -103,7 +103,7 @@ public class XRFactorSearchModel extends AbsRFactorAdapter implements IRFactor, 
 			}
 		}
 
-		return MTSUtil.createSearchModel(model, (IRList) rstExpr, fromList);
+		return SearchUtil.createASM(model, (IRList) rstExpr, fromList);
 
 		/********************************************/
 		// Run as rule group

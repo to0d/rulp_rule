@@ -42,7 +42,7 @@ public interface Constant {
 	String A_Max = "max";
 
 	String A_Min = "min";
-	
+
 	String A_MODEL = "model";
 
 	String A_Name = "name";
@@ -159,7 +159,7 @@ public interface Constant {
 
 	String F_SAVE_MODEL = "save-model";
 
-	String F_SEARCH_MODEL = "search-model";
+	String F_SEARCH = "search";
 
 	String F_SET = "set";
 
