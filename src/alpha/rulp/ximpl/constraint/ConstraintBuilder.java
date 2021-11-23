@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.lang.Constant.A_QUESTION;
+import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;

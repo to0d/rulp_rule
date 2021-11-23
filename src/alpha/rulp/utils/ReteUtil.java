@@ -1,6 +1,9 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.lang.Constant.A_QUESTION;
+import static alpha.rulp.lang.Constant.A_QUESTION_C;
+import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.F_O_EQ;
 import static alpha.rulp.lang.Constant.F_O_GE;
@@ -8,9 +11,6 @@ import static alpha.rulp.lang.Constant.F_O_GT;
 import static alpha.rulp.lang.Constant.F_O_LE;
 import static alpha.rulp.lang.Constant.F_O_LT;
 import static alpha.rulp.lang.Constant.F_O_NE;
-import static alpha.rulp.lang.Constant.A_QUESTION;
-import static alpha.rulp.lang.Constant.A_QUESTION_C;
-import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;

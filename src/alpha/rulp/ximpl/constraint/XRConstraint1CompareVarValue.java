@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_CMP_VAR_VALUE;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;

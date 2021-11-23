@@ -1,6 +1,6 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_B_NOT;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.F_IF;
