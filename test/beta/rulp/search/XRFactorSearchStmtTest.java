@@ -7,6 +7,22 @@ import alpha.rulp.utils.RuleTestBase;
 class XRFactorSearchStmtTest extends RuleTestBase {
 
 	@Test
+	void test_0_model_1() {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(add-rule m if n1:'(?a) n2:'(?b) n3:'(?c) do (-> n4:'(?a ?b ?c)))", "TG1");
+		_test("(add-stmt m n1:'(a))");
+		_test("(add-stmt m n2:'(b))");
+		_test("(add-stmt m n3:'(c))");
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a hasChild b) '(a hasGroupChild b))");
+
+		_statsInfo("m");
+	}
+
+	@Test
 	void test_1_int_var_1_a() {
 
 		_setup();

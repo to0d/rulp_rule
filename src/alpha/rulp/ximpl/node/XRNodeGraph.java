@@ -615,19 +615,19 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		if (joinIndexList.isEmpty()) {
 
-			IRConstraint1 matchNode = null;
+			IRConstraint1 constraint = null;
 
-			if (reteTree.size() == 3) {
+			if (reteTree.size() == 3 && reteTree.get(2).getType() == RType.EXPR) {
 
 				IRExpr expr = RulpUtil.asExpression(reteTree.get(2));
 				// Optimize: '(?x ?y ?z) '(?a ?b ?c) (equal ?x ?a) ==> '(?x ?y ?z) '(?x ?b ?c)
 
-				matchNode = ConstraintFactory.expr1(expr, thisVarList);
-				if (matchNode == null) {
-					matchNode = ConstraintFactory.expr0(expr, varEntry, this.model.getFrame());
+				constraint = ConstraintFactory.expr1(expr, thisVarList);
+				if (constraint == null) {
+					constraint = ConstraintFactory.expr0(expr, varEntry, this.model.getFrame());
 				}
 
-				if (matchNode == null) {
+				if (constraint == null) {
 					throw new RException("unlinked expr: " + expr);
 				}
 			}
@@ -636,8 +636,8 @@ public class XRNodeGraph implements IRNodeGraph {
 					beteEntryLen, entryTable, leftNode, rightNode, varEntry, inheritIndexs);
 
 			// match mode
-			if (matchNode != null) {
-				addConstraint(node, matchNode);
+			if (constraint != null) {
+				addConstraint(node, constraint);
 			}
 
 			return node;

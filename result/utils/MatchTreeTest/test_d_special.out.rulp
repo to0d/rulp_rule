@@ -1,0 +1,24 @@
+;;---------------------------------------------------------;;
+n1:'(?a) ; input
+n1:'(?a) ; output
+;expr: 
+n1:'(?a)
+
+
+n1:'(?a) n2:'(?b)  ; input
+'(n1:'(?a) n2:'(?b)) ; output
+;expr: 
+'(
+    n1:'(?a)
+    n2:'(?b)
+ )
+
+
+n1:'(?a) n2:'(?b) n3:'(?c) ; input
+;err:too many tree node: [n1:'(?a), n2:'(?b), n3:'(?c)]
+
+
+n1:'(?a) n2:'(?b) n3:'(?c) n4:'(?d) ; input
+;err:too many tree node: [n1:'(?a), n2:'(?b), n3:'(?c), n4:'(?d)]
+
+
