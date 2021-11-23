@@ -8,9 +8,9 @@ import static alpha.rulp.lang.Constant.F_O_GT;
 import static alpha.rulp.lang.Constant.F_O_LE;
 import static alpha.rulp.lang.Constant.F_O_LT;
 import static alpha.rulp.lang.Constant.F_O_NE;
-import static alpha.rulp.lang.Constant.S_QUESTION;
-import static alpha.rulp.lang.Constant.S_QUESTION_C;
-import static alpha.rulp.lang.Constant.S_QUESTION_LIST;
+import static alpha.rulp.lang.Constant.A_QUESTION;
+import static alpha.rulp.lang.Constant.A_QUESTION_C;
+import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
@@ -235,7 +235,7 @@ public class ReteUtil {
 				String newName = varMap.get(atomName);
 				if (newName == null) {
 					if (create) {
-						newName = S_QUESTION + varMap.size();
+						newName = A_QUESTION + varMap.size();
 						varMap.put(atomName, newName);
 					} else {
 						newName = atomName;
@@ -310,7 +310,7 @@ public class ReteUtil {
 
 						IRObject newValue = expr.get(2);
 						if (RulpUtil.isVarAtom(newValue)) {
-							String newVarName = varName + ".new";
+							String newVarName = varChangeNewName(varName);
 							out += " " + newVarName;
 							if (varMap != null) {
 								varMap.put(newValue.asString(), newVarName);
@@ -325,7 +325,7 @@ public class ReteUtil {
 
 						IRObject oldValue = expr.get(2);
 						if (RulpUtil.isVarAtom(oldValue)) {
-							String oldVarName = varName + ".old";
+							String oldVarName = varChangeOldName(varName);
 							out += " " + oldVarName;
 							if (varMap != null) {
 								varMap.put(oldValue.asString(), oldVarName);
@@ -336,7 +336,7 @@ public class ReteUtil {
 
 						IRObject newValue = expr.get(3);
 						if (RulpUtil.isVarAtom(newValue)) {
-							String newVarName = varName + ".new";
+							String newVarName = varChangeNewName(varName);
 							out += " " + newVarName;
 							if (varMap != null) {
 								varMap.put(newValue.asString(), newVarName);
@@ -369,9 +369,13 @@ public class ReteUtil {
 		}
 	}
 
-//	private static String _changeVarNewName(String varName) {
-//		return "";
-//	}
+	public static String varChangeNewName(String varName) {
+		return varName + ".new";
+	}
+
+	public static String varChangeOldName(String varName) {
+		return varName + ".old";
+	}
 
 	private static String _toUniq(IRObject[] entry, Map<String, String> varMap, boolean create) throws RException {
 
@@ -820,13 +824,13 @@ public class ReteUtil {
 
 				IRObject obj = filter.get(i);
 				String varName = obj.asString();
-				if (obj.getType() != RType.ATOM || varName.charAt(0) != S_QUESTION_C) {
+				if (obj.getType() != RType.ATOM || varName.charAt(0) != A_QUESTION_C) {
 					throw new RException(String.format("Invalid obj<%s> in filter: %s", obj, filter));
 				}
 
 				switch (varName) {
-				case S_QUESTION:
-				case S_QUESTION_LIST:
+				case A_QUESTION:
+				case A_QUESTION_LIST:
 					break;
 				default:
 					if (varSet.contains(varName)) {
@@ -961,7 +965,7 @@ public class ReteUtil {
 			if (i != 0) {
 				uniqName += " ";
 			}
-			uniqName += S_QUESTION + i;
+			uniqName += A_QUESTION + i;
 		}
 		uniqName += ")";
 
@@ -1041,7 +1045,7 @@ public class ReteUtil {
 	}
 
 	public static boolean isAnyVar(IRObject obj) {
-		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(S_QUESTION);
+		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION);
 	}
 
 	public static boolean isBeta3Tree(IRList reteTree, int treeSize) throws RException {
@@ -1062,7 +1066,7 @@ public class ReteUtil {
 
 		IRIterator<? extends IRObject> iter = cond.iterator();
 		while (iter.hasNext()) {
-			if (iter.next().asString().equals(S_QUESTION)) {
+			if (iter.next().asString().equals(A_QUESTION)) {
 				return false;
 			}
 		}
@@ -1105,7 +1109,7 @@ public class ReteUtil {
 
 	public static boolean isIndexVarName(String var) {
 
-		if (var.length() <= 1 || var.charAt(0) != S_QUESTION_C) {
+		if (var.length() <= 1 || var.charAt(0) != A_QUESTION_C) {
 			return false;
 		}
 
@@ -1356,7 +1360,7 @@ public class ReteUtil {
 	}
 
 	public static boolean isVarArg(IRObject obj) {
-		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(S_QUESTION_LIST);
+		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION_LIST);
 	}
 
 	public static boolean isVarChangeExpr(IRObject obj) throws RException {

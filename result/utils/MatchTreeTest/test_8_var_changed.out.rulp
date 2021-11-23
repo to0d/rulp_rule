@@ -138,36 +138,36 @@
 
 ;;---------------------------------------------------------;;
 (var-changed ?var ?val) ; input
-(var-changed ?var ?val) ; output
+(var-changed ?var ?var.old ?val) ; output
 ;expr: 
-(var-changed ?var ?val)
+(var-changed ?var ?var.old ?val)
 
 
 
 ;;---------------------------------------------------------;;
 (var-changed ?var ?val) (factor ?val) ; input
-((var-changed ?var ?val) (factor ?val)) ; output
+((var-changed ?var ?var.old ?val) (factor ?val)) ; output
 ;expr: 
-((var-changed ?var ?val) (factor ?val))
+((var-changed ?var ?var.old ?val) (factor ?val))
 
 
 
 ;;---------------------------------------------------------;;
 (var-changed ?parse-url ?url) (str-start-with ?url ?beike_home_url_head) url-entry:'(?url-name ?url) ; input
-'(url-entry:'(?url-name ?url) ((var-changed ?parse-url ?url) (str-start-with ?url ?beike_home_url_head))) ; output
+'(url-entry:'(?url-name ?url) ((var-changed ?parse-url ?parse-url.old ?url) (str-start-with ?url ?beike_home_url_head))) ; output
 ;expr: 
 '(
     url-entry:'(?url-name ?url)
-    ((var-changed ?parse-url ?url) (str-start-with ?url ?beike_home_url_head))
+    ((var-changed ?parse-url ?parse-url.old ?url) (str-start-with ?url ?beike_home_url_head))
  )
 
 
 
 ;;---------------------------------------------------------;;
 (var-changed ?x ?url) (str-start-with ?url ?xurl) ; input
-((var-changed ?x ?url) (str-start-with ?url ?xurl)) ; output
+((var-changed ?x ?x.old ?url) (str-start-with ?url ?xurl)) ; output
 ;expr: 
-((var-changed ?x ?url) (str-start-with ?url ?xurl))
+((var-changed ?x ?x.old ?url) (str-start-with ?url ?xurl))
 
 
 

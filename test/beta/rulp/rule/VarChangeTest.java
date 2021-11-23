@@ -43,7 +43,7 @@ public class VarChangeTest extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(defvar ?x)");
+		_test("(defvar ?x d)");
 		_test("(add-rule m if (var-changed ?x ?val) do (-> m '(a b ?val)) )");
 		_test("(setq ?x c)");
 		_test("(start m)");

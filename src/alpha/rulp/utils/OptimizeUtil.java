@@ -1,6 +1,6 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.lang.Constant.A_DO;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.F_B_NOT;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.F_IF;
@@ -2718,6 +2718,18 @@ public class OptimizeUtil {
 				} else {
 					return rst;
 				}
+			}
+
+			// (var-changed ?v xx -> (var-changed ?v ? xx)
+			if (ReteUtil.isVarChangeExpr(expr) && expr.size() == 3) {
+
+				List<IRObject> list = new ArrayList<>();
+				list.add(expr.get(0));
+				list.add(expr.get(1));
+				list.add(RulpFactory.createAtom(ReteUtil.varChangeOldName(expr.get(1).asString())));
+				list.add(expr.get(2));
+
+				expr = RulpFactory.createExpression(list);
 			}
 
 			break;

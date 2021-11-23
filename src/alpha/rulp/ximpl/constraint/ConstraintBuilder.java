@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.O_Nil;
-import static alpha.rulp.lang.Constant.S_QUESTION;
+import static alpha.rulp.lang.Constant.A_QUESTION;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
@@ -106,10 +106,10 @@ public class ConstraintBuilder {
 		}
 
 		// (? on ?x)
-		if (consListSize == 3 && _isAtom(expr, 0, S_QUESTION) && _isAtom(expr, 1, A_On)) {
+		if (consListSize == 3 && _isAtom(expr, 0, A_QUESTION) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
-			cons.constraintName = S_QUESTION;
+			cons.constraintName = A_QUESTION;
 			cons.onObject = interpreter.compute(frame, expr.get(2));
 
 			return cons;
@@ -292,7 +292,7 @@ public class ConstraintBuilder {
 		}
 
 		String columnName = RulpUtil.asAtom(obj).getName();
-		if (columnName.equals(S_QUESTION)) {
+		if (columnName.equals(A_QUESTION)) {
 			return -1;
 		}
 
@@ -336,7 +336,7 @@ public class ConstraintBuilder {
 		for (int i = 0; i < totalConstraintCount; ++i) {
 
 			IRConstraint1 constraint = node.getConstraint1(i);
-			if (!cons.constraintName.equals(S_QUESTION)
+			if (!cons.constraintName.equals(A_QUESTION)
 					&& !cons.constraintName.equals(constraint.getConstraintName())) {
 				continue;
 			}

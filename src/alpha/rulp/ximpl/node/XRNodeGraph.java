@@ -1080,11 +1080,11 @@ public class XRNodeGraph implements IRNodeGraph {
 			/*****************************************************/
 			return _buildVarChangeNode4(varName, reteTree, tmpVarBuilder);
 
-		case 3:
-			/*****************************************************/
-			// (var-changed ?varName new-value)
-			/*****************************************************/
-			return _buildVarChangeNode3(varName, reteTree, tmpVarBuilder);
+//		case 3:
+//			/*****************************************************/
+//			// (var-changed ?varName new-value)
+//			/*****************************************************/
+//			return _buildVarChangeNode3(varName, reteTree, tmpVarBuilder);
 
 		default:
 			throw new RException("invalid tree: " + reteTree);
@@ -1098,7 +1098,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		IRObject obj = reteTree.get(2);
 
 		/*****************************************************/
-		// (var-changed ?varName ?v2)
+		// (var-changed ?varName ?v2) -> (var-changed ?varName ?tmp ?v2)
 		/*****************************************************/
 		if (RulpUtil.isVarAtom(obj)) {
 
@@ -1109,20 +1109,20 @@ public class XRNodeGraph implements IRNodeGraph {
 			list.add(tmpVarBuilder.next());
 			list.add(reteTree.get(2));
 
-			InheritIndex[] inheritIndexs = new InheritIndex[2];
-			inheritIndexs[0] = new InheritIndex(0, 0);
-			inheritIndexs[1] = new InheritIndex(0, 2);
+//			InheritIndex[] inheritIndexs = new InheritIndex[2];
+//			inheritIndexs[0] = new InheritIndex(0, 0);
+//			inheritIndexs[1] = new InheritIndex(0, 2);
 
 			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
-			XRReteNode1 alph0Node = RNodeFactory.createAlpha2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-					2, entryTable, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)), inheritIndexs);
+			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			return alph0Node;
 		}
 
 		/*****************************************************/
-		// (var-changed ?varName new-value)
+		// (var-changed ?varName new-value) -> (var-changed ?varName ?tmp new-value)
 		/*****************************************************/
 
 		// (var-changed ?varName ?tmp1 ?tmp2)
@@ -1130,14 +1130,13 @@ public class XRNodeGraph implements IRNodeGraph {
 		list.add(reteTree.get(0));
 		list.add(reteTree.get(1));
 		list.add(tmpVarBuilder.next());
-//		list.add(tmpVarBuilder.next());
+		list.add(tmpVarBuilder.next());
 
 		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
-		XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 2,
+		XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
 				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
-		// (?varName a ?tmp)
 		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
 		return alph0Node;
 	}
