@@ -3,8 +3,9 @@ package alpha.rulp.ximpl.scope;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.ximpl.search.IValueList;
 
-public class XSingleValueList implements IValueListFactory {
+public class XSingleValueList implements IValueList {
 
 	final IRObject singleValue;
 

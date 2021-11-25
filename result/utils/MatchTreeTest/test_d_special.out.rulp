@@ -22,3 +22,40 @@ n1:'(?a) n2:'(?b) n3:'(?c) n4:'(?d) ; input
 ;err:too many tree node: [n1:'(?a), n2:'(?b), n3:'(?c), n4:'(?d)]
 
 
+n1:'(?a) n2:'(?b) n3:'(?c) n4:'(?d) n5:'(?e) ; input
+;err:too many tree node: [n1:'(?a), n2:'(?b), n3:'(?c), n4:'(?d), n5:'(?e)]
+
+
+
+;;---------------------------------------------------------;;
+n1:'(?a) n2:'(?b) (> ?a ?b) ; input
+'(n1:'(?a) n2:'(?b) (> ?a ?b)) ; output
+;expr: 
+'(
+    n1:'(?a)
+    n2:'(?b)
+    (> ?a ?b)
+ )
+
+
+n1:'(?a) n2:'(?b) n3:'(?c) (> ?a ?b)  ; input
+'('(n1:'(?a) n2:'(?b) (> ?a ?b)) n3:'(?c)) ; output
+;expr: 
+'(
+    '(
+        n1:'(?a)
+        n2:'(?b)
+        (> ?a ?b)
+     )
+    n3:'(?c)
+ )
+
+
+n1:'(?a) n2:'(?b) n3:'(?c) n4:'(?d) (> ?a ?b) ; input
+;err:too many tree node: ['(n1:'(?a) n2:'(?b) (> ?a ?b)), n3:'(?c), n4:'(?d)]
+
+
+n1:'(?a) n2:'(?b) n3:'(?c) n4:'(?d) n5:'(?e) (> ?a ?b) ; input
+;err:too many tree node: ['(n1:'(?a) n2:'(?b) (> ?a ?b)), n3:'(?c), n4:'(?d), n5:'(?e)]
+
+

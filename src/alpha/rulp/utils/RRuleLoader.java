@@ -95,7 +95,7 @@ import alpha.rulp.ximpl.factor.XRFactorTraceRule;
 import alpha.rulp.ximpl.factor.XRFactorTryAddStmt;
 import alpha.rulp.ximpl.model.XRModelClass;
 import alpha.rulp.ximpl.rbs.RBSUtil;
-import alpha.rulp.ximpl.scope.ScopeFactory;
+import alpha.rulp.ximpl.search.SearchFactory;
 import alpha.rulp.ximpl.search.SearchUtil;
 import alpha.rulp.ximpl.search.XRFactorSearch;
 
@@ -189,7 +189,7 @@ public class RRuleLoader implements IRObjectLoader {
 		});
 
 		// Native Class Initialization
-		ScopeFactory.initScopeClass(systemFrame);
+		SearchFactory.initScopeClass(systemFrame);
 
 	}
 

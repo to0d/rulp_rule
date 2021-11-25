@@ -9,6 +9,7 @@ import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.ximpl.search.IValueList;
 
 public class XRScopeVar implements IRScopeVar {
 
@@ -16,7 +17,7 @@ public class XRScopeVar implements IRScopeVar {
 
 	protected RType varType;
 
-	protected IValueListFactory valueFactory;
+	protected IValueList valueFactory;
 
 	protected List<IVarConstraint> singleConstraintExprList = null;
 

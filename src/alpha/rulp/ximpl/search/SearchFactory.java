@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.scope;
+package alpha.rulp.ximpl.search;
 
 import static alpha.rulp.rule.Constant.A_SCOPE;
 
@@ -16,8 +16,16 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.RuntimeUtil;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
+import alpha.rulp.ximpl.scope.IVarConstraint;
+import alpha.rulp.ximpl.scope.XListValueList;
+import alpha.rulp.ximpl.scope.XRFactorScopeAssert;
+import alpha.rulp.ximpl.scope.XRFactorScopeDefine;
+import alpha.rulp.ximpl.scope.XRFactorScopeQuery;
+import alpha.rulp.ximpl.scope.XRScope;
+import alpha.rulp.ximpl.scope.XSingleValueList;
+import alpha.rulp.ximpl.scope.XVarConstraint;
 
-public class ScopeFactory {
+public class SearchFactory {
 
 	static final String F_MBR_SCOPE_ASSERT = "_scope_assert";
 
@@ -33,12 +41,11 @@ public class ScopeFactory {
 		return new XVarConstraint(model, expr);
 	}
 
-	public static IValueListFactory createIntValueFactory(IRObject fromValue, IRObject toValue, IRObject stepValue)
+	public static IValueList createIntValueList(IRObject fromValue, IRObject toValue, IRObject stepValue)
 			throws RException {
 
 		int fromVal = RulpUtil.asInteger(fromValue).asInteger();
 		int toVal = RulpUtil.asInteger(toValue).asInteger();
-
 		if (fromVal == toVal) {
 			return createSingleValueFactory(fromValue);
 		}
@@ -78,11 +85,11 @@ public class ScopeFactory {
 		return new XIntValueList(fromVal, toVal, stepVal);
 	}
 
-	public static IValueListFactory createListValueFactory(IRList values) throws RException {
+	public static IValueList createListValueFactory(IRList values) throws RException {
 		return new XListValueList(values);
 	}
 
-	public static IValueListFactory createSingleValueFactory(IRObject value) {
+	public static IValueList createSingleValueFactory(IRObject value) {
 		return new XSingleValueList(value);
 	}
 

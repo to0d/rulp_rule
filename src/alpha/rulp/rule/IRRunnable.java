@@ -6,7 +6,7 @@ public interface IRRunnable {
 
 	public int getPriority();
 
-	public RRunState getRunState();
+	public RRunState getRunState() throws RException;
 
 	public RRunState halt() throws RException;
 

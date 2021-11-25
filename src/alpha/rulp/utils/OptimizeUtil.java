@@ -2429,7 +2429,7 @@ public class OptimizeUtil {
 		return out;
 	}
 
-	public static String formatModelCount(IRModelCounter counter) {
+	public static String formatModelCount(IRModelCounter counter) throws RException {
 
 		IRModel model = counter.getModel();
 		IREntryTable storageMgr = model.getEntryTable();

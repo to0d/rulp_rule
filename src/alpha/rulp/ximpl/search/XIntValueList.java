@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.scope;
+package alpha.rulp.ximpl.search;
 
 import alpha.rulp.lang.IRInteger;
 import alpha.rulp.lang.IRObject;
@@ -6,7 +6,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RulpFactory;
 
-public class XIntValueList implements IValueListFactory {
+public class XIntValueList implements IValueList {
 
 	final int fromValue;
 

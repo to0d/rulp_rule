@@ -20,6 +20,8 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
+import alpha.rulp.ximpl.search.IValueList;
+import alpha.rulp.ximpl.search.SearchFactory;
 
 public class XRScope extends AbsRInstance implements IRScope {
 
@@ -222,7 +224,7 @@ public class XRScope extends AbsRInstance implements IRScope {
 		// Expr Constraint
 		else {
 			varNameList.addAll(ReteUtil.varList(expr));
-			constraint = ScopeFactory.createExprConstraint(model, expr);
+			constraint = SearchFactory.createExprConstraint(model, expr);
 		}
 
 		/*********************************************/
@@ -345,7 +347,7 @@ public class XRScope extends AbsRInstance implements IRScope {
 			throw new RException("invalid values: " + values);
 		}
 
-		IValueListFactory valueFactory = ScopeFactory.createListValueFactory(values);
+		IValueList valueFactory = SearchFactory.createListValueFactory(values);
 
 		/********************************************/
 		// Create Scope
@@ -389,13 +391,13 @@ public class XRScope extends AbsRInstance implements IRScope {
 			throw new RException(String.format("type not match: step=%s", stepValue));
 		}
 
-		IValueListFactory valueFactory = null;
+		IValueList valueFactory = null;
 		/********************************************/
 		// Check type
 		/********************************************/
 		switch (varType) {
 		case INT:
-			valueFactory = ScopeFactory.createIntValueFactory(fromValue, toValue, stepValue);
+			valueFactory = SearchFactory.createIntValueList(fromValue, toValue, stepValue);
 			break;
 
 		default:

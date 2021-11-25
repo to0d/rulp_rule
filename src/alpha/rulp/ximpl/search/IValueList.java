@@ -1,9 +1,10 @@
-package alpha.rulp.ximpl.scope;
+package alpha.rulp.ximpl.search;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.runtime.IRIterator;
 
-public interface IValueListFactory {
+public interface IValueList {
 
 	public IRIterator<? extends IRObject> iterator();
+
 }

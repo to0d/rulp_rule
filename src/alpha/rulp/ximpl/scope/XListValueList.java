@@ -3,8 +3,9 @@ package alpha.rulp.ximpl.scope;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.ximpl.search.IValueList;
 
-public class XListValueList implements IValueListFactory {
+public class XListValueList implements IValueList {
 
 	final IRList values;
 
@@ -21,4 +22,5 @@ public class XListValueList implements IValueListFactory {
 	public String toString() {
 		return "" + values;
 	}
+
 }
