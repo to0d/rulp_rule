@@ -90,6 +90,13 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected String uniqName = null;
 
+	protected IRConstraint1 lastFailedConstraint1 = null;
+
+	@Override
+	public IRConstraint1 getLastFailedConstraint1() {
+		return lastFailedConstraint1;
+	}
+
 	protected IRObject[] varEntry;
 
 	public AbsReteNode() {
@@ -168,19 +175,31 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			throw new RException("invalid entry: " + entry);
 		}
 
-		if (constraint1List != null) {
-
-			nodeMatchCount++;
-
-			for (IRConstraint1 cons : constraint1List) {
-				if (!cons.addEntry(entry, this)) {
-					++addEntryFailCount;
-					return false;
-				}
-			}
+		if (!_testConstraint1(entry)) {
+			return false;
 		}
 
 		return entryQueue.addEntry(entry);
+	}
+
+	protected boolean _testConstraint1(IRReteEntry entry) throws RException {
+
+		if (constraint1List == null) {
+			return true;
+		}
+
+		this.nodeMatchCount++;
+		this.lastFailedConstraint1 = null;
+
+		for (IRConstraint1 constraint : constraint1List) {
+			if (!constraint.addEntry(entry, this)) {
+				this.addEntryFailCount++;
+				this.lastFailedConstraint1 = constraint;
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	@Override

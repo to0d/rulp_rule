@@ -187,8 +187,6 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 			return true;
 		}
 
-		++nodeMatchCount;
-
 		IRVar[] _vars = getVars();
 
 		/******************************************************/
@@ -201,13 +199,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 			}
 		}
 
-		for (IRConstraint1 constraint : this.constraint1List) {
-			if (!constraint.addEntry(entry, this)) {
-				return false;
-			}
-		}
-
-		return true;
+		return _testConstraint1(entry);
 	}
 
 	public void addNode(IRReteNode node) {

@@ -17,24 +17,6 @@ public class XRNodeExpr3 extends XRNodeRete1 {
 
 	private int leftEnryLength;
 
-	protected boolean _match() throws RException {
-
-		if (constraint1List == null) {
-			return true;
-		}
-
-		++nodeMatchCount;
-
-		for (IRConstraint1 matchNode : constraint1List) {
-			if (!matchNode.addEntry(null, this)) {
-				++addEntryFailCount;
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public boolean addReteEntry(IRReteEntry entry, IRObject[] externalVars) throws RException {
 
 		if (entry.size() != leftEnryLength) {
@@ -96,7 +78,7 @@ public class XRNodeExpr3 extends XRNodeRete1 {
 		// - No left variable in expr - '(?a ?b ?c) (factor ?x)
 		// - No need to pass any entry
 		/*********************************************/
-		if (!_match()) {
+		if (!_testConstraint1(null)) {
 			return 0;
 		}
 
