@@ -91,12 +91,6 @@ E0004(EXPR0):               '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get
            0: E0004(EXPR0)  '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
 ========================================================================================================================================================
 
-node bind info:
-========================================================================================================================================================
- NODE         bind-to       UniqName
---------------------------------------------------------------------------------------------------------------------------------------------------------
-========================================================================================================================================================
-
 Rule<RU000> stats: priority=099, expr=(add-rule m if '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) do (defvar ?tagName (to-string ?tag)) (defvar ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (defvar ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (defvar ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt m '(?mainTag nm:typeOf nm:tag)) (-> '(?tag nm:isVersionOf ?mainTag) '(?tag nm:beDefinedByTag ?mainTagVersion))))))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch

@@ -1643,16 +1643,21 @@ public class StatsUtil {
 		/****************************************************/
 		if (!isRule) {
 
-			sb.append("node bind info:\n");
-			sb.append(SEP_LINE1);
-			sb.append(" NODE         bind-to       UniqName\n");
-			sb.append(SEP_LINE2);
+			boolean outputHead = false;
 
 			for (IRReteNode node : nodes) {
 
 				Collection<IRReteNode> bindToNodes = model.getNodeGraph().getBindToNodes(node);
 				if (bindToNodes.isEmpty()) {
 					continue;
+				}
+
+				if (!outputHead) {
+					sb.append("node bind info:\n");
+					sb.append(SEP_LINE1);
+					sb.append(" NODE         bind-to       UniqName\n");
+					sb.append(SEP_LINE2);
+					outputHead = true;
 				}
 
 				String nodeName = String.format("%s(%s)", node.getNodeName(), node.getReteType());
@@ -1690,8 +1695,10 @@ public class StatsUtil {
 				}
 			}
 
-			sb.append(SEP_LINE1);
-			sb.append("\n");
+			if (outputHead) {
+				sb.append(SEP_LINE1);
+				sb.append("\n");
+			}
 		}
 	}
 
