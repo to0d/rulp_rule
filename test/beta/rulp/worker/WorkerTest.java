@@ -39,6 +39,7 @@ public class WorkerTest extends RuleTestBase {
 		_eCount(1, "m");
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -80,6 +81,7 @@ public class WorkerTest extends RuleTestBase {
 		_mStatus(3, "m");
 		_saveTest();
 		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
+		_statsInfo("m");
 	}
 
 	@Test
@@ -109,6 +111,7 @@ public class WorkerTest extends RuleTestBase {
 		_mStatus(2, "m");
 		_saveTest();
 		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
+		_statsInfo("m");
 	}
 
 	@Test
@@ -134,6 +137,7 @@ public class WorkerTest extends RuleTestBase {
 		_eCount(1, "m");
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -171,6 +175,7 @@ public class WorkerTest extends RuleTestBase {
 		_eCount(1, "m");
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -211,5 +216,6 @@ public class WorkerTest extends RuleTestBase {
 		_eCount(1, "m");
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 }

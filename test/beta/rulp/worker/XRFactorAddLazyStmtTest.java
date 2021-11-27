@@ -21,7 +21,7 @@ class XRFactorAddLazyStmtTest extends RuleTestBase {
 		_eCount(1, "m");
 		_mStatus(1, "m");
 		_saveTest();
-		_statsInfo("m", "result/worker/XRFactorAddLazyStmtTest/test_1_load_twice.txt");
+		_statsInfo("m");
 
 	}
 
@@ -49,6 +49,7 @@ class XRFactorAddLazyStmtTest extends RuleTestBase {
 		_mCount(3, "m");
 		_eCount(3, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -82,6 +83,7 @@ class XRFactorAddLazyStmtTest extends RuleTestBase {
 		_eCount(4, "m");
 
 		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -99,5 +101,6 @@ class XRFactorAddLazyStmtTest extends RuleTestBase {
 		_eCount(1, "m");
 		_mStatus(1, "m");
 		_saveTest();
+		_statsInfo("m");
 	}
 }
