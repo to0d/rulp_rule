@@ -39,15 +39,15 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRNodeOrderedUpdater;
 
-public class XRRuleNode extends XRReteNode1 implements IRRule {
+public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 
 	static class RuleNodeMatrix implements IReteNodeMatrix {
 
 		private Map<RReteType, List<IRReteNode>> nodeListMap = null;
 
-		private XRRuleNode ruleNode;
+		private XRNodeRule0 ruleNode;
 
-		public RuleNodeMatrix(XRRuleNode ruleNode) {
+		public RuleNodeMatrix(XRNodeRule0 ruleNode) {
 			super();
 			this.ruleNode = ruleNode;
 		}
@@ -255,7 +255,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 						continue;
 					}
 
-					if (node == XRRuleNode.this) {
+					if (node == XRNodeRule0.this) {
 						continue;
 					}
 
@@ -270,7 +270,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 
 			@Override
 			public int getExecuteCount() {
-				return XRRuleNode.this.getNodeExecCount();
+				return XRNodeRule0.this.getNodeExecCount();
 			}
 
 			@Override
@@ -280,7 +280,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 
 			@Override
 			public IRRule getRule() {
-				return XRRuleNode.this;
+				return XRNodeRule0.this;
 			}
 
 			@Override
@@ -299,7 +299,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 
 			@Override
 			public int getUpdateCount() throws RException {
-				return XRRuleNode.this.getEntryQueue().getUpdateCount();
+				return XRNodeRule0.this.getEntryQueue().getUpdateCount();
 			}
 		};
 	}
@@ -500,7 +500,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 				this.entryQueue.addEntry(lastValueEntry);
 
 				++updateCount;
-				this.ruleExecutedListenerDispatcher.doAction(XRRuleNode.this);
+				this.ruleExecutedListenerDispatcher.doAction(XRNodeRule0.this);
 			}
 
 		} catch (RError err) {
@@ -512,7 +512,7 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 
 			this.setRunState(RRunState.Failed);
 			this.lastError = err.getError();
-			this.ruleFailedListenerDispatcher.doAction(XRRuleNode.this);
+			this.ruleFailedListenerDispatcher.doAction(XRNodeRule0.this);
 			this.nodeFailedCount++;
 
 		} finally {

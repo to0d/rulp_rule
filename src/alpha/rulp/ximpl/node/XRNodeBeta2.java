@@ -16,7 +16,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBetaNode2 extends XRBetaNode0 {
+public class XRNodeBeta2 extends XRNodeBeta0 {
 
 	protected int leftBeginIndex = 0;
 

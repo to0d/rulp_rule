@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.node;
 
-public class XRNamedNode extends XRRoot0Node implements IRNamedNode {
+public class XRNodeName0 extends XRNodeRoot0 implements IRNamedNode {
 
 	protected String namedName;
 

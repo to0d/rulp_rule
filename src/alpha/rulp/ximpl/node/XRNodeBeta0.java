@@ -16,7 +16,7 @@ import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBetaNode0 extends XRReteNode2 implements IRBetaNode {
+public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 
 	public static int MAP_MATCH_MIN_COUNT = 100;
 

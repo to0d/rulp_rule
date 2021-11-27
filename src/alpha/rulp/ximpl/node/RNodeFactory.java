@@ -27,10 +27,10 @@ import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
 
 public class RNodeFactory {
 
-	public static XRReteNode1 createAlpha0Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static XRNodeRete1 createAlpha0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
-		XRReteNode1 node = new XRReteNode1();
+		XRNodeRete1 node = new XRNodeRete1();
 
 		// Model
 		node.setModel(model);
@@ -60,14 +60,14 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static XRReteNode1 createAlpha1Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static XRNodeRete1 createAlpha1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingleEntryList)) {
 			throw new RException("Invalid parent queue: " + parentNode);
 		}
 
-		XRReteNode1 node = new XRReteNode1();
+		XRNodeRete1 node = new XRNodeRete1();
 
 		// Model
 		node.setModel(model);
@@ -96,7 +96,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static XRReteNode1 createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static XRNodeRete1 createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
 			throws RException {
 
@@ -104,7 +104,7 @@ public class RNodeFactory {
 			throw new RException("Invalid parent queue: " + parentNode);
 		}
 
-		XRAlphaNode2 node = new XRAlphaNode2();
+		XRNodeAlph2 node = new XRNodeAlph2();
 
 		// Model
 		node.setModel(model);
@@ -143,7 +143,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
-		XRBetaNode0 node = new XRBetaNode0();
+		XRNodeBeta0 node = new XRNodeBeta0();
 
 		// Model
 		node.setModel(model);
@@ -193,7 +193,7 @@ public class RNodeFactory {
 			throw new RException("Invalid right parent queue: " + rightNode);
 		}
 
-		XRBetaNode1 node = new XRBetaNode1();
+		XRNodeBeta1 node = new XRNodeBeta1();
 
 		// Model
 		node.setModel(model);
@@ -240,7 +240,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
-		XRBetaNode2 node = new XRBetaNode2();
+		XRNodeBeta2 node = new XRNodeBeta2();
 
 		// Model
 		node.setModel(model);
@@ -286,7 +286,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs) throws RException {
 
-		XRBetaNode3 node = new XRBetaNode3();
+		XRNodeBeta3 node = new XRNodeBeta3();
 
 		// Model
 		node.setModel(model);
@@ -328,7 +328,7 @@ public class RNodeFactory {
 
 		String constUniqName = ReteUtil.uniqName(constStmt);
 
-		XRConstNode node = new XRConstNode();
+		XRNodeConst node = new XRNodeConst();
 
 		// Model
 		node.setModel(model);
@@ -363,7 +363,7 @@ public class RNodeFactory {
 	public static IRReteNode createExpr0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
-		XRReteNode1 node = new XRReteNode1();
+		XRNodeRete1 node = new XRNodeRete1();
 
 		// Model
 		node.setModel(model);
@@ -396,7 +396,7 @@ public class RNodeFactory {
 	public static IRReteNode createExpr1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
-		XRReteNode1 node = new XRReteNode1();
+		XRNodeRete1 node = new XRNodeRete1();
 
 		// Model
 		node.setModel(model);
@@ -429,7 +429,7 @@ public class RNodeFactory {
 	public static IRReteNode createExpr2Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
-		XRReteNode1 node = new XRReteNode1();
+		XRNodeRete1 node = new XRNodeRete1();
 
 		// Model
 		node.setModel(model);
@@ -462,7 +462,7 @@ public class RNodeFactory {
 	public static IRReteNode createExpr3Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
-		XRExprNode3 node = new XRExprNode3();
+		XRNodeExpr3 node = new XRNodeExpr3();
 
 		// Model
 		node.setModel(model);
@@ -502,7 +502,7 @@ public class RNodeFactory {
 			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRConstraint1 matchNode,
 			IRObject[] varEntry) throws RException {
 
-		XRExprNode3 node = new XRExprNode3();
+		XRNodeExpr3 node = new XRNodeExpr3();
 
 		// Model
 		node.setModel(model);
@@ -544,7 +544,7 @@ public class RNodeFactory {
 	public static IRNamedNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
 			throws RException {
 
-		XRNamedNode node = new XRNamedNode();
+		XRNodeName0 node = new XRNodeName0();
 
 		// Model
 		node.setModel(model);
@@ -582,7 +582,7 @@ public class RNodeFactory {
 
 	public static IRRootNode createRoot0Node(IRModel model, int nodeId, int stmtLen) throws RException {
 
-		XRRoot0Node node = new XRRoot0Node();
+		XRNodeRoot0 node = new XRNodeRoot0();
 
 		// Model
 		node.setModel(model);
@@ -611,10 +611,10 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static XRRuleNode createRuleNode(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static XRNodeRule0 createRuleNode(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry, List<IRExpr> actionStmtList) throws RException {
 
-		XRRuleNode node = new XRRuleNode();
+		XRNodeRule0 node = new XRNodeRule0();
 
 		// Model
 		node.setModel(model);
@@ -659,7 +659,7 @@ public class RNodeFactory {
 	public static AbsReteNode createVarNode(IRModel model, int nodeId, IRVar var, String reteExpression,
 			IREntryTable entryTable) throws RException {
 
-		XRReteNode0 node = new XRReteNode0();
+		XRNodeRete0 node = new XRNodeRete0();
 
 		// Model
 		node.setModel(model);
@@ -688,7 +688,7 @@ public class RNodeFactory {
 	public static AbsReteNode createWorkerNode(IRModel model, int nodeId, String uniqName, IRWorker worker)
 			throws RException {
 
-		XRWorkerNode node = new XRWorkerNode();
+		XRNodeWork node = new XRNodeWork();
 
 		// Model
 		node.setModel(model);

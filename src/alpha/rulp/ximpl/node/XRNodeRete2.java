@@ -11,7 +11,7 @@ import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public abstract class XRReteNode2 extends AbsReteNode implements IRBetaNode {
+public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 
 	protected List<IRConstraint2> constraint2List = null;
 

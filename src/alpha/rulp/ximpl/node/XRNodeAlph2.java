@@ -6,7 +6,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRAlphaNode2 extends XRAlphaNode1 {
+public class XRNodeAlph2 extends XRNodeAlph1 {
 
 	protected IREntryTable entryTable;
 

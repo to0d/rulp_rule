@@ -50,13 +50,13 @@ RU000[6] 0     ADD   (-> '(a, ?2, ?5))
 
 node info6:
 ========================================================================================================================================================
- NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
+ NODE[n] Type  Class Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0005[3] ROOT0 XRRoot0Node  MULTI       0     0    0    0    0   0   0 900 [null, null, null]
-V0001[3] VAR   XRReteNode0  SINGLE      0     1    1    0    0   0   0  99 [?x, ?x.old, ?xv]
-V0002[3] VAR   XRReteNode0  SINGLE      0     1    1    0    0   0   0  99 [?y, ?y.old, ?yv]
-B1003[6] BETA1 XRBetaNode1  MULTI       2     1    1    6    0   0   0  99 [?x, ?x.old, ?xv, ?y, ?y.old, ?yv]
-RU000[6] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?x, ?x.old, ?xv, ?y, ?y.old, ?yv]
+R0005[3] ROOT0 Root0 MULTI       0     0    0    0    0   0   0 900 [null, null, null]
+V0001[3] VAR   Rete0 SINGLE      0     1    1    0    0   0   0  99 [?x, ?x.old, ?xv]
+V0002[3] VAR   Rete0 SINGLE      0     1    1    0    0   0   0  99 [?y, ?y.old, ?yv]
+B1003[6] BETA1 Beta1 MULTI       2     1    1    6    0   0   0  99 [?x, ?x.old, ?xv, ?y, ?y.old, ?yv]
+RU000[6] RULE  Rule0 ACTION      1     0    0    0    0   0   0  99 [?x, ?x.old, ?xv, ?y, ?y.old, ?yv]
 ========================================================================================================================================================
 
 priority info:

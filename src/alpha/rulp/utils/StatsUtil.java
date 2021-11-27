@@ -83,7 +83,7 @@ import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
-import alpha.rulp.ximpl.node.XRRuleNode;
+import alpha.rulp.ximpl.node.XRNodeRule0;
 import alpha.rulp.ximpl.scope.IRScope;
 import alpha.rulp.ximpl.scope.IRScopeVar;
 import alpha.rulp.ximpl.scope.IVarConstraint;
@@ -1406,7 +1406,7 @@ public class StatsUtil {
 		sb.append("node info6:\n");
 		sb.append(SEP_LINE1);
 
-		sb.append(String.format("%8s %-5s %-12s %-6s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n", "NODE[n]", "Type",
+		sb.append(String.format("%8s %-5s %-5s %-6s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n", "NODE[n]", "Type",
 				"Class", "Queue", "Parent", "Child", "Rule", "Inhe", "Join", "C1", "C2", "Pri", "VarEntry"));
 		sb.append(SEP_LINE2);
 
@@ -1428,10 +1428,15 @@ public class StatsUtil {
 
 			String varEntry = "" + StatsUtil.toList(node.getVarEntry());
 
-			sb.append(String.format("%8s %-5s %-12s %-6s %6d %5d %4d %4d %4d %3d %3d %3d %s",
-					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(),
-					node.getClass().getSimpleName(), "" + node.getEntryQueue().getQueueType(), node.getParentCount(),
-					node.getChildNodes().size(), model.getNodeGraph().getRelatedRules(node).size(),
+			String className = node.getClass().getSimpleName();
+			if (className.startsWith("XRNode")) {
+				className = className.substring(6);
+			}
+
+			sb.append(String.format("%8s %-5s %-5s %-6s %6d %5d %4d %4d %4d %3d %3d %3d %s",
+					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(), className,
+					"" + node.getEntryQueue().getQueueType(), node.getParentCount(), node.getChildNodes().size(),
+					model.getNodeGraph().getRelatedRules(node).size(),
 					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount,
 					node.getConstraint1Count(), constraint2Count, node.getPriority(), varEntry));
 
@@ -1640,8 +1645,8 @@ public class StatsUtil {
 					sb.append(String.format("%12s: %12s  %s\n", nodeName, "", node.getUniqName()));
 				} else {
 					sb.append(String.format("%12s: %12s  %s ==> %s\n", nodeName, "",
-							RulpUtil.toString(((XRRuleNode) node).getMatchStmtList()),
-							RulpUtil.toString(((XRRuleNode) node).getActionStmtList())));
+							RulpUtil.toString(((XRNodeRule0) node).getMatchStmtList()),
+							RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
 				}
 
 				List<IRReteNode> sourceNodes = new ArrayList<>(
@@ -1702,8 +1707,8 @@ public class StatsUtil {
 					sb.append(String.format("%12s: %12s  %s\n", nodeName, "", node.getUniqName()));
 				} else {
 					sb.append(String.format("%12s: %12s  %s ==> %s\n", nodeName, "",
-							RulpUtil.toString(((XRRuleNode) node).getMatchStmtList()),
-							RulpUtil.toString(((XRRuleNode) node).getActionStmtList())));
+							RulpUtil.toString(((XRNodeRule0) node).getMatchStmtList()),
+							RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
 				}
 
 				List<IRReteNode> sourceNodes = new ArrayList<>(bindToNodes);

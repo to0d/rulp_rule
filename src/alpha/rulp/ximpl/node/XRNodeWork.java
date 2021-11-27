@@ -5,7 +5,7 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRWorker;
 
-public class XRWorkerNode extends XRReteNode0 {
+public class XRNodeWork extends XRNodeRete0 {
 
 	protected IRWorker worker;
 

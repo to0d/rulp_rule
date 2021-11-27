@@ -11,7 +11,7 @@ import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRExprNode3 extends XRReteNode1 {
+public class XRNodeExpr3 extends XRNodeRete1 {
 
 	protected IREntryTable entryTable;
 

@@ -302,7 +302,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IRRootNode[] rootNodeArray = new IRRootNode[STMT_MAX_LEN + 1];
 
-	protected final Map<String, XRRuleNode> ruleNodeMap = new HashMap<>();
+	protected final Map<String, XRNodeRule0> ruleNodeMap = new HashMap<>();
 
 	protected XRUniqObjBuilder uniqBuilder = new XRUniqObjBuilder();
 
@@ -325,8 +325,8 @@ public class XRNodeGraph implements IRNodeGraph {
 		switch (reteType) {
 
 		case RULE:
-			XRRuleNode ruleNode = (XRRuleNode) node;
-			this.ruleNodeMap.put(ruleNode.getRuleName(), (XRRuleNode) node);
+			XRNodeRule0 ruleNode = (XRNodeRule0) node;
+			this.ruleNodeMap.put(ruleNode.getRuleName(), (XRNodeRule0) node);
 			break;
 
 		case ALPH0:
@@ -381,7 +381,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				IRObject[] varEntry = ReteUtil._varEntry(parentNode.getVarEntry());
 				varEntry[0] = null;
 
-				XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
+				XRNodeRete1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 						ReteUtil.uniqName(reteTree), stmtLen, parentNode, varEntry);
 
 				addConstraint(alph0Node, ConstraintFactory.cmpEntryIndex(RRelationalOperator.EQ, 0, 1));
@@ -427,7 +427,7 @@ public class XRNodeGraph implements IRNodeGraph {
 					IRObject[] varEntry = ReteUtil._varEntry(parentNode.getVarEntry());
 					varEntry[lastVarPos] = null;
 
-					XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
+					XRNodeRete1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 							ReteUtil.uniqName(reteTree), stmtLen, parentNode, varEntry);
 					addConstraint(alph0Node,
 							ConstraintFactory.cmpEntryIndex(RRelationalOperator.EQ, lastSamePos, lastVarPos));
@@ -471,7 +471,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				IRReteNode parentNode = _findReteNode(RulpFactory.createNamedList(list, namedName), tmpVarBuilder);
 
-				XRReteNode1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
+				XRNodeRete1 alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 						ReteUtil.uniqName(reteTree), stmtLen, parentNode,
 						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 				addConstraint(alph0Node,
@@ -1115,7 +1115,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
-			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+			XRNodeRete1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			return alph0Node;
@@ -1134,7 +1134,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
-		XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
+		XRNodeRete1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
 				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
@@ -1186,7 +1186,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
-			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+			XRNodeRete1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			// (?varName a ?tmp)
@@ -1208,7 +1208,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
 
 			// (?varName ?v1 ?tmp)
-			XRReteNode1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+			XRNodeRete1 alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 
 			// (= ?tmp value)
@@ -1564,7 +1564,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder());
 
-		XRRuleNode ruleNode = RNodeFactory.createRuleNode(model, _getNextNodeId(), ruleName,
+		XRNodeRule0 ruleNode = RNodeFactory.createRuleNode(model, _getNextNodeId(), ruleName,
 				parentNode.getEntryLength(), parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree)),
 				actionStmtList);
 
@@ -1737,8 +1737,8 @@ public class XRNodeGraph implements IRNodeGraph {
 			switch (node.getReteType()) {
 			case EXPR1:
 
-				XRReteNode1 exprParent1 = (XRReteNode1) node;
-				XRReteNode1 exprChild1 = (XRReteNode1) child;
+				XRNodeRete1 exprParent1 = (XRNodeRete1) node;
+				XRNodeRete1 exprChild1 = (XRNodeRete1) child;
 				IRReteNode parentNode = exprParent1.getParentNodes()[0];
 
 				// Remove link

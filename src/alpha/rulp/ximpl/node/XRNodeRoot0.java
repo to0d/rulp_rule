@@ -9,7 +9,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
+public class XRNodeRoot0 extends XRNodeRete0 implements IRRootNode {
 
 	protected Map<String, IRReteEntry> stmtMap = new HashMap<>();
 

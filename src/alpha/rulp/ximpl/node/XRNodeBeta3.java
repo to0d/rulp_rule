@@ -10,7 +10,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBetaNode3 extends XRReteNode2 implements IRBetaNode {
+public class XRNodeBeta3 extends XRNodeRete2 implements IRBetaNode {
 
 	protected boolean _addNewEntry(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
 

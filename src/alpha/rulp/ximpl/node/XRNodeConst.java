@@ -5,7 +5,7 @@ import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstNode extends XRReteNode0 implements IRRListener1<IRReteEntry> {
+public class XRNodeConst extends XRNodeRete0 implements IRRListener1<IRReteEntry> {
 
 	private IRReteEntry constEntry = null;
 

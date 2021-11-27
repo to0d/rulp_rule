@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.node;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RRunState;
 
-public class XRReteNode0 extends AbsReteNode {
+public class XRNodeRete0 extends AbsReteNode {
 
 	protected int lastEntryCount = 0;
 

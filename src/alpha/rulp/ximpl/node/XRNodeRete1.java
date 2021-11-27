@@ -5,7 +5,7 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRReteNode1 extends AbsReteNode {
+public class XRNodeRete1 extends AbsReteNode {
 
 	protected int lastParentVisitIndex = 0;
 

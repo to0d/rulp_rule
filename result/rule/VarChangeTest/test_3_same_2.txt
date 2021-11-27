@@ -68,16 +68,16 @@ RU001[3] 0     ADD   (-> n3:'(?0))
 
 node info6:
 ========================================================================================================================================================
- NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
+ NODE[n] Type  Class Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-N0001[1] NAME0 XRNamedNode  MULTI       0     1    2    0    0   0   0  99 [null]
-N0007[1] NAME0 XRNamedNode  MULTI       0     0    0    0    0   0   0   0 [null]
-N0008[1] NAME0 XRNamedNode  MULTI       0     0    0    0    0   0   0   0 [null]
-V0002[3] VAR   XRReteNode0  SINGLE      0     1    2    0    0   0   0  99 [?x, ?f1, ?_tmp_0]
-A1003[3] ALPH1 XRReteNode1  SINGLE      1     1    2    0    0   1   0  99 [?x, ?f1, null]
-B1004[3] BETA1 XRBetaNode1  MULTI       2     2    2    3    0   0   0  99 [?a, ?x, ?f1]
-RU000[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?x, ?f1]
-RU001[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?x, ?f2]
+N0001[1] NAME0 Name0 MULTI       0     1    2    0    0   0   0  99 [null]
+N0007[1] NAME0 Name0 MULTI       0     0    0    0    0   0   0   0 [null]
+N0008[1] NAME0 Name0 MULTI       0     0    0    0    0   0   0   0 [null]
+V0002[3] VAR   Rete0 SINGLE      0     1    2    0    0   0   0  99 [?x, ?f1, ?_tmp_0]
+A1003[3] ALPH1 Rete1 SINGLE      1     1    2    0    0   1   0  99 [?x, ?f1, null]
+B1004[3] BETA1 Beta1 MULTI       2     2    2    3    0   0   0  99 [?a, ?x, ?f1]
+RU000[3] RULE  Rule0 ACTION      1     0    0    0    0   0   0  99 [?a, ?x, ?f1]
+RU001[3] RULE  Rule0 ACTION      1     0    0    0    0   0   0  99 [?a, ?x, ?f2]
 ========================================================================================================================================================
 
 priority info:
