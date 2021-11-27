@@ -1,9 +1,7 @@
 package alpha.rulp.ximpl.search;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;

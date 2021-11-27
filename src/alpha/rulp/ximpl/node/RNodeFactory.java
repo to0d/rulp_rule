@@ -677,12 +677,10 @@ public class RNodeFactory {
 		node.setEntryLength(3);
 
 		// Entry queue
-		{
-			XREntryQueueSingleEntryList entryQueue = new XREntryQueueSingleEntryList(3);
-			entryQueue.setBindNode(node);
-			entryQueue.setEntryTable(entryTable);
-			node.setEntryQueue(entryQueue);
-		}
+		XREntryQueueSingleEntryList entryQueue = new XREntryQueueSingleEntryList(3);
+		entryQueue.setBindNode(node);
+		entryQueue.setEntryTable(entryTable);
+		node.setEntryQueue(entryQueue);
 
 		return node;
 	}

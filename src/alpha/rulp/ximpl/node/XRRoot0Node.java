@@ -7,30 +7,11 @@ import java.util.Map.Entry;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRRoot0Node extends XRReteNode0 implements IRRootNode {
 
 	protected Map<String, IRReteEntry> stmtMap = new HashMap<>();
-
-	@Override
-	public IRConstraint1 unmatchConstraint(IRReteEntry entry) throws RException {
-
-		if (constraint1List == null) {
-			return null;
-		}
-
-		nodeMatchCount++;
-		for (IRConstraint1 cons : constraint1List) {
-			if (!cons.addEntry(entry, this)) {
-				++addEntryFailCount;
-				return cons;
-			}
-		}
-
-		return null;
-	}
 
 	@Override
 	public boolean addReteEntry(IRReteEntry entry) throws RException {

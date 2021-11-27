@@ -437,9 +437,18 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return this.runState;
 	}
 
+	public void incAddEntryFailCount() {
+		this.addEntryFailCount++;
+	}
+
 	@Override
 	public void incExecCount(int execId) {
 		execCounter.add(execId);
+	}
+
+	@Override
+	public void incNodeMatchCount() {
+		this.nodeMatchCount++;
 	}
 
 	@Override

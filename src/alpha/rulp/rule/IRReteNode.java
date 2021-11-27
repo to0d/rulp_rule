@@ -120,7 +120,11 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public IRObject[] getVarEntry();
 
+	public void incAddEntryFailCount();
+
 	public void incExecCount(int execId);
+
+	public void incNodeMatchCount();
 
 	public boolean isNodeFresh();
 
