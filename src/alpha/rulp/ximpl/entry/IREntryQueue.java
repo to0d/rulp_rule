@@ -30,6 +30,8 @@ public interface IREntryQueue {
 
 	public int getRedundantCount();
 
+	public IRReteEntry getStmt(String uniqName) throws RException;
+
 	public int getUpdateCount();
 
 	public void incEntryRedundant();

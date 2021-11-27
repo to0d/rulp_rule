@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.entry;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 
 public class XREntryQueueSingleEntryList implements IREntryQueue {
@@ -144,6 +145,16 @@ public class XREntryQueueSingleEntryList implements IREntryQueue {
 	@Override
 	public int size() {
 		return maxValueCount;
+	}
+
+	@Override
+	public IRReteEntry getStmt(String uniqName) throws RException {
+
+		if (curEntry != null && !curEntry.isDroped() && ReteUtil.uniqName(curEntry).equals(uniqName)) {
+			return curEntry;
+		}
+
+		return null;
 	}
 
 }

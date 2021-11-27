@@ -52,12 +52,16 @@ public class XREntryQueueUniqEntryList extends XREntryQueueMulitEntryList implem
 	}
 
 	@Override
+	public void doAction(IRReteEntry entry) throws RException {
+		uniqEntryMap.remove(ReteUtil.uniqName(entry));
+	}
+
+	@Override
 	public REntryQueueType getQueueType() {
 		return REntryQueueType.UNIQ;
 	}
 
-	@Override
-	public void doAction(IRReteEntry entry) throws RException {
-		uniqEntryMap.remove(ReteUtil.uniqName(entry));
+	public IRReteEntry getStmt(String uniqName) throws RException {
+		return uniqEntryMap.get(uniqName);
 	}
 }

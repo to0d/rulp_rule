@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.entry;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
+import alpha.rulp.utils.ReteUtil;
 
 public class XREntryQueueEmpty implements IREntryQueue {
 
@@ -61,6 +62,11 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	@Override
 	public int getRedundantCount() {
 		return 0;
+	}
+
+	@Override
+	public IRReteEntry getStmt(String uniqName) throws RException {
+		return null;
 	}
 
 	@Override

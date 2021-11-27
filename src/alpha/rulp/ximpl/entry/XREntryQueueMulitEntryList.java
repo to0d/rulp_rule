@@ -11,13 +11,11 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 
 	static class XREntryCounter implements IREntryCounter {
 
-		protected int entryTempCount = 0;
-
 		protected int entryAssumeCount = 0;
 
 		protected int entryDefinedCount = 0;
 
-		protected int entryRemoveCount = 0;
+		protected int entryDropCount = 0;
 
 		protected int entryFixCount = 0;
 
@@ -25,9 +23,11 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 
 		protected int entryReasonCount = 0;
 
-		protected int entryTotalCount = 0;
+		protected int entryRemoveCount = 0;
 
-		protected int entryDropCount = 0;
+		protected int entryTempCount = 0;
+
+		protected int entryTotalCount = 0;
 
 		public XREntryCounter(XREntryQueueMulitEntryList queue) {
 			_updateEntryCount(queue);
@@ -235,6 +235,20 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 	@Override
 	public int getRedundantCount() {
 		return entryRedundant;
+	}
+
+	@Override
+	public IRReteEntry getStmt(String uniqName) throws RException {
+
+		if (entryList != null) {
+			for (IRReteEntry entry : entryList) {
+				if (entry != null && !entry.isDroped() && ReteUtil.uniqName(entry).equals(uniqName)) {
+					return entry;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	@Override
