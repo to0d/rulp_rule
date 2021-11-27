@@ -16,19 +16,9 @@ public class XRConstraint1OneOf extends AbsRConstraint1Index1 implements IRConst
 
 	private String _constraintExpression = null;
 
-	private Set<String> valueUniqNameSet = null;
-
-	public Set<String> getValueUniqNameSet() throws RException {
-		if (valueUniqNameSet == null) {
-			valueUniqNameSet = new HashSet<>();
-			for (IRObject val : RulpUtil.toArray(valueList)) {
-				valueUniqNameSet.add(RulpUtil.toUniqString(val));
-			}
-		}
-		return valueUniqNameSet;
-	}
-
 	private IRList valueList;
+
+	private Set<String> valueUniqNameSet = null;
 
 	public XRConstraint1OneOf(int index, IRList valueList) {
 		super(index);
@@ -37,7 +27,7 @@ public class XRConstraint1OneOf extends AbsRConstraint1Index1 implements IRConst
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		return getValueUniqNameSet().contains(RulpUtil.toUniqString(entry.get(index)));
 	}
 
@@ -54,6 +44,16 @@ public class XRConstraint1OneOf extends AbsRConstraint1Index1 implements IRConst
 	@Override
 	public String getConstraintName() {
 		return A_One_Of;
+	}
+
+	public Set<String> getValueUniqNameSet() throws RException {
+		if (valueUniqNameSet == null) {
+			valueUniqNameSet = new HashSet<>();
+			for (IRObject val : RulpUtil.toArray(valueList)) {
+				valueUniqNameSet.add(RulpUtil.toUniqString(val));
+			}
+		}
+		return valueUniqNameSet;
 	}
 
 }

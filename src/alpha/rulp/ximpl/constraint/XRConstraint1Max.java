@@ -21,8 +21,13 @@ public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstra
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		return RulpUtil.computeRelationalExpression(RRelationalOperator.LE, entry.get(index), maxValue);
+	}
+
+	@Override
+	public int getColumnIndex() {
+		return index;
 	}
 
 	@Override
@@ -43,11 +48,6 @@ public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstra
 	@Override
 	public IRObject getValue() {
 		return maxValue;
-	}
-
-	@Override
-	public int getColumnIndex() {
-		return index;
 	}
 
 }

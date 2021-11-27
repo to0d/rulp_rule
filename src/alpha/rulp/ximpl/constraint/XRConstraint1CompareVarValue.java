@@ -16,9 +16,9 @@ public class XRConstraint1CompareVarValue extends AbsRConstraint1 implements IRC
 
 	private RRelationalOperator op;
 
-	private IRVar var;
-
 	private IRObject val;
+
+	private IRVar var;
 
 	public XRConstraint1CompareVarValue(RRelationalOperator op, IRVar var, IRObject val) {
 		this.op = op;
@@ -27,7 +27,7 @@ public class XRConstraint1CompareVarValue extends AbsRConstraint1 implements IRC
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		return RulpUtil.computeRelationalExpression(op, var.getValue(), val);
 	}
 
@@ -43,12 +43,12 @@ public class XRConstraint1CompareVarValue extends AbsRConstraint1 implements IRC
 	}
 
 	@Override
-	public String getConstraintName() {
-		return A_CMP_VAR_VALUE;
+	public int[] getConstraintIndex() {
+		return null;
 	}
 
 	@Override
-	public int[] getConstraintIndex() {
-		return null;
+	public String getConstraintName() {
+		return A_CMP_VAR_VALUE;
 	}
 }

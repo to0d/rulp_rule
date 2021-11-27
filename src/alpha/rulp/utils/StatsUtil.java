@@ -1318,7 +1318,7 @@ public class StatsUtil {
 
 		sb.append("node info4: constraint\n");
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%8s  %6s %6s   %s\n", "NODE[n]", "Update", "Fail", "Constraint"));
+		sb.append(String.format("%8s  %5s %5s  %s\n", "NODE[n]", "Match", "Fail", "Constraint"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : constraintNodeList) {
@@ -1334,13 +1334,13 @@ public class StatsUtil {
 				consList.addAll(RuleUtil.asBetaNode(node).getConstraint2List());
 			}
 
-			sb.append(String.format("%8s  %6d %6d   %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
-					node.getEntryQueue().getUpdateCount(), node.getAddEntryFailCount(),
-					consList.get(0).getConstraintKind() + ":" + consList.get(0)));
+			sb.append(String.format("%8s  %5d %5d\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					node.getNodeMatchCount(), node.getAddEntryFailCount()));
 
-			for (int i = 1; i < consList.size(); ++i) {
-				sb.append(String.format("%8s  %6s %6s   %s\n", "", "", "",
-						consList.get(i).getConstraintKind() + ":" + consList.get(i)));
+			for (int i = 0; i < consList.size(); ++i) {
+				IRConstraint cons = consList.get(i);
+				sb.append(String.format("%8s  %5d %5d  %s\n", "", cons.getMatchCount(), cons.getFailCount(),
+						cons.getConstraintKind() + ":" + cons));
 			}
 		}
 

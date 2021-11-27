@@ -21,7 +21,7 @@ public class XRConstraint1Min extends AbsRConstraint1Index1 implements IRConstra
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		return RulpUtil.computeRelationalExpression(RRelationalOperator.GE, entry.get(index), minValue);
 	}
 

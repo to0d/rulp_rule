@@ -10,7 +10,7 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 public class XRConstraint2EntryOrder extends AbsRConstraint2 {
 
 	@Override
-	public boolean addEntry(IRReteEntry left, IRReteEntry right, IRInterpreter interpreter, IRFrame frame)
+	protected boolean _addEntry(IRReteEntry left, IRReteEntry right, IRInterpreter interpreter, IRFrame frame)
 			throws RException {
 		return left.getEntryIndex() < right.getEntryIndex();
 	}

@@ -14,7 +14,7 @@ public class XRConstraint1Expr3 extends AbsRConstraint1Expr implements IRConstra
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		IRObject rst = context.getInterpreter().compute(context.getFrame(), expr);
 		return RulpUtil.asBoolean(rst).asBoolean();
 	}

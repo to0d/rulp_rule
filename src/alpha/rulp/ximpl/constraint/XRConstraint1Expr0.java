@@ -22,7 +22,7 @@ public class XRConstraint1Expr0 extends AbsRConstraint1Expr implements IRConstra
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 
 		IRVar[] _vars = getVars(context.getFrame());
 

@@ -25,7 +25,7 @@ public class XRConstraint1CompareEntryIndex extends AbsRConstraint1 implements I
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		return RulpUtil.computeRelationalExpression(op, entry.get(constraintIndex[0]), entry.get(constraintIndex[1]));
 	}
 

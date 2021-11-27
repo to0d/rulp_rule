@@ -27,6 +27,7 @@ public class XRNodeExpr3 extends XRNodeRete1 {
 
 		for (IRConstraint1 matchNode : constraint1List) {
 			if (!matchNode.addEntry(null, this)) {
+				++addEntryFailCount;
 				return false;
 			}
 		}

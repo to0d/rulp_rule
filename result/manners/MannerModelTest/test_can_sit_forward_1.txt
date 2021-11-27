@@ -72,15 +72,22 @@ RU001[3]  RU001
 
 node info4: constraint
 ========================================================================================================================================================
- NODE[n]  Update   Fail   Constraint
+ NODE[n]  Match  Fail  Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-A0002[3]       2     10   C1:(cmp-entry-value = ?1 has-sex)
-A0003[3]       2     10   C1:(cmp-entry-value = ?1 typeof)
-A0004[3]       2      0   C1:(cmp-entry-value = ?2 guess)
-A0008[3]       6      6   C1:(cmp-entry-value = ?1 has-hobby)
-A0011[4]       2      0   C1:(cmp-entry-value = ?0 canBeCouple)
-A0012[4]       2      0   C1:(cmp-entry-value = ?3 true)
-B3006[4]       2      2   C1:(cmp-entry-index != ?0 ?2)
+A0002[3]     12    10
+             12    10  C1:(cmp-entry-value = ?1 has-sex)
+A0003[3]     12    10
+             12    10  C1:(cmp-entry-value = ?1 typeof)
+A0004[3]      2     0
+              2     0  C1:(cmp-entry-value = ?2 guess)
+A0008[3]     12     6
+             12     6  C1:(cmp-entry-value = ?1 has-hobby)
+A0011[4]      2     0
+              2     0  C1:(cmp-entry-value = ?0 canBeCouple)
+A0012[4]      2     0
+              2     0  C1:(cmp-entry-value = ?3 true)
+B3006[4]      4     2
+              4     2  C1:(cmp-entry-index != ?0 ?2)
 ========================================================================================================================================================
 
 node info5: action

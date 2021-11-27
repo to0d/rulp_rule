@@ -17,15 +17,11 @@ public class XRConstraint1Expr0X extends AbsRConstraint1 implements IRConstraint
 
 	protected int[] constraintIndex;
 
-	protected IRObject[] varEntry;
-
 	protected IRExpr expr;
 
 	protected int externalVarCount;
 
-	public int getExternalVarCount() {
-		return externalVarCount;
-	}
+	protected IRObject[] varEntry;
 
 	public XRConstraint1Expr0X(IRExpr expr, IRObject[] varEntry, int[] constraintIndex, int externalVarCount)
 			throws RException {
@@ -37,7 +33,7 @@ public class XRConstraint1Expr0X extends AbsRConstraint1 implements IRConstraint
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 
 		IRVar[] _vars = getVars(context.getFrame());
 
@@ -56,6 +52,30 @@ public class XRConstraint1Expr0X extends AbsRConstraint1 implements IRConstraint
 		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
+	@Override
+	public String getConstraintExpression() {
+		return "" + expr;
+	}
+
+	@Override
+	public int[] getConstraintIndex() {
+		return constraintIndex;
+	}
+
+	@Override
+	public String getConstraintName() {
+		return A_EXPRESSION;
+	}
+
+	@Override
+	public IRExpr getExpr() {
+		return expr;
+	}
+
+	public int getExternalVarCount() {
+		return externalVarCount;
+	}
+
 	public IRVar[] getVars(IRFrame frame) throws RException {
 
 		if (_vars == null) {
@@ -71,25 +91,5 @@ public class XRConstraint1Expr0X extends AbsRConstraint1 implements IRConstraint
 		}
 
 		return _vars;
-	}
-
-	@Override
-	public int[] getConstraintIndex() {
-		return constraintIndex;
-	}
-
-	@Override
-	public String getConstraintExpression() {
-		return "" + expr;
-	}
-
-	@Override
-	public String getConstraintName() {
-		return A_EXPRESSION;
-	}
-
-	@Override
-	public IRExpr getExpr() {
-		return expr;
 	}
 }

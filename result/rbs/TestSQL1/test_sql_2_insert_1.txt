@@ -74,18 +74,23 @@ CST04[3]  CST04
 
 node info4: constraint
 ========================================================================================================================================================
- NODE[n]  Update   Fail   Constraint
+ NODE[n]  Match  Fail  Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-N0001[2]       3      0   C1:(type string on ?0)
-                          C1:(type int on ?1)
-N0013[4]       7      0   C1:(type string on ?0)
-                          C1:(type string on ?1)
-                          C1:(type int on ?2)
-N0015[3]       1      0   C1:(type int on ?0)
-                          C1:(type bool on ?1)
-                          C1:(type float on ?2)
-A0014[2]       1      2   C1:(cmp-entry-value = ?0 t1)
-E1004[4]       0      8   C1:(cmp-entry-index != ?2 ?3)
+N0001[2]      3     0
+              3     0  C1:(type string on ?0)
+              3     0  C1:(type int on ?1)
+N0013[4]      7     0
+              7     0  C1:(type string on ?0)
+              7     0  C1:(type string on ?1)
+              7     0  C1:(type int on ?2)
+N0015[3]      1     0
+              1     0  C1:(type int on ?0)
+              1     0  C1:(type bool on ?1)
+              1     0  C1:(type float on ?2)
+A0014[2]      3     2
+              3     2  C1:(cmp-entry-value = ?0 t1)
+E1004[4]      8     8
+              8     8  C1:(cmp-entry-index != ?2 ?3)
 ========================================================================================================================================================
 
 node info5: action

@@ -20,8 +20,7 @@ public class XRConstraint1Type extends AbsRConstraint1Index1 implements IRConstr
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
-
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		IRObject columnValue = entry.get(index);
 		if (columnValue == null) {
 			return true;

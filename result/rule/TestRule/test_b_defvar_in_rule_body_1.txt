@@ -46,12 +46,16 @@ RU000[3]  RU000
 
 node info4: constraint
 ========================================================================================================================================================
- NODE[n]  Update   Fail   Constraint
+ NODE[n]  Match  Fail  Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-A0002[3]       4      4   C1:(cmp-entry-value = ?1 nm:typeOf)
-A0003[3]       4      0   C1:(cmp-entry-value = ?2 nm:tag)
-A0006[3]       2      6   C1:(cmp-entry-value = ?1 nm:isVersionOf)
-E0004[3]       2      2   C1:(can-cast '(int float) (get-version-number ?0))
+A0002[3]      8     4
+              8     4  C1:(cmp-entry-value = ?1 nm:typeOf)
+A0003[3]      4     0
+              4     0  C1:(cmp-entry-value = ?2 nm:tag)
+A0006[3]      8     6
+              8     6  C1:(cmp-entry-value = ?1 nm:isVersionOf)
+E0004[3]      4     2
+              4     2  C1:(can-cast '(int float) (get-version-number ?0))
 ========================================================================================================================================================
 
 node info5: action

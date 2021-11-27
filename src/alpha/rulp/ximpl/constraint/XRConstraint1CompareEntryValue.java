@@ -13,9 +13,9 @@ public class XRConstraint1CompareEntryValue extends AbsRConstraint1Index1 implem
 
 	private String _constraintExpression = null;
 
-	private RRelationalOperator op;
-
 	private IRObject obj;
+
+	private RRelationalOperator op;
 
 	public XRConstraint1CompareEntryValue(RRelationalOperator op, int index, IRObject obj) {
 		super(index);
@@ -24,7 +24,7 @@ public class XRConstraint1CompareEntryValue extends AbsRConstraint1Index1 implem
 	}
 
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 		return RulpUtil.computeRelationalExpression(op, entry.get(index), obj);
 	}
 
@@ -32,8 +32,7 @@ public class XRConstraint1CompareEntryValue extends AbsRConstraint1Index1 implem
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("(%s %s ?%d %s)", getConstraintName(), op.getAtom(), index,
-					"" + obj);
+			_constraintExpression = String.format("(%s %s ?%d %s)", getConstraintName(), op.getAtom(), index, "" + obj);
 		}
 
 		return _constraintExpression;

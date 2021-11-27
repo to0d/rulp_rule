@@ -30,17 +30,9 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 		this.uniqEntry = new IRObject[uniqColumnIndexs.length];
 	}
 
-	protected String _getUniqString(IRReteEntry entry) throws RException {
-
-		for (int i = 0; i < uniqEntry.length; ++i) {
-			uniqEntry[i] = entry.get(uniqColumnIndexs[i]);
-		}
-
-		return ReteUtil.uniqName(uniqEntry);
-	}
-
 	@Override
-	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
+	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
+
 		String uniqName = _getUniqString(entry);
 
 		if (uniqEntryMap == null) {
@@ -53,6 +45,15 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 		entry.addEntryRemovedListener(this);
 
 		return true;
+	}
+
+	protected String _getUniqString(IRReteEntry entry) throws RException {
+
+		for (int i = 0; i < uniqEntry.length; ++i) {
+			uniqEntry[i] = entry.get(uniqColumnIndexs[i]);
+		}
+
+		return ReteUtil.uniqName(uniqEntry);
 	}
 
 	@Override
