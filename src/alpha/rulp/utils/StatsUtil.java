@@ -1214,9 +1214,9 @@ public class StatsUtil {
 		sb.append(SEP_LINE1);
 
 		List<List<String>> result = new ArrayList<>();
-		List<Integer> maxLen = toList(8, 6, 14, 36, 30, 30);
+		List<Integer> maxLen = toList(8, 14, 36, 30, 30, 30);
 
-		result.add(toList("NODE[n]", "Queue", "Parent", "Child", "Rule", "Inherit", "Join"));
+		result.add(toList("NODE[n]", "Parent", "Child", "Rule", "Inherit", "Join"));
 
 		for (IRReteNode node : nodes) {
 
@@ -1244,14 +1244,8 @@ public class StatsUtil {
 				inheritExpr = toList(inheritIndexs).toString();
 			}
 
-			IREntryQueue entryQueue = node.getEntryQueue();
-
-			String queueType = entryQueue.getQueueType() == REntryQueueType.MULTI ? "*"
-					: "" + entryQueue.getQueueType();
-
 			String joinDes = null;
 			if (parentNames.size() > 1) {
-
 				if (RReteType.isBetaType(node.getReteType())) {
 					IRBetaNode betaNode = (IRBetaNode) node;
 					List<JoinIndex> joinIndex = betaNode.getJoinIndexList();
@@ -1260,13 +1254,12 @@ public class StatsUtil {
 					} else {
 						joinDes = OptimizeUtil.toString(joinIndex);
 					}
-
 				} else {
 					joinDes = "[]";
 				}
 			}
 
-			result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]", queueType,
+			result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]",
 					parentNames.isEmpty() ? null : "" + parentNames, childNames.isEmpty() ? null : "" + childNames,
 					ruleNames.isEmpty() ? null : "" + ruleNames, inheritExpr, joinDes));
 
@@ -1278,6 +1271,39 @@ public class StatsUtil {
 				sb.append(SEP_LINE2);
 			}
 			sb.append(line);
+			sb.append("\n");
+		}
+
+		sb.append(SEP_LINE1);
+		sb.append("\n");
+	}
+
+	private static void _printNodeInfo6(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		sb.append("node info6:\n");
+		sb.append(SEP_LINE1);
+
+		sb.append(String.format("%8s  %6s %6s %6s %6s %7s %6s\n", "NODE[n]", "Queue", "Parent", "Child", "Rule",
+				"Inherit", "Join"));
+		sb.append(SEP_LINE2);
+
+		for (IRReteNode node : nodes) {
+
+			int joinCount = 0;
+			if (RReteType.isBetaType(node.getReteType())) {
+				IRBetaNode betaNode = (IRBetaNode) node;
+				List<JoinIndex> joinIndex = betaNode.getJoinIndexList();
+				if (joinIndex != null) {
+					joinCount = joinIndex.size();
+				}
+			}
+
+			sb.append(String.format("%8s  %6s %6d %6d %6d %7d %6d",
+					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getEntryQueue().getQueueType(),
+					node.getParentCount(), node.getChildNodes().size(),
+					model.getNodeGraph().getRelatedRules(node).size(),
+					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount));
+
 			sb.append("\n");
 		}
 
@@ -1579,6 +1605,7 @@ public class StatsUtil {
 			// Output node constraint
 			_printNodeInfo4(sb, model, nodes);
 			_printNodeInfo5Action(sb, model, nodes);
+			_printNodeInfo6(sb, model, nodes);
 		}
 
 		/****************************************************/
