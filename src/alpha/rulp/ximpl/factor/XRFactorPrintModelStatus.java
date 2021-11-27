@@ -7,10 +7,10 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.RuleFactory;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.StatsUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 
@@ -30,6 +30,6 @@ public class XRFactorPrintModelStatus extends AbsRFactorAdapter implements IRFac
 		IRModel model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
 		IRReteNodeCounter counter = RuleFactory.createReteCounter(model.getNodeGraph().getNodeMatrix());
 
-		return RulpFactory.createString(OptimizeUtil.formatNodeCount(counter));
+		return RulpFactory.createString(StatsUtil.formatNodeCount(counter));
 	}
 }

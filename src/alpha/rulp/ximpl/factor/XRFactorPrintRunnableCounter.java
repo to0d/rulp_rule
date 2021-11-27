@@ -9,9 +9,9 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRRunnable;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.StatsUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorPrintRunnableCounter extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -37,11 +37,11 @@ public class XRFactorPrintRunnableCounter extends AbsRFactorAdapter implements I
 		}
 
 		if (obj instanceof IRModel) {
-			return RulpFactory.createString(OptimizeUtil.formatModelCount(RuleUtil.asModel(obj).getCounter()));
+			return RulpFactory.createString(StatsUtil.formatModelCount(RuleUtil.asModel(obj).getCounter()));
 		}
 
 		if (obj instanceof IRRule) {
-			return RulpFactory.createString(OptimizeUtil.formatRuleCount(RuleUtil.asRule(obj).getCounter()));
+			return RulpFactory.createString(StatsUtil.formatRuleCount(RuleUtil.asRule(obj).getCounter()));
 		}
 
 		throw new RException("not support object");

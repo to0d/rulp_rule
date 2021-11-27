@@ -13,9 +13,9 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.FileUtil;
-import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.StatsUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorDumpStatus extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -35,8 +35,8 @@ public class XRFactorDumpStatus extends AbsRFactorAdapter implements IRFactor, I
 		String dumpPath = RulpUtil.asString(interpreter.compute(frame, args.get(2))).asString();
 
 		ArrayList<String> out = new ArrayList<>();
-		out.add(OptimizeUtil.printStatsInfo(model));
-		out.add(OptimizeUtil.formatModelCount(model.getCounter()));
+		out.add(StatsUtil.printStatsInfo(model));
+		out.add(StatsUtil.formatModelCount(model.getCounter()));
 
 		try {
 			FileUtil.saveTxtFile(dumpPath, out);

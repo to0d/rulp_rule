@@ -302,11 +302,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public String getMatchDescription() {
-		return null;
-	}
-
-	@Override
 	public IRModel getModel() {
 		return this.model;
 	}

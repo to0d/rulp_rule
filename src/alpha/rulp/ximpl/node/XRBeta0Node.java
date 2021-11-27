@@ -215,25 +215,6 @@ public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
 	}
 
 	@Override
-	public String getMatchDescription() {
-
-		if (joinIndexList == null) {
-			return super.getMatchDescription();
-		}
-
-		String des = super.getMatchDescription();
-		if (des == null) {
-			des = "";
-		} else {
-			des += ",";
-		}
-
-		des += OptimizeUtil.toString(joinIndexList);
-
-		return des;
-	}
-
-	@Override
 	public int update() throws RException {
 
 		if (this.isTrace()) {

@@ -82,8 +82,6 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public InheritIndex[] getInheritIndex();
 
-	public String getMatchDescription();
-
 	public int getNodeExecCount();
 
 	public int getNodeFailedCount();

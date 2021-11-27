@@ -309,25 +309,6 @@ public class XRRuleNode extends XRReteNode1 implements IRRule {
 		return lastError;
 	}
 
-//	@Override
-//	public String getMatchDescription() {
-//
-//		if (indexExprList == null || indexExprList.isEmpty()) {
-//			return super.getMatchDescription();
-//		}
-//
-//		String des = super.getMatchDescription();
-//		if (des == null) {
-//			des = "";
-//		} else {
-//			des += ",";
-//		}
-//
-//		des += OptimizeUtil.toString(indexExprList);
-//
-//		return des;
-//	}
-
 	@Override
 	public IRList getLastValues() {
 		return lastValueEntry;

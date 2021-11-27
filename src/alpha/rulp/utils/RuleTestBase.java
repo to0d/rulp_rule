@@ -238,7 +238,7 @@ public class RuleTestBase extends RulpTestBase {
 
 		try {
 
-			String outline = OptimizeUtil.dumpAndCheckEntryTable(_model(modelName).getEntryTable());
+			String outline = StatsUtil.dumpAndCheckEntryTable(_model(modelName).getEntryTable());
 			ArrayList<String> lines = new ArrayList<>();
 			lines.add(outline);
 			FileUtil.saveTxtFile(expectFile, lines, "utf-8");
@@ -257,7 +257,7 @@ public class RuleTestBase extends RulpTestBase {
 			IRModel model = RuleUtil.asModel(interpreter.getObject(modelName));
 			assertNotNull(model);
 
-			assertValue("" + index + "-eCount", OptimizeUtil.formatEntryTableCount(model.getEntryTable()));
+			assertValue("" + index + "-eCount", StatsUtil.formatEntryTableCount(model.getEntryTable()));
 
 		} catch (RException | IOException e) {
 			e.printStackTrace();
@@ -298,7 +298,7 @@ public class RuleTestBase extends RulpTestBase {
 			IRModel model = RuleUtil.asModel(interpreter.getObject(modelName));
 			assertNotNull(model);
 
-			assertValue("" + index + "-mCount", OptimizeUtil.formatModelCount(model.getCounter()));
+			assertValue("" + index + "-mCount", StatsUtil.formatModelCount(model.getCounter()));
 
 		} catch (RException | IOException e) {
 			e.printStackTrace();
@@ -329,7 +329,7 @@ public class RuleTestBase extends RulpTestBase {
 			IRReteNodeCounter counter = RuleFactory.createReteCounter(model.getNodeGraph().getNodeMatrix());
 			assertNotNull(counter);
 
-			assertValue("" + index + "-mStatus", OptimizeUtil.formatNodeCount(counter));
+			assertValue("" + index + "-mStatus", StatsUtil.formatNodeCount(counter));
 
 		} catch (RException | IOException e) {
 			e.printStackTrace();
@@ -341,7 +341,7 @@ public class RuleTestBase extends RulpTestBase {
 
 		try {
 
-			String outoputInfo = OptimizeUtil.printNodeInfo(_model(modelName));
+			String outoputInfo = StatsUtil.printNodeInfo(_model(modelName));
 
 			if (PRIME_MODE) {
 
@@ -383,7 +383,7 @@ public class RuleTestBase extends RulpTestBase {
 
 		try {
 
-			String outoputInfo = OptimizeUtil.printRefInfo(_model(modelName));
+			String outoputInfo = StatsUtil.printRefInfo(_model(modelName));
 
 			if (PRIME_MODE) {
 
@@ -419,7 +419,7 @@ public class RuleTestBase extends RulpTestBase {
 			IRReteNodeCounter reteCounter = RuleFactory.createReteCounter(rule.getNodeMatrix());
 			assertNotNull(reteCounter);
 
-			assertValue("" + index + "-rStatus" + "-" + ruleName, OptimizeUtil.formatNodeCount(reteCounter));
+			assertValue("" + index + "-rStatus" + "-" + ruleName, StatsUtil.formatNodeCount(reteCounter));
 
 		} catch (RException | IOException e) {
 			e.printStackTrace();
@@ -445,7 +445,7 @@ public class RuleTestBase extends RulpTestBase {
 
 		try {
 
-			String outoputInfo = OptimizeUtil.printScopeInfo(_scope(scopeName));
+			String outoputInfo = StatsUtil.printScopeInfo(_scope(scopeName));
 
 			if (PRIME_MODE) {
 
@@ -489,7 +489,7 @@ public class RuleTestBase extends RulpTestBase {
 
 			IRModel model = RuleUtil.asModel(rst.get(0));
 
-			assertValue("" + index + "-mOfSCopeCount", OptimizeUtil.formatModelCount(model.getCounter()));
+			assertValue("" + index + "-mOfSCopeCount", StatsUtil.formatModelCount(model.getCounter()));
 
 		} catch (RException | IOException e) {
 			e.printStackTrace();
@@ -506,7 +506,7 @@ public class RuleTestBase extends RulpTestBase {
 
 		try {
 
-			String outoputInfo = OptimizeUtil.printStatsInfo(_model(modelName));
+			String outoputInfo = StatsUtil.printStatsInfo(_model(modelName));
 
 			if (PRIME_MODE) {
 
