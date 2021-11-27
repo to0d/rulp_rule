@@ -397,7 +397,7 @@ public class XRScope extends AbsRInstance implements IRScope {
 		/********************************************/
 		switch (varType) {
 		case INT:
-			valueFactory = SearchFactory.createIntValueList(fromValue, toValue, stepValue);
+//			valueFactory = SearchFactory.createIntValueList(fromValue, toValue, stepValue);
 			break;
 
 		default:

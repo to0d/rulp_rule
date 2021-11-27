@@ -96,7 +96,6 @@ import alpha.rulp.ximpl.factor.XRFactorTryAddStmt;
 import alpha.rulp.ximpl.model.XRModelClass;
 import alpha.rulp.ximpl.rbs.RBSUtil;
 import alpha.rulp.ximpl.search.SearchFactory;
-import alpha.rulp.ximpl.search.SearchUtil;
 import alpha.rulp.ximpl.search.XRFactorSearch;
 
 public class RRuleLoader implements IRObjectLoader {
@@ -185,7 +184,7 @@ public class RRuleLoader implements IRObjectLoader {
 
 		// MTS init
 		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), MTS_NS, (inp, frame) -> {
-			SearchUtil.init(inp, frame);
+			SearchFactory.init(inp, frame);
 		});
 
 		// Native Class Initialization

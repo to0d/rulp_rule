@@ -2,153 +2,159 @@ package alpha.rulp.ximpl.search;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
+import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.RRunState;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.ModelConstraintUtil;
 import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
-import alpha.rulp.ximpl.scope.IVarConstraint;
-import alpha.rulp.ximpl.scope.XRScope;
-import alpha.rulp.ximpl.scope.XRScopeVar;
 
 public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMachine {
 
-	static class XSearchEntry {
+	class SEntry implements ICheckValue<List<IRObject>> {
 
-		public IRNamedNode searchNode;
+		private ISScope<List<IRObject>> entryScope;
 
-		public ArrayList<XSearchVar> searchVars;
+		private IRNamedNode searchNode;
 
-		public XSearchEntry(IRNamedNode searchNode, ArrayList<String> varNames) {
+		private ArrayList<SVar> searchVars;
+
+		public SEntry(IRNamedNode searchNode, ArrayList<String> varNames) {
 			super();
 			this.searchNode = searchNode;
 			this.searchVars = new ArrayList<>();
 
 			int index = 0;
 			for (String varName : varNames) {
-				this.searchVars.add(new XSearchVar(this, varName, index++));
+				this.searchVars.add(new SVar(this, varName, index++));
 			}
+		}
+
+		public ISScope<List<IRObject>> getVarScope() throws RException {
+
+			if (entryScope == null) {
+
+				List<ISScope<IRObject>> elementScopes = new ArrayList<>();
+				for (SVar svar : searchVars) {
+					elementScopes.add(svar.getVarScope());
+				}
+
+				entryScope = SearchFactory.createLinnerListScope(elementScopes);
+				entryScope.setChecker(this);
+
+			}
+			return entryScope;
+		}
+
+		@Override
+		public boolean isValid(List<IRObject> obj) throws RException {
+			return model.tryAddStatement(RulpFactory.createNamedList(obj, searchNode.getNamedName()));
 		}
 	}
 
-	static class XVarContext {
+	static class SVar {
 
-		XSearchVar searchVar;
+		public int index;
 
-		IRIterator<? extends IRObject> valueIt;
+		public SEntry searchNode;
 
-		IRObject curValue;
+		public IValueList valueList;
+
+		public String varName;
+
+		public IRVar resultVar;
+
+		public ISScope<IRObject> varScope = null;
+
+		public SVar(SEntry searchNode, String varName, int index) {
+			super();
+			this.searchNode = searchNode;
+			this.varName = varName;
+			this.index = index;
+		}
+
+		public ISScope<IRObject> getVarScope() {
+
+			if (varScope == null) {
+				varScope = SearchFactory.createLinnerObjectScope(valueList);
+			}
+			return varScope;
+		}
 	}
 
-//	static class XEntryContext implements IRIterator<IRList> {
+	private List<String> allSearchNodeNames = new ArrayList<>();
+
+	private List<String> allSearchVarNames = new ArrayList<>();
+
+	private List<String> allResultVarNames;
+
+//	static class XEntryValeList {
 //
-//		IRList nextList = null;
+//		IRModel model;
 //
 //		Boolean queryCompleted = null;
 //
-//		XSearchEntry searchEntry;
-//
-//		XVarContext[] varContexts;
+//		SEntry searchEntry;
 //
 //		int varSize;
 //
 //		public IRList _createNextList() {
 //
 //			ArrayList<IRObject> valueList = new ArrayList<>();
-//			for (XVarContext varContext : varContexts) {
-//				valueList.add(varContext.curValue);
+//			for (XLinnerObjectScope scope : varScopes) {
+//				valueList.add(scope.curValue);
 //			}
 //
 //			return RulpFactory.createNamedList(valueList, searchEntry.searchNode.getNamedName());
 //		}
 //
-//		@Override
 //		public boolean hasNext() throws RException {
 //
-//			if (isCompleted()) {
+//			if (queryCompleted) {
 //				return false;
 //			}
 //
-//			if (nextList == null) {
-//				nextList = moveNext();
+//			if (nextList != null) {
+//				return true;
 //			}
-//
-//			return nextList != null;
-//		}
-//
-//		public boolean isCompleted() throws RException {
 //
 //			if (queryCompleted == null) {
 //
 //				// Initialize first value
 //				for (int i = 0; i < varSize; ++i) {
-//
-//					XVarContext varContext = varContexts[i];
-//
+//					XLinnerObjectScope scope = varScopes[i];
 //					if (!scope.moveNext()) {
 //						queryCompleted = true;
-//						return true;
+//						return false;
 //					}
 //				}
-//
-//				boolean hasNext = true;
-//
-//				// Check cross constraint
-//				CHECK_CORSS: for (IVarConstraint constraint : XRScope.this.constraintList) {
-//
-//					if (constraint.isSingleConstraint()) {
-//						continue;
-//					}
-//
-//					boolean hasScope = false;
-//
-//					for (XRScopeVar scope : varScopes) {
-//						if (constraint.listVarScopes().contains(scope)) {
-//							hasScope = true;
-//							break;
-//						}
-//					}
-//
-//					if (!hasScope) {
-//						continue;
-//					}
-//
-//					// Invalid value
-//					if (!constraint.checkConstraint()) {
-//						hasNext = false;
-//						break CHECK_CORSS;
-//					}
-//				}
-//
+//				nextList = _createNextList();
 //				queryCompleted = false;
 //
-//				// Check next
-//				if (!hasNext) {
-//
-//					nextList = moveNext();
-//					if (!hasNext()) {
-//						queryCompleted = true;
-//						return true;
-//					}
-//
-//				} else {
-//
-//					nextList = _createNextList();
-//				}
+//			} else {
+//				nextList = moveNext();
 //			}
 //
-//			return queryCompleted;
+//			while (nextList != null && !model.tryAddStatement(nextList)) {
+//				nextList = moveNext();
+//			}
+//
+//			if (nextList == null) {
+//				queryCompleted = true;
+//			}
+//
+//			return !queryCompleted;
 //		}
 //
 //		public IRList moveNext() throws RException {
@@ -157,32 +163,23 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 //
 //			while (varPos < varSize) {
 //
-//				++XRScope.this.moveCount;
+////				++moveCount;
 //
-//				XRScopeVar scope = varScopes[varPos];
+//				XLinnerObjectScope scope = varScopes[varPos];
 //
 //				if (scope.moveNext()) {
-//
-//					if (scope.checkCrossConstraint()) {
-//						return _createNextList();
-//					}
-//
-//					varPos = 0;
-//				}
-//				// no more move
-//				else {
-//
-//					scope.resetValueIndex();
-//
-//					// no first value
-//					if (!scope.moveNext()) {
-//						queryCompleted = true;
-//						return null;
-//					}
-//
-//					++varPos;
+//					return _createNextList();
 //				}
 //
+//				scope.reset();
+//
+//				// no first value
+//				if (!scope.moveNext()) {
+//					queryCompleted = true;
+//					return null;
+//				}
+//
+//				++varPos;
 //			}
 //
 //			queryCompleted = true;
@@ -202,37 +199,50 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 //		}
 //	}
 
-	static class XSearchVar {
-
-		public XSearchEntry searchNode;
-
-		public String varName;
-
-		public IValueList valueList;
-
-		public int index;
-
-		public XSearchVar(XSearchEntry searchNode, String varName, int index) {
-			super();
-			this.searchNode = searchNode;
-			this.varName = varName;
-			this.index = index;
-		}
-	}
-
-	private Set<String> allNodeNames = new HashSet<>();
-
-	private Set<String> allVarNames = new HashSet<>();
+	private ISScope<List<List<IRObject>>> globalScope;
 
 	private IRModel model;
 
-	public void setModel(IRModel model) {
+	private IRList rstList;
+
+	private ArrayList<SEntry> searchEntrys = new ArrayList<>();
+
+	protected RRunState searchState = null;
+
+	public XRAutoSearchMachine(IRModel model) {
+		super();
 		this.model = model;
 	}
 
-	private IRList rstList;
+	protected boolean _checkValueList() throws RException {
 
-	private ArrayList<XSearchEntry> searchEntrys = new ArrayList<>();
+		ModelConstraintUtil constraintUtil = new ModelConstraintUtil(model);
+
+		for (SEntry searchEntry : searchEntrys) {
+
+			NEXT_VAR: for (SVar searchVar : searchEntry.searchVars) {
+
+				if (searchVar.valueList != null) {
+					continue NEXT_VAR;
+				}
+
+				RType varType = constraintUtil.getTypeConstraint(searchEntry.searchNode, searchVar.index);
+				if (varType == RType.INT) {
+					IRObject maxValue = constraintUtil.getMaxConstraint(searchEntry.searchNode, searchVar.index);
+					IRObject minValue = constraintUtil.getMinConstraint(searchEntry.searchNode, searchVar.index);
+					if (maxValue != null && minValue == null) {
+						searchVar.valueList = SearchFactory.createIntValueList(RulpUtil.asInteger(minValue),
+								RulpUtil.asInteger(maxValue), null);
+						continue NEXT_VAR;
+					}
+				}
+
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 	public void addSearchEntry(IRList searchEntry) throws RException {
 
@@ -252,11 +262,11 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 				throw new RException("invalid search entry: " + searchEntry);
 			}
 
-			if (allNodeNames.contains(nodeName)) {
+			if (allSearchNodeNames.contains(nodeName)) {
 				throw new RException("duplicated search entry: " + searchEntry);
 			}
 
-			allNodeNames.add(nodeName);
+			allSearchNodeNames.add(nodeName);
 		}
 
 		/********************************************/
@@ -283,51 +293,36 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 			}
 
 			String varName = RulpUtil.asAtom(varObj).getName();
-			if (allVarNames.contains(varName)) {
+			if (allSearchVarNames.contains(varName)) {
 				throw new RException("duplicated var<" + varObj + "> in node: " + searchEntry);
 			}
 
-			allVarNames.add(varName);
+			allSearchVarNames.add(varName);
 			varNames.add(varName);
 		}
 
-		searchEntrys.add(new XSearchEntry(searchNode, varNames));
+		searchEntrys.add(new SEntry(searchNode, varNames));
+	}
+
+	public ISScope<List<List<IRObject>>> getGlobalScope() throws RException {
+
+		if (globalScope == null) {
+
+			List<ISScope<List<IRObject>>> entryScopes = new ArrayList<>();
+			for (SEntry sentry : searchEntrys) {
+				entryScopes.add(sentry.getVarScope());
+			}
+
+			globalScope = SearchFactory.createLinnerListScope(entryScopes);
+
+		}
+
+		return globalScope;
 	}
 
 	@Override
 	public int getPriority() {
 		return 0;
-	}
-
-	protected RRunState searchState = null;
-
-	protected boolean _checkValueList() throws RException {
-
-		ModelConstraintUtil constraintUtil = new ModelConstraintUtil(model);
-
-		for (XSearchEntry searchEntry : searchEntrys) {
-
-			NEXT_VAR: for (XSearchVar searchVar : searchEntry.searchVars) {
-
-				if (searchVar.valueList != null) {
-					continue NEXT_VAR;
-				}
-
-				RType varType = constraintUtil.getTypeConstraint(searchEntry.searchNode, searchVar.index);
-				if (varType == RType.INT) {
-					IRObject maxValue = constraintUtil.getMaxConstraint(searchEntry.searchNode, searchVar.index);
-					IRObject minValue = constraintUtil.getMinConstraint(searchEntry.searchNode, searchVar.index);
-					if (maxValue != null && minValue == null) {
-						searchVar.valueList = SearchFactory.createIntValueList(minValue, maxValue, null);
-						continue NEXT_VAR;
-					}
-				}
-
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	@Override
@@ -343,7 +338,12 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 		return searchState;
 	}
 
-//	private IRFrame searchFrame;
+	@Override
+	public RRunState halt() throws RException {
+		throw new RException("not support");
+	}
+
+	private IRFrame resultFrame;
 //
 //	public IRFrame getFrame() {
 //
@@ -353,21 +353,60 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 //		}
 //	}
 
-	@Override
-	public RRunState halt() throws RException {
-		throw new RException("not support");
+	public void setModel(IRModel model) {
+		this.model = model;
 	}
 
-	public void setRstList(IRList rstList) {
+	public void setRstList(IRList rstList) throws RException {
+
+		/********************************************/
+		// Check entry
+		/********************************************/
+		if (ReteUtil.getExprLevel(rstList) != 0) {
+			throw new RException("invalid result entry: " + rstList);
+		}
+
+		if (model.getNodeGraph().findNamedNode(rstList.getNamedName()) != null) {
+			throw new RException("result node already exist: " + rstList);
+		}
+
+		allResultVarNames = new ArrayList<>();
+		for (IRObject varObj : ReteUtil.buildVarList(rstList)) {
+
+			String varName = RulpUtil.asAtom(varObj).getName();
+			if (!allSearchVarNames.contains(varName)) {
+				throw new RException("undefined result var: " + varName);
+			}
+
+			allResultVarNames.add(varName);
+		}
+
+		/********************************************/
+		// Create result frame
+		/********************************************/
+		resultFrame = RulpFactory.createFrame(model.getFrame(), "SF-" + rstList.getNamedName());
+
+		/********************************************/
+		// Create result var
+		/********************************************/
+		for (SEntry sentry : searchEntrys) {
+			for (SVar svar : sentry.searchVars) {
+				if (allResultVarNames.contains(svar.varName)) {
+					svar.resultVar = resultFrame.addVar(svar.varName);
+				}
+			}
+		}
+
 		this.rstList = rstList;
 	}
 
 	@Override
 	public int start(int priority, int limit) throws RException {
 
-		/********************************************/
-		// Check value list
-		/********************************************/
+		ISScope<List<List<IRObject>>> _scope = this.getGlobalScope();
+		if (_scope.moveNext()) {
+
+		}
 
 		return 0;
 	}

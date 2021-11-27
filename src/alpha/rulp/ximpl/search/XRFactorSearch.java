@@ -103,7 +103,7 @@ public class XRFactorSearch extends AbsRFactorAdapter implements IRFactor, IRule
 			}
 		}
 
-		return SearchUtil.createASM(model, (IRList) rstExpr, fromList);
+		return SearchFactory.createASM(model, (IRList) rstExpr, fromList);
 
 		/********************************************/
 		// Run as rule group

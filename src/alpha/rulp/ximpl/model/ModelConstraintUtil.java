@@ -1,15 +1,13 @@
 package alpha.rulp.ximpl.model;
 
-import static alpha.rulp.lang.Constant.*;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.lang.Constant.O_From;
+import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
+import static alpha.rulp.rule.Constant.F_LIST_STMT;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import alpha.rulp.lang.IRAtom;
@@ -19,7 +17,6 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
