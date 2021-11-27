@@ -563,136 +563,136 @@ AC8[2]   0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (
 
 node info6:
 ========================================================================================================================================================
- NODE[n]   Queue Parent  Child   Rule Inherit   Join
+ NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0001[3]   MULTI      0     34      0       0      0
-V0005[3]  SINGLE      0      1     11       0      0
-A0002[3]   MULTI      1      4     12       0      0
-A0003[3]   MULTI      1      7      9       0      0
-A0009[3]   MULTI      1      1      1       0      0
-A0011[3]   MULTI      1      1      1       0      0
-A0012[3]   MULTI      1      5      5       0      0
-A0016[3]   MULTI      1      1      1       0      0
-A0018[3]   MULTI      1      2      2       0      0
-A0021[3]   MULTI      1      1      1       0      0
-A0022[3]   MULTI      1      6      9       0      0
-A0023[3]   MULTI      1      1      1       0      0
-A0026[3]   MULTI      1      1      1       0      0
-A0029[3]   MULTI      1      1      1       0      0
-A0034[3]   MULTI      1      1      1       0      0
-A0037[3]   MULTI      1      1      1       0      0
-A0041[3]   MULTI      1      1      1       0      0
-A0045[3]   MULTI      1      4      4       0      0
-A0048[3]   MULTI      1      4      3       0      0
-A0060[3]   MULTI      1      1      1       0      0
-A0062[3]   MULTI      1      1      1       0      0
-A0063[3]   MULTI      1      1      1       0      0
-A0066[3]   MULTI      1      1      1       0      0
-A0068[3]   MULTI      1      1      1       0      0
-A0070[3]   MULTI      1      3      2       0      0
-A0073[3]   MULTI      1      1      1       0      0
-A0077[3]   MULTI      1      1      1       0      0
-A0082[3]   MULTI      1      5      4       0      0
-A0085[3]   MULTI      1      2      2       0      0
-A0088[3]   MULTI      1      1      1       0      0
-A0093[3]   MULTI      1      1      1       0      0
-A0096[3]   MULTI      1      1      1       0      0
-A0099[3]   MULTI      1      1      1       0      0
-A0109[3]   MULTI      1      2      2       0      0
-A0114[3]   MULTI      1      1      1       0      0
-A0128[3]   MULTI      1      0      0       0      0
-A1006[3]  SINGLE      1      9     11       0      0
-E0004[3]   MULTI      1      1      1       0      0
-E0116[3]   MULTI      1      1      1       0      0
-E0120[3]   MULTI      1      1      1       0      0
-E0123[3]   MULTI      1      1      3       0      0
-E1032[4]   MULTI      1      1      1       0      0
-E1040[3]   MULTI      1      1      1       0      0
-E1051[3]   MULTI      1      1      2       0      0
-E1052[3]   MULTI      1      2      2       0      0
-E1078[3]   MULTI      1      1      1       0      0
-E1091[3]   MULTI      1      1      1       0      0
-E1102[3]   MULTI      1      3      1       0      0
-B0013[3]   MULTI      2      1      1       3      1
-B0019[4]   MULTI      2      1      1       4      1
-B0024[2]   MULTI      2      1      1       2      1
-B0031[4]   MULTI      2      1      1       4      2
-B0038[3]   MULTI      2      1      1       3      1
-B0049[3]   MULTI      2      1      1       3      1
-B0053[4]   MULTI      2      1      1       4      1
-B0055[4]   MULTI      2      1      1       4      1
-B0058[2]   MULTI      2      1      1       2      1
-B0064[2]   MULTI      2      1      1       2      1
-B0071[3]   MULTI      2      1      1       3      1
-B0074[3]   MULTI      2      1      1       3      1
-B0083[3]   MULTI      2      1      1       3      1
-B0086[2]   MULTI      2      1      1       2      2
-B0089[2]   MULTI      2      1      1       2      2
-B0097[2]   MULTI      2      1      1       2      2
-B0100[2]   MULTI      2      1      1       2      2
-B0103[3]   MULTI      2      1      1       3      1
-B0110[3]   MULTI      2      1      1       3      1
-B0115[3]   MULTI      2      1      1       3      1
-B1007[2]   MULTI      2      1      1       2      0
-B1043[4]   MULTI      2      1      1       4      0
-B1079[2]   MULTI      2      1      1       2      0
-B1105[4]   MULTI      2      1      1       4      0
-B1107[2]   MULTI      2      1      1       2      0
-B1112[4]   MULTI      2      1      1       4      0
-B1118[4]   MULTI      2      1      1       4      0
-B1121[2]   MULTI      2      1      1       2      0
-B1124[2]   MULTI      2      3      3       2      0
-B2027[3]   MULTI      2      1      1       3      1
-B2030[3]   MULTI      2      1      1       3      1
-B2035[3]   MULTI      2      1      1       3      1
-B2042[3]   MULTI      2      1      1       3      1
-B2046[3]   MULTI      2      1      1       3      1
-B2092[3]   MULTI      2      1      1       3      1
-B2094[3]   MULTI      2      1      1       3      2
-B2104[3]   MULTI      2      1      1       3      2
-B2111[3]   MULTI      2      1      1       3      1
-B2117[3]   MULTI      2      1      1       3      1
-  TV1[2]  ACTION      1      0      0       0      0
-  TC1[3]  ACTION      1      0      0       0      0
-  CC1[3]  ACTION      1      0      0       0      0
-  TG1[3]  ACTION      1      0      0       0      0
-  TG3[3]  ACTION      1      0      0       0      0
-   C1[4]  ACTION      1      0      0       0      0
-   C2[2]  ACTION      1      0      0       0      0
-   C3[3]  ACTION      1      0      0       0      0
-   C4[4]  ACTION      1      0      0       0      0
-   C5[3]  ACTION      1      0      0       0      0
-   C6[3]  ACTION      1      0      0       0      0
-   C7[4]  ACTION      1      0      0       0      0
-   C8[3]  ACTION      1      0      0       0      0
-   T1[3]  ACTION      1      0      0       0      0
-   T2[4]  ACTION      1      0      0       0      0
-   T3[4]  ACTION      1      0      0       0      0
-   T4[3]  ACTION      1      0      0       0      0
-   T5[2]  ACTION      1      0      0       0      0
-   T8[3]  ACTION      1      0      0       0      0
-  TA5[2]  ACTION      1      0      0       0      0
-   D1[3]  ACTION      1      0      0       0      0
-   D2[3]  ACTION      1      0      0       0      0
-   D3[3]  ACTION      1      0      0       0      0
-   D4[3]  ACTION      1      0      0       0      0
-   D5[3]  ACTION      1      0      0       0      0
-  DC1[2]  ACTION      1      0      0       0      0
-  RR1[3]  ACTION      1      0      0       0      0
-  RR2[3]  ACTION      1      0      0       0      0
-  RR3[2]  ACTION      1      0      0       0      0
-  RR4[2]  ACTION      1      0      0       0      0
-  RR5[3]  ACTION      1      0      0       0      0
-  RR6[2]  ACTION      1      0      0       0      0
-  RR7[2]  ACTION      1      0      0       0      0
-  AC1[4]  ACTION      1      0      0       0      0
-  AC2[2]  ACTION      1      0      0       0      0
-  AC3[4]  ACTION      1      0      0       0      0
-  AC4[4]  ACTION      1      0      0       0      0
-  AC5[2]  ACTION      1      0      0       0      0
-  AC6[2]  ACTION      1      0      0       0      0
-  AC7[2]  ACTION      1      0      0       0      0
-  AC8[2]  ACTION      1      0      0       0      0
+R0001[3] ROOT0 XRRoot0Node  MULTI       0    34    0    0    0   0   0 900 [null, null, null]
+V0005[3] VAR   XRReteNode0  SINGLE      0     1   11    0    0   0   0  99 [?model-state, ?_tmp_2, ?_tmp_3]
+A0002[3] ALPH0 XRReteNode1  MULTI       1     4   12    0    0   1   0  99 [?tag, null, ?_tmp_0]
+A0003[3] ALPH0 XRReteNode1  MULTI       1     7    9    0    0   1   0  99 [?tag, null, null]
+A0009[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?ti, null, ?tc]
+A0011[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, ?b]
+A0012[3] ALPH0 XRReteNode1  MULTI       1     5    5    0    0   1   0  99 [?b, null, ?c]
+A0016[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?x, null, ?p]
+A0018[3] ALPH0 XRReteNode1  MULTI       1     2    2    0    0   1   0  99 [?p1, null, ?p2]
+A0021[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [null, null, null]
+A0022[3] ALPH0 XRReteNode1  MULTI       1     6    9    0    0   1   0  99 [?p, null, ?_tmp_1]
+A0023[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?p, null, null]
+A0026[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?p, null, null]
+A0029[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?p, null, null]
+A0034[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?p, null, null]
+A0037[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?c1, null, ?c2]
+A0041[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?p, null, null]
+A0045[3] ALPH0 XRReteNode1  MULTI       1     4    4    0    0   1   0  99 [?p, null, null]
+A0048[3] ALPH0 XRReteNode1  MULTI       1     4    3    0    0   1   0  99 [?a, null, ?b]
+A0060[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?p1, null, ?p2]
+A0062[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, ?t]
+A0063[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, null]
+A0066[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?p1, null, ?p2]
+A0068[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, ?b]
+A0070[3] ALPH0 XRReteNode1  MULTI       1     3    2    0    0   1   0  99 [?a, null, ?b]
+A0073[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?db, null, ?t]
+A0077[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?d, null, null]
+A0082[3] ALPH0 XRReteNode1  MULTI       1     5    4    0    0   1   0  99 [?a, null, ?b]
+A0085[3] ALPH0 XRReteNode1  MULTI       1     2    2    0    0   1   0  99 [?a, null, ?b]
+A0088[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, ?b]
+A0093[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, ?b]
+A0096[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, ?b]
+A0099[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?b, null, ?a]
+A0109[3] ALPH0 XRReteNode1  MULTI       1     2    2    0    0   1   0  99 [?a, null, ?f]
+A0114[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?c, null, ?ins]
+A0128[3] ALPH0 XRReteNode1  MULTI       1     0    0    0    0   1   0   0 [?x, null, ?y]
+A1006[3] ALPH1 XRReteNode1  SINGLE      1     9   11    0    0   2   0  99 [?model-state, null, null]
+E0004[3] EXPR0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?tag, null, null]
+E0116[3] EXPR0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?c, ?ins, ?f]
+E0120[3] EXPR0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?t, null, null]
+E0123[3] EXPR0 XRReteNode1  MULTI       1     1    3    0    0   1   0  99 [?t, null, null]
+E1032[4] EXPR1 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, ?p, ?c, ?b]
+E1040[3] EXPR1 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [null, null, null]
+E1051[3] EXPR1 XRReteNode1  MULTI       1     1    2    0    0   1   0  99 [null, null, null]
+E1052[3] EXPR1 XRReteNode1  MULTI       1     2    2    0    0   1   0  99 [null, null, null]
+E1078[3] EXPR1 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?d, null, null]
+E1091[3] EXPR1 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [null, null, null]
+E1102[3] EXPR1 XRReteNode1  MULTI       1     3    1    0    0   1   0  99 [?b, null, ?c]
+B0013[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?a, ?b, ?c]
+B0019[4] BETA0 XRBetaNode0  MULTI       2     1    1    4    1   0   0  99 [?t1, ?p1, ?t2, ?p2]
+B0024[2] BETA0 XRBetaNode0  MULTI       2     1    1    2    1   0   0  99 [?a, ?p]
+B0031[4] BETA0 XRBetaNode0  MULTI       2     1    1    4    2   0   0  99 [?a, ?p, ?c, ?b]
+B0038[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?a, ?c1, ?c2]
+B0049[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?a, ?b, ?c]
+B0053[4] BETA0 XRBetaNode0  MULTI       2     1    1    4    1   0   0  99 [?a, ?p, ?c, ?b]
+B0055[4] BETA0 XRBetaNode0  MULTI       2     1    1    4    1   0   0  99 [?c, ?p, ?a, ?b]
+B0058[2] BETA0 XRBetaNode0  MULTI       2     1    1    2    1   0   0  99 [?p1, ?p2]
+B0064[2] BETA0 XRBetaNode0  MULTI       2     1    1    2    1   0   0  99 [?a, ?t]
+B0071[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?a, ?b, ?c]
+B0074[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?da, ?db, ?t]
+B0083[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?a, ?b, ?c]
+B0086[2] BETA0 XRBetaNode0  MULTI       2     1    1    2    2   0   0  99 [?a, ?b]
+B0089[2] BETA0 XRBetaNode0  MULTI       2     1    1    2    2   0   0  99 [?a, ?b]
+B0097[2] BETA0 XRBetaNode0  MULTI       2     1    1    2    2   0   0  99 [?a, ?b]
+B0100[2] BETA0 XRBetaNode0  MULTI       2     1    1    2    2   0   0  99 [?a, ?b]
+B0103[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?a, ?b, ?c]
+B0110[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?a, ?c, ?f]
+B0115[3] BETA0 XRBetaNode0  MULTI       2     1    1    3    1   0   0  99 [?c, ?ins, ?f]
+B1007[2] BETA1 XRBetaNode1  MULTI       2     1    1    2    0   0   0  99 [?tag, ?model-state]
+B1043[4] BETA1 XRBetaNode1  MULTI       2     1    1    4    0   0   0  99 [?a, ?p, ?b, ?model-state]
+B1079[2] BETA1 XRBetaNode1  MULTI       2     1    1    2    0   0   0  99 [?d, ?model-state]
+B1105[4] BETA1 XRBetaNode1  MULTI       2     1    1    4    0   0   0  99 [?a, ?b, ?c, ?model-state]
+B1107[2] BETA1 XRBetaNode1  MULTI       2     1    1    2    0   0   0  99 [?t, ?model-state]
+B1112[4] BETA1 XRBetaNode1  MULTI       2     1    1    4    0   0   0  99 [?a, ?c, ?f, ?model-state]
+B1118[4] BETA1 XRBetaNode1  MULTI       2     1    1    4    0   0   0  99 [?c, ?ins, ?f, ?model-state]
+B1121[2] BETA1 XRBetaNode1  MULTI       2     1    1    2    0   0   0  99 [?t, ?model-state]
+B1124[2] BETA1 XRBetaNode1  MULTI       2     3    3    2    0   0   0  99 [?t, ?model-state]
+B2027[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?a, ?p, ?b]
+B2030[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?a, ?p, ?c]
+B2035[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?a, ?p, ?b]
+B2042[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?a, ?p, ?b]
+B2046[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?a, ?p, ?b]
+B2092[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?a, ?p, ?b]
+B2094[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    2   0   0  99 [?a, ?p, ?b]
+B2104[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    2   0   0  99 [?a, ?b, ?c]
+B2111[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?a, ?c, ?f]
+B2117[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    1   0   0  99 [?c, ?ins, ?f]
+  TV1[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?tag, ?model-state]
+  TC1[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?ti, null, ?tc]
+  CC1[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b, ?c]
+  TG1[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?c, null, ?cc]
+  TG3[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?x, null, ?p]
+   C1[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?t1, ?p1, ?t2, ?p2]
+   C2[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p]
+   C3[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?b]
+   C4[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?c, ?b]
+   C5[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?b]
+   C6[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?c1, ?c2]
+   C7[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?b, ?model-state]
+   C8[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?b]
+   T1[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b, ?c]
+   T2[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?c, ?b]
+   T3[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?c, ?p, ?a, ?b]
+   T4[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?p, null, null]
+   T5[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?p1, ?p2]
+   T8[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?p1, null, ?p2]
+  TA5[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?t]
+   D1[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?p1, null, ?p2]
+   D2[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, null, ?b]
+   D3[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b, ?c]
+   D4[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?da, ?db, ?t]
+   D5[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?t, null, null]
+  DC1[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?d, ?model-state]
+  RR1[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, null, ?b]
+  RR2[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b, ?c]
+  RR3[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b]
+  RR4[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b]
+  RR5[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?b]
+  RR6[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b]
+  RR7[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b]
+  AC1[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?b, ?c, ?model-state]
+  AC2[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?t, ?model-state]
+  AC3[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?c, ?f, ?model-state]
+  AC4[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?c, ?ins, ?f, ?model-state]
+  AC5[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?t, ?model-state]
+  AC6[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?t, ?model-state]
+  AC7[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?t, ?model-state]
+  AC8[2] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?t, ?model-state]
 ========================================================================================================================================================
 
 priority info:

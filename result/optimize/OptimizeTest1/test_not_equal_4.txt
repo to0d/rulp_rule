@@ -78,18 +78,18 @@ RU001[3] 0     ADD   (-> '(?0, p5, ?2))
 
 node info6:
 ========================================================================================================================================================
- NODE[n]   Queue Parent  Child   Rule Inherit   Join
+ NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0001[3]   MULTI      0      3      0       0      0
-A0004[3]   MULTI      1      1      2       0      0
-A0005[3]   MULTI      1      1      2       0      0
-A0008[3]   MULTI      1      1      1       0      0
-E1002[3]   MULTI      1      1      2       0      0
-E1003[3]   MULTI      1      1      2       0      0
-B2006[3]   MULTI      2      2      2       3      1
-B2009[3]   MULTI      2      1      1       3      2
-RU000[3]  ACTION      1      0      0       0      0
-RU001[3]  ACTION      1      0      0       0      0
+R0001[3] ROOT0 XRRoot0Node  MULTI       0     3    0    0    0   0   0 900 [null, null, null]
+A0004[3] ALPH0 XRReteNode1  MULTI       1     1    2    0    0   1   0  99 [?p, null, ?_tmp_0]
+A0005[3] ALPH0 XRReteNode1  MULTI       1     1    2    0    0   1   0  99 [?p, null, null]
+A0008[3] ALPH0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a2, null, ?b2]
+E1002[3] EXPR1 XRReteNode1  MULTI       1     1    2    0    0   1   0  99 [null, null, null]
+E1003[3] EXPR1 XRReteNode1  MULTI       1     1    2    0    0   1   0  99 [null, null, null]
+B2006[3] BETA2 XRBetaNode2  MULTI       2     2    2    3    1   0   0  99 [?a, ?p, ?b]
+B2009[3] BETA2 XRBetaNode2  MULTI       2     1    1    3    2   0   0  99 [?a2, ?p2, ?b2]
+RU000[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, ?p, ?b]
+RU001[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a2, ?p2, ?b2]
 ========================================================================================================================================================
 
 priority info:

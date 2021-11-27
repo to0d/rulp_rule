@@ -77,7 +77,6 @@ import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.AbsReteNode;
@@ -1278,49 +1277,18 @@ public class StatsUtil {
 		sb.append("\n");
 	}
 
-	private static void _printNodeInfo6(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
-
-		sb.append("node info6:\n");
-		sb.append(SEP_LINE1);
-
-		sb.append(String.format("%8s  %6s %6s %6s %6s %7s %6s\n", "NODE[n]", "Queue", "Parent", "Child", "Rule",
-				"Inherit", "Join"));
-		sb.append(SEP_LINE2);
-
-		for (IRReteNode node : nodes) {
-
-			int joinCount = 0;
-			if (RReteType.isBetaType(node.getReteType())) {
-				IRBetaNode betaNode = (IRBetaNode) node;
-				List<JoinIndex> joinIndex = betaNode.getJoinIndexList();
-				if (joinIndex != null) {
-					joinCount = joinIndex.size();
-				}
-			}
-
-			sb.append(String.format("%8s  %6s %6d %6d %6d %7d %6d",
-					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getEntryQueue().getQueueType(),
-					node.getParentCount(), node.getChildNodes().size(),
-					model.getNodeGraph().getRelatedRules(node).size(),
-					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount));
-
-			sb.append("\n");
-		}
-
-		sb.append(SEP_LINE1);
-		sb.append("\n");
-	}
-
 	private static void _printNodeInfo3(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
 
 		sb.append("node info3:\n");
 		sb.append(SEP_LINE1);
+
 		sb.append(String.format("%8s  %s\n", "NODE[n]", "UniqName"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : nodes) {
-			sb.append(String.format("%8s  %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+			sb.append(String.format("%8s  %s", node.getNodeName() + "[" + node.getEntryLength() + "]",
 					node.getUniqName()));
+			sb.append("\n");
 		}
 
 		sb.append(SEP_LINE1);
@@ -1426,6 +1394,47 @@ public class StatsUtil {
 				sb.append(SEP_LINE2);
 			}
 			sb.append(line);
+			sb.append("\n");
+		}
+
+		sb.append(SEP_LINE1);
+		sb.append("\n");
+	}
+
+	private static void _printNodeInfo6(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		sb.append("node info6:\n");
+		sb.append(SEP_LINE1);
+
+		sb.append(String.format("%8s %-5s %-12s %-6s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n", "NODE[n]", "Type",
+				"Class", "Queue", "Parent", "Child", "Rule", "Inhe", "Join", "C1", "C2", "Pri", "VarEntry"));
+		sb.append(SEP_LINE2);
+
+		for (IRReteNode node : nodes) {
+
+			int joinCount = 0;
+			if (RReteType.isBetaType(node.getReteType())) {
+				IRBetaNode betaNode = (IRBetaNode) node;
+				List<JoinIndex> joinIndex = betaNode.getJoinIndexList();
+				if (joinIndex != null) {
+					joinCount = joinIndex.size();
+				}
+			}
+
+			int constraint2Count = 0;
+			if (RReteType.isBetaType(node.getReteType())) {
+				constraint2Count = ((IRBetaNode) node).getConstraint2Count();
+			}
+
+			String varEntry = "" + StatsUtil.toList(node.getVarEntry());
+
+			sb.append(String.format("%8s %-5s %-12s %-6s %6d %5d %4d %4d %4d %3d %3d %3d %s",
+					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(),
+					node.getClass().getSimpleName(), "" + node.getEntryQueue().getQueueType(), node.getParentCount(),
+					node.getChildNodes().size(), model.getNodeGraph().getRelatedRules(node).size(),
+					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount,
+					node.getConstraint1Count(), constraint2Count, node.getPriority(), varEntry));
+
 			sb.append("\n");
 		}
 
@@ -2464,6 +2473,10 @@ public class StatsUtil {
 
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> toList(T... objs) {
+
+		if (objs == null) {
+			return Collections.emptyList();
+		}
 
 		ArrayList<T> list = new ArrayList<>();
 		for (T o : objs) {

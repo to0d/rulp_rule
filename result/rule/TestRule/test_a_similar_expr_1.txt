@@ -63,14 +63,14 @@ RU001[3] 0     EXPR  (remove-stmt ?0)
 
 node info6:
 ========================================================================================================================================================
- NODE[n]   Queue Parent  Child   Rule Inherit   Join
+ NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0001[3]   MULTI      0      1      0       0      0
-A0002[3]   MULTI      1      2      2       0      0
-E0003[3]   MULTI      1      1      1       0      0
-E0005[3]   MULTI      1      1      1       0      0
-RU000[3]  ACTION      1      0      0       0      0
-RU001[3]  ACTION      1      0      0       0      0
+R0001[3] ROOT0 XRRoot0Node  MULTI       0     1    0    0    0   0   0 900 [null, null, null]
+A0002[3] ALPH0 XRReteNode1  MULTI       1     2    2    0    0   1   0  99 [?a, null, ?b]
+E0003[3] EXPR0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?a, null, ?b]
+E0005[3] EXPR0 XRReteNode1  MULTI       1     1    1    0    0   1   0  99 [?x, null, ?y]
+RU000[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?a, null, ?b]
+RU001[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0  99 [?x, null, ?y]
 ========================================================================================================================================================
 
 priority info:

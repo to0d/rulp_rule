@@ -83,20 +83,20 @@ CST04[3] 0     ADD   (-> $cst_node$:'(?0, min))
 
 node info6:
 ========================================================================================================================================================
- NODE[n]   Queue Parent  Child   Rule Inherit   Join
+ NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-N0001[3]   MULTI      0      0      0       0      0
-N0002[3]   MULTI      0      3      2       0      0
-N0007[3]   MULTI      0      1      1       0      0
-N0009[3]   MULTI      0      1      1       0      0
-N0011[1]   MULTI      0      0      0       0      0
-N0012[2]   MULTI      0      0      0       0      0
-E1004[4]   MULTI      1      1      1       0      0
-B0003[4]   MULTI      2      1      1       4      2
-CST01[4]  ACTION      1      0      0       0      0
-CST02[3]  ACTION      1      0      0       0      0
-CST03[3]  ACTION      1      0      0       0      0
-CST04[3]  ACTION      1      0      0       0      0
+N0001[3] NAME0 XRNamedNode  MULTI       0     0    0    0    0   1   0   0 [null, null, null]
+N0002[3] NAME0 XRNamedNode  MULTI       0     3    2    0    0   0   0   0 [null, null, null]
+N0007[3] NAME0 XRNamedNode  MULTI       0     1    1    0    0   0   0   0 [null, null, null]
+N0009[3] NAME0 XRNamedNode  MULTI       0     1    1    0    0   0   0   0 [null, null, null]
+N0011[1] NAME0 XRNamedNode  MULTI       0     0    0    0    0   0   0   0 [null]
+N0012[2] NAME0 XRNamedNode  MULTI       0     0    0    0    0   0   0   0 [null, null]
+E1004[4] EXPR1 XRReteNode1  MULTI       1     1    1    0    0   1   0   0 [?node, ?index, ?type1, ?type2]
+B0003[4] BETA0 XRBetaNode0  MULTI       2     1    1    4    2   0   0   0 [?node, ?index, ?type1, ?type2]
+CST01[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0   0 [?node, ?index, ?type1, ?type2]
+CST02[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0   0 [?node, ?index, ?type1]
+CST03[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0   0 [?node, ?index, ?value]
+CST04[3] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0   0 [?node, ?index, ?value]
 ========================================================================================================================================================
 
 priority info:

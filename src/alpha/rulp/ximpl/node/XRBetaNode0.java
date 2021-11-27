@@ -11,13 +11,12 @@ import java.util.Set;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBeta0Node extends XRReteNode2 implements IRBetaNode {
+public class XRBetaNode0 extends XRReteNode2 implements IRBetaNode {
 
 	public static int MAP_MATCH_MIN_COUNT = 100;
 

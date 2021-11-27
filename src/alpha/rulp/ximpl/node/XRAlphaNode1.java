@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.node;
 import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
 
-public class XRAlpha1Node extends XRReteNode1 {
+public class XRAlphaNode1 extends XRReteNode1 {
 
 	@Override
 	public int update() throws RException {

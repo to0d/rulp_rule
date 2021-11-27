@@ -104,7 +104,7 @@ public class RNodeFactory {
 			throw new RException("Invalid parent queue: " + parentNode);
 		}
 
-		XRAlpha2Node node = new XRAlpha2Node();
+		XRAlphaNode2 node = new XRAlphaNode2();
 
 		// Model
 		node.setModel(model);
@@ -143,7 +143,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
-		XRBeta0Node node = new XRBeta0Node();
+		XRBetaNode0 node = new XRBetaNode0();
 
 		// Model
 		node.setModel(model);
@@ -193,7 +193,7 @@ public class RNodeFactory {
 			throw new RException("Invalid right parent queue: " + rightNode);
 		}
 
-		XRBeta1Node node = new XRBeta1Node();
+		XRBetaNode1 node = new XRBetaNode1();
 
 		// Model
 		node.setModel(model);
@@ -240,7 +240,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
-		XRBeta2Node node = new XRBeta2Node();
+		XRBetaNode2 node = new XRBetaNode2();
 
 		// Model
 		node.setModel(model);
@@ -286,7 +286,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs) throws RException {
 
-		XRBeta3Node node = new XRBeta3Node();
+		XRBetaNode3 node = new XRBetaNode3();
 
 		// Model
 		node.setModel(model);

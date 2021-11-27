@@ -5,7 +5,7 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBeta1Node extends XRBeta0Node {
+public class XRBetaNode1 extends XRBetaNode0 {
 
 	private boolean rightConstNodeIsRun = false;
 

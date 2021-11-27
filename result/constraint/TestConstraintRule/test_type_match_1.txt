@@ -57,13 +57,13 @@ RU000[4] 0     ADD   (-> $cst_conflict_constraint$:'(?0, ?1, ?2, ?3))
 
 node info6:
 ========================================================================================================================================================
- NODE[n]   Queue Parent  Child   Rule Inherit   Join
+ NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-N0001[3]   MULTI      0      2      1       0      0
-N0005[4]   MULTI      0      0      0       0      0
-E1003[4]   MULTI      1      1      1       0      0
-B0002[4]   MULTI      2      1      1       4      2
-RU000[4]  ACTION      1      0      0       0      0
+N0001[3] NAME0 XRNamedNode  MULTI       0     2    1    0    0   0   0   0 [null, null, null]
+N0005[4] NAME0 XRNamedNode  MULTI       0     0    0    0    0   0   0   0 [null, null, null, null]
+E1003[4] EXPR1 XRReteNode1  MULTI       1     1    1    0    0   1   0   0 [?node, ?index, ?type1, ?type2]
+B0002[4] BETA0 XRBetaNode0  MULTI       2     1    1    4    2   0   0   0 [?node, ?index, ?type1, ?type2]
+RU000[4] RULE  XRRuleNode   ACTION      1     0    0    0    0   0   0   0 [?node, ?index, ?type1, ?type2]
 ========================================================================================================================================================
 
 priority info:

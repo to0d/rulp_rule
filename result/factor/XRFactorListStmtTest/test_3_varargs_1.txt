@@ -57,15 +57,15 @@ A0007[3]       2      1   C1:(cmp-entry-value = ?0 a)
 
 node info6:
 ========================================================================================================================================================
- NODE[n]   Queue Parent  Child   Rule Inherit   Join
+ NODE[n] Type  Class        Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0001[1]   MULTI      0      0      0       0      0
-R0002[2]   MULTI      0      1      0       0      0
-R0003[3]   MULTI      0      1      0       0      0
-N0004[3]   MULTI      0      1      0       0      0
-A0005[2]   MULTI      1      0      0       0      0
-A0006[3]   MULTI      1      0      0       0      0
-A0007[3]   MULTI      1      0      0       0      0
+R0001[1] ROOT0 XRRoot0Node  MULTI       0     0    0    0    0   0   0 900 [null]
+R0002[2] ROOT0 XRRoot0Node  MULTI       0     1    0    0    0   0   0 900 [null, null]
+R0003[3] ROOT0 XRRoot0Node  MULTI       0     1    0    0    0   0   0 900 [null, null, null]
+N0004[3] NAME0 XRNamedNode  MULTI       0     1    0    0    0   0   0   0 [null, null, null]
+A0005[2] ALPH0 XRReteNode1  MULTI       1     0    0    0    0   1   0   0 [null, ?_vg_0]
+A0006[3] ALPH0 XRReteNode1  MULTI       1     0    0    0    0   1   0   0 [null, ?_vg_0, ?_vg_1]
+A0007[3] ALPH0 XRReteNode1  MULTI       1     0    0    0    0   1   0   0 [null, ?_vg_0, ?_vg_1]
 ========================================================================================================================================================
 
 priority info:
