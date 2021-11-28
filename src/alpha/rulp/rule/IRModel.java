@@ -49,10 +49,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void addUpdateNode(IRReteNode node) throws RException;
 
-	public int assumeStatement(IRList stmt) throws RException;
-
-	public int assumeStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
-
 	public void beginTransaction() throws RException;
 
 	public IRIterator<? extends IRList> buildStatementIterator(IRList filter) throws RException;

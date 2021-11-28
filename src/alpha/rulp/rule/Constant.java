@@ -181,7 +181,7 @@ public interface Constant {
 
 	String F_TRACE_RULE = "trace-rule";
 
-	String F_TRY_ADD_STMT = "try-add-stmt";
+//	String F_TRY_ADD_STMT = "try-add-stmt";
 
 	String F_VAR_CHANGED = "var-changed";
 

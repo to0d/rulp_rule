@@ -5,7 +5,6 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
 import static alpha.rulp.rule.Constant.V_M_STATE;
-import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
@@ -1388,37 +1387,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 				_setRunState(RRunState.Runnable);
 			}
 		}
-	}
-
-	@Override
-	public int assumeStatement(IRList stmt) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> assumeStatement: " + stmt);
-		}
-
-		return _addReteEntry(stmt, ASSUME);
-	}
-
-	@Override
-	public int assumeStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addStatements: ");
-		}
-
-		int count = 0;
-		while (stmtIterator.hasNext()) {
-
-			IRList stmt = stmtIterator.next();
-			if (RuleUtil.isModelTrace()) {
-				System.out.println("\t(" + stmt + ")");
-			}
-
-			count += _addReteEntry(stmt, ASSUME);
-		}
-
-		return count;
 	}
 
 	@Override
