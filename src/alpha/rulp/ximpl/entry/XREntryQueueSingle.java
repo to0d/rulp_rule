@@ -6,7 +6,7 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 
-public class XREntryQueueSingleEntryList implements IREntryQueue {
+public class XREntryQueueSingle implements IREntryQueue {
 
 	protected IRReteNode bindNode;
 
@@ -24,7 +24,7 @@ public class XREntryQueueSingleEntryList implements IREntryQueue {
 
 	protected int queryFetchCount = 0;
 
-	public XREntryQueueSingleEntryList(int entryLength) {
+	public XREntryQueueSingle(int entryLength) {
 		super();
 		this.entryLength = entryLength;
 	}

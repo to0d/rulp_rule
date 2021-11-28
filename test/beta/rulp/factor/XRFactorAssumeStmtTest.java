@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
-class XRFactorAssumeStmttTest extends RuleTestBase {
+class XRFactorAssumeStmtTest extends RuleTestBase {
 
 	@Test
 	void test_assume_2_constraint_1() {

@@ -11,11 +11,11 @@ import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
-public class XREntryQueueUniqEntryList extends XREntryQueueMulitEntryList implements IRRListener1<IRReteEntry> {
+public class XREntryQueueUniq extends XREntryQueueMulit implements IRRListener1<IRReteEntry> {
 
 	protected Map<String, IRReteEntry> uniqEntryMap = new HashMap<>();
 
-	public XREntryQueueUniqEntryList(int entryLength) {
+	public XREntryQueueUniq(int entryLength) {
 		super(entryLength);
 	}
 

@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.node;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
+import alpha.rulp.ximpl.entry.XREntryQueueSingle;
 
 public class XRNodeAlph1 extends XRNodeRete1 {
 
@@ -15,7 +15,7 @@ public class XRNodeAlph1 extends XRNodeRete1 {
 		++nodeExecCount;
 
 		// Single node's parent must be single entry queue
-		XREntryQueueSingleEntryList parentEntryQueue = (XREntryQueueSingleEntryList) parentNodes[0].getEntryQueue();
+		XREntryQueueSingle parentEntryQueue = (XREntryQueueSingle) parentNodes[0].getEntryQueue();
 
 		/*********************************************/
 		// idle

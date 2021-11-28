@@ -7,7 +7,7 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
-public class XREntryQueueMulitEntryList implements IREntryQueue {
+public class XREntryQueueMulit implements IREntryQueue {
 
 	static class XREntryCounter implements IREntryCounter {
 
@@ -29,11 +29,11 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 
 		protected int entryTotalCount = 0;
 
-		public XREntryCounter(XREntryQueueMulitEntryList queue) {
+		public XREntryCounter(XREntryQueueMulit queue) {
 			_updateEntryCount(queue);
 		}
 
-		protected void _updateEntryCount(XREntryQueueMulitEntryList queue) {
+		protected void _updateEntryCount(XREntryQueueMulit queue) {
 
 			entryTotalCount = 0;
 			entryNullCount = 0;
@@ -150,7 +150,7 @@ public class XREntryQueueMulitEntryList implements IREntryQueue {
 
 	protected int queryFetchCount = 0;
 
-	public XREntryQueueMulitEntryList(int entryLength) {
+	public XREntryQueueMulit(int entryLength) {
 		super();
 		this.entryLength = entryLength;
 	}

@@ -22,9 +22,9 @@ import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.entry.XREntryQueueEmpty;
-import alpha.rulp.ximpl.entry.XREntryQueueMulitEntryList;
-import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
-import alpha.rulp.ximpl.entry.XREntryQueueUniqEntryList;
+import alpha.rulp.ximpl.entry.XREntryQueueMulit;
+import alpha.rulp.ximpl.entry.XREntryQueueSingle;
+import alpha.rulp.ximpl.entry.XREntryQueueUniq;
 
 public class RNodeFactory {
 
@@ -49,7 +49,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
@@ -64,7 +64,7 @@ public class RNodeFactory {
 	public static XRNodeRete1 createAlpha1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
-		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingleEntryList)) {
+		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingle)) {
 			throw new RException("Invalid parent queue: " + parentNode);
 		}
 
@@ -86,7 +86,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueSingleEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueSingle(entryLength));
 
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
 		parentNode.addChildNode(node);
@@ -101,7 +101,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
 			throws RException {
 
-		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingleEntryList)) {
+		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingle)) {
 			throw new RException("Invalid parent queue: " + parentNode);
 		}
 
@@ -126,7 +126,7 @@ public class RNodeFactory {
 		node.setEntryTable(entryTable);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueSingleEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueSingle(entryLength));
 
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
 		parentNode.addChildNode(node);
@@ -165,7 +165,7 @@ public class RNodeFactory {
 		node.setEntryTable(entryTable);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
@@ -190,7 +190,7 @@ public class RNodeFactory {
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
-		if (!(rightNode.getEntryQueue() instanceof XREntryQueueSingleEntryList)) {
+		if (!(rightNode.getEntryQueue() instanceof XREntryQueueSingle)) {
 			throw new RException("Invalid right parent queue: " + rightNode);
 		}
 
@@ -215,7 +215,7 @@ public class RNodeFactory {
 		node.setEntryTable(entryTable);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
@@ -262,7 +262,7 @@ public class RNodeFactory {
 		node.setEntryTable(entryTable);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
@@ -308,7 +308,7 @@ public class RNodeFactory {
 		node.setEntryTable(entryTable);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
@@ -348,7 +348,7 @@ public class RNodeFactory {
 
 		// Entry queue
 		{
-			XREntryQueueSingleEntryList entryQueue = new XREntryQueueSingleEntryList(constStmt.size());
+			XREntryQueueSingle entryQueue = new XREntryQueueSingle(constStmt.size());
 			entryQueue.setBindNode(node);
 			entryQueue.setEntryTable(entryTable);
 			node.setEntryQueue(entryQueue);
@@ -382,7 +382,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
@@ -415,7 +415,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
@@ -448,7 +448,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
@@ -487,7 +487,7 @@ public class RNodeFactory {
 		node.setEntryTable(entryTable);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
@@ -527,7 +527,7 @@ public class RNodeFactory {
 		node.setEntryTable(entryTable);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(entryLength));
+		node.setEntryQueue(new XREntryQueueMulit(entryLength));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
@@ -566,7 +566,7 @@ public class RNodeFactory {
 		node.setEntryLength(stmtLen);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(stmtLen));
+		node.setEntryQueue(new XREntryQueueMulit(stmtLen));
 
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);
@@ -601,7 +601,7 @@ public class RNodeFactory {
 		node.setEntryLength(stmtLen);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueUniqEntryList(stmtLen));
+		node.setEntryQueue(new XREntryQueueUniq(stmtLen));
 
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);
@@ -678,7 +678,7 @@ public class RNodeFactory {
 		node.setEntryLength(3);
 
 		// Entry queue
-		XREntryQueueSingleEntryList entryQueue = new XREntryQueueSingleEntryList(3);
+		XREntryQueueSingle entryQueue = new XREntryQueueSingle(3);
 		entryQueue.setBindNode(node);
 		entryQueue.setEntryTable(entryTable);
 		node.setEntryQueue(entryQueue);
