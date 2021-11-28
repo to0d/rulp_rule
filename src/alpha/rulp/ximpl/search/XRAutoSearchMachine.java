@@ -10,12 +10,12 @@ import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RRunState;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.ModelConstraintUtil;
-import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMachine {
@@ -24,11 +24,11 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 
 		private ISScope<List<IRObject>> entryScope;
 
-		private IRNamedNode searchNode;
+		private IRReteNode searchNode;
 
 		private ArrayList<SVar> searchVars;
 
-		public SEntry(IRNamedNode searchNode, ArrayList<String> varNames) {
+		public SEntry(IRReteNode searchNode, ArrayList<String> varNames) {
 			super();
 			this.searchNode = searchNode;
 			this.searchVars = new ArrayList<>();
@@ -270,7 +270,7 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 		/********************************************/
 		// Check node
 		/********************************************/
-		IRNamedNode searchNode = model.getNodeGraph().findNamedNode(nodeName);
+		IRReteNode searchNode = model.getNodeGraph().findNamedNode(nodeName);
 		if (searchNode == null) {
 			throw new RException("search node not found: " + searchEntry);
 		}

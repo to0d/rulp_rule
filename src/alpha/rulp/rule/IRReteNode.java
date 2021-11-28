@@ -84,6 +84,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public IRConstraint1 getLastFailedConstraint1();
 
+	public String getNamedName();
+
 	public int getNodeExecCount();
 
 	public int getNodeFailedCount();

@@ -19,11 +19,11 @@ public class XRNodeConst extends XRNodeRete0 implements IRRListener1<IRReteEntry
 			return 0;
 		}
 
-		IRRootNode parentNode = (IRRootNode) this.getParentNodes()[0];
+		IRReteNode parentNode = this.getParentNodes()[0];
 		String constUniqName = this.getUniqName();
 //		XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) parentNode.getEntryQueue();
 
-		constEntry = parentNode.getStmt(constUniqName);
+		constEntry = parentNode.getEntryQueue().getStmt(constUniqName);
 		if (constEntry == null) {
 			return 0;
 		}

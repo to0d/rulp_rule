@@ -55,7 +55,6 @@ import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRObjBuilder;
-import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 
@@ -697,7 +696,7 @@ public class ReteUtil {
 		return varList;
 	}
 
-	public static IRNamedNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
+	public static IRReteNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 
 		String namedName = filter.getNamedName();
 		if (namedName == null) {
@@ -720,7 +719,7 @@ public class ReteUtil {
 		/**************************************************/
 		// Check entry length
 		/**************************************************/
-		IRNamedNode namedNode = graph.findNamedNode(namedName);
+		IRReteNode namedNode = graph.findNamedNode(namedName);
 		if (namedNode != null) {
 
 			if (varArgIndex == -1) {
@@ -1580,7 +1579,7 @@ public class ReteUtil {
 					/******************************************************/
 					// n:'(?...) or n:'(?x ?...)
 					/******************************************************/
-					IRNamedNode namedNode = graph.findNamedNode(namedName);
+					IRReteNode namedNode = graph.findNamedNode(namedName);
 					if (namedNode == null) {
 						throw new RException(String.format("namedNode not found: %s", namedName));
 					}

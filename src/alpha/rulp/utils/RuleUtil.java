@@ -23,7 +23,6 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.node.IRBetaNode;
-import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
 import alpha.rulp.ximpl.scope.IRScope;
@@ -131,13 +130,13 @@ public class RuleUtil {
 		return (IRModel) obj;
 	}
 
-	public static IRNamedNode asNamedNode(IRReteNode node) throws RException {
+	public static IRReteNode asNamedNode(IRReteNode node) throws RException {
 
 		if (node.getReteType() != RReteType.NAME0) {
 			throw new RException("Can't convert to named node: " + node);
 		}
 
-		return (IRNamedNode) node;
+		return node;
 	}
 
 	public static IRRule asRule(IRObject obj) throws RException {

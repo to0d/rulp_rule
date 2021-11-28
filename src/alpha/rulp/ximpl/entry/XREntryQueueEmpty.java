@@ -2,7 +2,6 @@ package alpha.rulp.ximpl.entry;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
-import alpha.rulp.utils.ReteUtil;
 
 public class XREntryQueueEmpty implements IREntryQueue {
 

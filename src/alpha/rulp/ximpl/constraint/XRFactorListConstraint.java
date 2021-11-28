@@ -7,6 +7,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
@@ -15,7 +16,6 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRFactorListConstraint extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -59,7 +59,7 @@ public class XRFactorListConstraint extends AbsRFactorAdapter implements IRFacto
 		/**************************************************/
 		// Find node
 		/**************************************************/
-		IRNamedNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
+		IRReteNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
 		if (node == null) {
 			throw new RException(String.format("node not found: %s", namedList));
 		}

@@ -10,6 +10,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
@@ -19,7 +20,6 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -62,7 +62,7 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 		// Check named list
 		/**************************************************/
 		IRList namedList = RulpUtil.asList(interpreter.compute(frame, args.get(argIndex++)));
-		IRNamedNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
+		IRReteNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
 		if (node == null) {
 
 			int anyIndex = ReteUtil.indexOfVarArgStmt(namedList);

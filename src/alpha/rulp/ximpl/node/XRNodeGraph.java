@@ -292,7 +292,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IRModel model;
 
-	protected final Map<String, IRNamedNode> namedNodeMap = new HashMap<>();
+	protected final Map<String, IRReteNode> namedNodeMap = new HashMap<>();
 
 	protected ArrayList<IRReteNode> nodeInfoArray = new ArrayList<>();
 
@@ -300,7 +300,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected final Map<String, IRReteNode> nodeUniqNameMap = new HashMap<>();
 
-	protected IRRootNode[] rootNodeArray = new IRRootNode[STMT_MAX_LEN + 1];
+	protected IRReteNode[] rootNodeArray = new IRReteNode[STMT_MAX_LEN + 1];
 
 	protected final Map<String, XRNodeRule0> ruleNodeMap = new HashMap<>();
 
@@ -665,7 +665,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		int stmtLen = constStmt.size();
-		IRRootNode parentNode = getRootNode(stmtLen);
+		IRReteNode parentNode = getRootNode(stmtLen);
 
 		return RNodeFactory.createConstNode(model, _getNextNodeId(), constStmt, entryTable, parentNode);
 	}
@@ -814,13 +814,13 @@ public class XRNodeGraph implements IRNodeGraph {
 		return node;
 	}
 
-	protected IRNamedNode _buildNamedNode(String namedName, int stmtLen) throws RException {
+	protected IRReteNode _buildNamedNode(String namedName, int stmtLen) throws RException {
 
 		if (namedName == null || stmtLen == -1) {
 			throw new RException(String.format("invalid namedNode<%s:%d>", namedName, stmtLen));
 		}
 
-		IRNamedNode namedNode = namedNodeMap.get(namedName);
+		IRReteNode namedNode = namedNodeMap.get(namedName);
 
 		if (namedNode == null) {
 
@@ -930,7 +930,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IRReteNode _buildRootNode(int stmtLen) throws RException {
 
-		IRRootNode rootNode = rootNodeArray[stmtLen];
+		IRReteNode rootNode = rootNodeArray[stmtLen];
 		if (rootNode == null) {
 			rootNode = RNodeFactory.createRoot0Node(model, _getNextNodeId(), stmtLen);
 			rootNodeArray[stmtLen] = rootNode;
@@ -942,7 +942,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		return rootNode;
 	}
 
-	protected IRNodeSubGraph _buildSubGraphConstraintCheck(IRNamedNode rootNode) throws RException {
+	protected IRNodeSubGraph _buildSubGraphConstraintCheck(IRReteNode rootNode) throws RException {
 
 		XRNodeSubGraph subGraph = new XRNodeSubGraph();
 
@@ -1383,7 +1383,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		String namedName = null;
 		if (node.getReteType() == RReteType.NAME0) {
-			namedName = ((IRNamedNode) node).getNamedName();
+			namedName = node.getNamedName();
 		}
 
 		/******************************************************/
@@ -1415,7 +1415,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		return info.sourceNodes;
 	}
 
-	protected Map<IRReteNode, List<IRReteNode>> _openAffectNodeMap(IRNamedNode rootNode) throws RException {
+	protected Map<IRReteNode, List<IRReteNode>> _openAffectNodeMap(IRReteNode rootNode) throws RException {
 
 		if (_affectNodeMap == null) {
 			_affectNodeMap = new HashMap<>();
@@ -1644,7 +1644,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNodeSubGraph buildConstraintCheckSubGraph(IRNamedNode rootNode) throws RException {
+	public IRNodeSubGraph buildConstraintCheckSubGraph(IRReteNode rootNode) throws RException {
 
 		if (_constraintCheckSubGraphMap == null) {
 			_constraintCheckSubGraphMap = new HashMap<>();
@@ -1774,12 +1774,12 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNamedNode findNamedNode(String name) throws RException {
+	public IRReteNode findNamedNode(String name) throws RException {
 		return namedNodeMap.get(name);
 	}
 
 	@Override
-	public IRRootNode findRootNode(int stmtLen) throws RException {
+	public IRReteNode findRootNode(int stmtLen) throws RException {
 		return rootNodeArray[stmtLen];
 	}
 
@@ -1804,9 +1804,9 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNamedNode getNamedNode(String name, int stmtLen) throws RException {
+	public IRReteNode getNamedNode(String name, int stmtLen) throws RException {
 
-		IRNamedNode namedNode = namedNodeMap.get(name);
+		IRReteNode namedNode = namedNodeMap.get(name);
 		if (namedNode == null) {
 			namedNode = _buildNamedNode(name, stmtLen);
 			_addReteNode(namedNode);
@@ -1882,11 +1882,11 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRRootNode getRootNode(int stmtLen) throws RException {
+	public IRReteNode getRootNode(int stmtLen) throws RException {
 
-		IRRootNode rootNode = rootNodeArray[stmtLen];
+		IRReteNode rootNode = rootNodeArray[stmtLen];
 		if (rootNode == null) {
-			rootNode = (IRRootNode) _buildRootNode(stmtLen);
+			rootNode = _buildRootNode(stmtLen);
 			_addReteNode(rootNode);
 			rootNode.setReteTree(_getUniqStmt(ReteUtil.getRootUniqName(stmtLen)));
 		}

@@ -7,10 +7,10 @@ import java.util.Set;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.node.IRRootNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class RefPrinter {
@@ -92,7 +92,7 @@ public class RefPrinter {
 		/****************************************************/
 		// Find root node
 		/****************************************************/
-		IRRootNode rootNode = null;
+		IRReteNode rootNode = null;
 		if (stmt.getNamedName() == null) {
 			rootNode = model.getNodeGraph().findRootNode(stmt.size());
 		} else {
@@ -108,7 +108,7 @@ public class RefPrinter {
 			return String.format("==> %s: node not found\n", uniqName);
 		}
 
-		IRReteEntry entry = rootNode.getStmt(uniqName);
+		IRReteEntry entry = rootNode.getEntryQueue().getStmt(uniqName);
 		if (entry == null) {
 			return String.format("==> %s: entry not found\n", uniqName);
 		}

@@ -33,7 +33,7 @@ public interface IRNodeGraph {
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
 
-	public IRNodeSubGraph buildConstraintCheckSubGraph(IRNamedNode rootNode) throws RException;
+	public IRNodeSubGraph buildConstraintCheckSubGraph(IRReteNode rootNode) throws RException;
 
 	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException;
 
@@ -41,9 +41,9 @@ public interface IRNodeGraph {
 
 	public int doOptimize() throws RException;
 
-	public IRNamedNode findNamedNode(String name) throws RException;
+	public IRReteNode findNamedNode(String name) throws RException;
 
-	public IRRootNode findRootNode(int stmtLen) throws RException;
+	public IRReteNode findRootNode(int stmtLen) throws RException;
 
 	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException;
 
@@ -51,7 +51,7 @@ public interface IRNodeGraph {
 
 	public int getMaxRootStmtLen();;
 
-	public IRNamedNode getNamedNode(String name, int stmtLen) throws RException;
+	public IRReteNode getNamedNode(String name, int stmtLen) throws RException;
 
 	public IRReteNode getNodeById(int nodeId);
 
@@ -61,7 +61,7 @@ public interface IRNodeGraph {
 
 	public List<IRRule> getRelatedRules(IRReteNode node) throws RException;
 
-	public IRRootNode getRootNode(int stmtLen) throws RException;
+	public IRReteNode getRootNode(int stmtLen) throws RException;
 
 	public IRRule getRule(String ruleName);
 

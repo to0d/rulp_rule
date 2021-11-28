@@ -24,6 +24,7 @@ import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.entry.XREntryQueueEmpty;
 import alpha.rulp.ximpl.entry.XREntryQueueMulitEntryList;
 import alpha.rulp.ximpl.entry.XREntryQueueSingleEntryList;
+import alpha.rulp.ximpl.entry.XREntryQueueUniqEntryList;
 
 public class RNodeFactory {
 
@@ -324,7 +325,7 @@ public class RNodeFactory {
 	}
 
 	public static AbsReteNode createConstNode(IRModel model, int nodeId, IRList constStmt, IREntryTable entryTable,
-			IRRootNode parentNode) throws RException {
+			IRReteNode parentNode) throws RException {
 
 		String constUniqName = ReteUtil.uniqName(constStmt);
 
@@ -541,10 +542,10 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRNamedNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
+	public static IRReteNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
 			throws RException {
 
-		XRNodeName0 node = new XRNodeName0();
+		XRNodeRete0 node = new XRNodeRete0();
 
 		// Model
 		node.setModel(model);
@@ -580,9 +581,9 @@ public class RNodeFactory {
 		return RulpFactory.createFrame(node.getModel().getFrame(), "NF-" + node.getNodeName());
 	}
 
-	public static IRRootNode createRoot0Node(IRModel model, int nodeId, int stmtLen) throws RException {
+	public static IRReteNode createRoot0Node(IRModel model, int nodeId, int stmtLen) throws RException {
 
-		XRNodeRoot0 node = new XRNodeRoot0();
+		XRNodeRete0 node = new XRNodeRete0();
 
 		// Model
 		node.setModel(model);
@@ -600,7 +601,7 @@ public class RNodeFactory {
 		node.setEntryLength(stmtLen);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulitEntryList(stmtLen));
+		node.setEntryQueue(new XREntryQueueUniqEntryList(stmtLen));
 
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);

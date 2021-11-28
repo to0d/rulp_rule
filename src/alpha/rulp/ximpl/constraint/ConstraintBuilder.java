@@ -24,13 +24,13 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
-import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class ConstraintBuilder {
 
@@ -308,7 +308,7 @@ public class ConstraintBuilder {
 		throw new RException("invalid column: " + obj);
 	}
 
-	private Set<IRConstraint1> _matchConstraint(RConstraint cons, IRNamedNode node) throws RException {
+	private Set<IRConstraint1> _matchConstraint(RConstraint cons, IRReteNode node) throws RException {
 
 		Set<IRConstraint1> matchedConstraints = new HashSet<>();
 
@@ -515,7 +515,7 @@ public class ConstraintBuilder {
 		return _exprConstraint(expr, interpreter, frame);
 	}
 
-	public List<IRConstraint1> match(IRNamedNode node, IRList args, IRInterpreter interpreter, IRFrame frame)
+	public List<IRConstraint1> match(IRReteNode node, IRList args, IRInterpreter interpreter, IRFrame frame)
 			throws RException {
 
 		Set<IRConstraint1> matchedConstraints = new HashSet<>();

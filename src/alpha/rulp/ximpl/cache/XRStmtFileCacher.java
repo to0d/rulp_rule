@@ -16,7 +16,6 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
-import alpha.rulp.ximpl.node.IRNamedNode;
 
 public class XRStmtFileCacher implements IRStmtLoader, IRStmtSaver {
 
@@ -29,7 +28,7 @@ public class XRStmtFileCacher implements IRStmtLoader, IRStmtSaver {
 			return "." + node.getEntryLength() + MODEL_CACHE_SUFFIX;
 
 		case NAME0:
-			return ((IRNamedNode) node).getNamedName() + "." + node.getEntryLength() + MODEL_CACHE_SUFFIX;
+			return node.getNamedName() + "." + node.getEntryLength() + MODEL_CACHE_SUFFIX;
 
 		default:
 			throw new RException("not support node: " + node);

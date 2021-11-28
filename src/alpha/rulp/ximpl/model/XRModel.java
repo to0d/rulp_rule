@@ -70,10 +70,8 @@ import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.XREntryTable;
-import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
-import alpha.rulp.ximpl.node.IRRootNode;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRNodeGraph;
@@ -96,7 +94,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		private IRStmtLoader loader;
 
-		private IRRootNode node;
+		private IRReteNode node;
 
 		private int readLines = 0;
 
@@ -106,7 +104,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		private int writeLines = 0;
 
-		public XRCacheWorker(IRRootNode node) {
+		public XRCacheWorker(IRReteNode node) {
 			super();
 			this.node = node;
 		}
@@ -175,7 +173,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			String stmtName = null;
 			if (node.getReteType() == RReteType.NAME0) {
-				stmtName = ((IRNamedNode) node).getNamedName();
+				stmtName = ((IRReteNode) node).getNamedName();
 			}
 
 			int stmtLen = node.getEntryLength();
@@ -413,13 +411,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("not support stmt: " + stmt);
 		}
 
-		IRRootNode rootNode = _findRootNode(stmt.getNamedName(), stmt.size());
+		IRReteNode rootNode = _findRootNode(stmt.getNamedName(), stmt.size());
 		_checkCache(rootNode);
 
 		return _addReteEntry(rootNode, stmt, toStatus);
 	}
 
-	protected int _addReteEntry(IRRootNode rootNode, IRList stmt, RReteStatus toStatus) throws RException {
+	protected int _addReteEntry(IRReteNode rootNode, IRList stmt, RReteStatus toStatus) throws RException {
 
 		int oldSize = 0;
 		if (this.nodeContext != null) {
@@ -445,7 +443,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return 1;
 	}
 
-	protected boolean _addStmt(IRRootNode rootNode, IRList stmt, RReteStatus newStatus) throws RException {
+	protected boolean _addStmt(IRReteNode rootNode, IRList stmt, RReteStatus newStatus) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out
@@ -453,7 +451,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		String stmtUniqName = ReteUtil.uniqName(stmt);
-		IRReteEntry oldEntry = rootNode.getStmt(stmtUniqName);
+		IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(stmtUniqName);
 
 		/*******************************************************/
 		// Insert entry
@@ -475,35 +473,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus, true);
-
-			/*******************************************************/
-			// Check constraint
-			/*******************************************************/
-			int rootConstraint = rootNode.getConstraint1Count();
-			if (rootConstraint > 0) {
-
-				rootNode.incNodeMatchCount();
-
-				for (int i = 0; i < rootConstraint; ++i) {
-					IRConstraint1 cons = rootNode.getConstraint1(i);
-					if (!cons.addEntry(newEntry, rootNode)) {
-
-						rootNode.incAddEntryFailCount();
-
-						entryTable.removeEntry(newEntry);
-						if (nodeContext == null || this.tryAddStatmentLevel > 0) {
-							throw new RConstraintConflict(
-									String.format("Unable to add entry<%s> due to constraint<%s>", newEntry, cons),
-									rootNode, newEntry, cons);
-						} else {
-							return false;
-						}
-					}
-				}
-			}
-
 			if (!rootNode.addReteEntry(newEntry)) {
 				entryTable.removeEntry(newEntry);
+				IRConstraint1 failedConstraint1 = rootNode.getLastFailedConstraint1();
+				if (failedConstraint1 != null) {
+					if (nodeContext == null || this.tryAddStatmentLevel > 0) {
+						throw new RConstraintConflict(String.format("Unable to add entry<%s> due to constraint<%s>",
+								newEntry, failedConstraint1), rootNode, newEntry, failedConstraint1);
+					}
+				}
 				return false;
 			}
 
@@ -603,7 +581,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
-	protected void _checkConstraintConflict(IRNamedNode rootNode) throws RException {
+	protected void _checkConstraintConflict(IRReteNode rootNode) throws RException {
 
 		/******************************************************/
 		// Build subgraph
@@ -644,7 +622,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		super._delete();
 	}
 
-	protected IRRootNode _findRootNode(String namedName, int stmtLen) throws RException {
+	protected IRReteNode _findRootNode(String namedName, int stmtLen) throws RException {
 		if (namedName == null) {
 			return nodeGraph.getRootNode(stmtLen);
 		} else {
@@ -678,7 +656,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		saveNodeListener.doAction(node, cacheKey);
 	}
 
-	protected XRCacheWorker _getCacheWorker(IRRootNode node) throws RException {
+	protected XRCacheWorker _getCacheWorker(IRReteNode node) throws RException {
 
 		XRCacheWorker cache = (XRCacheWorker) node.getCacheWorker();
 		if (cache == null) {
@@ -866,7 +844,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return matchedEntrys;
 			}
 
-			IRNamedNode namedNode = nodeGraph.findNamedNode(namedName);
+			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
 			if (namedNode == null || extendFilterObjs.size() > namedNode.getEntryLength()) {
 				return Collections.emptyList();
 			}
@@ -883,7 +861,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		if (namedName != null) {
 
-			IRNamedNode namedNode = nodeGraph.findNamedNode(namedName);
+			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
 			if (namedNode == null || namedNode.getEntryLength() != filter.size()) {
 				return Collections.emptyList();
 			}
@@ -894,11 +872,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		if (ReteUtil.getStmtVarCount(filter) == 0) {
 
-			IRRootNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
+			IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
 			_checkCache(rootNode);
 
 			String uniqName = ReteUtil.uniqName(filter);
-			IRReteEntry oldEntry = rootNode.getStmt(uniqName);
+			IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(uniqName);
 			if (oldEntry == null) {
 				return Collections.emptyList();
 			}
@@ -1161,7 +1139,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-	protected XRCacheWorker _setNodeCache(IRRootNode node, IRStmtLoader loader, IRStmtSaver saver, IRObject cacheKey)
+	protected XRCacheWorker _setNodeCache(IRReteNode node, IRStmtLoader loader, IRStmtSaver saver, IRObject cacheKey)
 			throws RException {
 
 		if (loader == null && saver == null) {
@@ -1940,7 +1918,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			for (IRReteNode node : nodeGraph.listNodes(RReteType.ROOT0)) {
 
-				XRCacheWorker cacheWorker = _getCacheWorker((IRRootNode) node);
+				XRCacheWorker cacheWorker = _getCacheWorker((IRReteNode) node);
 				if (cacheWorker == null) {
 					continue;
 				}
@@ -1950,7 +1928,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			for (IRReteNode node : nodeGraph.listNodes(RReteType.NAME0)) {
 
-				XRCacheWorker cacheWorker = _getCacheWorker((IRRootNode) node);
+				XRCacheWorker cacheWorker = _getCacheWorker((IRReteNode) node);
 				if (cacheWorker == null) {
 					continue;
 				}
@@ -2019,7 +1997,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				nodeName = null;
 			}
 
-			IRRootNode node = _findRootNode(nodeName, stmtLen);
+			IRReteNode node = _findRootNode(nodeName, stmtLen);
 			// cache has been created
 			if (node.getCacheWorker() != null) {
 				continue;
@@ -2047,7 +2025,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("invalid node type: " + node);
 		}
 
-		_setNodeCache((IRRootNode) node, loader, saver, cacheKey);
+		_setNodeCache(node, loader, saver, cacheKey);
 	}
 
 	@Override
@@ -2133,7 +2111,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			// verify
 			if (stmt.getNamedName() != null) {
-				_checkConstraintConflict((IRNamedNode) _findRootNode(stmt.getNamedName(), stmt.size()));
+				_checkConstraintConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
 			}
 
 			stmtListenUpdater.update(this);

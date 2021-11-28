@@ -30,7 +30,6 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRRootNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -192,7 +191,7 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 			/****************************************************/
 			// Find root node
 			/****************************************************/
-			IRRootNode rootNode = null;
+			IRReteNode rootNode = null;
 			if (stmt.getNamedName() == null) {
 				rootNode = model.getNodeGraph().findRootNode(stmt.size());
 			} else {
@@ -212,7 +211,7 @@ public class XRFactorProveStmt extends AbsRFactorAdapter implements IRFactor, IR
 			Set<String> provedStmt = new HashSet<>();
 
 			{
-				IRReteEntry entry = rootNode.getStmt(uniqName);
+				IRReteEntry entry = rootNode.getEntryQueue().getStmt(uniqName);
 				if (entry == null) {
 					return String.format("%s: not found\n", uniqName);
 				}
