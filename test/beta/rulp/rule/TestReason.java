@@ -23,7 +23,7 @@ public class TestReason extends RuleTestBase {
 		_test("(add-rule m if '(?x p ?y) '(p p2 p3) do (-> m '(?y p ?x)))");
 		_test("(add-stmt m '(a p c))");
 		_test("(add-stmt m '(p p2 p3))");
-		_test("(start m)", "10");
+		_test("(start m)", "9");
 		_test("(list-stmt m)", "'('(a p c) '(p p2 p3) '(c p a))");
 		_dumpEntryTable("m", "result/rule/TestReason/test_3_circle_reason_a.dump.1.txt");
 

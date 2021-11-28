@@ -208,7 +208,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 						stmt = RulpFactory.createNamedList(stmt.iterator(), stmtName);
 					}
 
-					if (_addStmt(node, stmt, DEFINE)) {
+					if (RUpdateResult.isValidUpdate(_addStmt(node, stmt, DEFINE))) {
 						cacheUpdateCount++;
 						stmtCount++;
 					}
@@ -391,7 +391,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected int tryAddConstraintLevel = 0;
 
-	protected int tryAddStatmentLevel = 0;
+	protected int assuemeStatmentLevel = 0;
 
 	protected int tryRemoveConstraintLevel = 0;
 
@@ -404,7 +404,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.constraintUtil = new ModelConstraintUtil(this);
 	}
 
-	protected int _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
+	protected RUpdateResult _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
 
 		if (!ReteUtil.isReteStmtNoVar(stmt)) {
 			throw new RException("not support stmt: " + stmt);
@@ -413,36 +413,50 @@ public class XRModel extends AbsRInstance implements IRModel {
 		IRReteNode rootNode = _findRootNode(stmt.getNamedName(), stmt.size());
 		_checkCache(rootNode);
 
-		return _addReteEntry(rootNode, stmt, toStatus);
-	}
-
-	protected int _addReteEntry(IRReteNode rootNode, IRList stmt, RReteStatus toStatus) throws RException {
-
 		int oldSize = 0;
 		if (this.nodeContext != null) {
 			this.nodeContext.tryAddStmt++;
 			oldSize = rootNode.getEntryQueue().size();
 		}
 
-		// there is no any update
-		if (!_addStmt(rootNode, stmt, toStatus)) {
-			return 0;
-		}
+		RUpdateResult rst = _addStmt(rootNode, stmt, toStatus);
 
 		// new stmt added
-		if (this.nodeContext != null) {
+		if (rst == RUpdateResult.NEW && this.nodeContext != null) {
 			int newSize = rootNode.getEntryQueue().size();
 			if (newSize > oldSize) {
 				this.nodeContext.actualAddStmt++;
 			}
 		}
 
-		cacheUpdateCount++;
-		addUpdateNode(rootNode);
-		return 1;
+		// there is any update
+		if (RUpdateResult.isValidUpdate(rst)) {
+			cacheUpdateCount++;
+			addUpdateNode(rootNode);
+		}
+
+		return rst;
 	}
 
-	protected boolean _addStmt(IRReteNode rootNode, IRList stmt, RReteStatus newStatus) throws RException {
+	static enum RUpdateResult {
+		CHANGE, NOCHANGE, INVALID, NEW;
+
+		public static boolean isValidUpdate(RUpdateResult rst) {
+
+			if (rst == null) {
+				return false;
+			}
+			switch (rst) {
+			case CHANGE:
+			case NEW:
+				return true;
+			default:
+				return false;
+			}
+		}
+	}
+
+	protected RUpdateResult _addStmt(IRReteNode rootNode, IRList stmt, RReteStatus newStatus) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out
@@ -458,6 +472,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// - or marked as "drop" (removed by entry table automatically)
 		/*******************************************************/
 		if (oldEntry == null || oldEntry.getStatus() == null) {
+
 			int stmtLen = stmt.size();
 
 			IRObject[] newElements = new IRObject[stmtLen];
@@ -476,12 +491,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 				entryTable.removeEntry(newEntry);
 				IRConstraint1 failedConstraint1 = rootNode.getLastFailedConstraint1();
 				if (failedConstraint1 != null) {
-					if (nodeContext == null || this.tryAddStatmentLevel > 0) {
+					if (nodeContext == null || this.assuemeStatmentLevel > 0) {
 						throw new RConstraintConflict(String.format("Unable to add entry<%s> due to constraint<%s>",
 								newEntry, failedConstraint1), rootNode, newEntry, failedConstraint1);
 					}
 				}
-				return false;
+
+				return RUpdateResult.INVALID;
 			}
 
 			/*******************************************************/
@@ -493,7 +509,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				entryTable.addReference(newEntry, rootNode);
 			}
 
-			return true;
+			return RUpdateResult.NEW;
 		}
 
 		/*******************************************************/
@@ -507,30 +523,28 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		IREntryQueue entryQueue = rootNode.getEntryQueue();
 
-		if (finalStatus != oldStatus) {
-
-			switch (finalStatus) {
-			case ASSUME:
-			case DEFINE:
-			case REASON:
-			case FIXED_:
-				entryTable.setEntryStatus(oldEntry, finalStatus);
-				break;
-			case TEMP__:
-				entryTable.setEntryStatus(oldEntry, finalStatus);
-				break;
-
-			case REMOVE:
-				entryTable.removeEntryReference(oldEntry, rootNode);
-				break;
-			default:
-				throw new RException("Unknown status: " + finalStatus);
-			}
-
-		}
 		// status not changed
-		else {
+		if (finalStatus == oldStatus) {
 			entryQueue.incEntryRedundant();
+			return RUpdateResult.NOCHANGE;
+		}
+
+		switch (finalStatus) {
+		case ASSUME:
+		case DEFINE:
+		case REASON:
+		case FIXED_:
+			entryTable.setEntryStatus(oldEntry, finalStatus);
+			break;
+		case TEMP__:
+			entryTable.setEntryStatus(oldEntry, finalStatus);
+			break;
+
+		case REMOVE:
+			entryTable.removeEntryReference(oldEntry, rootNode);
+			break;
+		default:
+			throw new RException("Unknown status: " + finalStatus);
 		}
 
 		// Add this in this branch
@@ -543,7 +557,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			entryTable.addReference(oldEntry, nodeContext.currentNode, nodeContext.currentEntry);
 		}
 
-		return true;
+		return RUpdateResult.CHANGE;
 	}
 
 	protected void _checkActiveNode() throws RException {
@@ -1334,14 +1348,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> addStatement: " + stmt);
 		}
 
-		int actualAddStmt = _addReteEntry(stmt, _getNewStmtStatus());
+		RReteStatus status = _getNewStmtStatus();
 
-		// active stmt listeners
-		if (actualAddStmt > 0) {
+		RUpdateResult rst = _addReteEntry(stmt, status);
+
+		// stmt updated, active the listener
+		if (RUpdateResult.isValidUpdate(rst)) {
 			stmtListenUpdater.update(this);
 		}
 
-		return actualAddStmt;
+		return rst == RUpdateResult.INVALID ? 0 : 1;
 	}
 
 	@Override
@@ -1363,7 +1379,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		RReteStatus status = _getNewStmtStatus();
 
-		int actualAddStmt = 0;
+		int succAddCount = 0;
+		int updateCount = 0;
+
 		while (stmtIterator.hasNext()) {
 
 			IRList stmt = stmtIterator.next();
@@ -1371,15 +1389,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 				System.out.println("\t(" + stmt + ")");
 			}
 
-			actualAddStmt += _addReteEntry(stmt, status);
+			RUpdateResult rst = _addReteEntry(stmt, status);
+
+			// stmt updated, active the listener
+			if (RUpdateResult.isValidUpdate(rst)) {
+				updateCount++;
+			}
+
+			if (rst != RUpdateResult.INVALID) {
+				succAddCount++;
+			}
 		}
 
 		// active stmt listeners
-		if (actualAddStmt > 0) {
+		if (updateCount > 0) {
 			stmtListenUpdater.update(this);
 		}
 
-		return actualAddStmt;
+		return succAddCount;
 	}
 
 	@Override
@@ -1413,13 +1440,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		try {
 
-			this.tryAddStatmentLevel++;
+			this.assuemeStatmentLevel++;
 
-			RReteStatus status = _getNewStmtStatus();
-
-			// no need verify, return true
-			if (_addReteEntry(stmt, status) == 0) {
+			RUpdateResult rst = _addReteEntry(stmt, RReteStatus.ASSUME);
+			if (rst == RUpdateResult.NOCHANGE) {
 				return true;
+			}
+
+			if (rst == RUpdateResult.INVALID) {
+				return false;
 			}
 
 			// verify
@@ -1432,7 +1461,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		} catch (RConstraintConflict e) {
 			removeStatement(stmt);
-			this.tryAddStatmentLevel--;
+			this.assuemeStatmentLevel--;
 			return false;
 		}
 	}
@@ -1642,14 +1671,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> addFixedStatement: " + stmt);
 		}
 
-		int actualAddStmt = _addReteEntry(stmt, RReteStatus.FIXED_);
+		RUpdateResult rst = _addReteEntry(stmt, RReteStatus.FIXED_);
 
-		// active stmt listeners
-		if (actualAddStmt > 0) {
+		// stmt updated, active the listener
+		if (RUpdateResult.isValidUpdate(rst)) {
 			stmtListenUpdater.update(this);
 		}
 
-		return actualAddStmt;
+		return rst == RUpdateResult.INVALID ? 0 : 1;
 	}
 
 	@Override
@@ -1659,7 +1688,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> addFixedStatements: ");
 		}
 
-		int actualAddStmt = 0;
+		int succAddCount = 0;
+		int updateCount = 0;
+
 		while (stmtIterator.hasNext()) {
 
 			IRList stmt = stmtIterator.next();
@@ -1667,15 +1698,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 				System.out.println("\t(" + stmt + ")");
 			}
 
-			actualAddStmt += _addReteEntry(stmt, RReteStatus.FIXED_);
+			RUpdateResult rst = _addReteEntry(stmt, RReteStatus.FIXED_);
+
+			// stmt updated, active the listener
+			if (RUpdateResult.isValidUpdate(rst)) {
+				updateCount++;
+			}
+
+			if (rst != RUpdateResult.INVALID) {
+				succAddCount++;
+			}
 		}
 
 		// active stmt listeners
-		if (actualAddStmt > 0) {
+		if (updateCount > 0) {
 			stmtListenUpdater.update(this);
 		}
 
-		return actualAddStmt;
+		return succAddCount;
 	}
 
 	@Override

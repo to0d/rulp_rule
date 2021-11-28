@@ -5,7 +5,7 @@
 (add-stmt m '(a p c))
 ;=>1
 (start m)
-;=>7
+;=>6
 (list-stmt m)
 ;=>'('(a p c) '(c p a))
 (remove-stmt m '(a p c))
@@ -15,6 +15,6 @@
 (add-stmt m '(c p a))
 ;=>1
 (start m)
-;=>4
+;=>3
 (list-stmt m)
 ;=>'('(c p a))

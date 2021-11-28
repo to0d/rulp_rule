@@ -16,7 +16,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(domainx nm:typeOf nm:domain))");
 		_test("(add-stmt p2d '(domain1 nm:beParentDomainOf domain2))");
 
-		_test("(start p2d)", "452");
+		_test("(start p2d)", "447");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 		_mStatus(1, "p2d");
@@ -86,7 +86,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tb))");
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tc))");
 
-		_test("(start p2d)", "283");
+		_test("(start p2d)", "277");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -140,7 +140,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(ta nm:beAliasTo tb))");
 		_test("(add-stmt p2d '(ta nm:beAliasTo tc))");
 
-		_test("(start p2d)", "285");
+		_test("(start p2d)", "278");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'(C4)");
 
@@ -156,7 +156,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(ta nm:beAliasTo tb))");
 		_test("(add-stmt p2d '(tb nm:beAliasTo tc))");
 
-		_test("(start p2d)", "285");
+		_test("(start p2d)", "278");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'(T1)");
 
@@ -175,7 +175,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(tax nm:beParentTagOf td))");
 		_test("(add-stmt p2d '(tax nm:hasRelatedTag te))");
 
-		_test("(start p2d)", "464");
+		_test("(start p2d)", "447");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -209,7 +209,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nt:ta-Beginner nm:typeOf nm:tag))");
 		_test("(add-stmt p2d '(nt:tb-Beginner nm:typeOf nm:tag))");
 
-		_test("(start p2d)", "608");
+		_test("(start p2d)", "592");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -238,7 +238,7 @@ public class TestP2d extends RuleTestBase {
 
 		// _test("(trace-rule (get-rule p2d \"AC4\"))");
 
-		_test("(start p2d)", "723");
+		_test("(start p2d)", "703");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 		_test("(list-stmt p2d from '(nt:Code nm:beParentTagOf ?x))", "'('(nt:Code nm:beParentTagOf nt:SQL-Code))");
@@ -265,7 +265,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nd:XXX nm:hasTag nt:ProgrammingLanguage))");
 		_test("(add-stmt p2d '(nd:XXX nm:hasTag nt:SQL-Code))");
 
-		_test("(start p2d)", "733");
+		_test("(start p2d)", "712");
 		_test("(state-of p2d)", "completed");
 
 		_test("(uniq (query-stmt p2d '(?t1 ?t2 ?t3) from '(nt:ProgrammingLanguage nm:beClassTagOf ?t1) '(nt:ProgrammingLanguage nm:hasFieldTag ?t2) '(?t1 ?p1 ?t3) '(?p1 nm:propertyOf nm:tagRelation) '(?t2 ?p2 ?t3) '(?p2 nm:propertyOf nm:tagRelation) '(nd:XXX nm:hasTag ?t3) (not (equal ?t3 nt:ProgrammingLanguage))))",
@@ -293,7 +293,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nd:XXX nm:hasTag nt:ProgrammingLanguage))");
 		_test("(add-stmt p2d '(nd:XXX nm:hasTag nt:SQL-Code))");
 
-		_test("(start p2d)", "733");
+		_test("(start p2d)", "712");
 		_test("(state-of p2d)", "completed");
 
 		_test("(uniq (query-stmt p2d '(?t1 ?t2 ?t3) from '(nt:ProgrammingLanguage nm:beClassTagOf ?t1) '(nt:ProgrammingLanguage nm:hasFieldTag ?t2) '(?t1 ?p1 ?t3) '(?p1 nm:propertyOf nm:tagRelation) '(?t2 ?p2 ?t3) '(?p2 nm:propertyOf nm:tagRelation) '(nd:XXX nm:hasTag ?t3) (not (equal ?t3 nt:ProgrammingLanguage)) (not (equal ?t3 nt:$TGROUP))))",
@@ -321,7 +321,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nd:XXX nm:hasTag nt:ProgrammingLanguage))");
 		_test("(add-stmt p2d '(nd:XXX nm:hasTag nt:SQL-Code))");
 
-		_test("(start p2d)", "733");
+		_test("(start p2d)", "712");
 		_test("(state-of p2d)", "completed");
 
 		_test("(uniq (query-stmt p2d '(?t1 ?t2 ?t3 ?p1 ?p2) from '(?tag nm:beClassTagOf ?t1) '(?tag nm:hasFieldTag ?t2) '(?t1 ?p1 ?t3) '(?p1 nm:propertyOf nm:tagRelation) '(?t2 ?p2 ?t3) '(?p2 nm:propertyOf nm:tagRelation) '(?domain nm:hasTag ?t3) (not (equal ?t3 ?tag)) (not (equal ?t3 nt:$TGROUP)) (not (equal ?p2 nm:hasDescendant))))",
@@ -342,7 +342,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nt:Concept nm:hasTagAttr nm:commonTag))");
 		_test("(add-stmt p2d '(nd:AS400 nm:typeOf nm:domain))");
 
-		_test("(start p2d)", "439");
+		_test("(start p2d)", "431");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -364,7 +364,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nt:List-OJ nm:typeOf nm:tag))");
 		_test("(add-stmt p2d '(nt:OJ nm:hasTagAttr nm:groupTag))");
 
-		_test("(start p2d)", "531");
+		_test("(start p2d)", "520");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -384,7 +384,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nt:RFE-88111 nm:typeOf nm:tag))");
 		_test("(add-stmt p2d '(nt:RFE nm:hasTagAttr nm:itemTag))");
 
-		_test("(start p2d)", "596");
+		_test("(start p2d)", "582");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -407,7 +407,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(ta-yy nm:typeOf nm:tag))");
 		_test("(add-stmt p2d '(ta-zz nm:typeOf nm:tag))");
 
-		_test("(start p2d)", "326");
+		_test("(start p2d)", "319");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -428,7 +428,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(load \"result/p2d.rulp\")");
 		_test("(add-stmt p2d '(ta nm:beParentTagOf tb))");
 
-		_test("(start p2d)", "360");
+		_test("(start p2d)", "353");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -455,7 +455,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nt:tc nm:hasFieldTag nt:te))");
 		_test("(add-stmt p2d '(nt:t1-te nm:typeOf nm:tag))");
 
-		_test("(start p2d)", "723");
+		_test("(start p2d)", "703");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -480,7 +480,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(ta nm:hasRelatedTag tb))");
 		_test("(add-stmt p2d '(ta nm:hasRelatedTag tc))");
 
-		_test("(start p2d)", "273");
+		_test("(start p2d)", "269");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -502,7 +502,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(ta nm:beParentTagOf tc))");
 		_test("(add-stmt p2d '(tb nm:beParentTagOf tc))");
 
-		_test("(start p2d)", "364");
+		_test("(start p2d)", "356");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -536,7 +536,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(ta4 nm:beParentTagOf c4))");
 		_test("(add-stmt p2d '(c4-xx nm:typeOf nm:tag))");
 
-		_test("(start p2d)", "496");
+		_test("(start p2d)", "483");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -563,7 +563,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(MYSQLv8 nm:typeOf nm:tag))");
 		_test("(add-stmt p2d '(MYSQLv5.7 nm:typeOf nm:tag))");
 
-		_test("(start p2d)", "489");
+		_test("(start p2d)", "478");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -598,7 +598,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nt:ta4 nm:beParentTagOf nt:c4))");
 		_test("(add-stmt p2d '(nt:c4-xx nm:typeOf nm:tag))");
 
-		_test("(start p2d)", "496");
+		_test("(start p2d)", "483");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 
@@ -625,7 +625,7 @@ public class TestP2d extends RuleTestBase {
 		_test("(add-stmt p2d '(nt:AS400-Command nm:typeOf nm:tag))");
 		_test("(add-stmt p2d '(nt:TES-Command nm:typeOf nm:tag))");
 
-		_test("(start p2d)", "618");
+		_test("(start p2d)", "600");
 		_test("(state-of p2d)", "completed");
 		_test("(list-with-state (list-rule p2d) failed)", "'()");
 

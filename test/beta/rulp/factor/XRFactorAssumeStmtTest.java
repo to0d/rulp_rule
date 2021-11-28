@@ -84,4 +84,20 @@ class XRFactorAssumeStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
+
+	@Test
+	void test_assume_3_delete_1() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(assume-stmt m n1:'(1))", "true");
+		_test("(remove-stmt m n1:'(1))", "'(n1:'(1))");
+		_test("(list-stmt m from n1:'(?x))", "'()");
+		_test("(assume-stmt m n1:'(1))", "true");
+		_test("(list-stmt m from n1:'(?x))", "'(n1:'(1))");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
 }

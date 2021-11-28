@@ -139,7 +139,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(new model m)", "m");
 		_test("(add-rule m if '(?a ?p ?b) (equal ?a ?a) do (-> '(?b ?p ?a)))");
 		_test("(add-stmt m '(a2 p b2))");
-		_test("(start m)", "5");
+		_test("(start m)", "4");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a2 p b2) '(b2 p a2))");
 
@@ -226,7 +226,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(add-rule m if '(?a ?p ?b) (not (equal p1 ?p)) do (-> '(?a p2 ?b)))");
 		_test("(add-rule m if '(?a2 ?p2 ?b2) '(?a2 p2 ?b2) (not (equal p1 ?p2)) do (-> '(?a2 p4 ?b2)))");
 		_test("(add-stmt m '(a3 p3 b3))");
-		_test("(start m)", "20");
+		_test("(start m)", "17");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a3 p3 b3) '(a3 p2 b3) '(a3 p4 b3))");
 
@@ -244,7 +244,7 @@ public class OptimizeTest1 extends RuleTestBase {
 		_test("(add-rule m if '(?a ?p ?b) (not (equal ?a ?b)) do (-> '(?b p2 ?a)))");
 		_test("(add-rule m if '(?a2 ?p2 ?b2) '(?b2 ?p2 ?a2) (not (equal ?a2 ?b2)) do (-> '(?a2 p4 ?b2)))");
 		_test("(add-stmt m '(a2 p2 b2))");
-		_test("(start m)", "17");
+		_test("(start m)", "14");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a2 p2 b2) '(b2 p2 a2) '(a2 p4 b2) '(b2 p4 a2))");
 
