@@ -7,6 +7,49 @@ import alpha.rulp.utils.RuleTestBase;
 class XRFactorAssumeStmtTest extends RuleTestBase {
 
 	@Test
+	void test_assume_1_new() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(assume-stmt m n1:'(1))", "true");
+		_test("(assume-stmt m n1:'(2))", "true");
+		_test("(assume-stmt m n1:'(1))", "true"); // duplicated
+		_test("(list-stmt m from n1:'(?x))", "'(n1:'(1) n1:'(2))");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_assume_1_no_update() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(add-stmt m n1:'(1))", "1");
+		_test("(assume-stmt m n1:'(1))", "true");
+		_test("(list-stmt m from n1:'(?x))", "'(n1:'(1))");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_assume_1_update() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(assume-stmt m n1:'(1))", "true");
+		_test("(add-stmt m n1:'(1))", "1");
+		_test("(list-stmt m from n1:'(?x))", "'(n1:'(1))");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
 	void test_assume_2_constraint_1() {
 
 		_setup();
