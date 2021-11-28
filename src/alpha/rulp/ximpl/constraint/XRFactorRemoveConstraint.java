@@ -85,7 +85,7 @@ public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFac
 		/********************************************/
 		NEXT: for (IRConstraint1 constraint : constraintList) {
 
-			IRObject removedObj = model.tryRemoveConstraint(node, constraint);
+			IRObject removedObj = model.removeConstraint(node, constraint);
 			if (removedObj == null) {
 				throw new RException(node + ": fail to remove constraint: " + constraint.getConstraintExpression());
 			}

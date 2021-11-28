@@ -1226,6 +1226,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		if (this.tryAddConstraintLevel > 0) {
+			return this.nodeGraph.addConstraint(node, constraint);
+		}
+
+		try {
+			this.tryAddConstraintLevel++;
+			return constraintUtil.addConstraint(node, constraint);
+		} finally {
+			this.tryAddConstraintLevel--;
+		}
+	}
+
+	@Override
 	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
 
 		if (loadNodeListener == null) {
@@ -1386,6 +1401,39 @@ public class XRModel extends AbsRInstance implements IRModel {
 				updateQueue.push(node);
 				_setRunState(RRunState.Runnable);
 			}
+		}
+	}
+
+	@Override
+	public boolean assumeStatement(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> tryAddStatement: " + stmt);
+		}
+
+		try {
+
+			this.tryAddStatmentLevel++;
+
+			RReteStatus status = _getNewStmtStatus();
+
+			// no need verify, return true
+			if (_addReteEntry(stmt, status) == 0) {
+				return true;
+			}
+
+			// verify
+			if (stmt.getNamedName() != null) {
+				_checkConstraintConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
+			}
+
+			stmtListenUpdater.update(this);
+			return true;
+
+		} catch (RConstraintConflict e) {
+			removeStatement(stmt);
+			this.tryAddStatmentLevel--;
+			return false;
 		}
 	}
 
@@ -1843,6 +1891,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		if (this.tryRemoveConstraintLevel > 0) {
+			return this.nodeGraph.removeConstraint(node, constraint);
+		}
+
+		try {
+			this.tryRemoveConstraintLevel++;
+			return constraintUtil.removeConstraint(node, constraint);
+		} finally {
+			this.tryRemoveConstraintLevel--;
+		}
+	}
+
+	@Override
 	public IRRule removeRule(String ruleName) throws RException {
 		// TODO Auto-generated method stub
 		return null;
@@ -2041,69 +2104,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		} finally {
 			this.processingLevel--;
 			this.modelPriority = oldModelPriority;
-		}
-	}
-
-	@Override
-	public boolean tryAddConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		if (this.tryAddConstraintLevel > 0) {
-			return this.nodeGraph.addConstraint(node, constraint);
-		}
-
-		try {
-			this.tryAddConstraintLevel++;
-			return constraintUtil.addConstraint(node, constraint);
-		} finally {
-			this.tryAddConstraintLevel--;
-		}
-	}
-
-	@Override
-	public boolean tryAddStatement(IRList stmt) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> tryAddStatement: " + stmt);
-		}
-
-		try {
-
-			this.tryAddStatmentLevel++;
-
-			RReteStatus status = _getNewStmtStatus();
-
-			// no need verify, return true
-			if (_addReteEntry(stmt, status) == 0) {
-				return true;
-			}
-
-			// verify
-			if (stmt.getNamedName() != null) {
-				_checkConstraintConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
-			}
-
-			stmtListenUpdater.update(this);
-			return true;
-
-		} catch (RConstraintConflict e) {
-			removeStatement(stmt);
-			this.tryAddStatmentLevel--;
-			return false;
-		}
-	}
-
-	@Override
-	public IRObject tryRemoveConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
-
-		if (this.tryRemoveConstraintLevel > 0) {
-			return this.nodeGraph.removeConstraint(node, constraint);
-		}
-
-		try {
-			this.tryRemoveConstraintLevel++;
-			return constraintUtil.removeConstraint(node, constraint);
-		} finally {
-			this.tryRemoveConstraintLevel--;
 		}
 	}
 }

@@ -13,8 +13,13 @@ import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorAssumeStmt extends AbsRFactorAdapter implements IRuleFactor {
 
-	public XRFactorAssumeStmt(String factorName) {
-		super(factorName);
+	public static IRObject getModelObject(IRList args) throws RException {
+
+		if (args.size() == 2) {
+			return null;
+		} else {
+			return args.get(1);
+		}
 	}
 
 	public static IRObject getStmtObject(IRList args) throws RException {
@@ -26,13 +31,8 @@ public class XRFactorAssumeStmt extends AbsRFactorAdapter implements IRuleFactor
 		}
 	}
 
-	public static IRObject getModelObject(IRList args) throws RException {
-
-		if (args.size() == 2) {
-			return null;
-		} else {
-			return args.get(1);
-		}
+	public XRFactorAssumeStmt(String factorName) {
+		super(factorName);
 	}
 
 	@Override
@@ -63,6 +63,6 @@ public class XRFactorAssumeStmt extends AbsRFactorAdapter implements IRuleFactor
 
 		IRList stmt = RulpUtil.asList(interpreter.compute(frame, getStmtObject(args)));
 
-		return RulpFactory.createBoolean(model.tryAddStatement(stmt));
+		return RulpFactory.createBoolean(model.assumeStatement(stmt));
 	}
 }

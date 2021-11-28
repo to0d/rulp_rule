@@ -57,7 +57,7 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 
 		@Override
 		public boolean isValid(List<IRObject> obj) throws RException {
-			return model.tryAddStatement(RulpFactory.createNamedList(obj, searchNode.getNamedName()));
+			return model.assumeStatement(RulpFactory.createNamedList(obj, searchNode.getNamedName()));
 		}
 	}
 

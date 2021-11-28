@@ -100,7 +100,7 @@ public class XRFactorAddConstraint extends AbsRFactorAdapter implements IRFactor
 		/********************************************/
 		int updateCount = 0;
 		for (IRConstraint1 cons : constraintList) {
-			if (model.tryAddConstraint(node, cons)) {
+			if (model.addConstraint(node, cons)) {
 				updateCount++;
 			}
 		}

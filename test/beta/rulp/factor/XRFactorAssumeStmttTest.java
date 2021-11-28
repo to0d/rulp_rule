@@ -7,7 +7,7 @@ import alpha.rulp.utils.RuleTestBase;
 class XRFactorAssumeStmttTest extends RuleTestBase {
 
 	@Test
-	void test_assume_add_1() {
+	void test_assume_2_constraint_1() {
 
 		_setup();
 
@@ -24,7 +24,7 @@ class XRFactorAssumeStmttTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_assume_add_2() {
+	void test_assume_2_constraint_2() {
 
 		_setup();
 

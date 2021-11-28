@@ -31,6 +31,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	}
 
+	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
+
 	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener);
 
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList) throws RException;
@@ -49,6 +51,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void addUpdateNode(IRReteNode node) throws RException;
 
+	public boolean assumeStatement(IRList stmt) throws RException;
+
 	public void beginTransaction() throws RException;
 
 	public IRIterator<? extends IRList> buildStatementIterator(IRList filter) throws RException;
@@ -59,11 +63,11 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IRReteNode findNode(IRList condList) throws RException;
 
+//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
+
 	public int fixStatement(IRList stmt) throws RException;
 
 	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException;
-
-//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
 
 	public String getCachePath();
 
@@ -89,6 +93,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void query(IRResultQueue resultQueue, IRList condList, int limit) throws RException;
 
+	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
+
 	public IRRule removeRule(String ruleName) throws RException;
 
 	public List<? extends IRList> removeStatement(IRList stmt) throws RException;
@@ -101,11 +107,5 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 			throws RException;
 
 	public void setNodeContext(RNodeContext nodeContext);
-
-	public boolean tryAddConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
-
-	public boolean tryAddStatement(IRList stmt) throws RException;
-
-	public IRObject tryRemoveConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 }
