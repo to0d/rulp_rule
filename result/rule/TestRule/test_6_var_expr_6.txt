@@ -199,7 +199,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       81        0
+     Interpreter call id/level:       80        0
              CPS support/count:    false        0
                Frame max level:        5
                   Frame max id:        6
@@ -210,27 +210,27 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       87
+    factor:       86
       func:        4
 ==========================================================================================================================
 
-Callable stats info: callId=81, row=16, column=41(2), value-max=4, value-unit=2^x
+Callable stats info: callId=80, row=16, column=41(2), value-max=4, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         12222222222222222222222222222222222.22225 max=14, unit=2^x
+   Frame    RType  Count  Ref Object                         12222222222222222222222222222222221122251 max=14, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     51    0 defun                              22222222222121212122122  1 1222 11   
-    root   factor      7    0 alias                          1221                         1           
-    root   factor      6    0 defclass                                        1 1 1  1  1   1         
-    root   factor      4    0 return                                                                 3
-  system   factor      4    0 add-stmt                                                             22 
-    root   factor      3    0 deftemplate                                               12            
-    root   factor      3    0 defmacro                                      1              2          
-    main     func      2    2 (f2 nil)                                                               2
-    main     func      2    1 (f1 nil)                                                               2
-    root   factor      2    0 >                                                                      2
-    root   factor      2    0 <                                                                      2
-  system   factor      1    0 start                                                                  1
-    root   factor      1    0 new                                                                1    
+    root   factor     51    0 defun                              22222222222121212122122  1 2221 2    
+    root   factor      7    0 alias                          1221                        1            
+    root   factor      5    0 defclass                                        1 1 1  1     1          
+    root   factor      4    0 return                                                                3 
+  system   factor      4    0 add-stmt                                                            121 
+    root   factor      3    0 deftemplate                                               21            
+    root   factor      3    0 defmacro                                      1             11          
+    main     func      2    2 (f2 nil)                                                              2 
+    main     func      2    1 (f1 nil)                                                              2 
+    root   factor      2    0 >                                                                     2 
+    root   factor      2    0 <                                                                     2 
+  system   factor      1    0 start                                                                 1 
+    root   factor      1    0 new                                                               1     
   system   factor      1    0 list-stmt                                                              1
     root   factor      1    0 defvar                            1                                     
   system   factor      1    0 add-rule                                                            1   
@@ -240,21 +240,21 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1279            0         1279
+        atom:         1220            0         1220
       string:           46            0           46
         list:           59            0           59
-        expr:          655            0          655
+        expr:          630            0          630
        array:            1            0            1
-         var:           27            4           23
-        func:          117            0          117
+         var:           26            4           22
+        func:          109            0          109
     template:            1            0            1
        macro:            3            0            3
     instance:            2            0            2
-       class:            6            0            6
-      member:          173            0          173
+       class:            5            0            5
+      member:          152            0          152
        frame:            6            4            2
  interpreter:            1            0
-  frameEntry:          264            0
+  frameEntry:          265            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -302,26 +302,26 @@ Global Subject list:
 
 name=m, lvl=1, ref=2/2, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
-Name                 : Access   Final    Static   Ref  Type       Value
+Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-?cst-init            : DEFAULT  false    false    1    var        false : type=bool
-?model-state         : DEFAULT  false    false    1    var        completed : type=atom
-?rbs-init            : DEFAULT  false    false    1    var        false : type=bool
-this                 : DEFAULT  false    false    2    instance   m : class=model
+?cst-init            : DEFAULT                      0    1    var        false : type=bool
+?model-state         : DEFAULT                      0    1    var        completed : type=atom
+?rbs-init            : DEFAULT                      0    1    var        false : type=bool
+this                 : DEFAULT                      0    2    instance   m : class=model
 ==========================================================================================================================
 
 name=mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
-Name                 : Access   Final    Static   Ref  Type       Value
+Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    1    instance   mts : class=namespace
+this                 : DEFAULT                      0    1    instance   mts : class=namespace
 ==========================================================================================================================
 
 name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
-Name                 : Access   Final    Static   Ref  Type       Value
+Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    1    instance   rbs : class=namespace
+this                 : DEFAULT                      0    1    instance   rbs : class=namespace
 ==========================================================================================================================
 
 

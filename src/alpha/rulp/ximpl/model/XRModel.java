@@ -79,6 +79,24 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
+	static enum RUpdateResult {
+		CHANGE, INVALID, NEW, NOCHANGE;
+
+		public static boolean isValidUpdate(RUpdateResult rst) {
+
+			if (rst == null) {
+				return false;
+			}
+			switch (rst) {
+			case CHANGE:
+			case NEW:
+				return true;
+			default:
+				return false;
+			}
+		}
+	}
+
 	class XRCacheWorker implements IRCacheWorker {
 
 		private boolean bLoad = false;
@@ -318,9 +336,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	static List<IRReteNode> EMPTY_NODES = Collections.emptyList();
 
-	static final String MODEL_CACHE_SUFFIX = ".mc";
-
 //	public static boolean RuleUtility.isModelTrace() = false;
+
+	static final String MODEL_CACHE_SUFFIX = ".mc";
 
 	static final RRunState MODEL_SSTATE[][] = {
 
@@ -338,6 +356,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected List<IRReteNode> activeQueue = new LinkedList<>();
 
 	protected int activeUpdate = 0;
+
+	protected int assuemeStatmentLevel = 0;
 
 	protected boolean cacheEnable = false;
 
@@ -391,8 +411,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected int tryAddConstraintLevel = 0;
 
-	protected int assuemeStatmentLevel = 0;
-
 	protected int tryRemoveConstraintLevel = 0;
 
 	protected final XRUpdateQueue updateQueue = new XRUpdateQueue();
@@ -436,24 +454,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return rst;
-	}
-
-	static enum RUpdateResult {
-		CHANGE, NOCHANGE, INVALID, NEW;
-
-		public static boolean isValidUpdate(RUpdateResult rst) {
-
-			if (rst == null) {
-				return false;
-			}
-			switch (rst) {
-			case CHANGE:
-			case NEW:
-				return true;
-			default:
-				return false;
-			}
-		}
 	}
 
 	protected RUpdateResult _addStmt(IRReteNode rootNode, IRList stmt, RReteStatus newStatus) throws RException {
@@ -526,6 +526,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// status not changed
 		if (finalStatus == oldStatus) {
 			entryQueue.incEntryRedundant();
+
+			/*******************************************************/
+			// Add reference
+			/*******************************************************/
+			if (finalStatus != REMOVE && finalStatus != TEMP__ && nodeContext != null) {
+				entryTable.addReference(oldEntry, nodeContext.currentNode, nodeContext.currentEntry);
+			}
+
 			return RUpdateResult.NOCHANGE;
 		}
 

@@ -316,7 +316,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       78        0
+     Interpreter call id/level:       77        0
              CPS support/count:    false        0
                Frame max level:        8
                   Frame max id:        9
@@ -327,59 +327,59 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       93
+    factor:       92
       func:        3
 ==========================================================================================================================
 
-Callable stats info: callId=78, row=24, column=40(2), value-max=4, value-unit=2^x
+Callable stats info: callId=77, row=24, column=39(2), value-max=4, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         12222222222222222222222222222222222.2261 max=22, unit=2^x
+   Frame    RType  Count  Ref Object                         122222222222222222222222222222222211226 max=22, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     49    0 defun                              22222222222121212122122  1 1222     
-    root   factor      7    0 alias                          1221                         1          
-    root   factor      6    0 defclass                                        1 1 1  1  1   1        
-  system   factor      4    0 add-stmt                                                            22 
-  system   factor      4    0 add-rule                                                             3 
-    root   factor      3    0 deftemplate                                               12           
-    root   factor      3    0 defmacro                                      1              2         
-    root   factor      2    0 do                                                                   2 
-    root   factor      2    0 defvar                            1                                  1 
-  system   factor      2    0 add-constraint                                                       2 
-    root   factor      1    0 to-named-list                                                        1 
-    root   factor      1    0 to-atom                                                              1 
-    root   factor      1    0 setq                                                                 1 
-    root   factor      1    0 return                                                               1 
-  system   factor      1    0 query-stmt                                                           1 
-    root   factor      1    0 new                                                                1   
-  system   factor      1    0 list-stmt                                                             1
-  system     func      1    1 (init_cst_rule type#model)                                           1 
-    root   factor      1    0 if                                                                   1 
-    root   factor      1    0 equal_def                                                            1 
-  system funcList      1    1 equal                                                                1 
-  system     func      1    1 (add_cst_constraint_type type#                                       1 
-  system   factor      1    0 add-node                                                           1   
-    root   factor      1    0 +                                                                    1 
+    root   factor     49    0 defun                              22222222222121212122122  1 2221    
+    root   factor      7    0 alias                          1221                        1          
+    root   factor      5    0 defclass                                        1 1 1  1     1        
+  system   factor      4    0 add-stmt                                                           121
+  system   factor      4    0 add-rule                                                             3
+    root   factor      3    0 deftemplate                                               21          
+    root   factor      3    0 defmacro                                      1             11        
+    root   factor      2    0 do                                                                   2
+    root   factor      2    0 defvar                            1                                  1
+  system   factor      2    0 add-constraint                                                       2
+    root   factor      1    0 to-named-list                                                        1
+    root   factor      1    0 to-atom                                                              1
+    root   factor      1    0 setq                                                                 1
+    root   factor      1    0 return                                                               1
+  system   factor      1    0 query-stmt                                                           1
+    root   factor      1    0 new                                                               1   
+  system   factor      1    0 list-stmt                                                            1
+  system     func      1    1 (init_cst_rule type#model)                                           1
+    root   factor      1    0 if                                                                   1
+    root   factor      1    0 equal_def                                                            1
+  system funcList      1    1 equal                                                                1
+  system     func      1    1 (add_cst_constraint_type type#                                       1
+  system   factor      1    0 add-node                                                           1  
+    root   factor      1    0 +                                                                    1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1276            0         1276
+        atom:         1217            0         1217
       string:           49            0           49
         list:           76            0           76
-        expr:          652            0          652
+        expr:          627            0          627
        array:            1            0            1
-         var:           31            8           23
-        func:          115            0          115
+         var:           30            8           22
+        func:          107            0          107
     template:            1            0            1
        macro:            3            0            3
     instance:            2            0            2
-       class:            6            0            6
-      member:          175            0          175
+       class:            5            0            5
+      member:          154            0          154
        frame:            7            6            1
  interpreter:            1            0
-  frameEntry:          266            0
+  frameEntry:          267            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -416,28 +416,28 @@ Global Subject list:
 
 name=m, lvl=1, ref=2/4, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
-Name                 : Access   Final    Static   Ref  Type       Value
+Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-$RG$$cst$            : PRIVATE  true     false    1    var        '(CST01 CST02 CST03 CST04) : type=list
-$RG-names$           : PRIVATE  true     false    1    var        '("$cst$") : type=list
-?cst-init            : DEFAULT  false    false    1    var        true : type=bool
-?model-state         : DEFAULT  false    false    1    var        completed : type=atom
-?rbs-init            : DEFAULT  false    false    1    var        false : type=bool
-this                 : DEFAULT  false    false    2    instance   m : class=model
+$RG$$cst$            : PRIVATE Y                    1    1    var        '(CST01 CST02 CST03 CST04) : type=list
+$RG-names$           : PRIVATE Y                    1    1    var        '("$cst$") : type=list
+?cst-init            : DEFAULT                      0    1    var        true : type=bool
+?model-state         : DEFAULT                      0    1    var        completed : type=atom
+?rbs-init            : DEFAULT                      0    1    var        false : type=bool
+this                 : DEFAULT                      0    2    instance   m : class=model
 ==========================================================================================================================
 
 name=mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
-Name                 : Access   Final    Static   Ref  Type       Value
+Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    1    instance   mts : class=namespace
+this                 : DEFAULT                      0    1    instance   mts : class=namespace
 ==========================================================================================================================
 
 name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
-Name                 : Access   Final    Static   Ref  Type       Value
+Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT  false    false    1    instance   rbs : class=namespace
+this                 : DEFAULT                      0    1    instance   rbs : class=namespace
 ==========================================================================================================================
 
 

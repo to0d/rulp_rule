@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_Nil;
+import static alpha.rulp.lang.Constant.P_FINAL;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_NAMES;
 import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
 
@@ -164,9 +165,8 @@ public class ModelUtil {
 			IRList ruleList = RulpFactory.createList();
 			mbr = RulpFactory.createMember(model, F_MBR_RULE_GROUP_NAMES,
 					RulpFactory.createVar(F_MBR_RULE_GROUP_NAMES, RulpFactory.createList()));
-			mbr.setFinal(true);
-			mbr.setInherit(false);
 			mbr.setAccessType(RAccessType.PRIVATE);
+			mbr.setProperty(P_FINAL);
 			model.setMember(F_MBR_RULE_GROUP_NAMES, mbr);
 			return ruleList;
 
@@ -184,8 +184,7 @@ public class ModelUtil {
 		if (mbr == null || mbr.getSubject() != model) {
 			IRList ruleList = RulpFactory.createList();
 			mbr = RulpFactory.createMember(model, innerGroupName, RulpFactory.createVar(innerGroupName, ruleList));
-			mbr.setFinal(true);
-			mbr.setInherit(false);
+			mbr.setProperty(P_FINAL);
 			mbr.setAccessType(RAccessType.PRIVATE);
 			model.setMember(innerGroupName, mbr);
 			return ruleList;
