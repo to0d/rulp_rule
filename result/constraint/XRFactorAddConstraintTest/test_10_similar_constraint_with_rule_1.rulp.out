@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n1:'(?a ?p (- ?b 1))))
+;=>RU000
+
+(add-constraint m n1:'(?x ?y ?z) (> ?z 3))
+;=>1
+
+(add-stmt m n1:'(a b 5))
+;=>true
+
+(start m)
+;=>6
+
+(state-of m)
+;=>completed
+
+(list-stmt m from n1:'(?a ?p ?b))
+;=>'(n1:'(a b 5) n1:'(a b 4))
+

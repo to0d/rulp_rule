@@ -1,0 +1,20 @@
+(new model m)
+;;;
+
+(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n1:'(?a ?p (- ?b 1))))
+;;;
+
+(add-constraint m n1:'(?x ?y ?z) (> ?z 3))
+;;;
+
+(add-stmt m n1:'(a b 5))
+;;;
+
+(start m)
+;;;
+
+(state-of m)
+;;;
+
+(list-stmt m from n1:'(?a ?p ?b))
+;;;

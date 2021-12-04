@@ -10,40 +10,8 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_1_type_1() {
 
 		_setup();
-
 		_clean_model_cache();
-
-		_test("(new model m)");
-		_test("(add-node m name1:'(3))", "1");
-		_test("(add-node m name2:'(3))", "1");
-		_test("(add-node m name3:'(3))", "1");
-		_test("(add-node m name4:'(3))", "1");
-		_test("(add-node m name5:'(3))", "1");
-		_test("(add-node m name6:'(3))", "1");
-
-		_test("(add-constraint m name1:'(?x ?y ?z) (type int on ?x))", "1");
-		_test("(add-constraint m name1:'(? ?y ?) (type long on ?y))", "1");
-		_test("(add-constraint m name1:'(? ? ?z) (type float on ?z))", "1");
-		_test("(add-constraint m name2:'(? ?y ?) (type double on ?y))", "1");
-		_test("(add-constraint m name3:'(? ?y ?) (type bool on ?y))", "1");
-		_test("(add-constraint m name4:'(? ?y ?) (type atom on ?y))", "1");
-		_test("(add-constraint m name4:'(? ? ?z) (type string on ?z))", "1");
-		_test("(add-constraint m name5:'(?...)   (type string on ?2))", "1");
-		_test("(add-constraint m name5:'(?x ?y ?z) (uniq on '(?x ?y)))", "1");
-
-		_test("(add-constraint m name6:'(?x ?y ?z) (!= ?x nil))", "1");
-		_test("(add-constraint m name6:'(?x ?y ?z) (!= 1 ?z))", "1");
-		_test("(add-constraint m name6:'(?x ?y ?z) (!= ?z ?y))", "1");
-		_test("(add-constraint m name6:'(?x ?y ?z) (> ?y 5))", "1");
-		_test("(add-constraint m name6:'(?x ?y ?) (< ?x 10))", "1");
-
-		_test("(add-constraint m name7:'(?x ?y ?z) (type int on ?x))", "1");
-		_test("(add-constraint m name8:'(?x ?y) (max 5 on ?x))", "1");
-		_test("(add-constraint m name8:'(?x ?y) (min 5 on ?y))", "1");
-		_test("(add-constraint m name8:'(?x ?y) (not-null on ?x))", "1");
-
-		_test("(add-constraint m name9:'(?x ?y) (one-of '(a b c) on ?x))", "1");
-
+		_run_script();
 		_statsInfo("m");
 		_save_model_cache("m");
 	}
@@ -184,13 +152,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 
 		_setup();
 
-		_test("(new model m)", "m");
-		_test("(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n1:'(?a ?p (- ?b 1))))");
-		_test("(add-constraint m n1:'(?x ?y ?z) (> ?z 3))", "1");
-		_test("(add-stmt m n1:'(a b 5))");
-		_test("(start m)", "6");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m from n1:'(?a ?p ?b))", "'(n1:'(a b 5) n1:'(a b 4))");
+		_run_script();
 
 		_mStatus(1, "m");
 		_oStatus(1, "m");
