@@ -111,7 +111,8 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		// XRModel.TRACE_RETE = true;
 		_test("(new model m)", "m");
 		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?x) do (remove-stmt m '(?x p1 ?y)))", "RU000");
-		_test("(add-stmt m '(a p1 b) '(b p1 a))", "2");
+		_test("(add-stmt m '(a p1 b))", "true");
+		_test("(add-stmt m '(b p1 a))", "true");
 		_test("(list-stmt m from '(?x ?y ?z))", "'('(a p1 b) '(b p1 a))");
 		_test("(state-of m)", "runnable");
 		_mStatus(1, "m");
@@ -143,7 +144,9 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_test("(new model m)", "m");
 		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?z) do (add-stmt m '(?x p1 ?z)))", "RU000");
-		_test("(add-stmt m '(a p1 b) '(b p1 c) '(c p1 a))", "3");
+		_test("(add-stmt m '(a p1 b))", "true");
+		_test("(add-stmt m '(b p1 c))", "true");
+		_test("(add-stmt m '(c p1 a))", "true");
 		_test("(list-stmt m from '(?x ?y ?z))", "'('(a p1 b) '(b p1 c) '(c p1 a))");
 		_test("(state-of m)", "runnable");
 		_mStatus(1, "m");
@@ -183,7 +186,9 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_test("(new model m)", "m");
 		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do (remove-stmt m '(?x p1 ?y)))", "RU000");
 		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?z) do (add-stmt m '(?x p1 ?z)))", "RU001");
-		_test("(add-stmt m '(a p1 b) '(b p1 c) '(c p1 a))", "3");
+		_test("(add-stmt m '(a p1 b))", "true");
+		_test("(add-stmt m '(b p1 c))", "true");
+		_test("(add-stmt m '(c p1 a))", "true");
 		_test("(list-stmt m from '(?x ?y ?z))", "'('(a p1 b) '(b p1 c) '(c p1 a))");
 		_mStatus(1, "m");
 		_mCount(1, "m");
@@ -215,10 +220,12 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)", "m");
-		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do (remove-stmt '(?x p1 ?y) '(?y p1 ?x)))",
-				"RU000");
+		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do"
+				+ " (remove-stmt '(?x p1 ?y)) (remove-stmt '(?y p1 ?x)))", "RU000");
 		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?z) do (add-stmt m '(?x p1 ?z)))", "RU001");
-		_test("(add-stmt m '(a p1 b) '(b p1 c) '(c p1 a))", "3");
+		_test("(add-stmt m '(a p1 b))", "true");
+		_test("(add-stmt m '(b p1 c))", "true");
+		_test("(add-stmt m '(c p1 a))", "true");
 		_test("(list-stmt m)", "'('(a p1 b) '(b p1 c) '(c p1 a))");
 		_mStatus(1, "m");
 		_mCount(1, "m");
@@ -248,9 +255,12 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		// XRModel.TRACE_RETE = true;
 
 		_test("(new model m)", "m");
-		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do (remove-stmt ?0 ?1))", "RU000");
+		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do (remove-stmt ?0) (remove-stmt ?1))",
+				"RU000");
 		_test("(add-rule m if '(?x p1 ?y) '(?y p1 ?z) do (add-stmt m '(?x p1 ?z)))", "RU001");
-		_test("(add-stmt m '(a p1 b) '(b p1 c) '(c p1 a))", "3");
+		_test("(add-stmt m '(a p1 b))", "true");
+		_test("(add-stmt m '(b p1 c))", "true");
+		_test("(add-stmt m '(c p1 a))", "true");
 		_test("(list-stmt m)", "'('(a p1 b) '(b p1 c) '(c p1 a))");
 		_mStatus(1, "m");
 		_mCount(1, "m");
@@ -277,7 +287,9 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)", "m");
-		_test("(add-stmt m '(a p1 c) '(a p1 b) '(a p2 c))", "3");
+		_test("(add-stmt m '(a p1 c))", "true");
+		_test("(add-stmt m '(a p1 b))", "true");
+		_test("(add-stmt m '(a p2 c))", "true");
 		_test("(list-stmt m)", "'('(a p1 c) '(a p1 b) '(a p2 c))");
 
 		_test("(remove-stmt m '(a p2 c))", "'('(a p2 c))");
@@ -300,12 +312,32 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_setup();
 
 		_test("(new model m)", "m");
-		_test("(add-stmt m '(a b c))", "1");
+		_test("(add-stmt m '(a b c))", "true");
 		_test("(list-stmt m)", "'('(a b c))");
 		_test("(remove-stmt m '(a b c))", "'('(a b c))");
 		_test("(list-stmt m)", "'()");
-		_test("(add-stmt m '(a b c))", "0");
+		_test("(add-stmt m '(a b c))", "false");
 		_test("(list-stmt m)", "'()");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_4_remove_assume() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(assume-stmt m n1:'(a b c))", "true");
+		_test("(list-stmt m)", "'(n1:'(a b c))");
+		_test("(remove-stmt m n1:'(a b c))", "'(n1:'(a b c))");
+		_test("(list-stmt m)", "'()");
+		_test("(assume-stmt m n1:'(a b c))", "true");
+		_test("(list-stmt m)", "'(n1:'(a b c))");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
 	}
 
 	@Test

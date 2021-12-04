@@ -15,7 +15,7 @@
              do (if (equal ?s1 ?s2) (-> '(canBeCouple ?g1 ?g2 false)) (-> '(canBeCouple ?g1 ?g2 true))))
 (add-rule mm if '(canBeCouple ?g1 ?g2 true) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h) do (-> '(canSitTogether ?g1 ?g2)))
 (start mm)
-;=>mm 1 1 1 1 1 1 1 1 1 1 RU000 RU001 19
+;=>mm true true true true true true true true true true RU000 RU001 19
 (state-of mm)
 ;=>completed
 (list-stmt mm)

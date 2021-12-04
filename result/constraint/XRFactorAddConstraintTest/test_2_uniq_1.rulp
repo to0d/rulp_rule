@@ -5,9 +5,9 @@
 (add-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
 ;=>1
 (add-stmt m name1:'(a b 1))
-;=>1
+;=>true
 (add-stmt m name1:'(x y 2))
-;=>1
+;=>true
 (add-stmt m name1:'(x y dup))
 ;err:
 Unable to add entry<name1:'(x y dup)> due to constraint<(uniq on '(?0 ?1))>
@@ -18,7 +18,7 @@ at main: (add-stmt m name1:'(x y dup))
 (remove-stmt m name1:'(x y 2))
 ;=>'(name1:'(x y 2))
 (add-stmt m name1:'(x y dup))
-;=>1
+;=>true
 (list-stmt m)
 ;=>'(name1:'(a b 1) name1:'(x y dup))
 (add-stmt m name1:'(x y 3))
@@ -29,6 +29,6 @@ at main: (add-stmt m name1:'(x y 3))
 (remove-constraint m name1:'(3) (? on ?))
 ;=>'((uniq on '(?0 ?1)))
 (add-stmt m name1:'(x y 3))
-;=>1
+;=>true
 (list-stmt m)
 ;=>'(name1:'(a b 1) name1:'(x y dup) name1:'(x y 3))

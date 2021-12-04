@@ -3,7 +3,7 @@
 (add-rule m if '(?x ?y ?z) do (-> m '(?y ?z ?x)))
 ;=>RU000
 (add-stmt m '(a b c))
-;=>1
+;=>true
 (start m)
 ;=>6
 (list-stmt m)

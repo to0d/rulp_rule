@@ -9,8 +9,8 @@ public class TestConstraintRule extends RuleTestBase {
 	public void test_type_match_1() {
 
 		_setup();
-		_test_script("result/constraint/TestConstraintRule/test_type_match_1.rulp");
-		_statsInfo("m", "result/constraint/TestConstraintRule/test_type_match_1.txt");
+		_test_script();
+		_statsInfo("m");
 
 	}
 }

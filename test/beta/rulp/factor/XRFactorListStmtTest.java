@@ -61,7 +61,8 @@ class XRFactorListStmtTest extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(add-stmt m '(a p b) '(b p c))", "2");
+		_test("(add-stmt m '(a p b))", "true");
+		_test("(add-stmt m '(b p c))", "true");
 		_test("(add-rule m if '(?a ?p ?b) '(?b ?p ?c) do (-> m '(?a ?p ?c)) )");
 
 		_test("(list-stmt m)", "'('(a p b) '(b p c))");

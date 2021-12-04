@@ -13,7 +13,7 @@ public class TestRuleGroup extends RuleTestBase {
 		_setup();
 		_test("(new model m)");
 		_test("(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))", "RU000");
-		_test("(add-stmt m '(a p b))", "1");
+		_test("(add-stmt m '(a p b))", "true");
 		_test("(list-stmt m)", "'('(a p b))");
 
 		_test("(start m)");
@@ -37,7 +37,7 @@ public class TestRuleGroup extends RuleTestBase {
 		_setup();
 		_test("(new model m)");
 		_test("(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))", "RU000");
-		_test("(add-stmt m '(a p b))", "1");
+		_test("(add-stmt m '(a p b))", "true");
 		_test("(list-stmt m)", "'('(a p b))");
 
 		_test("(query-stmt m '(?x ?z) from '(?x p2 ?z))", "'('(a b))");
@@ -57,8 +57,8 @@ public class TestRuleGroup extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))", "RU000");
 		_test("(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p2 ?c)))", "RU001");
-		_test("(add-stmt m '(a p b))", "1");
-		_test("(add-stmt m '(b p c))", "1");
+		_test("(add-stmt m '(a p b))", "true");
+		_test("(add-stmt m '(b p c))", "true");
 		_test("(list-stmt m)", "'('(a p b) '(b p c))");
 
 		_test("(query-stmt m::g1 '(?x ?z) from '(?x p2 ?z))", "'('(a b) '(b c))");
@@ -80,8 +80,8 @@ public class TestRuleGroup extends RuleTestBase {
 		_test("(new model m)");
 		_test("(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))", "RU000");
 		_test("(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p2 ?c)))", "RU001");
-		_test("(add-stmt m '(a p b))", "1");
-		_test("(add-stmt m '(b p c))", "1");
+		_test("(add-stmt m '(a p b))", "true");
+		_test("(add-stmt m '(b p c))", "true");
 		_test("(list-stmt m)", "'('(a p b) '(b p c))");
 
 		_test("(start m::g1)");

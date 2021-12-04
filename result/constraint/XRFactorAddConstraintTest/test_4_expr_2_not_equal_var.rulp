@@ -5,7 +5,7 @@
 (add-constraint m name1:'(?x ?y) (!= ?y ?v))
 ;=>1
 (add-stmt m name1:'(a 2))
-;=>1
+;=>true
 (add-stmt m name1:'(b 1))
 ;err:
 Unable to add entry<name1:'(b 1)> due to constraint<(cmp-entry-var != ?1 ?v)>
@@ -16,7 +16,7 @@ at main: (add-stmt m name1:'(b 1))
 (setq ?v 3)
 ;=>&?v
 (add-stmt m name1:'(b 1))
-;=>1
+;=>true
 (add-stmt m name1:'(c 3))
 ;err:
 Unable to add entry<name1:'(c 3)> due to constraint<(cmp-entry-var != ?1 ?v)>

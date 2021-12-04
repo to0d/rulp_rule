@@ -18,7 +18,6 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.XRFactorAddStmt;
-import alpha.rulp.ximpl.factor.XRFactorAssumeStmt;
 
 public class ActionUtil {
 
@@ -171,29 +170,14 @@ public class ActionUtil {
 		switch (factorName) {
 		case F_ADD_STMT:
 		case F_DEFS_S:
-
-			IRIterator<? extends IRObject> stmtIt = XRFactorAddStmt.getStmtList(expr);
-			while (stmtIt.hasNext()) {
-
-				IRList stmt = RulpUtil.asList(stmtIt.next());
-
-				if (!ReteUtil.isActionEntry(stmt)) {
-					throw new RException("Invalid stmt found: " + stmt);
-				}
-
-				uniqNames.add(ReteUtil.uniqName(stmt));
-			}
-
-			break;
-
 		case F_ASSUME_STMT:
-
-			IRList stmt = RulpUtil.asList(XRFactorAssumeStmt.getStmtObject(expr));
+			IRList stmt = RulpUtil.asList(XRFactorAddStmt.getStmtObject(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
 			}
 
 			uniqNames.add(ReteUtil.uniqName(stmt));
+
 			break;
 
 		case A_DO:

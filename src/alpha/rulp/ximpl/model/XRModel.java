@@ -1351,7 +1351,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public int addStatement(IRList stmt) throws RException {
+	public boolean addStatement(IRList stmt) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> addStatement: " + stmt);
@@ -1364,10 +1364,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// stmt updated, active the listener
 		if (RUpdateResult.isValidUpdate(rst)) {
 			stmtListenUpdater.update(this);
-			return 1;
+			return true;
 		}
 
-		return 0;
+		return false;
 	}
 
 	@Override
@@ -1378,40 +1378,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		stmtListenUpdater.addStatementListener(this.findNode(condList), listener);
-	}
-
-	@Override
-	public int addStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addStatements: ");
-		}
-
-		RReteStatus status = _getNewStmtStatus();
-
-		int updateCount = 0;
-
-		while (stmtIterator.hasNext()) {
-
-			IRList stmt = stmtIterator.next();
-			if (RuleUtil.isModelTrace()) {
-				System.out.println("\t(" + stmt + ")");
-			}
-
-			RUpdateResult rst = _addReteEntry(stmt, status);
-
-			// stmt updated, active the listener
-			if (RUpdateResult.isValidUpdate(rst)) {
-				updateCount++;
-			}
-		}
-
-		// active stmt listeners
-		if (updateCount > 0) {
-			stmtListenUpdater.update(this);
-		}
-
-		return updateCount;
 	}
 
 	@Override
@@ -1672,10 +1638,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public int fixStatement(IRList stmt) throws RException {
+	public boolean fixStatement(IRList stmt) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addFixedStatement: " + stmt);
+			System.out.println("==> fixStatement: " + stmt);
 		}
 
 		RUpdateResult rst = _addReteEntry(stmt, RReteStatus.FIXED_);
@@ -1683,46 +1649,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// stmt updated, active the listener
 		if (RUpdateResult.isValidUpdate(rst)) {
 			stmtListenUpdater.update(this);
+			return true;
 		}
 
-		return rst == RUpdateResult.INVALID ? 0 : 1;
-	}
-
-	@Override
-	public int fixStatements(IRIterator<? extends IRList> stmtIterator) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> addFixedStatements: ");
-		}
-
-		int succAddCount = 0;
-		int updateCount = 0;
-
-		while (stmtIterator.hasNext()) {
-
-			IRList stmt = stmtIterator.next();
-			if (RuleUtil.isModelTrace()) {
-				System.out.println("\t(" + stmt + ")");
-			}
-
-			RUpdateResult rst = _addReteEntry(stmt, RReteStatus.FIXED_);
-
-			// stmt updated, active the listener
-			if (RUpdateResult.isValidUpdate(rst)) {
-				updateCount++;
-			}
-
-			if (rst != RUpdateResult.INVALID) {
-				succAddCount++;
-			}
-		}
-
-		// active stmt listeners
-		if (updateCount > 0) {
-			stmtListenUpdater.update(this);
-		}
-
-		return succAddCount;
+		return false;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.ModelUtil;
 
 public class XRFactorAddLazyStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -33,7 +34,7 @@ public class XRFactorAddLazyStmt extends AbsRFactorAdapter implements IRFactor, 
 		IRObject obj = args.get(3);
 
 		model.getNodeGraph().bindNode(model.getNodeGraph().addWorker(null, (m) -> {
-			model.addStatements(RuleUtil.toStmtList(interpreter.compute(frame, obj)));
+			ModelUtil.addStatements(model, RuleUtil.toStmtList(interpreter.compute(frame, obj)));
 			return true;
 		}), model.findNode(condList));
 

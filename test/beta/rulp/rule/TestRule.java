@@ -19,7 +19,7 @@ public class TestRule extends RuleTestBase {
 		_setup();
 		_test("(new model m)");
 		_test("(add-rule \"TG1\" m if '(?c hasChild ?cc) do (-> m '(?c hasGroupChild ?cc)))", "TG1");
-		_test("(add-stmt m '(a hasChild b))", "1");
+		_test("(add-stmt m '(a hasChild b))", "true");
 		_test("(list-stmt m)", "'('(a hasChild b))");
 		_test("(start m)", "5");
 		_test("(state-of m)", "completed");
@@ -32,11 +32,10 @@ public class TestRule extends RuleTestBase {
 	@Test
 	void test_0_default_model() {
 
-		// XRModel.TRACE_RETE = true;
 		_setup();
 		_test("(new model m)");
 		_test("(add-rule \"TG1\" m if '(?c hasChild ?cc) do (-> '(?c hasGroupChild ?cc)))", "TG1");
-		_test("(add-stmt m '(a hasChild b))", "1");
+		_test("(add-stmt m '(a hasChild b))", "true");
 		_test("(list-stmt m)", "'('(a hasChild b))");
 		_test("(start m)", "5");
 		_test("(state-of m)", "completed");

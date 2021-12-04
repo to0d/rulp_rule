@@ -14,8 +14,9 @@ public class PartialReasonTest extends RuleTestBase {
 		_test("(new model m)", "m");
 		_test("(add-rule \"R1\" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )", "R1");
 		_test("(add-rule \"R2\" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )", "R2");
-		_test("(add-stmt m '(a typeof c1))", "1"); // used for R1
-		_test("(add-stmt m '(a p b) '(b p c))", "2"); // used for R2
+		_test("(add-stmt m '(a typeof c1))", "true"); // used for R1
+		_test("(add-stmt m '(a p b))", "true"); // used for R2
+		_test("(add-stmt m '(b p c))", "true"); // used for R2
 
 		_test("(start m)", "13");
 		_test("(state-of m)", "completed");
@@ -39,8 +40,9 @@ public class PartialReasonTest extends RuleTestBase {
 		_test("(new model m)", "m");
 		_test("(add-rule \"R1\" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )", "R1");
 		_test("(add-rule \"R2\" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )", "R2");
-		_test("(add-stmt m '(a typeof c1))", "1"); // used for R1
-		_test("(add-stmt m '(a p b) '(b p c))", "2"); // used for R2
+		_test("(add-stmt m '(a typeof c1))", "true"); // used for R1
+		_test("(add-stmt m '(a p b))", "true"); // used for R2
+		_test("(add-stmt m '(b p c))", "true"); // used for R2
 
 		_test("(start m priority -1 limit 5)", "5");
 		_test("(state-of m)", "runnable");
@@ -70,8 +72,9 @@ public class PartialReasonTest extends RuleTestBase {
 		_test("(new model m)", "m");
 		_test("(add-rule \"R1\" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )", "R1");
 		_test("(add-rule \"R2\" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )", "R2");
-		_test("(add-stmt m '(a typeof c1))", "1"); // used for R1
-		_test("(add-stmt m '(a p b) '(b p c))", "2"); // used for R2
+		_test("(add-stmt m '(a typeof c1))", "true"); // used for R1
+		_test("(add-stmt m '(a p b))", "true"); // used for R2
+		_test("(add-stmt m '(b p c))", "true"); // used for R2
 
 		_test("(list-stmt m from '(?x typeof c2))", "'()");
 		_test("(list-source-node m ('(?n typeof c2)))", "'(R1)");

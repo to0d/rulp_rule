@@ -3,7 +3,7 @@
 (add-constraint m name1:'(?x ?y) (>= ?y (+ 1 1)))
 ;=>1
 (add-stmt m name1:'(a 2))
-;=>1
+;=>true
 (add-stmt m name1:'(b 1))
 ;err:
 Unable to add entry<name1:'(b 1)> due to constraint<(cmp-entry-value >= ?1 2)>

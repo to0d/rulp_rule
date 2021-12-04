@@ -537,8 +537,7 @@ TV1[2]   0     EXPR  (defvar ?tagName)
          4     EXPR  (setq ?tagName (to-string ?tag))
          5     EXPR  (setq ?pos (str-last-index-of ?tagName "v"))
          6     EXPR  (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string
-                      ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (-> '(?tag nm:isVersionOf ?mainTag) '(?tag nm:beDefinedByTag
-                      )))))...
+                      ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag  ))))))...
 TC1[3]   0     ADD   (-> '(?2, nm:beDefinedByTag, nt:$TClass))
 CC1[3]   0     ADD   (-> '(?0, nm:beParentTagOf, ?2))
          1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TCollection))
@@ -592,8 +591,8 @@ AC2[2]   0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2)
                       nm:hasAutoRelatedTag (to-atom ?t1)))))
 AC3[4]   0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (->
                       '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
-AC4[4]   0     EXPR  (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))) '(?f nm:beParentTagOf (to-atom (strcat (to-string
-                      ?ins) "-" (get-uri-name ?f)))))
+AC4[4]   0     EXPR  (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+         1     EXPR  (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
 AC5[2]   0     ADD   (-> '(?0, nm:beChildTagOf, nt:$BEGINNER))
          1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TOPIC))
          2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (->
@@ -1178,7 +1177,7 @@ B2111(BETA2):               '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2
 B2117(BETA2):               '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
            0: E0116(EXPR0)  '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
            1: A0003(ALPH0)  '(?0 nm:typeOf nm:tag)
-   TV1(RULE):               (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) ==> (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (-> '(?tag nm:isVersionOf ?mainTag) '(?tag nm:beDefinedByTag ?mainTagVersion)))))
+   TV1(RULE):               (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) ==> (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion))))))
            0: B1007(BETA1)  '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
    TC1(RULE):               '(?ti nm:beInstanceTagOf ?tc) ==> (-> '(?tc nm:beDefinedByTag nt:$TClass))
            0: A0009(ALPH0)  '(?0 nm:beInstanceTagOf ?1)
@@ -1202,7 +1201,7 @@ B2117(BETA2):               '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?
            0: B0038(BETA0)  '('(?0 nm:typeOf ?1) '(?1 nm:classOf ?2))
     C7(RULE):               (var-changed ?model-state running completed) '(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) (not (equal ?a ?b)) ==> (if (has-stmt p2d '(?b ?p ?a)) (error '("Circle found" '(?a ?p ?b) '(?b ?p ?a))))
            0: B1043(BETA1)  '('('('(?0 ?1 ?2) (!= ?0 ?2)) '(?1 nm:propertyOf nm:nonCircleProperty)) (var-changed ?model-state running completed))
-    C8(RULE):               '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) ==> (-> '(?a nm:typeOf nm:tag) '(?b nm:typeOf nm:tag))
+    C8(RULE):               '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) ==> (-> '(?a nm:typeOf nm:tag)) (-> '(?b nm:typeOf nm:tag))
            0: B2046(BETA2)  '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagRelation))
     T1(RULE):               '(?a nm:beAliasTo ?b) '(?b nm:beAliasTo ?c) ==> (error p2d-conflict '("Can't alias to alias tag" ?0 1))
            0: B0049(BETA0)  '('(?0 nm:beAliasTo ?1) '(?1 nm:beAliasTo ?2))
@@ -1214,11 +1213,11 @@ B2117(BETA2):               '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?
            0: A0045(ALPH0)  '(?0 nm:propertyOf nm:tagRelation)
     T5(RULE):               '(?p1 nm:propertyOf nm:tagRelation) '(?p1 nm:inverseProperty ?p2) ==> (-> '(?p2 nm:propertyOf nm:tagRelation))
            0: B0058(BETA0)  '('(?0 nm:inverseProperty ?1) '(?0 nm:propertyOf nm:tagRelation))
-    T8(RULE):               '(?p1 nm:inverseSimpleTagProperty ?p2) ==> (-> '(?p1 nm:propertyOf nm:nonSelfDefine) '(?p2 nm:propertyOf nm:nonSelfDefine) '(?p1 nm:propertyOf nm:nonCircleProperty) '(?p2 nm:propertyOf nm:nonCircleProperty) '(?p1 nm:propertyOf nm:tagRelation) '(?p2 nm:propertyOf nm:tagRelation) '(?p1 nm:inverseProperty ?p2))
+    T8(RULE):               '(?p1 nm:inverseSimpleTagProperty ?p2) ==> (-> '(?p1 nm:propertyOf nm:nonSelfDefine)) (-> '(?p2 nm:propertyOf nm:nonSelfDefine)) (-> '(?p1 nm:propertyOf nm:nonCircleProperty)) (-> '(?p2 nm:propertyOf nm:nonCircleProperty)) (-> '(?p1 nm:propertyOf nm:tagRelation)) (-> '(?p2 nm:propertyOf nm:tagRelation)) (-> '(?p1 nm:inverseProperty ?p2))
            0: A0060(ALPH0)  '(?0 nm:inverseSimpleTagProperty ?1)
    TA5(RULE):               '(?a nm:hasTagAttr ?t) '(?a nm:typeOf nm:tagAttr) ==> (-> '(?a nm:typeOf nm:tag))
            0: B0064(BETA0)  '('(?0 nm:hasTagAttr ?1) '(?0 nm:typeOf nm:tagAttr))
-    D1(RULE):               '(?p1 nm:inverseSimpleDomainProperty ?p2) ==> (-> '(?p1 nm:propertyOf nm:nonSelfDefine) '(?p2 nm:propertyOf nm:nonSelfDefine) '(?p1 nm:propertyOf nm:nonCircleProperty) '(?p2 nm:propertyOf nm:nonCircleProperty) '(?p1 nm:propertyOf nm:domainRelation) '(?p2 nm:propertyOf nm:domainRelation) '(?p1 nm:inverseProperty ?p2))
+    D1(RULE):               '(?p1 nm:inverseSimpleDomainProperty ?p2) ==> (-> '(?p1 nm:propertyOf nm:nonSelfDefine)) (-> '(?p2 nm:propertyOf nm:nonSelfDefine)) (-> '(?p1 nm:propertyOf nm:nonCircleProperty)) (-> '(?p2 nm:propertyOf nm:nonCircleProperty)) (-> '(?p1 nm:propertyOf nm:domainRelation)) (-> '(?p2 nm:propertyOf nm:domainRelation)) (-> '(?p1 nm:inverseProperty ?p2))
            0: A0066(ALPH0)  '(?0 nm:inverseSimpleDomainProperty ?1)
     D2(RULE):               '(?a nm:beParentDomainOf ?b) ==> (-> '(?a nm:beAncestorDomainOf ?b))
            0: A0068(ALPH0)  '(?0 nm:beParentDomainOf ?1)
@@ -1250,7 +1249,7 @@ B2117(BETA2):               '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?
            0: B1107(BETA1)  '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
    AC3(RULE):               (var-changed ?model-state running completed) '(?a nm:typeOf nm:tag) '(?a nm:hasFieldTag ?f) '(?a nm:beParentTagOf ?c) ==> (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
            0: B1112(BETA1)  '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-   AC4(RULE):               (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) ==> (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))) '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+   AC4(RULE):               (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) ==> (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
            0: B1118(BETA1)  '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
    AC5(RULE):               (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (get-uri-name ?t) "-Beginner") ==> (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
            0: B1121(BETA1)  '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
@@ -1262,7 +1261,7 @@ B2117(BETA2):               '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?
            0: B1124(BETA1)  '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 ========================================================================================================================================================
 
-Rule<TV1> stats: priority=099, expr=(add-rule "TV1" p2d if (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) do (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (-> '(?tag nm:isVersionOf ?mainTag) '(?tag nm:beDefinedByTag ?mainTagVersion))))))
+Rule<TV1> stats: priority=099, expr=(add-rule "TV1" p2d if (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) do (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion)))))))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1583,7 +1582,7 @@ Priority          VAR ALPH0 ALPH1 EXPR1 BETA1 BETA2  RULE
 099(default) :      1     2     1     1     1     1     1
 ========================================================================================================================================================
 
-Rule<C8> stats: priority=099, expr=(add-rule "C8" p2d if '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) do (-> '(?a nm:typeOf nm:tag) '(?b nm:typeOf nm:tag)))
+Rule<C8> stats: priority=099, expr=(add-rule "C8" p2d if '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) do (-> '(?a nm:typeOf nm:tag)) (-> '(?b nm:typeOf nm:tag)))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1741,7 +1740,7 @@ Priority        ALPH0 BETA0  RULE
 099(default) :      3     1     1
 ========================================================================================================================================================
 
-Rule<T8> stats: priority=099, expr=(add-rule "T8" p2d if '(?p1 nm:inverseSimpleTagProperty ?p2) do (-> '(?p1 nm:propertyOf nm:nonSelfDefine) '(?p2 nm:propertyOf nm:nonSelfDefine) '(?p1 nm:propertyOf nm:nonCircleProperty) '(?p2 nm:propertyOf nm:nonCircleProperty) '(?p1 nm:propertyOf nm:tagRelation) '(?p2 nm:propertyOf nm:tagRelation) '(?p1 nm:inverseProperty ?p2)))
+Rule<T8> stats: priority=099, expr=(add-rule "T8" p2d if '(?p1 nm:inverseSimpleTagProperty ?p2) do (-> '(?p1 nm:propertyOf nm:nonSelfDefine)) (-> '(?p2 nm:propertyOf nm:nonSelfDefine)) (-> '(?p1 nm:propertyOf nm:nonCircleProperty)) (-> '(?p2 nm:propertyOf nm:nonCircleProperty)) (-> '(?p1 nm:propertyOf nm:tagRelation)) (-> '(?p2 nm:propertyOf nm:tagRelation)) (-> '(?p1 nm:inverseProperty ?p2)))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1791,7 +1790,7 @@ Priority        ALPH0 BETA0  RULE
 099(default) :      3     1     1
 ========================================================================================================================================================
 
-Rule<D1> stats: priority=099, expr=(add-rule "D1" p2d if '(?p1 nm:inverseSimpleDomainProperty ?p2) do (-> '(?p1 nm:propertyOf nm:nonSelfDefine) '(?p2 nm:propertyOf nm:nonSelfDefine) '(?p1 nm:propertyOf nm:nonCircleProperty) '(?p2 nm:propertyOf nm:nonCircleProperty) '(?p1 nm:propertyOf nm:domainRelation) '(?p2 nm:propertyOf nm:domainRelation) '(?p1 nm:inverseProperty ?p2)))
+Rule<D1> stats: priority=099, expr=(add-rule "D1" p2d if '(?p1 nm:inverseSimpleDomainProperty ?p2) do (-> '(?p1 nm:propertyOf nm:nonSelfDefine)) (-> '(?p2 nm:propertyOf nm:nonSelfDefine)) (-> '(?p1 nm:propertyOf nm:nonCircleProperty)) (-> '(?p2 nm:propertyOf nm:nonCircleProperty)) (-> '(?p1 nm:propertyOf nm:domainRelation)) (-> '(?p2 nm:propertyOf nm:domainRelation)) (-> '(?p1 nm:inverseProperty ?p2)))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2227,7 +2226,7 @@ Priority          VAR ALPH0 ALPH1 BETA0 BETA1 BETA2  RULE
 099(default) :      1     4     1     1     1     1     1
 ========================================================================================================================================================
 
-Rule<AC4> stats: priority=099, expr=(add-rule "AC4" p2d if (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))) '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))))
+Rule<AC4> stats: priority=099, expr=(add-rule "AC4" p2d if (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2728,11 +2727,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2815            0         2815
+        atom:         2831            0         2831
          int:            2            0            2
       string:          126            0          126
         list:          739            0          739
-        expr:         1277            0         1277
+        expr:         1293            0         1293
        array:            1            0            1
          var:          172          141           31
         func:          111            0          111

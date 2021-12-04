@@ -3,7 +3,7 @@
 (add-rule m if '(?x p ?y) do (-> m '(?y p ?x)))
 ;=>RU000
 (add-stmt m '(a p c))
-;=>1
+;=>true
 (start m)
 ;=>6
 (list-stmt m)
@@ -13,7 +13,7 @@
 (list-stmt m)
 ;=>'()
 (add-stmt m '(c p a))
-;=>1
+;=>true
 (start m)
 ;=>3
 (list-stmt m)

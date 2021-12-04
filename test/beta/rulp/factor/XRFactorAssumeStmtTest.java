@@ -27,7 +27,7 @@ class XRFactorAssumeStmtTest extends RuleTestBase {
 		_setup();
 
 		_test("(new model m)", "m");
-		_test("(add-stmt m n1:'(1))", "1");
+		_test("(add-stmt m n1:'(1))", "true");
 		_test("(assume-stmt m n1:'(1))", "true");
 		_test("(list-stmt m from n1:'(?x))", "'(n1:'(1))");
 
@@ -42,7 +42,7 @@ class XRFactorAssumeStmtTest extends RuleTestBase {
 
 		_test("(new model m)", "m");
 		_test("(assume-stmt m n1:'(1))", "true");
-		_test("(add-stmt m n1:'(1))", "1");
+		_test("(add-stmt m n1:'(1))", "true");
 		_test("(list-stmt m from n1:'(?x))", "'(n1:'(1))");
 
 		_statsInfo("m");

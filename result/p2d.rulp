@@ -109,9 +109,9 @@
                 (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version" )))
                 (if
                     (has-stmt p2d '(?mainTag nm:typeOf nm:tag))
-                    (->
-                        '(?tag nm:isVersionOf ?mainTag)
-                        '(?tag nm:beDefinedByTag ?mainTagVersion)
+                    (do
+                        (-> '(?tag nm:isVersionOf ?mainTag)           )
+                        (-> '(?tag nm:beDefinedByTag ?mainTagVersion) )
                     )
                 )
             )
@@ -240,9 +240,8 @@
         '(?a ?p ?b)
         '(?p nm:propertyOf nm:tagRelation)
     do
-        (-> '(?a nm:typeOf nm:tag)
-            '(?b nm:typeOf nm:tag)
-        )
+        (-> '(?a nm:typeOf nm:tag))
+        (-> '(?b nm:typeOf nm:tag))
 )
 
 ;;------------------------------------------------------------------
@@ -295,15 +294,13 @@
     if
         '(?p1 nm:inverseSimpleTagProperty ?p2)
     do
-        (->
-            '(?p1 nm:propertyOf nm:nonSelfDefine)
-            '(?p2 nm:propertyOf nm:nonSelfDefine)
-            '(?p1 nm:propertyOf nm:nonCircleProperty)
-            '(?p2 nm:propertyOf nm:nonCircleProperty)
-            '(?p1 nm:propertyOf nm:tagRelation)
-            '(?p2 nm:propertyOf nm:tagRelation)
-            '(?p1 nm:inverseProperty ?p2)
-        )
+        (-> '(?p1 nm:propertyOf nm:nonSelfDefine)    )
+        (-> '(?p2 nm:propertyOf nm:nonSelfDefine)    )
+        (-> '(?p1 nm:propertyOf nm:nonCircleProperty))
+        (-> '(?p2 nm:propertyOf nm:nonCircleProperty))
+        (-> '(?p1 nm:propertyOf nm:tagRelation)      )
+        (-> '(?p2 nm:propertyOf nm:tagRelation)      )
+        (-> '(?p1 nm:inverseProperty ?p2)            )
 )
 
 ;;------------------------------------------------------------------
@@ -329,15 +326,13 @@
     if
         '(?p1 nm:inverseSimpleDomainProperty ?p2)
     do
-        (->
-            '(?p1 nm:propertyOf nm:nonSelfDefine)
-            '(?p2 nm:propertyOf nm:nonSelfDefine)
-            '(?p1 nm:propertyOf nm:nonCircleProperty)
-            '(?p2 nm:propertyOf nm:nonCircleProperty)
-            '(?p1 nm:propertyOf nm:domainRelation)
-            '(?p2 nm:propertyOf nm:domainRelation)
-            '(?p1 nm:inverseProperty ?p2)
-        )
+        (-> '(?p1 nm:propertyOf nm:nonSelfDefine)    )
+        (-> '(?p2 nm:propertyOf nm:nonSelfDefine)    )
+        (-> '(?p1 nm:propertyOf nm:nonCircleProperty))
+        (-> '(?p2 nm:propertyOf nm:nonCircleProperty))
+        (-> '(?p1 nm:propertyOf nm:domainRelation)   )
+        (-> '(?p2 nm:propertyOf nm:domainRelation)   )
+        (-> '(?p1 nm:inverseProperty ?p2)            )
 )
 
 (add-rule "D2" p2d
@@ -519,13 +514,8 @@
             )
         )
     do
-        (->
-            '(?ins
-                nm:hasFieldTag
-                (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
-            )
-            '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))
-        )
+        (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+        (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
 )
 
 ;; Set topic tag if the tag name like "%?-Beginner"

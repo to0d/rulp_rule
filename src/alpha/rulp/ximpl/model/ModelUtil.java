@@ -26,6 +26,7 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -119,6 +120,18 @@ public class ModelUtil {
 			newRules.add(rule);
 			var.setValue(RulpFactory.createList(newRules));
 		}
+	}
+
+	public static int addStatements(IRModel model, IRIterator<? extends IRList> stmtIterator) throws RException {
+
+		int updateCount = 0;
+		while (stmtIterator.hasNext()) {
+			if (model.addStatement(stmtIterator.next())) {
+				updateCount++;
+			}
+		}
+
+		return updateCount;
 	}
 
 	public static void addWorker(IRModel model, IRList condList, IRWorker worker) throws RException {
