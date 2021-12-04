@@ -7,7 +7,7 @@ import alpha.rulp.utils.RuleTestBase;
 public class Named1Test extends RuleTestBase {
 
 	@Test
-	void test_1() {
+	void test_named_1() {
 
 		_setup();
 		// XRModel.TRACE_RETE = true;
@@ -29,11 +29,11 @@ public class Named1Test extends RuleTestBase {
 		_eCount(1, "m");
 		_saveTest();
 
-		_statsInfo("m", "result/named/Named1Test/test_1.txt");
+		_statsInfo("m");
 	}
 
 	@Test
-	void test_2() {
+	void test_named_2() {
 
 		_setup();
 		// XRModel.TRACE_RETE = true;
@@ -53,7 +53,7 @@ public class Named1Test extends RuleTestBase {
 		_eCount(1, "m");
 		_saveTest();
 
-		_statsInfo("m", "result/named/Named1Test/test_2.txt");
+		_statsInfo("m");
 	}
 
 }
