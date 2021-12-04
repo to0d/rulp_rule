@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
+import static alpha.rulp.lang.Constant.*;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -62,7 +63,7 @@ public class XRFactorAddNode extends AbsRFactorAdapter implements IRFactor, IRul
 		/**************************************************/
 		IRReteNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
 		if (node != null) {
-			return RulpFactory.createInteger(0);
+			return O_False;
 		}
 
 		/**************************************************/
@@ -73,6 +74,6 @@ public class XRFactorAddNode extends AbsRFactorAdapter implements IRFactor, IRul
 			throw new RException(String.format("Fail to create named node: %s", namedList));
 		}
 
-		return RulpFactory.createInteger(1);
+		return O_True;
 	}
 }

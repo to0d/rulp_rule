@@ -2,7 +2,7 @@
 ;=>m
 
 (add-node m name1:'(4))
-;=>1
+;=>true
 
 (defvar ?node name1)
 ;=>&?node

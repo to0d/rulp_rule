@@ -1,5 +1,6 @@
 (new model m)
-;=>m
+;;;
+
 (add-node m name1:'(3))
 ;;;
 

@@ -1,7 +1,8 @@
 (new model m)
 ;=>m
+
 (add-node m name1:'(3))
-;=>m 1
+;=>true
 
 (add-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
 ;=>1

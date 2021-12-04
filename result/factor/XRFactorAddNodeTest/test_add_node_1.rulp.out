@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-node m n1:'(?x ?y ?z))
+;=>true
+
+(add-node m n1:'(?x ?y ?z))
+;=>false
+
+(add-node m n1:'(?x ?y))
+;err:
+unmatch entry length: expect=2, actual=3
+at main: (add-node m n1:'(?x ?y))
+;eof
+
+(add-node m '(?x ?y))
+;err:
+Invalid named filter: '(?x ?y)
+at main: (add-node m '(?x ?y))
+;eof
+
+(add-node m n2:'(? ? ?))
+;=>true
+
+(add-node m n3:'(3))
+;=>true
+

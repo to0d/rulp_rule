@@ -7,7 +7,7 @@
 (add-node m name4:'(3))
 (add-node m name5:'(3))
 (add-node m name6:'(3))
-;=>1 1 1 1 1 1
+;=>true true true true true true
 
 (add-constraint m name1:'(?x ?y ?z) (type int on ?x))
 ;=>1

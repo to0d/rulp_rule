@@ -2,7 +2,7 @@
 ;=>m
 
 (add-node m name1:'(3))
-;=>1
+;=>true
 
 (add-constraint m name1:'(? ? ?x) (type int on ?x))
 ;=>1
