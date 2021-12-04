@@ -1,0 +1,11 @@
+(load "result/p2d.rulp")
+;;;
+
+(get-uri-name abc)
+;;;
+
+(get-uri-name nt:abc)
+;;;
+
+(get-uri-name mn:abc)
+;;;

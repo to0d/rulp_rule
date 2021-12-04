@@ -11,7 +11,7 @@
 ;=>true
 
 (query-stmt m '(?x ?y) from '(?x p ?y))
-;=>'('(a c) '(c a))
+;=>'('(a c))
 
 (remove-stmt m n1:'(p p2))
 ;=>'(n1:'(p p2))

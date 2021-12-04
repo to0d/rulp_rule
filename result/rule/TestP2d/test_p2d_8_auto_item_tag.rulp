@@ -1,0 +1,18 @@
+(load "result/p2d.rulp")
+;;;
+
+(add-stmt p2d '(nt:RFE-88111 nm:typeOf nm:tag))
+(add-stmt p2d '(nt:RFE nm:hasTagAttr nm:itemTag))
+;;;
+
+(start p2d)
+;;;
+
+(state-of p2d)
+;;;
+
+(list-with-state (list-rule p2d) failed)
+;;;
+
+(list-stmt p2d from '(nt:RFE nm:beParentTagOf ?x))
+;;;

@@ -1,0 +1,45 @@
+(load "result/p2d.rulp")
+;=>'(p2d &#ns_tag &#ns_domain get-uri-name get-suffix get-field-name get-new-ns true true true true true true true true true true true true true true true true true true true true true true get-version-number TV1 true true TC1 true CC1 true TG1 TG3 C1 C2 C3 C4 C5 C6 C7 C8 T1 T2 T3 T4 T5 T8 TA5 true true D1 D2 D3 D4 D5 DC1 RR1 RR2 RR3 RR4 RR5 RR6 RR7 AC1 AC2 AC3 AC4 AC5 AC6 AC7 AC8 hasGroupChild)
+
+(add-stmt p2d '(ta nm:beParentTagOf tb))
+;=>true
+
+(add-stmt p2d '(ta nm:hasRelatedTag tc))
+;=>true
+
+(add-stmt p2d '(tax nm:beAliasTo ta))
+;=>true
+
+(add-stmt p2d '(tax nm:beParentTagOf td))
+;=>true
+
+(add-stmt p2d '(tax nm:hasRelatedTag te))
+;=>true
+
+(start p2d)
+;=>447
+
+(state-of p2d)
+;=>completed
+
+(list-with-state (list-rule p2d) failed)
+;=>'()
+
+(list-stmt p2d from '(?x nm:typeOf nm:tag))
+;=>'('(ta nm:typeOf nm:tag) '(tc nm:typeOf nm:tag) '(tax nm:typeOf nm:tag) '(te nm:typeOf nm:tag) '(tb nm:typeOf nm:tag) '(td nm:typeOf nm:tag) '(nt:$TGROUP nm:typeOf nm:tag))
+
+(list-stmt p2d from '(ta nm:beParentTagOf ?x))
+;=>'('(ta nm:beParentTagOf tb) '(ta nm:beParentTagOf td))
+
+(list-stmt p2d from '(td nm:beChildTagOf ?x))
+;=>'('(td nm:beChildTagOf tax) '(td nm:beChildTagOf ta))
+
+(list-stmt p2d from '(ta nm:hasRelatedTag ?x))
+;=>'('(ta nm:hasRelatedTag tc) '(ta nm:hasRelatedTag te) '(ta nm:hasRelatedTag nt:$TGROUP))
+
+(list-stmt p2d from '(tc nm:hasRelatedTag ?x))
+;=>'('(tc nm:hasRelatedTag ta))
+
+(list-stmt p2d from '(te nm:hasRelatedTag ?x))
+;=>'('(te nm:hasRelatedTag tax) '(te nm:hasRelatedTag ta))
+

@@ -1,0 +1,23 @@
+(load "result/p2d.rulp")
+;;;
+
+(add-stmt p2d '(ta nm:hasAliasTag tb))
+;;;
+
+(add-stmt p2d '(ta nm:hasAliasTag tc))
+;;;
+
+(query-stmt p2d '(?x ?y) from '(?x nm:hasAliasTag ?y))
+;;;
+
+(query-stmt p2d '(?x ?y) from '(?x nm:beAliasTo ?y))
+;;;
+
+(query-stmt p2d '(?x) from '(?x nm:typeOf nm:tag))
+;;;
+
+(list-with-state (list-rule p2d) failed)
+;;;
+
+(size-of (list-stmt p2d))
+;;;

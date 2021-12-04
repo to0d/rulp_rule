@@ -1,0 +1,29 @@
+(load "result/p2d.rulp")
+;=>'(p2d &#ns_tag &#ns_domain get-uri-name get-suffix get-field-name get-new-ns true true true true true true true true true true true true true true true true true true true true true true get-version-number TV1 true true TC1 true CC1 true TG1 TG3 C1 C2 C3 C4 C5 C6 C7 C8 T1 T2 T3 T4 T5 T8 TA5 true true D1 D2 D3 D4 D5 DC1 RR1 RR2 RR3 RR4 RR5 RR6 RR7 AC1 AC2 AC3 AC4 AC5 AC6 AC7 AC8 hasGroupChild)
+
+(add-stmt p2d '(nt:tc nm:beClassTagOf nt:t1))
+(add-stmt p2d '(nt:tc nm:hasFieldTag nt:te))
+(add-stmt p2d '(nt:t1-te nm:typeOf nm:tag))
+;=>true true true
+
+(start p2d)
+;=>703
+
+(state-of p2d)
+;=>completed
+
+(list-with-state (list-rule p2d) failed)
+;=>'()
+
+(list-stmt p2d from '(?x nm:beClassTagOf ?y))
+;=>'('(nt:tc nm:beClassTagOf nt:t1))
+
+(list-stmt p2d from '(?x nm:beInstanceTagOf ?y))
+;=>'('(nt:t1 nm:beInstanceTagOf nt:tc))
+
+(list-stmt p2d from '(?x nm:hasFieldTag ?y))
+;=>'('(nt:tc nm:hasFieldTag nt:te) '(nt:t1 nm:hasFieldTag nt:t1-te))
+
+(list-stmt p2d from '(?x nm:beFieldTagOf ?y))
+;=>'('(nt:te nm:beFieldTagOf nt:tc) '(nt:t1-te nm:beFieldTagOf nt:t1))
+

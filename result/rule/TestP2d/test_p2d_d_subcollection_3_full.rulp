@@ -1,0 +1,24 @@
+(load "result/p2d.rulp")
+;;;
+
+(add-stmt p2d '(nt:OS nm:hasFieldTag nt:Command))
+(add-stmt p2d '(nt:OS nm:beParentTagOf nt:AS400))
+(add-stmt p2d '(nt:AS400 nm:beParentTagOf nt:TES))
+(add-stmt p2d '(nt:AS400-Command nm:typeOf nm:tag))
+(add-stmt p2d '(nt:TES-Command nm:typeOf nm:tag))
+;;;
+
+(start p2d)
+;;;
+
+(state-of p2d)
+;;;
+
+(list-with-state (list-rule p2d) failed)
+;;;
+
+(list-stmt p2d from '(?x nm:hasSubCollection ?y))
+;;;
+
+(list-stmt p2d from '(?x nm:beFieldTagOf ?y))
+;;;

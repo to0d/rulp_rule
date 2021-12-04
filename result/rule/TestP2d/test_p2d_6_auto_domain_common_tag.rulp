@@ -1,0 +1,19 @@
+(load "result/p2d.rulp")
+;;;
+
+(add-stmt p2d '(nt:AS400-Concept nm:typeOf nm:tag))
+(add-stmt p2d '(nt:Concept nm:hasTagAttr nm:commonTag))
+(add-stmt p2d '(nd:AS400 nm:typeOf nm:domain))
+;;;
+
+(start p2d)
+;;;
+
+(state-of p2d)
+;;;
+
+(list-with-state (list-rule p2d) failed)
+;;;
+
+(list-stmt p2d from '(nt:Concept nm:hasRelatedTag ?x))
+;;;

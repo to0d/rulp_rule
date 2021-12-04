@@ -1,0 +1,18 @@
+(load "result/p2d.rulp")
+;;;
+
+(add-stmt p2d '(ta nm:hasRelatedTag tb))
+(add-stmt p2d '(ta nm:hasRelatedTag tc))
+;;;
+
+(start p2d)
+;;;
+
+(state-of p2d)
+;;;
+
+(list-with-state (list-rule p2d) failed)
+;;;
+
+(list-stmt p2d from '(?x nm:hasRelatedTag ?y))
+;;;

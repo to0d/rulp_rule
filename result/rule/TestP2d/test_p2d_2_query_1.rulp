@@ -1,0 +1,28 @@
+(load "result/p2d.rulp")
+;;;
+
+(add-stmt p2d '(nt:ProgrammingLanguage nm:XXXX nt:t1))
+;;;
+
+(add-stmt p2d '(nm:XXXX nm:propertyOf nm:tagRelation))
+;;;
+
+(add-stmt p2d '(nt:t2 nm:defineTag nt:t1))
+;;;
+
+(add-stmt p2d '(nd:Global nm:hasTag nt:t1))
+;;;
+
+(add-stmt p2d '(nd:Global nm:hasTag nt:t2))
+;;;
+
+(query-stmt p2d '(nt:ProgrammingLanguage ?t2 ?t1 ?p1 nm:defineTag) from 
+        '(nt:ProgrammingLanguage ?p1 ?t1) 
+        '(?p1 nm:propertyOf nm:tagRelation) 
+        (not (equal ?p1 nm:hasFieldTag)) 
+        (not (equal ?p1 nm:beClassTagOf)) 
+        (not (equal ?p1 nm:beParentTagOf)) 
+        '(?t2 nm:defineTag ?t1) 
+        '(nd:Global nm:hasTag ?t1) 
+        '(nd:Global nm:hasTag ?t2))
+;;;

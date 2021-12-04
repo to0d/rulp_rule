@@ -1,0 +1,22 @@
+(load "result/p2d.rulp")
+;;;
+
+(add-stmt p2d '(ta nm:beParentTagOf tb))
+(add-stmt p2d '(ta nm:beParentTagOf tc))
+(add-stmt p2d '(tb nm:beParentTagOf tc))
+;;;
+
+(start p2d)
+;;;
+
+(state-of p2d)
+;;;
+
+(list-with-state (list-rule p2d) failed)
+;;;
+
+(list-stmt p2d from '(?x nm:beParentTagOf ?y))
+;;;
+
+(list-stmt p2d from '(?x nm:beChildTagOf ?y))
+;;;
