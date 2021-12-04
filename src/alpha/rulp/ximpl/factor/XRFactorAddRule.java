@@ -18,7 +18,6 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.model.ModelUtil;
 
 public class XRFactorAddRule extends AbsRFactorAdapter implements IRuleFactor {
 
@@ -108,7 +107,7 @@ public class XRFactorAddRule extends AbsRFactorAdapter implements IRuleFactor {
 			// Set rule group
 			/**************************************************/
 			if (ruleGroupName != null) {
-				ModelUtil.addRuleToGroup(model, rule, ruleGroupName);
+				RuleUtil.addRuleToGroup(model, rule, ruleGroupName);
 				model.getNodeGraph().setRulePriority(rule, 0);
 			}
 

@@ -17,7 +17,6 @@ import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.model.ModelUtil;
 
 public class TestModel extends RuleTestBase {
 
@@ -42,7 +41,7 @@ public class TestModel extends RuleTestBase {
 
 		try {
 
-			ModelUtil.addRule(_model("m"), null, "'(?n typeof node)", (entry, rule, frame) -> {
+			RuleUtil.addRule(_model("m"), null, "'(?n typeof node)", (entry, rule, frame) -> {
 				objs.add(entry.get(0));
 			});
 
@@ -85,7 +84,7 @@ public class TestModel extends RuleTestBase {
 
 		try {
 
-			ModelUtil.addRule(_model("m"), "R01", "'(?n typeof node)", (entry, rule, frame) -> {
+			RuleUtil.addRule(_model("m"), "R01", "'(?n typeof node)", (entry, rule, frame) -> {
 				objs.add(entry.get(0));
 			});
 

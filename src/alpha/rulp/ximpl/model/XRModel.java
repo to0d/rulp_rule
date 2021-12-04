@@ -948,7 +948,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		if (!completed) {
 
-			ModelUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
+			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
 				int update = execute(node);
 				if (update > 0) {
@@ -1222,7 +1222,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// update loaders
 		/******************************************************/
-		ModelUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
+		RuleUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
 			for (IRReteNode loader : nodeGraph.getBindFromNodes(node)) {
 				if (loader.getPriority() >= 0) {
 					int c = execute(loader);
@@ -1237,7 +1237,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// update node
 		/******************************************************/
-		ModelUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
+		RuleUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
 			int c = execute(node);
 			if (c > 0) {
 				count.addAndGet(c);
@@ -1291,7 +1291,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		for (IRReteNode parentNode : rule.getParentNodes()) {
 
-			ModelUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
+			RuleUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
 
 				/******************************************************/
 				// Check node update queue
@@ -1820,9 +1820,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RulpUtil.incRef(modelFrame);
 		RuleUtil.setDefaultModel(modelFrame, this);
 
-		ModelUtil.createModelVar(this, V_M_STATE, RRunState.toObject(this.getRunState()));
-		ModelUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
-		ModelUtil.createModelVar(this, V_M_CST_INIT, RulpFactory.createBoolean(false));
+		RuleUtil.createModelVar(this, V_M_STATE, RRunState.toObject(this.getRunState()));
+		RuleUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
+		RuleUtil.createModelVar(this, V_M_CST_INIT, RulpFactory.createBoolean(false));
 	}
 
 	@Override

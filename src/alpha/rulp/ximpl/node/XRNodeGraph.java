@@ -47,7 +47,6 @@ import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
-import alpha.rulp.ximpl.model.ModelUtil;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
 
 public class XRNodeGraph implements IRNodeGraph {
@@ -994,14 +993,14 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		XRNodeSubGraph subGraph = new XRNodeSubGraph();
 
-		IRList ruleList = ModelUtil.getRuleGroupRuleList(model, ruleGroupName);
+		IRList ruleList = RuleUtil.getRuleGroupRuleList(model, ruleGroupName);
 		if (ruleList.size() == 0) {
 			throw new RException("no rule found for group: " + ruleGroupName);
 		}
 
 		IRIterator<? extends IRObject> it = ruleList.iterator();
 		while (it.hasNext()) {
-			ModelUtil.travelReteParentNodeByPostorder(RuleUtil.asRule(it.next()), (node) -> {
+			RuleUtil.travelReteParentNodeByPostorder(RuleUtil.asRule(it.next()), (node) -> {
 				if (!subGraph.containNode(node) && node.getPriority() < RETE_PRIORITY_MAXIMUM
 						&& node.getPriority() > RETE_PRIORITY_DISABLED) {
 					subGraph.addNode(node);
@@ -1056,7 +1055,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 		}
 
-		ModelUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+		RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
 
 			if (!subGraph.containNode(node)) {
 				subGraph.addNode(node);
@@ -1580,7 +1579,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Update node rule & priority
 		/******************************************************/
-		ModelUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
+		RuleUtil.travelReteParentNodeByPostorder(parentNode, (node) -> {
 
 			if (node.getReteType() != RReteType.ROOT0) {
 
@@ -1969,9 +1968,9 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		if (rule.getReteType() == RReteType.RULE) {
 
-			ModelUtil.travelReteParentNodeByPostorder(rule, (_node) -> {
+			RuleUtil.travelReteParentNodeByPostorder(rule, (_node) -> {
 				if (_node.getReteType() != RReteType.ROOT0 && _node != rule) {
-					int newPriority = ModelUtil.recalcuatePriority(model, _node);
+					int newPriority = RuleUtil.recalcuatePriority(model, _node);
 					setNodePriority(_node, newPriority);
 				}
 				return false;

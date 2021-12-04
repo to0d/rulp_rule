@@ -11,7 +11,6 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.ximpl.model.ModelUtil;
 
 public class WorkerTest extends RuleTestBase {
 
@@ -24,7 +23,7 @@ public class WorkerTest extends RuleTestBase {
 		try {
 
 			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, (model) -> {
-				ModelUtil.addStatements(model, RuleUtil.toStmtList("'('(a typeof node) '(b typeof node))"));
+				RuleUtil.addStatements(model, RuleUtil.toStmtList("'('(a typeof node) '(b typeof node))"));
 				return true;
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
 
@@ -55,8 +54,7 @@ public class WorkerTest extends RuleTestBase {
 
 				@Override
 				public boolean work(IRModel model) throws RException {
-					ModelUtil.addStatements(model,
-							RuleUtil.toStmtList(String.format("'('(n%d typeof node))", index++)));
+					RuleUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(n%d typeof node))", index++)));
 					return false;
 				}
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
@@ -94,7 +92,7 @@ public class WorkerTest extends RuleTestBase {
 		try {
 
 			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, (model) -> {
-				ModelUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(n%d typeof node))", 0)));
+				RuleUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(n%d typeof node))", 0)));
 				return false;
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
 
@@ -123,8 +121,8 @@ public class WorkerTest extends RuleTestBase {
 
 		try {
 
-			ModelUtil.addWorker(_model("m"), RuleUtil.toCondList("'(?n typeof node)"), (model) -> {
-				ModelUtil.addStatements(model, RuleUtil.toStmtList("'('(a typeof node) '(b has c))"));
+			RuleUtil.addWorker(_model("m"), RuleUtil.toCondList("'(?n typeof node)"), (model) -> {
+				RuleUtil.addStatements(model, RuleUtil.toStmtList("'('(a typeof node) '(b has c))"));
 				return true;
 			});
 
@@ -154,8 +152,7 @@ public class WorkerTest extends RuleTestBase {
 
 				@Override
 				public boolean work(IRModel model) throws RException {
-					ModelUtil.addStatements(model,
-							RuleUtil.toStmtList(String.format("'('(n%d typeof node))", index++)));
+					RuleUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(n%d typeof node))", index++)));
 					return false;
 				}
 			});
@@ -193,8 +190,7 @@ public class WorkerTest extends RuleTestBase {
 
 				@Override
 				public boolean work(IRModel model) throws RException {
-					ModelUtil.addStatements(model,
-							RuleUtil.toStmtList(String.format("'('(x%d typeof node))", index++)));
+					RuleUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(x%d typeof node))", index++)));
 					return false;
 				}
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
@@ -204,8 +200,7 @@ public class WorkerTest extends RuleTestBase {
 
 				@Override
 				public boolean work(IRModel model) throws RException {
-					ModelUtil.addStatements(model,
-							RuleUtil.toStmtList(String.format("'('(y%d typeof node))", index++)));
+					RuleUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(y%d typeof node))", index++)));
 					return false;
 				}
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
