@@ -499,7 +499,7 @@ public class RuleTestBase extends RulpTestBase {
 	}
 
 	protected void _statsInfo(String modelName) {
-		_statsInfo(modelName, getCachePath() + ".txt");
+		_statsInfo(modelName, getCachePath() + ".stats.txt");
 	}
 
 	protected void _refInfo(String modelName) {
