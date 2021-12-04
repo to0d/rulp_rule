@@ -525,6 +525,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		// status not changed
 		if (finalStatus == oldStatus) {
+
 			entryQueue.incEntryRedundant();
 
 			/*******************************************************/
@@ -1363,9 +1364,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// stmt updated, active the listener
 		if (RUpdateResult.isValidUpdate(rst)) {
 			stmtListenUpdater.update(this);
+			return 1;
 		}
 
-		return rst == RUpdateResult.INVALID ? 0 : 1;
+		return 0;
 	}
 
 	@Override
@@ -1387,7 +1389,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		RReteStatus status = _getNewStmtStatus();
 
-		int succAddCount = 0;
 		int updateCount = 0;
 
 		while (stmtIterator.hasNext()) {
@@ -1403,10 +1404,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			if (RUpdateResult.isValidUpdate(rst)) {
 				updateCount++;
 			}
-
-			if (rst != RUpdateResult.INVALID) {
-				succAddCount++;
-			}
 		}
 
 		// active stmt listeners
@@ -1414,7 +1411,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			stmtListenUpdater.update(this);
 		}
 
-		return succAddCount;
+		return updateCount;
 	}
 
 	@Override

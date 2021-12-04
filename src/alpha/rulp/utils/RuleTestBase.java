@@ -379,6 +379,10 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
+	protected void _refInfo(String modelName) {
+		_refInfo(modelName, getCachePath() + ".ref.txt");
+	}
+
 	protected void _refInfo(String modelName, String expectFile) {
 
 		try {
@@ -441,6 +445,10 @@ public class RuleTestBase extends RulpTestBase {
 		return RuleUtil.asScope(rst.get(0));
 	}
 
+	protected void _scopeInfo(String scopeName) {
+		_scopeInfo(scopeName, getCachePath() + ".scope.txt");
+	}
+
 	protected void _scopeInfo(String scopeName, String expectFile) {
 
 		try {
@@ -464,10 +472,6 @@ public class RuleTestBase extends RulpTestBase {
 			e.printStackTrace();
 			fail(e.toString());
 		}
-	}
-
-	protected void _scopeInfo(String scopeName) {
-		_scopeInfo(scopeName, getCachePath() + ".scope.txt");
 	}
 
 	@Override
@@ -500,10 +504,6 @@ public class RuleTestBase extends RulpTestBase {
 
 	protected void _statsInfo(String modelName) {
 		_statsInfo(modelName, getCachePath() + ".stats.txt");
-	}
-
-	protected void _refInfo(String modelName) {
-		_refInfo(modelName, getCachePath() + ".ref.txt");
 	}
 
 	protected void _statsInfo(String modelName, String expectFile) {

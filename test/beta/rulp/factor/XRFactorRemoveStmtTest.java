@@ -293,4 +293,28 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_saveTest();
 	}
+
+	@Test
+	void test_4_remove_define() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(add-stmt m '(a b c))", "1");
+		_test("(list-stmt m)", "'('(a b c))");
+		_test("(remove-stmt m '(a b c))", "'('(a b c))");
+		_test("(list-stmt m)", "'()");
+		_test("(add-stmt m '(a b c))", "0");
+		_test("(list-stmt m)", "'()");
+	}
+
+	@Test
+	void test_4_rule_auto_delete() {
+
+		_setup();
+		_test_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
 }

@@ -18,7 +18,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_test("(type-of m)", "instance");
 		_test("(name-of m)", "\"m\"");
 		_test("(add-stmt m '(a p1 c))", "1");
-		_test("(add-stmt m '(a p1 c))", "1"); // duplicated
+		_test("(add-stmt m '(a p1 c))", "0"); // duplicated
 		_test("(add-stmt m '(a p1 b))", "1");
 		_test("(add-stmt m '(a p2 c))", "1");
 		_test("(list-stmt m from '(a ?x c))", "'('(a p1 c) '(a p2 c))");
@@ -33,7 +33,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m '(a p1 1))", "1");
-		_test("(add-stmt m '(a p1 1))", "1");
+		_test("(add-stmt m '(a p1 1))", "0");
 		_test("(list-stmt m from '(a p1 ?x))", "'('(a p1 1))");
 		_mStatus(1, "m");
 		_saveTest();
@@ -45,7 +45,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m '(a p1 1.1))", "1");
-		_test("(add-stmt m '(a p1 1.1))", "1");
+		_test("(add-stmt m '(a p1 1.1))", "0");
 		_test("(list-stmt m from '(a p1 ?x))", "'('(a p1 1.1))");
 		_mStatus(1, "m");
 		_saveTest();
@@ -57,7 +57,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m '(a p1 \"abc\"))", "1");
-		_test("(add-stmt m '(a p1 \"abc\"))", "1");
+		_test("(add-stmt m '(a p1 \"abc\"))", "0");
 		_test("(list-stmt m)", "'('(a p1 \"abc\"))");
 		_mStatus(1, "m");
 		_saveTest();
@@ -113,7 +113,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m '(a p1 1L))", "1");
-		_test("(add-stmt m '(a p1 1L))", "1");
+		_test("(add-stmt m '(a p1 1L))", "0");
 		_test("(list-stmt m from '(a p1 ?x))", "'('(a p1 1L))");
 		_mStatus(1, "m");
 		_saveTest();
@@ -125,7 +125,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m '(a p1 1.1D))", "1");
-		_test("(add-stmt m '(a p1 1.1D))", "1");
+		_test("(add-stmt m '(a p1 1.1D))", "0");
 		_test("(list-stmt m from '(a p1 ?x))", "'('(a p1 1.1D))");
 		_mStatus(1, "m");
 		_saveTest();
@@ -170,7 +170,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m '(a b true))", "1");
-		_test("(add-stmt m '(a b true))", "1");
+		_test("(add-stmt m '(a b true))", "0");
 		_test("(add-stmt m '(a b c false))", "1");
 		_test("(list-stmt m)", "'('(a b true) '(a b c false))");
 		_mStatus(1, "m");
@@ -183,7 +183,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m '(a b nil))", "1");
-		_test("(add-stmt m '(a b nil))", "1");
+		_test("(add-stmt m '(a b nil))", "0");
 		_test("(list-stmt m)", "'('(a b nil))");
 		_mStatus(1, "m");
 		_saveTest();
@@ -203,7 +203,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_test("(add-stmt m '(a b nil))", "1");
+		_test("(add-stmt m '(a b nil))", "0");
 		_test("(list-stmt m)", "'('(a b nil))");
 		_mStatus(1, "m");
 		_saveTest();
@@ -215,7 +215,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_setup();
 		_test("(new model m)", "m");
 		_test("(add-stmt m name1:'(a nil b))", "1");
-		_test("(add-stmt m name1:'(a nil b))", "1");
+		_test("(add-stmt m name1:'(a nil b))", "0");
 		_test("(list-stmt m)", "'(name1:'(a nil b))");
 		_mStatus(1, "m");
 		_saveTest();

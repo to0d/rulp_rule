@@ -19,7 +19,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(type-of m)", "instance");
 		_test("(name-of m)", "\"m\"");
 		_test("(add-stmt m '(a p1 c))", "1");
-		_test("(add-stmt m '(a p1 c))", "1"); // duplicated
+		_test("(add-stmt m '(a p1 c))", "0"); // duplicated
 		_test("(add-stmt m '(a p1 b))", "1");
 		_test("(add-stmt m '(a p2 c))", "1");
 		_test("(add-rule \"R1\" m if '(?x p2 ?y) do (-> m '(?y p2 ?x)))", "R1"); // rule not work

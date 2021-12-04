@@ -7,15 +7,6 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestReason extends RuleTestBase {
 
 	@Test
-	public void test_2_auto_delete() {
-
-		_setup();
-		_test_script();
-		_statsInfo("m");
-		_dumpEntryTable("m");
-	}
-
-	@Test
 	public void test_3_circle_reason_a() {
 		_setup();
 		// _enableTrace();
