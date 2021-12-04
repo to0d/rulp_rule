@@ -1,10 +1,14 @@
 (new model m)
-;=>m
+;;;
+
 (add-node m name1:'(4))
-;=>1
+;;;
+
 (defvar ?node name1)
-;=>&?node
+;;;
+
 (add-constraint m (to-named-list ?node '(?table ?column ?index ?type)) (type string on ?table))
-;=>1
+;;;
+
 (list-constraint m name1:'(?...))
-;=>'((type string on ?0))
+;;;

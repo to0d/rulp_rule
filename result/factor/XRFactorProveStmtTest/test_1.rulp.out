@@ -1,0 +1,31 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x ?y ?z) do (-> m '(?y ?z ?x)))
+;=>RU000
+
+(add-stmt m '(a b c))
+;=>true
+
+(start m)
+;=>6
+
+(list-stmt m)
+;=>'('(a b c) '(b c a) '(c a b))
+
+(prove-stmt m '(c a b))
+;=>nil
+;out:
+'(c a b) : RU000 '(b c a)
+'(b c a) : RU000 '(a b c)
+'(a b c) : define
+
+;eof
+
+(prove-stmt m '(c b a))
+;=>nil
+;out:
+'(c b a): not found
+
+;eof
+

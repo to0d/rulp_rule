@@ -52,7 +52,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_1_type_2_fail_add_stmt() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -60,7 +60,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_1_type_3_fail_add_constraint() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -68,7 +68,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_1_type_4_fail_merge_constraint() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -76,7 +76,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_2_uniq_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -84,7 +84,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_3_not_null_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -92,7 +92,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_4_expr_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -100,7 +100,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_4_expr_2_not_equal_var() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -108,7 +108,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_4_expr_3_const() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -116,28 +116,28 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_5_var_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 	}
 
 	@Test
 	void test_5_var_2() {
 
 		_setup();
-		_test_script();
+		_run_script();
 	}
 
 	@Test
 	void test_5_var_3() {
 
 		_setup();
-		_test_script();
+		_run_script();
 	}
 
 	@Test
 	void test_6_max_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -145,7 +145,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_6_max_2_remove_dup() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -153,7 +153,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_7_min_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -161,7 +161,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_8_one_of_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 

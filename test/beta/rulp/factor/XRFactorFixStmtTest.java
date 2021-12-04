@@ -29,7 +29,7 @@ class XRFactorFixStmtTest extends RuleTestBase {
 	void test_2_remove_fix() {
 
 		_setup();
-		_test_script();
+		_run_script();
 	}
 
 	@Test

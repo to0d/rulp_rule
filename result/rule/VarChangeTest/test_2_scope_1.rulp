@@ -1,6 +1,0 @@
-(new model m)
-;=>m
-(defvar ?var 0)
-;=>m
-( 
-)

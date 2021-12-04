@@ -1,0 +1,47 @@
+(new model m)
+;=>m
+(add-node m name1:'(3))
+;=>m 1
+
+(add-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
+;=>1
+
+(add-stmt m name1:'(a b 1))
+;=>true
+
+(add-stmt m name1:'(x y 2))
+;=>true
+
+(add-stmt m name1:'(x y dup))
+;err:
+Unable to add entry<name1:'(x y dup)> due to constraint<(uniq on '(?0 ?1))>
+at main: (add-stmt m name1:'(x y dup))
+;eof
+
+(list-stmt m)
+;=>'(name1:'(a b 1) name1:'(x y 2))
+
+(remove-stmt m name1:'(x y 2))
+;=>'(name1:'(x y 2))
+
+(add-stmt m name1:'(x y dup))
+;=>true
+
+(list-stmt m)
+;=>'(name1:'(a b 1) name1:'(x y dup))
+
+(add-stmt m name1:'(x y 3))
+;err:
+Unable to add entry<name1:'(x y 3)> due to constraint<(uniq on '(?0 ?1))>
+at main: (add-stmt m name1:'(x y 3))
+;eof
+
+(remove-constraint m name1:'(3) (? on ?))
+;=>'((uniq on '(?0 ?1)))
+
+(add-stmt m name1:'(x y 3))
+;=>true
+
+(list-stmt m)
+;=>'(name1:'(a b 1) name1:'(x y dup) name1:'(x y 3))
+

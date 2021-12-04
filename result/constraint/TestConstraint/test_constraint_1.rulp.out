@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?n) (type int on ?n))
+;=>1
+
+(add-constraint m n1:'(?n) (max 10 on ?n))
+;=>1
+
+(add-rule m if n1:'(?n) do (-> n1:'((+ ?n 1))))
+;=>RU000
+
+(add-stmt m n1:'(1))
+;=>true
+
+(query-stmt m ?x from n1:'(?x))
+;=>'(1 2 3 4 5 6 7 8 9 10)
+

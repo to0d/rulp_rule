@@ -344,7 +344,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 	void test_4_rule_auto_delete() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}

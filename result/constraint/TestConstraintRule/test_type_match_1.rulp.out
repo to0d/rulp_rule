@@ -1,0 +1,25 @@
+(new model m)
+;=>m
+
+(add-rule m::$cst$ 
+    if  $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) 
+    do 
+        (-> $cst_conflict_constraint$:'(?node ?index ?type1 ?type2))
+)
+;=>RU000
+
+(add-stmt m $cst_type$:'(a 1 int))
+;=>true
+
+(add-stmt m $cst_type$:'(a 1 bool))
+;=>true
+
+(query-stmt m::$cst$ '(?node ?index ?type1 ?type2) from $cst_conflict_constraint$:'(?node ?index ?type1 ?type2) limit 1)
+;=>'('(a 1 int bool))
+
+(remove-stmt m $cst_type$:'(a 1 bool))
+;=>'($cst_type$:'(a 1 bool))
+
+(query-stmt m::$cst$ '(?node ?index ?type1 ?type2) from $cst_conflict_constraint$:'(?node ?index ?type1 ?type2) limit 1)
+;=>'()
+

@@ -1,5 +1,6 @@
 (new model m)
-;=>m
+;;;
+
 (defun get-suffix (?t ?c)
     (let
         (?name (to-string ?t))
@@ -13,11 +14,13 @@
         )
     )
 )
-;=>get-suffix
+;;;
+
 (defun get-version-number (?t)
     (return (get-suffix ?t "v"))
 )
-;=>get-version-number
+;;;
+
 (add-rule m
     if 
         '(?tag nm:typeOf nm:tag) 
@@ -40,13 +43,16 @@
             )
         )
 )
-;=>RU000
+;;;
+
 (add-stmt m '(MYSQL nm:typeOf nm:tag))
 (add-stmt m '(MYSQLv8 nm:typeOf nm:tag))
 (add-stmt m '(Java nm:typeOf nm:tag))
 (add-stmt m '(Javav8 nm:typeOf nm:tag))
-;=>true true true true
+;;;
+
 (start m)
-;=>7
+;;;
+
 (list-stmt m from '(?x nm:isVersionOf ?y))
-;=>'('(MYSQLv8 nm:isVersionOf MYSQL) '(Javav8 nm:isVersionOf Java))
+;;;

@@ -650,7 +650,7 @@ public class TestRule extends RuleTestBase {
 	public void test_b_defvar_in_rule_body_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}

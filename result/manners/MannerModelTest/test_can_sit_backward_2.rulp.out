@@ -1,0 +1,58 @@
+(new model mm)
+
+(add-stmt mm '(guess-1 typeof guess))
+(add-stmt mm '(guess-1 has-hobby 2))
+(add-stmt mm '(guess-1 has-hobby 1))
+(add-stmt mm '(guess-1 has-hobby 3))
+(add-stmt mm '(guess-1 has-sex m))
+
+(add-stmt mm '(guess-2 typeof guess))
+(add-stmt mm '(guess-2 has-hobby 2))
+(add-stmt mm '(guess-2 has-hobby 1))
+(add-stmt mm '(guess-2 has-hobby 3))
+(add-stmt mm '(guess-2 has-sex f))
+;=>mm true true true true true true true true true true
+
+(query-stmt mm '(?g1 ?g2) ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) (not (equal ?s1 ?s2)) ))
+;err:
+unsupport modifier: ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) (not (equal ?s1 ?s2)))
+at main: (query-stmt mm '(?g1 ?g2) ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-...
+;eof
+
+(query-stmt mm '(?s1 ?s2) ('(guess-1 typeof guess) '(guess-2 typeof guess) '(guess-1 has-sex ?s1) '(guess-2 has-sex ?s2) (not (equal guess-1 guess-2)) (not (equal ?s1 ?s2)) ))
+;err:
+unsupport modifier: ('(guess-1 typeof guess) '(guess-2 typeof guess) '(guess-1 has-sex ?s1) '(guess-2 has-sex ?s2) (not (equal guess-1 guess-2)) (not (equal ?s1 ?s2)))
+at main: (query-stmt mm '(?s1 ?s2) ('(guess-1 typeof guess) '(guess-2 typeof guess) '(...
+;eof
+
+(defun canBeCouple (?g1 ?g2) 
+    (return (> (size-of (query-stmt mm '() 
+                            ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) (not (equal ?s1 ?s2))) 1)) 1)))
+;=>canBeCouple
+
+(defun canSitTogether (?g1 ?g2) (return (and (canBeCouple ?g1 ?g2) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h))))
+;=>canSitTogether
+
+(canBeCouple guess-1 guess-2)
+;err:
+unsupport modifier: ('(guess-1 typeof guess) '(guess-2 typeof guess) '(guess-1 has-sex ?s1) '(guess-2 has-sex ?s2) (not (equal guess-1 guess-2)) (not (equal ?s1 ?s2)))
+at _$fun$_canBeCouple: (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1...
+at _$fun$_canBeCouple: (size-of (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 ha...
+at _$fun$_canBeCouple: (> (size-of (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1...
+at _$fun$_canBeCouple: (return (> (size-of (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof gues...
+at main: (canBeCouple guess-1 guess-2)
+;eof
+
+(canSitTogether guess-1 guess-2)
+;err:
+unsupport modifier: ('(guess-1 typeof guess) '(guess-2 typeof guess) '(guess-1 has-sex ?s1) '(guess-2 has-sex ?s2) (not (equal guess-1 guess-2)) (not (equal ?s1 ?s2)))
+at _$fun$_canBeCouple: (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1...
+at _$fun$_canBeCouple: (size-of (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1 ha...
+at _$fun$_canBeCouple: (> (size-of (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof guess) '(?g1...
+at _$fun$_canBeCouple: (return (> (size-of (query-stmt mm '() ('(?g1 typeof guess) '(?g2 typeof gues...
+at _$fun$_canSitTogether: (canBeCouple ?g1 ?g2)
+at _$fun$_canSitTogether: (and (canBeCouple ?g1 ?g2) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h))
+at _$fun$_canSitTogether: (return (and (canBeCouple ?g1 ?g2) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h)))
+at main: (canSitTogether guess-1 guess-2)
+;eof
+

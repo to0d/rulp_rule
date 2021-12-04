@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x ?y) (one-of '(a b c) on ?x))
+;=>1
+
+(add-stmt m n1:'(a 1))
+;=>true
+
+(add-stmt m n1:'(b 2))
+;=>true
+
+(add-stmt m n1:'(x 3))
+;err:
+Unable to add entry<n1:'(x 3)> due to constraint<(one-of '(a b c) on ?0)>
+at main: (add-stmt m n1:'(x 3))
+;eof
+
+(list-stmt m)
+;=>'(n1:'(a 1) n1:'(b 2))
+
+(remove-constraint m n1:'(2) (? on ?))
+;=>'((one-of '(a b c) on ?0))
+
+(add-stmt m n1:'(x 3))
+;=>true
+
+(list-stmt m)
+;=>'(n1:'(a 1) n1:'(b 2) n1:'(x 3))
+

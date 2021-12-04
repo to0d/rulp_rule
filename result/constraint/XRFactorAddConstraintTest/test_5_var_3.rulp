@@ -1,15 +1,17 @@
 (new model m)
-;=>m
+;;;
+
 (add-node m name1:'(4))
-;=>1
+;;;
+
 (defvar ?table)
-;=>&?table
+;;;
+
 (defvar ?node name1)
-;=>&?node
+;;;
+
 (add-constraint m (to-named-list ?node '(?table ?column ?index ?type)) '(type string on ?table)) 
-;err:
-Invalid obj<nil> in filter: name1:'(nil ?column ?index ?type)
-at main: (add-constraint m (to-named-list ?node '(?table ?column ?index ?type)) '(type...
-;eof
+;;;
+
 (list-constraint m name1:'(4))
-;=>'()
+;;;

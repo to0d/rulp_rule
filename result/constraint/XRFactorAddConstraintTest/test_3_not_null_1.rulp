@@ -1,21 +1,26 @@
 (new model m)
-;=>m
+;;;
+
 (add-node m name1:'(2))
-;=>1
+;;;
+
 (add-constraint m name1:'(?x ?y) (not-null on ?x))
-;=>1
+;;;
+
 (add-stmt m name1:'(a b))
-;=>true
+;;;
+
 (add-stmt m name1:'(nil c))
-;err:
-Unable to add entry<name1:'(nil c)> due to constraint<(cmp-entry-value != ?0 nil)>
-at main: (add-stmt m name1:'(nil c))
-;eof
+;;;
+
 (list-stmt m)
-;=>'(name1:'(a b))
+;;;
+
 (remove-constraint m name1:'(2) (? on ?))
-;=>'((cmp-entry-value != ?0 nil))
+;;;
+
 (add-stmt m name1:'(nil c))
-;=>true
+;;;
+
 (list-stmt m)
-;=>'(name1:'(a b) name1:'(nil c))
+;;;

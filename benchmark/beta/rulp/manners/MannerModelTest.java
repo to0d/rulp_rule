@@ -11,7 +11,7 @@ public class MannerModelTest extends RuleTestBase {
 
 		_setup();
 
-		_test_script();
+		_run_script();
 
 		_mStatus(1, "mm");
 		_oStatus(1, "mm");
@@ -24,7 +24,7 @@ public class MannerModelTest extends RuleTestBase {
 
 		_setup();
 
-		_test_script();
+		_run_script();
 		_test("(canSitTogether guess-1 guess-2)");
 
 		_mStatus(1, "mm");

@@ -9,7 +9,7 @@ public class TestConstraintRule extends RuleTestBase {
 	public void test_type_match_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 
 	}

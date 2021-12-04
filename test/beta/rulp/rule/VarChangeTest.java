@@ -222,13 +222,6 @@ public class VarChangeTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_2_scope_1() {
-
-		_setup();
-		_test_script();
-	}
-
-	@Test
 	public void test_3_same_1() {
 
 		_setup();

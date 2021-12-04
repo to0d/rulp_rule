@@ -40,7 +40,7 @@ public class OptimizeTest1 extends RuleTestBase {
 	void test_bad_expr_2_equal_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 	}
 
 	@Test

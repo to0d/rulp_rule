@@ -1,17 +1,20 @@
 (new model m)
-;=>m
+;;;
+
 (add-node m name1:'(3))
-;=>1
+;;;
+
 (add-constraint m name1:'(? ? ?x) (type int on ?x))
-;=>1
+;;;
+
 (add-stmt m name1:'(a b 1))
-;=>true
+;;;
+
 (add-stmt m name1:'(x y 2))
-;=>true
+;;;
+
 (add-stmt m name1:'(x y bad))
-;err:
-Unable to add entry<name1:'(x y bad)> due to constraint<(type int on ?2)>
-at main: (add-stmt m name1:'(x y bad))
-;eof
+;;;
+
 (list-stmt m from name1:'(?...))
-;=>'(name1:'(a b 1) name1:'(x y 2))
+;;;

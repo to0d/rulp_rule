@@ -1,0 +1,25 @@
+(new model m)
+;=>m
+
+(add-node m name1:'(3))
+;=>1
+
+(add-constraint m name1:'(? ? ?x) (type int on ?x))
+;=>1
+
+(add-constraint m name1:'(? ? ?x) (type int on ?x))
+;=>0
+
+(add-constraint m name1:'(? ? ?x) (type float on ?x))
+;err:
+error: add-constraint-fail, type-constraint:'(name1 2 float), conflict-type-constraint:'(name1 2 float int)
+at QUERY: (error add-constraint-fail (+ "type-constraint:'(" "name1" " " 2 " " float ")...
+at DO: (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) do (remove-stmt ?...
+at _$fun$_add_cst_constraint_type: (do (init_cst_rule ?m) (add-stmt ?m $cst_type$:'(?node ?index ?type)) (query-...
+at MODEL: (add_cst_constraint_type m "name1" 2 float)
+at main: (add-constraint m name1:'(? ? ?x) (type float on ?x))
+;eof
+
+(list-constraint m name1:'(3))
+;=>'((type int on ?2))
+

@@ -10,7 +10,7 @@ class XRFactorProveStmtTest extends RuleTestBase {
 	public void test_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 	}
 
 }

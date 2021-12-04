@@ -10,7 +10,7 @@ public class TestConstraint extends RuleTestBase {
 	public void test_constraint_1() {
 
 		_setup();
-		_test_script();
+		_run_script();
 		_statsInfo("m");
 	}
 

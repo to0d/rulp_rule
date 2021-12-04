@@ -1,46 +1,26 @@
 (new model m)
-;=>m
+;;;
 
 (add-rule m if '(?a ?p ?b) (equal p1 p2) do (remove-stmt ?0))
-;err:
-Invalid expression, enhancement this later: (equal p1 p2)
-fail to add rule<(add-rule m if '(?a ?p ?b) (equal p1 p2) do (remove-stmt ?0))>
-at main: (add-rule m if '(?a ?p ?b) (equal p1 p2) do (remove-stmt ?0))
-;eof
+;;;
 
 (add-rule m if '(?a ?p ?b) (not-equal p1 p2) do (remove-stmt ?0))
-;err:
-Invalid expression, enhancement this later: (not-equal p1 p2)
-fail to add rule<(add-rule m if '(?a ?p ?b) (not-equal p1 p2) do (remove-stmt ?0))>
-at main: (add-rule m if '(?a ?p ?b) (not-equal p1 p2) do (remove-stmt ?0))
-;eof
+;;;
 
 (add-rule m if '(?a ?p ?b) (equal p1 p1) do (remove-stmt ?0))
-;=>RU002
+;;;
 
 (add-rule m if '(?a ?p ?b) (not-equal p1 p1) do (remove-stmt ?0))
-;err:
-false tree found: ['(?a ?p ?b), (not-equal p1 p1)]
-fail to add rule<(add-rule m if '(?a ?p ?b) (not-equal p1 p1) do (remove-stmt ?0))>
-at main: (add-rule m if '(?a ?p ?b) (not-equal p1 p1) do (remove-stmt ?0))
-;eof
+;;;
 
 (add-rule m if '(?a ?p ?b) (> p1 p1) do (remove-stmt ?0))
-;err:
-false tree found: ['(?a ?p ?b), (> p1 p1)]
-fail to add rule<(add-rule m if '(?a ?p ?b) (> p1 p1) do (remove-stmt ?0))>
-at main: (add-rule m if '(?a ?p ?b) (> p1 p1) do (remove-stmt ?0))
-;eof
+;;;
 
 (add-rule m if '(?a ?p ?b) (< p1 p1) do (remove-stmt ?0))
-;err:
-false tree found: ['(?a ?p ?b), (< p1 p1)]
-fail to add rule<(add-rule m if '(?a ?p ?b) (< p1 p1) do (remove-stmt ?0))>
-at main: (add-rule m if '(?a ?p ?b) (< p1 p1) do (remove-stmt ?0))
-;eof
+;;;
 
 (add-rule m if '(?a ?p ?b) (<= p1 p1) do (remove-stmt ?0))
-;=>RU006
+;;;
 
 (add-rule m if '(?a ?p ?b) (>= p1 p1) do (remove-stmt ?0))
-;=>RU007
+;;;
