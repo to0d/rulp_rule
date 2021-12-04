@@ -203,10 +203,9 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_eCount(3, "m");
 
 		_saveTest();
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
-		_statsInfo("m", "result/factor/XRFactorRemoveStmtTest/test_conflict_3.stats.txt");
-		_refInfo("m", "result/factor/XRFactorRemoveStmtTest/test_conflict_3.ref.txt");
-		_dumpEntryTable("m", "result/factor/XRFactorRemoveStmtTest/test_conflict_3.dump.txt");
+		_statsInfo("m");
+		_refInfo("m");
+		_dumpEntryTable("m");
 	}
 
 	@Test

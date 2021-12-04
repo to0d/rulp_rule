@@ -502,6 +502,10 @@ public class RuleTestBase extends RulpTestBase {
 		_statsInfo(modelName, getCachePath() + ".txt");
 	}
 
+	protected void _refInfo(String modelName) {
+		_refInfo(modelName, getCachePath() + ".ref.txt");
+	}
+
 	protected void _statsInfo(String modelName, String expectFile) {
 
 		try {
