@@ -1406,8 +1406,20 @@ public class StatsUtil {
 		sb.append("node info6:\n");
 		sb.append(SEP_LINE1);
 
-		sb.append(String.format("%8s %-5s %-5s %-6s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n", "NODE[n]", "Type",
-				"Class", "Queue", "Parent", "Child", "Rule", "Inhe", "Join", "C1", "C2", "Pri", "VarEntry"));
+		int maxNameLen = 5;
+		for (IRReteNode node : nodes) {
+			String name = node.getNamedName();
+			if (name != null) {
+				int len = name.length();
+				if (len > maxNameLen) {
+					maxNameLen = len;
+				}
+			}
+		}
+
+		sb.append(String.format("%8s %-5s %-5s %-6s %-" + maxNameLen + "s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n",
+				"NODE[n]", "Type", "Class", "Queue", "Named", "Parent", "Child", "Rule", "Inhe", "Join", "C1", "C2",
+				"Pri", "VarEntry"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : nodes) {
@@ -1433,9 +1445,10 @@ public class StatsUtil {
 				className = className.substring(6);
 			}
 
-			sb.append(String.format("%8s %-5s %-5s %-6s %6d %5d %4d %4d %4d %3d %3d %3d %s",
+			sb.append(String.format("%8s %-5s %-5s %-6s %-" + maxNameLen + "s %6d %5d %4d %4d %4d %3d %3d %3d %s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(), className,
-					"" + node.getEntryQueue().getQueueType(), node.getParentCount(), node.getChildNodes().size(),
+					"" + node.getEntryQueue().getQueueType(), node.getNamedName() == null ? "" : node.getNamedName(),
+					node.getParentCount(), node.getChildNodes().size(),
 					model.getNodeGraph().getRelatedRules(node).size(),
 					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount,
 					node.getConstraint1Count(), constraint2Count, node.getPriority(), varEntry));

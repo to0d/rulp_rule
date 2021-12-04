@@ -60,13 +60,13 @@ RU000[2] 0     ADD   (-> n2:'(?0, ?1))
 
 node info6:
 ========================================================================================================================================================
- NODE[n] Type  Class Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
+ NODE[n] Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-N0001[1] NAME0 Rete0 MULTI       0     2    1    0    0   0   0  99 [null]
-N0005[2] NAME0 Rete0 MULTI       0     0    0    0    0   0   0   0 [null, null]
-E1003[2] EXPR1 Rete1 MULTI       1     1    1    0    0   1   0  99 [?a, ?b]
-B3002[2] BETA3 Beta3 MULTI       2     1    1    2    0   0   1  99 [?a, ?b]
-RU000[2] RULE  Rule0 ACTION      1     0    0    0    0   0   0  99 [?a, ?b]
+N0001[1] NAME0 Rete0 MULTI  n1         0     2    1    0    0   0   0  99 [null]
+N0005[2] NAME0 Rete0 MULTI  n2         0     0    0    0    0   0   0   0 [null, null]
+E1003[2] EXPR1 Rete1 MULTI             1     1    1    0    0   1   0  99 [?a, ?b]
+B3002[2] BETA3 Beta3 MULTI             2     1    1    2    0   0   1  99 [?a, ?b]
+RU000[2] RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?a, ?b]
 ========================================================================================================================================================
 
 priority info:

@@ -60,15 +60,15 @@ A0007[3]      3     1
 
 node info6:
 ========================================================================================================================================================
- NODE[n] Type  Class Queue  Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
+ NODE[n] Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-R0001[1] ROOT0 Rete0 UNIQ        0     0    0    0    0   0   0 900 [null]
-R0002[2] ROOT0 Rete0 UNIQ        0     1    0    0    0   0   0 900 [null, null]
-R0003[3] ROOT0 Rete0 UNIQ        0     1    0    0    0   0   0 900 [null, null, null]
-N0004[3] NAME0 Rete0 MULTI       0     1    0    0    0   0   0   0 [null, null, null]
-A0005[2] ALPH0 Rete1 MULTI       1     0    0    0    0   1   0   0 [null, ?_vg_0]
-A0006[3] ALPH0 Rete1 MULTI       1     0    0    0    0   1   0   0 [null, ?_vg_0, ?_vg_1]
-A0007[3] ALPH0 Rete1 MULTI       1     0    0    0    0   1   0   0 [null, ?_vg_0, ?_vg_1]
+R0001[1] ROOT0 Rete0 UNIQ              0     0    0    0    0   0   0 900 [null]
+R0002[2] ROOT0 Rete0 UNIQ              0     1    0    0    0   0   0 900 [null, null]
+R0003[3] ROOT0 Rete0 UNIQ              0     1    0    0    0   0   0 900 [null, null, null]
+N0004[3] NAME0 Rete0 MULTI  n1         0     1    0    0    0   0   0   0 [null, null, null]
+A0005[2] ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [null, ?_vg_0]
+A0006[3] ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [null, ?_vg_0, ?_vg_1]
+A0007[3] ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [null, ?_vg_0, ?_vg_1]
 ========================================================================================================================================================
 
 priority info:

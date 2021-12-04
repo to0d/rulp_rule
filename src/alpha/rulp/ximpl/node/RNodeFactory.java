@@ -28,7 +28,7 @@ import alpha.rulp.ximpl.entry.XREntryQueueUniq;
 
 public class RNodeFactory {
 
-	public static XRNodeRete1 createAlpha0Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createAlpha0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRNodeRete1 node = new XRNodeRete1();
@@ -61,7 +61,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static XRNodeRete1 createAlpha1Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createAlpha1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingle)) {
@@ -97,7 +97,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static XRNodeRete1 createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
 			throws RException {
 
@@ -140,7 +140,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createBeta0Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createBeta0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
@@ -186,7 +186,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createBeta1Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createBeta1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
@@ -237,7 +237,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createBeta2Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createBeta2Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
 
@@ -283,7 +283,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createBeta3Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createBeta3Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
 			InheritIndex[] inheritIndexs) throws RException {
 
@@ -361,7 +361,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createExpr0Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createExpr0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRNodeRete1 node = new XRNodeRete1();
@@ -394,7 +394,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createExpr1Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createExpr1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRNodeRete1 node = new XRNodeRete1();
@@ -427,7 +427,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createExpr2Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createExpr2Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRNodeRete1 node = new XRNodeRete1();
@@ -460,7 +460,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createExpr3Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createExpr3Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRNodeExpr3 node = new XRNodeExpr3();
@@ -499,7 +499,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createExpr4Node(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createExpr4Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRConstraint1 matchNode,
 			IRObject[] varEntry) throws RException {
 
@@ -542,7 +542,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static IRReteNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
+	public static AbsReteNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
 			throws RException {
 
 		XRNodeRete0 node = new XRNodeRete0();
@@ -556,7 +556,7 @@ public class RNodeFactory {
 		// Node type
 		node.setReteType(RReteType.NAME0);
 
-		// Entry Name
+		// named name
 		node.setNamedName(namedName);
 
 		// Uniq name
@@ -581,7 +581,7 @@ public class RNodeFactory {
 		return RulpFactory.createFrame(node.getModel().getFrame(), "NF-" + node.getNodeName());
 	}
 
-	public static IRReteNode createRoot0Node(IRModel model, int nodeId, int stmtLen) throws RException {
+	public static AbsReteNode createRoot0Node(IRModel model, int nodeId, int stmtLen) throws RException {
 
 		XRNodeRete0 node = new XRNodeRete0();
 
