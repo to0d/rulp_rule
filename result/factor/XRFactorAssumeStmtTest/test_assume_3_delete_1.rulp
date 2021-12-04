@@ -1,0 +1,17 @@
+(new model m)
+;;;
+
+(assume-stmt m n1:'(1))
+;;;
+
+(remove-stmt m n1:'(1))
+;;;
+
+(list-stmt m from n1:'(?x))
+;;;
+
+(assume-stmt m n1:'(1))
+;;;
+
+(list-stmt m from n1:'(?x))
+;;;

@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(assume-stmt m n1:'(1))
+;=>true
+
+(assume-stmt m n1:'(2))
+;=>true
+
+(assume-stmt m n1:'(1)) ; duplicated
+;=>true
+
+(list-stmt m from n1:'(?x))
+;=>'(n1:'(1) n1:'(2))
+

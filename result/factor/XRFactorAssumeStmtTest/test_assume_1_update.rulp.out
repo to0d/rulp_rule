@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(assume-stmt m n1:'(1))
+;=>true
+
+(add-stmt m n1:'(1))
+;=>true
+
+(list-stmt m from n1:'(?x))
+;=>'(n1:'(1))
+

@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x) (type int on ?x))
+;=>1
+
+(add-constraint m n2:'(?x) (< ?x 5))
+;=>1
+
+(add-rule m if n1:'(?x) do (-> m n2:'(?x)))
+;=>RU000
+
+(assume-stmt m n1:'(1))
+;=>true
+
+(assume-stmt m n1:'(2))
+;=>true
+
+(assume-stmt m n1:'(5))
+;=>false
+
+(list-stmt m from n1:'(?x))
+;=>'(n1:'(1) n1:'(2))
+
+(list-stmt m from n2:'(?x))
+;=>'(n2:'(1) n2:'(2))
+

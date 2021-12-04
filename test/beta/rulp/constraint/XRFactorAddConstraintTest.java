@@ -10,8 +10,10 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_1_type_1() {
 
 		_setup();
+
 		_clean_model_cache();
 		_run_script();
+
 		_statsInfo("m");
 		_save_model_cache("m");
 	}

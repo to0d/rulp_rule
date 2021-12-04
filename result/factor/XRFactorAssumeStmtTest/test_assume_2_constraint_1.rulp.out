@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x) (type int on ?x))
+;=>1
+
+(assume-stmt m n1:'(1))
+;=>true
+
+(assume-stmt m n1:'(2))
+;=>true
+
+(assume-stmt m n1:'(1)) ; duplicated
+;=>true
+
+(assume-stmt m n1:'(a))
+;=>false
+
+(list-stmt m from n1:'(?x))
+;=>'(n1:'(1) n1:'(2))
+

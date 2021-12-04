@@ -1,0 +1,11 @@
+(new model m)
+;;;
+
+(add-stmt m n1:'(1))
+;;;
+
+(assume-stmt m n1:'(1))
+;;;
+
+(list-stmt m from n1:'(?x))
+;;;
