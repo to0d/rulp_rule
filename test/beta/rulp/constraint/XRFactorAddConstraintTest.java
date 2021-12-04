@@ -10,10 +10,8 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_1_type_1() {
 
 		_setup();
-
 		_clean_model_cache();
 		_run_script();
-
 		_statsInfo("m");
 		_save_model_cache("m");
 	}
@@ -139,12 +137,9 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_9_cross_1() {
 
 		_setup();
-
 		_clean_model_cache();
 		_test("(new model m)");
-
 		_test("(add-constraint m n1:'(?x ?y) n2:'() (!= ?x nil))", "1");
-
 		_statsInfo("m");
 		_save_model_cache("m");
 	}

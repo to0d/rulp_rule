@@ -144,6 +144,11 @@ public class ModifiterUtil {
 	static class XModifierOrderBy implements IModifier {
 
 		@Override
+		public String getName() {
+			return A_Order_by;
+		}
+
+		@Override
 		public Modifier process(ModifierData list) throws RException {
 
 			// order by ?x
@@ -197,11 +202,6 @@ public class ModifiterUtil {
 			modifer.name = this.getName();
 			modifer.obj = RulpFactory.createList(objList);
 			return modifer;
-		}
-
-		@Override
-		public String getName() {
-			return A_Order_by;
 		}
 
 	}

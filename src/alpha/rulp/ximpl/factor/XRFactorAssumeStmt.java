@@ -6,9 +6,9 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorAssumeStmt extends AbsRFactorAdapter implements IRuleFactor {
@@ -28,22 +28,9 @@ public class XRFactorAssumeStmt extends AbsRFactorAdapter implements IRuleFactor
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = null;
+		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
+		IRList stmt = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmtObject(args)));
 
-		/**************************************************/
-		// Check model object
-		/**************************************************/
-		IRObject mo = XRFactorAddStmt.getModelObject(args);
-		if (mo == null) {
-			model = RuleUtil.getDefaultModel(frame);
-			if (model == null) {
-				throw new RException("no model be specified");
-			}
-		} else {
-			model = RuleUtil.asModel(interpreter.compute(frame, mo));
-		}
-
-		return RulpFactory.createBoolean(model
-				.assumeStatement(RulpUtil.asList(interpreter.compute(frame, XRFactorAddStmt.getStmtObject(args)))));
+		return RulpFactory.createBoolean(model.assumeStatement(stmt));
 	}
 }

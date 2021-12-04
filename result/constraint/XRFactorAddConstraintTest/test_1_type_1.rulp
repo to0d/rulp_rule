@@ -30,7 +30,7 @@
 (add-constraint m name4:'(? ? ?z) (type string on ?z))
 ;;;
 
-(add-constraint m name5:'(?...)   (type string on ?2))
+(add-constraint m name5:'(?...) (type string on ?2))
 ;;;
 
 (add-constraint m name5:'(?x ?y ?z) (uniq on '(?x ?y)))

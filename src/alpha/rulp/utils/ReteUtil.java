@@ -60,6 +60,97 @@ import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
 
+	static class ReplaceMap implements Map<String, IRObject> {
+
+		private Map<String, String> nameMap;
+
+		private Map<Object, IRObject> objectMap;
+
+		public ReplaceMap(Map<String, String> nameMap) {
+			super();
+			this.nameMap = nameMap;
+		}
+
+		@Override
+		public void clear() {
+			nameMap.clear();
+			objectMap.clear();
+		}
+
+		@Override
+		public boolean containsKey(Object key) {
+			return nameMap.containsKey(key);
+		}
+
+		@Override
+		public boolean containsValue(Object value) {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public Set<Entry<String, IRObject>> entrySet() {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public IRObject get(Object key) {
+
+			IRObject obj = null;
+			if (objectMap != null) {
+				obj = objectMap.get(key);
+			}
+
+			if (obj == null) {
+				String objName = nameMap.get(key);
+				if (objName != null) {
+					obj = RulpFactory.createAtom(objName);
+					if (objectMap == null) {
+						objectMap = new HashMap<>();
+					}
+					objectMap.put(key, obj);
+				}
+			}
+
+			return obj;
+		}
+
+		@Override
+		public boolean isEmpty() {
+			return nameMap.isEmpty();
+		}
+
+		@Override
+		public Set<String> keySet() {
+			return nameMap.keySet();
+		}
+
+		@Override
+		public IRObject put(String key, IRObject value) {
+			return objectMap.put(key, value);
+		}
+
+		@Override
+		public void putAll(Map<? extends String, ? extends IRObject> m) {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public IRObject remove(Object key) {
+			throw new RuntimeException("Not support");
+		}
+
+		@Override
+		public int size() {
+			return nameMap.size();
+		}
+
+		@Override
+		public Collection<IRObject> values() {
+			throw new RuntimeException("Not support");
+		}
+
+	}
+
 	static IRObjBuilder nanBuilder = new IRObjBuilder() {
 
 		@Override
@@ -124,97 +215,6 @@ public class ReteUtil {
 		}
 
 		return varIndex;
-	}
-
-	static class ReplaceMap implements Map<String, IRObject> {
-
-		private Map<String, String> nameMap;
-
-		public ReplaceMap(Map<String, String> nameMap) {
-			super();
-			this.nameMap = nameMap;
-		}
-
-		private Map<Object, IRObject> objectMap;
-
-		@Override
-		public int size() {
-			return nameMap.size();
-		}
-
-		@Override
-		public boolean isEmpty() {
-			return nameMap.isEmpty();
-		}
-
-		@Override
-		public boolean containsKey(Object key) {
-			return nameMap.containsKey(key);
-		}
-
-		@Override
-		public boolean containsValue(Object value) {
-			throw new RuntimeException("Not support");
-		}
-
-		@Override
-		public IRObject get(Object key) {
-
-			IRObject obj = null;
-			if (objectMap != null) {
-				obj = objectMap.get(key);
-			}
-
-			if (obj == null) {
-				String objName = nameMap.get(key);
-				if (objName != null) {
-					obj = RulpFactory.createAtom(objName);
-					if (objectMap == null) {
-						objectMap = new HashMap<>();
-					}
-					objectMap.put(key, obj);
-				}
-			}
-
-			return obj;
-		}
-
-		@Override
-		public IRObject put(String key, IRObject value) {
-			return objectMap.put(key, value);
-		}
-
-		@Override
-		public IRObject remove(Object key) {
-			throw new RuntimeException("Not support");
-		}
-
-		@Override
-		public void putAll(Map<? extends String, ? extends IRObject> m) {
-			throw new RuntimeException("Not support");
-		}
-
-		@Override
-		public void clear() {
-			nameMap.clear();
-			objectMap.clear();
-		}
-
-		@Override
-		public Set<String> keySet() {
-			return nameMap.keySet();
-		}
-
-		@Override
-		public Collection<IRObject> values() {
-			throw new RuntimeException("Not support");
-		}
-
-		@Override
-		public Set<Entry<String, IRObject>> entrySet() {
-			throw new RuntimeException("Not support");
-		}
-
 	}
 
 	private static String _toUniq(IRObject obj, Map<String, String> varMap, boolean create) throws RException {
@@ -366,14 +366,6 @@ public class ReteUtil {
 			throw new RException("unsupport type: " + obj.getType());
 
 		}
-	}
-
-	public static String varChangeNewName(String varName) {
-		return varName + ".new";
-	}
-
-	public static String varChangeOldName(String varName) {
-		return varName + ".old";
 	}
 
 	private static String _toUniq(IRObject[] entry, Map<String, String> varMap, boolean create) throws RException {
@@ -1726,6 +1718,14 @@ public class ReteUtil {
 
 	public static int updateMask(RReteStatus status, int mask) {
 		return status.getMask() | mask;
+	}
+
+	public static String varChangeNewName(String varName) {
+		return varName + ".new";
+	}
+
+	public static String varChangeOldName(String varName) {
+		return varName + ".old";
 	}
 
 	public static List<String> varList(IRList stmt) throws RException {

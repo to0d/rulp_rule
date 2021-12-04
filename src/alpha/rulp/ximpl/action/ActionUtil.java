@@ -17,7 +17,7 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.factor.XRFactorAddStmt;
+import alpha.rulp.utils.StmtUtil;
 
 public class ActionUtil {
 
@@ -171,7 +171,7 @@ public class ActionUtil {
 		case F_ADD_STMT:
 		case F_DEFS_S:
 		case F_ASSUME_STMT:
-			IRList stmt = RulpUtil.asList(XRFactorAddStmt.getStmtObject(expr));
+			IRList stmt = RulpUtil.asList(StmtUtil.getStmtObject(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
 			}
