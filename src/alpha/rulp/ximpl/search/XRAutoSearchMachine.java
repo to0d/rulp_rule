@@ -42,16 +42,9 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 		public ISScope<List<IRObject>> getVarScope() throws RException {
 
 			if (entryScope == null) {
-
-				List<ISScope<IRObject>> elementScopes = new ArrayList<>();
-				for (SVar svar : searchVars) {
-					elementScopes.add(svar.getVarScope());
-				}
-
-				entryScope = SearchFactory.createLinnerListScope(elementScopes);
-				entryScope.setChecker(this);
-
+				entryScope = _buildEntryScope(this);
 			}
+
 			return entryScope;
 		}
 
@@ -61,17 +54,17 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 		}
 	}
 
-	static class SVar {
+	class SVar {
 
 		public int index;
+
+		public IRVar resultVar;
 
 		public SEntry searchNode;
 
 		public IValueList valueList;
 
 		public String varName;
-
-		public IRVar resultVar;
 
 		public ISScope<IRObject> varScope = null;
 
@@ -82,20 +75,22 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 			this.index = index;
 		}
 
-		public ISScope<IRObject> getVarScope() {
+		public ISScope<IRObject> getVarScope() throws RException {
 
 			if (varScope == null) {
-				varScope = SearchFactory.createLinnerObjectScope(valueList);
+				varScope = _buildVarScope(this);
 			}
 			return varScope;
 		}
 	}
 
+	private List<String> allResultVarNames;
+
 	private List<String> allSearchNodeNames = new ArrayList<>();
 
 	private List<String> allSearchVarNames = new ArrayList<>();
 
-	private List<String> allResultVarNames;
+	private ISScope<List<List<IRObject>>> globalScope;
 
 //	static class XEntryValeList {
 //
@@ -197,9 +192,17 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 //		}
 //	}
 
-	private ISScope<List<List<IRObject>>> globalScope;
-
 	private IRModel model;
+
+	private IRFrame resultFrame;
+//
+//	public IRFrame getFrame() {
+//
+//		if (searchFrame == null) {
+//			searchFrame = RulpFactory.createFrame(node.getFrame(), "QF-" + node.getNodeName());
+//			RulpUtil.incRef(searchFrame);
+//		}
+//	}
 
 	private IRList rstList;
 
@@ -210,6 +213,33 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 	public XRAutoSearchMachine(IRModel model) {
 		super();
 		this.model = model;
+	}
+
+	protected ISScope<List<IRObject>> _buildEntryScope(SEntry entry) throws RException {
+
+		List<ISScope<IRObject>> elementScopes = new ArrayList<>();
+		for (SVar svar : entry.searchVars) {
+			elementScopes.add(svar.getVarScope());
+		}
+
+		ISScope<List<IRObject>> entryScope = SearchFactory.createLinnerListScope(elementScopes);
+		entryScope.setChecker(entry);
+
+		return entryScope;
+	}
+
+	protected ISScope<List<List<IRObject>>> _buildGlobalScope(ArrayList<SEntry> searchEntrys) throws RException {
+
+		List<ISScope<List<IRObject>>> entryScopes = new ArrayList<>();
+		for (SEntry sentry : searchEntrys) {
+			entryScopes.add(sentry.getVarScope());
+		}
+
+		return SearchFactory.createLinnerListScope(entryScopes);
+	}
+
+	protected ISScope<IRObject> _buildVarScope(SVar svar) throws RException {
+		return SearchFactory.createLinnerObjectScope(svar.valueList);
 	}
 
 	protected boolean _checkValueList() throws RException {
@@ -240,6 +270,16 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 		}
 
 		return true;
+	}
+
+	protected ISScope<List<List<IRObject>>> _getGlobalScope() throws RException {
+
+		if (globalScope == null) {
+			globalScope = _buildGlobalScope(searchEntrys);
+
+		}
+
+		return globalScope;
 	}
 
 	public void addSearchEntry(IRList searchEntry) throws RException {
@@ -302,22 +342,6 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 		searchEntrys.add(new SEntry(searchNode, varNames));
 	}
 
-	public ISScope<List<List<IRObject>>> getGlobalScope() throws RException {
-
-		if (globalScope == null) {
-
-			List<ISScope<List<IRObject>>> entryScopes = new ArrayList<>();
-			for (SEntry sentry : searchEntrys) {
-				entryScopes.add(sentry.getVarScope());
-			}
-
-			globalScope = SearchFactory.createLinnerListScope(entryScopes);
-
-		}
-
-		return globalScope;
-	}
-
 	@Override
 	public int getPriority() {
 		return 0;
@@ -340,16 +364,6 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 	public RRunState halt() throws RException {
 		throw new RException("not support");
 	}
-
-	private IRFrame resultFrame;
-//
-//	public IRFrame getFrame() {
-//
-//		if (searchFrame == null) {
-//			searchFrame = RulpFactory.createFrame(node.getFrame(), "QF-" + node.getNodeName());
-//			RulpUtil.incRef(searchFrame);
-//		}
-//	}
 
 	public void setModel(IRModel model) {
 		this.model = model;
@@ -401,7 +415,7 @@ public class XRAutoSearchMachine extends AbsRInstance implements IRAutoSearchMac
 	@Override
 	public int start(int priority, int limit) throws RException {
 
-		ISScope<List<List<IRObject>>> _scope = this.getGlobalScope();
+		ISScope<List<List<IRObject>>> _scope = _getGlobalScope();
 		if (_scope.moveNext()) {
 
 		}

@@ -61,8 +61,7 @@ public class XRFactorAssumeStmt extends AbsRFactorAdapter implements IRuleFactor
 			model = RuleUtil.asModel(interpreter.compute(frame, mo));
 		}
 
-		IRList stmt = RulpUtil.asList(interpreter.compute(frame, getStmtObject(args)));
-
-		return RulpFactory.createBoolean(model.assumeStatement(stmt));
+		return RulpFactory
+				.createBoolean(model.assumeStatement(RulpUtil.asList(interpreter.compute(frame, getStmtObject(args)))));
 	}
 }

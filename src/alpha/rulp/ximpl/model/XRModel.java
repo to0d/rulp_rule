@@ -1446,6 +1446,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> tryAddStatement: " + stmt);
 		}
 
+		if (stmt.getNamedName() == null) {
+			throw new RException("Invalid stmt: " + stmt);
+		}
+
 		try {
 
 			this.assuemeStatmentLevel++;
@@ -1460,9 +1464,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			// verify
-			if (stmt.getNamedName() != null) {
-				_checkConstraintConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
-			}
+			_checkConstraintConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
 
 			stmtListenUpdater.update(this);
 			return true;
