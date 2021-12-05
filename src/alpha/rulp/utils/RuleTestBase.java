@@ -480,6 +480,7 @@ public class RuleTestBase extends RulpTestBase {
 		XRScope.TRACE = false;
 		XREntryTable.TRACE = false;
 		traceModel = null;
+		RuleUtil.reset();
 	}
 
 	protected void _smCount(int index, String scopeName) {

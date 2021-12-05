@@ -405,6 +405,10 @@ public class RuleUtil {
 		return parser;
 	}
 
+	public static void reset() {
+		parser = null;
+	}
+
 	public static IRList getRuleGroupList(IRModel model) throws RException {
 
 		IRMember mbr = model.getMember(F_MBR_RULE_GROUP_NAMES);
