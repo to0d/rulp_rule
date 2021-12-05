@@ -1,0 +1,18 @@
+
+(new model m)
+;;;
+
+(add-node m name1:'(3))
+;;;
+
+(add-constraint m name1:'(3) (type int on ?2))
+;;;
+
+(remove-constraint m name1:'(3) (type ? on ?))
+;;;
+
+(list-constraint m name1:'(?...))
+;;;
+
+(list-stmt m from $cst_node$:'(?...))
+;;;

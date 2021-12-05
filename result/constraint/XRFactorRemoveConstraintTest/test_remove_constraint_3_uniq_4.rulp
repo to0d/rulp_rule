@@ -1,0 +1,21 @@
+
+(new model m)
+;;;
+
+(add-node m name1:'(3))
+;;;
+
+(add-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
+;;;
+
+(add-constraint m name1:'(3) (uniq on '(?2 ?1)))
+;;;
+
+(remove-constraint m name1:'(3) (uniq on '(? ?1)))
+;;;
+
+(list-constraint m name1:'(?...))
+;;;
+
+(list-stmt m from $cst_node$:'(?...))
+;;;
