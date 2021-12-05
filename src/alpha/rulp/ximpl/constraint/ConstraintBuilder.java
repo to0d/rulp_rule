@@ -11,6 +11,7 @@ import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +27,6 @@ import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
@@ -515,35 +515,30 @@ public class ConstraintBuilder {
 		return _exprConstraint(expr, interpreter, frame);
 	}
 
-	public List<IRConstraint1> match(IRReteNode node, IRList args, IRInterpreter interpreter, IRFrame frame)
+	public List<IRConstraint1> match(IRReteNode node, IRExpr expr, IRInterpreter interpreter, IRFrame frame)
 			throws RException {
 
 		Set<IRConstraint1> matchedConstraints = new HashSet<>();
 
-		IRIterator<? extends IRObject> it = args.iterator();
-		while (it.hasNext()) {
+		RConstraint cons = _toConstraint(expr, interpreter, frame);
+		if (cons != null) {
 
-			IRObject obj = it.next();
-			if (obj.getType() != RType.EXPR) {
-				throw new RException("no constraint list: " + obj);
+			matchedConstraints.addAll(_matchConstraint(cons, node));
+
+		} else {
+			IRConstraint1 cons1 = _exprConstraint(expr, interpreter, frame);
+			if (cons1 != null) {
+				matchedConstraints.add(cons1);
 			}
-
-			IRExpr expr = (IRExpr) obj;
-
-			RConstraint cons = _toConstraint(expr, interpreter, frame);
-			if (cons != null) {
-
-				matchedConstraints.addAll(_matchConstraint(cons, node));
-
-			} else {
-				IRConstraint1 cons1 = _exprConstraint(expr, interpreter, frame);
-				if (cons1 != null) {
-					matchedConstraints.add(cons1);
-				}
-			}
-
 		}
 
-		return new ArrayList<>(matchedConstraints);
+		ArrayList<IRConstraint1> matchedConstraintList = new ArrayList<>(matchedConstraints);
+		if (matchedConstraintList.size() > 1) {
+			Collections.sort(matchedConstraintList, (c1, c2) -> {
+				return c1.getConstraintExpression().compareTo(c2.getConstraintExpression());
+			});
+		}
+
+		return matchedConstraintList;
 	}
 }

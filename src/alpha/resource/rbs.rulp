@@ -97,7 +97,8 @@
 
     ;; table definition
     (add-node       _RBS_TABLE:'(2))
-    (add-constraint _RBS_TABLE:'(?_name_ ?_column_count) (type string on ?_name_) (type int on ?_column_count))
+    (add-constraint _RBS_TABLE:'(?_name_ ?_column_count) (type string on ?_name_))
+    (add-constraint _RBS_TABLE:'(?_name_ ?_column_count) (type int on ?_column_count))    
     (add-stmt       _RBS_TABLE:'("_RBS_TABLE" 2))
     (add-stmt       _RBS_TABLE:'("_RBS_COLUMN" 4))
     

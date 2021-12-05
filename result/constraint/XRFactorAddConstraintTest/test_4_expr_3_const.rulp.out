@@ -2,7 +2,7 @@
 ;=>m
 
 (add-constraint m name1:'(?x ?y) (>= ?y (+ 1 1)))
-;=>1
+;=>true
 
 (add-stmt m name1:'(a 2))
 ;=>true
@@ -17,7 +17,7 @@ at main: (add-stmt m name1:'(b 1))
 ;=>'(name1:'(a 2))
 
 (add-constraint m name1:'(?x ?y) (>= 2 1))
-;=>0
+;=>false
 
 (add-constraint m name1:'(?x ?y) (< 2 1))
 ;err:

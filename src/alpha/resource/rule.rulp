@@ -76,9 +76,7 @@
     (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_type$:'(?node ?index ?type)) 
                (error add-constraint-fail (+ "type-constraint:'(" ?node " " ?index " " ?type "), " ?c))  limit 1)
-    
-    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) (type ?type on (to-atom (+ "?" ?index)))))
-    (return (> ?update 0))
+    (return (add-constraint ?m (to-named-list ?node '(?...)) (type ?type on (to-atom (+ "?" ?index)))))
 )
 
 (defun remove_cst_constraint_type ((?m model) (?node string) ?index ?type)
@@ -94,9 +92,7 @@
     (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_max$:'(?node ?index ?value)) 
                (error add-constraint-fail (+ "max-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
-    
-    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) (max ?value on (to-atom (+ "?" ?index)))))
-    (return (> ?update 0))
+    (return (add-constraint ?m (to-named-list ?node '(?...)) (max ?value on (to-atom (+ "?" ?index)))))
 )
 
 (defun remove_cst_constraint_max ((?m model) (?node string) ?index (?value int))
@@ -112,9 +108,7 @@
     (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_min$:'(?node ?index ?value)) 
                (error add-constraint-fail (+ "min-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
-
-    (defvar ?update (add-constraint ?m (to-named-list ?node '(?...)) (min ?value on (to-atom (+ "?" ?index)))))
-    (return (> ?update 0))
+    (return (add-constraint ?m (to-named-list ?node '(?...)) (min ?value on (to-atom (+ "?" ?index)))))
 )
 
 (defun remove_cst_constraint_min ((?m model) (?node string) ?index (?value int))

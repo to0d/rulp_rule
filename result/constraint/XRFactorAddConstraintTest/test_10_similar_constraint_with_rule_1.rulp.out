@@ -5,7 +5,7 @@
 ;=>RU000
 
 (add-constraint m n1:'(?x ?y ?z) (> ?z 3))
-;=>1
+;=>true
 
 (add-stmt m n1:'(a b 5))
 ;=>true

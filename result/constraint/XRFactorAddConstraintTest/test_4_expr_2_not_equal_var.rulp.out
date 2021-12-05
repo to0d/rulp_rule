@@ -5,7 +5,7 @@
 ;=>&?v
 
 (add-constraint m name1:'(?x ?y) (!= ?y ?v))
-;=>1
+;=>true
 
 (add-stmt m name1:'(a 2))
 ;=>true
