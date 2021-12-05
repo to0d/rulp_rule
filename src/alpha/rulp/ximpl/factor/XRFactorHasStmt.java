@@ -10,6 +10,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorHasStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -21,29 +22,14 @@ public class XRFactorHasStmt extends AbsRFactorAdapter implements IRFactor, IRul
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		/********************************************/
-		// Check parameters
-		/********************************************/
-		if (args.size() != 2 && args.size() != 3) {
+		int argSize = args.size();
+		if (argSize != 2 && argSize != 3) {
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = null;
-		IRList filter = null;
+		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
+		IRList stmt = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmt3Object(args)));
 
-		if (args.size() == 2) {
-			model = RuleUtil.getDefaultModel(frame);
-			if (model == null) {
-				throw new RException("no model be specified");
-			}
-
-			filter = RulpUtil.asList(interpreter.compute(frame, args.get(1)));
-
-		} else {
-			model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
-			filter = RulpUtil.asList(interpreter.compute(frame, args.get(2)));
-		}
-
-		return RulpFactory.createBoolean(model.hasStatement(filter));
+		return RulpFactory.createBoolean(model.hasStatement(stmt));
 	}
 }
