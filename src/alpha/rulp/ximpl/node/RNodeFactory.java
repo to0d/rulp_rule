@@ -97,48 +97,48 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static AbsReteNode createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
-			throws RException {
-
-		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingle)) {
-			throw new RException("Invalid parent queue: " + parentNode);
-		}
-
-		XRNodeAlph2 node = new XRNodeAlph2();
-
-		// Model
-		node.setModel(model);
-
-		// Node id
-		node.setNodeId(nodeId);
-
-		// Node type
-		node.setReteType(RReteType.ALPH2);
-
-		// Uniq name
-		node.setUniqName(uniqName);
-
-		// Entry length
-		node.setEntryLength(entryLength);
-
-		// Entry table
-		node.setEntryTable(entryTable);
-
-		// Entry queue
-		node.setEntryQueue(new XREntryQueueSingle(entryLength));
-
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
-
-		// var entry
-		node.setVarEntry(varEntry);
-
-		// Inherit Index
-		node.setInheritIndexs(inheritIndexs);
-
-		return node;
-	}
+//	public static AbsReteNode createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
+//			IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
+//			throws RException {
+//
+//		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingle)) {
+//			throw new RException("Invalid parent queue: " + parentNode);
+//		}
+//
+//		XRNodeAlph2 node = new XRNodeAlph2();
+//
+//		// Model
+//		node.setModel(model);
+//
+//		// Node id
+//		node.setNodeId(nodeId);
+//
+//		// Node type
+//		node.setReteType(RReteType.ALPH2);
+//
+//		// Uniq name
+//		node.setUniqName(uniqName);
+//
+//		// Entry length
+//		node.setEntryLength(entryLength);
+//
+//		// Entry table
+//		node.setEntryTable(entryTable);
+//
+//		// Entry queue
+//		node.setEntryQueue(new XREntryQueueSingle(entryLength));
+//
+//		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
+//		parentNode.addChildNode(node);
+//
+//		// var entry
+//		node.setVarEntry(varEntry);
+//
+//		// Inherit Index
+//		node.setInheritIndexs(inheritIndexs);
+//
+//		return node;
+//	}
 
 	public static AbsReteNode createBeta0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,

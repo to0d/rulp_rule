@@ -21,7 +21,6 @@ import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
 import static alpha.rulp.ximpl.node.RReteType.ALPH1;
-import static alpha.rulp.ximpl.node.RReteType.ALPH2;
 import static alpha.rulp.ximpl.node.RReteType.BETA0;
 import static alpha.rulp.ximpl.node.RReteType.BETA1;
 import static alpha.rulp.ximpl.node.RReteType.BETA2;
@@ -100,8 +99,8 @@ public class StatsUtil {
 			new OutputType(RReteType.RULE, RCountType.ExecCount),
 			new OutputType(RReteType.RULE, RCountType.UpdateCount) };
 
-	static final RReteType DETAIL_RETE_TYPES[] = { ALPH0, ALPH1, ALPH2, BETA0, BETA1, BETA2, BETA3, EXPR0, EXPR1, EXPR2,
-			EXPR3, RULE, WORK, CONST, DROP };
+	static final RReteType DETAIL_RETE_TYPES[] = { ALPH0, ALPH1, BETA0, BETA1, BETA2, BETA3, EXPR0, EXPR1, EXPR2, EXPR3,
+			RULE, WORK, CONST, DROP };
 
 	static final String SEP_LINE1 = "=========================================================================="
 			+ "==============================================================================\n";
@@ -380,8 +379,8 @@ public class StatsUtil {
 		case ALPH1:
 			return "a1";
 
-		case ALPH2:
-			return "a2";
+//		case ALPH2:
+//			return "a2";
 
 		case EXPR0:
 			return "e0";

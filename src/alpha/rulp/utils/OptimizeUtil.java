@@ -21,7 +21,6 @@ import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
 import static alpha.rulp.ximpl.node.RReteType.ALPH1;
-import static alpha.rulp.ximpl.node.RReteType.ALPH2;
 import static alpha.rulp.ximpl.node.RReteType.BETA0;
 import static alpha.rulp.ximpl.node.RReteType.BETA1;
 import static alpha.rulp.ximpl.node.RReteType.BETA2;
@@ -98,8 +97,7 @@ public class OptimizeUtil {
 
 	public static boolean OPT_RULE = false;
 
-	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, ALPH2, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2,
-			BETA3 };
+	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2, BETA3 };
 
 	protected static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
 
