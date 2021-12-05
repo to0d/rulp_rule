@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.constraint;
+package alpha.rulp.ximpl.factor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,8 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
+import alpha.rulp.ximpl.constraint.ConstraintBuilder;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
