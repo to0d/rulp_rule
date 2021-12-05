@@ -483,6 +483,10 @@ public class RuleUtil {
 		frame.setEntry(A_DEFAULT_MODEL, model);
 	}
 
+//	public static void changeNode(boolean trace) throws RException {
+//
+//	}
+
 	public static void setModelTrace(boolean trace) throws RException {
 		varTraceModel.setBoolValue(trace);
 	}

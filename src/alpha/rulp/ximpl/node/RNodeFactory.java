@@ -566,7 +566,7 @@ public class RNodeFactory {
 		node.setEntryLength(stmtLen);
 
 		// Entry queue
-		node.setEntryQueue(new XREntryQueueMulit(stmtLen));
+		node.setEntryQueue(new XREntryQueueUniq(stmtLen));
 
 		// Var entry
 		node.setVarEntry(new IRObject[stmtLen]);

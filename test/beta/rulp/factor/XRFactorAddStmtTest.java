@@ -230,4 +230,5 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_test("(add-stmt m name1:'(f1 9))");
 		_test("(add-stmt m '(f1 a))");
 	}
+
 }

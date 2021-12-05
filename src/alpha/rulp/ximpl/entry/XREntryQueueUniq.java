@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRRListener1;
+import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
@@ -42,7 +43,7 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IRRListener1<
 			}
 
 			entryList.add(newEntry);
-//			newEntry.addEntryRemovedListener(this);
+			newEntry.addEntryRemovedListener(this);
 			return true;
 
 		} else {
@@ -55,7 +56,19 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IRRListener1<
 
 	@Override
 	public void doAction(IRReteEntry entry) throws RException {
-		uniqEntryMap.remove(ReteUtil.uniqName(entry));
+
+		switch (entry.getStatus()) {
+		case ASSUME:
+			uniqEntryMap.remove(ReteUtil.uniqName(entry));
+			break;
+
+		case FIXED_:
+			throw new RException("Can't remove fixed entry: " + entry);
+
+		case DEFINE: // keep the defined entry, means the stmt will not allow be added again
+		default:
+		}
+
 	}
 
 	@Override
