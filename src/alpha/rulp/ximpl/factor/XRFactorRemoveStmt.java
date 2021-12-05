@@ -10,9 +10,11 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorRemoveStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -24,54 +26,22 @@ public class XRFactorRemoveStmt extends AbsRFactorAdapter implements IRFactor, I
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		/********************************************/
-		// Check parameters
-		/********************************************/
 		int argSize = args.size();
-		if (argSize < 2) {
-			throw new RException("need more statmt");
+		if (argSize != 2 && argSize != 3) {
+			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = null;
-		IRList stmt = null;
+		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
+		IRObject obj = StmtUtil.getStmtObject(args);
 
-		ArrayList<IRList> dropStmts = new ArrayList<>();
-
-		IRIterator<? extends IRObject> iter = args.listIterator(1);
-
-		/**************************************************/
-		// Check model object
-		/**************************************************/
-		{
-			IRObject obj = interpreter.compute(frame, iter.next());
-			if (obj instanceof IRModel) {
-				model = (IRModel) obj;
-			} else {
-
-				model = RuleUtil.getDefaultModel(frame);
-				if (model == null) {
-					throw new RException("no model be specified");
-				}
-
-				obj = interpreter.compute(frame, obj);
-				stmt = RulpUtil.asList(obj);
-
-				dropStmts.addAll(model.removeStatement(stmt));
-			}
-		}
-
-		/**************************************************/
-		// Process other statements
-		/**************************************************/
-		while (iter.hasNext()) {
-			IRObject obj = interpreter.compute(frame, iter.next());
+		// ?0 ?1
+		if (ReteUtil.isIndexVarAtom(obj)) {
 			obj = interpreter.compute(frame, obj);
-			stmt = RulpUtil.asList(obj);
-
-			dropStmts.addAll(model.removeStatement(stmt));
 		}
 
-		return RulpFactory.createList(dropStmts);
+		IRList stmt = RulpUtil.asList(interpreter.compute(frame, obj));
+
+		return RulpFactory.createList(model.removeStatement(stmt));
 	}
 
 }

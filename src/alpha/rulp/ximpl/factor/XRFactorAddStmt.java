@@ -20,9 +20,6 @@ public class XRFactorAddStmt extends AbsRFactorAdapter implements IRuleFactor {
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		/********************************************/
-		// Check parameters
-		/********************************************/
 		int argSize = args.size();
 		if (argSize != 2 && argSize != 3) {
 			throw new RException("Invalid parameters: " + args);

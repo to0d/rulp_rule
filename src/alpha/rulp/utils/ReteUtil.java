@@ -1098,6 +1098,11 @@ public class ReteUtil {
 		}
 	}
 
+	public static boolean isIndexVarAtom(IRObject obj) {
+		
+		return obj.getType() == RType.ATOM && isIndexVarName(obj.asString());
+	}
+
 	public static boolean isIndexVarName(String var) {
 
 		if (var.length() <= 1 || var.charAt(0) != A_QUESTION_C) {
