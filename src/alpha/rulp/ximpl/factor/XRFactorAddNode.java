@@ -35,7 +35,7 @@ public class XRFactorAddNode extends AbsRFactorAdapter implements IRFactor, IRul
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
+		IRModel model = StmtUtil.getStmtModel(args, interpreter, frame, 3);
 		IRList namedList = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmt3Object(args)));
 
 		/**************************************************/

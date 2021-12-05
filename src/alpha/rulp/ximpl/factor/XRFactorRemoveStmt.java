@@ -31,7 +31,7 @@ public class XRFactorRemoveStmt extends AbsRFactorAdapter implements IRFactor, I
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
+		IRModel model = StmtUtil.getStmtModel(args, interpreter, frame, 3);
 		IRObject obj = StmtUtil.getStmt3Object(args);
 
 		// ?0 ?1

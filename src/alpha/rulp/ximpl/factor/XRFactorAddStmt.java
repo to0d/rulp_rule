@@ -25,7 +25,7 @@ public class XRFactorAddStmt extends AbsRFactorAdapter implements IRuleFactor {
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
+		IRModel model = StmtUtil.getStmtModel(args, interpreter, frame, 3);
 		IRList stmt = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmt3Object(args)));
 
 		return RulpFactory.createBoolean(model.addStatement(stmt));

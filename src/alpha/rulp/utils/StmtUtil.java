@@ -9,26 +9,18 @@ import alpha.rulp.runtime.IRInterpreter;
 
 public class StmtUtil {
 
-	private static IRObject _getStmt3ModelObject(IRList args) throws RException {
-
-		if (args.size() == 2) {
-			return null;
-		} else {
-			return args.get(1);
-		}
-	}
-
-	public static IRModel getStmt3Model(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
+	public static IRModel getStmtModel(IRList args, IRInterpreter interpreter, IRFrame frame, int stmtLen)
+			throws RException {
 
 		IRModel model = null;
-		IRObject mo = StmtUtil._getStmt3ModelObject(args);
-		if (mo == null) {
+
+		if (args.size() == stmtLen) {
+			model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
+		} else {
 			model = RuleUtil.getDefaultModel(frame);
 			if (model == null) {
 				throw new RException("no model be specified");
 			}
-		} else {
-			model = RuleUtil.asModel(interpreter.compute(frame, mo));
 		}
 
 		return model;
@@ -42,4 +34,5 @@ public class StmtUtil {
 			return args.get(2);
 		}
 	}
+
 }
