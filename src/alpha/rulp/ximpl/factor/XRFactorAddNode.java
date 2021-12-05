@@ -14,6 +14,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorAddNode extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -34,26 +35,12 @@ public class XRFactorAddNode extends AbsRFactorAdapter implements IRFactor, IRul
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = null;
-		int argIndex = 1;
-
-		/**************************************************/
-		// Check model
-		/**************************************************/
-		if (argSize == 3) {
-			model = RuleUtil.asModel(interpreter.compute(frame, args.get(argIndex)));
-			++argIndex;
-		} else {
-			model = RuleUtil.getDefaultModel(frame);
-			if (model == null) {
-				throw new RException("no model be specified");
-			}
-		}
+		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
+		IRList namedList = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmt3Object(args)));
 
 		/**************************************************/
 		// Check named list
 		/**************************************************/
-		IRList namedList = RulpUtil.asList(interpreter.compute(frame, args.get(argIndex++)));
 		int anyIndex = ReteUtil.indexOfVarArgStmt(namedList);
 		if (anyIndex != -1) {
 			throw new RException(String.format("Can't create var arg node: %s", namedList));

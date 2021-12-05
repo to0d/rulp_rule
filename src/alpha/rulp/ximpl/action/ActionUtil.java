@@ -171,7 +171,7 @@ public class ActionUtil {
 		case F_ADD_STMT:
 		case F_DEFS_S:
 		case F_ASSUME_STMT:
-			IRList stmt = RulpUtil.asList(StmtUtil.getStmtObject(expr));
+			IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
 			}

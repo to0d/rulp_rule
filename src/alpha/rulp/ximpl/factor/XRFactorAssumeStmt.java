@@ -29,7 +29,7 @@ public class XRFactorAssumeStmt extends AbsRFactorAdapter implements IRuleFactor
 		}
 
 		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
-		IRList stmt = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmtObject(args)));
+		IRList stmt = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmt3Object(args)));
 
 		return RulpFactory.createBoolean(model.assumeStatement(stmt));
 	}

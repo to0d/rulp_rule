@@ -32,7 +32,7 @@ public class XRFactorRemoveStmt extends AbsRFactorAdapter implements IRFactor, I
 		}
 
 		IRModel model = StmtUtil.getStmt3Model(args, interpreter, frame);
-		IRObject obj = StmtUtil.getStmtObject(args);
+		IRObject obj = StmtUtil.getStmt3Object(args);
 
 		// ?0 ?1
 		if (ReteUtil.isIndexVarAtom(obj)) {

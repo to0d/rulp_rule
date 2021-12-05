@@ -9,7 +9,7 @@ import alpha.rulp.runtime.IRInterpreter;
 
 public class StmtUtil {
 
-	public static IRObject getModelObject(IRList args) throws RException {
+	private static IRObject _getStmt3ModelObject(IRList args) throws RException {
 
 		if (args.size() == 2) {
 			return null;
@@ -21,7 +21,7 @@ public class StmtUtil {
 	public static IRModel getStmt3Model(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		IRModel model = null;
-		IRObject mo = StmtUtil.getModelObject(args);
+		IRObject mo = StmtUtil._getStmt3ModelObject(args);
 		if (mo == null) {
 			model = RuleUtil.getDefaultModel(frame);
 			if (model == null) {
@@ -34,7 +34,7 @@ public class StmtUtil {
 		return model;
 	}
 
-	public static IRObject getStmtObject(IRList args) throws RException {
+	public static IRObject getStmt3Object(IRList args) throws RException {
 
 		if (args.size() == 2) {
 			return args.get(1);
