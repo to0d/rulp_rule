@@ -19,6 +19,8 @@ public interface Constant {
 
 	String A_CMP_VAR_VALUE = "cmp-var-value";
 
+	String A_CMP_VAR_VAR = "cmp-var-var";
+
 	String A_Completed = "completed";
 
 	String A_DEFAULT_MODEL = "default_model";
@@ -40,7 +42,7 @@ public interface Constant {
 	String A_M_TRACE = "?model-trace";
 
 	String A_Max = "max";
-	
+
 	String A_Min = "min";
 
 	String A_MODEL = "model";

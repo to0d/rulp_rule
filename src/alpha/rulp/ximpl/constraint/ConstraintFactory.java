@@ -65,6 +65,26 @@ public class ConstraintFactory {
 		return constraint;
 	}
 
+	protected static IRVar _toVar(IRObject obj, IRFrame frame) throws RException {
+
+		switch (obj.getType()) {
+		case VAR:
+			return (IRVar) obj;
+
+		case ATOM:
+
+			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry((IRAtom) obj, frame);
+			if (varEntry == null) {
+				throw new RException("var not found: " + obj);
+			}
+
+			return RulpUtil.asVar(varEntry.getValue());
+
+		default:
+			throw new RException("not var: " + obj);
+		}
+	}
+
 	public static IRConstraint1 cmpEntryIndex(RRelationalOperator op, int idx1, int idx2) {
 
 		if (idx1 > idx2) {
@@ -112,27 +132,33 @@ public class ConstraintFactory {
 	public static IRConstraint1 cmpVarVal(RRelationalOperator op, IRObject varObj, IRObject val, IRFrame frame)
 			throws RException {
 
-		switch (varObj.getType()) {
-		case VAR:
-			return cmpVarVal(op, (IRVar) varObj, val);
-
-		case ATOM:
-
-			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry((IRAtom) varObj, frame);
-			if (varEntry == null) {
-				throw new RException("var not found: " + varObj);
-			}
-
-			return cmpVarVal(op, varEntry.getValue(), val, frame);
-
-		default:
-		}
-
-		throw new RException("Invalid var: " + varObj);
+		return cmpVarVal(op, _toVar(varObj, frame), val);
 	}
 
 	public static IRConstraint1 cmpVarVal(RRelationalOperator op, IRVar var, IRObject val) {
 		return new XRConstraint1CompareVarValue(op, var, val);
+	}
+
+	public static IRConstraint1 cmpVarVar(RRelationalOperator op, IRObject var1Obj, IRObject var2Obj, IRFrame frame)
+			throws RException {
+
+		IRVar var1 = _toVar(var1Obj, frame);
+		IRVar var2 = _toVar(var2Obj, frame);
+
+		int d = var1.getName().compareTo(var2.getName());
+		if (d > 0) {
+			return cmpVarVar(op, var1, var2);
+		}
+
+		if (d < 0) {
+			return cmpVarVar(RRelationalOperator.oppositeOf(op), var2, var1);
+		}
+
+		throw new RException("same var: " + var1Obj + ", " + var2Obj);
+	}
+
+	public static IRConstraint1 cmpVarVar(RRelationalOperator op, IRVar var1, IRVar var2) {
+		return new XRConstraint1CompareVarVar(op, var1, var2);
 	}
 
 	public static IRConstraint2 entryOrder() {
@@ -237,23 +263,22 @@ public class ConstraintFactory {
 
 			}
 
-			// (op var val)
-			if (constraintIndexs.length == 0 && externalVarCount == 1) {
-
-				String externalVarName = externalVarNames.get(0);
-
-				// (op ?0 var)
-				if (expr.get(1).asString().equals(externalVarName)) {
-					return ConstraintFactory.cmpVarVal(op, expr.get(1), expr.get(2), frame);
-				}
-
-				// (op var ?0)
-				if (expr.get(2).asString().equals(externalVarName)) {
-					return ConstraintFactory.cmpVarVal(RRelationalOperator.oppositeOf(op), expr.get(2), expr.get(1),
-							frame);
-				}
-
-			}
+//			// (op var val)
+//			if (constraintIndexs.length == 0 && externalVarCount == 1) {
+//
+//				String externalVarName = externalVarNames.get(0);
+//
+//				// (op ?0 var)
+//				if (expr.get(1).asString().equals(externalVarName)) {
+//					return ConstraintFactory.cmpVarVal(op, expr.get(1), expr.get(2), frame);
+//				}
+//
+//				// (op var ?0)
+//				if (expr.get(2).asString().equals(externalVarName)) {
+//					return ConstraintFactory.cmpVarVal(RRelationalOperator.oppositeOf(op), expr.get(2), expr.get(1),
+//							frame);
+//				}
+//			}
 		}
 
 		return new XRConstraint1Expr0X(expr, newVarEntry, constraintIndexs, externalVarCount);
@@ -346,7 +371,36 @@ public class ConstraintFactory {
 		return null;
 	}
 
-	public static IRConstraint1 expr3(IRExpr expr) throws RException {
+	public static IRConstraint1 expr3(IRExpr expr, IRFrame frame) throws RException {
+
+		RRelationalOperator op = null;
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
+				&& expr.size() == 3) {
+
+			IRObject e1 = expr.get(1);
+			IRObject e2 = expr.get(2);
+
+			if (RulpUtil.isVarAtom(e1)) {
+
+				// (op ?x ?y)
+				if (RulpUtil.isVarAtom(e2)) {
+					return ConstraintFactory.cmpVarVar(op, expr.get(1), expr.get(2), frame);
+				}
+				// (op ?x value)
+				else {
+					return ConstraintFactory.cmpVarVal(op, expr.get(1), expr.get(2), frame);
+				}
+
+			} else {
+
+				// (op value ?x)
+				if (RulpUtil.isVarAtom(e2)) {
+					return ConstraintFactory
+							.cmpVarVal(RRelationalOperator.oppositeOf(op), expr.get(2), expr.get(1), frame);
+				}
+			}
+		}
+
 		return new XRConstraint1Expr3(expr);
 	}
 
@@ -357,7 +411,7 @@ public class ConstraintFactory {
 	public static IRConstraint1 max(int columnIndex, IRObject maxValue) {
 		return new XRConstraint1Max(columnIndex, maxValue);
 	}
-	
+
 	public static IRConstraint1 min(int columnIndex, IRObject maxValue) {
 		return new XRConstraint1Min(columnIndex, maxValue);
 	}

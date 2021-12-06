@@ -739,7 +739,7 @@ public class XRNodeGraph implements IRNodeGraph {
 						varEntry.length, leftNode.getEntryLength(), entryTable, leftNode, varEntry);
 
 				// constant
-				addConstraint(node, ConstraintFactory.expr3(rightExpr));
+				addConstraint(node, ConstraintFactory.expr3(rightExpr, model.getFrame()));
 
 				return node;
 			}

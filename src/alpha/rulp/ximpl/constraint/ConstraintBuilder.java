@@ -275,7 +275,7 @@ public class ConstraintBuilder {
 			/*********************************************************/
 			// '(?a ?b ?c) (factor ?x) - no left variable in expr
 			/*********************************************************/
-			return ConstraintFactory.expr3(expr);
+			return ConstraintFactory.expr3(expr, frame);
 		}
 
 		/*********************************************************/
