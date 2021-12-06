@@ -145,7 +145,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_10_similar_constraint_with_rule_1() {
+	void test_a_similar_constraint_with_rule_1() {
 
 		_setup();
 
@@ -158,7 +158,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_10_similar_constraint_with_rule_2() {
+	void test_a_similar_constraint_with_rule_2() {
 
 		_setup();
 
@@ -175,4 +175,12 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_saveTest();
 		_statsInfo("m");
 	}
+	
+//	@Test
+//	void test_a_max_1() {
+//
+//		_setup();
+//		_run_script();
+//		_statsInfo("m");
+//	}
 }

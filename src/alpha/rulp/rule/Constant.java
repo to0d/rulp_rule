@@ -40,7 +40,7 @@ public interface Constant {
 	String A_M_TRACE = "?model-trace";
 
 	String A_Max = "max";
-
+	
 	String A_Min = "min";
 
 	String A_MODEL = "model";
@@ -76,6 +76,8 @@ public interface Constant {
 	String A_SCOPE = "scope";
 
 	String A_SELECT = "select";
+
+	String A_SINGLE = "single";
 
 	String A_State = "state";
 
