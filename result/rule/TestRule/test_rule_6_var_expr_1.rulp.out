@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(defvar ?x 1)
+;=>&?x
+
+(add-rule m if '(?a p ?b) (= ?x 1) do (-> m '(?b p ?a)) )
+;=>RU000
+
+(add-stmt m '(x p y))
+;=>true
+
+(start m)
+;=>8
+
+(list-stmt m)
+;=>'('(x p y) '(y p x))
+
+(setq ?x 3)
+;=>&?x
+
+(add-stmt m '(a p b))
+;=>true
+
+(start m)
+;=>3
+
+(list-stmt m)
+;=>'('(x p y) '(y p x) '(a p b))
+

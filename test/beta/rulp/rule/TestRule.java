@@ -13,97 +13,6 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestRule extends RuleTestBase {
 
 	@Test
-	void test_rule_0() {
-
-		_setup();
-		_run_script();
-		_mStatus(1, "m");
-		_saveTest();
-	}
-
-	@Test
-	void test_rule_0_default_model() {
-
-		_setup();
-		_run_script();
-		_mStatus(1, "m");
-		_saveTest();
-	}
-
-	@Test
-	void test_rule_0_error_rule_1() {
-
-		// XRModel.TRACE_RETE = true;
-		_setup();
-		_test("(new model m)");
-		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (error err-r1 '(?a ?b) )) (-> '(?b p1 ?a)))");
-		_test("(add-stmt m '(a p1 b))");
-		_test("(add-stmt m '(a p1 a))");
-		_test("(add-stmt m '(b p1 b))");
-		_test("(list-stmt m)", "'('(a p1 b) '(a p1 a) '(b p1 b))");
-//		_test("(list-obj m)", "'(a p1 b)");
-
-		ArrayList<String> failedRules = new ArrayList<>();
-		ArrayList<IRList> failedEntrys = new ArrayList<>();
-		ArrayList<IRError> failedErrors = new ArrayList<>();
-
-		_model("m").addRuleFailedListener((rule) -> {
-			failedRules.add(rule.getRuleName());
-			failedEntrys.add(rule.getLastValues());
-			failedErrors.add(rule.getLastError());
-		});
-
-		_test("(start m)");
-		_test("(list-stmt m)", "'('(a p1 b) '(a p1 a) '(b p1 b) '(b p1 a))");
-//		_test("(list-obj m)", "'(a p1 b)");
-
-		_mStatus(1, "m");
-		_saveTest();
-
-		assertEquals("[R1]", failedRules.toString());
-		assertEquals("['(a p1 a)]", failedEntrys.toString());
-		assertEquals("[error: err-r1, '(a a)]", failedErrors.toString());
-
-	}
-
-	@Test
-	void test_rule_0_error_rule_halt() {
-
-		// XRModel.TRACE_RETE = true;
-		_setup();
-		_test("(new model m)");
-		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (error err-r1 '(?a ?b))) (-> '(?b p1 ?a)))");
-		_test("(add-stmt m '(a p1 a))");
-		_test("(add-stmt m '(a p1 b))");
-		_test("(list-stmt m)", "'('(a p1 a) '(a p1 b))");
-//		_test("(list-obj m)", "'(a p1 b)");
-
-		_model("m").addRuleFailedListener((rule) -> {
-			_model("m").halt();
-		});
-
-		_test("(start m)");
-		_test("(state-of m)", "halting");
-		_test("(list-stmt m)", "'('(a p1 a) '(a p1 b))");
-//		_test("(list-obj m)", "'(a p1 b)");
-
-		_mStatus(1, "m");
-		_saveTest();
-	}
-
-	@Test
-	void test_rule_0_similiar_match_alpha_1() {
-
-		_setup();
-		_run_script();
-		_mStatus(1, "m");
-		_rStatus(1, "m", "RA001");
-		_rStatus(1, "m", "RA002");
-		_saveTest();
-
-	}
-
-	@Test
 	void test_0_similiar_match_alpha_2() {
 
 		_setup();
@@ -361,27 +270,6 @@ public class TestRule extends RuleTestBase {
 		_test("(setq ?x 2)");
 		_test("(start m)");
 		_test("(list-stmt m)", "'('(x p y) '(y p z) '(x p z))");
-
-		_mStatus(1, "m");
-		_saveTest();
-		_statsInfo("m");
-	}
-
-	@Test
-	public void test_6_var_expr_1() {
-
-		_setup();
-		_test("(new model m)");
-		_test("(defvar ?x 1)");
-		_test("(add-rule m if '(?a p ?b) (= ?x 1) do (-> m '(?b p ?a)) )");
-		_test("(add-stmt m '(x p y))");
-		_test("(start m)");
-		_test("(list-stmt m)", "'('(x p y) '(y p x))");
-
-		_test("(setq ?x 3)");
-		_test("(add-stmt m '(a p b))");
-		_test("(start m)");
-		_test("(list-stmt m)", "'('(x p y) '(y p x) '(a p b))");
 
 		_mStatus(1, "m");
 		_saveTest();
@@ -655,6 +543,107 @@ public class TestRule extends RuleTestBase {
 		_test("(start m)");
 		_test("(list-stmt m)", "'('(x p 0) '(x p a) '(x p 1) n2:'(0) n2:'(1))");
 
+		_mStatus(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_rule_0() {
+
+		_setup();
+		_run_script();
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	void test_rule_0_default_model() {
+
+		_setup();
+		_run_script();
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	void test_rule_0_error_rule_1() {
+
+		// XRModel.TRACE_RETE = true;
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (error err-r1 '(?a ?b) )) (-> '(?b p1 ?a)))");
+		_test("(add-stmt m '(a p1 b))");
+		_test("(add-stmt m '(a p1 a))");
+		_test("(add-stmt m '(b p1 b))");
+		_test("(list-stmt m)", "'('(a p1 b) '(a p1 a) '(b p1 b))");
+//		_test("(list-obj m)", "'(a p1 b)");
+
+		ArrayList<String> failedRules = new ArrayList<>();
+		ArrayList<IRList> failedEntrys = new ArrayList<>();
+		ArrayList<IRError> failedErrors = new ArrayList<>();
+
+		_model("m").addRuleFailedListener((rule) -> {
+			failedRules.add(rule.getRuleName());
+			failedEntrys.add(rule.getLastValues());
+			failedErrors.add(rule.getLastError());
+		});
+
+		_test("(start m)");
+		_test("(list-stmt m)", "'('(a p1 b) '(a p1 a) '(b p1 b) '(b p1 a))");
+//		_test("(list-obj m)", "'(a p1 b)");
+
+		_mStatus(1, "m");
+		_saveTest();
+
+		assertEquals("[R1]", failedRules.toString());
+		assertEquals("['(a p1 a)]", failedEntrys.toString());
+		assertEquals("[error: err-r1, '(a a)]", failedErrors.toString());
+
+	}
+
+	@Test
+	void test_rule_0_error_rule_halt() {
+
+		// XRModel.TRACE_RETE = true;
+		_setup();
+		_test("(new model m)");
+		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (error err-r1 '(?a ?b))) (-> '(?b p1 ?a)))");
+		_test("(add-stmt m '(a p1 a))");
+		_test("(add-stmt m '(a p1 b))");
+		_test("(list-stmt m)", "'('(a p1 a) '(a p1 b))");
+//		_test("(list-obj m)", "'(a p1 b)");
+
+		_model("m").addRuleFailedListener((rule) -> {
+			_model("m").halt();
+		});
+
+		_test("(start m)");
+		_test("(state-of m)", "halting");
+		_test("(list-stmt m)", "'('(a p1 a) '(a p1 b))");
+//		_test("(list-obj m)", "'(a p1 b)");
+
+		_mStatus(1, "m");
+		_saveTest();
+	}
+
+	@Test
+	void test_rule_0_similiar_match_alpha_1() {
+
+		_setup();
+		_run_script();
+		_mStatus(1, "m");
+		_rStatus(1, "m", "RA001");
+		_rStatus(1, "m", "RA002");
+		_saveTest();
+
+	}
+
+	@Test
+	public void test_rule_6_var_expr_1() {
+
+		_setup();
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
