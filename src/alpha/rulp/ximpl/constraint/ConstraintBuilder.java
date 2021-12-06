@@ -8,7 +8,7 @@ import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_One_Of;
 import static alpha.rulp.rule.Constant.A_Type;
-import static alpha.rulp.rule.Constant.A_Uniq;
+import static alpha.rulp.rule.Constant.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -132,6 +132,15 @@ public class ConstraintBuilder {
 			cons.constraintName = A_One_Of;
 			cons.constraintValue = interpreter.compute(frame, expr.get(1));
 			cons.onObject = interpreter.compute(frame, expr.get(3));
+
+			return cons;
+		}
+
+		// (single)
+		if (consListSize == 1 && _isAtom(expr, 0, A_SINGLE)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_SINGLE;
 
 			return cons;
 		}
@@ -506,6 +515,9 @@ public class ConstraintBuilder {
 
 			case A_One_Of:
 				return _oneOfConstraint(cons);
+
+			case A_SINGLE:
+				return ConstraintFactory.single();
 
 			default:
 				throw new RException("unsupport constraint: " + expr);

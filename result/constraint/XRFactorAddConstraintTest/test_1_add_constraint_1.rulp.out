@@ -66,3 +66,6 @@
 (add-constraint m name9:'(?x ?y) (one-of '(a b c) on ?x))
 ;=>true
 
+(add-constraint m name10:'(?x ?y) (single))
+;=>true
+

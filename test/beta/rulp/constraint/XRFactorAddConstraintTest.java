@@ -7,7 +7,7 @@ import alpha.rulp.utils.RuleTestBase;
 class XRFactorAddConstraintTest extends RuleTestBase {
 
 	@Test
-	void test_1_type_1() {
+	void test_1_add_constraint_1() {
 
 		_setup();
 		_clean_model_cache();
@@ -176,11 +176,11 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 	
-//	@Test
-//	void test_a_max_1() {
-//
-//		_setup();
-//		_run_script();
-//		_statsInfo("m");
-//	}
+	@Test
+	void test_b_single_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

@@ -105,8 +105,8 @@ public class ConstraintFactory {
 		throw new RException("Invalid var: " + varObj);
 	}
 
-	public static IRConstraint1 cmpVarVal(RRelationalOperator op, IRVar var, IRObject val) {
-		return new XRConstraint1CompareVarValue(op, var, val);
+	public static IRConstraint1 cmpEntryVar(RRelationalOperator op, int index, IRVar var) {
+		return new XRConstraint1CompareEntryVar(op, index, var);
 	}
 
 	public static IRConstraint1 cmpVarVal(RRelationalOperator op, IRObject varObj, IRObject val, IRFrame frame)
@@ -131,8 +131,8 @@ public class ConstraintFactory {
 		throw new RException("Invalid var: " + varObj);
 	}
 
-	public static IRConstraint1 cmpEntryVar(RRelationalOperator op, int index, IRVar var) {
-		return new XRConstraint1CompareEntryVar(op, index, var);
+	public static IRConstraint1 cmpVarVal(RRelationalOperator op, IRVar var, IRObject val) {
+		return new XRConstraint1CompareVarValue(op, var, val);
 	}
 
 	public static IRConstraint2 entryOrder() {
@@ -357,7 +357,7 @@ public class ConstraintFactory {
 	public static IRConstraint1 max(int columnIndex, IRObject maxValue) {
 		return new XRConstraint1Max(columnIndex, maxValue);
 	}
-
+	
 	public static IRConstraint1 min(int columnIndex, IRObject maxValue) {
 		return new XRConstraint1Min(columnIndex, maxValue);
 	}
@@ -389,6 +389,10 @@ public class ConstraintFactory {
 		}
 
 		return lastConstraint;
+	}
+
+	public static IRConstraint1 single() {
+		return new XRConstraint1Single();
 	}
 
 	public static IRConstraint1 type(int columnIndex, RType columnType) {

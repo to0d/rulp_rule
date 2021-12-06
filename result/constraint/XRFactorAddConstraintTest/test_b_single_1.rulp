@@ -1,0 +1,23 @@
+(new model m)
+;;;
+
+(add-constraint m n1:'(?x ?y) (single))
+;=>
+
+(add-stmt m n1:'(a b))
+;=>
+
+(add-stmt m n1:'(x y))
+;=>
+
+(list-stmt m)
+;;;
+
+(remove-constraint m n1:'(2) (? on ?))
+;;;
+
+(add-stmt m n1:'(c d))
+;=>
+
+(list-stmt m)
+;;;
