@@ -13,40 +13,25 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestRule extends RuleTestBase {
 
 	@Test
-	void test_0() {
+	void test_rule_0() {
 
-		// XRModel.TRACE_RETE = true;
 		_setup();
-		_test("(new model m)");
-		_test("(add-rule \"TG1\" m if '(?c hasChild ?cc) do (-> m '(?c hasGroupChild ?cc)))", "TG1");
-		_test("(add-stmt m '(a hasChild b))", "true");
-		_test("(list-stmt m)", "'('(a hasChild b))");
-		_test("(start m)", "5");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a hasChild b) '(a hasGroupChild b))");
-
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 	}
 
 	@Test
-	void test_0_default_model() {
+	void test_rule_0_default_model() {
 
 		_setup();
-		_test("(new model m)");
-		_test("(add-rule \"TG1\" m if '(?c hasChild ?cc) do (-> '(?c hasGroupChild ?cc)))", "TG1");
-		_test("(add-stmt m '(a hasChild b))", "true");
-		_test("(list-stmt m)", "'('(a hasChild b))");
-		_test("(start m)", "5");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a hasChild b) '(a hasGroupChild b))");
-
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 	}
 
 	@Test
-	void test_0_error_rule_1() {
+	void test_rule_0_error_rule_1() {
 
 		// XRModel.TRACE_RETE = true;
 		_setup();
@@ -82,7 +67,7 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
-	void test_0_error_rule_halt() {
+	void test_rule_0_error_rule_halt() {
 
 		// XRModel.TRACE_RETE = true;
 		_setup();
@@ -107,21 +92,10 @@ public class TestRule extends RuleTestBase {
 	}
 
 	@Test
-	void test_0_similiar_match_alpha_1() {
+	void test_rule_0_similiar_match_alpha_1() {
 
-		// XRModel.TRACE_RETE = true;
 		_setup();
-		_test("(new model m)");
-		_test("(add-rule \"RA001\" m if '(?a p1 ?b) '(?b p2 ?c) do (-> '(?a p2 ?c)))");
-		_test("(add-rule \"RA002\" m if '(?c p2 ?cc) do (-> '(?c p3 ?cc)))");
-		_test("(add-stmt m '(a p1 b))");
-		_test("(add-stmt m '(b p2 c))");
-		_test("(list-stmt m)", "'('(a p1 b) '(b p2 c))");
-//		_test("(list-obj m)", "'(a p1 b p2 c)");
-		_test("(start m)");
-		_test("(list-stmt m)", "'('(a p1 b) '(b p2 c) '(b p3 c) '(a p2 c) '(a p3 c))");
-//		_test("(list-obj m)", "'(a p1 b p2 c p3)");
-
+		_run_script();
 		_mStatus(1, "m");
 		_rStatus(1, "m", "RA001");
 		_rStatus(1, "m", "RA002");

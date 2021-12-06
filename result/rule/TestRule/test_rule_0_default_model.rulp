@@ -1,0 +1,20 @@
+(new model m)
+;;;
+
+(add-rule "TG1" m if '(?c hasChild ?cc) do (-> '(?c hasGroupChild ?cc)))
+;=>
+
+(add-stmt m '(a hasChild b))
+;=>
+
+(list-stmt m)
+;=>
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>

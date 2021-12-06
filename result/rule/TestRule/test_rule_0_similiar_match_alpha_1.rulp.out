@@ -1,0 +1,24 @@
+(new model m)
+;=>m
+
+(add-rule "RA001" m if '(?a p1 ?b) '(?b p2 ?c) do (-> '(?a p2 ?c)))
+;=>RA001
+
+(add-rule "RA002" m if '(?c p2 ?cc) do (-> '(?c p3 ?cc)))
+;=>RA002
+
+(add-stmt m '(a p1 b))
+;=>true
+
+(add-stmt m '(b p2 c))
+;=>true
+
+(list-stmt m)
+;=>'('(a p1 b) '(b p2 c))
+
+(start m)
+;=>15
+
+(list-stmt m)
+;=>'('(a p1 b) '(b p2 c) '(b p3 c) '(a p2 c) '(a p3 c))
+

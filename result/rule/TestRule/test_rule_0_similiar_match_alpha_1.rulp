@@ -1,0 +1,23 @@
+(new model m)
+;;;
+
+(add-rule "RA001" m if '(?a p1 ?b) '(?b p2 ?c) do (-> '(?a p2 ?c)))
+;;;
+
+(add-rule "RA002" m if '(?c p2 ?cc) do (-> '(?c p3 ?cc)))
+;;;
+
+(add-stmt m '(a p1 b))
+;;;
+
+(add-stmt m '(b p2 c))
+;;;
+
+(list-stmt m)
+;=>
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
