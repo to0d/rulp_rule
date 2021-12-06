@@ -7,19 +7,10 @@ import alpha.rulp.utils.RuleTestBase;
 class XRFactorSearchStmtTest extends RuleTestBase {
 
 	@Test
-	void test_1_int_var_1_a() {
+	void test_search_1_int_var_1() {
 
 		_setup();
-		_test("(new model m)");
-		_test("(add-constraint m v1:'(?x) (type int on ?x) (max 40 on ?x) (min 37 on ?x) (= (% ?x 2) 0))");
-		_test("(defvar ?s (search m v2:'(?x) from v1:'(?x) limit 1 order by ?x asc))", "&?s");
-		_test("(state-of ?s)", "runnable");
-		_test("(start ?s)", "completed");
-		_test("(list-stmt m from v2:'(?x))", "'()");
-
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_run_script();
 		_statsInfo("m");
 	}
 
