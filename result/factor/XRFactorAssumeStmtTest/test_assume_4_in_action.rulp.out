@@ -1,0 +1,25 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?x) do (assume-stmt n2:'(?x)))
+;=>RU000
+
+(add-stmt m n1:'(1))
+;=>true
+
+(assume-stmt m n1:'(2))
+;=>true
+
+(start m)
+;err:
+do not support assume in reason: n2:'(1)
+at QF-RU000: (assume-stmt n2:'(?x))
+at main: (start m)
+;eof
+
+(list-stmt m from n1:'(?x))
+;=>'(n1:'(1) n1:'(2))
+
+(list-stmt m from n2:'(?x))
+;=>'()
+

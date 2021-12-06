@@ -7,8 +7,9 @@ import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_One_Of;
+import static alpha.rulp.rule.Constant.A_SINGLE;
 import static alpha.rulp.rule.Constant.A_Type;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Uniq;
 
 import java.util.ArrayList;
 import java.util.Collections;

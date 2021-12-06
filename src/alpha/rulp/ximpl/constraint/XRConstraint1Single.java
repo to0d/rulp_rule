@@ -1,10 +1,9 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_SINGLE;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1Single extends AbsRConstraint1 implements IRConstraint0 {

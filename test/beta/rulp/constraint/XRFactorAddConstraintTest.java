@@ -183,4 +183,12 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_b_single_2_dup() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

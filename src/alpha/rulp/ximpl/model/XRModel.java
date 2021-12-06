@@ -1413,6 +1413,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Invalid stmt: " + stmt);
 		}
 
+		if (processingLevel > 0) {
+			throw new RException("do not support assume in reason: " + stmt);
+		}
+
 		try {
 
 			this.assuemeStatmentLevel++;

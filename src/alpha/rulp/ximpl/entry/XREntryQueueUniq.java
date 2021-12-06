@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRRListener1;
-import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 

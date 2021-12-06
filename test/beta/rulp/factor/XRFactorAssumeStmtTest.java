@@ -59,4 +59,13 @@ class XRFactorAssumeStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
+	
+	@Test
+	void test_assume_4_in_action() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
 }

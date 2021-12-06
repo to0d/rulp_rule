@@ -1,0 +1,20 @@
+(new model m)
+;;;
+
+(add-rule m if n1:'(?x) do (assume-stmt n2:'(?x)))
+;;;
+
+(add-stmt m n1:'(1))
+;;;
+
+(assume-stmt m n1:'(2))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m from n1:'(?x))
+;;;
+
+(list-stmt m from n2:'(?x))
+;;;
