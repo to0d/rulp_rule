@@ -294,22 +294,23 @@ Child Count:
   total:       1       1       1
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=2/4, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=MODEL, lvl=3, ref=2/4, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 6        3        3    instance   m : class=model     
+?rv                  : 18       3        1    var        false : type=bool   
 ==========================================================================================================================
 
 Node<CST01> frame:id=6, name=NF-CST01, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-CST01
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 35       6        3    instance   m : class=model     
-?node                : 36       6        1    var        name1 : type=string 
-?index               : 37       6        1    var        2 : type=int        
-?type1               : 38       6        1    var        int : type=atom     
-?type2               : 39       6        1    var        float : type=atom   
+default_model        : 39       6        3    instance   m : class=model     
+?node                : 40       6        1    var        name1 : type=string 
+?index               : 41       6        1    var        2 : type=int        
+?type1               : 42       6        1    var        int : type=atom     
+?type2               : 43       6        1    var        float : type=atom   
 ==========================================================================================================================
 
 node update info: model-exec-count=30, row=6, column=31(1), value-max=1, value-unit=1^x
@@ -387,7 +388,7 @@ Object create count:
         list:           89            0           89
         expr:          636            0          636
        array:            1            0            1
-         var:           49           23           26
+         var:           53           26           27
         func:          107            0          107
     template:            1            0            1
        macro:            3            0            3
@@ -396,7 +397,7 @@ Object create count:
       member:          154            0          154
        frame:           22           20            2
  interpreter:            1            0
-  frameEntry:          292            0
+  frameEntry:          296            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -415,22 +416,23 @@ m                    : 7        2        3    instance   m : class=model
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=2/4, entry=1, pid=2(main), subject=MODEL
+id=3, name=MODEL, lvl=3, ref=2/4, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 6        3        3    instance   m : class=model     
+?rv                  : 18       3        1    var        false : type=bool   
 ==========================================================================================================================
 
 id=6, name=NF-CST01, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-CST01
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 35       6        3    instance   m : class=model     
-?node                : 36       6        1    var        name1 : type=string 
-?index               : 37       6        1    var        2 : type=int        
-?type1               : 38       6        1    var        int : type=atom     
-?type2               : 39       6        1    var        float : type=atom   
+default_model        : 39       6        3    instance   m : class=model     
+?node                : 40       6        1    var        name1 : type=string 
+?index               : 41       6        1    var        2 : type=int        
+?type1               : 42       6        1    var        int : type=atom     
+?type2               : 43       6        1    var        float : type=atom   
 ==========================================================================================================================
 
 Global frame tree:

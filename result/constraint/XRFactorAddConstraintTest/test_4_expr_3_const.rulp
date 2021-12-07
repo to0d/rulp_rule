@@ -8,7 +8,7 @@
 ;=>
 
 (add-stmt m name1:'(b 1))
-;err:
+;err
 
 (list-stmt m)
 ;=>
@@ -17,4 +17,4 @@
 ;=>
 
 (add-constraint m name1:'(?x ?y) (< 2 1))
-;err:
+;err

@@ -181,12 +181,13 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 6        3        2    instance   m : class=model     
 ==========================================================================================================================
 
-Node<E0003> frame:id=4, name=NF-E0003, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0003
+Node<E0003> frame:id=4, name=NF-E0003, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-E0003
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?a                   : 10       4        1    var        y : type=atom       
 ?b                   : 11       4        1    var        x : type=atom       
+?rv                  : 12       4        1    var        true : type=bool    
 ==========================================================================================================================
 
 node update info: model-exec-count=8, row=4, column=9(1), value-max=1, value-unit=1^x
@@ -250,7 +251,7 @@ Object create count:
         list:           51            0           51
         expr:          612            0          612
        array:            1            0            1
-         var:           23            0           23
+         var:           24            0           24
         func:          108            0          108
     template:            1            0            1
        macro:            3            0            3
@@ -259,7 +260,7 @@ Object create count:
       member:          152            0          152
        frame:            4            2            2
  interpreter:            1            0
-  frameEntry:          262            0
+  frameEntry:          263            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -287,12 +288,13 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 6        3        2    instance   m : class=model     
 ==========================================================================================================================
 
-id=4, name=NF-E0003, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0003
+id=4, name=NF-E0003, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-E0003
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?a                   : 10       4        1    var        y : type=atom       
 ?b                   : 11       4        1    var        x : type=atom       
+?rv                  : 12       4        1    var        true : type=bool    
 ==========================================================================================================================
 
 Global frame tree:

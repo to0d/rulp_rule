@@ -2585,92 +2585,95 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 6        3        9    instance   p2d : class=model   
 ==========================================================================================================================
 
-Node<E0004> frame:id=4, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0004
+Node<E0004> frame:id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?0                   : 16       4        1    var        nt:$TGROUP : type=atom
+?rv                  : 26       4        1    var        nt:$TGROUP : type=string
 ==========================================================================================================================
 
 Node<C7> frame:id=17, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 213      17       9    instance   p2d : class=model   
-?a                   : 214      17       1    var        nt:tb-Beginner : type=atom
-?p                   : 215      17       1    var        nm:hasAncestors : type=atom
-?b                   : 216      17       1    var        nt:$BEGINNER : type=atom
-?model-state         : 217      17       1    var        ?model-state:"completed" : type=var
+default_model        : 254      17       9    instance   p2d : class=model   
+?a                   : 255      17       1    var        nt:tb-Beginner : type=atom
+?p                   : 256      17       1    var        nm:hasAncestors : type=atom
+?b                   : 257      17       1    var        nt:$BEGINNER : type=atom
+?model-state         : 258      17       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<RR5> frame:id=12, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RR5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      12       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 152      12       9    instance   p2d : class=model   
-?a                   : 153      12       1    var        nt:ta : type=atom   
-?p                   : 154      12       1    var        nm:defineTag : type=atom
-?b                   : 155      12       1    var        nt:ta-Beginner : type=atom
+?0                   : 180      12       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
+default_model        : 181      12       9    instance   p2d : class=model   
+?a                   : 182      12       1    var        nt:ta : type=atom   
+?p                   : 183      12       1    var        nm:defineTag : type=atom
+?b                   : 184      12       1    var        nt:ta-Beginner : type=atom
 ==========================================================================================================================
 
 Node<AC2> frame:id=10, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 76       10       9    instance   p2d : class=model   
-?t                   : 77       10       1    var        nt:$TGROUP : type=atom
-?model-state         : 78       10       1    var        ?model-state:"completed" : type=var
+default_model        : 91       10       9    instance   p2d : class=model   
+?t                   : 92       10       1    var        nt:$TGROUP : type=atom
+?model-state         : 93       10       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-Node<E0120> frame:id=9, name=NF-E0120, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0120
+Node<E0120> frame:id=9, name=NF-E0120, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 38       9        1    var        nt:$TGROUP : type=atom
+?0                   : 45       9        1    var        nt:$TGROUP : type=atom
+?rv                  : 53       9        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 Node<AC5> frame:id=8, name=NF-AC5, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 85       8        9    instance   p2d : class=model   
-?t                   : 86       8        1    var        nt:tb-Beginner : type=atom
-?model-state         : 87       8        1    var        ?model-state:"completed" : type=var
+default_model        : 100      8        9    instance   p2d : class=model   
+?t                   : 101      8        1    var        nt:tb-Beginner : type=atom
+?model-state         : 102      8        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-Node<E0123> frame:id=5, name=NF-E0123, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0123
+Node<E0123> frame:id=5, name=NF-E0123, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 57       5        1    var        nt:$TGROUP : type=atom
+?0                   : 68       5        1    var        nt:$TGROUP : type=atom
+?rv                  : 76       5        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 Node<AC6> frame:id=7, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 94       7        9    instance   p2d : class=model   
-?t                   : 95       7        1    var        nt:tb-Beginner : type=atom
-?model-state         : 96       7        1    var        ?model-state:"completed" : type=var
+default_model        : 111      7        9    instance   p2d : class=model   
+?t                   : 112      7        1    var        nt:tb-Beginner : type=atom
+?model-state         : 113      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC7> frame:id=6, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 113      6        9    instance   p2d : class=model   
-?t                   : 114      6        1    var        nt:tb-Beginner : type=atom
-?model-state         : 115      6        1    var        ?model-state:"completed" : type=var
+default_model        : 134      6        9    instance   p2d : class=model   
+?t                   : 135      6        1    var        nt:tb-Beginner : type=atom
+?model-state         : 136      6        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC8> frame:id=11, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 132      11       9    instance   p2d : class=model   
-?t                   : 133      11       1    var        nt:tb-Beginner : type=atom
-?model-state         : 134      11       1    var        ?model-state:"completed" : type=var
+default_model        : 157      11       9    instance   p2d : class=model   
+?t                   : 158      11       1    var        nt:tb-Beginner : type=atom
+?model-state         : 159      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 node update info: model-exec-count=597, row=65, column=75(8), value-max=2, value-unit=2^x
@@ -2828,7 +2831,7 @@ Object create count:
         list:          853            0          853
         expr:         1337            0         1337
        array:            1            0            1
-         var:          306          263           43
+         var:          348          302           46
         func:          111            0          111
     template:            1            0            1
        macro:            5            0            5
@@ -2837,7 +2840,7 @@ Object create count:
       member:          152            0          152
        frame:          213          202           11
  interpreter:            1            0
-  frameEntry:          557            0
+  frameEntry:          599            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -2871,92 +2874,95 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 6        3        9    instance   p2d : class=model   
 ==========================================================================================================================
 
-id=4, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0004
+id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?0                   : 16       4        1    var        nt:$TGROUP : type=atom
+?rv                  : 26       4        1    var        nt:$TGROUP : type=string
 ==========================================================================================================================
 
-id=5, name=NF-E0123, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0123
+id=5, name=NF-E0123, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 57       5        1    var        nt:$TGROUP : type=atom
+?0                   : 68       5        1    var        nt:$TGROUP : type=atom
+?rv                  : 76       5        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 id=6, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 113      6        9    instance   p2d : class=model   
-?t                   : 114      6        1    var        nt:tb-Beginner : type=atom
-?model-state         : 115      6        1    var        ?model-state:"completed" : type=var
+default_model        : 134      6        9    instance   p2d : class=model   
+?t                   : 135      6        1    var        nt:tb-Beginner : type=atom
+?model-state         : 136      6        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=7, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 94       7        9    instance   p2d : class=model   
-?t                   : 95       7        1    var        nt:tb-Beginner : type=atom
-?model-state         : 96       7        1    var        ?model-state:"completed" : type=var
+default_model        : 111      7        9    instance   p2d : class=model   
+?t                   : 112      7        1    var        nt:tb-Beginner : type=atom
+?model-state         : 113      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=8, name=NF-AC5, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 85       8        9    instance   p2d : class=model   
-?t                   : 86       8        1    var        nt:tb-Beginner : type=atom
-?model-state         : 87       8        1    var        ?model-state:"completed" : type=var
+default_model        : 100      8        9    instance   p2d : class=model   
+?t                   : 101      8        1    var        nt:tb-Beginner : type=atom
+?model-state         : 102      8        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-id=9, name=NF-E0120, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0120
+id=9, name=NF-E0120, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 38       9        1    var        nt:$TGROUP : type=atom
+?0                   : 45       9        1    var        nt:$TGROUP : type=atom
+?rv                  : 53       9        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 id=10, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 76       10       9    instance   p2d : class=model   
-?t                   : 77       10       1    var        nt:$TGROUP : type=atom
-?model-state         : 78       10       1    var        ?model-state:"completed" : type=var
+default_model        : 91       10       9    instance   p2d : class=model   
+?t                   : 92       10       1    var        nt:$TGROUP : type=atom
+?model-state         : 93       10       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=11, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 132      11       9    instance   p2d : class=model   
-?t                   : 133      11       1    var        nt:tb-Beginner : type=atom
-?model-state         : 134      11       1    var        ?model-state:"completed" : type=var
+default_model        : 157      11       9    instance   p2d : class=model   
+?t                   : 158      11       1    var        nt:tb-Beginner : type=atom
+?model-state         : 159      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=12, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RR5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      12       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 152      12       9    instance   p2d : class=model   
-?a                   : 153      12       1    var        nt:ta : type=atom   
-?p                   : 154      12       1    var        nm:defineTag : type=atom
-?b                   : 155      12       1    var        nt:ta-Beginner : type=atom
+?0                   : 180      12       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
+default_model        : 181      12       9    instance   p2d : class=model   
+?a                   : 182      12       1    var        nt:ta : type=atom   
+?p                   : 183      12       1    var        nm:defineTag : type=atom
+?b                   : 184      12       1    var        nt:ta-Beginner : type=atom
 ==========================================================================================================================
 
 id=17, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 213      17       9    instance   p2d : class=model   
-?a                   : 214      17       1    var        nt:tb-Beginner : type=atom
-?p                   : 215      17       1    var        nm:hasAncestors : type=atom
-?b                   : 216      17       1    var        nt:$BEGINNER : type=atom
-?model-state         : 217      17       1    var        ?model-state:"completed" : type=var
+default_model        : 254      17       9    instance   p2d : class=model   
+?a                   : 255      17       1    var        nt:tb-Beginner : type=atom
+?p                   : 256      17       1    var        nm:hasAncestors : type=atom
+?b                   : 257      17       1    var        nt:$BEGINNER : type=atom
+?model-state         : 258      17       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Global frame tree:

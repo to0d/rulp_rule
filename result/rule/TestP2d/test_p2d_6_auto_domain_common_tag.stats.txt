@@ -2603,81 +2603,84 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 6        3        8    instance   p2d : class=model   
 ==========================================================================================================================
 
-Node<E0004> frame:id=4, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0004
+Node<E0004> frame:id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?0                   : 16       4        1    var        nt:Concept : type=atom
+?rv                  : 26       4        1    var        nt:Concept : type=string
 ==========================================================================================================================
 
 Node<C7> frame:id=16, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 100      16       8    instance   p2d : class=model   
-?a                   : 101      16       1    var        nd:AS400 : type=atom
-?p                   : 102      16       1    var        nm:beDescendantDomainOf : type=atom
-?b                   : 103      16       1    var        nd:Global : type=atom
-?model-state         : 104      16       1    var        ?model-state:"completed" : type=var
+default_model        : 117      16       8    instance   p2d : class=model   
+?a                   : 118      16       1    var        nd:AS400 : type=atom
+?p                   : 119      16       1    var        nm:beDescendantDomainOf : type=atom
+?b                   : 120      16       1    var        nd:Global : type=atom
+?model-state         : 121      16       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<DC1> frame:id=6, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-DC1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 57       6        8    instance   p2d : class=model   
-?d                   : 58       6        1    var        nd:AS400 : type=atom
-?model-state         : 59       6        1    var        ?model-state:"completed" : type=var
+default_model        : 68       6        8    instance   p2d : class=model   
+?d                   : 69       6        1    var        nd:AS400 : type=atom
+?model-state         : 70       6        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC2> frame:id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 60       7        8    instance   p2d : class=model   
-?t                   : 61       7        1    var        nt:Concept : type=atom
-?model-state         : 62       7        1    var        ?model-state:"completed" : type=var
+default_model        : 71       7        8    instance   p2d : class=model   
+?t                   : 72       7        1    var        nt:Concept : type=atom
+?model-state         : 73       7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-Node<E0120> frame:id=9, name=NF-E0120, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0120
+Node<E0120> frame:id=9, name=NF-E0120, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 24       9        1    var        nt:Concept : type=atom
+?0                   : 27       9        1    var        nt:Concept : type=atom
+?rv                  : 35       9        1    var        Concept : type=string
 ==========================================================================================================================
 
-Node<E0123> frame:id=5, name=NF-E0123, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0123
+Node<E0123> frame:id=5, name=NF-E0123, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 31       5        1    var        nt:Concept : type=atom
+?0                   : 36       5        1    var        nt:Concept : type=atom
+?rv                  : 44       5        1    var        Concept : type=string
 ==========================================================================================================================
 
 Node<AC6> frame:id=11, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 67       11       8    instance   p2d : class=model   
-?t                   : 68       11       1    var        nt:AS400-Concept : type=atom
-?model-state         : 69       11       1    var        ?model-state:"completed" : type=var
+default_model        : 78       11       8    instance   p2d : class=model   
+?t                   : 79       11       1    var        nt:AS400-Concept : type=atom
+?model-state         : 80       11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC7> frame:id=14, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 78       14       8    instance   p2d : class=model   
-?t                   : 79       14       1    var        nt:AS400-Concept : type=atom
-?model-state         : 80       14       1    var        ?model-state:"completed" : type=var
+default_model        : 91       14       8    instance   p2d : class=model   
+?t                   : 92       14       1    var        nt:AS400-Concept : type=atom
+?model-state         : 93       14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC8> frame:id=15, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 89       15       8    instance   p2d : class=model   
-?t                   : 90       15       1    var        nt:AS400-Concept : type=atom
-?model-state         : 91       15       1    var        ?model-state:"completed" : type=var
+default_model        : 104      15       8    instance   p2d : class=model   
+?t                   : 105      15       1    var        nt:AS400-Concept : type=atom
+?model-state         : 106      15       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 node update info: model-exec-count=437, row=57, column=110(4), value-max=2, value-unit=2^x
@@ -2825,7 +2828,7 @@ Object create count:
         list:          739            0          739
         expr:         1289            0         1289
        array:            1            0            1
-         var:          188          149           39
+         var:          206          164           42
         func:          111            0          111
     template:            1            0            1
        macro:            5            0            5
@@ -2834,7 +2837,7 @@ Object create count:
       member:          152            0          152
        frame:          107           97           10
  interpreter:            1            0
-  frameEntry:          438            0
+  frameEntry:          456            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -2868,81 +2871,84 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 6        3        8    instance   p2d : class=model   
 ==========================================================================================================================
 
-id=4, name=NF-E0004, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0004
+id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?0                   : 16       4        1    var        nt:Concept : type=atom
+?rv                  : 26       4        1    var        nt:Concept : type=string
 ==========================================================================================================================
 
-id=5, name=NF-E0123, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0123
+id=5, name=NF-E0123, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 31       5        1    var        nt:Concept : type=atom
+?0                   : 36       5        1    var        nt:Concept : type=atom
+?rv                  : 44       5        1    var        Concept : type=string
 ==========================================================================================================================
 
 id=6, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-DC1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 57       6        8    instance   p2d : class=model   
-?d                   : 58       6        1    var        nd:AS400 : type=atom
-?model-state         : 59       6        1    var        ?model-state:"completed" : type=var
+default_model        : 68       6        8    instance   p2d : class=model   
+?d                   : 69       6        1    var        nd:AS400 : type=atom
+?model-state         : 70       6        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 60       7        8    instance   p2d : class=model   
-?t                   : 61       7        1    var        nt:Concept : type=atom
-?model-state         : 62       7        1    var        ?model-state:"completed" : type=var
+default_model        : 71       7        8    instance   p2d : class=model   
+?t                   : 72       7        1    var        nt:Concept : type=atom
+?model-state         : 73       7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-id=9, name=NF-E0120, lvl=4, ref=1/2, entry=1, pid=3(MODEL), subject=NF-E0120
+id=9, name=NF-E0120, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 24       9        1    var        nt:Concept : type=atom
+?0                   : 27       9        1    var        nt:Concept : type=atom
+?rv                  : 35       9        1    var        Concept : type=string
 ==========================================================================================================================
 
 id=11, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 67       11       8    instance   p2d : class=model   
-?t                   : 68       11       1    var        nt:AS400-Concept : type=atom
-?model-state         : 69       11       1    var        ?model-state:"completed" : type=var
+default_model        : 78       11       8    instance   p2d : class=model   
+?t                   : 79       11       1    var        nt:AS400-Concept : type=atom
+?model-state         : 80       11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=14, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 78       14       8    instance   p2d : class=model   
-?t                   : 79       14       1    var        nt:AS400-Concept : type=atom
-?model-state         : 80       14       1    var        ?model-state:"completed" : type=var
+default_model        : 91       14       8    instance   p2d : class=model   
+?t                   : 92       14       1    var        nt:AS400-Concept : type=atom
+?model-state         : 93       14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=15, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 89       15       8    instance   p2d : class=model   
-?t                   : 90       15       1    var        nt:AS400-Concept : type=atom
-?model-state         : 91       15       1    var        ?model-state:"completed" : type=var
+default_model        : 104      15       8    instance   p2d : class=model   
+?t                   : 105      15       1    var        nt:AS400-Concept : type=atom
+?model-state         : 106      15       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=16, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 100      16       8    instance   p2d : class=model   
-?a                   : 101      16       1    var        nd:AS400 : type=atom
-?p                   : 102      16       1    var        nm:beDescendantDomainOf : type=atom
-?b                   : 103      16       1    var        nd:Global : type=atom
-?model-state         : 104      16       1    var        ?model-state:"completed" : type=var
+default_model        : 117      16       8    instance   p2d : class=model   
+?a                   : 118      16       1    var        nd:AS400 : type=atom
+?p                   : 119      16       1    var        nm:beDescendantDomainOf : type=atom
+?b                   : 120      16       1    var        nd:Global : type=atom
+?model-state         : 121      16       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Global frame tree:
