@@ -239,7 +239,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, lvl=1, ref=2/3, parent=model, final=false, mbrs=4, frame=null
+name=m, string=model@m, lvl=1, ref=2/3, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -249,14 +249,14 @@ Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 this                 : DEFAULT                      0    2    instance   m : class=model
 ==========================================================================================================================
 
-name=mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
+name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 this                 : DEFAULT                      0    1    instance   mts : class=namespace
 ==========================================================================================================================
 
-name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
+name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

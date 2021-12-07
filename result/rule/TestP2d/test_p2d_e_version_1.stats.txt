@@ -2921,14 +2921,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
-==========================================================================================================================
-Name                 : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   mts : class=namespace
-==========================================================================================================================
-
-name=p2d, lvl=1, ref=8/8, parent=model, final=false, mbrs=4, frame=null
+name=p2d, string=model@p2d, lvl=1, ref=8/8, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -2938,7 +2931,14 @@ Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 this                 : DEFAULT                      0    8    instance   p2d : class=model
 ==========================================================================================================================
 
-name=rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
+name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
+==========================================================================================================================
+Name                 : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+this                 : DEFAULT                      0    1    instance   mts : class=namespace
+==========================================================================================================================
+
+name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

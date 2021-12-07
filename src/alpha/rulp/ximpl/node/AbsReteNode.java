@@ -610,7 +610,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public void setUniqName(String uniqName) {
 		this.uniqName = uniqName;
-		this.setInstanceName(uniqName);
 	}
 
 	public void setVarEntry(IRObject[] varEntry) {
