@@ -1,0 +1,22 @@
+(new model m)
+;=>m
+
+(add-constraint m v1:'(?x) (type int on ?x))
+;=>true
+
+(add-constraint m v1:'(?x) (max 40 on ?x))
+;=>true
+
+(add-constraint m v1:'(?x) (min 37 on ?x))
+;=>true
+
+(add-constraint m v1:'(?x) (= (% ?x 2) 0))
+;=>true
+
+(defvar ?s (search m v2:'(?x) from v1:'(?x) order by ?x asc))
+;err:
+not support yet
+at main: (search m v2:'(?x) from v1:'(?x) order by ?x asc)
+at main: (defvar ?s (search m v2:'(?x) from v1:'(?x) order by ?x asc))
+;eof
+
