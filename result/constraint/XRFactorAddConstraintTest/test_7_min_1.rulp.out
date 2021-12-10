@@ -4,20 +4,20 @@
 (add-constraint m n1:'(?x) (min 5 on ?x))
 ;=>true
 
-(add-stmt m n1:'(10))
+(add-stmt m n1:'(6))
 ;=>true
 
-(add-stmt m n1:'(20))
+(add-stmt m n1:'(5))
 ;=>true
 
-(add-stmt m n1:'(1))
+(add-stmt m n1:'(4))
 ;err:
-Unable to add entry<n1:'(1)> due to constraint<(min 5 on ?0)>
-at main: (add-stmt m n1:'(1))
+Unable to add entry<n1:'(4)> due to constraint<(min 5 on ?0)>
+at main: (add-stmt m n1:'(4))
 ;eof
 
 (list-stmt m from n1:'(?x))
-;=>'(n1:'(10) n1:'(20))
+;=>'(n1:'(6) n1:'(5))
 
 (remove-constraint m n1:'(1) (? on ?))
 ;=>'((min 5 on ?0))
@@ -26,5 +26,5 @@ at main: (add-stmt m n1:'(1))
 ;=>true
 
 (list-stmt m from n1:'(?x))
-;=>'(n1:'(10) n1:'(20) n1:'(1))
+;=>'(n1:'(6) n1:'(5) n1:'(1))
 

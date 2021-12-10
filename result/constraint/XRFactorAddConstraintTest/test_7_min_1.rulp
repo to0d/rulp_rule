@@ -1,26 +1,26 @@
 (new model m)
-;;;
+;=>
 
 (add-constraint m n1:'(?x) (min 5 on ?x))
-;;;
+;=>
 
-(add-stmt m n1:'(10))
-;;;
+(add-stmt m n1:'(6))
+;=>
 
-(add-stmt m n1:'(20))
-;;;
+(add-stmt m n1:'(5))
+;=>
 
-(add-stmt m n1:'(1))
-;;;
+(add-stmt m n1:'(4))
+;err
 
 (list-stmt m from n1:'(?x))
-;;;
+;=>'(n1:'(6) n1:'(5))
 
 (remove-constraint m n1:'(1) (? on ?))
-;;;
+;=>
 
 (add-stmt m n1:'(1))
-;;;
+;=>
 
 (list-stmt m from n1:'(?x))
-;;;
+;=>'(n1:'(6) n1:'(5) n1:'(1))
