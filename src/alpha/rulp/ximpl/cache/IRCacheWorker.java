@@ -1,11 +1,8 @@
 package alpha.rulp.ximpl.cache;
 
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.rule.IRReteNode;
 
 public interface IRCacheWorker {
-
-	public IRObject getCacheKey();
 
 	public int getLastEntryId();
 

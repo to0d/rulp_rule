@@ -2683,8 +2683,8 @@ Object create count:
         atom:         2797            0         2797
          int:            1            0            1
       string:          126            0          126
-        list:          721            0          721
-        expr:         1282            0         1282
+        list:          722            4          718
+        expr:         1282           62         1220
        array:            1            0            1
          var:          183          153           30
         func:          111            0          111
@@ -2775,7 +2775,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=p2d, string=model@p2d, lvl=1, ref=3/3, parent=model, final=false, mbrs=4, frame=null
+name=p2d, string=model@p2d, lvl=1, ref=3/4, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

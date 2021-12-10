@@ -2735,8 +2735,8 @@ Object create count:
         atom:         2818            0         2818
          int:            1            0            1
       string:          126            0          126
-        list:          738            0          738
-        expr:         1285            0         1285
+        list:          739            6          733
+        expr:         1285           62         1223
        array:            1            0            1
          var:          187          153           34
         func:          111            0          111

@@ -336,7 +336,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/3, entry=2, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       3        3    instance   m : class=model     
+default_model        : 10       3        19   instance   m : class=model     
 ?rv                  : 49       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -429,9 +429,9 @@ Object create count:
         atom:         1516            0         1516
        float:            1            0            1
       string:           90            0           90
-        list:          165            0          165
-        expr:          841            0          841
-       array:            2            1            1
+        list:          168           10          158
+        expr:          841           48          793
+       array:            2            0            2
          var:          157          132           25
         func:          113            0          113
     template:            4            0            4
@@ -454,9 +454,9 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 root                 : 1        2        0    frame      root                
 system               : 2        2        0    frame      system              
 main                 : 3        2        3    frame      main                
-rbs                  : 4        2        1    instance   rbs : class=namespace
+rbs                  : 4        2        6    instance   rbs : class=namespace
 mts                  : 5        2        1    instance   mts : class=namespace
-m                    : 11       2        3    instance   m : class=model     
+m                    : 11       2        19   instance   m : class=model     
 ?rv                  : 151      2        1    var        0 : type=int        
 ==========================================================================================================================
 
@@ -465,7 +465,7 @@ id=3, name=MODEL, lvl=3, ref=1/3, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       3        3    instance   m : class=model     
+default_model        : 10       3        19   instance   m : class=model     
 ?rv                  : 49       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -481,7 +481,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=3/7, parent=model, final=false, mbrs=6, frame=null
+name=m, string=model@m, lvl=1, ref=19/23, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -490,7 +490,7 @@ $RG-names$           : PRIVATE Y                    1    1    var        '("$cst
 ?cst-init            : DEFAULT                      0    1    var        true : type=bool
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        true : type=bool
-this                 : DEFAULT                      0    3    instance   m : class=model
+this                 : DEFAULT                      0    19   instance   m : class=model
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
@@ -500,7 +500,7 @@ Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 this                 : DEFAULT                      0    1    instance   mts : class=namespace
 ==========================================================================================================================
 
-name=rbs, string=namespace@rbs, lvl=1, ref=1/2, parent=namespace, final=false, mbrs=9, frame=4(SF-rbs-0)
+name=rbs, string=namespace@rbs, lvl=1, ref=6/8, parent=namespace, final=false, mbrs=9, frame=4(SF-rbs-0)
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -512,7 +512,7 @@ insert               : DEFAULT                      0    1    template   (insert
 parse-column-def-list : DEFAULT                      0    0    factor     parse-column-def-list
 parse-values-list    : DEFAULT                      0    0    factor     parse-values-list
 set                  : DEFAULT                      0    1    template   (set '('(schema atom) '(? type#model))) : frame=SF-rbs-0
-this                 : DEFAULT                      0    1    instance   rbs : class=namespace
+this                 : DEFAULT                      0    6    instance   rbs : class=namespace
 ==========================================================================================================================
 
 

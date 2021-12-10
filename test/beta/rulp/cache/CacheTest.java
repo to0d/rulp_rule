@@ -10,6 +10,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
 
@@ -178,9 +179,16 @@ public class CacheTest extends RuleTestBase {
 
 			IRModel model = _model("m");
 			IRReteNode node = model.findNode((IRList) RuleUtil.toCondList("n1:'(?)"));
-			model.setNodeCache(node, (key) -> {
-				return RuleUtil.toStmtList("'('(a) '(b))");
-			}, null, null);
+//			model.setNodeCache(node, (key) -> {
+//				return RuleUtil.toStmtList("'('(a) '(b))");
+//			}, null, null);
+
+			model.setNodeLoader(node, (stmtListener) -> {
+				IRIterator<? extends IRList> it = RuleUtil.toStmtList("'('(a) '(b))");
+				while (it.hasNext()) {
+					stmtListener.doAction(it.next());
+				}
+			});
 
 		} catch (RException e) {
 			e.printStackTrace();

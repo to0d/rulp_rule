@@ -362,7 +362,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/3, entry=2, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   m : class=model     
+default_model        : 6        3        11   instance   m : class=model     
 ?rv                  : 18       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -458,8 +458,8 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1249            0         1249
       string:           68            0           68
-        list:          129            0          129
-        expr:          647            0          647
+        list:          132            6          126
+        expr:          647            9          638
        array:            1            0            1
          var:           50           24           26
         func:          107            0          107
@@ -485,7 +485,7 @@ system               : 2        2        0    frame      system
 main                 : 3        2        2    frame      main                
 rbs                  : 4        2        1    instance   rbs : class=namespace
 mts                  : 5        2        1    instance   mts : class=namespace
-m                    : 7        2        2    instance   m : class=model     
+m                    : 7        2        11   instance   m : class=model     
 ?s                   : 39       2        1    var        nil@un-20 : type=instance
 ==========================================================================================================================
 
@@ -494,7 +494,7 @@ id=3, name=MODEL, lvl=3, ref=3/3, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   m : class=model     
+default_model        : 6        3        11   instance   m : class=model     
 ?rv                  : 18       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -523,7 +523,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=6, frame=null
+name=m, string=model@m, lvl=1, ref=11/11, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -532,7 +532,7 @@ $RG-names$           : PRIVATE Y                    1    1    var        '("$cst
 ?cst-init            : DEFAULT                      0    1    var        true : type=bool
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
-this                 : DEFAULT                      0    2    instance   m : class=model
+this                 : DEFAULT                      0    11   instance   m : class=model
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null

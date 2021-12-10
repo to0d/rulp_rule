@@ -37,7 +37,7 @@ public class XRScope extends AbsRInstance implements IRScope {
 
 		int varSize;
 
-		public IRList _createNextList() {
+		public IRList _createNextList() throws RException {
 
 			/**********************************************/
 			// First matched value list

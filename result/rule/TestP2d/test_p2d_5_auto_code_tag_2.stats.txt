@@ -2979,7 +2979,7 @@ Callable stats info: callId=82, row=41, column=42(2), value-max=194, value-unit=
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    266    0 return                                                                 89
     root   factor    218    0 equal_def                                                              69
-  system funcList    218    1 equal                                                                  69
+  system funcList    218   12 equal                                                                  69
     root   factor    195    0 not                                                                    19
     root   factor     53    0 if                                                                     7 
     root   factor     53    0 defun                              22222222222121212122122  1 22213      
@@ -3027,8 +3027,8 @@ Object create count:
         atom:         2908            0         2908
          int:            1            0            1
       string:          179            0          179
-        list:          883            0          883
-        expr:         1507            0         1507
+        list:          883            2          881
+        expr:         1507          266         1241
        array:            1            0            1
          var:          650          595           55
         func:          111            0          111

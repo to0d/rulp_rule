@@ -462,9 +462,9 @@ public class StatsUtil {
 		sb.append(SEP_LINE2);
 
 		for (IRCacheWorker cache : caches) {
-			sb.append(String.format("%8s: %6d %6d %6d %6d %6d %6d %s\n", cache.getNode().getNodeName(),
+			sb.append(String.format("%8s: %6d %6d %6d %6d %6d %6d\n", cache.getNode().getNodeName(),
 					cache.getStmtCount(), cache.getLastEntryId(), cache.getLoadCount(), cache.getSaveCount(),
-					cache.getReadCount(), cache.getWriteCount(), "" + cache.getCacheKey()));
+					cache.getReadCount(), cache.getWriteCount()));
 		}
 
 		sb.append(SEP_LINE1);

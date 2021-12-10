@@ -9,12 +9,12 @@ import java.util.Map;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.rule.IRRListener1;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1, IRRListener1<IRReteEntry> {
+public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1, IRListener1<IRReteEntry> {
 
 	private String _constraintExpression = null;
 
@@ -95,8 +95,12 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 					indexs.add(RulpFactory.createAtom("?" + i));
 				}
 
-				_constraintExpression = String.format("(%s on %s)", getConstraintName(),
-						RulpFactory.createList(indexs));
+				try {
+					_constraintExpression = String.format("(%s on %s)", getConstraintName(),
+							RulpFactory.createNativeList(indexs));
+				} catch (RException e) {
+					e.printStackTrace();
+				}
 			}
 
 		}

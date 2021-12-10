@@ -27,12 +27,12 @@ import alpha.rulp.lang.RError;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.IRRListener3;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.runtime.IRListener3;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
@@ -101,11 +101,11 @@ public class RuleUtil {
 
 	static class RuleActionFactor extends AbsRFactorAdapter {
 
-		private IRRListener3<IRList, IRRule, IRFrame> actioner;
+		private IRListener3<IRList, IRRule, IRFrame> actioner;
 
 		private IRRule rule;
 
-		public RuleActionFactor(String factorName, IRRListener3<IRList, IRRule, IRFrame> actioner) {
+		public RuleActionFactor(String factorName, IRListener3<IRList, IRRule, IRFrame> actioner) {
 			super(factorName);
 			this.actioner = actioner;
 		}
@@ -157,7 +157,7 @@ public class RuleUtil {
 	static StaticVar varTraceModel = new StaticVar(A_M_TRACE, O_False);
 
 	public static IRRule addRule(IRModel model, String ruleName, String condExpr,
-			IRRListener3<IRList, IRRule, IRFrame> actioner) throws RException {
+			IRListener3<IRList, IRRule, IRFrame> actioner) throws RException {
 
 		IRList condList = RuleUtil.toCondList(condExpr);
 

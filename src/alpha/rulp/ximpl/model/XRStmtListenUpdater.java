@@ -10,8 +10,8 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
@@ -64,7 +64,7 @@ public class XRStmtListenUpdater extends XRNodeOrderedUpdater {
 			}
 		}
 
-		public void addListener(IRRListener1<IRList> listener) {
+		public void addListener(IRListener1<IRList> listener) {
 			listenerList.addListener(listener);
 		}
 
@@ -106,7 +106,7 @@ public class XRStmtListenUpdater extends XRNodeOrderedUpdater {
 
 	protected List<ListenNode> listenNodeList = new ArrayList<>();
 
-	public void addStatementListener(IRReteNode reteNode, IRRListener1<IRList> listener) throws RException {
+	public void addStatementListener(IRReteNode reteNode, IRListener1<IRList> listener) throws RException {
 
 		ListenNode listenNode = listenMap.get(reteNode);
 		if (listenNode == null) {

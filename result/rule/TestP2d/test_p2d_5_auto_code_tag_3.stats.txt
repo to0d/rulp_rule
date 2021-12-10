@@ -2918,7 +2918,7 @@ Callable stats info: callId=82, row=41, column=42(2), value-max=396, value-unit=
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    468    0 return                                                                 8X
     root   factor    420    0 equal_def                                                              6X
-  system funcList    420    1 equal                                                                  6X
+  system funcList    420   38 equal                                                                  6X
     root   factor    397    0 not                                                                    1X
     root   factor     53    0 if                                                                     7 
     root   factor     53    0 defun                              22222222222121212122122  1 22213      
@@ -2966,8 +2966,8 @@ Object create count:
         atom:         2914            0         2914
          int:            1            0            1
       string:          179            0          179
-        list:          873            0          873
-        expr:         1765            0         1765
+        list:          873            2          871
+        expr:         1765          468         1297
        array:            1            0            1
          var:         1061         1001           60
         func:          111            0          111

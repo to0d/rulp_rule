@@ -12,9 +12,8 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.cache.XRStmtFileCacher;
+import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorSetNodeCachePath extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
@@ -39,10 +38,11 @@ public class XRFactorSetNodeCachePath extends AbsRFactorAdapter implements IRFac
 		String cachePath = RulpUtil.asString(interpreter.compute(frame, args.get(3))).asString();
 
 		IRReteNode node = model.findNode(RuleUtil.toCondList(filter));
-		String nodeCachePath = FileUtil.toValidPath(cachePath) + XRStmtFileCacher.getNodeCacheName(node);
+		String nodeCachePath = FileUtil.toValidPath(cachePath) + XRStmtFileDefaultCacher.getNodeCacheName(node);
 
-		XRStmtFileCacher cacher = new XRStmtFileCacher(model.getInterpreter());
-		model.setNodeCache(node, cacher, cacher, RulpFactory.createString(nodeCachePath));
+		XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(nodeCachePath, model.getInterpreter());
+		model.setNodeLoader(node, cacher);
+		model.setNodeSaver(node, cacher);
 
 		return O_Nan;
 	}

@@ -246,7 +246,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1193            0         1193
       string:           46            0           46
-        list:           52            0           52
+        list:           52            1           51
         expr:          615            0          615
        array:            1            0            1
          var:           22            0           22
@@ -303,7 +303,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=3/3, parent=model, final=false, mbrs=4, frame=null
+name=m, string=model@m, lvl=1, ref=3/4, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

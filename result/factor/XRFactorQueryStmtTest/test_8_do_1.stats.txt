@@ -186,7 +186,7 @@ Callable stats info: callId=76, row=14, column=39(2), value-max=2, value-unit=2^
     root   factor      2    0 defvar                            1                                 1 
   system   factor      2    0 add-stmt                                                           2  
     root   factor      1    0 size-of-list                                                        1 
-  system funcList      1    1 size-of                                                             1 
+  system funcList      1    2 size-of                                                             1 
     root   factor      1    0 return                                                              1 
   system   factor      1    0 remove-stmt                                                         1 
   system   factor      1    0 query-stmt                                                          1 
@@ -200,8 +200,8 @@ Object create count:
         atom:         1212            0         1212
          int:            4            0            4
       string:           46            0           46
-        list:           65            0           65
-        expr:          618            0          618
+        list:           65            5           60
+        expr:          618            1          617
        array:            1            0            1
          var:           25            5           20
         func:          107            0          107
@@ -247,7 +247,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=2/3, parent=model, final=false, mbrs=4, frame=null
+name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

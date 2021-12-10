@@ -343,7 +343,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=2/3, entry=2, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        3    instance   m : class=model     
+default_model        : 6        3        7    instance   m : class=model     
 ?rv                  : 18       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -351,7 +351,7 @@ Node<RU000> frame:id=8, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=3(MODEL), su
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 31       8        3    instance   m : class=model     
+default_model        : 31       8        7    instance   m : class=model     
 ?n                   : 32       8        1    var        10 : type=int       
 ==========================================================================================================================
 
@@ -425,8 +425,8 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1204            0         1204
       string:           51            0           51
-        list:           96            0           96
-        expr:          632            0          632
+        list:           99            6           93
+        expr:          632            6          626
        array:            1            0            1
          var:           41           17           24
         func:          107            0          107
@@ -452,7 +452,7 @@ system               : 2        2        0    frame      system
 main                 : 3        2        2    frame      main                
 rbs                  : 4        2        1    instance   rbs : class=namespace
 mts                  : 5        2        1    instance   mts : class=namespace
-m                    : 7        2        3    instance   m : class=model     
+m                    : 7        2        7    instance   m : class=model     
 ==========================================================================================================================
 
 
@@ -460,7 +460,7 @@ id=3, name=MODEL, lvl=3, ref=2/3, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        3    instance   m : class=model     
+default_model        : 6        3        7    instance   m : class=model     
 ?rv                  : 18       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -468,7 +468,7 @@ id=8, name=NF-RU000, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 31       8        3    instance   m : class=model     
+default_model        : 31       8        7    instance   m : class=model     
 ?n                   : 32       8        1    var        10 : type=int       
 ==========================================================================================================================
 
@@ -482,7 +482,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=3/4, parent=model, final=false, mbrs=6, frame=null
+name=m, string=model@m, lvl=1, ref=7/9, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -491,7 +491,7 @@ $RG-names$           : PRIVATE Y                    1    1    var        '("$cst
 ?cst-init            : DEFAULT                      0    1    var        true : type=bool
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
-this                 : DEFAULT                      0    3    instance   m : class=model
+this                 : DEFAULT                      0    7    instance   m : class=model
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null

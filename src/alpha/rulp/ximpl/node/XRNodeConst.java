@@ -1,11 +1,11 @@
 package alpha.rulp.ximpl.node;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRNodeConst extends XRNodeRete0 implements IRRListener1<IRReteEntry> {
+public class XRNodeConst extends XRNodeRete0 implements IRListener1<IRReteEntry> {
 
 	private IRReteEntry constEntry = null;
 

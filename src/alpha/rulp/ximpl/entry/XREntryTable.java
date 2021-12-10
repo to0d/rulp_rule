@@ -10,14 +10,13 @@ import java.util.List;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
-import alpha.rulp.rule.IRRListener1;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
-import alpha.rulp.ximpl.lang.AbsAtomObject;
+import alpha.rulp.ximpl.lang.XRListNative;
 
 public class XREntryTable implements IREntryTable {
 
@@ -240,11 +239,9 @@ public class XREntryTable implements IREntryTable {
 		}
 	}
 
-	static class XRReteEntry extends AbsAtomObject implements IRReteEntry, IFixEntry {
+	static class XRReteEntry extends XRListNative implements IRReteEntry, IFixEntry {
 
 		private List<XRReference> childList = null;
-
-		private final IRObject elements[];
 
 		private int entryId = 0;
 
@@ -254,16 +251,13 @@ public class XREntryTable implements IREntryTable {
 
 		private boolean isStmt = false;
 
-		private String namedName;
-
 		private List<XRReference> referenceList = null;
 
 		private RReteStatus status = RReteStatus.DEFINE;
 
 		public XRReteEntry(int entryIndex, String namedName, IRObject[] elements) {
+			super(elements, RType.LIST, namedName, false);
 			this.entryIndex = entryIndex;
-			this.namedName = namedName;
-			this.elements = elements;
 		}
 
 		public void addChild(XRReference ref) {
@@ -276,7 +270,7 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public void addEntryRemovedListener(IRRListener1<IRReteEntry> listener) {
+		public void addEntryRemovedListener(IRListener1<IRReteEntry> listener) {
 
 			if (entryRemovedlistener == null) {
 				entryRemovedlistener = new XRRListener1Adapter<>();
@@ -292,22 +286,6 @@ public class XREntryTable implements IREntryTable {
 			}
 
 			referenceList.add(ref);
-		}
-
-		@Override
-		public String asString() {
-
-			try {
-				return RulpUtil.toString(this);
-			} catch (RException e) {
-				e.printStackTrace();
-				return "";
-			}
-		}
-
-		@Override
-		public IRObject get(int index) {
-			return index < elements.length ? elements[index] : null;
 		}
 
 		@Override
@@ -331,11 +309,6 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public String getNamedName() {
-			return namedName;
-		}
-
-		@Override
 		public int getReferenceCount() {
 			return referenceList == null ? 0 : referenceList.size();
 		}
@@ -351,28 +324,13 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public RType getType() {
-			return RType.LIST;
-		}
-
-		@Override
 		public boolean isDroped() {
 			return this.status == REMOVE || this.status == null;
 		}
 
 		@Override
-		public boolean isEmpty() {
-			return false;
-		}
-
-		@Override
 		public boolean isStmt() {
 			return isStmt;
-		}
-
-		@Override
-		public IRIterator<? extends IRObject> iterator() {
-			return listIterator(0);
 		}
 
 		@Override
@@ -395,7 +353,7 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public void removeEntryRemovedListener(IRRListener1<IRReteEntry> listener) {
+		public void removeEntryRemovedListener(IRListener1<IRReteEntry> listener) {
 
 			if (entryRemovedlistener == null) {
 				return;
@@ -414,16 +372,6 @@ public class XREntryTable implements IREntryTable {
 
 		public void setStmt(boolean isStmt) {
 			this.isStmt = isStmt;
-		}
-
-		@Override
-		public int size() {
-			return elements.length;
-		}
-
-		@Override
-		public String toString() {
-			return asString();
 		}
 	}
 

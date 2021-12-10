@@ -182,10 +182,10 @@ node cache info: load=3, total=4, path=result/cache/CacheTest/cache_4
 ========================================================================================================================================================
  NODE[n]    Stmt   Last   Load   Save   Read  Write Key
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-   N0001:      1      2      1      0      1      0 result/cache/CacheTest/cache_4\name1.3.mc
-   R0003:      1      1      1      0      1      0 result/cache/CacheTest/cache_4\.3.mc
-   N0004:      0      0      0      0      0      0 result/cache/CacheTest/cache_4\name2.3.mc
-   N0005:      1      3      0      1      0      1 result/cache/CacheTest/cache_4\name3.3.mc
+   N0001:      1      2      1      0      1      0
+   R0003:      1      1      1      0      1      0
+   N0004:      0      0      0      0      0      0
+   N0005:      1      3      0      1      0      1
 ========================================================================================================================================================
 
 Global Info:
@@ -231,8 +231,8 @@ Object create count:
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1196            0         1196
-      string:           51            0           51
-        list:           54            0           54
+      string:           47            0           47
+        list:           52            3           49
         expr:          605            0          605
        array:            1            0            1
          var:           20            0           20
@@ -279,7 +279,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=2/2, parent=model, final=false, mbrs=4, frame=null
+name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

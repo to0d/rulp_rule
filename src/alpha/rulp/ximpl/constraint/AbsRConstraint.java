@@ -21,4 +21,10 @@ public abstract class AbsRConstraint extends AbsRInstance implements IRConstrain
 	public String toString() {
 		return getConstraintExpression();
 	}
+
+	@Override
+	public String asString() {
+		return getConstraintExpression();
+	}
+
 }

@@ -39,8 +39,6 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModelCounter;
-import alpha.rulp.rule.IRRListener1;
-import alpha.rulp.rule.IRRListener2;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRTransaction;
@@ -48,6 +46,7 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.rule.RRunState;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
@@ -57,11 +56,10 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
-import alpha.rulp.utils.XRRListener2Adapter;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
-import alpha.rulp.ximpl.cache.XRStmtFileCacher;
+import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
@@ -101,8 +99,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		private boolean bLoad = false;
 
-		private IRObject cacheKey;
-
 		private int cacheLastEntryId = 0;
 
 		private int cacheStmtCount = 0;
@@ -124,10 +120,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		public XRCacheWorker(IRReteNode node) {
 			super();
 			this.node = node;
-		}
-
-		public IRObject getCacheKey() {
-			return cacheKey;
 		}
 
 		@Override
@@ -184,27 +176,20 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return 0;
 			}
 
-			_fireLoadNodeAction(node, cacheKey);
+			_fireLoadNodeAction(node);
 
 			IREntryQueue entryQueue = node.getEntryQueue();
 
-			String stmtName = null;
-			if (node.getReteType() == RReteType.NAME0) {
-				stmtName = ((IRReteNode) node).getNamedName();
-			}
+			final String stmtName = node.getReteType() == RReteType.NAME0 ? ((IRReteNode) node).getNamedName() : null;
 
 			int stmtLen = node.getEntryLength();
 
 			boolean pushEmptyNode = (entryQueue.size() == 0);
-
-			int stmtCount = 0;
+			int oldCacheStmtCount = this.cacheStmtCount;
 
 			try {
 
-				IRIterator<? extends IRList> iterator = loader.load(cacheKey);
-				while (iterator.hasNext()) {
-
-					IRList stmt = iterator.next();
+				loader.load((stmt) -> {
 
 					++readLines;
 
@@ -227,10 +212,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 					}
 
 					if (RUpdateResult.isValidUpdate(_addStmt(node, stmt, DEFINE))) {
-						cacheUpdateCount++;
-						stmtCount++;
+						XRModel.this.cacheUpdateCount++;
+						this.cacheStmtCount++;
 					}
-				}
+				});
 
 			} catch (IOException e) {
 
@@ -241,14 +226,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 				throw new RException(e.toString());
 			}
 
-			if (pushEmptyNode && stmtCount > 0) {
+			if (pushEmptyNode && (oldCacheStmtCount != this.cacheStmtCount)) {
 				cacheLastEntryId = entryQueue.getEntryAt(entryQueue.size() - 1).getEntryId();
 			} else {
 				cacheLastEntryId = -1;
 			}
 
 			this.loadCount++;
-			this.cacheStmtCount += stmtCount;
 			this.bLoad = true;
 
 			return cacheStmtCount;
@@ -290,9 +274,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 				}
 			}
 
-			_fireSaveNodeAction(node, cacheKey);
+			_fireSaveNodeAction(node);
 
-			int saveLineCount = saver.save(stmtList, cacheKey);
+			int saveLineCount = saver.save(stmtList);
 
 			this.cacheLastEntryId = lastEntryId;
 			this.cacheStmtCount = rootQueue.size();
@@ -301,10 +285,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.bLoad = true;
 
 			return saveLineCount;
-		}
-
-		public void setCacheKey(IRObject cacheKey) {
-			this.cacheKey = cacheKey;
 		}
 
 		public void setLoader(IRStmtLoader loader) {
@@ -373,7 +353,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected IRInterpreter interpreter;
 
-	protected XRRListener2Adapter<IRReteNode, IRObject> loadNodeListener = null;
+	protected XRRListener1Adapter<IRReteNode> loadNodeListener = null;
 
 	protected String modelCachePath = null;
 
@@ -401,7 +381,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final LinkedList<IRReteNode> restartingNodeList = new LinkedList<>();
 
-	protected XRRListener2Adapter<IRReteNode, IRObject> saveNodeListener = null;
+	protected XRRListener1Adapter<IRReteNode> saveNodeListener = null;
 
 	protected final XRStmtListenUpdater stmtListenUpdater = new XRStmtListenUpdater();
 
@@ -652,30 +632,30 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
-	protected void _fireLoadNodeAction(IRReteNode node, IRObject cacheKey) throws RException {
+	protected void _fireLoadNodeAction(IRReteNode node) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> loadNode: " + ", node=" + node + ", key=" + cacheKey);
+			System.out.println("==> loadNode: " + ", node=" + node);
 		}
 
 		if (loadNodeListener == null) {
 			return;
 		}
 
-		loadNodeListener.doAction(node, cacheKey);
+		loadNodeListener.doAction(node);
 	}
 
-	protected void _fireSaveNodeAction(IRReteNode node, IRObject cacheKey) throws RException {
+	protected void _fireSaveNodeAction(IRReteNode node) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> saveNode: " + ", node=" + node + ", key=" + cacheKey);
+			System.out.println("==> saveNode: " + ", node=" + node);
 		}
 
 		if (saveNodeListener == null) {
 			return;
 		}
 
-		saveNodeListener.doAction(node, cacheKey);
+		saveNodeListener.doAction(node);
 	}
 
 	protected XRCacheWorker _getCacheWorker(IRReteNode node) throws RException {
@@ -687,10 +667,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return null;
 			}
 
-			String nodeCachePath = FileUtil.toValidPath(modelCachePath) + XRStmtFileCacher.getNodeCacheName(node);
-			XRStmtFileCacher cacher = new XRStmtFileCacher(this.getInterpreter());
+			String nodeCachePath = FileUtil.toValidPath(modelCachePath)
+					+ XRStmtFileDefaultCacher.getNodeCacheName(node);
 
-			cache = _setNodeCache(node, cacher, cacher, RulpFactory.createString(nodeCachePath));
+			XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(nodeCachePath, this.getInterpreter());
+
+			cache = _setNodeCache(node, cacher, cacher);
 		}
 
 		return cache;
@@ -1161,8 +1143,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-	protected XRCacheWorker _setNodeCache(IRReteNode node, IRStmtLoader loader, IRStmtSaver saver, IRObject cacheKey)
-			throws RException {
+	protected XRCacheWorker _setNodeCache(IRReteNode node, IRStmtLoader loader, IRStmtSaver saver) throws RException {
 
 		if (loader == null && saver == null) {
 			throw new RException("null loader and saver");
@@ -1175,11 +1156,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 			cacheWorkerList.add(cache);
 		}
 
-		cache.setLoader(loader);
-		cache.setSaver(saver);
-		cache.setCacheKey(cacheKey);
-		this.cacheEnable = true;
+		if (loader != null) {
+			cache.setLoader(loader);
+		}
 
+		if (saver != null) {
+			cache.setSaver(saver);
+		}
+
+		this.cacheEnable = true;
 		return cache;
 	}
 
@@ -1264,10 +1249,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
+	public void addLoadNodeListener(IRListener1<IRReteNode> listener) {
 
 		if (loadNodeListener == null) {
-			loadNodeListener = new XRRListener2Adapter<>();
+			loadNodeListener = new XRRListener1Adapter<>();
 		}
 
 		loadNodeListener.addListener(listener);
@@ -1331,20 +1316,20 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void addRuleExecutedListener(IRRListener1<IRRule> listener) {
+	public void addRuleExecutedListener(IRListener1<IRRule> listener) {
 		modelRuleExecutedListenerDispatcher.addListener(listener);
 	}
 
 	@Override
-	public void addRuleFailedListener(IRRListener1<IRRule> listener) {
+	public void addRuleFailedListener(IRListener1<IRRule> listener) {
 		modelRuleFailedListenerDispatcher.addListener(listener);
 	}
 
 	@Override
-	public void addSaveNodeListener(IRRListener2<IRReteNode, IRObject> listener) {
+	public void addSaveNodeListener(IRListener1<IRReteNode> listener) {
 
 		if (saveNodeListener == null) {
-			saveNodeListener = new XRRListener2Adapter<>();
+			saveNodeListener = new XRRListener1Adapter<>();
 		}
 
 		saveNodeListener.addListener(listener);
@@ -1371,7 +1356,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void addStatementListener(IRList condList, IRRListener1<IRList> listener) throws RException {
+	public void addStatementListener(IRList condList, IRListener1<IRList> listener) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> addStmtListener: " + condList);
@@ -2026,23 +2011,36 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void setNodeCache(IRReteNode node, IRStmtLoader loader, IRStmtSaver saver, IRObject cacheKey)
-			throws RException {
+	public void setNodeContext(RNodeContext nodeContext) {
+		this.nodeContext = nodeContext;
+	}
+
+	@Override
+	public void setNodeLoader(IRReteNode node, IRStmtLoader loader) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> setNodeCache: node=" + node + ", key=" + cacheKey);
+			System.out.println("==> setNodeLoader: node=" + node);
 		}
 
 		if (node.getReteType() != RReteType.NAME0) {
 			throw new RException("invalid node type: " + node);
 		}
 
-		_setNodeCache(node, loader, saver, cacheKey);
+		_setNodeCache(node, loader, null);
 	}
 
 	@Override
-	public void setNodeContext(RNodeContext nodeContext) {
-		this.nodeContext = nodeContext;
+	public void setNodeSaver(IRReteNode node, IRStmtSaver saver) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> setNodeSaver: node=" + node);
+		}
+
+		if (node.getReteType() != RReteType.NAME0) {
+			throw new RException("invalid node type: " + node);
+		}
+
+		_setNodeCache(node, null, saver);
 	}
 
 	@Override

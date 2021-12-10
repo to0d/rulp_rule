@@ -8,6 +8,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
@@ -33,19 +34,19 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
-	public void addLoadNodeListener(IRRListener2<IRReteNode, IRObject> listener);
+	public void addLoadNodeListener(IRListener1<IRReteNode> listener);
 
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList) throws RException;
 
-	public void addRuleExecutedListener(IRRListener1<IRRule> listener);
+	public void addRuleExecutedListener(IRListener1<IRRule> listener);
 
-	public void addRuleFailedListener(IRRListener1<IRRule> listener);
+	public void addRuleFailedListener(IRListener1<IRRule> listener);
 
-	public void addSaveNodeListener(IRRListener2<IRReteNode, IRObject> listener);
+	public void addSaveNodeListener(IRListener1<IRReteNode> listener);
 
 	public boolean addStatement(IRList stmt) throws RException;
 
-	public void addStatementListener(IRList condList, IRRListener1<IRList> listener) throws RException;
+	public void addStatementListener(IRList condList, IRListener1<IRList> listener) throws RException;
 
 	public void addUpdateNode(IRReteNode node) throws RException;
 
@@ -99,8 +100,9 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void setModelCachePath(String cachePath) throws RException;
 
-	public void setNodeCache(IRReteNode node, IRStmtLoader loader, IRStmtSaver saver, IRObject cacheKey)
-			throws RException;
+	public void setNodeLoader(IRReteNode node, IRStmtLoader loader) throws RException;
+
+	public void setNodeSaver(IRReteNode node, IRStmtSaver saver) throws RException;
 
 	public void setNodeContext(RNodeContext nodeContext);
 

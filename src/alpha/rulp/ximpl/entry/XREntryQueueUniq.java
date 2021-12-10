@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRRListener1;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
-public class XREntryQueueUniq extends XREntryQueueMulit implements IRRListener1<IRReteEntry> {
+public class XREntryQueueUniq extends XREntryQueueMulit implements IRListener1<IRReteEntry> {
 
 	protected Map<String, IRReteEntry> uniqEntryMap = new HashMap<>();
 

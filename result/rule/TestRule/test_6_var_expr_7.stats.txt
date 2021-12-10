@@ -188,8 +188,8 @@ Callable stats info: callId=82, row=14, column=41(2), value-max=2, value-unit=2^
   system   factor      1    0 start                                                                 1 
     root   factor      1    0 new                                                               1     
   system   factor      1    0 list-stmt                                                              1
-    main     func      1    2 (f2 nil)                                                              1 
-    main     func      1    1 (f1 nil)                                                              1 
+    main     func      1    3 (f2 nil)                                                              1 
+    main     func      1    2 (f1 nil)                                                              1 
   system   factor      1    0 add-rule                                                             1  
 ==========================================================================================================================
 
@@ -199,8 +199,8 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1191            0         1191
       string:           46            0           46
-        list:           46            0           46
-        expr:          615            0          615
+        list:           46            1           45
+        expr:          615            2          613
        array:            1            0            1
          var:           26            2           24
         func:          109            0          109
@@ -229,8 +229,8 @@ mts                  : 5        2        1    instance   mts : class=namespace
 m                    : 7        2        3    instance   m : class=model     
 ?x1                  : 8        2        1    var        1 : type=int        
 ?x2                  : 9        2        1    var        9 : type=int        
-f1                   : 10       2        1    func       (f1 nil) : frame=main
-f2                   : 11       2        2    func       (f2 nil) : frame=main
+f1                   : 10       2        2    func       (f1 nil) : frame=main
+f2                   : 11       2        3    func       (f2 nil) : frame=main
 ==========================================================================================================================
 
 
@@ -260,7 +260,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=3/3, parent=model, final=false, mbrs=4, frame=null
+name=m, string=model@m, lvl=1, ref=3/4, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

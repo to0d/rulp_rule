@@ -9,10 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRule;
@@ -451,10 +449,11 @@ public class RuleTestBase extends RulpTestBase {
 
 	protected IRScope _scope(String scopeName) throws RException, IOException {
 
-		List<IRObject> rst = _getInterpreter().compute(String.format("(%s::get-impl)", scopeName));
-		assertEquals(1, rst.size());
-
-		return RuleUtil.asScope(rst.get(0));
+//		List<IRObject> rst = _getInterpreter().compute(String.format("(%s::get-impl)", scopeName));
+//		assertEquals(1, rst.size());
+//
+//		return RuleUtil.asScope(rst.get(0));
+		return null;
 	}
 
 	protected void _scopeInfo(String scopeName) {
@@ -497,21 +496,21 @@ public class RuleTestBase extends RulpTestBase {
 
 	protected void _smCount(int index, String scopeName) {
 
-		try {
-
-			IRInterpreter interpreter = _getInterpreter();
-
-			List<IRObject> rst = interpreter.compute(String.format("(%s::get-model)", scopeName));
-			assertEquals(1, rst.size());
-
-			IRModel model = RuleUtil.asModel(rst.get(0));
-
-			assertValue("" + index + "-mOfSCopeCount", StatsUtil.formatModelCount(model.getCounter()));
-
-		} catch (RException | IOException e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
+//		try {
+//
+//			IRInterpreter interpreter = _getInterpreter();
+//
+//			List<IRObject> rst = interpreter.compute(String.format("(%s::get-model)", scopeName));
+//			assertEquals(1, rst.size());
+//
+//			IRModel model = RuleUtil.asModel(rst.get(0));
+//
+//			assertValue("" + index + "-mOfSCopeCount", StatsUtil.formatModelCount(model.getCounter()));
+//
+//		} catch (RException | IOException e) {
+//			e.printStackTrace();
+//			fail(e.toString());
+//		}
 
 	}
 

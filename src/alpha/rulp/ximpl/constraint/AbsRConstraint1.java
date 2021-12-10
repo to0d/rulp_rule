@@ -22,11 +22,6 @@ public abstract class AbsRConstraint1 extends AbsRConstraint implements IRConstr
 	}
 
 	@Override
-	public String asString() {
-		return getConstraintExpression();
-	}
-
-	@Override
 	public void close() {
 
 	}
