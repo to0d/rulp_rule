@@ -86,6 +86,10 @@ import alpha.rulp.ximpl.node.XRNodeRule0;
 import alpha.rulp.ximpl.scope.IRScope;
 import alpha.rulp.ximpl.scope.IRScopeVar;
 import alpha.rulp.ximpl.scope.IVarConstraint;
+import alpha.rulp.ximpl.search.IRASMachine;
+import alpha.rulp.ximpl.search.IRSEntry;
+import alpha.rulp.ximpl.search.IRSVar;
+import alpha.rulp.ximpl.search.ISScope;
 
 public class StatsUtil {
 
@@ -437,6 +441,96 @@ public class StatsUtil {
 
 	private static boolean _isInactiveNode(IRReteNode node) {
 		return node.getNodeExecCount() == 0 || node.getNodeExecCount() == node.getNodeIdleCount();
+	}
+
+	private static void _printASM(StringBuffer sb, IRASMachine asm) throws RException {
+
+		// Global info
+		{
+			sb.append("ASM Info:\n");
+			sb.append(SEP_LINE1);
+			sb.append(String.format("%-20s: %s\n", "key", "value"));
+			sb.append(SEP_LINE2);
+			sb.append(String.format("%-20s: %s\n", "search node names", asm.getAllSearchNodeNames()));
+			sb.append(String.format("%-20s: %s\n", "search var names", asm.getAllSearchVarNames()));
+			sb.append(String.format("%-20s: %s\n", "result var names", asm.getAllResultVarNames()));
+			sb.append(String.format("%-20s: %s\n", "result list", asm.getRstList()));
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+		ISScope<List<List<IRObject>>> globalScope = asm.getScope();
+		if (globalScope != null) {
+
+			sb.append("Global Scope:\n");
+			sb.append(SEP_LINE1);
+			sb.append(String.format("%-7s: %8s %8s %8s\n", "NAME", "MOVE", "RESET", "EVAL"));
+			sb.append(SEP_LINE2);
+			sb.append(String.format("%-7s: %8d %8d %8d\n", "global", globalScope.getMoveCount(),
+					globalScope.getResetCount(), globalScope.getEvalCount()));
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+		IRFrame resultFrame = asm.getResultFrame();
+		if (resultFrame != null) {
+			sb.append("ASM Frame: ");
+			sb.append(TraceUtil.printFrame(resultFrame));
+			sb.append("\n");
+		}
+
+		List<? extends IRSEntry> sentrys = asm.listSEntry();
+		if (sentrys != null) {
+
+			sb.append("SENTRY:\n");
+			sb.append(SEP_LINE1);
+			sb.append(String.format("%8s: %8s %8s %8s %8s   %s\n", "NODE[n]", "VARS", "MOVE", "RESET", "EVAL", "UNIQ"));
+			sb.append(SEP_LINE2);
+
+			for (IRSEntry se : sentrys) {
+
+				IRReteNode node = se.getSearchNode();
+
+				ArrayList<String> vars = new ArrayList<>();
+				for (IRSVar svar : se.listSVar()) {
+					vars.add(svar.getVarName());
+				}
+
+				ISScope<List<IRObject>> eScope = se.getScope();
+
+				sb.append(String.format("%8s: %8s %8d %8d %8d   %s\n",
+						node.getNodeName() + "[" + node.getEntryLength() + "]", "" + vars,
+						eScope == null ? -1 : eScope.getMoveCount(), eScope == null ? -1 : eScope.getResetCount(),
+						eScope == null ? -1 : eScope.getEvalCount(), node.getUniqName()));
+			}
+
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+
+			sb.append("SVARS:\n");
+			sb.append(SEP_LINE1);
+			sb.append(String.format("%8s: %8s %8s %8s %8s\n", "VARS", "NODE[n]", "MOVE", "RESET", "EVAL"));
+			sb.append(SEP_LINE2);
+
+			for (IRSEntry se : sentrys) {
+
+				IRReteNode node = se.getSearchNode();
+
+				for (IRSVar svar : se.listSVar()) {
+
+					ISScope<IRObject> vScope = svar.getScope();
+
+					sb.append(String.format("%8s: %8s %8d %8d %8d\n", svar.getVarName(),
+							node.getNodeName() + "[" + node.getEntryLength() + "]",
+							vScope == null ? -1 : vScope.getMoveCount(), vScope == null ? -1 : vScope.getResetCount(),
+							vScope == null ? -1 : vScope.getEvalCount()));
+				}
+
+			}
+
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
 	}
 
 	private static void _printCacheInfo(StringBuffer sb, IRModel model) throws RException {
@@ -2277,6 +2371,19 @@ public class StatsUtil {
 		}
 
 		return wasteMap;
+	}
+
+	public static String printASMInfo(IRASMachine asm) {
+
+		StringBuffer sb = new StringBuffer();
+
+		try {
+			_printASM(sb, asm);
+		} catch (RException e) {
+			e.printStackTrace();
+		}
+
+		return sb.toString();
 	}
 
 	public static String printNodeInfo(IRModel model) throws RException {

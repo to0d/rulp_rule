@@ -12,11 +12,11 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 
 	protected int curValueIndex = -1;
 
-	protected int evalCount = 0;
-
 	protected int moveCount = 0;
 
 	protected ArrayList<IRObject> possibleValueList = null;
+
+	protected int resetCount = 0;
 
 	protected int scanCount = 0;
 
@@ -31,6 +31,7 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 		this.valueList = valueList;
 	}
 
+	@Override
 	public IRObject curValue() {
 		return curValue;
 	}
@@ -39,12 +40,19 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 		return curValueIndex;
 	}
 
-	public int getValueEvalCount() {
-		return evalCount;
+	@Override
+	public int getEvalCount() {
+		return 0;
 	}
 
-	public int getValueMoveCount() {
+	@Override
+	public int getMoveCount() {
 		return moveCount;
+	}
+
+	@Override
+	public int getResetCount() {
+		return resetCount;
 	}
 
 	public int getValuePossibleCount() {
@@ -55,10 +63,6 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 		return scanCount;
 	}
 
-	public void incValueEvalCount() {
-		this.evalCount++;
-	}
-
 	public boolean isReset() {
 		return curValueIndex == -1;
 	}
@@ -67,9 +71,10 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 		return scanValueCompled;
 	}
 
+	@Override
 	public boolean moveNext() throws RException {
 
-		++XLinnerObjectScope.this.moveCount;
+		this.moveCount++;
 		this.curValue = null;
 
 		if (possibleValueList == null) {
@@ -98,7 +103,7 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 		while (valueIterator.hasNext()) {
 
 			this.curValue = valueIterator.next();
-			++scanCount;
+			this.scanCount++;
 
 			findValidValue = true;
 			possibleValueList.add(curValue);
@@ -112,13 +117,14 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 		return findValidValue;
 	}
 
+	@Override
 	public void reset() {
 		curValueIndex = -1;
+		resetCount++;
 	}
 
 	@Override
 	public void setChecker(ICheckValue<IRObject> checker) throws RException {
 		throw new RException("not support");
 	}
-
 }

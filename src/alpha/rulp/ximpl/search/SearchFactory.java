@@ -41,9 +41,9 @@ public class SearchFactory {
 
 	static final String F_MBR_SCOPE_QUERY = "_scope_query";
 
-	public static IRAutoSearchMachine createASM(IRModel model, IRList rstList, IRList searchNodes) throws RException {
+	public static IRASMachine createASM(IRModel model, IRList rstList, IRList searchNodes) throws RException {
 
-		XRAutoSearchMachine asm = new XRAutoSearchMachine(model);
+		XRASMachine asm = new XRASMachine(model);
 
 		/********************************************/
 		// Add search node

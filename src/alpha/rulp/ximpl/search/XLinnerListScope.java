@@ -7,13 +7,19 @@ import alpha.rulp.lang.RException;
 
 public class XLinnerListScope<T> implements ISScope<List<T>> {
 
-	private ICheckValue<List<T>> checker;
+	protected ICheckValue<List<T>> checker;
 
-	private List<T> curList = null;
+	protected List<T> curList = null;
 
-	private ArrayList<ISScope<T>> elementScopes;
+	protected ArrayList<ISScope<T>> elementScopes;
 
-	private boolean queryCompleted = false;
+	protected int evalCount = 0;
+
+	protected int moveCount = 0;
+
+	protected boolean queryCompleted = false;
+
+	protected int resetCount = 0;
 
 	public XLinnerListScope(List<ISScope<T>> elementScopes) {
 		super();
@@ -23,12 +29,9 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 	protected boolean _can_move() throws RException {
 
 		int varPos = 0;
-
 		int elementCount = elementScopes.size();
 
 		while (varPos < elementCount) {
-
-//			++moveCount;
 
 			ISScope<T> scope = elementScopes.get(varPos);
 			if (scope.moveNext()) {
@@ -48,6 +51,11 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 		return false;
 	}
 
+	protected boolean _isValid(List<T> value) throws RException {
+		evalCount++;
+		return checker.isValid(value);
+	}
+
 	protected void _updateList() {
 
 		int elementCount = elementScopes.size();
@@ -62,11 +70,28 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 	}
 
 	@Override
+	public int getEvalCount() {
+		return evalCount;
+	}
+
+	@Override
+	public int getMoveCount() {
+		return moveCount;
+	}
+
+	@Override
+	public int getResetCount() {
+		return resetCount;
+	}
+
+	@Override
 	public boolean moveNext() throws RException {
 
 		if (queryCompleted) {
 			return false;
 		}
+
+		this.moveCount++;
 
 		if (curList == null) {
 
@@ -95,7 +120,7 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 
 		if (checker != null) {
 
-			while (!checker.isValid(curList)) {
+			while (!_isValid(curList)) {
 
 				if (!_can_move()) {
 					queryCompleted = true;
@@ -114,6 +139,8 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 
 		queryCompleted = false;
 		curList = null;
+		resetCount++;
+
 		for (ISScope<T> scope : elementScopes) {
 			scope.reset();
 		}

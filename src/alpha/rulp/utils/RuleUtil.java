@@ -40,6 +40,7 @@ import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
 import alpha.rulp.ximpl.scope.IRScope;
+import alpha.rulp.ximpl.search.IRASMachine;
 
 public class RuleUtil {
 
@@ -231,6 +232,15 @@ public class RuleUtil {
 		model.getNodeGraph().bindNode(fromNode, toNode);
 	}
 
+	public static IRASMachine asASM(IRObject obj) throws RException {
+
+		if (!(obj instanceof IRASMachine)) {
+			throw new RException("Can't convert to asm: " + obj);
+		}
+
+		return (IRASMachine) obj;
+	}
+
 	public static IRBetaNode asBetaNode(IRReteNode node) throws RException {
 
 		if (!RReteType.isBetaType(node.getReteType())) {
@@ -405,10 +415,6 @@ public class RuleUtil {
 		return parser;
 	}
 
-	public static void reset() {
-		parser = null;
-	}
-
 	public static IRList getRuleGroupList(IRModel model) throws RException {
 
 		IRMember mbr = model.getMember(F_MBR_RULE_GROUP_NAMES);
@@ -477,6 +483,10 @@ public class RuleUtil {
 
 	public static void removeDefaultModel(IRFrame frame) throws RException {
 		frame.removeEntry(A_DEFAULT_MODEL);
+	}
+
+	public static void reset() {
+		parser = null;
 	}
 
 	public static void setDefaultModel(IRFrame frame, IRModel model) throws RException {

@@ -12,6 +12,7 @@ class XRFactorSearchStmtTest extends RuleTestBase {
 		_setup();
 		_run_script();
 		_statsInfo("m");
+		_asmInfo("?s");
 	}
 
 	@Test
