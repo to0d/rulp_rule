@@ -1,11 +1,9 @@
-package alpha.rulp.ximpl.scope;
+package alpha.rulp.ximpl.search;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.search.IValueList;
-import alpha.rulp.ximpl.search.SVLType;
 
 public class XSingleValueList implements IValueList {
 

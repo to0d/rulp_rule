@@ -2812,7 +2812,7 @@ Object create count:
        macro:            5            0            5
     instance:            2            0            2
        class:            5            0            5
-      member:          153            0          153
+      member:          149            0          149
        frame:          119          110            9
  interpreter:            1            0
   frameEntry:          481            0

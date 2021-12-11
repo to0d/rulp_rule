@@ -48,13 +48,15 @@ public class ModelConstraintUtil {
 
 	static final String N_CST_MIN = "$cst_min$";
 
+	static final String N_CST_ONE_OF = "$cst_one_of$";
+
 	static final String N_CST_TYPE = "$cst_type$";
 
 	static final String V_INDEX = "?index";
 
 	static final String V_NODE = "?node";
 
-	static final String V_TYPE = "?type";
+	static final String V_VALUE = "?value";
 
 	private Map<String, IRAtom> atomMap = new HashMap<>();
 
@@ -119,6 +121,24 @@ public class ModelConstraintUtil {
 		}
 
 		return atom;
+	}
+
+	protected IRObject _getOneValueConstraint(String cstName, String nodeName, int index) throws RException {
+
+		// (list-stmt m from $cst_???$:'(?node ?index ?value))
+		IRList stmtlist = RulpUtil.asList(model.getInterpreter().compute(model.getFrame(),
+				RulpFactory.createExpression(_getAtom(F_LIST_STMT), model, O_From, RulpFactory.createNamedList(cstName,
+						RulpFactory.createString(nodeName), RulpFactory.createInteger(index), _getAtom(V_VALUE)))));
+
+		if (stmtlist.size() == 0) {
+			return null;
+		}
+
+		if (stmtlist.size() > 1) {
+			throw new RException("multi value found: " + nodeName + ", index=" + index);
+		}
+
+		return RulpUtil.asList(stmtlist.get(0)).get(2);
 	}
 
 	protected IRObject _removeMaxConstraint(IRReteNode node, IRConstraint1OneValue constraint) throws RException {
@@ -187,61 +207,28 @@ public class ModelConstraintUtil {
 	public IRObject getMaxConstraint(IRReteNode node, int index) throws RException {
 
 		// (list-stmt m from $cst_type$:'(?node ?index ?type))
-		IRList stmtlist = RulpUtil.asList(model.getInterpreter().compute(model.getFrame(),
-				RulpFactory.createExpression(_getAtom(F_LIST_STMT), model, O_From,
-						RulpFactory.createNamedList(N_CST_MAX,
-								RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
-								RulpFactory.createInteger(index), _getAtom(V_TYPE)))));
-
-		if (stmtlist.size() == 0) {
-			return null;
-		}
-
-		if (stmtlist.size() > 1) {
-			throw new RException("multi type found: " + node.getNodeName() + ", index=" + index);
-		}
-
-		return RulpUtil.asList(stmtlist.get(0)).get(2);
+		return _getOneValueConstraint(N_CST_MAX, RuleUtil.asNamedNode(node).getNamedName(), index);
 	}
 
 	public IRObject getMinConstraint(IRReteNode node, int index) throws RException {
 
 		// (list-stmt m from $cst_type$:'(?node ?index ?type))
-		IRList stmtlist = RulpUtil.asList(model.getInterpreter().compute(model.getFrame(),
-				RulpFactory.createExpression(_getAtom(F_LIST_STMT), model, O_From,
-						RulpFactory.createNamedList(N_CST_MIN,
-								RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
-								RulpFactory.createInteger(index), _getAtom(V_TYPE)))));
+		return _getOneValueConstraint(N_CST_MIN, RuleUtil.asNamedNode(node).getNamedName(), index);
+	}
 
-		if (stmtlist.size() == 0) {
-			return null;
-		}
+	public IRList getOneOfConstraint(IRReteNode node, int index) throws RException {
 
-		if (stmtlist.size() > 1) {
-			throw new RException("multi type found: " + node.getNodeName() + ", index=" + index);
-		}
+		// (list-stmt m from $cst_one_of$:'(?node ?index ?type))
+		IRObject value = _getOneValueConstraint(N_CST_ONE_OF, RuleUtil.asNamedNode(node).getNamedName(), index);
 
-		return RulpUtil.asList(stmtlist.get(0)).get(2);
+		return value == null ? null : RulpUtil.asList(value);
 	}
 
 	public RType getTypeConstraint(IRReteNode node, int index) throws RException {
 
 		// (list-stmt m from $cst_type$:'(?node ?index ?type))
-		IRList stmtlist = RulpUtil.asList(model.getInterpreter().compute(model.getFrame(),
-				RulpFactory.createExpression(_getAtom(F_LIST_STMT), model, O_From,
-						RulpFactory.createNamedList(N_CST_TYPE,
-								RulpFactory.createString(RuleUtil.asNamedNode(node).getNamedName()),
-								RulpFactory.createInteger(index), _getAtom(V_TYPE)))));
-
-		if (stmtlist.size() == 0) {
-			return null;
-		}
-
-		if (stmtlist.size() > 1) {
-			throw new RException("multi type found: " + node.getNodeName() + ", index=" + index);
-		}
-
-		return RType.toType(RulpUtil.asAtom(RulpUtil.asList(stmtlist.get(0)).get(2)).getName());
+		IRObject value = _getOneValueConstraint(N_CST_TYPE, RuleUtil.asNamedNode(node).getNamedName(), index);
+		return value == null ? null : RType.toType(RulpUtil.asAtom(value).getName());
 	}
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {

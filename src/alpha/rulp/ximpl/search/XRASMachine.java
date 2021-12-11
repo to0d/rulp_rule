@@ -222,9 +222,14 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 			IRObject maxValue = constraintUtil.getMaxConstraint(entry.searchNode, searchVar.index);
 			IRObject minValue = constraintUtil.getMinConstraint(entry.searchNode, searchVar.index);
 			if (maxValue != null && minValue != null) {
-				return SearchFactory.createIntValueList(RulpUtil.asInteger(minValue), RulpUtil.asInteger(maxValue),
+				return SearchFactory.createValueListInt(RulpUtil.asInteger(minValue), RulpUtil.asInteger(maxValue),
 						null);
 			}
+		}
+
+		IRList atomValueList = constraintUtil.getOneOfConstraint(entry.searchNode, searchVar.index);
+		if (varType == null && atomValueList != null) {
+			return SearchFactory.createValueListObjectFactory(atomValueList);
 		}
 
 		return null;

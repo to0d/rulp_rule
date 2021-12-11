@@ -1,3 +1,0 @@
-mbr=?impl, access deny
-mbr=init, name='((init nil) (init)), type=func, property='(default)
-mbr=this, name=s, type=instance, property='(default), instance-class=scope

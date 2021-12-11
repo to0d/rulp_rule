@@ -3,7 +3,7 @@
 ;=>m true
 
 (add-constraint m v1:'(?...) (one-of '(a b c) on ?0))
-(add-constraint m v1:'(?...) (one-of '(o p q) on ?1))
+(add-constraint m v1:'(?...) (one-of '(o p) on ?1))
 (add-constraint m v1:'(?...) (one-of '(x) on ?2))
 ;=>true true true
 
@@ -11,14 +11,14 @@
 ;=>&?s
 
 (state-of ?s)
-;=>halting
+;=>runnable
 
 (start ?s)
-;=>0
+;=>6
 
 (state-of ?s)
-;=>halting
+;=>completed
 
 (list-stmt m from v2:'(?...))
-;=>'()
+;=>'(v2:'(a o x) v2:'(b o x) v2:'(c o x) v2:'(a p x) v2:'(b p x) v2:'(c p x))
 

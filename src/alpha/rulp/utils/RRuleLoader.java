@@ -185,8 +185,8 @@ public class RRuleLoader implements IRObjectLoader {
 			SearchFactory.init(inp, frame);
 		});
 
-		// Native Class Initialization
-		SearchFactory.initScopeClass(systemFrame);
+//		// Native Class Initialization
+//		SearchFactory.initScopeClass(systemFrame);
 
 	}
 

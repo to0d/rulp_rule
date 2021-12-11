@@ -39,7 +39,6 @@ import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
-import alpha.rulp.ximpl.scope.IRScope;
 import alpha.rulp.ximpl.search.IRASMachine;
 
 public class RuleUtil {
@@ -305,14 +304,14 @@ public class RuleUtil {
 		return (IRRule) obj;
 	}
 
-	public static IRScope asScope(IRObject obj) throws RException {
-
-		if (!(obj instanceof IRScope)) {
-			throw new RException("Can't convert to scope: " + obj);
-		}
-
-		return (IRScope) obj;
-	}
+//	public static IRScope asScope(IRObject obj) throws RException {
+//
+//		if (!(obj instanceof IRScope)) {
+//			throw new RException("Can't convert to scope: " + obj);
+//		}
+//
+//		return (IRScope) obj;
+//	}
 
 	public static List<IRObject> compute(IRModel model, String input) throws RException {
 

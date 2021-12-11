@@ -131,12 +131,12 @@ N0009[3] NAME0 Rete0 UNIQ   $cst_min$                 0     2    1    0    0   0
 N0011[1] NAME0 Rete0 UNIQ   $invalid_constraint$      0     0    0    0    0   0   0   0 [null]
 N0012[2] NAME0 Rete0 UNIQ   $cst_node$                0     0    0    0    0   0   0   0 [null, null]
 N0019[1] NAME0 Rete0 UNIQ   v2                        0     0    0    0    0   0   0   0 [null]
-A0013[3] ALPH0 Rete1 MULTI  $cst_type$                1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?type]
-A0014[3] ALPH0 Rete1 MULTI  $cst_type$                1     0    0    0    0   1   0   0 [null, null, ?type]
-A0015[3] ALPH0 Rete1 MULTI  $cst_max$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?type]
-A0016[3] ALPH0 Rete1 MULTI  $cst_max$                 1     0    0    0    0   1   0   0 [null, null, ?type]
-A0017[3] ALPH0 Rete1 MULTI  $cst_min$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?type]
-A0018[3] ALPH0 Rete1 MULTI  $cst_min$                 1     0    0    0    0   1   0   0 [null, null, ?type]
+A0013[3] ALPH0 Rete1 MULTI  $cst_type$                1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
+A0014[3] ALPH0 Rete1 MULTI  $cst_type$                1     0    0    0    0   1   0   0 [null, null, ?value]
+A0015[3] ALPH0 Rete1 MULTI  $cst_max$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
+A0016[3] ALPH0 Rete1 MULTI  $cst_max$                 1     0    0    0    0   1   0   0 [null, null, ?value]
+A0017[3] ALPH0 Rete1 MULTI  $cst_min$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
+A0018[3] ALPH0 Rete1 MULTI  $cst_min$                 1     0    0    0    0   1   0   0 [null, null, ?value]
 E1004[4] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0   0 [?node, ?index, ?type1, ?type2]
 B0003[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0   0   0 [?node, ?index, ?type1, ?type2]
 CST01[4] RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?type1, ?type2]
@@ -467,7 +467,7 @@ Object create count:
        macro:            3            0            3
     instance:            2            0            2
        class:            5            0            5
-      member:          155            0          155
+      member:          151            0          151
        frame:           21           18            3
  interpreter:            1            0
   frameEntry:          295            0

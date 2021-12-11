@@ -19,8 +19,6 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
-import alpha.rulp.ximpl.scope.IRScope;
-import alpha.rulp.ximpl.scope.XRScope;
 import alpha.rulp.ximpl.search.IRASMachine;
 
 public class RuleTestBase extends RulpTestBase {
@@ -498,48 +496,48 @@ public class RuleTestBase extends RulpTestBase {
 		_test("(save-model " + modelName + ")");
 	}
 
-	protected IRScope _scope(String scopeName) throws RException, IOException {
-
-//		List<IRObject> rst = _getInterpreter().compute(String.format("(%s::get-impl)", scopeName));
-//		assertEquals(1, rst.size());
+//	protected IRScope _scope(String scopeName) throws RException, IOException {
 //
-//		return RuleUtil.asScope(rst.get(0));
-		return null;
-	}
+////		List<IRObject> rst = _getInterpreter().compute(String.format("(%s::get-impl)", scopeName));
+////		assertEquals(1, rst.size());
+////
+////		return RuleUtil.asScope(rst.get(0));
+//		return null;
+//	}
 
-	protected void _scopeInfo(String scopeName) {
-		_scopeInfo(scopeName, getCachePath() + ".scope.txt");
-	}
+//	protected void _scopeInfo(String scopeName) {
+//		_scopeInfo(scopeName, getCachePath() + ".scope.txt");
+//	}
 
-	protected void _scopeInfo(String scopeName, String expectFile) {
-
-		try {
-
-			String outoputInfo = StatsUtil.printScopeInfo(_scope(scopeName));
-
-			if (PRIME_MODE) {
-
-				ArrayList<String> lines = new ArrayList<>();
-				lines.add(outoputInfo);
-
-				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
-
-			} else {
-
-				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
-				assertEquals(expectInfo.trim(), outoputInfo.trim());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
-	}
+//	protected void _scopeInfo(String scopeName, String expectFile) {
+//
+//		try {
+//
+//			String outoputInfo = StatsUtil.printScopeInfo(_scope(scopeName));
+//
+//			if (PRIME_MODE) {
+//
+//				ArrayList<String> lines = new ArrayList<>();
+//				lines.add(outoputInfo);
+//
+//				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
+//
+//			} else {
+//
+//				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
+//				assertEquals(expectInfo.trim(), outoputInfo.trim());
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			fail(e.toString());
+//		}
+//	}
 
 	@Override
 	protected void _setup() {
 		super._setup();
-		XRScope.TRACE = false;
+//		XRScope.TRACE = false;
 		XREntryTable.TRACE = false;
 		traceModel = null;
 		RuleUtil.reset();
