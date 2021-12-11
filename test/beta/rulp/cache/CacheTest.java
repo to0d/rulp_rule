@@ -223,4 +223,21 @@ public class CacheTest extends RuleTestBase {
 		_statsInfo("m");
 
 	}
+
+	@Test
+	void test_3_model_cache_list_1() {
+
+		_setup();
+
+		_clean_model_cache();
+		_test("(new model m)");
+		_test("(add-stmt m n1:'(a '(b c)))");
+		_save_model_cache("m");
+
+		_mStatus(1, "m");
+		_mCount(1, "m");
+		_eCount(1, "m");
+		_saveTest();
+		_statsInfo("m");
+	}
 }

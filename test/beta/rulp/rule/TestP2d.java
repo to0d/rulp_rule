@@ -34,7 +34,6 @@ public class TestP2d extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_statsInfo("p2d");
 	}
 
 	@Test
@@ -51,7 +50,6 @@ public class TestP2d extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_statsInfo("p2d");
 	}
 
 	@Test

@@ -138,8 +138,7 @@ public class PartialReasonTest extends RuleTestBase {
 		_mStatus(1, "p2d");
 		_mCount(1, "p2d");
 		_eCount(1, "p2d");
-		_saveTest();
-		_statsInfo("p2d");
+		_saveTest(); 
 	}
 
 	@Test
