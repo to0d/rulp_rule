@@ -124,7 +124,7 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 		this.constraintUtil = new ModelConstraintUtil(model);
 	}
 
-	protected boolean _build() throws RException {
+	protected boolean _buildValueList() throws RException {
 
 		int missCount = 0;
 
@@ -355,10 +355,11 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 	public RRunState getRunState() throws RException {
 
 		if (searchState == null || searchState == RRunState.Halting) {
-			if (!_build()) {
+			if (!_buildValueList()) {
 				searchState = RRunState.Halting;
+			} else {
+				searchState = RRunState.Runnable;
 			}
-			searchState = RRunState.Runnable;
 		}
 
 		return searchState;

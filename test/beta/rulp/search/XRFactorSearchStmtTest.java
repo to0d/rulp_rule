@@ -23,7 +23,7 @@ class XRFactorSearchStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_asmInfo("?s");
 	}
-	
+
 	@Test
 	void test_search_1_int_var_2_b() {
 
@@ -53,6 +53,15 @@ class XRFactorSearchStmtTest extends RuleTestBase {
 
 	@Test
 	void test_search_2_order_by_3() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_asmInfo("?s");
+	}
+
+	@Test
+	void test_search_3_atom_var_1() {
 
 		_setup();
 		_run_script();

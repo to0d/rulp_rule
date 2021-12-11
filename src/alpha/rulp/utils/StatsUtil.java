@@ -505,7 +505,7 @@ public class StatsUtil {
 
 				IValueList valueList = svar.getValueList();
 				if (valueList == null) {
-					sb.append(String.format("%8s: %8\n", svar.getVarName(), "null"));
+					sb.append(String.format("%8s: %8s\n", svar.getVarName(), "null"));
 				} else {
 					sb.append(String.format("%8s: %8s %s\n", svar.getVarName(), "" + valueList.getSVType(),
 							valueList.getDescription()));
