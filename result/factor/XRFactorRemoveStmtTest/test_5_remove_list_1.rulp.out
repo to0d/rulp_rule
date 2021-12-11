@@ -1,0 +1,19 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(a '(b c)))
+(add-stmt m n1:'(x '(y z)))
+;=>true true
+
+(list-stmt m)
+;=>'(n1:'(a '(b c)) n1:'(x '(y z)))
+
+(remove-stmt m n1:'(a '(b c)))
+;=>'(n1:'(a '(b c)))
+
+(list-stmt m)
+;=>'(n1:'(x '(y z)))
+
+(list-stmt m)
+;=>'(n1:'(x '(y z)))
+
