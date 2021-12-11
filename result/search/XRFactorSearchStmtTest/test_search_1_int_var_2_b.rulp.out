@@ -1,0 +1,33 @@
+(new model m)
+(add-node m v1:'(3))
+;=>m true
+
+(add-constraint m v1:'(?...) (type int on ?0))
+(add-constraint m v1:'(?...) (type int on ?1))
+(add-constraint m v1:'(?...) (type int on ?2))
+(add-constraint m v1:'(?...) (max 10 on ?0))
+(add-constraint m v1:'(?...) (max 10 on ?1))
+(add-constraint m v1:'(?...) (max 10 on ?2))
+(add-constraint m v1:'(?...) (min 1  on ?0))
+(add-constraint m v1:'(?...) (min 1  on ?1))
+(add-constraint m v1:'(?...) (min 1  on ?2))
+;=>true true true true true true true true true
+
+(add-constraint m v1:'(?x ?y ?z) (= (+ (^ ?x 2) (^ ?y 2)) (^ ?z 2)))
+;=>true
+
+(defvar ?s (search m v2:'(?x ?y ?Z) from v1:'(?x ?y ?Z)))
+;=>&?s
+
+(state-of ?s)
+;=>runnable
+
+(start ?s)
+;=>4
+
+(state-of ?s)
+;=>completed
+
+(list-stmt m from v2:'(?...))
+;=>'(v2:'(4 3 5) v2:'(3 4 5) v2:'(8 6 10) v2:'(6 8 10))
+

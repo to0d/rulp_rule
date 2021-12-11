@@ -7,53 +7,6 @@ import alpha.rulp.utils.RuleTestBase;
 public class ModelVarTest extends RuleTestBase {
 
 	@Test
-	void test_1_int_var_4() {
-
-		_setup();
-
-		// XRRModelVarList.TRACE = true;
-
-		_test("(new scope s)");
-		_test("(s::define ?x int 1 10)", "&?x");
-		_test("(s::define ?y int 1 10)", "&?y");
-		_test("(s::define ?z int 1 10)", "&?z");
-
-		// x^2 + y^2 = z^2
-		_test("(s::assert (>= ?y ?x))");
-		_test("(s::assert (>= ?z ?y))");
-		_test("(s::assert (= (+ (^ ?x 2) (^ ?y 2)) (^ ?z 2)))");
-
-		_test("(s::query '(?x ?y ?z))", "'('(3 4 5) '(6 8 10))");
-
-		_smCount(1, "s");
-		_scopeInfo("s", "test/beta/rulp/scope/var_test_1_int_var_4.txt");
-
-		_saveTest();
-	}
-
-	@Test
-	void test_1_int_var_5() {
-
-		_setup();
-
-		// XRRModelVarList.TRACE = true;
-
-		_test("(new scope s)");
-		_test("(s::define ?x int 1 10)", "&?x");
-		_test("(s::define ?y int 1 10)", "&?y");
-		_test("(s::define ?z int 1 10)", "&?z");
-
-		// x^2 + y^2 = z^
-		_test("(s::assert (= (+ (^ ?x 2) (^ ?y 2)) (^ ?z 2)))");
-		_test("(s::query '(?x ?y ?z))", "'('(4 3 5) '(3 4 5) '(8 6 10) '(6 8 10))");
-
-		_smCount(1, "s");
-		_scopeInfo("s", "test/beta/rulp/scope/var_test_1_int_var_5.txt");
-
-		_saveTest();
-	}
-
-	@Test
 	void test_2_atom_var_1() {
 
 		_setup();
