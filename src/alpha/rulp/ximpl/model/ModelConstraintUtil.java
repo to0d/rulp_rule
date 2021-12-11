@@ -176,6 +176,7 @@ public class ModelConstraintUtil {
 			return _addMinConstraint(node, (IRConstraint1OneValue) constraint);
 
 		case A_One_Of:
+			return _addOneOfConstraint(node, (IRConstraint1OneValue) constraint);
 
 		case A_Uniq:
 		default:
@@ -254,6 +255,9 @@ public class ModelConstraintUtil {
 
 		case A_Min:
 			return _removeMinConstraint(node, (IRConstraint1OneValue) constraint);
+
+		case A_One_Of:
+			return _removeOneOfConstraint(node, (IRConstraint1OneValue) constraint);
 
 		case A_Uniq:
 		default:

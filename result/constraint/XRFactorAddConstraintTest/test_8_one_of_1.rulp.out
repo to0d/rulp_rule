@@ -17,7 +17,7 @@ at main: (add-stmt m n1:'(x 3))
 ;eof
 
 (list-stmt m)
-;=>'(n1:'(a 1) n1:'(b 2))
+;=>'(n1:'(a 1) n1:'(b 2) $cst_one_of$:'("n1" 0 '(a b c)))
 
 (remove-constraint m n1:'(2) (? on ?))
 ;=>'((one-of '(a b c) on ?0))

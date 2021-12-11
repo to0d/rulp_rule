@@ -3,7 +3,7 @@
 ;=>m true
 
 (add-constraint m v1:'(?...) (one-of '(a b c) on ?0))
-(add-constraint m v1:'(?...) (one-of '(m n) on ?1))
+(add-constraint m v1:'(?...) (one-of '(o p q) on ?1))
 (add-constraint m v1:'(?...) (one-of '(x) on ?2))
 ;=>true true true
 
