@@ -22,6 +22,9 @@
 (start ?s)
 ;=>2
 
+(state-of ?s)
+;=>completed
+
 (list-stmt m from v2:'(?x))
 ;=>'(v2:'(38) v2:'(40))
 

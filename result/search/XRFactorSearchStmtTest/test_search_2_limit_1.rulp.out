@@ -13,10 +13,18 @@
 (add-constraint m v1:'(?x) (= (% ?x 2) 0))
 ;=>true
 
-(defvar ?s (search m v2:'(?x) from v1:'(?x) limit 1))
-;err:
-not support yet
-at main: (search m v2:'(?x) from v1:'(?x) limit 1)
-at main: (defvar ?s (search m v2:'(?x) from v1:'(?x) limit 1))
-;eof
+(defvar ?s (search m v2:'(?x) from v1:'(?x)))
+;=>&?s
+
+(state-of ?s)
+;=>runnable
+
+(start ?s limit 1)
+;=>1
+
+(state-of ?s)
+;=>partial
+
+(list-stmt m from v2:'(?x))
+;=>'(v2:'(38))
 

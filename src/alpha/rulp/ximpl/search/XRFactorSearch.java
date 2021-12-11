@@ -92,8 +92,7 @@ public class XRFactorSearch extends AbsRFactorAdapter implements IRFactor, IRule
 				if (limit <= 0) {
 					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
-
-				throw new RException("not support yet");
+				break;
 
 			case A_Order_by:
 				orderByList = RulpUtil.asList(modifier.obj);

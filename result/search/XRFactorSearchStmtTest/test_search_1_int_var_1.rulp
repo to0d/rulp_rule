@@ -22,5 +22,8 @@
 (start ?s)
 ;=>
 
+(state-of ?s)
+;=>
+
 (list-stmt m from v2:'(?x))
 ;=>

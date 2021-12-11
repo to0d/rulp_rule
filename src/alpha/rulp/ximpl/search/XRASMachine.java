@@ -441,6 +441,12 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 			}
 		}
 
+		if (_scope.isCompleted()) {
+			searchState = RRunState.Completed;
+		} else {
+			searchState = RRunState.Partial;
+		}
+
 		return count;
 	}
 }

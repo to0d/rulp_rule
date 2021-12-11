@@ -13,14 +13,17 @@
 (add-constraint m v1:'(?x) (= (% ?x 2) 0))
 ;=>
 
-(defvar ?s (search m v2:'(?x) from v1:'(?x) limit 1))
+(defvar ?s (search m v2:'(?x) from v1:'(?x)))
 ;=>
 
 (state-of ?s)
 ;=>
 
-(start ?s)
+(start ?s limit 1)
+;=>
+
+(state-of ?s)
 ;=>
 
 (list-stmt m from v2:'(?x))
-;=>
+;=>'(v2:'(38))
