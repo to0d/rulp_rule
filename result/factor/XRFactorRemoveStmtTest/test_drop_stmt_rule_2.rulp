@@ -1,0 +1,32 @@
+(new model m)
+;=>
+
+(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do (remove-stmt ?0) (remove-stmt ?1))
+;=>
+
+(add-rule m if '(?x p1 ?y) '(?y p1 ?z) do (add-stmt m '(?x p1 ?z)))
+;=>
+
+(add-stmt m '(a p1 b))
+;=>
+
+(add-stmt m '(b p1 c))
+;=>
+
+(add-stmt m '(c p1 a))
+;=>
+
+(list-stmt m)
+;=>
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+
+(gc-model m)
+;=>

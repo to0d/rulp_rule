@@ -1,0 +1,23 @@
+(new model m)
+;=>
+
+(add-stmt m '(a p1 c))
+;=>
+
+(add-stmt m '(a p1 b))
+;=>
+
+(add-stmt m '(a p2 c))
+;=>
+
+(list-stmt m)
+;=>
+
+(remove-stmt m '(a p2 c))
+;=>
+
+(list-stmt m)
+;=>
+
+(gc-model m)
+;=>

@@ -1,0 +1,10 @@
+(new model m)
+;=>
+
+(add-stmt m n1:'(a b c1))
+(add-stmt m n1:'(a b c2))
+(add-stmt m n1:'(a2 b c2))
+;=>
+
+(remove-stmt m n1:'(?...))
+;=>
