@@ -1099,7 +1099,7 @@ public class ReteUtil {
 	}
 
 	public static boolean isIndexVarAtom(IRObject obj) {
-		
+
 		return obj.getType() == RType.ATOM && isIndexVarName(obj.asString());
 	}
 
@@ -1211,6 +1211,9 @@ public class ReteUtil {
 				break;
 
 			case FUNC:
+				break;
+
+			case LIST:
 				break;
 
 			default:

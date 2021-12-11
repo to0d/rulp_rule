@@ -231,4 +231,13 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_test("(add-stmt m '(f1 a))");
 	}
 
+	@Test
+	void test_a_list_1() {
+
+		_setup();
+		_test("(new model m)", "m");
+		_test("(add-stmt m n1:'(a '(b c)))");
+		_test("(list-stmt m)", "'(n1:'(a '(b c)))");
+	}
+
 }
