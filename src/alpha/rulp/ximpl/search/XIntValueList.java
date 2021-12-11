@@ -52,4 +52,21 @@ public class XIntValueList implements IValueList {
 		return String.format("[%d, %d](%d)", fromValue, toValue, step);
 	}
 
+	@Override
+	public SVLType getSVType() {
+		return SVLType.INT_LIST;
+	}
+
+	protected String _des;
+
+	@Override
+	public String getDescription() {
+
+		if (_des == null) {
+			_des = String.format("from=%d, to=%d, step=%d", fromValue, toValue, step);
+		}
+
+		return _des;
+	}
+
 }

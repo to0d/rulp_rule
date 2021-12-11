@@ -86,6 +86,11 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 		}
 
 		@Override
+		public IValueList getValueList() {
+			return valueList;
+		}
+
+		@Override
 		public String getVarName() {
 			return varName;
 		}
@@ -324,6 +329,11 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 	@Override
 	public List<String> getAllSearchVarNames() {
 		return allSearchVarNames;
+	}
+
+	@Override
+	public IRModel getModel() {
+		return model;
 	}
 
 	@Override

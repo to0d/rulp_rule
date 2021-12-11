@@ -8,4 +8,6 @@ public interface IRSVar {
 
 	public String getVarName();
 
+	public IValueList getValueList();
+
 }

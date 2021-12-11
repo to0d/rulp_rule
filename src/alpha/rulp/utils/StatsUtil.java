@@ -90,6 +90,7 @@ import alpha.rulp.ximpl.search.IRASMachine;
 import alpha.rulp.ximpl.search.IRSEntry;
 import alpha.rulp.ximpl.search.IRSVar;
 import alpha.rulp.ximpl.search.ISScope;
+import alpha.rulp.ximpl.search.IValueList;
 
 public class StatsUtil {
 
@@ -443,21 +444,7 @@ public class StatsUtil {
 		return node.getNodeExecCount() == 0 || node.getNodeExecCount() == node.getNodeIdleCount();
 	}
 
-	private static void _printASM(StringBuffer sb, IRASMachine asm) throws RException {
-
-		// Global info
-		{
-			sb.append("ASM Info:\n");
-			sb.append(SEP_LINE1);
-			sb.append(String.format("%-20s: %s\n", "key", "value"));
-			sb.append(SEP_LINE2);
-			sb.append(String.format("%-20s: %s\n", "search node names", asm.getAllSearchNodeNames()));
-			sb.append(String.format("%-20s: %s\n", "search var names", asm.getAllSearchVarNames()));
-			sb.append(String.format("%-20s: %s\n", "result var names", asm.getAllResultVarNames()));
-			sb.append(String.format("%-20s: %s\n", "result list", asm.getRstList()));
-			sb.append(SEP_LINE1);
-			sb.append("\n");
-		}
+	private static void _printASMScope(StringBuffer sb, IRASMachine asm) throws RException {
 
 		ISScope<List<List<IRObject>>> globalScope = asm.getScope();
 		if (globalScope != null) {
@@ -503,6 +490,64 @@ public class StatsUtil {
 			sb.append(SEP_LINE1);
 			sb.append("\n");
 		}
+	}
+
+	private static void _printASMValueList(StringBuffer sb, IRASMachine asm) throws RException {
+
+		sb.append("Value List:\n");
+		sb.append(SEP_LINE1);
+		sb.append(String.format("%8s: %8s %s\n", "NAME", "TYPE", "DESCRIPTION"));
+		sb.append(SEP_LINE2);
+
+		for (IRSEntry se : asm.listSEntry()) {
+
+			for (IRSVar svar : se.listSVar()) {
+
+				IValueList valueList = svar.getValueList();
+				if (valueList == null) {
+					sb.append(String.format("%8s: %8\n", svar.getVarName(), "null"));
+				} else {
+					sb.append(String.format("%8s: %8s %s\n", svar.getVarName(), "" + valueList.getSVType(),
+							valueList.getDescription()));
+				}
+			}
+
+		}
+
+		sb.append(SEP_LINE1);
+		sb.append("\n");
+	}
+
+	private static void _printASMConstraint(StringBuffer sb, IRASMachine asm) throws RException {
+
+		ArrayList<IRReteNode> asmEntrys = new ArrayList<>();
+
+		for (IRSEntry se : asm.listSEntry()) {
+			asmEntrys.add(se.getSearchNode());
+		}
+
+		_printNodeInfo4(sb, asm.getModel(), asmEntrys);
+	}
+
+	private static void _printASM(StringBuffer sb, IRASMachine asm) throws RException {
+
+		// Global info
+		{
+			sb.append("ASM Info:\n");
+			sb.append(SEP_LINE1);
+			sb.append(String.format("%-20s: %s\n", "key", "value"));
+			sb.append(SEP_LINE2);
+			sb.append(String.format("%-20s: %s\n", "search node names", asm.getAllSearchNodeNames()));
+			sb.append(String.format("%-20s: %s\n", "search var names", asm.getAllSearchVarNames()));
+			sb.append(String.format("%-20s: %s\n", "result var names", asm.getAllResultVarNames()));
+			sb.append(String.format("%-20s: %s\n", "result list", asm.getRstList()));
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+		_printASMScope(sb, asm);
+		_printASMConstraint(sb, asm);
+		_printASMValueList(sb, asm);
 
 		IRFrame resultFrame = asm.getResultFrame();
 		if (resultFrame != null) {

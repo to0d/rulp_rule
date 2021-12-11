@@ -7,4 +7,7 @@ public interface IValueList {
 
 	public IRIterator<? extends IRObject> iterator();
 
+	public SVLType getSVType();
+
+	public String getDescription();
 }
