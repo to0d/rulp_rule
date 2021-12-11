@@ -1,0 +1,20 @@
+(new model m)
+;=>
+
+(add-stmt m '(a b c))
+;=>
+
+(list-stmt m)
+;=>
+
+(remove-stmt m '(a b c))
+;=>
+
+(list-stmt m)
+;=>
+
+(add-stmt m '(a b c))
+;=>
+
+(list-stmt m)
+;=>

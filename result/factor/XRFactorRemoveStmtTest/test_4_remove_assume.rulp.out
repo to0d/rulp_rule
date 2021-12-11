@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(assume-stmt m n1:'(a b c))
+;=>true
+
+(list-stmt m)
+;=>'(n1:'(a b c))
+
+(remove-stmt m n1:'(a b c))
+;=>'(n1:'(a b c))
+
+(list-stmt m)
+;=>'()
+
+(assume-stmt m n1:'(a b c))
+;=>true
+
+(list-stmt m)
+;=>'(n1:'(a b c))
+

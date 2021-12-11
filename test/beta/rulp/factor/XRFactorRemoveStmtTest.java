@@ -77,15 +77,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 	void test_4_remove_assume() {
 
 		_setup();
-
-		_test("(new model m)", "m");
-		_test("(assume-stmt m n1:'(a b c))", "true");
-		_test("(list-stmt m)", "'(n1:'(a b c))");
-		_test("(remove-stmt m n1:'(a b c))", "'(n1:'(a b c))");
-		_test("(list-stmt m)", "'()");
-		_test("(assume-stmt m n1:'(a b c))", "true");
-		_test("(list-stmt m)", "'(n1:'(a b c))");
-
+		_run_script();
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
@@ -94,15 +86,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 	void test_4_remove_define() {
 
 		_setup();
-
-		_test("(new model m)", "m");
-		_test("(add-stmt m '(a b c))", "true");
-		_test("(list-stmt m)", "'('(a b c))");
-		_test("(remove-stmt m '(a b c))", "'('(a b c))");
-		_test("(list-stmt m)", "'()");
-		_test("(add-stmt m '(a b c))", "false");
-		_test("(list-stmt m)", "'()");
-
+		_run_script();
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
