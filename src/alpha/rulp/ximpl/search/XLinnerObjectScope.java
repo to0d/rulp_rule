@@ -63,6 +63,11 @@ public class XLinnerObjectScope implements ISScope<IRObject> {
 		return scanCount;
 	}
 
+	@Override
+	public boolean isCompleted() {
+		return scanValueCompled;
+	}
+
 	public boolean isReset() {
 		return curValueIndex == -1;
 	}

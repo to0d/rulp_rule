@@ -462,12 +462,44 @@ public class StatsUtil {
 		ISScope<List<List<IRObject>>> globalScope = asm.getScope();
 		if (globalScope != null) {
 
-			sb.append("Global Scope:\n");
+			sb.append("Scope:\n");
 			sb.append(SEP_LINE1);
-			sb.append(String.format("%-7s: %8s %8s %8s\n", "NAME", "MOVE", "RESET", "EVAL"));
+			sb.append(String.format("%8s: %8s %8s %8s %8s  %s\n", "NAME", "MOVE", "RESET", "EVAL", "COMPLETE",
+					"CUR-VALUE"));
 			sb.append(SEP_LINE2);
-			sb.append(String.format("%-7s: %8d %8d %8d\n", "global", globalScope.getMoveCount(),
-					globalScope.getResetCount(), globalScope.getEvalCount()));
+			sb.append(String.format("%8s: %8d %8d %8d %8s\n", "Global",
+					globalScope == null ? -1 : globalScope.getMoveCount(),
+					globalScope == null ? -1 : globalScope.getResetCount(),
+					globalScope == null ? -1 : globalScope.getEvalCount(),
+					globalScope == null ? "" : "" + globalScope.isCompleted()));
+
+			for (IRSEntry se : asm.listSEntry()) {
+
+				IRReteNode node = se.getSearchNode();
+
+				ISScope<List<IRObject>> eScope = se.getScope();
+				List<IRObject> curValue = eScope == null ? null : eScope.curValue();
+
+				sb.append(String.format("%8s: %8d %8d %8d %8s  %s\n",
+						node.getNodeName() + "[" + node.getEntryLength() + "]",
+						eScope == null ? -1 : eScope.getMoveCount(), eScope == null ? -1 : eScope.getResetCount(),
+						eScope == null ? -1 : eScope.getEvalCount(), eScope == null ? "" : "" + eScope.isCompleted(),
+						curValue == null ? "" : "" + curValue));
+
+				for (IRSVar svar : se.listSVar()) {
+
+					ISScope<IRObject> vScope = svar.getScope();
+					IRObject curVarValue = vScope == null ? null : vScope.curValue();
+
+					sb.append(String.format("%8s: %8d %8d %8d %8s  %s\n", svar.getVarName(),
+							vScope == null ? -1 : vScope.getMoveCount(), vScope == null ? -1 : vScope.getResetCount(),
+							vScope == null ? -1 : vScope.getEvalCount(),
+							vScope == null ? "" : "" + vScope.isCompleted(),
+							curVarValue == null ? "" : "" + curVarValue));
+				}
+
+			}
+
 			sb.append(SEP_LINE1);
 			sb.append("\n");
 		}
@@ -479,58 +511,6 @@ public class StatsUtil {
 			sb.append("\n");
 		}
 
-		List<? extends IRSEntry> sentrys = asm.listSEntry();
-		if (sentrys != null) {
-
-			sb.append("SENTRY:\n");
-			sb.append(SEP_LINE1);
-			sb.append(String.format("%8s: %8s %8s %8s %8s   %s\n", "NODE[n]", "VARS", "MOVE", "RESET", "EVAL", "UNIQ"));
-			sb.append(SEP_LINE2);
-
-			for (IRSEntry se : sentrys) {
-
-				IRReteNode node = se.getSearchNode();
-
-				ArrayList<String> vars = new ArrayList<>();
-				for (IRSVar svar : se.listSVar()) {
-					vars.add(svar.getVarName());
-				}
-
-				ISScope<List<IRObject>> eScope = se.getScope();
-
-				sb.append(String.format("%8s: %8s %8d %8d %8d   %s\n",
-						node.getNodeName() + "[" + node.getEntryLength() + "]", "" + vars,
-						eScope == null ? -1 : eScope.getMoveCount(), eScope == null ? -1 : eScope.getResetCount(),
-						eScope == null ? -1 : eScope.getEvalCount(), node.getUniqName()));
-			}
-
-			sb.append(SEP_LINE1);
-			sb.append("\n");
-
-			sb.append("SVARS:\n");
-			sb.append(SEP_LINE1);
-			sb.append(String.format("%8s: %8s %8s %8s %8s\n", "VARS", "NODE[n]", "MOVE", "RESET", "EVAL"));
-			sb.append(SEP_LINE2);
-
-			for (IRSEntry se : sentrys) {
-
-				IRReteNode node = se.getSearchNode();
-
-				for (IRSVar svar : se.listSVar()) {
-
-					ISScope<IRObject> vScope = svar.getScope();
-
-					sb.append(String.format("%8s: %8s %8d %8d %8d\n", svar.getVarName(),
-							node.getNodeName() + "[" + node.getEntryLength() + "]",
-							vScope == null ? -1 : vScope.getMoveCount(), vScope == null ? -1 : vScope.getResetCount(),
-							vScope == null ? -1 : vScope.getEvalCount()));
-				}
-
-			}
-
-			sb.append(SEP_LINE1);
-			sb.append("\n");
-		}
 	}
 
 	private static void _printCacheInfo(StringBuffer sb, IRModel model) throws RException {

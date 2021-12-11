@@ -17,4 +17,6 @@ public interface ISScope<T> {
 	public void reset();
 
 	public void setChecker(ICheckValue<T> checker) throws RException;
+
+	public boolean isCompleted();
 }

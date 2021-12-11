@@ -19,6 +19,11 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 
 	protected boolean queryCompleted = false;
 
+	@Override
+	public boolean isCompleted() {
+		return queryCompleted;
+	}
+
 	protected int resetCount = 0;
 
 	public XLinnerListScope(List<ISScope<T>> elementScopes) {
@@ -28,6 +33,8 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 
 	protected boolean _can_move() throws RException {
 
+		this.moveCount++;
+
 		int varPos = 0;
 		int elementCount = elementScopes.size();
 
@@ -36,6 +43,11 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 			ISScope<T> scope = elementScopes.get(varPos);
 			if (scope.moveNext()) {
 				return true;
+			}
+
+			if ((varPos + 1) == elementCount) {
+				queryCompleted = true;
+				return false;
 			}
 
 			scope.reset();
@@ -91,12 +103,17 @@ public class XLinnerListScope<T> implements ISScope<List<T>> {
 			return false;
 		}
 
-		this.moveCount++;
-
 		if (curList == null) {
+
+			this.moveCount++;
 
 			// Initialize first value
 			for (ISScope<T> scope : elementScopes) {
+
+				if (scope.isCompleted()) {
+					scope.reset();
+				}
+
 				if (!scope.moveNext()) {
 					queryCompleted = true;
 					return false;
