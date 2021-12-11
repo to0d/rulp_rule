@@ -105,6 +105,49 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_4_remove_assume() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(assume-stmt m n1:'(a b c))", "true");
+		_test("(list-stmt m)", "'(n1:'(a b c))");
+		_test("(remove-stmt m n1:'(a b c))", "'(n1:'(a b c))");
+		_test("(list-stmt m)", "'()");
+		_test("(assume-stmt m n1:'(a b c))", "true");
+		_test("(list-stmt m)", "'(n1:'(a b c))");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_4_remove_define() {
+
+		_setup();
+
+		_test("(new model m)", "m");
+		_test("(add-stmt m '(a b c))", "true");
+		_test("(list-stmt m)", "'('(a b c))");
+		_test("(remove-stmt m '(a b c))", "'('(a b c))");
+		_test("(list-stmt m)", "'()");
+		_test("(add-stmt m '(a b c))", "false");
+		_test("(list-stmt m)", "'()");
+
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_4_rule_auto_delete() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
 	void test_conflict_1() {
 
 		_setup();
@@ -304,49 +347,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_eCount(2, "m");
 
 		_saveTest();
-	}
-
-	@Test
-	void test_4_remove_define() {
-
-		_setup();
-
-		_test("(new model m)", "m");
-		_test("(add-stmt m '(a b c))", "true");
-		_test("(list-stmt m)", "'('(a b c))");
-		_test("(remove-stmt m '(a b c))", "'('(a b c))");
-		_test("(list-stmt m)", "'()");
-		_test("(add-stmt m '(a b c))", "false");
-		_test("(list-stmt m)", "'()");
-
-		_statsInfo("m");
-		_dumpEntryTable("m");
-	}
-
-	@Test
-	void test_4_remove_assume() {
-
-		_setup();
-
-		_test("(new model m)", "m");
-		_test("(assume-stmt m n1:'(a b c))", "true");
-		_test("(list-stmt m)", "'(n1:'(a b c))");
-		_test("(remove-stmt m n1:'(a b c))", "'(n1:'(a b c))");
-		_test("(list-stmt m)", "'()");
-		_test("(assume-stmt m n1:'(a b c))", "true");
-		_test("(list-stmt m)", "'(n1:'(a b c))");
-
-		_statsInfo("m");
-		_dumpEntryTable("m");
-	}
-
-	@Test
-	void test_4_rule_auto_delete() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-		_dumpEntryTable("m");
 	}
 
 }

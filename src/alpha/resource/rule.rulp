@@ -118,6 +118,23 @@
     (return (remove-constraint ?m (to-named-list ?node '(?...)) (min ?value on (to-atom (+ "?" ?index)))))
 )
 
+(defun add_cst_constraint_one_of ((?m model) (?node string) ?index (?value list))
+    (init_cst_rule ?m)        
+    (add-stmt ?m $cst_one_of$:'(?node ?index ?value))
+    (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
+            do (remove-stmt ?m $cst_one_of$:'(?node ?index ?value)) 
+               (error add-constraint-fail (+ "one-of-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
+    (return (add-constraint ?m (to-named-list ?node '(?...)) (one-of ?value on (to-atom (+ "?" ?index)))))
+)
+
+(defun remove_cst_constraint_one_of ((?m model) (?node string) ?index (?value list))
+    (init_cst_rule ?m)        
+    (defvar ?drop-stmt-list (remove-stmt ?m $cst_one_of$:'(?node ?index ?value)))
+    (if (is-empty ?drop-stmt-list) (return '()))
+    (return (remove-constraint ?m (to-named-list ?node '(?...)) (one-of ?value on (to-atom (+ "?" ?index)))))
+)
+
+
 
 ;;(defun add_cst_constraint_index_1 ((?m model) (?node string) ?index ?cst_type)
 ;;    (init_cst_rule ?m)        

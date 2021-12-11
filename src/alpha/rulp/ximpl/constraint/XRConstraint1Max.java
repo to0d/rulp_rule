@@ -9,7 +9,7 @@ import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstraint1Max {
+public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstraint1OneValue {
 
 	private String _constraintExpression = null;
 
