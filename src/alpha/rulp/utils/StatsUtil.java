@@ -545,9 +545,9 @@ public class StatsUtil {
 			sb.append("\n");
 		}
 
+		_printASMValueList(sb, asm);
 		_printASMScope(sb, asm);
 		_printASMConstraint(sb, asm);
-		_printASMValueList(sb, asm);
 
 		IRFrame resultFrame = asm.getResultFrame();
 		if (resultFrame != null) {
