@@ -141,7 +141,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   m : class=model     
+default_model        : 6        3        2    instance   model@m             
 ==========================================================================================================================
 
 node update info: model-exec-count=9, row=3, column=10(1), value-max=1, value-unit=1^x
@@ -216,12 +216,12 @@ id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-root                 : 1        2        0    frame      root                
-system               : 2        2        0    frame      system              
-main                 : 3        2        2    frame      main                
-rbs                  : 4        2        1    instance   rbs : class=namespace
-mts                  : 5        2        1    instance   mts : class=namespace
-m                    : 7        2        2    instance   m : class=model     
+root                 : 1        2        0    frame      frame@root          
+system               : 2        2        0    frame      frame@system        
+main                 : 3        2        2    frame      frame@main          
+rbs                  : 4        2        1    instance   namespace@rbs       
+mts                  : 5        2        1    instance   namespace@mts       
+m                    : 7        2        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -229,7 +229,7 @@ id=3, name=MODEL, lvl=3, ref=1/2, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   m : class=model     
+default_model        : 6        3        2    instance   model@m             
 ==========================================================================================================================
 
 Global frame tree:
@@ -248,21 +248,21 @@ Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 ?cst-init            : DEFAULT                      0    1    var        false : type=bool
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
-this                 : DEFAULT                      0    2    instance   m : class=model
+this                 : DEFAULT                      0    2    instance   model@m
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   mts : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   rbs : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

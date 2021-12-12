@@ -2540,7 +2540,7 @@ Model<p2d> frame:id=3, name=MODEL, lvl=3, ref=8/8, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        6    instance   p2d : class=model   
+default_model        : 6        3        6    instance   model@p2d           
 ==========================================================================================================================
 
 Node<E0004> frame:id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
@@ -2555,7 +2555,7 @@ Node<AC2> frame:id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subjec
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 106      7        6    instance   p2d : class=model   
+default_model        : 106      7        6    instance   model@p2d           
 ?t                   : 107      7        1    var        ta-zz : type=atom   
 ?model-state         : 108      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2580,7 +2580,7 @@ Node<AC6> frame:id=9, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subjec
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 117      9        6    instance   p2d : class=model   
+default_model        : 117      9        6    instance   model@p2d           
 ?t                   : 118      9        1    var        ta-zz : type=atom   
 ?model-state         : 119      9        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2589,7 +2589,7 @@ Node<AC7> frame:id=13, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subje
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 147      13       6    instance   p2d : class=model   
+default_model        : 147      13       6    instance   model@p2d           
 ?t                   : 148      13       1    var        ta-zz : type=atom   
 ?model-state         : 149      13       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2598,7 +2598,7 @@ Node<AC8> frame:id=14, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subje
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 177      14       6    instance   p2d : class=model   
+default_model        : 177      14       6    instance   model@p2d           
 ?t                   : 178      14       1    var        ta-zz : type=atom   
 ?model-state         : 179      14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2747,19 +2747,19 @@ id=2, name=main, lvl=2, ref=2/3, entry=14, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-root                 : 1        2        0    frame      root                
-system               : 2        2        0    frame      system              
-main                 : 3        2        2    frame      main                
-rbs                  : 4        2        1    instance   rbs : class=namespace
-mts                  : 5        2        1    instance   mts : class=namespace
-p2d                  : 7        2        6    instance   p2d : class=model   
+root                 : 1        2        0    frame      frame@root          
+system               : 2        2        0    frame      frame@system        
+main                 : 3        2        2    frame      frame@main          
+rbs                  : 4        2        1    instance   namespace@rbs       
+mts                  : 5        2        1    instance   namespace@mts       
+p2d                  : 7        2        6    instance   model@p2d           
 #ns_tag              : 8        2        1    var        nt: : type=string   
 #ns_domain           : 9        2        1    var        nd: : type=string   
-get-uri-name         : 10       2        1    func       (get-uri-name nil) : frame=main
-get-suffix           : 11       2        1    func       (get-suffix nil nil) : frame=main
-get-field-name       : 12       2        1    func       (get-field-name nil) : frame=main
+get-uri-name         : 10       2        1    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 11       2        1    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 12       2        1    func       (get-field-name nil) : frame=frame@main
 get-new-ns           : 13       2        1    macro      get-new-ns          
-get-version-number   : 14       2        1    func       (get-version-number nil) : frame=main
+get-version-number   : 14       2        1    func       (get-version-number nil) : frame=frame@main
 hasGroupChild        : 15       2        1    macro      hasGroupChild       
 ==========================================================================================================================
 
@@ -2768,7 +2768,7 @@ id=3, name=MODEL, lvl=3, ref=8/8, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        6    instance   p2d : class=model   
+default_model        : 6        3        6    instance   model@p2d           
 ==========================================================================================================================
 
 id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
@@ -2799,7 +2799,7 @@ id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 106      7        6    instance   p2d : class=model   
+default_model        : 106      7        6    instance   model@p2d           
 ?t                   : 107      7        1    var        ta-zz : type=atom   
 ?model-state         : 108      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2808,7 +2808,7 @@ id=9, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 117      9        6    instance   p2d : class=model   
+default_model        : 117      9        6    instance   model@p2d           
 ?t                   : 118      9        1    var        ta-zz : type=atom   
 ?model-state         : 119      9        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2817,7 +2817,7 @@ id=13, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 147      13       6    instance   p2d : class=model   
+default_model        : 147      13       6    instance   model@p2d           
 ?t                   : 148      13       1    var        ta-zz : type=atom   
 ?model-state         : 149      13       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2826,7 +2826,7 @@ id=14, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 177      14       6    instance   p2d : class=model   
+default_model        : 177      14       6    instance   model@p2d           
 ?t                   : 178      14       1    var        ta-zz : type=atom   
 ?model-state         : 179      14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2854,21 +2854,21 @@ Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 ?cst-init            : DEFAULT                      0    1    var        false : type=bool
 ?model-state         : DEFAULT                      0    5    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
-this                 : DEFAULT                      0    6    instance   p2d : class=model
+this                 : DEFAULT                      0    6    instance   model@p2d
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   mts : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   rbs : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

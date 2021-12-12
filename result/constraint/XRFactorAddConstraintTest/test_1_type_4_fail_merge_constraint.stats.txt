@@ -298,7 +298,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=2/4, entry=2, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        9    instance   m : class=model     
+default_model        : 6        3        9    instance   model@m             
 ?rv                  : 18       3        1    var        false : type=bool   
 ==========================================================================================================================
 
@@ -306,7 +306,7 @@ Node<CST01> frame:id=6, name=NF-CST01, lvl=4, ref=1/2, entry=5, pid=3(MODEL), su
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 39       6        9    instance   m : class=model     
+default_model        : 39       6        9    instance   model@m             
 ?node                : 40       6        1    var        name1 : type=string 
 ?index               : 41       6        1    var        2 : type=int        
 ?type1               : 42       6        1    var        int : type=atom     
@@ -407,12 +407,12 @@ id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-root                 : 1        2        0    frame      root                
-system               : 2        2        0    frame      system              
-main                 : 3        2        2    frame      main                
-rbs                  : 4        2        1    instance   rbs : class=namespace
-mts                  : 5        2        1    instance   mts : class=namespace
-m                    : 7        2        9    instance   m : class=model     
+root                 : 1        2        0    frame      frame@root          
+system               : 2        2        0    frame      frame@system        
+main                 : 3        2        2    frame      frame@main          
+rbs                  : 4        2        1    instance   namespace@rbs       
+mts                  : 5        2        1    instance   namespace@mts       
+m                    : 7        2        9    instance   model@m             
 ==========================================================================================================================
 
 
@@ -420,7 +420,7 @@ id=3, name=MODEL, lvl=3, ref=2/4, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        9    instance   m : class=model     
+default_model        : 6        3        9    instance   model@m             
 ?rv                  : 18       3        1    var        false : type=bool   
 ==========================================================================================================================
 
@@ -428,7 +428,7 @@ id=6, name=NF-CST01, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-CST01
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 39       6        9    instance   m : class=model     
+default_model        : 39       6        9    instance   model@m             
 ?node                : 40       6        1    var        name1 : type=string 
 ?index               : 41       6        1    var        2 : type=int        
 ?type1               : 42       6        1    var        int : type=atom     
@@ -454,21 +454,21 @@ $RG-names$           : PRIVATE Y                    1    1    var        '("$cst
 ?cst-init            : DEFAULT                      0    1    var        true : type=bool
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
-this                 : DEFAULT                      0    9    instance   m : class=model
+this                 : DEFAULT                      0    9    instance   model@m
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   mts : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   rbs : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

@@ -2566,7 +2566,7 @@ Model<p2d> frame:id=3, name=MODEL, lvl=3, ref=11/11, entry=1, pid=2(main), subje
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        9    instance   p2d : class=model   
+default_model        : 6        3        9    instance   model@p2d           
 ==========================================================================================================================
 
 Node<E0004> frame:id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
@@ -2581,7 +2581,7 @@ Node<C7> frame:id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 183      10       9    instance   p2d : class=model   
+default_model        : 183      10       9    instance   model@p2d           
 ?a                   : 184      10       1    var        nt:TES : type=atom  
 ?p                   : 185      10       1    var        nm:hasFieldTag : type=atom
 ?b                   : 186      10       1    var        nt:TES-Command : type=atom
@@ -2593,7 +2593,7 @@ Node<RR5> frame:id=15, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subje
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?0                   : 297      15       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 298      15       9    instance   p2d : class=model   
+default_model        : 298      15       9    instance   model@p2d           
 ?a                   : 299      15       1    var        nt:TES : type=atom  
 ?p                   : 300      15       1    var        nm:hasFieldTag : type=atom
 ?b                   : 301      15       1    var        nt:TES-Command : type=atom
@@ -2603,7 +2603,7 @@ Node<AC2> frame:id=11, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subje
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 188      11       9    instance   p2d : class=model   
+default_model        : 188      11       9    instance   model@p2d           
 ?t                   : 189      11       1    var        nt:$TGROUP : type=atom
 ?model-state         : 190      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2612,7 +2612,7 @@ Node<AC3> frame:id=7, name=NF-AC3, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subjec
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 205      7        9    instance   p2d : class=model   
+default_model        : 205      7        9    instance   model@p2d           
 ?a                   : 206      7        1    var        nt:AS400 : type=atom
 ?c                   : 207      7        1    var        nt:TES : type=atom  
 ?f                   : 208      7        1    var        nt:AS400-Command : type=atom
@@ -2639,7 +2639,7 @@ Node<AC6> frame:id=12, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subje
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 228      12       9    instance   p2d : class=model   
+default_model        : 228      12       9    instance   model@p2d           
 ?t                   : 229      12       1    var        nt:TES-Command : type=atom
 ?model-state         : 230      12       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2648,7 +2648,7 @@ Node<AC7> frame:id=14, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subje
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 251      14       9    instance   p2d : class=model   
+default_model        : 251      14       9    instance   model@p2d           
 ?t                   : 252      14       1    var        nt:TES-Command : type=atom
 ?model-state         : 253      14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2657,7 +2657,7 @@ Node<AC8> frame:id=13, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subje
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 274      13       9    instance   p2d : class=model   
+default_model        : 274      13       9    instance   model@p2d           
 ?t                   : 275      13       1    var        nt:TES-Command : type=atom
 ?model-state         : 276      13       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2840,19 +2840,19 @@ id=2, name=main, lvl=2, ref=2/3, entry=14, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-root                 : 1        2        0    frame      root                
-system               : 2        2        0    frame      system              
-main                 : 3        2        2    frame      main                
-rbs                  : 4        2        1    instance   rbs : class=namespace
-mts                  : 5        2        1    instance   mts : class=namespace
-p2d                  : 7        2        9    instance   p2d : class=model   
+root                 : 1        2        0    frame      frame@root          
+system               : 2        2        0    frame      frame@system        
+main                 : 3        2        2    frame      frame@main          
+rbs                  : 4        2        1    instance   namespace@rbs       
+mts                  : 5        2        1    instance   namespace@mts       
+p2d                  : 7        2        9    instance   model@p2d           
 #ns_tag              : 8        2        1    var        nt: : type=string   
 #ns_domain           : 9        2        1    var        nd: : type=string   
-get-uri-name         : 10       2        1    func       (get-uri-name nil) : frame=main
-get-suffix           : 11       2        1    func       (get-suffix nil nil) : frame=main
-get-field-name       : 12       2        1    func       (get-field-name nil) : frame=main
+get-uri-name         : 10       2        1    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 11       2        1    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 12       2        1    func       (get-field-name nil) : frame=frame@main
 get-new-ns           : 13       2        1    macro      get-new-ns          
-get-version-number   : 14       2        1    func       (get-version-number nil) : frame=main
+get-version-number   : 14       2        1    func       (get-version-number nil) : frame=frame@main
 hasGroupChild        : 15       2        1    macro      hasGroupChild       
 ==========================================================================================================================
 
@@ -2861,7 +2861,7 @@ id=3, name=MODEL, lvl=3, ref=11/11, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        9    instance   p2d : class=model   
+default_model        : 6        3        9    instance   model@p2d           
 ==========================================================================================================================
 
 id=4, name=NF-E0004, lvl=4, ref=1/2, entry=2, pid=3(MODEL), subject=NF-E0004
@@ -2892,7 +2892,7 @@ id=7, name=NF-AC3, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-AC3
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 205      7        9    instance   p2d : class=model   
+default_model        : 205      7        9    instance   model@p2d           
 ?a                   : 206      7        1    var        nt:AS400 : type=atom
 ?c                   : 207      7        1    var        nt:TES : type=atom  
 ?f                   : 208      7        1    var        nt:AS400-Command : type=atom
@@ -2903,7 +2903,7 @@ id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 183      10       9    instance   p2d : class=model   
+default_model        : 183      10       9    instance   model@p2d           
 ?a                   : 184      10       1    var        nt:TES : type=atom  
 ?p                   : 185      10       1    var        nm:hasFieldTag : type=atom
 ?b                   : 186      10       1    var        nt:TES-Command : type=atom
@@ -2914,7 +2914,7 @@ id=11, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 188      11       9    instance   p2d : class=model   
+default_model        : 188      11       9    instance   model@p2d           
 ?t                   : 189      11       1    var        nt:$TGROUP : type=atom
 ?model-state         : 190      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2923,7 +2923,7 @@ id=12, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 228      12       9    instance   p2d : class=model   
+default_model        : 228      12       9    instance   model@p2d           
 ?t                   : 229      12       1    var        nt:TES-Command : type=atom
 ?model-state         : 230      12       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2932,7 +2932,7 @@ id=13, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 274      13       9    instance   p2d : class=model   
+default_model        : 274      13       9    instance   model@p2d           
 ?t                   : 275      13       1    var        nt:TES-Command : type=atom
 ?model-state         : 276      13       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2941,7 +2941,7 @@ id=14, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(MODEL), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 251      14       9    instance   p2d : class=model   
+default_model        : 251      14       9    instance   model@p2d           
 ?t                   : 252      14       1    var        nt:TES-Command : type=atom
 ?model-state         : 253      14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
@@ -2951,7 +2951,7 @@ id=15, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RR5
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?0                   : 297      15       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 298      15       9    instance   p2d : class=model   
+default_model        : 298      15       9    instance   model@p2d           
 ?a                   : 299      15       1    var        nt:TES : type=atom  
 ?p                   : 300      15       1    var        nm:hasFieldTag : type=atom
 ?b                   : 301      15       1    var        nt:TES-Command : type=atom
@@ -2983,21 +2983,21 @@ Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 ?cst-init            : DEFAULT                      0    1    var        false : type=bool
 ?model-state         : DEFAULT                      0    7    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
-this                 : DEFAULT                      0    9    instance   p2d : class=model
+this                 : DEFAULT                      0    9    instance   model@p2d
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   mts : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   rbs : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

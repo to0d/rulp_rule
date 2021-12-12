@@ -336,7 +336,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/3, entry=2, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       3        19   instance   m : class=model     
+default_model        : 10       3        19   instance   model@m             
 ?rv                  : 49       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -447,16 +447,16 @@ Object create count:
 
 Global frame list: total=2
 
-id=2, name=main, lvl=2, ref=3/4, entry=7, pid=1(system), subject=main, search=[SF-rbs-0, main]
+id=2, name=main, lvl=2, ref=3/4, entry=7, pid=1(system), subject=main, search=[frame@SF-rbs-0, frame@main]
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-root                 : 1        2        0    frame      root                
-system               : 2        2        0    frame      system              
-main                 : 3        2        3    frame      main                
-rbs                  : 4        2        6    instance   rbs : class=namespace
-mts                  : 5        2        1    instance   mts : class=namespace
-m                    : 11       2        19   instance   m : class=model     
+root                 : 1        2        0    frame      frame@root          
+system               : 2        2        0    frame      frame@system        
+main                 : 3        2        3    frame      frame@main          
+rbs                  : 4        2        6    instance   namespace@rbs       
+mts                  : 5        2        1    instance   namespace@mts       
+m                    : 11       2        19   instance   model@m             
 ?rv                  : 151      2        1    var        0 : type=int        
 ==========================================================================================================================
 
@@ -465,7 +465,7 @@ id=3, name=MODEL, lvl=3, ref=1/3, entry=2, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 10       3        19   instance   m : class=model     
+default_model        : 10       3        19   instance   model@m             
 ?rv                  : 49       3        1    var        true : type=bool    
 ==========================================================================================================================
 
@@ -475,7 +475,7 @@ Global frame tree:
 
 ->FRAME(root): id=0, lvl=0, subject=root
     ->FRAME(system): id=1, lvl=1, subject=system
-        ->FRAME(main): id=2, lvl=2, subject=main, search=[SF-rbs-0, main]
+        ->FRAME(main): id=2, lvl=2, subject=main, search=[frame@SF-rbs-0, frame@main]
             ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
             ->FRAME(SF-rbs-0): id=4, lvl=3, subject=rbs
 
@@ -490,14 +490,14 @@ $RG-names$           : PRIVATE Y                    1    1    var        '("$cst
 ?cst-init            : DEFAULT                      0    1    var        true : type=bool
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        true : type=bool
-this                 : DEFAULT                      0    19   instance   m : class=model
+this                 : DEFAULT                      0    19   instance   model@m
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   mts : class=namespace
+this                 : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 name=rbs, string=namespace@rbs, lvl=1, ref=6/8, parent=namespace, final=false, mbrs=9, frame=4(SF-rbs-0)
@@ -505,14 +505,14 @@ name=rbs, string=namespace@rbs, lvl=1, ref=6/8, parent=namespace, final=false, m
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?current_schema      : DEFAULT                      0    1    var        model@m : type=instance
-create               : DEFAULT                      0    1    template   (create '('(table atom) '(? atom) '(? array))) : frame=SF-rbs-0
-has-sql-table-names  : DEFAULT                      0    1    func       (has-sql-table-names type#model string) : frame=SF-rbs-0
-init-sql-schema      : DEFAULT                      0    1    func       (init-sql-schema) : frame=SF-rbs-0
-insert               : DEFAULT                      0    1    template   (insert '('(into atom) '(? atom) '(values atom) '(? expr)) '('(into atom) '(? atom) '(? expr) '(values atom) '(? expr))) : frame=SF-rbs-0
+create               : DEFAULT                      0    1    template   (create '('(table atom) '(? atom) '(? array))) : frame=frame@SF-rbs-0
+has-sql-table-names  : DEFAULT                      0    1    func       (has-sql-table-names type#model string) : frame=frame@SF-rbs-0
+init-sql-schema      : DEFAULT                      0    1    func       (init-sql-schema) : frame=frame@SF-rbs-0
+insert               : DEFAULT                      0    1    template   (insert '('(into atom) '(? atom) '(values atom) '(? expr)) '('(into atom) '(? atom) '(? expr) '(values atom) '(? expr))) : frame=frame@SF-rbs-0
 parse-column-def-list : DEFAULT                      0    0    factor     parse-column-def-list
 parse-values-list    : DEFAULT                      0    0    factor     parse-values-list
-set                  : DEFAULT                      0    1    template   (set '('(schema atom) '(? type#model))) : frame=SF-rbs-0
-this                 : DEFAULT                      0    6    instance   rbs : class=namespace
+set                  : DEFAULT                      0    1    template   (set '('(schema atom) '(? type#model))) : frame=frame@SF-rbs-0
+this                 : DEFAULT                      0    6    instance   namespace@rbs
 ==========================================================================================================================
 
 
