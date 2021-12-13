@@ -2828,16 +2828,16 @@ Object create count:
         list:          747            4          743
         expr:         1325           68         1257
        array:            1            0            1
-         var:          206          164           42
+         var:          246          204           42
         func:          113            0          113
     template:            1            0            1
        macro:            5            0            5
     instance:            2            0            2
        class:            5            0            5
       member:          149            0          149
-       frame:          107           97           10
+       frame:          148          138           10
  interpreter:            1            0
-  frameEntry:          463            0
+  frameEntry:          505            0
       lambda:            0            0
 ==========================================================================================================================
 
