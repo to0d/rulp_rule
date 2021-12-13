@@ -13,7 +13,7 @@
 (add-constraint m v1:'(?...) (min 1  on ?2))
 ;=>true true true true true true true true true
 
-(add-constraint m v1:'(?x ?y ?z) (= (+ (^ ?x 2) (^ ?y 2)) (^ ?z 2)))
+(add-constraint m v1:'(?x ?y ?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)))
 ;=>true
 
 (defvar ?s (search m v2:'(?x ?y ?Z) from v1:'(?x ?y ?Z)))
