@@ -19,13 +19,12 @@ public enum RReteType {
 	BETA2(13), //
 	BETA3(14), //
 	RULE(15), //
-	WORK(16), //
-	DROP(17); //
+	WORK(16); //
 
 	public static final RReteType ALL_RETE_TYPE[] = { ROOT0, NAME0, VAR, CONST, ALPH0, ALPH1, EXPR0, EXPR1, EXPR2,
-			EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, RULE, WORK, DROP };
+			EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, RULE, WORK };
 
-	public static final int RETE_TYPE_NUM = 18;
+	public static final int RETE_TYPE_NUM = 17;
 
 	public static boolean isAlphaType(RReteType type) {
 

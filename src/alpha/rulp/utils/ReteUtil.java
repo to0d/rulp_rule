@@ -918,9 +918,6 @@ public class ReteUtil {
 		case CONST:
 			return String.format("C%04d", node.getNodeId());
 
-		case DROP:
-			return String.format("D1%03d", node.getNodeId());
-
 		default:
 			return String.format("X%04d", node.getNodeId());
 		}

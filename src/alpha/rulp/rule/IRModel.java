@@ -100,10 +100,10 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void setModelCachePath(String cachePath) throws RException;
 
+	public void setNodeContext(RNodeContext nodeContext);
+
 	public void setNodeLoader(IRReteNode node, IRStmtLoader loader) throws RException;
 
 	public void setNodeSaver(IRReteNode node, IRStmtSaver saver) throws RException;
-
-	public void setNodeContext(RNodeContext nodeContext);
 
 }

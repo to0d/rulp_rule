@@ -26,7 +26,6 @@ import static alpha.rulp.ximpl.node.RReteType.BETA1;
 import static alpha.rulp.ximpl.node.RReteType.BETA2;
 import static alpha.rulp.ximpl.node.RReteType.BETA3;
 import static alpha.rulp.ximpl.node.RReteType.CONST;
-import static alpha.rulp.ximpl.node.RReteType.DROP;
 import static alpha.rulp.ximpl.node.RReteType.EXPR0;
 import static alpha.rulp.ximpl.node.RReteType.EXPR1;
 import static alpha.rulp.ximpl.node.RReteType.EXPR2;
@@ -99,7 +98,7 @@ public class StatsUtil {
 			new OutputType(RReteType.RULE, RCountType.UpdateCount) };
 
 	static final RReteType DETAIL_RETE_TYPES[] = { ALPH0, ALPH1, BETA0, BETA1, BETA2, BETA3, EXPR0, EXPR1, EXPR2, EXPR3,
-			RULE, WORK, CONST, DROP };
+			RULE, WORK, CONST };
 
 	static final String SEP_LINE1 = "=========================================================================="
 			+ "==============================================================================\n";
@@ -425,9 +424,6 @@ public class StatsUtil {
 
 		case CONST:
 			return "c0";
-
-		case DROP:
-			return "d1";
 
 		default:
 			return "un";

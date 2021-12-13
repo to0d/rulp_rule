@@ -317,7 +317,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
-	protected void _addReteNode(AbsReteNode node) throws RException {
+	protected void _addNode(AbsReteNode node) throws RException {
 
 		RReteType reteType = node.getReteType();
 
@@ -343,11 +343,37 @@ public class XRNodeGraph implements IRNodeGraph {
 			node.setNamedName(node.getReteTree().getNamedName());
 		}
 
-		this.nodeListArray[reteType.getIndex()].nodes.add(node);
 		node.setGraphInfo(new XGraphInfo(node));
-		nodeUniqNameMap.put(node.getUniqName(), node);
+		this.nodeListArray[reteType.getIndex()].nodes.add(node);
+		this.nodeUniqNameMap.put(node.getUniqName(), node);
 
-		_setNodeArray(node);
+		int nodeId = node.getNodeId();
+		while (this.nodeInfoArray.size() <= nodeId) {
+			this.nodeInfoArray.add(null);
+		}
+		this.nodeInfoArray.set(nodeId, node);
+
+		_graphChanged();
+	}
+
+	protected void _removeNode(AbsReteNode node) throws RException {
+
+		RReteType reteType = node.getReteType();
+
+		switch (reteType) {
+
+		case RULE:
+			this.ruleNodeMap.remove(((XRNodeRule0) node).getRuleName());
+			break;
+
+		default:
+			break;
+		}
+
+		this.nodeListArray[reteType.getIndex()].nodes.remove(node);
+		this.nodeUniqNameMap.remove(node.getUniqName());
+		this.nodeInfoArray.set(node.getNodeId(), null);
+
 		_graphChanged();
 	}
 
@@ -1280,7 +1306,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		if (node == null) {
 			node = _buildReteNode(reteTree, tmpVarBuilder);
 			node.setReteTree(reteTree);
-			_addReteNode(node);
+			_addNode(node);
 		}
 
 		return node;
@@ -1487,16 +1513,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		return node;
 	}
 
-	protected void _setNodeArray(IRReteNode node) {
-
-		int nodeId = node.getNodeId();
-		while (nodeInfoArray.size() <= nodeId) {
-			nodeInfoArray.add(null);
-		}
-
-		nodeInfoArray.set(nodeId, node);
-	}
-
 	@Override
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
@@ -1596,7 +1612,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		});
 
 		ruleNode.addNode(ruleNode);
-		_addReteNode(ruleNode);
+		_addNode(ruleNode);
 
 		if (parentNode.getEntryQueue().size() > 0) {
 			model.addUpdateNode(ruleNode);
@@ -1625,7 +1641,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		AbsReteNode workNode = RNodeFactory.createWorkerNode(model, _getNextNodeId(), name, worker);
-		_addReteNode(workNode);
+		_addNode(workNode);
 
 		return workNode;
 	}
@@ -1810,7 +1826,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		AbsReteNode namedNode = namedNodeMap.get(name);
 		if (namedNode == null) {
 			namedNode = _buildNamedNode(name, stmtLen);
-			_addReteNode(namedNode);
+			_addNode(namedNode);
 			namedNode.setReteTree(_getUniqStmt(ReteUtil.getNamedUniqName(name, stmtLen)));
 
 		}
@@ -1889,7 +1905,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		AbsReteNode rootNode = rootNodeArray[stmtLen];
 		if (rootNode == null) {
 			rootNode = _buildRootNode(stmtLen);
-			_addReteNode(rootNode);
+			_addNode(rootNode);
 			rootNode.setReteTree(_getUniqStmt(ReteUtil.getRootUniqName(stmtLen)));
 		}
 
@@ -1937,6 +1953,69 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		return removedConstraint;
+	}
+
+	@Override
+	public boolean removeNode(IRReteNode node) throws RException {
+
+		/********************************************/
+		// Check node type
+		/********************************************/
+		switch (node.getReteType()) {
+		case ROOT0:
+			return false;
+		default:
+			break;
+		}
+
+		/********************************************/
+		// Check node children
+		/********************************************/
+		if (!node.getChildNodes().isEmpty()) {
+			return false;
+		}
+
+		/********************************************/
+		// Check node stage
+		/********************************************/
+		switch (node.getReteStage()) {
+		case Active:
+		case InQueue:
+			return false;
+
+		case Removed:
+			return true;
+
+		case InActive:
+		case OutQueue:
+		default:
+			break;
+		}
+
+		/********************************************/
+		// remove constraint for named node
+		/********************************************/
+
+		
+		/********************************************/
+		// remove node from graph
+		/********************************************/
+		_removeNode((AbsReteNode) node);
+
+		/********************************************/
+		// remove node from its parent
+		/********************************************/
+		if (node.getParentCount() > 0) {
+			for (IRReteNode parent : node.getParentNodes()) {
+
+			}
+		}
+
+		/********************************************/
+		// remove node from related node
+		/********************************************/
+
+		return false;
 	}
 
 	@Override

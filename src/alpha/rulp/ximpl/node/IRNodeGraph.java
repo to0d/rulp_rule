@@ -73,6 +73,8 @@ public interface IRNodeGraph {
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
+	public boolean removeNode(IRReteNode node) throws RException;
+
 	public void setNodePriority(IRReteNode node, int priority) throws RException;
 
 	public void setRulePriority(IRRule rule, int priority) throws RException;
