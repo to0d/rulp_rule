@@ -1,0 +1,14 @@
+(ls-print root)
+;=>
+
+(ls-print system)
+;=>
+
+(ls-print main)
+;=>
+
+(load "result/p2d.rulp")
+;=>
+
+(ls-print main)
+;=>

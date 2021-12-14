@@ -24,11 +24,7 @@ public class TestModel extends RuleTestBase {
 	public void test_0_p2d_ls() {
 
 		_setup();
-		_test_match("(ls-print root)", "nil", "result/rule/TestModel/p2d_ls_root.txt");
-		_test("(ls-print system)", "nil", _load("result/rule/TestModel/p2d_ls_system.txt") + "\n");
-		_test("(ls-print main)", "nil", _load("result/rule/TestModel/p2d_ls_main_1.txt") + "\n");
-		_test("(load \"result/p2d.rulp\")");
-		_test("(ls-print main)", "nil", _load("result/rule/TestModel/p2d_ls_main_2.txt") + "\n");
+		_run_script(); 
 	}
 
 	@Test
