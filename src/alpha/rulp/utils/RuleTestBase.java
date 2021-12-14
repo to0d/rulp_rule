@@ -17,6 +17,7 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.SystemUtil.OSType;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.search.IRASMachine;
@@ -491,7 +492,12 @@ public class RuleTestBase extends RulpTestBase {
 	}
 
 	protected void _save_model_cache(String modelName) {
+
 		String cachePath = getCachePath();
+		if (SystemUtil.getOSType() == OSType.Win) {
+			cachePath = StringUtil.addEscape(cachePath);
+		}
+
 		_test("(set-model-cache-path " + modelName + " \"" + cachePath + "\")");
 		_test("(save-model " + modelName + ")");
 	}

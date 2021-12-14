@@ -184,7 +184,7 @@
         '(?a ?p ?a)
         '(?p nm:propertyOf nm:nonSelfDefine)
     do
-        (print "a=" ?a ", p=" ?p "\n")
+        (println "a=" ?a ", p=" ?p)
         (error p2d-conflict ?0)
 )
 
