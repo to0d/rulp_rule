@@ -97,7 +97,7 @@ public class TestSearchMannerTree_StackOverFlow {
 	public static void main(String[] args) throws IOException {
 
 		TestSearchMannerTree_StackOverFlow.TRACE = false;
-		String path = "D:\\data\\rs\\benchmark\\ops5-benchmark-suite\\manners\\";
+		String path = "C:\\data\\rs\\benchmark\\ops5-benchmark-suite\\manners\\";
 
 		ArrayList<String> datPaths = new ArrayList<>();
 
