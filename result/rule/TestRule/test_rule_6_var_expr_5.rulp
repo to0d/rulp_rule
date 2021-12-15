@@ -1,0 +1,17 @@
+(new model m)
+;;;
+
+(defvar ?x 1)
+;;;
+
+(add-rule m if '(?a p ?b) (> ?b ?x) (< ?b 20) do (-> m '(?a p (+ 10 ?b))) )
+;;;
+
+(add-stmt m '(x p 2))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>

@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?a p ?b) (type int on ?b) do (-> n2:'(?b)))
+;=>RU000
+
+(add-stmt m '(x p 0))
+;=>true
+
+(add-stmt m '(x p a))
+;=>true
+
+(add-stmt m '(x p 1))
+;=>true
+
+(start m)
+;=>1
+
+(list-stmt m)
+;=>'('(x p 0) '(x p a) '(x p 1))
+

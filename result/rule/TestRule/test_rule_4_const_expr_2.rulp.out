@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 1) do (-> m '(?a p ?c)) )
+;=>RU000
+
+(add-stmt m '(x p y))
+;=>true
+
+(add-stmt m '(y p z))
+;=>true
+
+(start m)
+;=>5
+
+(list-stmt m)
+;=>'('(x p y) '(y p z))
+
+(add-stmt m '(p x y))
+;=>true
+
+(start m)
+;=>10
+
+(list-stmt m)
+;=>'('(x p y) '(y p z) '(p x y) '(x p z))
+

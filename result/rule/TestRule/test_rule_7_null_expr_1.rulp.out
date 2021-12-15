@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(defvar ?x 1)
+;=>&?x
+
+(add-rule m if '(?a p ?b) (= ?b nil) do (-> m '(?a p2)))
+;=>RU000
+
+(add-stmt m '(x p nil))
+;=>true
+
+(start m)
+;=>5
+
+(list-stmt m)
+;=>'('(x p nil) '(x p2))
+

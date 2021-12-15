@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?a) do (-> n2:'(?a (to-string $(value-of (to-nonamed-list ?0))))))
+;=>RU000
+
+(add-stmt m n1:'(a))
+;=>true
+
+(start m)
+;=>2
+
+(list-stmt m)
+;=>'(n1:'(a) n2:'(a "'(a)"))
+

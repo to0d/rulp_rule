@@ -1,0 +1,20 @@
+(new model m)
+;;;
+
+(defun fun1 () (return (> 3 2)))
+;;;
+
+(add-rule m if '(?a ?b ?c) (fun1) do (-> m '(?b ?c ?a)) )
+;;;
+
+(add-stmt m '(a b c))
+;;;
+
+(add-stmt m '(x y z))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>

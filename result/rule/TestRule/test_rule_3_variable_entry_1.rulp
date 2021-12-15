@@ -1,0 +1,14 @@
+(new model m)
+;;;
+
+(add-stmt m '(t1 t2 t3 t4))
+;;;
+
+(add-rule m if '(?a ?b ?c ?d) do (-> m '(?b ?c ?d ?a)) )
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>

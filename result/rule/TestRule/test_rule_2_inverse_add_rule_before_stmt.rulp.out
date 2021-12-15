@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?p propertyOf inverse) '(?a ?p ?b) do (-> m '(?b ?p ?a)) )
+;=>RU000
+
+(add-stmt m '(p1 propertyOf inverse))
+;=>true
+
+(add-stmt m '(a p1 b))
+;=>true
+
+(start m)
+;=>10
+
+(list-stmt m from '(?x p1 ?y))
+;=>'('(a p1 b) '(b p1 a))
+

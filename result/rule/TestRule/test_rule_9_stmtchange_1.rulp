@@ -1,0 +1,17 @@
+(new model m)
+;=>
+
+(add-stmt m '(a b c1))
+;=>
+
+(add-stmt m '(a b c2))
+;=>
+
+(add-rule m if (stmt-changed '(?x ?y ?z1) '(?x ?y ?z2)) do (-> name1:'(?z1 ?z2)))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>

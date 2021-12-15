@@ -1,0 +1,5 @@
+(new model m)
+;=>
+
+(add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c)))
+;err

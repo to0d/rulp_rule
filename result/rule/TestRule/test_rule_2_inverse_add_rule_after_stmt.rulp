@@ -1,0 +1,17 @@
+(new model m)
+;;;
+
+(add-stmt m '(p1 propertyOf inverse))
+;;;
+
+(add-stmt m '(a p1 b))
+;;;
+
+(add-rule m if '(?p propertyOf inverse) '(?a ?p ?b) do (-> m '(?b ?p ?a)) )
+;;;
+
+(start m)
+;;;
+
+(list-stmt m from '(?x p1 ?y))
+;=>

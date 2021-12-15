@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?p propertyOf fowardProperty) '(?a ?p ?b) '(?b ?p ?c) do (-> m '(?a ?p ?c)) )
+;=>RU000
+
+(add-stmt m '(p1 propertyOf fowardProperty))
+;=>true
+
+(add-stmt m '(x p1 y))
+;=>true
+
+(add-stmt m '(y p1 z))
+;=>true
+
+(start m)
+;=>12
+
+(list-stmt m from '(?x p1 ?y))
+;=>'('(x p1 y) '(y p1 z) '(x p1 z))
+

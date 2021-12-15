@@ -1,0 +1,14 @@
+(new model m)
+;;;
+
+(add-rule m if '(?a p ?b) (> ?b (- 10 5)) do (-> m '(?a p (- ?b 1))))
+;;;
+
+(add-stmt m '(x p 8))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>

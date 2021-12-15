@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a p ?b) '(?c p ?b) (not (equal ?a ?c)) do (-> m name1:'(?a ?c)))
+;=>RU000
+
+(add-stmt m '(x p nil))
+;=>true
+
+(add-stmt m '(y p nil))
+;=>true
+
+(start m)
+;=>5
+
+(list-stmt m)
+;=>'('(x p nil) '(y p nil) name1:'(x y) name1:'(y x))
+

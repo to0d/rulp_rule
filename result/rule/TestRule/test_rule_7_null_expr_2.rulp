@@ -1,0 +1,17 @@
+(new model m)
+;;;
+
+(add-rule m if '(?a p ?b) '(?c p ?b) (not (equal ?a ?c)) do (-> m name1:'(?a ?c)))
+;;;
+
+(add-stmt m '(x p nil))
+;;;
+
+(add-stmt m '(y p nil))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>

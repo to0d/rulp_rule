@@ -1,0 +1,17 @@
+(new model m)
+;;;
+
+(defvar ?x 1)
+;;;
+
+(add-rule m if '(?a p ?b) (= ?b nil) do (-> m '(?a p2)))
+;;;
+
+(add-stmt m '(x p nil))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>

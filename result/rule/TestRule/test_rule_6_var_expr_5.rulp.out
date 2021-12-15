@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(defvar ?x 1)
+;=>&?x
+
+(add-rule m if '(?a p ?b) (> ?b ?x) (< ?b 20) do (-> m '(?a p (+ 10 ?b))) )
+;=>RU000
+
+(add-stmt m '(x p 2))
+;=>true
+
+(start m)
+;=>13
+
+(list-stmt m)
+;=>'('(x p 2) '(x p 12) '(x p 22))
+

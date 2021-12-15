@@ -1,0 +1,20 @@
+(new model m)
+;;;
+
+(add-rule m if '(?a p1 ?a) do (-> '(?a p2 ?a)))
+;;;
+
+(add-rule m if '(?x p1 ?x) do (-> '(?x p3 ?x)))
+;;;
+
+(add-stmt m '(a p1 a))
+;;;
+
+(list-stmt m)
+;=>
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>

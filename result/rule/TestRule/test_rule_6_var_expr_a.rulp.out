@@ -1,0 +1,24 @@
+(new model m)
+;=>m
+
+(defvar ?x1 1)
+;=>&?x1
+
+(defvar ?x2 3)
+;=>&?x2
+
+(add-rule m if '(?a p ?b) (> ?b ?x1) do (-> m n1:'(?b)))
+;=>RU000
+
+(add-rule m if '(?a p ?b) (> ?b ?x2) do (-> m n2:'(?b)))
+;=>RU001
+
+(add-stmt m '(a p 2))
+;=>true
+
+(start m)
+;=>5
+
+(list-stmt m)
+;=>'('(a p 2) n1:'(2))
+

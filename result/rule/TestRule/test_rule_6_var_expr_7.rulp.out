@@ -1,0 +1,36 @@
+(new model m)
+;=>m
+
+(defvar ?x1 0)
+;=>&?x1
+
+(defvar ?x2 0)
+;=>&?x2
+
+(defun f1 (?x) (setq ?x1 ?x))
+;=>f1
+
+(defun f2 (?x) (setq ?x2 ?x))
+;=>f2
+
+(add-rule m if name1:'(?a ?b) do (?a ?b))
+;=>RU000
+
+(add-stmt m name1:'(f1 1))
+;=>true
+
+(add-stmt m name1:'(f2 9))
+;=>true
+
+(start m)
+;=>2
+
+(list-stmt m)
+;=>'(name1:'(f1 1) name1:'(f2 9))
+
+?x1
+;=>1
+
+?x2
+;=>9
+

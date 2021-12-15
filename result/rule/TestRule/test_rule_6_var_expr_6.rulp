@@ -1,0 +1,29 @@
+(new model m)
+;;;
+
+(defun f1 (?x) (return (> ?x 5)))
+;;;
+
+(defun f2 (?x) (return (< ?x 5)))
+;;;
+
+(add-rule m if name1:'(?a ?b) (?a ?b) do (-> name2:'(?a ?b)))
+;;;
+
+(add-stmt m name1:'(f1 1))
+;;;
+
+(add-stmt m name1:'(f1 9))
+;;;
+
+(add-stmt m name1:'(f2 1))
+;;;
+
+(add-stmt m name1:'(f2 9))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m from name2:'(?...))
+;=>

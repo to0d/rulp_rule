@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(defvar m::?xmode false)
+;=>&?xmode
+
+(add-rule m if (var-changed ?xmode true) name1:'(?a) do (-> name2:'(?a)))
+;=>RU000
+
+(add-stmt m name1:'(a))
+;=>true
+
+(query-stmt m ?x from name2:'(?x))
+;=>'()
+
+(setq m::?xmode true)
+;=>&?xmode
+
+(query-stmt m ?x from name2:'(?x))
+;=>'(a)
+

@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-stmt m '(t1 t2 t3 t4))
+;=>true
+
+(add-rule m if '(?a ?b ?c ?d) do (-> m '(?b ?c ?d ?a)) )
+;=>RU000
+
+(start m)
+;=>8
+
+(list-stmt m)
+;=>'('(t1 t2 t3 t4) '(t2 t3 t4 t1) '(t3 t4 t1 t2) '(t4 t1 t2 t3))
+

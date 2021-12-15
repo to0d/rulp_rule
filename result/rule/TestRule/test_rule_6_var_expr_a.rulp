@@ -1,0 +1,23 @@
+(new model m)
+;;;
+
+(defvar ?x1 1)
+;;;
+
+(defvar ?x2 3)
+;;;
+
+(add-rule m if '(?a p ?b) (> ?b ?x1) do (-> m n1:'(?b)))
+;;;
+
+(add-rule m if '(?a p ?b) (> ?b ?x2) do (-> m n2:'(?b)))
+;;;
+
+(add-stmt m '(a p 2))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
