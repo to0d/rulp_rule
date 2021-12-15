@@ -324,4 +324,11 @@ public class TestModel extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
+	
+	@Test
+	void test_model_6_err_duplicated_new_model() {
+
+		_setup();
+		_run_script();
+	}
 }

@@ -1,0 +1,5 @@
+(new model m)
+;=>
+
+(new model m)
+;err
