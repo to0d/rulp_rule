@@ -88,6 +88,7 @@ mbr=long, name=long, type=atom, property='(public)
 mbr=loop, name=loop, type=factor, property='(public)
 mbr=ls, name=ls, type=factor, property='(public)
 mbr=macro, name=macro, type=atom, property='(public)
+mbr=make-array, name=make-array, type=factor, property='(public)
 mbr=make-blob, name=make-blob, type=factor, property='(public)
 mbr=make-cps, name=make-cps, type=factor, property='(public)
 mbr=make-list, name=make-list, type=factor, property='(public)
@@ -177,6 +178,8 @@ mbr=~, name=~, type=factor, property='(public)
 (ls-print system)
 ;=>nil
 ;out:
+mbr=++, name=++, type=macro, property='(public)
+mbr=--, name=--, type=macro, property='(public)
 mbr=?load-paths, name=?load-paths, type=var, property='(public), value="'()"
 mbr=?model-trace, name=?model-trace, type=var, property='(public), value="false"
 mbr=add, name='((add array nil nil nil) (add array nil nil) (add array nil) (add list nil nil nil) (add list nil nil) (add list nil)), type=func, property='(public)
