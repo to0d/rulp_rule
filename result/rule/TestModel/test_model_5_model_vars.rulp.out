@@ -1,0 +1,24 @@
+(new model m)
+;=>m
+
+(value-of (value-of m::?model-state))
+;=>completed
+
+(value-of (value-of m::?rbs-init))
+;=>false
+
+(value-of (value-of m::?cst-init))
+;=>false
+
+(defvar ?m m)
+;=>&?m
+
+(value-of (value-of m::?model-state))
+;=>completed
+
+(value-of (value-of m::?rbs-init))
+;=>false
+
+(value-of (value-of m::?cst-init))
+;=>false
+

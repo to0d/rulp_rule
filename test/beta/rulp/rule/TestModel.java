@@ -21,14 +21,14 @@ import alpha.rulp.utils.RulpUtil;
 public class TestModel extends RuleTestBase {
 
 	@Test
-	public void test_0_p2d_ls() {
+	public void test_model_0_p2d_ls() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 	}
 
 	@Test
-	void test_1_add_factor_rule_1() {
+	void test_model_1_add_factor_rule_1() {
 
 		ArrayList<IRObject> objs = new ArrayList<>();
 
@@ -71,7 +71,7 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_add_factor_rule_2() {
+	void test_model_1_add_factor_rule_2() {
 
 		ArrayList<IRObject> objs = new ArrayList<>();
 
@@ -113,7 +113,7 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_2_list_stmt_1() {
+	void test_model_2_list_stmt_1() {
 
 		ArrayList<IRObject> objs = new ArrayList<>();
 
@@ -167,30 +167,17 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_3_remove_stmt_after_completed() {
+	void test_model_3_remove_stmt_after_completed() {
 
 		_setup();
-
-		// XRModel.TRACE_RETE = true;
-
-		_test("(new model m)");
-		_test("(add-rule m if (var-changed ?model-state running completed) '(?a hasChild ?b) '(?b hasChild ?c) '(?a hasChild ?c) (not-equal ?a ?b) (not-equal ?b ?c) (not-equal ?a ?c) do (remove-stmt '(?b hasChild ?c)))");
-
-		_test("(add-stmt m '(a hasChild b))");
-		_test("(add-stmt m '(b hasChild c))");
-		_test("(add-stmt m '(a hasChild c))");
-
-		_test("(start m)", "12");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a hasChild b) '(a hasChild c))");
-
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 
 	}
 
 	@Test
-	void test_4_stmt_listener_alpha_1() {
+	void test_model_4_stmt_listener_alpha_1() {
 
 		_setup();
 		_test("(new model m)");
@@ -223,7 +210,7 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_4_stmt_listener_alpha_2() {
+	void test_model_4_stmt_listener_alpha_2() {
 
 		_setup();
 		_test("(new model m)");
@@ -256,7 +243,7 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_4_stmt_listener_root_1() {
+	void test_model_4_stmt_listener_root_1() {
 
 		_setup();
 		_test("(new model m)");
@@ -289,7 +276,7 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_4_stmt_listener_rule_1() {
+	void test_model_4_stmt_listener_rule_1() {
 
 		_setup();
 		_test("(new model m)");
@@ -332,17 +319,9 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_5_model_vars() {
+	void test_model_5_model_vars() {
 
 		_setup();
-		_test("(new model m)");
-		_test("(value-of (value-of m::?model-state))", "completed");
-		_test("(value-of (value-of m::?rbs-init))", "false");
-		_test("(value-of (value-of m::?cst-init))", "false");
-
-		_test("(defvar ?m m)");
-		_test("(value-of (value-of m::?model-state))", "completed");
-		_test("(value-of (value-of m::?rbs-init))", "false");
-		_test("(value-of (value-of m::?cst-init))", "false");
+		_run_script();
 	}
 }

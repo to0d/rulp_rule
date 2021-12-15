@@ -1,0 +1,31 @@
+(new model m)
+;=>m
+
+(add-rule m if (var-changed ?model-state running completed) 
+              '(?a hasChild ?b) 
+              '(?b hasChild ?c) 
+              '(?a hasChild ?c) 
+              (not-equal ?a ?b) 
+              (not-equal ?b ?c) 
+              (not-equal ?a ?c) 
+      do (remove-stmt '(?b hasChild ?c)))
+;=>RU000
+
+(add-stmt m '(a hasChild b))
+;=>true
+
+(add-stmt m '(b hasChild c))
+;=>true
+
+(add-stmt m '(a hasChild c))
+;=>true
+
+(start m)
+;=>12
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a hasChild b) '(a hasChild c))
+
