@@ -73,7 +73,7 @@ public class ConstraintFactory {
 
 		case ATOM:
 
-			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry((IRAtom) obj, frame);
+			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry(frame, RulpUtil.asAtom(obj).getName());
 			if (varEntry == null) {
 				throw new RException("var not found: " + obj);
 			}
@@ -112,7 +112,7 @@ public class ConstraintFactory {
 
 		case ATOM:
 
-			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry((IRAtom) varObj, frame);
+			IRFrameEntry varEntry = RuntimeUtil.lookupFrameEntry(frame, RulpUtil.asAtom(varObj).getName());
 			if (varEntry == null) {
 				throw new RException("var not found: " + varObj);
 			}
@@ -395,8 +395,8 @@ public class ConstraintFactory {
 
 				// (op value ?x)
 				if (RulpUtil.isVarAtom(e2)) {
-					return ConstraintFactory
-							.cmpVarVal(RRelationalOperator.oppositeOf(op), expr.get(2), expr.get(1), frame);
+					return ConstraintFactory.cmpVarVal(RRelationalOperator.oppositeOf(op), expr.get(2), expr.get(1),
+							frame);
 				}
 			}
 		}

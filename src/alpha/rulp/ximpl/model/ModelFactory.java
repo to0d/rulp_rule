@@ -37,7 +37,7 @@ public class ModelFactory {
 		for (int i = 0; i < varEntry.length; ++i) {
 			IRObject obj = varEntry[i];
 			if (obj != null) {
-				vars[i] = queryFrame.addVar(RulpUtil.asAtom(obj).getName());
+				vars[i] = RulpUtil.addVar(queryFrame, RulpUtil.asAtom(obj).getName());
 			}
 		}
 

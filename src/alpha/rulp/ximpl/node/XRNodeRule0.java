@@ -165,7 +165,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 					throw new RException("Invalid index var found: " + indexVarName);
 				}
 
-				ruleFrame.addVar(indexVarName).setValue(matchStmtList.get(index));
+				RulpUtil.addVar(ruleFrame, indexVarName).setValue(matchStmtList.get(index));
 			}
 		}
 
@@ -379,7 +379,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 			for (int i = 0; i < varEntry.length; ++i) {
 				IRObject obj = varEntry[i];
 				if (obj != null) {
-					ruleVars[i] = getFrame().addVar(RulpUtil.asAtom(obj).getName());
+					ruleVars[i] = RulpUtil.addVar(getFrame(), RulpUtil.asAtom(obj).getName());
 				}
 			}
 		}

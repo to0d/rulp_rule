@@ -424,7 +424,7 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 		for (SEntry sentry : searchEntrys) {
 			for (SVar svar : sentry.searchVars) {
 				if (allResultVarNames.contains(svar.varName)) {
-					svar.resultVar = resultFrame.addVar(svar.varName);
+					svar.resultVar = RulpUtil.addVar(resultFrame, svar.varName);
 				}
 			}
 		}

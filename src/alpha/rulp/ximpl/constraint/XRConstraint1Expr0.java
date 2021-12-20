@@ -50,9 +50,10 @@ public class XRConstraint1Expr0 extends AbsRConstraint1Expr implements IRConstra
 			for (int i = 0; i < this.varEntry.length; ++i) {
 				IRObject obj = varEntry[i];
 				if (obj != null) {
-					_vars[i] = frame.addVar(RulpUtil.asAtom(obj).getName());
+					_vars[i] = RulpUtil.addVar(frame, RulpUtil.asAtom(obj).getName());
 				}
 			}
+
 		}
 
 		return _vars;

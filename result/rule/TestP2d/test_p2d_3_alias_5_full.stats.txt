@@ -2930,13 +2930,13 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3139            0         3139
+        atom:         3138            0         3138
          int:            1            0            1
       string:          159            0          159
         list:          927            9          918
         expr:         1406           92         1314
        array:            1            0            1
-         var:          321          287           34
+         var:          321          286           35
         func:          126            0          126
     template:            1            0            1
        macro:            7            0            7
@@ -2945,13 +2945,13 @@ Object create count:
       member:          149            0          149
        frame:          209          203            6
  interpreter:            1            0
-  frameEntry:          584            0
+  frameEntry:          589            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=6
 
-id=2, name=main, lvl=2, ref=2/3, entry=14, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=15, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2969,6 +2969,7 @@ get-field-name       : 12       2        1    func       (get-field-name nil) : 
 get-new-ns           : 13       2        1    macro      get-new-ns          
 get-version-number   : 14       2        1    func       (get-version-number nil) : frame=frame@main
 hasGroupChild        : 15       2        1    macro      hasGroupChild       
+?e                   : 193      2        1    var        AC8: AC8 : type=instance
 ==========================================================================================================================
 
 

@@ -15,15 +15,12 @@ mbr==, name==, type=factor, property='(public)
 mbr=>, name=>, type=factor, property='(public)
 mbr=>=, name=>=, type=factor, property='(public)
 mbr=?file.separator, name=?file.separator, type=var, property='(public), value="\"
-mbr=?op-cps, name=?op-cps, type=var, property='(public), value="false"
-mbr=?op-stable, name=?op-stable, type=var, property='(public), value="false"
 mbr=?os.name, name=?os.name, type=var, property='(public), value="Windows 10"
 mbr=?os.version, name=?os.version, type=var, property='(public), value="10.0"
 mbr=?path.separator, name=?path.separator, type=var, property='(public), value=";"
-mbr=?trace, name=?trace, type=var, property='(public), value="false"
 mbr=?user.dir, name=?user.dir, type=var, property='(public), value="C:\data\itool\irulp_rule"
-mbr=?user.home, name=?user.home, type=var, property='(public), value="C:\Users\to0d"
-mbr=?user.name, name=?user.name, type=var, property='(public), value="to0d"
+mbr=?user.home, name=?user.home, type=var, property='(public), value="C:\Users\YANLIU"
+mbr=?user.name, name=?user.name, type=var, property='(public), value="921511672"
 mbr=^, name=^, type=factor, property='(public)
 mbr=access, name=access, type=factor, property='(public)
 mbr=add-array-to-list, name=add-array-to-list, type=factor, property='(public)
@@ -32,6 +29,7 @@ mbr=add-list-to-list, name=add-list-to-list, type=factor, property='(public)
 mbr=add_search_frame, name=add_search_frame, type=factor, property='(public)
 mbr=alias, name=alias, type=factor, property='(public)
 mbr=and, name=and, type=factor, property='(public)
+mbr=annotation, name=annotation, type=atom, property='(public)
 mbr=array, name=array, type=atom, property='(public)
 mbr=atom, name=atom, type=atom, property='(public)
 mbr=blob, name=blob, type=atom, property='(public)
@@ -46,6 +44,8 @@ mbr=cmp_def, name=cmp_def, type=factor, property='(public)
 mbr=compute, name=compute, type=factor, property='(public)
 mbr=constant, name=constant, type=atom, property='(public)
 mbr=continue, name=continue, type=factor, property='(public)
+mbr=cps-callee, name=cps-callee, type=factor, property='(public)
+mbr=cps-count, name=cps-count, type=factor, property='(public)
 mbr=date, name=date, type=factor, property='(public)
 mbr=default, name=default, type=atom, property='(public)
 mbr=defclass, name=defclass, type=factor, property='(public)
@@ -80,6 +80,7 @@ mbr=if, name=if, type=factor, property='(public)
 mbr=instance, name=instance, type=atom, property='(public)
 mbr=int, name=int, type=atom, property='(public)
 mbr=is-const, name=is-const, type=factor, property='(public)
+mbr=is-stable, name=is-stable, type=factor, property='(public)
 mbr=join, name=join, type=factor, property='(public)
 mbr=lambda, name=lambda, type=factor, property='(public)
 mbr=let, name=let, type=factor, property='(public)
@@ -111,6 +112,7 @@ mbr=parent-of, name=parent-of, type=factor, property='(public)
 mbr=power, name=power, type=factor, property='(public)
 mbr=print, name=print, type=factor, property='(public)
 mbr=print-frame-tree, name=print-frame-tree, type=factor, property='(public)
+mbr=print-global-info, name=print-global-info, type=factor, property='(public)
 mbr=print-subject, name=print-subject, type=factor, property='(public)
 mbr=private, name=private, type=atom, property='(public)
 mbr=property-of, name=property-of, type=factor, property='(public)
@@ -185,6 +187,9 @@ mbr=++, name=++, type=macro, property='(public)
 mbr=--, name=--, type=macro, property='(public)
 mbr=?load-paths, name=?load-paths, type=var, property='(public), value="'()"
 mbr=?model-trace, name=?model-trace, type=var, property='(public), value="false"
+mbr=?op-cps, name=?op-cps, type=var, property='(public), value="false"
+mbr=?op-stable, name=?op-stable, type=var, property='(public), value="false"
+mbr=?trace, name=?trace, type=var, property='(public), value="false"
 mbr=add, name='((add array nil nil nil) (add array nil nil) (add array nil) (add list nil nil nil) (add list nil nil) (add list nil)), type=func, property='(public)
 mbr=add-all, name=(add-all list list), type=func, property='(public)
 mbr=add-constraint, name=add-constraint, type=factor, property='(public)
