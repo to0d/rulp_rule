@@ -21,36 +21,6 @@
             (continue)) 
         (return ?e)))
 
-
-(defclass scope () final
-    (defvar ?impl nil private)
-    
-    (defun init () 
-        (setq ?impl (scope::_scope_init this)))
-        
-    (defun init (?m) 
-        (setq ?impl (scope::_scope_init this)))
-    
-    (defun define (?var ?type ?from ?to)
-        (return (scope::_scope_define ?impl ?var ?type ?from ?to)))
-
-    (defun assert ((?expr expr))
-        (return (scope::_scope_assert ?impl ?expr)))
-    
-    (defun query ((?query-list list) (?query-modifier list))
-        (return (scope::_scope_query ?impl ?query-list ?query-modifier)))
-    
-    (defun query ((?query-list list))
-        (return (scope::_scope_query ?impl ?query-list '())))
-        
-    (defun get-model () 
-        (return ?impl::?default-scope-model))
-
-    (defun get-impl () 
-        (return ?impl))
-
-)
-
 (defun init_cst_rule ((?m model))
 
     (if (equal ?m::?cst-init true)

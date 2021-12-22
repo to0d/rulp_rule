@@ -94,7 +94,7 @@ Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=M
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   model@m             
+default_model        : 7        3        2    instance   model@m             
 ==========================================================================================================================
 
 node update info: model-exec-count=2, row=1, column=3(1), value-max=1, value-unit=1^x
@@ -111,8 +111,8 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-     Interpreter call id/level:       92        0
-             CPS support/count:    false        0
+     Interpreter call id/level:       97        0
+                     CPS count:        0
                Frame max level:        2
                   Frame max id:        4
            Frame free id count:        0
@@ -122,50 +122,50 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:       90
+    factor:       95
 ==========================================================================================================================
 
-Callable stats info: callId=92, row=10, column=47(2), value-max=2, value-unit=2^x
+Callable stats info: callId=97, row=10, column=49(2), value-max=2, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         12222222222222222222222222222222222222222211221 max=2, unit=2^x
+   Frame    RType  Count  Ref Object                         122222222222222222222222222222222222222222222.222 max=2, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor     63    0 defun                              2222222111 2222222222 22121221211 22221    
-    root   factor      7    0 alias                          1221                               1           
-    root   factor      5    0 defmacro                                  11            1          11         
-    root   factor      5    0 defclass                                                1  1 1  1   1         
-    root   factor      3    0 deftemplate                                 12                                
-  system   factor      2    0 list-stmt                                                                   11
-  system   factor      2    0 assume-stmt                                                                11 
-  system   factor      1    0 remove-stmt                                                                1  
-    root   factor      1    0 new                                                                       1   
-    root   factor      1    0 defvar                            1                                           
+    root   factor     67    0 defun                              22222221121 2222222222 221212212111112222    
+    root   factor      7    0 alias                          1221                                  1          
+    root   factor      6    0 defmacro                                  11             1          1 11        
+    root   factor      4    0 defclass                                                 1  1 1  1              
+    root   factor      3    0 deftemplate                                  12                                 
+  system   factor      2    0 list-stmt                                                                     11
+    root   factor      2    0 defvar                            1                                1            
+  system   factor      2    0 assume-stmt                                                                  1 1
+  system   factor      1    0 remove-stmt                                                                   1 
+    root   factor      1    0 new                                                                          1  
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1403            0         1403
-      string:           62            0           62
+        atom:         1421            0         1421
+      string:           69            0           69
         list:           55            2           53
-        expr:          689            0          689
+        expr:          707            0          707
        array:            1            0            1
          var:           20            0           20
-        func:          122            0          122
+        func:          117            0          117
     template:            1            0            1
-       macro:            5            0            5
+       macro:            6            0            6
     instance:            2            0            2
-       class:            5            0            5
-      member:          149            0          149
+       class:            4            0            4
+      member:          133            0          133
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          280            0
+  frameEntry:          283            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=7, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -174,7 +174,8 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        2    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-m                    : 7        2        2    instance   model@m             
+?script-path         : 6        2        1    var        result\factor\XRFactorAssumeStmtTest\test_assume_3_delete_1.rulp : type=string
+m                    : 8        2        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -182,7 +183,7 @@ id=3, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=MODEL
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   model@m             
+default_model        : 7        3        2    instance   model@m             
 ==========================================================================================================================
 
 Global frame tree:

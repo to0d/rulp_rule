@@ -7,7 +7,7 @@
 ;=>
 
 (add-rule m if n1:'(?x1 ?y)[k] n1:'(?x2 ?y)[k+1] do (-> n2:'(?x1 ?x2)))
-;=>
+;err
 
 (start m)
 ;=>

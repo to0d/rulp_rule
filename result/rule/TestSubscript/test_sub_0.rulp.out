@@ -7,9 +7,5 @@
 ;=>true true true
 
 (add-rule m if n1:'(?x1 ?y)[k] n1:'(?x2 ?y)[k+1] do (-> n2:'(?x1 ?x2)))
-;err:
-Invalid CondList: (n1:'(?x1 ?y) [k] n1:'(?x2 ?y) [k+1])
-fail to add rule<(add-rule m if n1:'(?x1 ?y) [k] n1:'(?x2 ?y) [k+1] do (-> n2:'(?x1 ?x2)))>
-at main: (add-rule m if n1:'(?x1 ?y) [k] n1:'(?x2 ?y) [k+1] do (-> n2:'(?x1 ?x2)))
-;eof
+;=>RU000
 

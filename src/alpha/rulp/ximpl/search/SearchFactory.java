@@ -15,16 +15,6 @@ import alpha.rulp.utils.RulpUtil;
 
 public class SearchFactory {
 
-	static final String F_MBR_SCOPE_ASSERT = "_scope_assert";
-
-	static final String F_MBR_SCOPE_DEFINE = "_scope_define";
-
-	static final String F_MBR_SCOPE_INIT = "_scope_init";
-
-	static final String F_MBR_SCOPE_MODEL = "?default-scope-model";
-
-	static final String F_MBR_SCOPE_QUERY = "_scope_query";
-
 	public static IRASMachine createASM(IRModel model, IRList rstList, IRList searchNodes) throws RException {
 
 		XRASMachine asm = new XRASMachine(model);
