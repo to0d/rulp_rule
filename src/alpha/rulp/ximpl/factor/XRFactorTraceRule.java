@@ -14,7 +14,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.RReteType;
 
-public class XRFactorTraceRule extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorTraceRule extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorTraceRule(String factorName) {
 		super(factorName);

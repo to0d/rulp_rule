@@ -20,7 +20,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
 
-public class XRFactorStart extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorStart extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorStart(String factorName) {
 		super(factorName);

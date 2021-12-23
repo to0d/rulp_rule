@@ -14,10 +14,10 @@
 //import alpha.rulp.utils.RuleUtil;
 //import alpha.rulp.utils.RulpFactory;
 //import alpha.rulp.utils.RulpUtil;
-//import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
+//import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 //import alpha.rulp.ximpl.model.IRuleFactor;
 //
-//public class XRFactorScopeQuery extends AbsRFactorAdapter implements IRuleFactor {
+//public class XRFactorScopeQuery extends AbsAtomFactorAdapter implements IRuleFactor {
 //
 //	public XRFactorScopeQuery(String factorName) {
 //		super(factorName);

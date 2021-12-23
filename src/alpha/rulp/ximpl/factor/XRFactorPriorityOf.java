@@ -9,7 +9,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorPriorityOf extends AbsRFactorAdapter implements IRuleFactor {
+public class XRFactorPriorityOf extends AbsAtomFactorAdapter implements IRuleFactor {
 
 	public XRFactorPriorityOf(String factorName) {
 		super(factorName);

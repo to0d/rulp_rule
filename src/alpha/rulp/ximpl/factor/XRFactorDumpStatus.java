@@ -18,7 +18,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StatsUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorDumpStatus extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorDumpStatus extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorDumpStatus(String factorName) {
 		super(factorName);

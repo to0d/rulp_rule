@@ -13,7 +13,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorRemoveStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorRemoveStmt(String factorName) {
 		super(factorName);

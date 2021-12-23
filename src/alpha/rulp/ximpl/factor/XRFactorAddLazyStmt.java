@@ -12,7 +12,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorAddLazyStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorAddLazyStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorAddLazyStmt(String factorName) {
 		super(factorName);

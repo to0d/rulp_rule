@@ -16,7 +16,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorAddNode extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorAddNode extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorAddNode(String factorName) {
 		super(factorName);

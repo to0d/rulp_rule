@@ -14,7 +14,7 @@ import alpha.rulp.utils.StatsUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 
-public class XRFactorPrintModelStatus extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorPrintModelStatus extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorPrintModelStatus(String factorName) {
 		super(factorName);

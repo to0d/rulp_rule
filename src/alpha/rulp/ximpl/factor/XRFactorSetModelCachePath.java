@@ -13,7 +13,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorSetModelCachePath extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorSetModelCachePath extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorSetModelCachePath(String factorName) {
 		super(factorName);

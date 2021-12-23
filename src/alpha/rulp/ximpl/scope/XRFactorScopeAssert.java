@@ -9,10 +9,10 @@
 //import alpha.rulp.runtime.IRInterpreter;
 //import alpha.rulp.utils.RuleUtil;
 //import alpha.rulp.utils.RulpUtil;
-//import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
+//import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 //import alpha.rulp.ximpl.model.IRuleFactor;
 //
-//public class XRFactorScopeAssert extends AbsRFactorAdapter implements IRuleFactor {
+//public class XRFactorScopeAssert extends AbsAtomFactorAdapter implements IRuleFactor {
 //
 //	public XRFactorScopeAssert(String factorName) {
 //		super(factorName);

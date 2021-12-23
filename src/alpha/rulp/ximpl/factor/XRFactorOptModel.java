@@ -11,7 +11,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorOptModel extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorOptModel extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorOptModel(String factorName) {
 		super(factorName);

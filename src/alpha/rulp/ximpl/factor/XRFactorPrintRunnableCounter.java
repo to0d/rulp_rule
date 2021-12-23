@@ -14,7 +14,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.StatsUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorPrintRunnableCounter extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorPrintRunnableCounter extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorPrintRunnableCounter(String factorName) {
 		super(factorName);

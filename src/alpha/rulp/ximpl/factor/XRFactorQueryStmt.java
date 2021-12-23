@@ -29,7 +29,7 @@ import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
 
-public class XRFactorQueryStmt extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorQueryStmt(String factorName) {
 		super(factorName);

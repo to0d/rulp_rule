@@ -16,10 +16,10 @@ import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
+import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorSearch extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorSearch extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorSearch(String factorName) {
 		super(factorName);

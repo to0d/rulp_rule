@@ -35,7 +35,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener3;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.ximpl.error.RIException;
-import alpha.rulp.ximpl.factor.AbsRFactorAdapter;
+import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
@@ -99,7 +99,7 @@ public class RuleUtil {
 
 	}
 
-	static class RuleActionFactor extends AbsRFactorAdapter {
+	static class RuleActionFactor extends AbsAtomFactorAdapter {
 
 		private IRListener3<IRList, IRRule, IRFrame> actioner;
 

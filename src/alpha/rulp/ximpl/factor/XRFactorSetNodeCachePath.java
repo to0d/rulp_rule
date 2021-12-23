@@ -16,7 +16,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorSetNodeCachePath extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorSetNodeCachePath extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorSetNodeCachePath(String factorName) {
 		super(factorName);

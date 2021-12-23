@@ -12,7 +12,7 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorStateOf extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorStateOf extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorStateOf(String factorName) {
 		super(factorName);

@@ -11,7 +11,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorFixStmt extends AbsRFactorAdapter implements IRuleFactor {
+public class XRFactorFixStmt extends AbsAtomFactorAdapter implements IRuleFactor {
 
 	public XRFactorFixStmt(String factorName) {
 		super(factorName);

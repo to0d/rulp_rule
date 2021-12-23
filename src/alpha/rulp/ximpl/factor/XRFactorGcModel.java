@@ -10,7 +10,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorGcModel extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorGcModel extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorGcModel(String factorName) {
 		super(factorName);

@@ -14,9 +14,9 @@ package alpha.rulp.ximpl.factor;
 //import alpha.rulp.utility.RulpFactory;
 //import alpha.rulp.utils.*;
 //import alpha.rulp.ximpl.rule.IRuleFactor;
-//import alpha.rulp.ximpl.runtime.factor.AbsRFactorAdapter;
+//import alpha.rulp.ximpl.runtime.factor.AbsAtomFactorAdapter;
 //
-//public class XRFactorDefQueryCounter extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+//public class XRFactorDefQueryCounter extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 //
 //	public XRFactorDefQueryCounter(String factorName) {
 //		super(factorName);

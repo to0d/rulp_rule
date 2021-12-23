@@ -106,7 +106,7 @@ public class SearchFactory {
 //		/********************************************************/
 //		// init factor
 //		/********************************************************/
-//		RulpUtil.setMember(scopeClass, F_MBR_SCOPE_INIT, new AbsRFactorAdapter(F_MBR_SCOPE_INIT) {
+//		RulpUtil.setMember(scopeClass, F_MBR_SCOPE_INIT, new AbsAtomFactorAdapter(F_MBR_SCOPE_INIT) {
 //
 //			@Override
 //			public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {

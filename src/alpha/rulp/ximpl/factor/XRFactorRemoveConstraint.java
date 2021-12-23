@@ -23,7 +23,7 @@ import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorRemoveConstraint extends AbsRFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorRemoveConstraint extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	public XRFactorRemoveConstraint(String factorName) {
 		super(factorName);

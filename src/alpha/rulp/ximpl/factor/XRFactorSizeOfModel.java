@@ -9,7 +9,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 
-public class XRFactorSizeOfModel extends AbsRFactorAdapter implements IRFactor {
+public class XRFactorSizeOfModel extends AbsAtomFactorAdapter implements IRFactor {
 
 	public XRFactorSizeOfModel(String factorName) {
 		super(factorName);
