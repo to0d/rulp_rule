@@ -1,5 +1,7 @@
 package beta.rulp.leetcode;
 
+import static org.junit.Assert.fail;
+
 import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
@@ -14,6 +16,9 @@ public class LT0062 extends RuleTestBase {
 
 		_setup();
 		_run_script();
+
+		fail("how to prove: f(m, n) = f(n, m)");
+
 	}
 
 }
