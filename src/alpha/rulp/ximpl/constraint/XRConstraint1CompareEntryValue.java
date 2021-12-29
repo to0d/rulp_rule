@@ -6,7 +6,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.MathUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1CompareEntryValue extends AbsRConstraint1Index1 implements IRConstraint1 {
@@ -25,7 +25,7 @@ public class XRConstraint1CompareEntryValue extends AbsRConstraint1Index1 implem
 
 	@Override
 	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
-		return RulpUtil.computeRelationalExpression(op, entry.get(index), obj);
+		return MathUtil.computeRelationalExpression(op, entry.get(index), obj);
 	}
 
 	@Override

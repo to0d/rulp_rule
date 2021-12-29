@@ -6,7 +6,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.MathUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstraint1OneValue {
@@ -22,7 +22,7 @@ public class XRConstraint1Max extends AbsRConstraint1Index1 implements IRConstra
 
 	@Override
 	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
-		return RulpUtil.computeRelationalExpression(RRelationalOperator.LE, entry.get(index), maxValue);
+		return MathUtil.computeRelationalExpression(RRelationalOperator.LE, entry.get(index), maxValue);
 	}
 
 	@Override
