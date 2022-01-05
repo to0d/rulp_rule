@@ -1,3 +1,6 @@
+(load tool)
+;=>
+
 (ls-print root)
 ;=>
 
