@@ -267,7 +267,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      229
+           Interpreter call id:      250
     Interpreter call level/max:        0        3
                Frame max level:        5
                   Frame max id:        6
@@ -287,38 +287,38 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      233
+    factor:      254
 ==========================================================================================================================
 
-Callable stats info: callId=229, row=15, column=58(4), value-max=4, value-unit=2^x
+Callable stats info: callId=250, row=15, column=63(4), value-max=5, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333333343342 max=6, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333333333333343343 max=6, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    152    0 add-attribute                   133333333333333333333333333333333333333                  
-    root   factor     49    0 defun                                                                  3333 3333223332   
-    root   factor      7    0 alias                          33                                               1        
-    root   factor      6    0 defmacro                                                                  11    12   1   
-    root   factor      3    0 deftemplate                                                                3             
-  system   factor      3    0 add-stmt                                                                              21 
-  system   factor      2    0 remove-stmt                                                                            2 
-  system   factor      2    0 list-stmt                                                                              11
-    root   factor      2    0 defvar                                                                1             1    
-  system   factor      2    0 add-rule                                                                              2  
-  system   factor      1    0 state-of                                                                               1 
-  system   factor      1    0 start                                                                                  1 
-    root   factor      1    0 new                                                                                  1   
-    root   factor      1    0 load                                                                                1    
-  system   factor      1    0 gc-model                                                                                1
+    root   factor    173    0 add-attribute                   13333333333333333333333333333333333333333333                  
+    root   factor     49    0 defun                                                                       3333 3333313342   
+    root   factor      7    0 alias                          33                                                     1       
+    root   factor      6    0 defmacro                                                                        2    12   1   
+    root   factor      3    0 deftemplate                                                                     21            
+  system   factor      3    0 add-stmt                                                                                   12 
+  system   factor      2    0 remove-stmt                                                                                 2 
+  system   factor      2    0 list-stmt                                                                                   11
+    root   factor      2    0 defvar                                                                      1             1   
+  system   factor      2    0 add-rule                                                                                   2  
+  system   factor      1    0 state-of                                                                                     1
+  system   factor      1    0 start                                                                                       1 
+    root   factor      1    0 new                                                                                        1  
+    root   factor      1    0 load                                                                                     1    
+  system   factor      1    0 gc-model                                                                                     1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1483            0         1483
+        atom:         1567            0         1567
       string:           58            0           58
         list:           75            2           73
-        expr:          611            0          611
+        expr:          632            0          632
        array:            1            0            1
          var:           18            0           18
         func:           62            0           62
