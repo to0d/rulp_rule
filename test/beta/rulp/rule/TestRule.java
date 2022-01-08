@@ -36,7 +36,7 @@ public class TestRule extends RuleTestBase {
 		// XRModel.TRACE_RETE = true;
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (error err-r1 '(?a ?b) )) (-> '(?b p1 ?a)))");
+		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1 '(?a ?b) )) (-> '(?b p1 ?a)))");
 		_test("(add-stmt m '(a p1 b))");
 		_test("(add-stmt m '(a p1 a))");
 		_test("(add-stmt m '(b p1 b))");
@@ -72,7 +72,7 @@ public class TestRule extends RuleTestBase {
 		// XRModel.TRACE_RETE = true;
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (error err-r1 '(?a ?b))) (-> '(?b p1 ?a)))");
+		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1 '(?a ?b))) (-> '(?b p1 ?a)))");
 		_test("(add-stmt m '(a p1 a))");
 		_test("(add-stmt m '(a p1 b))");
 		_test("(list-stmt m)", "'('(a p1 a) '(a p1 b))");

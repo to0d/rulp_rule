@@ -17,7 +17,7 @@
     
     (rbs::init-sql-schema)
     (if (has-sql-table-names ?current_schema ?table_name_str) 
-        (error duplicated-table (strcat "Can't create table: " ?table_name_str)))
+        (throw duplicated-table (strcat "Can't create table: " ?table_name_str)))
          
     (add-node (to-named-list ?table_name '(?column_count)))
     (add-stmt _RBS_TABLE:'(?table_name_str ?column_count))
@@ -49,7 +49,7 @@
     
     (rbs::init-sql-schema)
     (if (not (has-sql-table-names ?current_schema ?table_name_str))
-        (error no-table (strcat "no table found: " ?table_name_str)))
+        (throw no-table (strcat "no table found: " ?table_name_str)))
     
     (add-stmt (to-named-list ?table_name_str ?column_values_list))
     (return 0)
@@ -68,11 +68,11 @@
     (defvar ?column_values_list)
     
     (if (!= (size-of ?column_values_input_list) ?input_count) 
-        (error fail-insert (strcat "not-match-column-count: columns=" ?column-list ", values=" ?value-list)))
+        (throw fail-insert (strcat "not-match-column-count: columns=" ?column-list ", values=" ?value-list)))
     
     (rbs::init-sql-schema)
     (if (not (has-sql-table-names ?current_schema ?table_name_str))
-        (error no-table (strcat "no table found: " ?table_name_str)))
+        (throw no-table (strcat "no table found: " ?table_name_str)))
 
     ;;(loop for ?column_index from 0 to (- ?input_count 1) do
     ;;    (defvar ?row_def (list-stmt from _RBS_COLUMN:'(?table_name_str ?x ?column_index ?y)))
@@ -88,7 +88,7 @@
     (use namespace rbs)   
 
     (if (equal ?current_schema nil) 
-        (error no-schema "no schema specified"))
+        (throw no-schema "no schema specified"))
     
     (if (equal ?current_schema::?rbs-init true) 
         (return)) 

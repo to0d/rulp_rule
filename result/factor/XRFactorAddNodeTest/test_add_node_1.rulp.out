@@ -10,13 +10,13 @@
 (add-node m n1:'(?x ?y))
 ;err:
 unmatch entry length: expect=2, actual=3
-at main: (add-node m n1:'(?x ?y))
+at (add-node m n1:'(?x ?y)) ; main-2
 ;eof
 
 (add-node m '(?x ?y))
 ;err:
 Invalid named filter: '(?x ?y)
-at main: (add-node m '(?x ?y))
+at (add-node m '(?x ?y)) ; main-2
 ;eof
 
 (add-node m n2:'(? ? ?))

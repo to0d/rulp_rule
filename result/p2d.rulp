@@ -185,7 +185,7 @@
         '(?p nm:propertyOf nm:nonSelfDefine)
     do
         (println "a=" ?a ", p=" ?p)
-        (error p2d-conflict ?0)
+        (throw p2d-conflict ?0)
 )
 
 (add-rule "C3" p2d
@@ -203,7 +203,7 @@
         '(?p nm:propertyOf nm:singlePropery)
         (not (equal ?b ?c))
     do
-        (error p2d-conflict '(?0 ?1))
+        (throw p2d-conflict '(?0 ?1))
 )
 
 (add-rule "C5" p2d
@@ -231,7 +231,7 @@
     do
         (if 
             (has-stmt p2d '(?b ?p ?a))
-            (error '("Circle found" '(?a ?p ?b) '(?b ?p ?a)))
+            (throw '("Circle found" '(?a ?p ?b) '(?b ?p ?a)))
         )
 )
 
@@ -252,7 +252,7 @@
         '(?a nm:beAliasTo ?b)
         '(?b nm:beAliasTo ?c)
     do
-        (error p2d-conflict '("Can't alias to alias tag" ?0 1))
+        (throw p2d-conflict '("Can't alias to alias tag" ?0 1))
 )
 (add-rule "T2" p2d
     if

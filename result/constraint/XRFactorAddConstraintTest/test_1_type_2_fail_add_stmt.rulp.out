@@ -16,7 +16,7 @@
 (add-stmt m name1:'(x y bad))
 ;err:
 Unable to add entry<name1:'(x y bad)> due to constraint<(type int on ?2)>
-at main: (add-stmt m name1:'(x y bad))
+at (add-stmt m name1:'(x y bad)) ; main-2
 ;eof
 
 (list-stmt m from name1:'(?...))

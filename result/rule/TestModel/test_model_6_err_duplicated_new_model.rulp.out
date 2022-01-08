@@ -4,6 +4,6 @@
 (new model m)
 ;err:
 duplicate object<m> found: model@m
-at main: (new model m)
+at (new model m) ; main-2
 ;eof
 

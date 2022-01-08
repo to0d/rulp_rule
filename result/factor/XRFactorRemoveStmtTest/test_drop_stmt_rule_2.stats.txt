@@ -229,14 +229,14 @@ Child Count:
   total:       2       1
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 13       3        3    instance   model@m             
 ==========================================================================================================================
 
-Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
+Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -267,7 +267,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      250
+           Interpreter call id:      254
     Interpreter call level/max:        0        3
                Frame max level:        5
                   Frame max id:        6
@@ -287,38 +287,38 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      254
+    factor:      258
 ==========================================================================================================================
 
-Callable stats info: callId=250, row=15, column=63(4), value-max=5, value-unit=2^x
+Callable stats info: callId=254, row=15, column=64(4), value-max=5, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333333333333343343 max=6, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333333333333343343 max=6, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    173    0 add-attribute                   13333333333333333333333333333333333333333333                  
-    root   factor     49    0 defun                                                                       3333 3333313342   
-    root   factor      7    0 alias                          33                                                     1       
-    root   factor      6    0 defmacro                                                                        2    12   1   
-    root   factor      3    0 deftemplate                                                                     21            
-  system   factor      3    0 add-stmt                                                                                   12 
-  system   factor      2    0 remove-stmt                                                                                 2 
-  system   factor      2    0 list-stmt                                                                                   11
-    root   factor      2    0 defvar                                                                      1             1   
-  system   factor      2    0 add-rule                                                                                   2  
-  system   factor      1    0 state-of                                                                                     1
-  system   factor      1    0 start                                                                                       1 
-    root   factor      1    0 new                                                                                        1  
-    root   factor      1    0 load                                                                                     1    
-  system   factor      1    0 gc-model                                                                                     1
+    root   factor    177    0 add-attribute                   133333333333333333333333333333333333333333333                  
+    root   factor     49    0 defun                                                                        3333 3333313342   
+    root   factor      7    0 alias                          33                                                      1       
+    root   factor      6    0 defmacro                                                                         2    12   1   
+    root   factor      3    0 deftemplate                                                                      21            
+  system   factor      3    0 add-stmt                                                                                    12 
+  system   factor      2    0 remove-stmt                                                                                  2 
+  system   factor      2    0 list-stmt                                                                                    11
+    root   factor      2    0 defvar                                                                       1             1   
+  system   factor      2    0 add-rule                                                                                    2  
+  system   factor      1    0 state-of                                                                                      1
+  system   factor      1    0 start                                                                                        1 
+    root   factor      1    0 new                                                                                         1  
+    root   factor      1    0 load                                                                                      1    
+  system   factor      1    0 gc-model                                                                                      1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1567            0         1567
+        atom:         1579            0         1579
       string:           58            0           58
         list:           75            2           73
-        expr:          632            0          632
+        expr:          636            0          636
        array:            1            0            1
          var:           18            0           18
         func:           62            0           62
@@ -359,14 +359,14 @@ m                    : 14       2        3    instance   model@m
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=2/2, entry=1, pid=2(main), subject=MODEL
+id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 13       3        3    instance   model@m             
 ==========================================================================================================================
 
-id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(MODEL), subject=NF-RU000
+id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -382,7 +382,7 @@ Global frame tree:
 ->FRAME(root): id=0, lvl=0, subject=root
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
-            ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
+            ->FRAME(model): id=3, lvl=3, subject=model
                 ->FRAME(NF-RU000): id=4, lvl=4, subject=NF-RU000
 
 Global Subject list:

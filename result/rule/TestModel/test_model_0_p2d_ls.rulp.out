@@ -7,10 +7,10 @@
 mbr=!=, mbr-property='(public), mbr-attribute='(), obj=!=, obj-type=factor, obj-attribute='(atom stable)
 mbr=%, mbr-property='(public), mbr-attribute='(), obj=%, obj-type=factor, obj-attribute='(atom stable)
 mbr=&, mbr-property='(public), mbr-attribute='(), obj=&, obj-type=factor, obj-attribute='(atom stable)
-mbr=*, mbr-property='(public), mbr-attribute='(), obj=*, obj-type=factor, obj-attribute='(atom stable)
-mbr=+, mbr-property='(public), mbr-attribute='(), obj=+, obj-type=factor, obj-attribute='(atom stable)
-mbr=-, mbr-property='(public), mbr-attribute='(), obj=-, obj-type=factor, obj-attribute='(atom stable)
-mbr=/, mbr-property='(public), mbr-attribute='(), obj=/, obj-type=factor, obj-attribute='(atom stable)
+mbr=*, mbr-property='(public), mbr-attribute='(), obj=*, obj-type=factor, obj-attribute='(atom '(return-type 1) stable)
+mbr=+, mbr-property='(public), mbr-attribute='(), obj=+, obj-type=factor, obj-attribute='(atom '(return-type 1) stable)
+mbr=-, mbr-property='(public), mbr-attribute='(), obj=-, obj-type=factor, obj-attribute='(atom '(return-type 1) stable)
+mbr=/, mbr-property='(public), mbr-attribute='(), obj=/, obj-type=factor, obj-attribute='(atom '(return-type 1) stable)
 mbr=::, mbr-property='(public), mbr-attribute='(), obj=::, obj-type=factor, obj-attribute='(stable)
 mbr=<, mbr-property='(public), mbr-attribute='(), obj=<, obj-type=factor, obj-attribute='(atom stable)
 mbr=<=, mbr-property='(public), mbr-attribute='(), obj=<=, obj-type=factor, obj-attribute='(atom stable)
@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itool\irulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -63,7 +63,6 @@ mbr=do-when-obj-deleted, mbr-property='(public), mbr-attribute='(), obj=do-when-
 mbr=do-when-var-changed, mbr-property='(public), mbr-attribute='(), obj=do-when-var-changed, obj-type=factor, obj-attribute='(stable)
 mbr=double, mbr-property='(public), mbr-attribute='(), obj=double, obj-type=atom, obj-attribute='()
 mbr=equal_def, mbr-property='(public), mbr-attribute='(), obj=equal_def, obj-type=factor, obj-attribute='(stable)
-mbr=error, mbr-property='(public), mbr-attribute='(), obj=error, obj-type=factor, obj-attribute='()
 mbr=error-value, mbr-property='(public), mbr-attribute='(), obj=error-value, obj-type=factor, obj-attribute='()
 mbr=expr, mbr-property='(public), mbr-attribute='(), obj=expr, obj-type=atom, obj-attribute='()
 mbr=factor, mbr-property='(public), mbr-attribute='(), obj=factor, obj-type=atom, obj-attribute='()
@@ -165,6 +164,7 @@ mbr=sys-free-memory, mbr-property='(public), mbr-attribute='(), obj=sys-free-mem
 mbr=sys-gc, mbr-property='(public), mbr-attribute='(), obj=sys-gc, obj-type=factor, obj-attribute='()
 mbr=sys-time, mbr-property='(public), mbr-attribute='(), obj=sys-time, obj-type=factor, obj-attribute='()
 mbr=sys-total-memory, mbr-property='(public), mbr-attribute='(), obj=sys-total-memory, obj-type=factor, obj-attribute='()
+mbr=throw, mbr-property='(public), mbr-attribute='(), obj=throw, obj-type=factor, obj-attribute='()
 mbr=to-atom, mbr-property='(public), mbr-attribute='(), obj=to-atom, obj-type=factor, obj-attribute='(stable)
 mbr=to-blob, mbr-property='(public), mbr-attribute='(), obj=to-blob, obj-type=factor, obj-attribute='(stable)
 mbr=to-expr, mbr-property='(public), mbr-attribute='(), obj=to-expr, obj-type=factor, obj-attribute='(stable)

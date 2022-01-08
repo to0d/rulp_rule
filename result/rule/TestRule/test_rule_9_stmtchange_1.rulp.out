@@ -11,6 +11,6 @@
 ;err:
 Invalid tree found: (stmt-changed '(?x ?y ?z1) '(?x ?y ?z2))
 fail to add rule<(add-rule m if (stmt-changed '(?x ?y ?z1) '(?x ?y ?z2)) do (-> name1:'(?z1 ?z2)))>
-at main: (add-rule m if (stmt-changed '(?x ?y ?z1) '(?x ?y ?z2)) do (-> name1:'(?z1 ?z...
+at (add-rule m if (stmt-changed '(?x ?y ?z1) '(?x ?y ?z2)) do (-> name1:'(?z1 ?z... ; main-2
 ;eof
 

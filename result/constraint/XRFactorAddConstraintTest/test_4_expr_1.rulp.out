@@ -10,7 +10,7 @@
 (add-stmt m name1:'(b 1))
 ;err:
 Unable to add entry<name1:'(b 1)> due to constraint<(cmp-entry-value > ?1 1)>
-at main: (add-stmt m name1:'(b 1))
+at (add-stmt m name1:'(b 1)) ; main-2
 ;eof
 
 (list-stmt m)

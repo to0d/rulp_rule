@@ -13,8 +13,8 @@
 (start m)
 ;err:
 do not support assume in reason: n2:'(1)
-at QF-RU000: (assume-stmt n2:'(?x))
-at main: (start m)
+at (assume-stmt n2:'(?x)) ; qf-RU000-5
+at (start m) ; main-2
 ;eof
 
 (list-stmt m from n1:'(?x))

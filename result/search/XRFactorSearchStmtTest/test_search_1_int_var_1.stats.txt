@@ -358,7 +358,7 @@ Child Count:
   total:       7       1       3
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=3/3, entry=2, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=model, lvl=3, ref=3/3, entry=2, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -366,7 +366,7 @@ default_model        : 13       3        11   instance   model@m
 ?rv                  : 25       3        1    var        true : type=bool    
 ==========================================================================================================================
 
-Node<N0001> frame:id=4, name=NF-N0001, lvl=4, ref=1/1, entry=1, pid=3(MODEL), subject=NF-N0001
+Node<N0001> frame:id=4, name=NF-N0001, lvl=4, ref=1/1, entry=1, pid=3(model), subject=NF-N0001
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -401,7 +401,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      249
+           Interpreter call id:      253
     Interpreter call level/max:        0       10
                Frame max level:        8
                   Frame max id:        9
@@ -421,55 +421,55 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      306
+    factor:      310
       func:        9
 ==========================================================================================================================
 
-Callable stats info: callId=249, row=31, column=63(4), value-max=8, value-unit=2^x
+Callable stats info: callId=253, row=31, column=64(4), value-max=8, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333333333333343752 max=56, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333333333333343752 max=56, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    173    0 add-attribute                   13333333333333333333333333333333333333333333                  
-    root   factor     49    0 defun                                                                       3333 3333313342   
-    root   factor      8    0 return                                                                                     4  
-    root   factor      7    0 alias                          33                                                     1       
-  system   factor      7    0 add-constraint                                                                             41 
-    root   factor      6    0 do                                                                                         4  
-    root   factor      6    0 defmacro                                                                        2    12   1   
-  system   factor      4    0 list-stmt                                                                                   31
-  system   factor      4    0 add-rule                                                                                   3  
-    root   factor      4    0 =                                                                                           3 
-    root   factor      4    0 %                                                                                           3 
-    root   factor      3    0 to-named-list                                                                              3  
-    root   factor      3    0 to-atom                                                                                    3  
-  system   factor      3    0 query-stmt                                                                                 3  
-  system     func      3    1 (init_cst_rule type#model)                                                                 3  
-    root   factor      3    0 if                                                                                         3  
-    root   factor      3    0 equal_def                                                                                  3  
-  system funcList      3    1 equal                                                                                      3  
-    root   factor      3    0 defvar                                                                      1             1 1 
-    root   factor      3    0 deftemplate                                                                     21            
-  system   factor      3    0 add-stmt                                                                                   3  
-    root   factor      3    0 +                                                                                          3  
-  system   factor      2    0 state-of                                                                                    11
-  system   factor      1    0 start                                                                                       1 
-    root   factor      1    0 setq                                                                                       1  
-  system   factor      1    0 search                                                                                      1 
-    root   factor      1    0 new                                                                                        1  
-    root   factor      1    0 load                                                                                     1    
-  system     func      1    1 (add_cst_constraint_type type#                                                             1  
-  system     func      1    1 (add_cst_constraint_min type#m                                                             1  
-  system     func      1    1 (add_cst_constraint_max type#m                                                             1  
+    root   factor    177    0 add-attribute                   133333333333333333333333333333333333333333333                  
+    root   factor     49    0 defun                                                                        3333 3333313342   
+    root   factor      8    0 return                                                                                      4  
+    root   factor      7    0 alias                          33                                                      1       
+  system   factor      7    0 add-constraint                                                                              41 
+    root   factor      6    0 do                                                                                          4  
+    root   factor      6    0 defmacro                                                                         2    12   1   
+  system   factor      4    0 list-stmt                                                                                    31
+  system   factor      4    0 add-rule                                                                                    3  
+    root   factor      4    0 =                                                                                            3 
+    root   factor      4    0 %                                                                                            3 
+    root   factor      3    0 to-named-list                                                                               3  
+    root   factor      3    0 to-atom                                                                                     3  
+  system   factor      3    0 query-stmt                                                                                  3  
+  system     func      3    1 (init_cst_rule type#model)                                                                  3  
+    root   factor      3    0 if                                                                                          3  
+    root   factor      3    0 equal_def                                                                                   3  
+  system funcList      3    1 equal                                                                                       3  
+    root   factor      3    0 defvar                                                                       1             1 1 
+    root   factor      3    0 deftemplate                                                                      21            
+  system   factor      3    0 add-stmt                                                                                    3  
+    root   factor      3    0 +                                                                                           3  
+  system   factor      2    0 state-of                                                                                     11
+  system   factor      1    0 start                                                                                        1 
+    root   factor      1    0 setq                                                                                        1  
+  system   factor      1    0 search                                                                                       1 
+    root   factor      1    0 new                                                                                         1  
+    root   factor      1    0 load                                                                                      1    
+  system     func      1    1 (add_cst_constraint_type type#                                                              1  
+  system     func      1    1 (add_cst_constraint_min type#m                                                              1  
+  system     func      1    1 (add_cst_constraint_max type#m                                                              1  
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1581            0         1581
+        atom:         1593            0         1593
       string:           83            0           83
         list:          135            6          129
-        expr:          657            9          648
+        expr:          661            9          652
        array:            1            0            1
          var:           44           24           20
         func:           62            0           62
@@ -511,7 +511,7 @@ m                    : 14       2        11   instance   model@m
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=3/3, entry=2, pid=2(main), subject=MODEL
+id=3, name=model, lvl=3, ref=3/3, entry=2, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -519,14 +519,14 @@ default_model        : 13       3        11   instance   model@m
 ?rv                  : 25       3        1    var        true : type=bool    
 ==========================================================================================================================
 
-id=4, name=NF-N0001, lvl=4, ref=1/1, entry=1, pid=3(MODEL), subject=NF-N0001
+id=4, name=NF-N0001, lvl=4, ref=1/1, entry=1, pid=3(model), subject=NF-N0001
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 ?0                   : 48       4        1    var        40 : type=int       
 ==========================================================================================================================
 
-id=6, name=SF-v2, lvl=4, ref=0/0, entry=1, pid=3(MODEL), subject=SF-v2
+id=6, name=SF-v2, lvl=4, ref=0/0, entry=1, pid=3(model), subject=SF-v2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -538,7 +538,7 @@ Global frame tree:
 ->FRAME(root): id=0, lvl=0, subject=root
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
-            ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
+            ->FRAME(model): id=3, lvl=3, subject=model
                 ->FRAME(NF-N0001): id=4, lvl=4, subject=NF-N0001
                 ->FRAME(SF-v2): id=6, lvl=4, subject=SF-v2
 

@@ -185,7 +185,7 @@ Child Count:
   total:       2       1       1
 ========================================================================================================================================================
 
-Model<m> frame:id=3, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=MODEL
+Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -210,7 +210,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      241
+           Interpreter call id:      245
     Interpreter call level/max:        0        2
                Frame max level:        2
                   Frame max id:        4
@@ -230,36 +230,36 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      239
+    factor:      243
 ==========================================================================================================================
 
-Callable stats info: callId=241, row=13, column=61(4), value-max=4, value-unit=2^x
+Callable stats info: callId=245, row=13, column=62(4), value-max=4, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333333333333232 max=4, unit=2^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333333333333232 max=4, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    173    0 add-attribute                   13333333333333333333333333333333333333333333                
-    root   factor     43    0 defun                                                                       3333 333331331  
-    root   factor      7    0 alias                          33                                                     1     
-    root   factor      5    0 defmacro                                                                        2    12     
-    root   factor      3    0 deftemplate                                                                     21          
-  system   factor      1    0 state-of                                                                                   1
-  system   factor      1    0 start                                                                                     1 
-    root   factor      1    0 new                                                                                      1  
-  system   factor      1    0 list-stmt                                                                                  1
-  system   factor      1    0 fix-stmt                                                                                  1 
-    root   factor      1    0 defvar                                                                      1               
-  system   factor      1    0 add-stmt                                                                                  1 
-  system   factor      1    0 add-rule                                                                                  1 
+    root   factor    177    0 add-attribute                   133333333333333333333333333333333333333333333                
+    root   factor     43    0 defun                                                                        3333 333331331  
+    root   factor      7    0 alias                          33                                                      1     
+    root   factor      5    0 defmacro                                                                         2    12     
+    root   factor      3    0 deftemplate                                                                      21          
+  system   factor      1    0 state-of                                                                                    1
+  system   factor      1    0 start                                                                                      1 
+    root   factor      1    0 new                                                                                       1  
+  system   factor      1    0 list-stmt                                                                                   1
+  system   factor      1    0 fix-stmt                                                                                   1 
+    root   factor      1    0 defvar                                                                       1               
+  system   factor      1    0 add-stmt                                                                                   1 
+  system   factor      1    0 add-rule                                                                                   1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1438            0         1438
+        atom:         1450            0         1450
       string:           52            0           52
         list:           63            1           62
-        expr:          555            0          555
+        expr:          559            0          559
        array:            1            0            1
          var:           13            0           13
         func:           54            0           54
@@ -288,7 +288,7 @@ m                    : 7        2        2    instance   model@m
 ==========================================================================================================================
 
 
-id=3, name=MODEL, lvl=3, ref=1/1, entry=1, pid=2(main), subject=MODEL
+id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -300,7 +300,7 @@ Global frame tree:
 ->FRAME(root): id=0, lvl=0, subject=root
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
-            ->FRAME(MODEL): id=3, lvl=3, subject=MODEL
+            ->FRAME(model): id=3, lvl=3, subject=model
 
 Global Subject list:
 

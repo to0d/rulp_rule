@@ -5,6 +5,6 @@
 ;err:
 false tree found: ['(p x y), '(?a p ?b), '(?b p ?c), (= 1 2)]
 fail to add rule<(add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c)))>
-at main: (add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c)))
+at (add-rule m if '(p x y) '(?a p ?b) '(?b p ?c) (= 1 2) do (-> m '(?a p ?c))) ; main-2
 ;eof
 

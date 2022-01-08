@@ -13,7 +13,7 @@
 (add-constraint m (to-named-list ?node '(?table ?column ?index ?type)) '(type string on ?table)) 
 ;err:
 Invalid obj<nil> in filter: name1:'(nil ?column ?index ?type)
-at main: (add-constraint m (to-named-list ?node '(?table ?column ?index ?type)) '(type...
+at (add-constraint m (to-named-list ?node '(?table ?column ?index ?type)) '(type... ; main-2
 ;eof
 
 (list-constraint m name1:'(4))

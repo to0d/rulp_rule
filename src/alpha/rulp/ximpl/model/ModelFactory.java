@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.rule.Constant.F_QUERY_STMT;
+
 import java.util.List;
 
 import alpha.rulp.lang.IRFrame;
@@ -22,7 +24,7 @@ public class ModelFactory {
 		/******************************************************/
 		// Build frame
 		/******************************************************/
-		IRFrame queryFrame = RulpFactory.createFrame(model.getFrame(), "QUERY");
+		IRFrame queryFrame = RulpFactory.createFrame(model.getFrame(), F_QUERY_STMT);
 		RuleUtil.setDefaultModel(queryFrame, model);
 		RulpUtil.incRef(queryFrame);
 

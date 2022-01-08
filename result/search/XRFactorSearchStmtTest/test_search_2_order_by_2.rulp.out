@@ -16,7 +16,7 @@
 (defvar ?s (search m v2:'(?x) from v1:'(?x) order by ?x asc))
 ;err:
 not support yet
-at main: (search m v2:'(?x) from v1:'(?x) order by ?x asc)
-at main: (defvar ?s (search m v2:'(?x) from v1:'(?x) order by ?x asc))
+at (search m v2:'(?x) from v1:'(?x) order by ?x asc) ; main-2
+at (defvar ?s (search m v2:'(?x) from v1:'(?x) order by ?x asc)) ; main-2
 ;eof
 

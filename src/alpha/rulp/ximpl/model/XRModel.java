@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_Nil;
+import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
@@ -1805,7 +1806,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************/
 		// Create Model Frame
 		/******************************************/
-		this.modelFrame = RulpFactory.createFrame(frame, "MODEL");
+		this.modelFrame = RulpFactory.createFrame(frame, A_MODEL);
 		RulpUtil.incRef(modelFrame);
 		RuleUtil.setDefaultModel(modelFrame, this);
 

@@ -10,7 +10,7 @@
 (add-constraint m name1:'(?table ?column ?index ?type) '(type string on ?table))
 ;err:
 Invalid obj<nil> in filter: name1:'(nil ?column ?index ?type)
-at main: (add-constraint m name1:'(?table ?column ?index ?type) '(type string on ?table))
+at (add-constraint m name1:'(?table ?column ?index ?type) '(type string on ?table)) ; main-2
 ;eof
 
 (list-constraint m name1:'(4))

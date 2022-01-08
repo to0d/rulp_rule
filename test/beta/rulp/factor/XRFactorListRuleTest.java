@@ -12,7 +12,7 @@ class XRFactorListRuleTest extends RuleTestBase {
 		// XRModel.TRACE_RETE = true;
 		_setup();
 		_test("(new model m)");
-		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (error err-r1)) (-> (?b p1 ?a)))");
+		_test("(add-rule \"R1\" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1)) (-> (?b p1 ?a)))");
 		_test("(add-rule \"R2\" m if '(?a p2 ?b) do (-> (?b p1 ?a)))");
 		_test("(add-stmt m '(a p1 a))");
 		_test("(list-rule m)", "'(R1 R2)");

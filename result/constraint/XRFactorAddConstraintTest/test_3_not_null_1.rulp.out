@@ -13,7 +13,7 @@
 (add-stmt m name1:'(nil c))
 ;err:
 Unable to add entry<name1:'(nil c)> due to constraint<(cmp-entry-value != ?0 nil)>
-at main: (add-stmt m name1:'(nil c))
+at (add-stmt m name1:'(nil c)) ; main-2
 ;eof
 
 (list-stmt m)
