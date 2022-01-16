@@ -51,6 +51,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
+import alpha.rulp.ximpl.optimize.OptUtil;
 
 public class OptimizeUtil {
 
@@ -506,7 +507,7 @@ public class OptimizeUtil {
 
 			// (op ?a ?a)
 			RRelationalOperator op = null;
-			if (expr.size() == 3 && ReteUtil.getExprLevel(expr) == 1
+			if (expr.size() == 3 && OptUtil.getExprLevel(expr) == 1
 					&& (op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null
 					&& expr.get(1).asString().equals(expr.get(2).asString())) {
 

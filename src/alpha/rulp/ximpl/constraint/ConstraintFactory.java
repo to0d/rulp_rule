@@ -25,6 +25,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.RuntimeUtil;
+import alpha.rulp.ximpl.optimize.OptUtil;
 
 public class ConstraintFactory {
 
@@ -34,7 +35,7 @@ public class ConstraintFactory {
 		IRExpr expr = constraint.getExpr();
 		RRelationalOperator op = null;
 
-		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && OptUtil.getExprLevel(expr) == 1
 				&& expr.size() == 3 && constraint instanceof XRConstraint1Expr0X) {
 
 			XRConstraint1Expr0X consExprX = (XRConstraint1Expr0X) constraint;
@@ -218,7 +219,7 @@ public class ConstraintFactory {
 		expr = RulpUtil.asExpression(RuntimeUtil.rebuild(expr, rebuildVarMap));
 
 		RRelationalOperator op = null;
-		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && OptUtil.getExprLevel(expr) == 1
 				&& expr.size() == 3) {
 
 			// (op ?0 value)
@@ -374,7 +375,7 @@ public class ConstraintFactory {
 	public static IRConstraint1 expr3(IRExpr expr, IRFrame frame) throws RException {
 
 		RRelationalOperator op = null;
-		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && ReteUtil.getExprLevel(expr) == 1
+		if ((op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null && OptUtil.getExprLevel(expr) == 1
 				&& expr.size() == 3) {
 
 			IRObject e1 = expr.get(1);

@@ -771,29 +771,6 @@ public class ReteUtil {
 		return fixCount > 0 ? FIXED_ : DEFINE;
 	}
 
-	public static int getExprLevel(IRObject obj) throws RException {
-
-		switch (obj.getType()) {
-		case LIST:
-		case EXPR:
-
-			int max_level = 0;
-			IRIterator<? extends IRObject> it = ((IRList) obj).iterator();
-			while (it.hasNext()) {
-
-				int level = getExprLevel(it.next());
-				if (max_level < level) {
-					max_level = level;
-				}
-			}
-
-			return obj.getType() == RType.LIST ? max_level : (max_level + 1);
-
-		default:
-			return 0;
-		}
-	}
-
 	public static int getFilerEntryLength(IRList filter) throws RException {
 
 		int nodeEntryLengh = -1;

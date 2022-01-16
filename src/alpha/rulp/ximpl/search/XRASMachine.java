@@ -16,6 +16,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.ModelConstraintUtil;
+import alpha.rulp.ximpl.optimize.OptUtil;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRASMachine extends AbsRInstance implements IRASMachine {
@@ -266,7 +267,7 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 		/********************************************/
 		// Check entry
 		/********************************************/
-		if (ReteUtil.getExprLevel(searchEntry) != 0) {
+		if (OptUtil.getExprLevel(searchEntry) != 0) {
 			throw new RException("invalid search entry: " + searchEntry);
 		}
 
@@ -394,7 +395,7 @@ public class XRASMachine extends AbsRInstance implements IRASMachine {
 		/********************************************/
 		// Check entry
 		/********************************************/
-		if (ReteUtil.getExprLevel(rstList) != 0) {
+		if (OptUtil.getExprLevel(rstList) != 0) {
 			throw new RException("invalid result entry: " + rstList);
 		}
 
