@@ -1,7 +1,7 @@
 (load tool)
 ;=>nil
 
-(ls-print root)
+(print-list root)
 ;=>nil
 ;out:
 mbr=!=, mbr-property='(public), mbr-attribute='(), obj=!=, obj-type=factor, obj-attribute='(atom stable)
@@ -88,10 +88,10 @@ mbr=lambda, mbr-property='(public), mbr-attribute='(), obj=lambda, obj-type=fact
 mbr=let, mbr-property='(public), mbr-attribute='(), obj=let, obj-type=factor, obj-attribute='(stable)
 mbr=list, mbr-property='(public), mbr-attribute='(), obj=list, obj-type=atom, obj-attribute='()
 mbr=list-function-in-return, mbr-property='(public), mbr-attribute='(), obj=list-function-in-return, obj-type=factor, obj-attribute='()
+mbr=list-of, mbr-property='(public), mbr-attribute='(), obj=list-of, obj-type=factor, obj-attribute='(stable)
 mbr=load, mbr-property='(public), mbr-attribute='(), obj=load, obj-type=factor, obj-attribute='(thread-unsafe)
 mbr=long, mbr-property='(public), mbr-attribute='(), obj=long, obj-type=atom, obj-attribute='()
 mbr=loop, mbr-property='(public), mbr-attribute='(), obj=loop, obj-type=factor, obj-attribute='(stable)
-mbr=ls, mbr-property='(public), mbr-attribute='(), obj=ls, obj-type=factor, obj-attribute='(stable)
 mbr=macro, mbr-property='(public), mbr-attribute='(), obj=macro, obj-type=atom, obj-attribute='()
 mbr=make-array, mbr-property='(public), mbr-attribute='(), obj=make-array, obj-type=factor, obj-attribute='(stable)
 mbr=make-blob, mbr-property='(public), mbr-attribute='(), obj=make-blob, obj-type=factor, obj-attribute='(stable)
@@ -190,7 +190,7 @@ mbr=~, mbr-property='(public), mbr-attribute='(), obj=~, obj-type=factor, obj-at
 
 ;eof
 
-(ls-print system)
+(print-list system)
 ;=>nil
 ;out:
 mbr=++, mbr-property='(public), mbr-attribute='(), obj=++, obj-type=macro, obj-attribute='()
@@ -237,7 +237,6 @@ mbr=model, mbr-property='(public), mbr-attribute='(), obj=model, obj-type=class,
 mbr=on, mbr-property='(public), mbr-attribute='(), obj=on, obj-type=atom, obj-attribute='()
 mbr=opt-model, mbr-property='(public), mbr-attribute='(), obj=opt-model, obj-type=factor, obj-attribute='()
 mbr=partial, mbr-property='(public), mbr-attribute='(), obj=partial, obj-type=atom, obj-attribute='()
-mbr=print-list, mbr-property='(public), mbr-attribute='(), obj=print-list, obj-type=macro, obj-attribute='()
 mbr=print-model-status, mbr-property='(public), mbr-attribute='(), obj=print-model-status, obj-type=factor, obj-attribute='()
 mbr=print-runnable-counter, mbr-property='(public), mbr-attribute='(), obj=print-runnable-counter, obj-type=factor, obj-attribute='()
 mbr=println, mbr-property='(public), mbr-attribute='(), obj='((println nil nil nil nil nil nil nil nil nil) (println nil nil nil nil nil nil nil nil) (println nil nil nil nil nil nil nil) (println nil nil nil nil nil nil) (println nil nil nil nil nil) (println nil nil nil nil) (println nil nil nil) (println nil nil) (println nil) (println)), obj-type=func, obj-attribute='()
@@ -278,7 +277,7 @@ mbr=where, mbr-property='(public), mbr-attribute='(), obj=where, obj-type=atom, 
 
 ;eof
 
-(ls-print main)
+(print-list main)
 ;=>nil
 ;out:
 mbr=?script-path, mbr-property='(public), mbr-attribute='(), obj=?script-path, obj-type=var, obj-attribute='(), var-value="resultule\TestModel\test_model_0_p2d_ls.rulp"
@@ -287,9 +286,9 @@ mbr=file-prename, mbr-property='(public), mbr-attribute='(), obj=(file-prename s
 mbr=file-subffix, mbr-property='(public), mbr-attribute='(), obj=(file-subffix string), obj-type=func, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
-mbr=ls-print, mbr-property='(public), mbr-attribute='(), obj='((ls-print nil nil) (ls-print nil)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
 mbr=mts, mbr-property='(public), mbr-attribute='(), obj=mts, obj-type=instance, obj-attribute='(), instance-class=namespace
+mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
 mbr=rbs, mbr-property='(public), mbr-attribute='(), obj=rbs, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
@@ -300,7 +299,7 @@ mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=fram
 (load "result/p2d.rulp")
 ;=>nil
 
-(ls-print main)
+(print-list main)
 ;=>nil
 ;out:
 mbr=#ns_domain, mbr-property='(public), mbr-attribute='(), obj=#ns_domain, obj-type=var, obj-attribute='(), var-value="nd:"
@@ -317,10 +316,10 @@ mbr=get-version-number, mbr-property='(public), mbr-attribute='(), obj=(get-vers
 mbr=hasGroupChild, mbr-property='(public), mbr-attribute='(), obj=hasGroupChild, obj-type=macro, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
-mbr=ls-print, mbr-property='(public), mbr-attribute='(), obj='((ls-print nil nil) (ls-print nil)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
 mbr=mts, mbr-property='(public), mbr-attribute='(), obj=mts, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=p2d, mbr-property='(public), mbr-attribute='(), obj=p2d, obj-type=instance, obj-attribute='(), instance-class=model
+mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
 mbr=rbs, mbr-property='(public), mbr-attribute='(), obj=rbs, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()

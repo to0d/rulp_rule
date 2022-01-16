@@ -1,17 +1,17 @@
 (load tool)
 ;=>
 
-(ls-print root)
+(print-list root)
 ;=>
 
-(ls-print system)
+(print-list system)
 ;=>
 
-(ls-print main)
+(print-list main)
 ;=>
 
 (load "result/p2d.rulp")
 ;=>
 
-(ls-print main)
+(print-list main)
 ;=>

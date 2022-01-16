@@ -2666,7 +2666,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      255
+           Interpreter call id:      254
     Interpreter call level/max:        0       12
                Frame max level:        9
                   Frame max id:       12
@@ -2687,19 +2687,19 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      694
+    factor:      693
       func:       63
      macro:        1
 ==========================================================================================================================
 
-Callable stats info: callId=255, row=38, column=64(4), value-max=62, value-unit=2^x
+Callable stats info: callId=254, row=38, column=64(4), value-max=62, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333333333333348X4 max=424, unit=2^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333333333333248X4 max=424, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                 
     root   factor     63    0 return                                                                                       71
     root   factor     57    0 if                                                                                           7 
-    root   factor     53    0 defun                                                                        1333213333223334  
+    root   factor     53    0 defun                                                                        1333213333233244  
     root   factor     50    0 equal_def                                                                                    7 
   system funcList     50    1 equal                                                                                        7 
   system   factor     42    0 state-of                                                                                     7 
@@ -2710,11 +2710,11 @@ Callable stats info: callId=255, row=38, column=64(4), value-max=62, value-unit=
     root   factor     18    0 let                                                                                          6 
     root   factor     12    0 to-string                                                                                    5 
     root   factor      9    0 str-index-of                                                                                 5 
-    root   factor      8    0 defmacro                                                                         2     12  12  
+    root   factor      7    0 defmacro                                                                         2     11  12  
     root   factor      7    0 alias                          33                                                      1       
     root   factor      6    0 ref                                                                                          4 
     main     func      6    2 (get-uri-name nil)                                                                           4 
-  system   factor      4    0 list-stmt                                                                                     3
+  system   factor      4    0 list-stmt                                                                                    13
   system   factor      4    0 has-stmt                                                                                     3 
     root   factor      4    0 defvar                                                                       1             12  
     root   factor      3    0 str-match                                                                                    3 
@@ -2726,7 +2726,7 @@ Callable stats info: callId=255, row=38, column=64(4), value-max=62, value-unit=
     root   factor      3    0 can-cast                                                                                     3 
     root   factor      3    0 >                                                                                            3 
     root   factor      2    0 load                                                                                       11  
-  system   factor      2    0 add-stmt                                                                                    11 
+  system   factor      2    0 add-stmt                                                                                    2  
   system   factor      1    0 start                                                                                        1 
     root   factor      1    0 size-of-list                                                                                  1
   system funcList      1    1 size-of                                                                                       1
@@ -2740,20 +2740,20 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3173            0         3173
+        atom:         3162            0         3162
          int:            2            0            2
-      string:          137            0          137
+      string:          136            0          136
         list:          747            6          741
-        expr:         1303           63         1240
+        expr:         1299           63         1236
          var:          223          193           30
         func:           66            0           66
     template:            1            0            1
-       macro:            8            0            8
+       macro:            7            0            7
     instance:            2            0            2
       member:           16            0           16
        frame:          136          130            6
  interpreter:            1            0
-  frameEntry:          496            0
+  frameEntry:          495            0
       lambda:            0            0
 ==========================================================================================================================
 
