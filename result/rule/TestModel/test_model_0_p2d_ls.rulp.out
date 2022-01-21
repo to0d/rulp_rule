@@ -238,6 +238,7 @@ mbr=list-source-node, mbr-property='(public), mbr-attribute='(), obj=list-source
 mbr=list-stmt, mbr-property='(public), mbr-attribute='(), obj=list-stmt, obj-type=factor, obj-attribute='()
 mbr=list-with-state, mbr-property='(public), mbr-attribute='(), obj=list-with-state, obj-type=macro, obj-attribute='()
 mbr=list-without-state, mbr-property='(public), mbr-attribute='(), obj=list-without-state, obj-type=macro, obj-attribute='()
+mbr=load-stmt, mbr-property='(public), mbr-attribute='(), obj=load-stmt, obj-type=factor, obj-attribute='()
 mbr=model, mbr-property='(public), mbr-attribute='(), obj=model, obj-type=class, obj-attribute='(), class-property='()
 mbr=on, mbr-property='(public), mbr-attribute='(), obj=on, obj-type=atom, obj-attribute='()
 mbr=opt-model, mbr-property='(public), mbr-attribute='(), obj=opt-model, obj-type=factor, obj-attribute='()

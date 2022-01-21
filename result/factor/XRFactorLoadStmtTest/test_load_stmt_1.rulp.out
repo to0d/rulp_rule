@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(load-stmt m "result\\factor\\XRFactorLoadStmtTest\\test_load_stmt_1_input.txt")
+;=>3
+
+(list-stmt m)
+;=>'('(nd:AI nm:beParentDomainOf nd:KR) '(nd:AI nm:beParentDomainOf nd:ML) '(nd:AI nm:beParentDomainOf nd:NLP))
+

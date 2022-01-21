@@ -1,0 +1,8 @@
+(new model m)
+;=>
+
+(load-stmt m "result\\factor\\XRFactorLoadStmtTest\\test_load_stmt_1_input.txt")
+;=>
+
+(list-stmt m)
+;=>

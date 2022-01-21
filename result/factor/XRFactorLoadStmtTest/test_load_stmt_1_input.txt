@@ -1,0 +1,3 @@
+'(nd:AI nm:beParentDomainOf nd:KR)
+'(nd:AI nm:beParentDomainOf nd:ML)
+'(nd:AI nm:beParentDomainOf nd:NLP)
