@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itool\irulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -45,6 +45,7 @@ mbr=case, mbr-property='(public), mbr-attribute='(), obj=case, obj-type=factor, 
 mbr=cc, mbr-property='(public), mbr-attribute='(), obj=cc, obj-type=factor, obj-attribute='()
 mbr=class, mbr-property='(public), mbr-attribute='(), obj=class, obj-type=atom, obj-attribute='()
 mbr=class-of, mbr-property='(public), mbr-attribute='(), obj=class-of, obj-type=factor, obj-attribute='(stable)
+mbr=clone, mbr-property='(public), mbr-attribute='(), obj=clone, obj-type=factor, obj-attribute='()
 mbr=cmp_def, mbr-property='(public), mbr-attribute='(), obj=cmp_def, obj-type=factor, obj-attribute='(stable)
 mbr=compute, mbr-property='(public), mbr-attribute='(), obj=compute, obj-type=factor, obj-attribute='(stable)
 mbr=constant, mbr-property='(public), mbr-attribute='(), obj=constant, obj-type=atom, obj-attribute='()

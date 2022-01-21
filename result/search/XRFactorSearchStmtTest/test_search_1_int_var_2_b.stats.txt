@@ -481,7 +481,7 @@ Optimize info:
 --------------------------------------------------------------------------------------------------------------------------
        ERO: rebuild=0, compute=0
        CCO: rebuild=0, expr=0, call=0, cache=0, reuse=0
-       TCO: rebuild=0, expr=0, call=0, compute=0, max-level=0, node=0
+       TCO: rebuild=0, expr=0, call=0, node=0, compute=0, level=0, stack=0
        LCO: rebuild=0, arg=0, pass=0, hit=0
 ==========================================================================================================================
 
@@ -548,7 +548,7 @@ Object create count:
       member:           18            0           18
        frame:           57           54            3
  interpreter:            1            0
-  frameEntry:          380            0
+  frameEntry:          381            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -576,7 +576,7 @@ _ginfo               : 12       2        1    funcList   '((_ginfo string) (_gin
                                          1    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
 m                    : 14       2        29   instance   model@m             
-?s                   : 106      2        1    var        nil@un-32 : type=instance
+?s                   : 106      2        1    var        nil@un32 : type=instance
 ==========================================================================================================================
 
 

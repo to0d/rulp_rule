@@ -345,7 +345,7 @@ Optimize info:
 --------------------------------------------------------------------------------------------------------------------------
        ERO: rebuild=0, compute=0
        CCO: rebuild=0, expr=0, call=0, cache=0, reuse=0
-       TCO: rebuild=0, expr=0, call=0, compute=0, max-level=0, node=0
+       TCO: rebuild=0, expr=0, call=0, node=0, compute=0, level=0, stack=0
        LCO: rebuild=0, arg=0, pass=0, hit=0
 ==========================================================================================================================
 
@@ -406,7 +406,7 @@ Object create count:
       member:           18            0           18
        frame:           22           20            2
  interpreter:            1            0
-  frameEntry:          320            0
+  frameEntry:          321            0
       lambda:            0            0
 ==========================================================================================================================
 
