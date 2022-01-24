@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itool\irulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -133,6 +133,7 @@ mbr=return-type-of, mbr-property='(public), mbr-attribute='(), obj=return-type-o
 mbr=reverse, mbr-property='(public), mbr-attribute='(), obj=reverse, obj-type=factor, obj-attribute='(stable)
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=rulp-object-count, mbr-property='(public), mbr-attribute='(), obj=rulp-object-count, obj-type=factor, obj-attribute='()
+mbr=run, mbr-property='(public), mbr-attribute='(), obj=run, obj-type=factor, obj-attribute='()
 mbr=runtime-call-count, mbr-property='(public), mbr-attribute='(), obj=runtime-call-count, obj-type=factor, obj-attribute='()
 mbr=save-txt-file, mbr-property='(public), mbr-attribute='(), obj=save-txt-file, obj-type=factor, obj-attribute='(thread-unsafe)
 mbr=search-frame-of, mbr-property='(public), mbr-attribute='(), obj=search-frame-of, obj-type=factor, obj-attribute='()
