@@ -7,7 +7,7 @@ import alpha.rulp.utils.RuleTestBase;
 class XRFactorSizeOfModelTest extends RuleTestBase {
 
 	@Test
-	void test() {
+	void test_size_of_model_1() {
 
 		_setup();
 		_test("(new model m)");
@@ -18,4 +18,15 @@ class XRFactorSizeOfModelTest extends RuleTestBase {
 		_test("(size-of m)", "2");
 	}
 
+	@Test
+	void test_size_of_model_2() {
+
+		_setup();
+		_test("(new model m)");
+
+		_test("(add-stmt m n1:'(a))");
+		_test("(add-stmt m n2:'(b))");
+
+		_test("(size-of m)", "2");
+	}
 }

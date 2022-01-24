@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itool\irulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -167,6 +167,7 @@ mbr=string, mbr-property='(public), mbr-attribute='(), obj=string, obj-type=atom
 mbr=subject-of, mbr-property='(public), mbr-attribute='(), obj=subject-of, obj-type=factor, obj-attribute='(stable)
 mbr=sys-free-memory, mbr-property='(public), mbr-attribute='(), obj=sys-free-memory, obj-type=factor, obj-attribute='()
 mbr=sys-gc, mbr-property='(public), mbr-attribute='(), obj=sys-gc, obj-type=factor, obj-attribute='()
+mbr=sys-os-type, mbr-property='(public), mbr-attribute='(), obj=sys-os-type, obj-type=factor, obj-attribute='()
 mbr=sys-time, mbr-property='(public), mbr-attribute='(), obj=sys-time, obj-type=factor, obj-attribute='()
 mbr=sys-total-memory, mbr-property='(public), mbr-attribute='(), obj=sys-total-memory, obj-type=factor, obj-attribute='()
 mbr=throw, mbr-property='(public), mbr-attribute='(), obj=throw, obj-type=factor, obj-attribute='()
@@ -299,6 +300,7 @@ mbr=rbs, mbr-property='(public), mbr-attribute='(), obj=rbs, obj-type=instance, 
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
+mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path string), obj-type=func, obj-attribute='()
 
 ;eof
 
@@ -330,6 +332,7 @@ mbr=rbs, mbr-property='(public), mbr-attribute='(), obj=rbs, obj-type=instance, 
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
+mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path string), obj-type=func, obj-attribute='()
 
 ;eof
 

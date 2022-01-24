@@ -88,17 +88,22 @@ public class XRRModelCounter implements IRModelCounter {
 	public int getStatementCount() {
 
 		int totalCount = 0;
-		int nullCount = 0;
-		int dropCount = 0;
 
 		for (IRReteNode rootNode : model.nodeGraph.listNodes(RReteType.ROOT0)) {
 			IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
 			totalCount += rootEntryCounter.getEntryTotalCount();
-			nullCount += rootEntryCounter.getEntryNullCount();
-			dropCount += rootEntryCounter.getEntryCount(REMOVE);
+			totalCount -= rootEntryCounter.getEntryNullCount();
+			totalCount -= rootEntryCounter.getEntryCount(REMOVE);
 		}
 
-		return totalCount - nullCount - dropCount;
+		for (IRReteNode rootNode : model.nodeGraph.listNodes(RReteType.NAME0)) {
+			IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
+			totalCount += rootEntryCounter.getEntryTotalCount();
+			totalCount -= rootEntryCounter.getEntryNullCount();
+			totalCount -= rootEntryCounter.getEntryCount(REMOVE);
+		}
+
+		return totalCount;
 	}
 
 }
