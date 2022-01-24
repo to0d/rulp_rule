@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(add-rule "R1" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1)) (-> (?b p1 ?a)))
+;=>R1
+
+(add-rule "R2" m if '(?a p2 ?b) do (-> (?b p1 ?a)))
+;=>R2
+
+(add-stmt m '(a p1 a))
+;=>true
+
+(list-rule m)
+;=>'(R1 R2)
+
+(list-with-state (list-rule m) failed)
+;=>'()
+
+(list-without-state (list-rule m) Failed)
+;=>'(R1 R2)
+
+(start m)
+;=>4
+
+(list-with-state (list-rule m) failed)
+;=>'(R1)
+
+(list-without-state (list-rule m) failed)
+;=>'(R2)
+
