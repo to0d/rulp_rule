@@ -13,6 +13,10 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 
+	public XRNodeRete2(String instanceName) {
+		super(instanceName);
+	}
+
 	protected List<IRConstraint2> constraint2List = null;
 
 	protected IREntryTable entryTable;

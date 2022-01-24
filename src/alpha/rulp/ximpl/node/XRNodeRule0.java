@@ -41,6 +41,10 @@ import alpha.rulp.ximpl.model.XRNodeOrderedUpdater;
 
 public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 
+	public XRNodeRule0(String instanceName) {
+		super(instanceName);
+	}
+
 	static class RuleNodeMatrix implements IReteNodeMatrix {
 
 		private Map<RReteType, List<IRReteNode>> nodeListMap = null;

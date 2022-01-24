@@ -12,6 +12,10 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeExpr3 extends XRNodeRete1 {
 
+	public XRNodeExpr3(String instanceName) {
+		super(instanceName);
+	}
+
 	protected IREntryTable entryTable;
 
 	private int leftEnryLength;

@@ -96,8 +96,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected IRObject[] varEntry;
 
-	public AbsReteNode() {
-		super(null, null, null);
+	public AbsReteNode(String instanceName) {
+		super(null, instanceName, null);
 	}
 
 	protected IRFrame _createNodeFrame() throws RException {
@@ -361,7 +361,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	public String getNodeName() {
 
 		if (nodeName == null) {
-			nodeName = ReteUtil.getNodeName(this);
+			nodeName = ReteUtil.getNodeName(this.getReteType(), this.getNodeId());
 		}
 
 		return nodeName;

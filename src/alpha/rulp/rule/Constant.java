@@ -106,8 +106,6 @@ public interface Constant {
 	String F_ADD_RULE = "add-rule";
 
 	String F_ADD_STMT = "add-stmt";
-	
-	String F_LOAD_STMT = "load-stmt";
 
 	String F_ASSUME_STMT = "assume-stmt";
 
@@ -133,13 +131,11 @@ public interface Constant {
 
 	String F_LIST_CONSTRAINT = "list-constraint";
 
-	String F_LIST_OBJ = "list-obj";
-
-	String F_LIST_RULE = "list-rule";
-
 	String F_LIST_SOURCE_NODE = "list-source-node";
 
 	String F_LIST_STMT = "list-stmt";
+
+	String F_LOAD_STMT = "load-stmt";
 
 	String F_MBR_RULE_GROUP_NAMES = "$RG-names$";
 
@@ -162,6 +158,8 @@ public interface Constant {
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
+
+	String F_RETE_NODE_OF = "rete-node-of";
 
 	String F_SAVE_MODEL = "save-model";
 

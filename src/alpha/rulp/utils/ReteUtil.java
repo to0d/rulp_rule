@@ -56,6 +56,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRObjBuilder;
 import alpha.rulp.ximpl.node.IRNodeGraph;
+import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
@@ -838,65 +839,62 @@ public class ReteUtil {
 		return name + ":" + ReteUtil.getRootUniqName(stmtLen);
 	}
 
-	public static String getNodeName(IRReteNode node) {
+	public static String getNodeName(RReteType type, int nodeId) {
 
-		switch (node.getReteType()) {
+		switch (type) {
 		case ALPH0:
-			return String.format("A0%03d", node.getNodeId());
+			return String.format("A0%03d", nodeId);
 
 		case ALPH1:
-			return String.format("A1%03d", node.getNodeId());
-
-//		case ALPH2:
-//			return String.format("A2%03d", node.getNodeId());
+			return String.format("A1%03d", nodeId);
 
 		case BETA0:
-			return String.format("B0%03d", node.getNodeId());
+			return String.format("B0%03d", nodeId);
 
 		case BETA1:
-			return String.format("B1%03d", node.getNodeId());
+			return String.format("B1%03d", nodeId);
 
 		case BETA2:
-			return String.format("B2%03d", node.getNodeId());
+			return String.format("B2%03d", nodeId);
 
 		case BETA3:
-			return String.format("B3%03d", node.getNodeId());
+			return String.format("B3%03d", nodeId);
 
 		case EXPR0:
-			return String.format("E0%03d", node.getNodeId());
+			return String.format("E0%03d", nodeId);
 
 		case EXPR1:
-			return String.format("E1%03d", node.getNodeId());
+			return String.format("E1%03d", nodeId);
 
 		case EXPR2:
-			return String.format("E2%03d", node.getNodeId());
+			return String.format("E2%03d", nodeId);
 
 		case EXPR3:
-			return String.format("E3%03d", node.getNodeId());
+			return String.format("E3%03d", nodeId);
 
 		case EXPR4:
-			return String.format("E4%03d", node.getNodeId());
+			return String.format("E4%03d", nodeId);
 
 		case ROOT0:
-			return String.format("R0%03d", node.getNodeId());
+			return String.format("R0%03d", nodeId);
 
 		case NAME0:
-			return String.format("N0%03d", node.getNodeId());
+			return String.format("N0%03d", nodeId);
 
 		case VAR:
-			return String.format("V%04d", node.getNodeId());
+			return String.format("V%04d", nodeId);
 
 		case WORK:
-			return String.format("W%04d", node.getNodeId());
+			return String.format("W%04d", nodeId);
 
 		case RULE:
-			return String.format("U%04d", node.getNodeId());
+			return String.format("U%04d", nodeId);
 
 		case CONST:
-			return String.format("C%04d", node.getNodeId());
+			return String.format("C%04d", nodeId);
 
 		default:
-			return String.format("X%04d", node.getNodeId());
+			return String.format("X%04d", nodeId);
 		}
 	}
 

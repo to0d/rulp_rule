@@ -12,6 +12,10 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeBeta3 extends XRNodeRete2 implements IRBetaNode {
 
+	public XRNodeBeta3(String instanceName) {
+		super(instanceName);
+	}
+
 	protected boolean _addNewEntry(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
 
 		/*******************************************************/

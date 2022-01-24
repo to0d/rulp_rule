@@ -1,25 +1,60 @@
 
+;****************************************************
+; Common utilies
+;****************************************************
+(defconst RRT_ROOT    0)
+(defconst RRT_NAME    1)
+(defconst RRT_VAR     2)
+(defconst RRT_CONST   3)
+(defconst RRT_ALPH0   4)
+(defconst RRT_ALPH1   5)
+(defconst RRT_EXPR0   6)
+(defconst RRT_EXPR1   7)
+(defconst RRT_EXPR2   8)
+(defconst RRT_EXPR3   9)
+(defconst RRT_EXPR4  10)
+(defconst RRT_BETA0  11)
+(defconst RRT_BETA1  12)
+(defconst RRT_BETA2  13)
+(defconst RRT_BETA3  14)
+(defconst RRT_RULE   15)
+(defconst RRT_WORK   16)
+
+
 (alias add-stmt ->)
 
 (defun size-of ((?m model)) (return (size-of-model ?m)))
 
-(defmacro list-with-state
-    (?list ?state)
-    (foreach 
-        (?e ?list)
-        (if 
-            (not (equal (state-of ?e) ?state))
+(defmacro list-with-state (?list ?state)
+    (foreach (?e ?list)
+        (if (not (equal (state-of ?e) ?state))
             (continue)) 
-        (return ?e)))
+        (return ?e))
+)
         
-(defmacro list-without-state
-    (?list ?state)
-    (foreach 
-        (?e ?list)
-        (if 
-            (equal (state-of ?e) ?state)
+(defmacro list-without-state (?list ?state)
+    (foreach (?e ?list)
+        (if (equal (state-of ?e) ?state)
             (continue)) 
-        (return ?e)))
+        (return ?e))
+)
+
+(defmacro list-rule (?m) (rete-node-of ?m RRT_RULE))
+
+(defun get-rule ((?m model) (?name string))
+
+    (defvar ?nodes (rete-node-of ?m RRT_RULE))
+    (loop for ?n in ?nodes do
+        (if (equal (name-of $(value-of ?n)) ?name)
+            (return ?n)
+        )
+    )
+    (return nil)
+)
+
+;****************************************************
+; Constraint utilies
+;****************************************************
 
 (defun init_cst_rule ((?m model))
 

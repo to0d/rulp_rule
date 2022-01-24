@@ -18,6 +18,10 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 
+	public XRNodeBeta0(String instanceName) {
+		super(instanceName);
+	}
+
 	public static int MAP_MATCH_MIN_COUNT = 100;
 
 	static final boolean RETE_BETA_HASHMAP_MATCH_MODE = true;

@@ -7,6 +7,10 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeConst extends XRNodeRete0 implements IRListener1<IRReteEntry> {
 
+	public XRNodeConst(String instanceName) {
+		super(instanceName);
+	}
+
 	private IRReteEntry constEntry = null;
 
 	protected int _process() throws RException {

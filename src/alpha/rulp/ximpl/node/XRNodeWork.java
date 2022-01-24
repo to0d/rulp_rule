@@ -7,6 +7,10 @@ import alpha.rulp.rule.IRWorker;
 
 public class XRNodeWork extends XRNodeRete0 {
 
+	public XRNodeWork(String instanceName) {
+		super(instanceName);
+	}
+
 	protected IRWorker worker;
 
 	protected boolean workOnce = false;

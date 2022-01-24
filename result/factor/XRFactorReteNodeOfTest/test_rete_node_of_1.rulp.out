@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-rule "R1" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1)) (-> (?b p1 ?a)))
+;=>R1
+
+(add-stmt m '(a p1 a))
+;=>true
+
+(add-stmt m n1:'(abc))
+;=>true
+
+(rete-node-of m)
+;=>'('(?0 ?1 ?2) n1:'(?0) '(?0 p1 ?1) R1)
+
+(rete-node-of m RRT_ROOT)
+;=>'('(?0 ?1 ?2))
+
+(rete-node-of m RRT_NAME)
+;=>'(n1:'(?0))
+
+(rete-node-of m RRT_RULE)
+;=>'(R1)
+
+(foreach (?n (rete-node-of m)) (return (name-of $(value-of ?n))))
+;=>'("root3" "n1" "A0002" "R1")
+

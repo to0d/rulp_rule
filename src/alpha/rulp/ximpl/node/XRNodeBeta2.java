@@ -18,6 +18,10 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeBeta2 extends XRNodeBeta0 {
 
+	public XRNodeBeta2(String instanceName) {
+		super(instanceName);
+	}
+
 	protected int leftBeginIndex = 0;
 
 	protected Set<Integer> leftUsedIndexSet = new HashSet<>();

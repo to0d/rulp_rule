@@ -13,7 +13,7 @@ import static alpha.rulp.rule.Constant.F_GC_MODEL;
 import static alpha.rulp.rule.Constant.F_GET_RULE;
 import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.rule.Constant.F_LIST_CONSTRAINT;
-import static alpha.rulp.rule.Constant.F_LIST_RULE;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_LIST_SOURCE_NODE;
 import static alpha.rulp.rule.Constant.F_LIST_STMT;
 import static alpha.rulp.rule.Constant.F_LOAD_STMT;
@@ -69,10 +69,8 @@ import alpha.rulp.ximpl.factor.XRFactorAssumeStmt;
 import alpha.rulp.ximpl.factor.XRFactorDumpStatus;
 import alpha.rulp.ximpl.factor.XRFactorFixStmt;
 import alpha.rulp.ximpl.factor.XRFactorGcModel;
-import alpha.rulp.ximpl.factor.XRFactorGetRule;
 import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.factor.XRFactorListConstraint;
-import alpha.rulp.ximpl.factor.XRFactorListRule;
 import alpha.rulp.ximpl.factor.XRFactorListSourceNodes;
 import alpha.rulp.ximpl.factor.XRFactorListStmt;
 import alpha.rulp.ximpl.factor.XRFactorLoadStmt;
@@ -84,6 +82,7 @@ import alpha.rulp.ximpl.factor.XRFactorProveStmt;
 import alpha.rulp.ximpl.factor.XRFactorQueryStmt;
 import alpha.rulp.ximpl.factor.XRFactorRemoveConstraint;
 import alpha.rulp.ximpl.factor.XRFactorRemoveStmt;
+import alpha.rulp.ximpl.factor.XRFactorReteNodeOf;
 import alpha.rulp.ximpl.factor.XRFactorSaveModel;
 import alpha.rulp.ximpl.factor.XRFactorSetDefaultModel;
 import alpha.rulp.ximpl.factor.XRFactorSetModelCachePath;
@@ -135,21 +134,14 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddRule(F_ADD_RULE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorRemoveStmt(F_REMOVE_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorListStmt(F_LIST_STMT));
-//		RulpUtil.addFrameObject(systemFrame, new XRFactorUpdateStmt(F_UPDATE_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorQueryStmt(F_QUERY_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorTraceRule(F_TRACE_RULE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddNode(F_ADD_NODE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorFixStmt(F_FIX_STMT));
-//		RulpUtil.addFrameObject(systemFrame, new XRFactorTryAddStmt(F_TRY_ADD_STMT));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorSearch(F_SEARCH));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorLoadStmt(F_LOAD_STMT));
-
-//		RulpUtil.setMember(modelClass, F_ADD_LAZY_STMT, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
-
 		RulpUtil.addFrameObject(systemFrame, new XRFactorHasStmt(F_HAS_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorListRule(F_LIST_RULE));
-//		RulpUtil.addFrameObject(systemFrame, new XRFactorListObj(F_LIST_OBJ));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorGcModel(F_GC_MODEL));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorPrintModelStatus(F_PRINT_MODEL_STATUS));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorPrintRunnableCounter(F_PRINT_RUNNABLE_COUNTER));
@@ -157,7 +149,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorProveStmt(F_PROVE_STMT));
 
 		RulpUtil.addFrameObject(systemFrame, new XRFactorSizeOfModel(F_SIZE_OF_MODEL));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorGetRule(F_GET_RULE));
+//		RulpUtil.addFrameObject(systemFrame, new XRFactorGetRule(F_GET_RULE));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorPriorityOf(F_PRIORITY_OF));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorSetRulePriority(F_SET_RULE_PRIORITY));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorListSourceNodes(F_LIST_SOURCE_NODE));
@@ -165,6 +157,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(systemFrame, new XRFactorSetNodeCachePath(F_SET_NODE_CACHE_PATH));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorSaveModel(F_SAVE_MODEL));
 		RulpUtil.addFrameObject(systemFrame, new XRFactorSetDefaultModel(F_SET_DEFAULT_MODEL));
+		RulpUtil.addFrameObject(systemFrame, new XRFactorReteNodeOf(F_RETE_NODE_OF));
 
 		// Constraint
 		RulpUtil.addFrameObject(systemFrame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

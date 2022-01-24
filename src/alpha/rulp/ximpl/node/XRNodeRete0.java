@@ -9,6 +9,10 @@ public class XRNodeRete0 extends AbsReteNode {
 
 	protected int nodeExecCount = 0;
 
+	public XRNodeRete0(String instanceName) {
+		super(instanceName);
+	}
+
 	@Override
 	public int getNodeExecCount() {
 		return nodeExecCount;
