@@ -5,6 +5,8 @@ import alpha.rulp.utils.RulpFactory;
 
 public interface Constant {
 
+	String A_RETE_TYPE = "rete-type";
+
 	String A_Asc = "asc";
 
 	String A_Assumed = "assumed";
