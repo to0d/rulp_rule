@@ -2619,7 +2619,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      272
+           Interpreter call id:      274
     Interpreter call level/max:        0       12
                Frame max level:        9
                   Frame max id:       11
@@ -2640,35 +2640,35 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      701
+    factor:      703
       func:       62
      macro:        2
 ==========================================================================================================================
 
-Callable stats info: callId=272, row=37, column=35(8), value-max=62, value-unit=2^x
+Callable stats info: callId=274, row=37, column=35(8), value-max=42, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         444444444444444444444444444444445X1 max=499, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444444444444459X max=293, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442           
-    root   factor     62    0 return                                                          7 
-    root   factor     55    0 defun                                                 443441 1444 
-    root   factor     53    0 if                                                              7 
-    root   factor     50    0 equal_def                                                       7 
-  system funcList     50    1 equal                                                           7 
-  system   factor     42    0 state-of                                                        7 
-    root   factor     41    0 not                                                             7 
-    root   factor     41    0 continue                                                        7 
+    root   factor     62    0 return                                                          67
+    root   factor     56    0 defun                                                 443441 1454 
+    root   factor     53    0 if                                                              57
+    root   factor     50    0 equal_def                                                       57
+  system funcList     50    1 equal                                                           57
+  system   factor     42    0 state-of                                                         7
+    root   factor     41    0 not                                                              7
+    root   factor     41    0 continue                                                         7
   system   factor     41    0 add-rule                                                        7 
   system   factor     28    0 fix-stmt                                                        6 
+    root   factor     19    0 defconst                                                   443    
     root   factor     18    0 let                                                             6 
-    root   factor     18    0 defconst                                                   443    
     root   factor     12    0 to-string                                                       5 
     root   factor      9    0 str-index-of                                                    5 
-    root   factor      8    0 defmacro                                                2    3 12 
+    root   factor      8    0 defmacro                                                2    21 3 
     root   factor      7    0 alias                          4                             1    
     root   factor      6    0 ref                                                             4 
     main     func      6    2 (get-uri-name nil)                                              4 
-    root   factor      4    0 defvar                                                1        12 
+    root   factor      4    0 defvar                                                1         3 
     root   factor      3    0 str-match                                                       3 
     root   factor      3    0 str-last-index-of                                               3 
     root   factor      3    0 str-end-with                                                    3 
@@ -2680,33 +2680,33 @@ Callable stats info: callId=272, row=37, column=35(8), value-max=62, value-unit=
     root   factor      2    0 load                                                           11 
   system   factor      2    0 add-stmt                                                        2 
   system   factor      1    0 start                                                           1 
-  system   factor      1    0 rete-node-of                                                    1 
+  system   factor      1    0 rete-node-of                                                     1
     root   factor      1    0 new                                                             1 
-  system    macro      1    1 list-with-state                                                 1 
+  system    macro      1    1 list-with-state                                                  1
   system   factor      1    0 list-stmt                                                        1
-  system    macro      1    1 list-rule                                                       1 
-    root   factor      1    0 foreach                                                         1 
+  system    macro      1    1 list-rule                                                        1
+    root   factor      1    0 foreach                                                          1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3219            0         3219
+        atom:         3230            0         3230
          int:            1            0            1
       string:          136            0          136
         list:          729            3          726
-        expr:         1335           62         1273
+        expr:         1341           62         1279
          var:          217          192           25
-    constant:           18            0           18
-        func:           68            0           68
+    constant:           19            0           19
+        func:           69            0           69
     template:            1            0            1
        macro:            8            0            8
     instance:            2            0            2
       member:           16            0           16
        frame:          130          125            5
  interpreter:            1            0
-  frameEntry:          516            0
+  frameEntry:          518            0
       lambda:            0            0
 ==========================================================================================================================
 

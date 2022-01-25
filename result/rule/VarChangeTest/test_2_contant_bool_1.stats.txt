@@ -216,7 +216,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      276
+           Interpreter call id:      278
     Interpreter call level/max:        0        2
                Frame max level:        2
                   Frame max id:        4
@@ -237,46 +237,46 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      274
+    factor:      276
 ==========================================================================================================================
 
-Callable stats info: callId=276, row=13, column=35(8), value-max=8, value-unit=2^x
+Callable stats info: callId=278, row=13, column=35(8), value-max=8, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         44444444444444444444444444444444444 max=8, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442           
-    root   factor     45    0 defun                                                 443441 143  
-    root   factor     18    0 defconst                                                   443    
+    root   factor     46    0 defun                                                 443441 144  
+    root   factor     19    0 defconst                                                   443    
     root   factor      7    0 alias                          4                             1    
-    root   factor      5    0 defmacro                                                2    3    
+    root   factor      5    0 defmacro                                                2    21   
   system   factor      4    0 start                                                           22
   system   factor      4    0 list-stmt                                                       22
-    root   factor      3    0 setq                                                            21
+    root   factor      3    0 setq                                                            12
     root   factor      3    0 deftemplate                                             3         
-    root   factor      2    0 defvar                                                1        1  
-  system   factor      2    0 add-stmt                                                        2 
+    root   factor      2    0 defvar                                                1         1 
+  system   factor      2    0 add-stmt                                                        11
     root   factor      1    0 new                                                            1  
-  system   factor      1    0 add-rule                                                       1  
+  system   factor      1    0 add-rule                                                        1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1524            0         1524
+        atom:         1535            0         1535
       string:           51            0           51
         list:           60            4           56
-        expr:          612            0          612
+        expr:          618            0          618
          var:           14            0           14
-    constant:           18            0           18
-        func:           56            0           56
+    constant:           19            0           19
+        func:           57            0           57
     template:            1            0            1
        macro:            5            0            5
     instance:            2            0            2
       member:           16            0           16
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          300            0
+  frameEntry:          302            0
       lambda:            0            0
 ==========================================================================================================================
 

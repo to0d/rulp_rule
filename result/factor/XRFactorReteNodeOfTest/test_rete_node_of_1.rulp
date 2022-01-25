@@ -30,3 +30,6 @@
 
 (foreach (?n (rete-node-of m)) (return (rete-type-of ?n)))
 ;=>
+
+(foreach (?n (rete-node-of m)) (return (entry-length-of ?n)))
+;=>

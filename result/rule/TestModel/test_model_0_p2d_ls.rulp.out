@@ -205,6 +205,7 @@ mbr=--, mbr-property='(public), mbr-attribute='(), obj=--, obj-type=macro, obj-a
 mbr=?load-paths, mbr-property='(public), mbr-attribute='(), obj=?load-paths, obj-type=var, obj-attribute='(), var-value="'()"
 mbr=?model-trace, mbr-property='(public), mbr-attribute='(), obj=?model-trace, obj-type=var, obj-attribute='(), var-value="false"
 mbr=?trace, mbr-property='(public), mbr-attribute='(), obj=?trace, obj-type=var, obj-attribute='(), var-value="false"
+mbr=ATTR_ENTRY_LEN, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=ATTR_RETE_TYPE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_ALPH0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_ALPH1, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
@@ -240,6 +241,7 @@ mbr=cmp, mbr-property='(public), mbr-attribute='(), obj=(cmp nil nil), obj-type=
 mbr=completed, mbr-property='(public), mbr-attribute='(), obj=completed, obj-type=atom, obj-attribute='()
 mbr=defined, mbr-property='(public), mbr-attribute='(), obj=defined, obj-type=atom, obj-attribute='()
 mbr=dump-status, mbr-property='(public), mbr-attribute='(), obj=dump-status, obj-type=factor, obj-attribute='()
+mbr=entry-length-of, mbr-property='(public), mbr-attribute='(), obj=(entry-length-of nil), obj-type=func, obj-attribute='()
 mbr=equal, mbr-property='(public), mbr-attribute='(), obj='((equal nil nil) (equal string string)), obj-type=func, obj-attribute='()
 mbr=failed, mbr-property='(public), mbr-attribute='(), obj=failed, obj-type=atom, obj-attribute='()
 mbr=fix-stmt, mbr-property='(public), mbr-attribute='(), obj=fix-stmt, obj-type=factor, obj-attribute='()
