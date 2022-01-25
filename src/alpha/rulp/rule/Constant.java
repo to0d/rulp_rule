@@ -5,8 +5,6 @@ import alpha.rulp.utils.RulpFactory;
 
 public interface Constant {
 
-	String A_RETE_TYPE = "rete-type";
-
 	String A_Asc = "asc";
 
 	String A_Assumed = "assumed";
@@ -68,6 +66,10 @@ public interface Constant {
 	String A_Reasoned = "reasoned";
 
 	String A_Removed = "removed";
+
+	String A_RETE_TYPE = "rete-type";
+	
+	String A_ENTRY_LEN = "entry-len";
 
 	String A_RULE = "rule";
 

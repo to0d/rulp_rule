@@ -468,7 +468,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      280
+           Interpreter call id:      282
     Interpreter call level/max:        0       10
                Frame max level:        8
                   Frame max id:        9
@@ -489,32 +489,32 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     5413
+    factor:     5415
       func:       27
 ==========================================================================================================================
 
-Callable stats info: callId=280, row=33, column=36(8), value-max=3000, value-unit=3^x
+Callable stats info: callId=282, row=33, column=36(8), value-max=3000, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333334691 max=5066, unit=3^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333334569 max=5003, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   3000    0 power                                                            9 
-    root   factor   1009    0 +                                                               38 
-    root   factor   1000    0 =                                                                8 
+    root   factor   3000    0 power                                                             9
+    root   factor   1009    0 +                                                               338
+    root   factor   1000    0 =                                                                 8
     root   factor    179    0 add-attribute                  133333333333333333333332            
-    root   factor     50    0 defun                                                 332331 233   
-    root   factor     26    0 return                                                          43 
-  system   factor     19    0 add-constraint                                                  43 
-    root   factor     18    0 do                                                              43 
-    root   factor     17    0 defconst                                                   332     
+    root   factor     51    0 defun                                                 332331 1332  
+    root   factor     26    0 return                                                          44 
+  system   factor     19    0 add-constraint                                                  34 
+    root   factor     18    0 do                                                              34 
+    root   factor     18    0 defconst                                                   332     
   system   factor     10    0 list-stmt                                                        31
-    root   factor      9    0 to-named-list                                                   32 
-    root   factor      9    0 to-atom                                                         32 
-  system   factor      9    0 query-stmt                                                      32 
-  system     func      9    1 (init_cst_rule type#model)                                      32 
-    root   factor      9    0 if                                                              32 
-    root   factor      9    0 equal_def                                                       32 
-  system funcList      9    1 equal                                                           32 
-  system   factor      9    0 add-stmt                                                        32 
+    root   factor      9    0 to-named-list                                                   33 
+    root   factor      9    0 to-atom                                                         33 
+  system   factor      9    0 query-stmt                                                      33 
+  system     func      9    1 (init_cst_rule type#model)                                      33 
+    root   factor      9    0 if                                                              33 
+    root   factor      9    0 equal_def                                                       33 
+  system funcList      9    1 equal                                                           33 
+  system   factor      9    0 add-stmt                                                        33 
     root   factor      7    0 alias                          3                             1     
     root   factor      6    0 defmacro                                                2    2 1   
   system   factor      4    0 add-rule                                                        3  
@@ -522,9 +522,9 @@ Callable stats info: callId=280, row=33, column=36(8), value-max=3000, value-uni
     root   factor      3    0 deftemplate                                             2          
   system     func      3    1 (add_cst_constraint_type type#                                  2  
   system     func      3    1 (add_cst_constraint_min type#m                                   2 
-  system     func      3    1 (add_cst_constraint_max type#m                                  2  
-  system   factor      2    0 state-of                                                         2 
-  system   factor      1    0 start                                                            1 
+  system     func      3    1 (add_cst_constraint_max type#m                                  12 
+  system   factor      2    0 state-of                                                         11
+  system   factor      1    0 start                                                             1
     root   factor      1    0 setq                                                            1  
   system   factor      1    0 search                                                           1 
     root   factor      1    0 new                                                             1  
@@ -536,21 +536,21 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1741            0         1741
+        atom:         1752            0         1752
          int:          150            0          150
       string:          118            0          118
         list:         1219            6         1213
-        expr:          761           27          734
+        expr:          767           27          740
          var:           96           72           24
-    constant:           17            0           17
-        func:           63            0           63
+    constant:           18            0           18
+        func:           64            0           64
     template:            1            0            1
        macro:            6            0            6
     instance:            2            0            2
       member:           18            0           18
        frame:           57           54            3
  interpreter:            1            0
-  frameEntry:          402            0
+  frameEntry:          404            0
       lambda:            0            0
 ==========================================================================================================================
 

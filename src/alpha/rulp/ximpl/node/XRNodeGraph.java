@@ -2,7 +2,7 @@ package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.A_RETE_TYPE;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
@@ -358,6 +358,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		_graphChanged();
 
 		AttrUtil.setAttribute(node, A_RETE_TYPE, RulpFactory.createInteger(node.getReteType().getIndex()));
+		AttrUtil.setAttribute(node, A_ENTRY_LEN, RulpFactory.createInteger(node.getEntryLength()));
 	}
 
 	protected AbsReteNode _buildAlphaNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {

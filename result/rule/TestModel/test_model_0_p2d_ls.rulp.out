@@ -205,6 +205,7 @@ mbr=--, mbr-property='(public), mbr-attribute='(), obj=--, obj-type=macro, obj-a
 mbr=?load-paths, mbr-property='(public), mbr-attribute='(), obj=?load-paths, obj-type=var, obj-attribute='(), var-value="'()"
 mbr=?model-trace, mbr-property='(public), mbr-attribute='(), obj=?model-trace, obj-type=var, obj-attribute='(), var-value="false"
 mbr=?trace, mbr-property='(public), mbr-attribute='(), obj=?trace, obj-type=var, obj-attribute='(), var-value="false"
+mbr=ATTR_RETE_TYPE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_ALPH0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_ALPH1, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_BETA0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
@@ -278,6 +279,7 @@ mbr=remove_cst_constraint_one_of, mbr-property='(public), mbr-attribute='(), obj
 mbr=remove_cst_constraint_type, mbr-property='(public), mbr-attribute='(), obj=(remove_cst_constraint_type type#model string nil nil), obj-type=func, obj-attribute='()
 mbr=removed, mbr-property='(public), mbr-attribute='(), obj=removed, obj-type=atom, obj-attribute='()
 mbr=rete-node-of, mbr-property='(public), mbr-attribute='(), obj=rete-node-of, obj-type=factor, obj-attribute='()
+mbr=rete-type-of, mbr-property='(public), mbr-attribute='(), obj=(rete-type-of nil), obj-type=func, obj-attribute='()
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=runnable, mbr-property='(public), mbr-attribute='(), obj=runnable, obj-type=atom, obj-attribute='()
 mbr=running, mbr-property='(public), mbr-attribute='(), obj=running, obj-type=atom, obj-attribute='()
@@ -310,6 +312,7 @@ mbr=?script-path, mbr-property='(public), mbr-attribute='(), obj=?script-path, o
 mbr=_ginfo, mbr-property='(public), mbr-attribute='(), obj='((_ginfo string) (_ginfo)), obj-type=func, obj-attribute='()
 mbr=file-prename, mbr-property='(public), mbr-attribute='(), obj=(file-prename string), obj-type=func, obj-attribute='()
 mbr=file-subffix, mbr-property='(public), mbr-attribute='(), obj=(file-subffix string), obj-type=func, obj-attribute='()
+mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list), obj-type=func, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
@@ -341,6 +344,7 @@ mbr=get-suffix, mbr-property='(public), mbr-attribute='(), obj=(get-suffix nil n
 mbr=get-uri-name, mbr-property='(public), mbr-attribute='(), obj=(get-uri-name nil), obj-type=func, obj-attribute='()
 mbr=get-version-number, mbr-property='(public), mbr-attribute='(), obj=(get-version-number nil), obj-type=func, obj-attribute='()
 mbr=hasGroupChild, mbr-property='(public), mbr-attribute='(), obj=hasGroupChild, obj-type=macro, obj-attribute='()
+mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list), obj-type=func, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()

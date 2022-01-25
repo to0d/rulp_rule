@@ -26,5 +26,8 @@
 ;=>'("root3" "n1" "A0002" "R1")
 
 (foreach (?n (rete-node-of m)) (return (attribute-of $(value-of ?n))))
-;=>'('('(rete-type 0)) '('(rete-type 1)) '('(rete-type 4)) '('(rete-type 15)))
+;=>'('('(entry-len 3) '(rete-type 0)) '('(entry-len 1) '(rete-type 1)) '('(entry-len 3) '(rete-type 4)) '('(entry-len 3) '(rete-type 15)))
+
+(foreach (?n (rete-node-of m)) (return (rete-type-of ?n)))
+;=>'(0 1 4 15)
 
