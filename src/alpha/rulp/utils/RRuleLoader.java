@@ -1,6 +1,6 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.rule.Constant.A_MODEL;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_ADD_LAZY_STMT;
 import static alpha.rulp.rule.Constant.F_ADD_NODE;
@@ -81,6 +81,7 @@ import alpha.rulp.ximpl.factor.XRFactorProveStmt;
 import alpha.rulp.ximpl.factor.XRFactorQueryStmt;
 import alpha.rulp.ximpl.factor.XRFactorRemoveConstraint;
 import alpha.rulp.ximpl.factor.XRFactorRemoveStmt;
+import alpha.rulp.ximpl.factor.XRFactorReteEntryCountOf;
 import alpha.rulp.ximpl.factor.XRFactorReteNodeOf;
 import alpha.rulp.ximpl.factor.XRFactorSaveModel;
 import alpha.rulp.ximpl.factor.XRFactorSetDefaultModel;
@@ -99,89 +100,90 @@ import alpha.rulp.ximpl.search.XRFactorSearch;
 public class RRuleLoader implements IRObjectLoader {
 
 	@Override
-	public void load(IRInterpreter interpreter, IRFrame systemFrame) throws RException, IOException {
+	public void load(IRInterpreter interpreter, IRFrame frame) throws RException, IOException {
 
 		// RunStatus
-		RulpUtil.addFrameObject(systemFrame, O_Completed);
-		RulpUtil.addFrameObject(systemFrame, O_Runnable);
-		RulpUtil.addFrameObject(systemFrame, O_Running);
-		RulpUtil.addFrameObject(systemFrame, O_Halting);
-		RulpUtil.addFrameObject(systemFrame, O_Failed);
-		RulpUtil.addFrameObject(systemFrame, O_Partial);
+		RulpUtil.addFrameObject(frame, O_Completed);
+		RulpUtil.addFrameObject(frame, O_Runnable);
+		RulpUtil.addFrameObject(frame, O_Running);
+		RulpUtil.addFrameObject(frame, O_Halting);
+		RulpUtil.addFrameObject(frame, O_Failed);
+		RulpUtil.addFrameObject(frame, O_Partial);
 
 		// ReteStatus
-		RulpUtil.addFrameObject(systemFrame, O_Defined);
-		RulpUtil.addFrameObject(systemFrame, O_Reasoned);
-		RulpUtil.addFrameObject(systemFrame, O_Assumed);
-		RulpUtil.addFrameObject(systemFrame, O_Removed);
+		RulpUtil.addFrameObject(frame, O_Defined);
+		RulpUtil.addFrameObject(frame, O_Reasoned);
+		RulpUtil.addFrameObject(frame, O_Assumed);
+		RulpUtil.addFrameObject(frame, O_Removed);
 
 		// Other symbol
-		RulpUtil.addFrameObject(systemFrame, O_Limit);
-		RulpUtil.addFrameObject(systemFrame, O_Type);
-		RulpUtil.addFrameObject(systemFrame, O_State);
-		RulpUtil.addFrameObject(systemFrame, O_Priority);
-		RulpUtil.addFrameObject(systemFrame, O_On);
-		RulpUtil.addFrameObject(systemFrame, O_Where);
+		RulpUtil.addFrameObject(frame, O_Limit);
+		RulpUtil.addFrameObject(frame, O_Type);
+		RulpUtil.addFrameObject(frame, O_State);
+		RulpUtil.addFrameObject(frame, O_Priority);
+		RulpUtil.addFrameObject(frame, O_On);
+		RulpUtil.addFrameObject(frame, O_Where);
 
-		RulpUtil.addFrameObject(systemFrame, new XRModelClass(A_MODEL, systemFrame));
+		RulpUtil.addFrameObject(frame, new XRModelClass(A_MODEL, frame));
 
-		RuleUtil.init(systemFrame);
+		RuleUtil.init(frame);
 
-		RulpUtil.addFrameObject(systemFrame, new XRFactorStateOf(F_STATE_OF));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorStart(F_START));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAddStmt(F_ADD_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAddRule(F_ADD_RULE));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorRemoveStmt(F_REMOVE_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorListStmt(F_LIST_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorQueryStmt(F_QUERY_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorTraceRule(F_TRACE_RULE));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAddNode(F_ADD_NODE));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorFixStmt(F_FIX_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSearch(F_SEARCH));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorLoadStmt(F_LOAD_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorHasStmt(F_HAS_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorGcModel(F_GC_MODEL));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorPrintModelStatus(F_PRINT_MODEL_STATUS));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorPrintRunnableCounter(F_PRINT_RUNNABLE_COUNTER));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorOptModel(F_OPT_MODEL));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorProveStmt(F_PROVE_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorStateOf(F_STATE_OF));
+		RulpUtil.addFrameObject(frame, new XRFactorStart(F_START));
+		RulpUtil.addFrameObject(frame, new XRFactorAddStmt(F_ADD_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorAddRule(F_ADD_RULE));
+		RulpUtil.addFrameObject(frame, new XRFactorRemoveStmt(F_REMOVE_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorListStmt(F_LIST_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorQueryStmt(F_QUERY_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorAddLazyStmt(F_ADD_LAZY_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorTraceRule(F_TRACE_RULE));
+		RulpUtil.addFrameObject(frame, new XRFactorAddNode(F_ADD_NODE));
+		RulpUtil.addFrameObject(frame, new XRFactorFixStmt(F_FIX_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorSearch(F_SEARCH));
+		RulpUtil.addFrameObject(frame, new XRFactorLoadStmt(F_LOAD_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorHasStmt(F_HAS_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorGcModel(F_GC_MODEL));
+		RulpUtil.addFrameObject(frame, new XRFactorPrintModelStatus(F_PRINT_MODEL_STATUS));
+		RulpUtil.addFrameObject(frame, new XRFactorPrintRunnableCounter(F_PRINT_RUNNABLE_COUNTER));
+		RulpUtil.addFrameObject(frame, new XRFactorOptModel(F_OPT_MODEL));
+		RulpUtil.addFrameObject(frame, new XRFactorProveStmt(F_PROVE_STMT));
 
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSizeOfModel(F_SIZE_OF_MODEL));
-//		RulpUtil.addFrameObject(systemFrame, new XRFactorGetRule(F_GET_RULE));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorPriorityOf(F_PRIORITY_OF));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSetRulePriority(F_SET_RULE_PRIORITY));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorListSourceNodes(F_LIST_SOURCE_NODE));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSetModelCachePath(F_SET_MODEL_CACHE_PATH));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSetNodeCachePath(F_SET_NODE_CACHE_PATH));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSaveModel(F_SAVE_MODEL));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorSetDefaultModel(F_SET_DEFAULT_MODEL));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorReteNodeOf(F_RETE_NODE_OF));
+		RulpUtil.addFrameObject(frame, new XRFactorSizeOfModel(F_SIZE_OF_MODEL));
+//		RulpUtil.addFrameObject(frame, new XRFactorGetRule(F_GET_RULE));
+		RulpUtil.addFrameObject(frame, new XRFactorPriorityOf(F_PRIORITY_OF));
+		RulpUtil.addFrameObject(frame, new XRFactorSetRulePriority(F_SET_RULE_PRIORITY));
+		RulpUtil.addFrameObject(frame, new XRFactorListSourceNodes(F_LIST_SOURCE_NODE));
+		RulpUtil.addFrameObject(frame, new XRFactorSetModelCachePath(F_SET_MODEL_CACHE_PATH));
+		RulpUtil.addFrameObject(frame, new XRFactorSetNodeCachePath(F_SET_NODE_CACHE_PATH));
+		RulpUtil.addFrameObject(frame, new XRFactorSaveModel(F_SAVE_MODEL));
+		RulpUtil.addFrameObject(frame, new XRFactorSetDefaultModel(F_SET_DEFAULT_MODEL));
+		RulpUtil.addFrameObject(frame, new XRFactorReteNodeOf(F_RETE_NODE_OF));
+		RulpUtil.addFrameObject(frame, new XRFactorReteEntryCountOf(F_RETE_ENTRY_COUNT_OF));
 
 		// Constraint
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorRemoveConstraint(F_REMOVE_CONSTRAINT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorListConstraint(F_LIST_CONSTRAINT));
+		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));
+		RulpUtil.addFrameObject(frame, new XRFactorRemoveConstraint(F_REMOVE_CONSTRAINT));
+		RulpUtil.addFrameObject(frame, new XRFactorListConstraint(F_LIST_CONSTRAINT));
 
 		// Assume
-		RulpUtil.addFrameObject(systemFrame, new XRFactorAssumeStmt(F_ASSUME_STMT));
-		RulpUtil.addFrameObject(systemFrame, new XRFactorDumpStatus(F_DUMP_STATUS));
+		RulpUtil.addFrameObject(frame, new XRFactorAssumeStmt(F_ASSUME_STMT));
+		RulpUtil.addFrameObject(frame, new XRFactorDumpStatus(F_DUMP_STATUS));
 
 		// Load rule library
-		LoadUtil.loadRulpFromJar(interpreter, systemFrame, "alpha/resource/rule.rulp", "utf-8");
+		LoadUtil.loadRulpFromJar(interpreter, frame, "alpha/resource/rule.rulp", "utf-8");
 
 		// RBS init
-		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), RBS_NS, (inp, frame) -> {
-			RBSUtil.init(inp, frame);
+		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), RBS_NS, (inp, _frame) -> {
+			RBSUtil.init(inp, _frame);
 		});
 
 		// MTS init
-		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), MTS_NS, (inp, frame) -> {
-			SearchFactory.init(inp, frame);
+		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), MTS_NS, (inp, _frame) -> {
+			SearchFactory.init(inp, _frame);
 		});
 
 //		// Native Class Initialization
-//		SearchFactory.initScopeClass(systemFrame);
+//		SearchFactory.initScopeClass(frame);
 
 	}
 

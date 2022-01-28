@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itool\irulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -280,6 +280,7 @@ mbr=remove_cst_constraint_min, mbr-property='(public), mbr-attribute='(), obj=(r
 mbr=remove_cst_constraint_one_of, mbr-property='(public), mbr-attribute='(), obj=(remove_cst_constraint_one_of type#model string nil list), obj-type=func, obj-attribute='()
 mbr=remove_cst_constraint_type, mbr-property='(public), mbr-attribute='(), obj=(remove_cst_constraint_type type#model string nil nil), obj-type=func, obj-attribute='()
 mbr=removed, mbr-property='(public), mbr-attribute='(), obj=removed, obj-type=atom, obj-attribute='()
+mbr=rete-entry-count-of, mbr-property='(public), mbr-attribute='(), obj=rete-entry-count-of, obj-type=factor, obj-attribute='()
 mbr=rete-node-of, mbr-property='(public), mbr-attribute='(), obj=rete-node-of, obj-type=factor, obj-attribute='()
 mbr=rete-type-of, mbr-property='(public), mbr-attribute='(), obj=(rete-type-of nil), obj-type=func, obj-attribute='()
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
@@ -314,7 +315,6 @@ mbr=?script-path, mbr-property='(public), mbr-attribute='(), obj=?script-path, o
 mbr=_ginfo, mbr-property='(public), mbr-attribute='(), obj='((_ginfo string) (_ginfo)), obj-type=func, obj-attribute='()
 mbr=file-prename, mbr-property='(public), mbr-attribute='(), obj=(file-prename string), obj-type=func, obj-attribute='()
 mbr=file-subffix, mbr-property='(public), mbr-attribute='(), obj=(file-subffix string), obj-type=func, obj-attribute='()
-mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list), obj-type=func, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
@@ -346,7 +346,6 @@ mbr=get-suffix, mbr-property='(public), mbr-attribute='(), obj=(get-suffix nil n
 mbr=get-uri-name, mbr-property='(public), mbr-attribute='(), obj=(get-uri-name nil), obj-type=func, obj-attribute='()
 mbr=get-version-number, mbr-property='(public), mbr-attribute='(), obj=(get-version-number nil), obj-type=func, obj-attribute='()
 mbr=hasGroupChild, mbr-property='(public), mbr-attribute='(), obj=hasGroupChild, obj-type=macro, obj-attribute='()
-mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list), obj-type=func, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()

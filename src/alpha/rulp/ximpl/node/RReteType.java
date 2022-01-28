@@ -59,39 +59,54 @@ public enum RReteType {
 	public static RReteType getRetetType(int tv) throws RException {
 
 		switch (tv) {
-
 		case RRT_ROOT0:
 			return ROOT0;
+
 		case RRT_NAME0:
 			return NAME0;
+
 		case RRT_VAR:
 			return VAR;
+
 		case RRT_CONST:
 			return CONST;
+
 		case RRT_ALPH0:
 			return ALPH0;
+
 		case RRT_ALPH1:
 			return ALPH1;
+
 		case RRT_EXPR0:
 			return EXPR0;
+
 		case RRT_EXPR1:
 			return EXPR1;
+
 		case RRT_EXPR2:
 			return EXPR2;
+
 		case RRT_EXPR3:
 			return EXPR3;
+
 		case RRT_EXPR4:
 			return EXPR4;
+
 		case RRT_BETA0:
 			return BETA0;
+
 		case RRT_BETA1:
 			return BETA1;
+
 		case RRT_BETA2:
 			return BETA2;
+
 		case RRT_BETA3:
 			return BETA3;
+
 		case RRT_RULE:
 			return RULE;
+
 		case RRT_WORK:
 			return WORK;
 

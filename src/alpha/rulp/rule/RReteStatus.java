@@ -12,7 +12,9 @@ import static alpha.rulp.rule.Constant.O_Removed;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRObject;
+import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
+import alpha.rulp.ximpl.node.RReteType;
 
 public enum RReteStatus {
 
@@ -23,9 +25,42 @@ public enum RReteStatus {
 	FIXED_(4, 16, "fixed"), //
 	TEMP__(5, 32, "temp"); //
 
+	static final int RRS_DEFINE = 0;
+	static final int RRS_REASON = 1;
+	static final int RRS_ASSUME = 2;
+	static final int RRS_REMOVE = 3;
+	static final int RRS_FIXED = 4;
+	static final int RRS_TEMP = 5;
+
 	public static final RReteStatus ALL_RETE_STATUS[] = { DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__ };
 
 	public static final int RETE_STATUS_NUM = 6;
+
+	public static RReteStatus getRetetStatus(int ts) throws RException {
+
+		switch (ts) {
+		case RRS_DEFINE:
+			return DEFINE;
+
+		case RRS_REASON:
+			return REASON;
+
+		case RRS_ASSUME:
+			return ASSUME;
+
+		case RRS_REMOVE:
+			return REMOVE;
+
+		case RRS_FIXED:
+			return FIXED_;
+
+		case RRS_TEMP:
+			return TEMP__;
+
+		default:
+			throw new RException("invalid unknown RRS value: " + ts);
+		}
+	}
 
 	public static IRObject toObject(RReteStatus state) {
 		switch (state) {
