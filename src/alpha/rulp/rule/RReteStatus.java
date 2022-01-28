@@ -14,7 +14,6 @@ import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
-import alpha.rulp.ximpl.node.RReteType;
 
 public enum RReteStatus {
 

@@ -33,3 +33,12 @@
 
 (foreach (?n (rete-node-of m)) (return (entry-length-of ?n)))
 ;=>
+
+(foreach (?n (rete-node-of m)) 
+    (return 
+        (foreach (?s RRS_ALL_STATUS) 
+            (return (rete-entry-count-of ?n ?s)))))
+;=>
+
+(foreach (?n (rete-node-of m)) (return (rete-valid-entry-of ?n)))
+;=>

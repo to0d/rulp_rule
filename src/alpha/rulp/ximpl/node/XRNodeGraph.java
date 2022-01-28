@@ -1,8 +1,9 @@
 package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
+import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_RETE_TYPE;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;

@@ -258,6 +258,15 @@ public class RuleUtil {
 		return (IRModel) obj;
 	}
 
+	public static IRReteNode asNamedNode(IRReteNode node) throws RException {
+
+		if (node.getReteType() != RReteType.NAME0) {
+			throw new RException("Can't convert to named node: " + node);
+		}
+
+		return node;
+	}
+
 //	public static void setRulePriority(IRRule rule, int priority) throws RException {
 //
 //		if (priority < 0 || priority > RETE_PRIORITY_MAXIMUM) {
@@ -286,13 +295,13 @@ public class RuleUtil {
 //		});
 //	}
 
-	public static IRReteNode asNamedNode(IRReteNode node) throws RException {
+	public static IRReteNode asNode(IRObject obj) throws RException {
 
-		if (node.getReteType() != RReteType.NAME0) {
-			throw new RException("Can't convert to named node: " + node);
+		if (!(obj instanceof IRReteNode)) {
+			throw new RException("Can't convert to node: " + obj);
 		}
 
-		return node;
+		return (IRReteNode) obj;
 	}
 
 	public static IRRule asRule(IRObject obj) throws RException {

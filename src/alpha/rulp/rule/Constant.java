@@ -31,6 +31,8 @@ public interface Constant {
 
 	String A_ENTRY = "entry";
 
+	String A_ENTRY_LEN = "entry-len";
+
 	String A_ENTRY_ORDER = "entry-order";
 
 	String A_Failed = "failed";
@@ -66,10 +68,8 @@ public interface Constant {
 	String A_Reasoned = "reasoned";
 
 	String A_Removed = "removed";
-
-	String A_RETE_TYPE = "rete-type";
 	
-	String A_ENTRY_LEN = "entry-len";
+	String A_RETE_TYPE = "rete-type";
 
 	String A_RULE = "rule";
 
@@ -163,9 +163,9 @@ public interface Constant {
 
 	String F_REMOVE_STMT = "remove-stmt";
 
-	String F_RETE_NODE_OF = "rete-node-of";
-	
 	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
+	
+	String F_RETE_NODE_OF = "rete-node-of";
 
 	String F_SAVE_MODEL = "save-model";
 
