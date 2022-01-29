@@ -286,7 +286,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_6_var_expr_4() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -296,7 +296,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_6_var_expr_5() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -306,7 +306,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_6_var_expr_6() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -316,7 +316,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_6_var_expr_7() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -326,7 +326,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_6_var_expr_8() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -336,7 +336,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_6_var_expr_9() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -346,7 +346,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_6_var_expr_a() {
 
 		_setup();
-		_run_script(); 
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -356,7 +356,7 @@ public class TestRule extends RuleTestBase {
 	public void test_rule_7_null_expr_1() {
 
 		_setup();
-		_run_script();  
+		_run_script();
 		_mStatus(1, "m");
 		_saveTest();
 		_statsInfo("m");
@@ -420,4 +420,10 @@ public class TestRule extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	public void test_rule_e_fun_1() {
+
+		_setup();
+		_run_script();
+	}
 }

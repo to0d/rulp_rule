@@ -1,0 +1,18 @@
+(load tool)
+;=>
+
+(new model m)
+;=>
+
+(add-rule m if n1:'(?x ?t1) n1:'(?y ?t2) (day-is-bigger-than ?t1 ?t2) do (remove-stmt ?0))
+;=>
+
+(add-stmt m n1:'(x "2022-01-29"))
+(add-stmt m n1:'(y "2022-01-28"))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>
