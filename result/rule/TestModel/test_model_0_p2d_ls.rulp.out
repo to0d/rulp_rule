@@ -51,6 +51,7 @@ mbr=compute, mbr-property='(public), mbr-attribute='(), obj=compute, obj-type=fa
 mbr=constant, mbr-property='(public), mbr-attribute='(), obj=constant, obj-type=atom, obj-attribute='()
 mbr=continue, mbr-property='(public), mbr-attribute='(), obj=continue, obj-type=factor, obj-attribute='(stable)
 mbr=date, mbr-property='(public), mbr-attribute='(), obj=date, obj-type=factor, obj-attribute='()
+mbr=day-number, mbr-property='(public), mbr-attribute='(), obj=day-number, obj-type=factor, obj-attribute='()
 mbr=default, mbr-property='(public), mbr-attribute='(), obj=default, obj-type=atom, obj-attribute='()
 mbr=defclass, mbr-property='(public), mbr-attribute='(), obj=defclass, obj-type=factor, obj-attribute='(stable)
 mbr=defconst, mbr-property='(public), mbr-attribute='(), obj=defconst, obj-type=factor, obj-attribute='(stable)
@@ -69,6 +70,11 @@ mbr=error-value, mbr-property='(public), mbr-attribute='(), obj=error-value, obj
 mbr=expr, mbr-property='(public), mbr-attribute='(), obj=expr, obj-type=atom, obj-attribute='()
 mbr=factor, mbr-property='(public), mbr-attribute='(), obj=factor, obj-type=atom, obj-attribute='()
 mbr=false, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=bool, obj-attribute='()
+mbr=file-delete, mbr-property='(public), mbr-attribute='(), obj=file-delete, obj-type=factor, obj-attribute='()
+mbr=file-exist, mbr-property='(public), mbr-attribute='(), obj=file-exist, obj-type=factor, obj-attribute='()
+mbr=file-is-folder, mbr-property='(public), mbr-attribute='(), obj=file-is-folder, obj-type=factor, obj-attribute='()
+mbr=file-list, mbr-property='(public), mbr-attribute='(), obj=file-list, obj-type=factor, obj-attribute='()
+mbr=file-mkdirs, mbr-property='(public), mbr-attribute='(), obj=file-mkdirs, obj-type=factor, obj-attribute='()
 mbr=final, mbr-property='(public), mbr-attribute='(), obj=final, obj-type=atom, obj-attribute='()
 mbr=float, mbr-property='(public), mbr-attribute='(), obj=float, obj-type=atom, obj-attribute='()
 mbr=foreach, mbr-property='(public), mbr-attribute='(), obj=foreach, obj-type=factor, obj-attribute='(stable)
@@ -322,6 +328,8 @@ mbr=where, mbr-property='(public), mbr-attribute='(), obj=where, obj-type=atom, 
 ;out:
 mbr=?script-path, mbr-property='(public), mbr-attribute='(), obj=?script-path, obj-type=var, obj-attribute='(), var-value="resultule\TestModel\test_model_0_p2d_ls.rulp"
 mbr=_ginfo, mbr-property='(public), mbr-attribute='(), obj='((_ginfo string) (_ginfo)), obj-type=func, obj-attribute='()
+mbr=day-is-bigger-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-bigger-than string string), obj-type=func, obj-attribute='()
+mbr=day-is-smaller-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-smaller-than string string), obj-type=func, obj-attribute='()
 mbr=file-prename, mbr-property='(public), mbr-attribute='(), obj=(file-prename string), obj-type=func, obj-attribute='()
 mbr=file-subffix, mbr-property='(public), mbr-attribute='(), obj=(file-subffix string), obj-type=func, obj-attribute='()
 mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list), obj-type=func, obj-attribute='()
@@ -348,6 +356,8 @@ mbr=#ns_domain, mbr-property='(public), mbr-attribute='(), obj=#ns_domain, obj-t
 mbr=#ns_tag, mbr-property='(public), mbr-attribute='(), obj=#ns_tag, obj-type=var, obj-attribute='(), var-value="nt:"
 mbr=?script-path, mbr-property='(public), mbr-attribute='(), obj=?script-path, obj-type=var, obj-attribute='(), var-value="resultule\TestModel\test_model_0_p2d_ls.rulp"
 mbr=_ginfo, mbr-property='(public), mbr-attribute='(), obj='((_ginfo string) (_ginfo)), obj-type=func, obj-attribute='()
+mbr=day-is-bigger-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-bigger-than string string), obj-type=func, obj-attribute='()
+mbr=day-is-smaller-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-smaller-than string string), obj-type=func, obj-attribute='()
 mbr=file-prename, mbr-property='(public), mbr-attribute='(), obj=(file-prename string), obj-type=func, obj-attribute='()
 mbr=file-subffix, mbr-property='(public), mbr-attribute='(), obj=(file-subffix string), obj-type=func, obj-attribute='()
 mbr=get-field-name, mbr-property='(public), mbr-attribute='(), obj=(get-field-name nil), obj-type=func, obj-attribute='()
