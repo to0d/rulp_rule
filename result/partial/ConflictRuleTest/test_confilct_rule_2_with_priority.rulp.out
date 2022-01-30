@@ -8,7 +8,7 @@
 ;=>R2
 
 (set-priority (get-rule m "R2") 199)
-;=>R2
+;=>nil
 
 (priority-of (get-rule m "R1"))
 ;=>99
