@@ -1,0 +1,36 @@
+(new model m)
+;=>m
+
+(add-lazy-stmt m '(?x typeof ?y) '('(a typeof node) '(b typeof node) '(c typeof tag)))
+;=>nil
+
+(add-lazy-stmt m '(?x p ?y) '('(a p b)))
+;=>nil
+
+(add-stmt m '(node typeof obj))
+;=>true
+
+(add-rule m if '(?a typeof ?b) '(?b typeof ?c) do (-> m '(?a typeof2 ?c)) )
+;=>RU000
+
+(list-stmt m)
+;=>'('(node typeof obj))
+
+(start m)
+;=>3
+
+(list-stmt m)
+;=>'('(node typeof obj))
+
+(list-stmt m state defined)
+;=>'('(node typeof obj))
+
+(list-stmt m state reasoned)
+;=>'()
+
+(list-stmt m state assumed)
+;=>'()
+
+(list-stmt m state removed)
+;=>'()
+

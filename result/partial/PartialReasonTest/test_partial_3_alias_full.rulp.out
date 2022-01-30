@@ -1,0 +1,18 @@
+(load "result/p2d.rulp")
+;=>nil
+
+(add-stmt p2d '(ta nm:hasAliasTag tb))
+;=>true
+
+(add-stmt p2d '(tc nm:hasAliasTag td))
+;=>true
+
+(start p2d)
+;=>277
+
+(state-of p2d)
+;=>completed
+
+(list-stmt p2d from '(tb nm:beAliasTo ?x))
+;=>'('(tb nm:beAliasTo ta))
+

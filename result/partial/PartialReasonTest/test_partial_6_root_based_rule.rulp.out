@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x ?y ?z) do (-> '(?z ?y ?x)))
+;=>RU000
+
+(add-stmt m '(x y z))
+;=>true
+
+(query-stmt m '(?x ?y ?z) from '(?x ?y ?z))
+;=>'('(x y z) '(z y x))
+

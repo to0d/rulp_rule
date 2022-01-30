@@ -194,7 +194,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   model@m             
+default_model        : 13       3        2    instance   model@m             
 ==========================================================================================================================
 
 node update info: model-exec-count=3, row=2, column=3(1), value-max=1, value-unit=1^x
@@ -212,8 +212,8 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      284
-    Interpreter call level/max:        0        2
+           Interpreter call id:      289
+    Interpreter call level/max:        0        3
                Frame max level:        2
                   Frame max id:        4
            Frame free id count:        0
@@ -233,53 +233,54 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      282
+    factor:      291
 ==========================================================================================================================
 
-Callable stats info: callId=284, row=13, column=36(8), value-max=8, value-unit=2^x
+Callable stats info: callId=289, row=14, column=37(8), value-max=8, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         444444444444444444444444444444444444 max=8, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444444444444444542 max=11, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    179    0 add-attribute                  144444444444444444444442            
-    root   factor     47    0 defun                                                 443441  144  
-    root   factor     28    0 defconst                                                   4444    
-    root   factor      7    0 alias                          4                              1    
-  system   factor      6    0 list-stmt                                                        14
-    root   factor      5    0 defmacro                                                2     12   
-    root   factor      3    0 deftemplate                                             3          
-  system   factor      2    0 add-lazy-stmt                                                    2 
-  system   factor      1    0 start                                                            1 
-    root   factor      1    0 new                                                              1 
-    root   factor      1    0 defvar                                                1            
-  system   factor      1    0 add-stmt                                                         1 
-  system   factor      1    0 add-rule                                                         1 
+    root   factor    179    0 add-attribute                  144444444444444444444442             
+    root   factor     53    0 defun                                                 443441  1444  
+    root   factor     28    0 defconst                                                   4444     
+    root   factor      7    0 alias                          4                              1     
+  system   factor      6    0 list-stmt                                                         32
+    root   factor      6    0 defmacro                                                2     12 1  
+    root   factor      3    0 deftemplate                                             3           
+    root   factor      2    0 defvar                                                1          1  
+  system   factor      2    0 add-lazy-stmt                                                    11 
+  system   factor      1    0 start                                                             1 
+    root   factor      1    0 new                                                              1  
+    root   factor      1    0 load                                                             1  
+  system   factor      1    0 add-stmt                                                          1 
+  system   factor      1    0 add-rule                                                          1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1617            0         1617
+        atom:         1717            0         1717
          int:            1            0            1
-      string:           51            0           51
+      string:           57            0           57
         list:           77            3           74
-        expr:          629            0          629
-         var:           13            0           13
+        expr:          689            0          689
+         var:           14            0           14
     constant:           28            0           28
-        func:           58            0           58
+        func:           66            0           66
     template:            1            0            1
-       macro:            5            0            5
+       macro:            6            0            6
     instance:            2            0            2
       member:           16            0           16
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          319            0
+  frameEntry:          326            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=13, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -288,7 +289,19 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        2    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-m                    : 7        2        2    instance   model@m             
+is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+                                         2    func       (is-empty list) : frame=frame@system
+                                         2    func       (is-empty array) : frame=frame@system
+                                         1    func       (is-empty string) : frame=frame@main
+is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        1    var        result\worker\XRFactorAddLazyStmtTest\test_add_lazy_stmt_2_run_without_load_stmt.rulp : type=string
+script_out           : 11       2        1    macro      script_out          
+_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         1    func       (_ginfo) : frame=frame@main
+                                         1    func       (_ginfo string) : frame=frame@main
+m                    : 14       2        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -296,7 +309,7 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        2    instance   model@m             
+default_model        : 13       3        2    instance   model@m             
 ==========================================================================================================================
 
 Global frame tree:

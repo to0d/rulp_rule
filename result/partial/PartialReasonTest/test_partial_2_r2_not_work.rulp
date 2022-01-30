@@ -1,0 +1,30 @@
+(new model m)
+;=>
+
+(add-rule "R1" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )
+;=>
+
+(add-rule "R2" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )
+;=>
+
+(add-stmt m '(a typeof c1))
+;=>
+
+(add-stmt m '(a p b))
+;=>
+
+(add-stmt m '(b p c))
+;=>
+
+(list-stmt m from '(?x typeof c2))
+;=>
+
+(list-source-node m ('(?n typeof c2)))
+;=>
+
+(query-stmt m '(?n) from '(?n typeof c2))
+;=>
+
+(list-stmt m)
+;=>
+

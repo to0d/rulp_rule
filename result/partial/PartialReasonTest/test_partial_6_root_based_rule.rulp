@@ -1,0 +1,12 @@
+(new model m)
+;;;
+
+(add-rule m if '(?x ?y ?z) do (-> '(?z ?y ?x)))
+;;;
+
+(add-stmt m '(x y z))
+;;;
+
+(query-stmt m '(?x ?y ?z) from '(?x ?y ?z))
+;=>
+

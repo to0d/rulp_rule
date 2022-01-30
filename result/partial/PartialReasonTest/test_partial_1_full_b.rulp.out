@@ -1,0 +1,39 @@
+(new model m)
+;=>m
+
+(add-rule "R1" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )
+;=>R1
+
+(add-rule "R2" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )
+;=>R2
+
+(add-stmt m '(a typeof c1)) ; used for R1
+;=>true
+
+(add-stmt m '(a p b)) ; used for R2
+;=>true
+
+(add-stmt m '(b p c)) ; used for R2
+;=>true
+
+(start m priority -1 limit 5)
+;=>5
+
+(state-of m)
+;=>runnable
+
+(start m)
+;=>8
+
+(state-of m)
+;=>completed
+
+(start m)
+;=>0
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a typeof c1) '(a p b) '(b p c) '(a typeof c2) '(a p c))
+

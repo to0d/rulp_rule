@@ -1,0 +1,42 @@
+(new model m)
+;;;
+
+(add-lazy-stmt m '(?x typeof ?y) '('(a typeof node) '(b typeof node) '(c typeof tag)))
+;;;
+
+(add-lazy-stmt m '(?x p ?y) '('(a p b)))
+;;;
+
+(add-stmt m '(node typeof obj))
+;;;
+
+(add-rule m if '(?a typeof ?b) '(?b typeof ?c) do (-> m '(?a typeof2 ?c)) )
+;;;
+
+(list-stmt m)
+;=>
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+
+(query-stmt m ?x from '(?x typeof ?))
+;=>
+
+(query-stmt m ?x from '(?x typeof2 ?))
+;=>
+
+(list-stmt m state defined)
+;=>
+
+(list-stmt m state reasoned)
+;=>
+
+(list-stmt m state assumed)
+;=>
+
+(list-stmt m state removed)
+;=>
+

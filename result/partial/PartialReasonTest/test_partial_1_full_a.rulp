@@ -1,0 +1,27 @@
+(new model m)
+;=>
+
+(add-rule "R1" m if '(?x typeof c1) do (-> m '(?x typeof c2)) )
+;=>
+
+(add-rule "R2" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )
+;=>
+
+(add-stmt m '(a typeof c1))
+;=>
+
+(add-stmt m '(a p b))
+;=>
+
+(add-stmt m '(b p c))
+;=>
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+

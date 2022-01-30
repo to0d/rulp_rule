@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-stmt m '(c typeof node))
+;=>true
+
+(list-stmt m from '(?x typeof node))
+;=>'('(c typeof node))
+
+(add-lazy-stmt m '(?a typeof node) '('(a typeof node) '(b typeof node)))
+;=>nil
+
+(query-stmt m ?x from '(?x typeof node))
+;=>'(c a b)
+
+(query-stmt m ?x from '(?x typeof node))
+;=>'(c a b)
+
