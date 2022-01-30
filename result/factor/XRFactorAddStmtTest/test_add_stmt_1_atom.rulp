@@ -1,0 +1,24 @@
+(new model m)
+;=>
+
+(type-of m)
+;=>
+
+(name-of m)
+;=>
+
+(add-stmt m '(a p1 c))
+;=>
+
+(add-stmt m '(a p1 c)) ; duplicated
+;=>
+
+(add-stmt m '(a p1 b))
+;=>
+
+(add-stmt m '(a p2 c))
+;=>
+
+(list-stmt m from '(a ?x c))
+;=>
+

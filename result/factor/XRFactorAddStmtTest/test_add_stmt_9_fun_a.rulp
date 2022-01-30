@@ -1,0 +1,12 @@
+(defun f1 (?x) (setq ?x1 ?x))
+;;;
+
+(new model m)
+;=>
+
+(add-stmt m name1:'(f1 9))
+;;;
+
+(add-stmt m '(f1 a))
+;;;
+

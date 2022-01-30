@@ -1,0 +1,12 @@
+(new model m)
+;=>
+
+(add-stmt m '(a p1 "abc"))
+;=>
+
+(add-stmt m '(a p1 "abc"))
+;=>
+
+(list-stmt m)
+;=>
+

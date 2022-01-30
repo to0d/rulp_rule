@@ -1,0 +1,12 @@
+(new model m)
+;=>
+
+(add-stmt m '(a p1 1.1))
+;=>
+
+(add-stmt m '(a p1 1.1))
+;=>
+
+(list-stmt m from '(a p1 ?x))
+;=>
+

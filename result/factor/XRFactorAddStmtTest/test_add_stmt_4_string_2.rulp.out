@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(add-stmt m '(nt:"a id" a b))
+;=>true
+
+(list-stmt m)
+;=>'('(nt:"a id" a b))
+

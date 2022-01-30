@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a b nil))
+;=>true
+
+(add-stmt m '(a b nil))
+;=>false
+
+(list-stmt m)
+;=>'('(a b nil))
+

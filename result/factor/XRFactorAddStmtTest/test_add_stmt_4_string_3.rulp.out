@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(add-stmt m name1:'("a string"))
+;=>true
+
+(list-stmt m)
+;=>'(name1:'("a string"))
+

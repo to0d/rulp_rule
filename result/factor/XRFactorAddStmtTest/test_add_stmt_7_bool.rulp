@@ -1,0 +1,15 @@
+(new model m)
+;=>
+
+(add-stmt m '(a b true))
+;=>
+
+(add-stmt m '(a b true))
+;=>
+
+(add-stmt m '(a b c false))
+;=>
+
+(list-stmt m)
+;=>
+

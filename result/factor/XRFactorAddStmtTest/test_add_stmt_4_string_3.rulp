@@ -1,0 +1,9 @@
+(new model m)
+;;;
+
+(add-stmt m name1:'("a string"))
+;;;
+
+(list-stmt m)
+;=>
+

@@ -1,0 +1,12 @@
+(new model m)
+;=>
+
+(add-stmt m name1:'(a nil b))
+;=>
+
+(add-stmt m name1:'(a nil b))
+;=>
+
+(list-stmt m)
+;=>
+

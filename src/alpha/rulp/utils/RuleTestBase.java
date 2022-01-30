@@ -224,6 +224,7 @@ public class RuleTestBase extends RulpTestBase {
 //	}
 //
 //	protected void _test(String input, String out) {
+//		
 //		System.out.println(input);
 //		System.out.println(";=>");
 //		System.out.println();
