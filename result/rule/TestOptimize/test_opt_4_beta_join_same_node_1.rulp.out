@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a ?p ?b) '(?b ?p ?a) do (-> n1:'(?a ?b)))
+;=>RU000
+
+(add-stmt m '(a p a))
+;=>true
+
+(add-stmt m '(b p b))
+;=>true
+
+(query-stmt m '(?a ?b) from n1:'(?a ?b))
+;=>'('(a a) '(b b))
+

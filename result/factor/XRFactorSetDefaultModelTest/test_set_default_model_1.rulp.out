@@ -1,0 +1,36 @@
+(new model m)
+;=>m
+
+(set-default-model m)
+;=>nil
+
+(add-stmt '(a p b))
+;=>true
+
+(add-stmt '(x p y))
+;=>true
+
+(list-stmt)
+;=>'('(a p b) '(x p y))
+
+(query-stmt '(?x ?y) from '(?x p ?y))
+;=>'('(a b) '(x y))
+
+(remove-stmt '(a p b))
+;=>'('(a p b))
+
+(list-stmt)
+;=>'('(x p y))
+
+(add-rule if '(?a ?p ?b) do (add-stmt '(?b ?p ?a)))
+;=>RU000
+
+(start)
+;=>4
+
+(list-stmt)
+;=>'('(x p y) '(y p x))
+
+(query-stmt ?x from '(?x p ?y))
+;=>'(x y)
+

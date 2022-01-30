@@ -1,0 +1,6 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?a ?p ?b) (equal p1 ?p) (equal p2 ?p) do (remove-stmt ?0))
+;=>RU000
+

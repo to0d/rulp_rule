@@ -1,0 +1,18 @@
+(new model m)
+;=>
+
+(add-rule m if '(?a ?p ?b) (equal ?a ?a) do (-> '(?b ?p ?a)))
+;;;
+
+(add-stmt m '(a2 p b2))
+;;;
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+

@@ -1,0 +1,15 @@
+(new model m)
+;;;
+
+(add-rule m if '(?a ?p ?b) '(?b ?p ?a) do (-> '(?b ?p ?b)))
+;;;
+
+(add-stmt m '(a p b))
+;;;
+
+(add-stmt m '(b p a))
+;;;
+
+(query-stmt m ?a from '(?a ?p ?b) where '(uniq on ?a))
+;=>
+

@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a ?p ?b) '(?p p2 c) (> c 10) do (-> '(?a p3 ?b)))
+;=>RU000
+
+(add-rule m if '(?a p1 ?b) '(?a ?p ?b) '(?p p2 c) (> c 10) (< c 9) do (remove-stmt ?0))
+;=>RU001
+
+(start m)
+;=>0
+
+(state-of m)
+;=>completed
+

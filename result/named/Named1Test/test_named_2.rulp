@@ -1,0 +1,24 @@
+(new model m)
+;;;
+
+(add-rule m if '(?x ?y ?z) do (-> '(?z ?y ?x)))
+;;;
+
+(add-rule m if name1:'(?x ?y ?z) do (-> name1:'(?z ?y ?x)))
+;;;
+
+(add-stmt m '(x y z))
+;;;
+
+(add-stmt m name1:'(a b c))
+;;;
+
+(list-stmt m)
+;=>
+
+(query-stmt m '(?x ?y ?z) from '(?x ?y ?z))
+;=>
+
+(query-stmt m '(?x ?y ?z) from name1:'(?x ?y ?z))
+;=>
+

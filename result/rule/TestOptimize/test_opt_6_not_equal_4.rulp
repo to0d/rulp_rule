@@ -1,0 +1,27 @@
+(new model m)
+;=>
+
+(add-rule m if '(?a ?p ?b) '(?p of tr) (not (equal p1 ?p)) (not (equal p2 ?p)) do (-> '(?a p4 ?b)))
+;;;
+
+(add-rule m if '(?a2 pauto ?b2) '(?a2 ?p2 ?b2) '(?p2 of tr) (not (equal p1 ?p2)) (not (equal p2 ?p2)) do (-> '(?a2 p5 ?b2)))
+;;;
+
+(add-stmt m '(a p1 b))
+;;;
+
+(add-stmt m '(a pauto b))
+;;;
+
+(add-stmt m '(px of tr))
+;;;
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+

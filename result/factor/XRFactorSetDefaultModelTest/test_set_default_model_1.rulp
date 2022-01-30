@@ -1,0 +1,36 @@
+(new model m)
+;;;
+
+(set-default-model m)
+;;;
+
+(add-stmt '(a p b))
+;;;
+
+(add-stmt '(x p y))
+;;;
+
+(list-stmt)
+;=>
+
+(query-stmt '(?x ?y) from '(?x p ?y))
+;=>
+
+(remove-stmt '(a p b))
+;;;
+
+(list-stmt)
+;=>
+
+(add-rule if '(?a ?p ?b) do (add-stmt '(?b ?p ?a)))
+;;;
+
+(start)
+;=>
+
+(list-stmt)
+;=>
+
+(query-stmt ?x from '(?x p ?y))
+;=>
+

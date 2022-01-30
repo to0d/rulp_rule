@@ -1,0 +1,15 @@
+(new model m)
+;=>
+
+(add-rule m if '(?a ?p ?b) '(?p p2 c) (> c 9) do (-> '(?a p3 ?b)))
+;;;
+
+(add-rule m if '(?a p1 ?b) '(?a ?p ?b) '(?p p2 c) (> c 9) (< c 10) do (remove-stmt ?0))
+;;;
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+

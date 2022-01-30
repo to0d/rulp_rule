@@ -1,0 +1,24 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x ?y ?z) do (-> '(?z ?y ?x)))
+;=>RU000
+
+(add-rule m if name1:'(?x ?y ?z) do (-> name1:'(?z ?y ?x)))
+;=>RU001
+
+(add-stmt m '(x y z))
+;=>true
+
+(add-stmt m name1:'(a b c))
+;=>true
+
+(list-stmt m)
+;=>'('(x y z) name1:'(a b c))
+
+(query-stmt m '(?x ?y ?z) from '(?x ?y ?z))
+;=>'('(x y z) '(z y x))
+
+(query-stmt m '(?x ?y ?z) from name1:'(?x ?y ?z))
+;=>'('(a b c) '(c b a))
+

@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a ?p ?b) (equal ?a ?a) do (-> '(?b ?p ?a)))
+;=>RU000
+
+(add-stmt m '(a2 p b2))
+;=>true
+
+(start m)
+;=>4
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a2 p b2) '(b2 p a2))
+

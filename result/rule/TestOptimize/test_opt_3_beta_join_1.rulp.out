@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(add-rule "C7" m if '(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) '(?b ?p ?a) (not (equal ?a ?b)) do (error '("Circle found" ?1 ?2)))
+;=>C7
+
+(add-stmt m '(a1 p1 b1))
+;=>true
+
+(add-stmt m '(a2 p2 b2))
+;=>true
+
+(add-stmt m '(a3 p2 b3))
+;=>true
+
+(add-stmt m '(p1 nm:propertyOf nm:nonCircleProperty))
+;=>true
+
+(add-stmt m '(p2 nm:propertyOf nm:nonCircleProperty))
+;=>true
+
+(start m)
+;=>8
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a1 p1 b1) '(a2 p2 b2) '(a3 p2 b3) '(p1 nm:propertyOf nm:nonCircleProperty) '(p2 nm:propertyOf nm:nonCircleProperty))
+
