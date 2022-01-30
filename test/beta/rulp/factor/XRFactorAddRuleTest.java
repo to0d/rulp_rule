@@ -1,13 +1,8 @@
 package beta.rulp.factor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.jupiter.api.Test;
 
-import alpha.rulp.rule.IRRule;
 import alpha.rulp.utils.RuleTestBase;
-import alpha.rulp.ximpl.node.RReteType;
 
 class XRFactorAddRuleTest extends RuleTestBase {
 
@@ -19,202 +14,79 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_rule_beta3_1() {
+	void test_add_rule_2_beta3_1() {
 
 		_setup();
-		_test("(new model m)");
-
-		// Should be beta3
-		_test("(add-rule \"RULE1\" m if '(?x ?y ?z) '(?a ?b ?c) do (-> m '(?x ?y ?z ?a ?b ?c)))");
-		IRRule rule = _model("m").getNodeGraph().getRule("RULE1");
-		assertNotNull(rule);
-		assertEquals("[]", rule.getNodeMatrix().getNodeList(RReteType.BETA0).toString());
-//		_test("(rete-node-of m RRT_BETA0)","'()");
-//		_test("(rete-node-of m RRT_BETA3)","'('('(?0 ?1 ?2) '(?3 ?4 ?5)))");
-		assertEquals("[B3002: '('(?0 ?1 ?2) '(?3 ?4 ?5))]",
-				rule.getNodeMatrix().getNodeList(RReteType.BETA3).toString());
-
-		_test("(add-stmt m '(a b c))");
-		_test("(add-stmt m '(x y z))");
-		_test("(start m)", "4");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a b c) '(x y z) '(a b c a b c) '(x y z a b c) '(a b c x y z) '(x y z x y z))");
+		_run_script();
 
 	}
 
 	@Test
-	void test_rule_beta3_2_a() {
+	void test_add_rule_2_beta3_2a() {
 
 		_setup();
-		_test("(new model m)");
-
-		// Should be beta0
-		_test("(add-rule \"RULE1\" m if '(?x ?y ?z) '(?a ?b ?c) (equal ?x ?a) do (-> m '(?x ?y ?z ?b ?c)))");
-		IRRule rule = _model("m").getNodeGraph().getRule("RULE1");
-		assertNotNull(rule);
-		assertEquals("[B0002: '('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?3 ?0))]",
-				rule.getNodeMatrix().getNodeList(RReteType.BETA0).toString());
-		assertEquals("[]", rule.getNodeMatrix().getNodeList(RReteType.BETA3).toString());
-
-		_test("(add-stmt m '(a b c))");
-		_test("(add-stmt m '(x y z))");
-		_test("(start m)", "4");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a b c) '(x y z) '(a b c b c) '(x y z y z))");
-		_mStatus(1, "m");
-		_saveTest();
+		_run_script();
 	}
 
 	@Test
-	void test_rule_beta3_2_b() {
+	void test_add_rule_2_beta3_2b() {
 
 		_setup();
-		_test("(new model m)");
-
-		// Should be beta0
-		_test("(add-rule \"RULE1\" m if '(?x ?y ?z) '(?a ?b ?c) (equal ?a ?x) do (-> m '(?x ?y ?z ?b ?c)))");
-		IRRule rule = _model("m").getNodeGraph().getRule("RULE1");
-		assertNotNull(rule);
-		assertEquals("[B0002: '('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?0 ?3))]",
-				rule.getNodeMatrix().getNodeList(RReteType.BETA0).toString());
-		assertEquals("[]", rule.getNodeMatrix().getNodeList(RReteType.BETA3).toString());
-
-		_test("(add-stmt m '(a b c))");
-		_test("(add-stmt m '(x y z))");
-		_test("(start m)", "4");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a b c) '(x y z) '(a b c b c) '(x y z y z))");
-
+		_run_script();
 	}
 
 	@Test
-	void test_rule_beta3_2_c() {
+	void test_add_rule_2_beta3_2c() {
 
 		_setup();
-		_test("(new model m)");
-
-		// Should be beta0
-		_test("(add-rule \"RULE1\" m if '(?x ?y ?z) '(?a ?b ?c) (equal ?x ?a) (!= ?0 ?1) do (-> m '(?x ?y ?z ?b ?c)))");
-		IRRule rule = _model("m").getNodeGraph().getRule("RULE1");
-		assertNotNull(rule);
-		assertEquals("[B0002: '('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?3 ?0))]",
-				rule.getNodeMatrix().getNodeList(RReteType.BETA0).toString());
-		assertEquals("[]", rule.getNodeMatrix().getNodeList(RReteType.BETA3).toString());
-
-		_test("(add-stmt m '(a b c))");
-		_test("(add-stmt m '(x y z))");
-		_test("(start m)", "3");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a b c) '(x y z))");
-
+		_run_script();
 		_statsInfo("m");
 	}
 
 	@Test
-	void test_rule_beta3_3() {
+	void test_add_rule_2_beta3_3() {
 
 		_setup();
-		_test("(new model m)");
-
-		// Should be beta0 & expr1
-		_test("(add-rule \"RULE1\" m if '(?x ?y ?z) '(?a ?b ?c) (equal ?x ?a) (equal ?y ?b) do (-> m '(?x ?y ?z ?b ?c)))");
-		IRRule rule = _model("m").getNodeGraph().getRule("RULE1");
-		assertNotNull(rule);
-
-		assertEquals("[B0002: '('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?3 ?0))]",
-				rule.getNodeMatrix().getNodeList(RReteType.BETA0).toString());
-		assertEquals("[]", rule.getNodeMatrix().getNodeList(RReteType.BETA3).toString());
-		assertEquals("[E1003: '('('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?3 ?0)) (equal ?4 ?1))]",
-				rule.getNodeMatrix().getNodeList(RReteType.EXPR1).toString());
-
-		_test("(add-stmt m '(a b c))");
-		_test("(add-stmt m '(x y z))");
-		_test("(start m)", "5");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a b c) '(x y z) '(a b c b c) '(x y z y z))");
-		_mStatus(1, "m");
-		_saveTest();
-	}
-
-	@Test
-	void test_rule_beta3_4() {
-
-		_setup();
-		_test("(new model m)");
-
-		// Should be beta3
-		_test("(add-rule m if '(?x ?y ?z) '(?a ?b ?c) (not (equal ?x ?a)) do (-> m '(?x ?y ?z ?b ?c)))");
-		_test("(add-stmt m '(a b c))");
-		_test("(add-stmt m '(x y z))");
-		_test("(start m)", "4");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a b c) '(x y z) '(x y z b c) '(a b c y z))");
-	}
-
-	@Test
-	void test_rule_beta3_5() {
-		_setup();
-		_test("(new model m)");
-
-		// Should be beta3
-		_test("(add-rule m if '(?x ?y ?z) '(?a ?b ?c) (= (+ ?c ?z) 0) (> ?z ?c) do (-> m '(?x ?y ?z ?b ?c)))");
-		_test("(add-stmt m '(a b 2))");
-		_test("(add-stmt m '(a b 1))");
-		_test("(add-stmt m '(x y -2))");
-		_test("(add-stmt m '(x y -3))");
-		_test("(start m)", "5");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a b 2) '(a b 1) '(x y -2) '(x y -3) '(a b 2 y -2))");
+		_run_script();
 
 	}
 
 	@Test
-	void test_rule_condtion() {
+	void test_add_rule_2_beta3_4() {
 
 		_setup();
-
-		// XRModel.TRACE_RETE = true;
-
-		_test("(new model m)");
-		_test("(add-rule m if '(?a age ?n) (>= ?n 18) do (-> m '(?a is adult)))", "RU000");
-		_test("(add-rule m if '(?a age ?n) (< ?n 18) do (-> m '(?a is child)))", "RU001");
-		_test("(list-rule m)", "'(RU000 RU001)");
-		_test("(add-stmt m '(todd age 39))");
-		_test("(add-stmt m '(yifan age 7))");
-		_test("(start m)", "9");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(todd age 39) '(yifan age 7) '(todd is adult) '(yifan is child))");
+		_run_script();
 
 	}
 
 	@Test
-	void test_rule_match() {
+	void test_add_rule_2_beta3_5() {
 
-		// XRModel.TRACE_RETE = true;
 		_setup();
-		_test("(new model m)");
-		_test("(add-stmt m '(p1 propertyOf inverse))");
-		_test("(add-stmt m '(a p1 b))");
-		_test("(add-rule m if '(?p propertyOf inverse) '(?a ?p ?b) do (-> m '(?b ?p ?a)))", "RU000");
-		_test("(start m)", "10");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(p1 propertyOf inverse) '(a p1 b) '(b p1 a))");
+		_run_script();
 
 	}
 
 	@Test
-	void test_rule_match_2() {
+	void test_add_rule_3_condtion() {
 
 		_setup();
+		_run_script();
+	}
 
-		// XRModel.TRACE_RETE = true;
-		_test("(new model m)");
-		_test("(add-rule m if '(?a ?a ?a) do (-> m '(?a typeOf xxx)))", "RU000");
-		_test("(add-stmt m '(a a a))");
-		_test("(add-stmt m '(c b b))");
-		_test("(start m)", "6");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'('(a a a) '(c b b) '(a typeOf xxx))");
+	@Test
+	void test_add_rule_4_match_1() {
+
+		_setup();
+		_run_script();
+
+	}
+
+	@Test
+	void test_add_rule_4_match_2() {
+
+		_setup();
+		_run_script();
 
 	}
 

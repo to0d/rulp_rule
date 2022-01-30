@@ -9,9 +9,8 @@
 //import alpha.rulp.rule.IRModel;
 //import alpha.rulp.rule.IRRule;
 //import alpha.rulp.runtime.IRInterpreter;
-//import alpha.rulp.runtime.IRIterator;
-//import alpha.rulp.utils.RuleUtil;
 //import alpha.rulp.utils.RulpUtil;
+//import alpha.rulp.utils.StmtUtil;
 //import alpha.rulp.ximpl.model.IRuleFactor;
 //
 //public class XRFactorGetRule extends AbsAtomFactorAdapter implements IRuleFactor {
@@ -23,35 +22,16 @@
 //	@Override
 //	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 //
-//		if (args.size() < 2) {
+//		if (args.size() != 2 && args.size() != 3) {
 //			throw new RException("Invalid parameters: " + args);
 //		}
 //
-//		IRModel model = null;
-//		String ruleName = null;
-//		IRObject arg = null;
-//
-//		IRIterator<? extends IRObject> iter = args.listIterator(1);
+//		IRModel model = StmtUtil.getStmtModel(args, interpreter, frame, 3);
+//		String ruleName = RulpUtil.asString(interpreter.compute(frame, StmtUtil.getStmt3Object(args))).asString();
 //
 //		/**************************************************/
 //		// Check model object
 //		/**************************************************/
-//		arg = interpreter.compute(frame, iter.next());
-//		if (arg instanceof IRModel) {
-//			model = (IRModel) arg;
-//			arg = interpreter.compute(frame, iter.next());
-//		} else {
-//			model = RuleUtil.getDefaultModel(frame);
-//			if (model == null) {
-//				throw new RException("no model be specified");
-//			}
-//		}
-//
-//		ruleName = RulpUtil.asString(arg).asString();
-//		if (iter.hasNext()) {
-//			throw new RException("Invalid parameters: " + args);
-//		}
-//
 //		IRRule rule = model.getNodeGraph().getRule(ruleName);
 //		return rule == null ? O_Nil : rule;
 //	}

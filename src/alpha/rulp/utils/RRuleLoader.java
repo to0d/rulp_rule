@@ -148,7 +148,6 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorPrintRunnableCounter(F_PRINT_RUNNABLE_COUNTER));
 		RulpUtil.addFrameObject(frame, new XRFactorOptModel(F_OPT_MODEL));
 		RulpUtil.addFrameObject(frame, new XRFactorProveStmt(F_PROVE_STMT));
-
 		RulpUtil.addFrameObject(frame, new XRFactorSizeOfModel(F_SIZE_OF_MODEL));
 //		RulpUtil.addFrameObject(frame, new XRFactorGetRule(F_GET_RULE));
 		RulpUtil.addFrameObject(frame, new XRFactorPriorityOf(F_PRIORITY_OF));

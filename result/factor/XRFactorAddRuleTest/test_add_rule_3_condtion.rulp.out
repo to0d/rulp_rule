@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a age ?n) (>= ?n 18) do (-> m '(?a is adult)))
+;=>RU000
+
+(add-rule m if '(?a age ?n) (< ?n 18) do (-> m '(?a is child)))
+;=>RU001
+
+(list-rule m)
+;=>'(RU000 RU001)
+
+(add-stmt m '(todd age 39))
+;=>true
+
+(add-stmt m '(yifan age 7))
+;=>true
+
+(start m)
+;=>9
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(todd age 39) '(yifan age 7) '(todd is adult) '(yifan is child))
+

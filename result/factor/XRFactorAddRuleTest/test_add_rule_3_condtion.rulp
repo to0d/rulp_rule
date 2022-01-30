@@ -1,0 +1,27 @@
+(new model m)
+;;;
+
+(add-rule m if '(?a age ?n) (>= ?n 18) do (-> m '(?a is adult)))
+;=>
+
+(add-rule m if '(?a age ?n) (< ?n 18) do (-> m '(?a is child)))
+;=>
+
+(list-rule m)
+;=>
+
+(add-stmt m '(todd age 39))
+;;;
+
+(add-stmt m '(yifan age 7))
+;;;
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+

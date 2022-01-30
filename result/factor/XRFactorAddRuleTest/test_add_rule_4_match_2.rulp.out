@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a ?a ?a) do (-> m '(?a typeOf xxx)))
+;=>RU000
+
+(add-stmt m '(a a a))
+;=>true
+
+(add-stmt m '(c b b))
+;=>true
+
+(start m)
+;=>6
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a a a) '(c b b) '(a typeOf xxx))
+

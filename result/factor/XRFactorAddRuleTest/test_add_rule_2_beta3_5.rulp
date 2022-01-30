@@ -1,0 +1,27 @@
+(new model m)
+;;;
+
+(add-rule m if '(?x ?y ?z) '(?a ?b ?c) (= (+ ?c ?z) 0) (> ?z ?c) do (-> m '(?x ?y ?z ?b ?c)))
+;;;
+
+(add-stmt m '(a b 2))
+;;;
+
+(add-stmt m '(a b 1))
+;;;
+
+(add-stmt m '(x y -2))
+;;;
+
+(add-stmt m '(x y -3))
+;;;
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+

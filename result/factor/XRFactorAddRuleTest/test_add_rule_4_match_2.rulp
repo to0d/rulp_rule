@@ -1,0 +1,21 @@
+(new model m)
+;;;
+
+(add-rule m if '(?a ?a ?a) do (-> m '(?a typeOf xxx)))
+;=>
+
+(add-stmt m '(a a a))
+;;;
+
+(add-stmt m '(c b b))
+;;;
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+

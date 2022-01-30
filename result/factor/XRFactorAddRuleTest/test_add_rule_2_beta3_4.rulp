@@ -1,0 +1,21 @@
+(new model m)
+;;;
+
+(add-rule m if '(?x ?y ?z) '(?a ?b ?c) (not (equal ?x ?a)) do (-> m '(?x ?y ?z ?b ?c))) ; Should be beta3
+;;;
+
+(add-stmt m '(a b c))
+;;;
+
+(add-stmt m '(x y z))
+;;;
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+

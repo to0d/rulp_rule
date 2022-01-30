@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-rule "RULE1" m if '(?x ?y ?z) '(?a ?b ?c) (equal ?x ?a) do (-> m '(?x ?y ?z ?b ?c)))
+;=>RULE1
+
+(rete-node-of (get-rule m "RULE1") RRT_BETA0)
+;=>'('('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?3 ?0)))
+
+(rete-node-of (get-rule m "RULE1") RRT_BETA3)
+;=>'()
+
+(add-stmt m '(a b c))
+;=>true
+
+(add-stmt m '(x y z))
+;=>true
+
+(start m)
+;=>4
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a b c) '(x y z) '(a b c b c) '(x y z y z))
+

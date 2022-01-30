@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-rule "R1" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1)) (-> (?b p1 ?a)))
+;=>R1
+
+(add-stmt m '(a p1 a))
+;=>true
+
+(add-stmt m n1:'(abc))
+;=>true
+
+(defvar ?rule (get-rule m "R1"))
+;=>&?rule
+
+(rete-node-of ?rule)
+;=>'('(?0 p1 ?1) R1)
+
