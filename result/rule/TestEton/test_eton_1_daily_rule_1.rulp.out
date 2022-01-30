@@ -18,8 +18,9 @@
 
 (start ?eton-model)
 ;err:
-not support stmt: working1:'("task1" "value0" ?today)
-at (-> working1:'(?task ?arg0 ?today)) ; qf-R1-8
+Can't query, the model is running
+at (query-stmt ?f from task_func:'(?task ?f)) ; qf-RX-4
+at (defvar ?funcs (query-stmt ?f from task_func:'(?task ?f))) ; qf-RX-4
 at (start ?eton-model) ; main-2
 ;eof
 

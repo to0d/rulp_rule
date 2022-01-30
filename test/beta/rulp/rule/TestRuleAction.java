@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
-class TestEton extends RuleTestBase {
+public class TestRuleAction extends RuleTestBase {
 
 	@Test
-	void test_eton_1_daily_rule_1() {
+	void test_rule_action_0_external_var() {
 
 		_setup();
 		_run_script();
-		_statsInfo("eton-model");
+		_saveTest();
 	}
 
 }

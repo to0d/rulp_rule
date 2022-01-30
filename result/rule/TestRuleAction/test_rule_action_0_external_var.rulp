@@ -1,0 +1,17 @@
+(new model m)
+;=>
+
+(defvar ?x (date))
+;=>
+
+(add-rule m if n1:'(?a) do (-> n2:'(?a ?x)))
+;=>
+
+(add-stmt m n1:'(a))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>
