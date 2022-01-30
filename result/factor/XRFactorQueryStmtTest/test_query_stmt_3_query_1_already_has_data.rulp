@@ -1,0 +1,9 @@
+(new model m)
+;;;
+
+(add-stmt m '(n1 typeof node))
+;;;
+
+(query-stmt m '(?n) from '(?n typeof node) limit 1)
+;=>
+

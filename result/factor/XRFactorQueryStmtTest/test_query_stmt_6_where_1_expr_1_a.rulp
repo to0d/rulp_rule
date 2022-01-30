@@ -1,0 +1,15 @@
+(new model m)
+;;;
+
+(add-stmt m name1:'(a 1))
+;;;
+
+(add-stmt m name1:'(b 10))
+;;;
+
+(add-stmt m name1:'(b 100))
+;;;
+
+(query-stmt m '(?x ?y) from name1:'(?x ?y) (> ?y 1))
+;=>
+

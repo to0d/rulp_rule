@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(n1 10))
+;=>true
+
+(add-stmt m n1:'(n2 20))
+;=>true
+
+(query-stmt m ?y from n1:'(?x ?y) do (setq ?y (* ?y 3)))
+;=>'(30 60)
+

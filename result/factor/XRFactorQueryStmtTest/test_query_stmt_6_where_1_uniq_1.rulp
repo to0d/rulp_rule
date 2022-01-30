@@ -1,0 +1,18 @@
+(new model m)
+;;;
+
+(add-stmt m '(a b c1))
+;;;
+
+(add-stmt m '(a b c2) )
+;;;
+
+(add-stmt m '(a2 b c2))
+;;;
+
+(query-stmt m ?a from '(?a ?b ?c))
+;=>
+
+(query-stmt m ?a from '(?a ?b ?c) where '(uniq on ?a))
+;=>
+

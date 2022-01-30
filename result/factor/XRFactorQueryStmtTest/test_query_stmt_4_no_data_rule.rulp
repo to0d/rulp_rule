@@ -1,0 +1,18 @@
+(new model m)
+;;;
+
+(add-stmt m '(n1 typeof node))
+;;;
+
+(add-stmt m '(node typeof node2))
+;;;
+
+(add-rule "R1" m if '(?x typeof c1) do (-> m '(?x typeof c2)) ) ; should not work
+;=>
+
+(add-rule "R2" m if '(?x ?p ?y) '(?y ?p ?z) do (-> m '(?x ?p node3)) ) ; work once
+;=>
+
+(query-stmt m '(?n) from '(?n typeof node3) limit 1)
+;=>
+

@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(10))
+;=>true
+
+(add-stmt m n1:'(100))
+;=>true
+
+(add-stmt m n1:'(1))
+;=>true
+
+(query-stmt m ?x from n1:'(?x))
+;=>'(10 100 1)
+
+(query-stmt m ?x from n1:'(?x) limit 1)
+;=>'(10)
+
+(query-stmt m ?x from n1:'(?x) order by ?x)
+;=>'(10 100 1)
+
+(query-stmt m ?x from n1:'(?x) order by ?x desc)
+;=>'(10 100 1)
+
+(query-stmt m ?x from n1:'(?x) order by ?x asc)
+;=>'(10 100 1)
+
+(query-stmt m ?x from n1:'(?x) order by ?x limit 2)
+;=>'(10 100 1)
+

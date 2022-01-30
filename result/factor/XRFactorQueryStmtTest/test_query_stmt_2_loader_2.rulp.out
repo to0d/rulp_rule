@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-lazy-stmt m '(?a typeof node) '('(n1 typeof node) '(n2 typeof node)))
+;=>nil
+
+(add-stmt m '(n1 hasPath path1))
+;=>true
+
+(add-stmt m '(n2 hasPath path2))
+;=>true
+
+(query-stmt m '(?n) from '(?n typeof node) '(?n hasPath ?p) limit 1)
+;=>'('(n1))
+

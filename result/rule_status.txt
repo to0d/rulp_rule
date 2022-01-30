@@ -90,45 +90,6 @@ beta.rulp.factor.XRFactorListStmtTest:test_3_varargs_2:1-mStatus:sc=[0,2], n0=[0
 beta.rulp.factor.XRFactorListStmtTest:test_4_limit_1:1-eCount:size=4, max-id=4, dup=0, null=0
 beta.rulp.factor.XRFactorListStmtTest:test_4_limit_1:1-mCount:stmt=4, rule=0, match=4, fetch=5, exec=4, idle=0, state=1/1, max-queue=3, uniq-obj=0, entry-cnt=4, entry-maxid=4, waste-node=1, waste-match=0
 beta.rulp.factor.XRFactorListStmtTest:test_4_limit_1:1-mStatus:sc=[0,4], a0=[2,0,1,0,2,0,0,3,3,0,2/0,3],
-beta.rulp.factor.XRFactorQueryStmtTest:test_1:1-eCount:size=6, max-id=6, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_1:1-mCount:stmt=4, rule=0, match=0, fetch=24, exec=16, idle=11, state=5/9, max-queue=5, uniq-obj=5, entry-cnt=6, entry-maxid=6, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_1:1-eCount:size=6, max-id=6, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_1:1-mCount:stmt=4, rule=0, match=0, fetch=22, exec=15, idle=8, state=5/7, max-queue=6, uniq-obj=6, entry-cnt=6, entry-maxid=6, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_2:1-eCount:size=6, max-id=6, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_2:1-mCount:stmt=4, rule=0, match=0, fetch=17, exec=12, idle=5, state=5/3, max-queue=6, uniq-obj=6, entry-cnt=6, entry-maxid=6, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_2_loader_2:1-mStatus:sc=[0,4], a0=[3,0,2,0,6,1,0,10,6,0,8,0,1/0,6], b0=[1,0,3,0,3,2,0,4,2,0,1/0,0,2], wk=[1,0,0,-99,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_a_join:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_a_join:1-mCount:stmt=2, rule=0, match=0, fetch=8, exec=8, idle=3, state=5/3, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_a_join:1-mStatus:sc=[0,2], a0=[3,0,2,0,4,1,0,5,3,0,3/0,3], b0=[1,0,3,0,3,2,0,1,1,0,1/0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:1-mCount:stmt=2, rule=0, match=0, fetch=8, exec=8, idle=3, state=5/3, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:1-mStatus:sc=[0,2], a0=[3,0,2,0,4,1,0,5,3,0,3/0,3], b0=[1,0,3,0,3,2,0,1,1,0,1/0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:2-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:2-mCount:stmt=2, rule=0, match=0, fetch=9, exec=8, idle=3, state=5/3, max-queue=5, uniq-obj=5, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_already_has_data_b_join_twice:2-mStatus:sc=[0,2], a0=[3,0,2,0,4,1,0,5,3,0,3/0,3], b0=[1,0,3,0,3,2,0,1,1,0,2/0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_query_1_already_has_data:1-eCount:size=1, max-id=1, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_query_1_already_has_data:1-mCount:stmt=1, rule=0, match=0, fetch=3, exec=4, idle=1, state=5/3, max-queue=3, uniq-obj=3, entry-cnt=1, entry-maxid=1, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_3_query_1_already_has_data:1-mStatus:sc=[0,1], a0=[2,0,2,0,3,1,0,2,2,0,2/0,2],
-beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-eCount:size=4, max-id=4, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-mCount:stmt=3, rule=2, match=0, fetch=25, exec=12, idle=5, state=5/3, max-queue=7, uniq-obj=8, entry-cnt=4, entry-maxid=4, waste-node=2, waste-match=3
-beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-mStatus:sc=[0,2,1], a0=[3,3,2,99,6,0,0,9,4,0,7/0,2,2], b0=[1,0,1,99,2,0,0,9,1,0,1/0,0,1], ru=[2,0,3,99,2,1,0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-rStatus-R1:sc=[], a0=[2,2,2,99,4,0,0,6,3,0,6/0,2,1], ru=[1,0,3,99,1,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_4_no_data_rule:1-rStatus-R2:sc=[], b0=[1,0,1,99,2,0,0,9,1,0,1/0,0,1], ru=[1,0,2,99,1,0,0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_a:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_a:1-mCount:stmt=3, rule=0, match=0, fetch=5, exec=3, idle=1, state=5/3, max-queue=2, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_b:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_expr_1_b:1-mCount:stmt=3, rule=0, match=0, fetch=3, exec=1, idle=0, state=5/3, max-queue=1, uniq-obj=2, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_uniq_1:1-eCount:size=3, max-id=3, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_7_where_1_uniq_1:1-mCount:stmt=3, rule=0, match=0, fetch=6, exec=2, idle=1, state=5/5, max-queue=1, uniq-obj=3, entry-cnt=3, entry-maxid=3, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-eCount:size=2, max-id=2, dup=0, null=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-mCount:stmt=2, rule=0, match=0, fetch=2, exec=0, idle=0, state=1/1, max-queue=1, uniq-obj=0, entry-cnt=2, entry-maxid=2, waste-node=1, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:1-mStatus:sc=[0,2],
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:2-eCount:size=1, max-id=2, dup=0, null=1
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:2-mCount:stmt=1, rule=0, match=2, fetch=10, exec=7, idle=2, state=5/3, max-queue=3, uniq-obj=3, entry-cnt=1, entry-maxid=2, waste-node=0, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_1:2-mStatus:sc=[0,1,0,0,1], a0=[3,0,2,0,3,0,0,5,3,0,3/0,0,0,0,3], e0=[1,0,2,0,2,1,0,1,1,0,1/0,0,0,0,1],
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-eCount:size=0, max-id=1, dup=0, null=1
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-mCount:stmt=0, rule=1, match=0, fetch=4, exec=3, idle=2, state=5/3, max-queue=3, uniq-obj=2, entry-cnt=0, entry-maxid=1, waste-node=2, waste-match=0
-beta.rulp.factor.XRFactorQueryStmtTest:test_8_do_2:1-mStatus:sc=[], n0=[0,1,0,1], e0=[1,0,1,99,1], ru=[1,0,2,99,1,1],
 beta.rulp.factor.XRFactorRemoveStmtTest:test_3_varargs_1:1-eCount:size=1, max-id=2, dup=0, null=1
 beta.rulp.factor.XRFactorRemoveStmtTest:test_3_varargs_1:1-mCount:stmt=1, rule=0, match=1, fetch=1, exec=1, idle=0, state=1/1, max-queue=1, uniq-obj=0, entry-cnt=1, entry-maxid=2, waste-node=1, waste-match=0
 beta.rulp.factor.XRFactorRemoveStmtTest:test_3_varargs_1:1-mStatus:sc=[0,0,0,0,1], n0=[0,1,1],

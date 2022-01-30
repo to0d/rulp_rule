@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?x) (< ?x 3) do (-> m n1:'((+ ?x 1))))
+;=>RU000
+
+(add-stmt m n1:'(1))
+;=>true
+
+(list-stmt m)
+;=>'(n1:'(1))
+
+(query-stmt m ?x from n1:'(?x) do (remove-stmt n1:'(?x)))
+;=>'(1)
+
+(list-stmt m)
+;=>'()
+

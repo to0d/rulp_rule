@@ -1,0 +1,31 @@
+(new model m)
+;;;
+
+(add-stmt m '(d1 nm:hasTag tag1))
+;;;
+
+(add-stmt m '(d1 nm:hasTag tag2))
+;;;
+
+(add-stmt m '(d2 nm:hasTag tag3))
+;;;
+
+(add-stmt m '(d1 nm:typeOf domain))
+;;;
+
+(add-stmt m '(d2 nm:typeOf domain))
+;;;
+
+(query-stmt m ?d from '(?d nm:typeOf domain))
+;=>
+
+(query-stmt m ?t from '(d1 nm:hasTag ?t))
+;=>
+
+(query-stmt m ?t from '(d2 nm:hasTag ?t))
+;=>
+
+(foreach (?domain (query-stmt m ?d from '(?d nm:typeOf domain))) 
+    (return '(?domain (size-of (query-stmt m ?t from '(?domain nm:hasTag ?t))))))
+;=>
+

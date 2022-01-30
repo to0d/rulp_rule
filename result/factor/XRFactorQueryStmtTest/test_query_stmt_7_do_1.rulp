@@ -1,0 +1,18 @@
+(new model m)
+;;;
+
+(add-stmt m '(n1 p1 100))
+;;;
+
+(add-stmt m '(n2 p2 200))
+;;;
+
+(list-stmt m)
+;=>
+
+(query-stmt m '(?n ?v ?x) from '(?n p2 ?v) (> ?v 150) do (defvar ?x (size-of (remove-stmt '(?n ? ?v)))))
+;=>
+
+(list-stmt m)
+;=>
+

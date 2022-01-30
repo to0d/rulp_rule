@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-stmt m '(n1 p1 100))
+;=>true
+
+(add-stmt m '(n2 p2 200))
+;=>true
+
+(list-stmt m)
+;=>'('(n1 p1 100) '(n2 p2 200))
+
+(query-stmt m (+ ?z 1) from '(?x ?y ?z))
+;=>'(101 201)
+

@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-stmt m '(n1 typeof node))
+;=>true
+
+(add-stmt m '(n2 typeof node))
+;=>true
+
+(add-stmt m '(n1 hasPath path1))
+;=>true
+
+(add-stmt m '(n2 hasPath path2))
+;=>true
+
+(query-stmt m '(?p) from '(?n hasPath ?p))
+;=>'('(path1) '(path2))
+
+(query-stmt m '(?n) from '(?n typeof node) '(?n hasPath ?p))
+;=>'('(n1) '(n2))
+
+(query-stmt m ?n from '(?n typeof node) '(?n hasPath ?p))
+;=>'(n1 n2)
+
+(query-stmt m '(?n ?p) from '(?n hasPath ?p))
+;=>'('(n1 path1) '(n2 path2))
+
