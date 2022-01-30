@@ -1,0 +1,39 @@
+(new model m)
+;=>
+
+(type-of m)
+;=>
+
+(name-of m)
+;=>
+
+(add-stmt m '(a p1 c))
+;=>
+
+(add-stmt m '(a p1 c)) ; duplicated
+;=>false
+
+(add-stmt m '(a p1 b))
+;=>
+
+(add-stmt m '(a p2 c))
+;=>
+
+(add-rule "R1" m if '(?x p2 ?y) do (-> m '(?y p2 ?x))) ; rule not work
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m)
+;=>
+
+(start m)
+;=>
+
+(state-of m)
+;=>
+
+(list-stmt m from '(?x p2 ?y)) ; rule works
+;=>
+

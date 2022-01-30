@@ -12,26 +12,10 @@ import alpha.rulp.ximpl.node.RReteType;
 class XRFactorAddRuleTest extends RuleTestBase {
 
 	@Test
-	void test_1() {
+	void test_add_rule_1() {
 
 		_setup();
-		_test("(new model m)", "m");
-		_test("(type-of m)", "instance");
-		_test("(name-of m)", "\"m\"");
-		_test("(add-stmt m '(a p1 c))", "true");
-		_test("(add-stmt m '(a p1 c))", "false"); // duplicated
-		_test("(add-stmt m '(a p1 b))", "true");
-		_test("(add-stmt m '(a p2 c))", "true");
-		_test("(add-rule \"R1\" m if '(?x p2 ?y) do (-> m '(?y p2 ?x)))", "R1"); // rule not work
-		_test("(state-of m)", "runnable");
-		_test("(list-stmt m)", "'('(a p1 c) '(a p1 b) '(a p2 c))");
-		_mStatus(1, "m");
-
-		_test("(start m)", "6");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m from '(?x p2 ?y))", "'('(a p2 c) '(c p2 a))"); // rule works
-		_mStatus(2, "m");
-		_saveTest();
+		_run_script();
 	}
 
 	@Test
@@ -45,6 +29,8 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		IRRule rule = _model("m").getNodeGraph().getRule("RULE1");
 		assertNotNull(rule);
 		assertEquals("[]", rule.getNodeMatrix().getNodeList(RReteType.BETA0).toString());
+//		_test("(rete-node-of m RRT_BETA0)","'()");
+//		_test("(rete-node-of m RRT_BETA3)","'('('(?0 ?1 ?2) '(?3 ?4 ?5)))");
 		assertEquals("[B3002: '('(?0 ?1 ?2) '(?3 ?4 ?5))]",
 				rule.getNodeMatrix().getNodeList(RReteType.BETA3).toString());
 
@@ -54,8 +40,6 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a b c) '(x y z) '(a b c a b c) '(x y z a b c) '(a b c x y z) '(x y z x y z))");
 
-		_mStatus(1, "m");
-		_saveTest();
 	}
 
 	@Test
@@ -100,8 +84,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(start m)", "4");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a b c) '(x y z) '(a b c b c) '(x y z y z))");
-		_mStatus(1, "m");
-		_saveTest();
+
 	}
 
 	@Test
@@ -123,10 +106,8 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(start m)", "3");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a b c) '(x y z))");
-		_mStatus(1, "m");
-		_saveTest();
 
-		_statsInfo("m", "result/factor/XRFactorAddRuleTest/test_rule_beta3_2_c.txt");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -168,10 +149,6 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(start m)", "4");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a b c) '(x y z) '(x y z b c) '(a b c y z))");
-		_mStatus(1, "m");
-
-		_saveTest();
-
 	}
 
 	@Test
@@ -188,9 +165,6 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(start m)", "5");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a b 2) '(a b 1) '(x y -2) '(x y -3) '(a b 2 y -2))");
-		_mStatus(1, "m");
-
-		_saveTest();
 
 	}
 
@@ -210,10 +184,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(start m)", "9");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(todd age 39) '(yifan age 7) '(todd is adult) '(yifan is child))");
-		_mStatus(1, "m");
-		_rStatus(1, "m", "RU000");
-		_rStatus(1, "m", "RU001");
-		_saveTest();
+
 	}
 
 	@Test
@@ -228,8 +199,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(start m)", "10");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(p1 propertyOf inverse) '(a p1 b) '(b p1 a))");
-		_mStatus(1, "m");
-		_saveTest();
+
 	}
 
 	@Test
@@ -246,8 +216,6 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'('(a a a) '(c b b) '(a typeOf xxx))");
 
-		_mStatus(1, "m");
-		_saveTest();
 	}
 
 }

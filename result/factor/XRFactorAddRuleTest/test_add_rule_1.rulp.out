@@ -1,0 +1,39 @@
+(new model m)
+;=>m
+
+(type-of m)
+;=>instance
+
+(name-of m)
+;=>"m"
+
+(add-stmt m '(a p1 c))
+;=>true
+
+(add-stmt m '(a p1 c)) ; duplicated
+;=>false
+
+(add-stmt m '(a p1 b))
+;=>true
+
+(add-stmt m '(a p2 c))
+;=>true
+
+(add-rule "R1" m if '(?x p2 ?y) do (-> m '(?y p2 ?x))) ; rule not work
+;=>R1
+
+(state-of m)
+;=>runnable
+
+(list-stmt m)
+;=>'('(a p1 c) '(a p1 b) '(a p2 c))
+
+(start m)
+;=>6
+
+(state-of m)
+;=>completed
+
+(list-stmt m from '(?x p2 ?y)) ; rule works
+;=>'('(a p2 c) '(c p2 a))
+
