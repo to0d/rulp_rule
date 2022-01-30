@@ -1,0 +1,28 @@
+(new model ?m)
+
+(defvar ?arr (make-array))
+
+(add-rule "R1" ?m if n1:'(?x) do 
+    (add ?arr (+ "A-" ?x))
+    (if (< ?x 3)
+        (add-stmt ?m n1:'((+ ?x 1))))
+)
+
+(add-rule "R2" ?m if n1:'(?x) do 
+    (add ?arr (+ "B-" ?x))
+)
+;=>?m &?arr R1 R2
+
+(add-stmt ?m n1:'(0))
+;=>true
+
+(start ?m)
+;=>12
+
+(println ?arr)
+;=>nil
+;out:
+{A-0,B-0,B-1,A-1,B-2,A-2,B-3,A-3}
+
+;eof
+
