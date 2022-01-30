@@ -7,16 +7,11 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestEton extends RuleTestBase {
 
 	@Test
-	public void test_eton_1_rule_priority_a() {
+	public void test_eton_1_daily_rule_1() {
 
 		_setup();
 		_run_script();
+		_statsInfo("eton-model");
 	}
-	
-	@Test
-	public void test_eton_1_rule_priority_b() {
 
-		_setup();
-		_run_script();
-	}
 }

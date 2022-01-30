@@ -73,18 +73,6 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_saveTest();
 	}
 
-//	@Test
-//	void test_3_string_3() {
-//
-//		_setup();
-//		_test("(new model m)", "m");
-//		_test("(add-stmt m '(\"abc\" a b))", "true");
-//		_test("(add-stmt m '(a p1 \"abc\"))", "false");
-//		_test("(list-stmt m)", "'('(a p1 \"abc\"))");
-//		_mStatus(1, "m");
-//		_saveTest();
-//	}
-
 	@Test
 	void test_3_string_3() {
 
