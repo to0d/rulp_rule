@@ -214,6 +214,8 @@ mbr=?model-trace, mbr-property='(public), mbr-attribute='(), obj=?model-trace, o
 mbr=?trace, mbr-property='(public), mbr-attribute='(), obj=?trace, obj-type=var, obj-attribute='(), var-value="false"
 mbr=ATTR_ENTRY_LEN, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=ATTR_RETE_TYPE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RETE_PRIORITY_DEFAULT, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RETE_PRIORITY_MAXIMUM, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRS_ALL_STATUS, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRS_ASSUME, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRS_DEFINE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()

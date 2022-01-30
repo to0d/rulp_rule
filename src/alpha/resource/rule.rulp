@@ -1,6 +1,6 @@
 
 ;****************************************************
-; Common utilies
+; Global constants
 ;****************************************************
 
 ; RReteType: rete node type
@@ -34,6 +34,14 @@
 (defconst RRS_TEMP   5)
 
 (defconst RRS_ALL_STATUS '(RRS_DEFINE RRS_REASON RRS_ASSUME RRS_REMOVE RRS_FIXED RRS_TEMP))
+
+; RReteType: rete node type
+(defconst RETE_PRIORITY_DEFAULT  99)
+(defconst RETE_PRIORITY_MAXIMUM  499)
+
+;****************************************************
+; Common utilies
+;****************************************************
 
 (alias add-stmt ->)
 
