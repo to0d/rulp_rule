@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(defvar ?x)
+;=>&?x
+
+(defvar ?xurl "abc")
+;=>&?xurl
+
+(add-rule m if (var-changed ?x ?url) (str-start-with ?url ?xurl) do (-> m '(a b ?url)) )
+;=>RU000
+
+(setq ?x "abcd")
+;=>&?x
+
+(start m)
+;=>4
+
+(list-stmt m)
+;=>'('(a b "abcd"))
+

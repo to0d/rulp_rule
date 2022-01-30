@@ -1,0 +1,48 @@
+(new model m)
+;;;
+
+(defvar ?x false)
+;;;
+
+(add-rule m if (var-changed ?x ?v true) '(?a ?b) do (-> '(?b ?a)) )
+;;;
+
+(add-stmt m '(a b))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+
+(setq ?x true)
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+
+(setq ?x false)
+;;;
+
+(add-stmt m '(x y))
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+
+(setq ?x true)
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+

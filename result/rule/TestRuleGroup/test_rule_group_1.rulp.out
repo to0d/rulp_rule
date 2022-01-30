@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))
+;=>RU000
+
+(add-stmt m '(a p b))
+;=>true
+
+(list-stmt m)
+;=>'('(a p b))
+
+(query-stmt m '(?x ?z) from '(?x p2 ?z))
+;=>'('(a b))
+
+(query-stmt m::g1 '(?x ?z) from '(?x p2 ?z))
+;=>'('(a b))
+

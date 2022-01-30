@@ -1,0 +1,36 @@
+(new model m)
+;;;
+
+(defvar ?x false)
+;;;
+
+(add-rule m if (var-changed ?x ?v true) '(?a ?b) do (-> '(?b ?a)) )
+;;;
+
+(add-stmt m '(a b))
+;;;
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>
+
+(setq ?x true)
+;;;
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>
+
+(setq ?x false)
+;;;
+
+(add-stmt m '(x y))
+;;;
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>
+
+(setq ?x true)
+;;;
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>
+

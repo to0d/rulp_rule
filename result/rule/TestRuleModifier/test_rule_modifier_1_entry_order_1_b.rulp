@@ -1,0 +1,15 @@
+(new model m)
+;;;
+
+(add-rule m if n1:'(?a) n1:'(?b) (!= ?a ?b) do (-> n2:'(?a ?b)))
+;;;
+
+(add-stmt m n1:'(a))
+;;;
+
+(add-stmt m n1:'(b))
+;;;
+
+(query-stmt m '(?a ?b) from n2:'(?a ?b))
+;=>
+

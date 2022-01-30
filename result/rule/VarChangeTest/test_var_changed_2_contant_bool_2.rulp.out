@@ -1,0 +1,36 @@
+(new model m)
+;=>m
+
+(defvar ?x false)
+;=>&?x
+
+(add-rule m if (var-changed ?x ?v true) '(?a ?b) do (-> '(?b ?a)) )
+;=>RU000
+
+(add-stmt m '(a b))
+;=>true
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>'('(a b))
+
+(setq ?x true)
+;=>&?x
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>'('(a b) '(b a))
+
+(setq ?x false)
+;=>&?x
+
+(add-stmt m '(x y))
+;=>true
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>'('(a b) '(b a) '(x y))
+
+(setq ?x true)
+;=>&?x
+
+(query-stmt m '(?a ?b) from '(?a ?b))
+;=>'('(a b) '(b a) '(x y) '(y x))
+

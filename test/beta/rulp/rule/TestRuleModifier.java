@@ -7,47 +7,28 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestRuleModifier extends RuleTestBase {
 
 	@Test
-	public void test_1_entry_order_1_a() {
+	void test_rule_modifier_1_entry_order_1_a() {
 
 		_setup();
-		_test("(new model m)");
-		_test("(add-rule m if n1:'(?a) n1:'(?b) do (-> n2:'(?a ?b)))");
-		_test("(add-stmt m n1:'(a))");
-		_test("(add-stmt m n1:'(b))");
-		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a a) '(a b) '(b a) '(b b))");
-
-		_mStatus(1, "m");
-		_saveTest();
-		_statsInfo("m", "result/rule/TestRuleModifier/test_1_entry_order_1_a.txt");
+		_run_script();
+		_statsInfo("m");
 	}
 
 	@Test
-	public void test_1_entry_order_1_b() {
+	void test_rule_modifier_1_entry_order_1_b() {
 
 		_setup();
-		_test("(new model m)");
-		_test("(add-rule m if n1:'(?a) n1:'(?b) (!= ?a ?b) do (-> n2:'(?a ?b)))");
-		_test("(add-stmt m n1:'(a))");
-		_test("(add-stmt m n1:'(b))");
-		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a b) '(b a))");
+		_run_script();
+		_statsInfo("m");
 
-		_mStatus(1, "m");
-		_saveTest();
-		_statsInfo("m", "result/rule/TestRuleModifier/test_1_entry_order_1_b.txt");
 	}
 
 	@Test
-	public void test_1_entry_order_1_c() {
+	void test_rule_modifier_1_entry_order_1_c() {
 
 		_setup();
-		_test("(new model m)");
-		_test("(add-rule m if '(n1:'(?a) n1:'(?b) entry-order) (!= ?a ?b) do (-> n2:'(?a ?b)))");
-		_test("(add-stmt m n1:'(a))");
-		_test("(add-stmt m n1:'(b))");
-		_test("(query-stmt m '(?a ?b) from n2:'(?a ?b))", "'('(a b))");
+		_run_script();
+		_statsInfo("m");
 
-		_mStatus(1, "m");
-		_saveTest();
-		_statsInfo("m", "result/rule/TestRuleModifier/test_1_entry_order_1_c.txt");
 	}
 }

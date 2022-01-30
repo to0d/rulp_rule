@@ -1,0 +1,18 @@
+(new model m)
+;;;
+
+(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))
+;=>
+
+(add-stmt m '(a p b))
+;=>
+
+(list-stmt m)
+;=>
+
+(query-stmt m '(?x ?z) from '(?x p2 ?z))
+;=>
+
+(query-stmt m::g1 '(?x ?z) from '(?x p2 ?z))
+;=>
+

@@ -1,0 +1,18 @@
+(new model m)
+;;;
+
+(defvar ?x)
+;;;
+
+(add-rule m if (var-changed ?x ?from ?to) do (-> m '(a b ?to)) )
+;;;
+
+(setq ?x c)
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+

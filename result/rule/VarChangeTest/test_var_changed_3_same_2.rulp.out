@@ -1,0 +1,24 @@
+(new model m)
+;=>m
+
+(defvar ?x false)
+;=>&?x
+
+(add-rule m if (var-changed ?x ?f1 true) n1:'(?a) do (-> m n2:'(?a)) )
+;=>RU000
+
+(add-rule m if (var-changed ?x ?f2 true) n1:'(?a) do (-> m n3:'(?a)) )
+;=>RU001
+
+(setq ?x true)
+;=>&?x
+
+(add-stmt m n1:'(5))
+;=>true
+
+(start m)
+;=>6
+
+(list-stmt m)
+;=>'(n1:'(5) n2:'(5) n3:'(5))
+

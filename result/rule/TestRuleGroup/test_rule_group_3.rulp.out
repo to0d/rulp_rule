@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(add-rule m::g1 if '(?a p ?b) do (-> m '(?a p2 ?b)))
+;=>RU000
+
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p2 ?c)))
+;=>RU001
+
+(add-stmt m '(a p b))
+;=>true
+
+(add-stmt m '(b p c))
+;=>true
+
+(list-stmt m)
+;=>'('(a p b) '(b p c))
+
+(start m::g1)
+;=>5
+
+(list-stmt m)
+;=>'('(a p b) '(b p c) '(a p2 b) '(b p2 c))
+
+(start m)
+;=>4
+
+(list-stmt m)
+;=>'('(a p b) '(b p c) '(a p2 b) '(b p2 c) '(a p2 c))
+

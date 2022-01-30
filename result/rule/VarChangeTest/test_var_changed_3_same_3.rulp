@@ -1,0 +1,27 @@
+(new model m)
+;;;
+
+(defvar ?x 1)
+;;;
+
+(defun f1 (?v) ((return (> ?v 1))))
+;;;
+
+(add-rule m if (var-changed ?x ?f1 ?t1) (f1 ?t1) do (-> m n1:'(?t1)))
+;;;
+
+(add-rule m if (var-changed ?x ?f2 ?t2) (f1 ?t2) do (-> m n2:'(?t2)))
+;;;
+
+(setq ?x 2)
+;;;
+
+(setq ?x 3)
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+

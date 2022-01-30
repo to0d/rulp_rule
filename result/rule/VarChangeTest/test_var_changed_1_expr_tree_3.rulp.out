@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(defvar ?x d)
+;=>&?x
+
+(add-rule m if (var-changed ?x ?val) do (-> m '(a b ?val)) )
+;=>RU000
+
+(setq ?x c)
+;=>&?x
+
+(start m)
+;=>3
+
+(list-stmt m)
+;=>'('(a b c))
+

@@ -1,0 +1,30 @@
+(new model m)
+;;;
+
+(defvar ?x x1)
+;;;
+
+(defvar ?y y1)
+;;;
+
+(add-rule m if (var-changed ?x ?xv) (var-changed ?y ?yv) do (-> m '(a ?xv ?yv)) )
+;;;
+
+(setq ?x x2)
+;;;
+
+(setq ?x x3)
+;;;
+
+(setq ?y y2)
+;;;
+
+(setq ?y y3)
+;;;
+
+(start m)
+;;;
+
+(list-stmt m)
+;=>
+
