@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x p1 ?y) do (if (has-stmt '(?y p1 ?x)) (-> m '(?x p2 ?y)) ))
+;=>RU000
+
+(add-stmt m '(a p1 b))
+;=>true
+
+(add-stmt m '(b p1 a))
+;=>true
+
+(start m)
+;=>5
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a p1 b) '(b p1 a) '(a p2 b) '(b p2 a))
+

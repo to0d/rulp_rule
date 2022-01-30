@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(a b c1))
+;=>true
+
+(add-stmt m n1:'(a b c2))
+;=>true
+
+(add-stmt m n1:'(a2 b c2))
+;=>true
+
+(has-stmt m n1:'(a b c1))
+;=>true
+

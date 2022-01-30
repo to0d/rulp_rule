@@ -1,0 +1,45 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a b c1))
+;=>true
+
+(add-stmt m '(a b c2))
+;=>true
+
+(add-stmt m n1:'(a b c1))
+;=>true
+
+(add-stmt m n1:'(a b c2))
+;=>true
+
+(add-stmt m n1:'(a2 b c2))
+;=>true
+
+(has-stmt m '(?...))
+;=>true
+
+(has-stmt m '(?x ?...))
+;=>true
+
+(has-stmt m '(?x c d))
+;=>false
+
+(has-stmt m '(a ?...))
+;=>true
+
+(has-stmt m n1:'(?...))
+;=>true
+
+(has-stmt m n1:'(?x ?...))
+;=>true
+
+(has-stmt m n1:'(a ?...))
+;=>true
+
+(has-stmt m n2:'(?...))
+;=>false
+
+(has-stmt m n1:'("t1" ?...))
+;=>false
+

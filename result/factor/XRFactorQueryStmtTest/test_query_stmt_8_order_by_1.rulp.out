@@ -19,12 +19,3 @@
 (query-stmt m ?x from n1:'(?x) order by ?x)
 ;=>'(10 100 1)
 
-(query-stmt m ?x from n1:'(?x) order by ?x desc)
-;=>'(10 100 1)
-
-(query-stmt m ?x from n1:'(?x) order by ?x asc)
-;=>'(10 100 1)
-
-(query-stmt m ?x from n1:'(?x) order by ?x limit 2)
-;=>'(10 100 1)
-

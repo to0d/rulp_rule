@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a p1 b))
+;=>true
+
+(add-stmt m '(a p1 b))
+;=>false
+
+(has-stmt m '(a p1 b))
+;=>true
+
+(has-stmt m '(a ?x b))
+;=>true
+
+(has-stmt m '(a p2 b))
+;=>false
+

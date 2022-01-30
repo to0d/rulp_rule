@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a typeof node))
+;=>true
+
+(add-stmt m '(b typeof node))
+;=>true
+
+(add-rule "R1" m if '(?x typeof node) do (-> '(?x typeof2 node)))
+;=>R1
+
+(start m)
+;=>6
+
+(state-of m)
+;=>completed
+
+(print-runnable-counter m)
+;=>"stmt=4, rule=1, match=0, fetch=8, exec=6, idle=1, state=0/3, max-queue=2, uniq-obj=3, entry-cnt=4, entry-maxid=4, waste-node=0, waste-match=0"
+
+(print-runnable-counter (get-rule m "R1"))
+;=>"stmt=2, entry=4, node=3, exec=1, update=2"
+
+(foreach (?rule (list-rule m)) (return '(?rule  (print-runnable-counter ?rule))))
+;=>'('(R1 "stmt=2, entry=4, node=3, exec=1, update=2"))
+

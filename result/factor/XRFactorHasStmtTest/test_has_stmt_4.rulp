@@ -1,0 +1,21 @@
+(new model m)
+;;;
+
+(add-stmt m named1:'("a"))
+;;;
+
+(has-stmt m named1:'("a"))
+;=>
+
+(add-stmt m named2:'(a1 p1 b))
+;;;
+
+(has-stmt m named2:'(?x p1 b))
+;=>
+
+(add-stmt m named2:'(a2 p1 b))
+;;;
+
+(has-stmt m named2:'(?x p1 b))
+;=>
+

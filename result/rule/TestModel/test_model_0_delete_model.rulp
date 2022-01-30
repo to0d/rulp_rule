@@ -1,0 +1,11 @@
+(new model m)
+;=>
+
+(type-of m)
+;=>
+
+(delete m)
+;=>
+
+(type-of m)
+;=>

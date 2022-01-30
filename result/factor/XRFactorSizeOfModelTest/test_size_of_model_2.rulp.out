@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(a))
+;=>true
+
+(add-stmt m n2:'(b))
+;=>true
+
+(size-of m)
+;=>2
+

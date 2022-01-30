@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(type-of m)
+;=>instance
+
+(delete m)
+;=>nil
+
+(type-of m)
+;=>atom
+

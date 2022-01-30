@@ -1,0 +1,12 @@
+(new model m)
+;;;
+
+(add-stmt m '(a1 p1 b1))
+;;;
+
+(add-stmt m '(a1 p1 b2))
+;;;
+
+(size-of m)
+;=>
+

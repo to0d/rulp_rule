@@ -1,0 +1,12 @@
+(new model core)
+;=>core
+
+(name-of core)
+;=>"core"
+
+(type-of core)
+;=>instance
+
+(class-of core)
+;=>model
+

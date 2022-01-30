@@ -21,6 +21,22 @@ import alpha.rulp.utils.RulpUtil;
 public class TestModel extends RuleTestBase {
 
 	@Test
+	void test_model_0_delete_model() {
+
+		_setup();
+		_run_script();
+
+	}
+
+	@Test
+	void test_model_0_new_model() {
+
+		_setup();
+		_run_script();
+
+	}
+
+	@Test
 	public void test_model_0_p2d_ls() {
 
 		_setup();
@@ -324,7 +340,7 @@ public class TestModel extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
-	
+
 	@Test
 	void test_model_6_err_duplicated_new_model() {
 
