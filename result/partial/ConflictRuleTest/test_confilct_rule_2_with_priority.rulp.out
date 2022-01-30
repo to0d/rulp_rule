@@ -1,0 +1,33 @@
+(new model m)
+;=>m
+
+(add-rule "R1" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)) )
+;=>R1
+
+(add-rule "R2" m if '(?x p ?y) '(?y p ?z) do (remove-stmt ?0))
+;=>R2
+
+(set-priority (get-rule m "R2") 199)
+;=>R2
+
+(priority-of (get-rule m "R1"))
+;=>99
+
+(priority-of (get-rule m "R2"))
+;=>199
+
+(add-stmt m '(a p b))
+;=>true
+
+(add-stmt m '(b p c))
+;=>true
+
+(start m)
+;=>5
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(b p c))
+

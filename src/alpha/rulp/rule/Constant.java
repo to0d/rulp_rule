@@ -179,7 +179,7 @@ public interface Constant {
 
 	String F_SET_NODE_CACHE_PATH = "set-node-cache-path";
 
-	String F_SET_RULE_PRIORITY = "set-rule-priority";
+	String F_SET_PRIORITY = "set-priority";
 
 	String F_SIZE_OF_MODEL = "size-of-model";
 

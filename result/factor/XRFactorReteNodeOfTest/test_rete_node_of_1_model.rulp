@@ -1,0 +1,44 @@
+(new model m)
+;=>
+
+(add-rule "R1" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1)) (-> (?b p1 ?a)))
+;=>
+
+(add-stmt m '(a p1 a))
+;=>
+
+(add-stmt m n1:'(abc))
+;=>
+
+(rete-node-of m)
+;=>
+
+(rete-node-of m RRT_ROOT)
+;=>
+
+(rete-node-of m RRT_NAME)
+;=>
+
+(rete-node-of m RRT_RULE)
+;=>
+
+(foreach (?n (rete-node-of m)) (return (name-of $(value-of ?n))))
+;=>
+
+(foreach (?n (rete-node-of m)) (return (attribute-of $(value-of ?n))))
+;=>
+
+(foreach (?n (rete-node-of m)) (return (rete-type-of ?n)))
+;=>
+
+(foreach (?n (rete-node-of m)) (return (entry-length-of ?n)))
+;=>
+
+(foreach (?n (rete-node-of m)) 
+    (return 
+        (foreach (?s RRS_ALL_STATUS) 
+            (return (rete-entry-count-of ?n ?s)))))
+;=>
+
+(foreach (?n (rete-node-of m)) (return (rete-valid-entry-of ?n)))
+;=>

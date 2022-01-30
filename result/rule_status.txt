@@ -216,12 +216,6 @@ beta.rulp.optimize.OptimizeTest1:test_not_equal_6:1-oStatus:shared=1
 beta.rulp.optimize.OptimizeTest2:test_tag_alias_1_full_with_single_child_optimize:1-eCount:size=207, max-id=207, dup=8, null=0
 beta.rulp.optimize.OptimizeTest2:test_tag_alias_1_full_with_single_child_optimize:1-mCount:stmt=324, rule=41, match=1, fetch=9264, exec=280, idle=196, state=0/3, max-queue=45, uniq-obj=74, entry-cnt=207, entry-maxid=207, waste-node=83, waste-match=3320
 beta.rulp.optimize.OptimizeTest2:test_tag_alias_1_full_with_single_child_optimize:1-mStatus:sc=[157,2,8,0,0,157,0,0,50], vc=[1, 0, 0, 2, 0], a0=[34,189,2,99,148,3,0,4874,284,0,2175/271,2,11,0,0,271], a1=[1,0,1,99,2,0,0,2,1,0,9/0,0,0,0,0,1], b0=[20,0,4,99,30,14,0,273,32,0,32/22,0,10,0,0,22], b1=[9,0,5,99,12,10,0,7,7,0,7/0,0,7], b2=[10,0,4,99,38,9,0,702,44,0,44/26,8,10,0,0,26], e0=[4,0,3,99,3,0,0,9], e1=[7,0,5,99,17,0,0,533,525,0,698/499,4,22,0,0,499], ru=[41,0,6,99,16,0,0,0,112,50],
-beta.rulp.partial.ConflictRuleTest:test_confilct_rule_1_without_priority:1-mStatus:sc=[0,1,0,1,1], a0=[1,1,1,99,2,0,0,2,2,0,6/0,1,0,0,1], b0=[1,0,2,99,1,0,0,4,1,0,2/0,0,0,1], ru=[2,0,3,99,2,0,0,0,2],
-beta.rulp.partial.ConflictRuleTest:test_confilct_rule_1_without_priority:1-rStatus-R1:sc=[], a0=[1,1,1,99,2,0,0,2,2,0,6/0,1,0,0,1], b0=[1,0,2,99,1,0,0,4,1,0,2/0,0,0,1], ru=[1,0,3,99,1,0,0,0,1],
-beta.rulp.partial.ConflictRuleTest:test_confilct_rule_1_without_priority:1-rStatus-R2:sc=[], a0=[1,1,1,99,2,0,0,2,2,0,6/0,1,0,0,1], b0=[1,0,2,99,1,0,0,4,1,0,2/0,0,0,1], ru=[1,0,3,99,1,0,0,0,1],
-beta.rulp.partial.ConflictRuleTest:test_confilct_rule_2_with_priority:1-mStatus:sc=[0,1,0,0,1], a0=[1,1,1,199,1,0,0,2,2,0,6/0,1,0,0,1], b0=[1,0,2,199,1,0,0,4,1,0,2/0,0,0,1], ru=[2,0,3,199,2,0,0,0,1],
-beta.rulp.partial.ConflictRuleTest:test_confilct_rule_2_with_priority:1-rStatus-R1:sc=[], a0=[1,1,1,199,1,0,0,2,2,0,6/0,1,0,0,1], b0=[1,0,2,199,1,0,0,4,1,0,2/0,0,0,1], ru=[1,0,3,99,1],
-beta.rulp.partial.ConflictRuleTest:test_confilct_rule_2_with_priority:1-rStatus-R2:sc=[], a0=[1,1,1,199,1,0,0,2,2,0,6/0,1,0,0,1], b0=[1,0,2,199,1,0,0,4,1,0,2/0,0,0,1], ru=[1,0,3,199,1,0,0,0,1],
 beta.rulp.partial.PartialReasonTest:test_1_full:1-eCount:size=6, max-id=6, dup=0, null=0
 beta.rulp.partial.PartialReasonTest:test_1_full:1-mCount:stmt=5, rule=2, match=0, fetch=33, exec=13, idle=2, state=0/3, max-queue=3, uniq-obj=6, entry-cnt=6, entry-maxid=6, waste-node=0, waste-match=0
 beta.rulp.partial.PartialReasonTest:test_1_full:1-mStatus:sc=[0,3,2], a0=[3,2,2,99,6,0,0,12,6,0,17/0,4,2], b0=[1,0,2,99,2,0,0,9,1,0,1/0,0,1], ru=[2,0,3,99,2,0,0,0,2],

@@ -197,18 +197,18 @@ Model<m> frame:id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        3    instance   model@m             
+default_model        : 13       3        3    instance   model@m             
 ==========================================================================================================================
 
 Node<R2> frame:id=4, name=NF-R2, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-R2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 8        4        1    var        '(?x p ?y) : type=list
-default_model        : 9        4        3    instance   model@m             
-?x                   : 10       4        1    var        a : type=atom       
-?y                   : 11       4        1    var        b : type=atom       
-?z                   : 12       4        1    var        c : type=atom       
+?0                   : 15       4        1    var        '(?x p ?y) : type=list
+default_model        : 16       4        3    instance   model@m             
+?x                   : 17       4        1    var        a : type=atom       
+?y                   : 18       4        1    var        b : type=atom       
+?z                   : 19       4        1    var        c : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=7, row=5, column=7(1), value-max=1, value-unit=1^x
@@ -229,7 +229,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      278
+           Interpreter call id:      283
     Interpreter call level/max:        0        3
                Frame max level:        5
                   Frame max id:        6
@@ -250,53 +250,54 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      277
+    factor:      286
 ==========================================================================================================================
 
-Callable stats info: callId=278, row=14, column=35(8), value-max=8, value-unit=2^x
+Callable stats info: callId=283, row=15, column=36(8), value-max=9, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444444444444444 max=8, unit=2^x
+   Frame    RType  Count  Ref Object                         444444444444444444444444444444444544 max=10, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    179    0 add-attribute                  144444444444444444444442           
-    root   factor     47    0 defun                                                 443441  144 
-    root   factor     26    0 defconst                                                   4443   
-    root   factor      7    0 alias                          4                              1   
-    root   factor      5    0 defmacro                                                2     3   
-    root   factor      3    0 deftemplate                                             3         
-  system   factor      2    0 add-stmt                                                         2
-  system   factor      2    0 add-rule                                                         2
-  system   factor      1    0 state-of                                                         1
-  system   factor      1    0 start                                                            1
-  system   factor      1    0 remove-stmt                                                      1
-    root   factor      1    0 new                                                             1 
-  system   factor      1    0 list-stmt                                                        1
-    root   factor      1    0 defvar                                                1           
+    root   factor    179    0 add-attribute                  144444444444444444444442            
+    root   factor     53    0 defun                                                 443441  1452 
+    root   factor     26    0 defconst                                                   4443    
+    root   factor      7    0 alias                          4                              1    
+    root   factor      6    0 defmacro                                                2     3  1 
+    root   factor      3    0 deftemplate                                             3          
+    root   factor      2    0 defvar                                                1          1 
+  system   factor      2    0 add-stmt                                                         11
+  system   factor      2    0 add-rule                                                         2 
+  system   factor      1    0 state-of                                                          1
+  system   factor      1    0 start                                                             1
+  system   factor      1    0 remove-stmt                                                       1
+    root   factor      1    0 new                                                              1 
+    root   factor      1    0 load                                                            1  
+  system   factor      1    0 list-stmt                                                         1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1585            0         1585
-      string:           53            0           53
+        atom:         1685            0         1685
+      string:           59            0           59
         list:           70            1           69
-        expr:          625            0          625
-         var:           17            0           17
+        expr:          685            0          685
+         var:           18            0           18
     constant:           26            0           26
-        func:           58            0           58
+        func:           66            0           66
     template:            1            0            1
-       macro:            5            0            5
+       macro:            6            0            6
     instance:            2            0            2
       member:           16            0           16
        frame:            3            1            2
  interpreter:            1            0
-  frameEntry:          322            0
+  frameEntry:          329            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=2
 
-id=2, name=main, lvl=2, ref=2/2, entry=6, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=13, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -305,7 +306,19 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        2    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-m                    : 7        2        3    instance   model@m             
+is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+                                         2    func       (is-empty list) : frame=frame@system
+                                         2    func       (is-empty array) : frame=frame@system
+                                         1    func       (is-empty string) : frame=frame@main
+is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        1    var        result\partial\ConflictRuleTest\test_confilct_rule_1_without_priority.rulp : type=string
+script_out           : 11       2        1    macro      script_out          
+_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         1    func       (_ginfo) : frame=frame@main
+                                         1    func       (_ginfo string) : frame=frame@main
+m                    : 14       2        3    instance   model@m             
 ==========================================================================================================================
 
 
@@ -313,18 +326,18 @@ id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        3    instance   model@m             
+default_model        : 13       3        3    instance   model@m             
 ==========================================================================================================================
 
 id=4, name=NF-R2, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-R2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 8        4        1    var        '(?x p ?y) : type=list
-default_model        : 9        4        3    instance   model@m             
-?x                   : 10       4        1    var        a : type=atom       
-?y                   : 11       4        1    var        b : type=atom       
-?z                   : 12       4        1    var        c : type=atom       
+?0                   : 15       4        1    var        '(?x p ?y) : type=list
+default_model        : 16       4        3    instance   model@m             
+?x                   : 17       4        1    var        a : type=atom       
+?y                   : 18       4        1    var        b : type=atom       
+?z                   : 19       4        1    var        c : type=atom       
 ==========================================================================================================================
 
 Global frame tree:

@@ -10,9 +10,9 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
-public class XRFactorSetRulePriority extends AbsAtomFactorAdapter implements IRuleFactor {
+public class XRFactorSetPriority extends AbsAtomFactorAdapter implements IRuleFactor {
 
-	public XRFactorSetRulePriority(String factorName) {
+	public XRFactorSetPriority(String factorName) {
 		super(factorName);
 	}
 
