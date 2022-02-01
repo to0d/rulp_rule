@@ -11,7 +11,7 @@ class TestEton extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_statsInfo("eton-model");
+		_statsInfo("em");
 	}
 
 }

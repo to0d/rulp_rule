@@ -39,6 +39,14 @@
 (defconst RETE_PRIORITY_DEFAULT  99)
 (defconst RETE_PRIORITY_MAXIMUM  499)
 
+; RRunState: rete run state
+(defconst RRUN_STATE_COMPLETED completed)
+(defconst RRUN_STATE_FAILED    failed)
+(defconst RRUN_STATE_HALTING   halting)
+(defconst RRUN_STATE_RUNNABLE  runnable)
+(defconst RRUN_STATE_RUNNING   running)
+(defconst RRUN_STATE_PARTIAL   partial)
+
 ;****************************************************
 ; Common utilies
 ;****************************************************

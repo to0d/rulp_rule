@@ -1,26 +1,28 @@
 (load "eton.rulp")
 ;=>nil
 
-(init-eton-model "")
+(init_eton_model "")
 ;=>nil
 
 (defun fun1 (?a1) (println ?a1))
 ;=>fun1
 
-(add-task-function "task1" fun1)
+(add_task_function "task1" fun1)
 ;=>nil
 
-(add-daily-task "task1" "value0")
+(add_daily_task "task1" "value0")
 ;=>nil
 
-(list-stmt ?eton-model)
-;=>'(daily1:'("task1" "value0") task_func:'("task1" fun1))
+(list-stmt (eton_model))
+;=>'(eton_daily_task1:'("task1" "value0") task_func:'("task1" fun1))
 
-(start ?eton-model)
-;err:
-Can't query, the model is running
-at (query-stmt ?f from task_func:'(?task ?f)) ; qf-RX-4
-at (defvar ?funcs (query-stmt ?f from task_func:'(?task ?f))) ; qf-RX-4
-at (start ?eton-model) ; main-2
+(process-eton)
+;=>1
+;out:
+value0
+
 ;eof
+
+(list-stmt (eton_model))
+;=>'(eton_daily_task1:'("task1" "value0") eton_completed_task1:'("task1" "value0" "2022-02-01") task_func:'("task1" fun1))
 

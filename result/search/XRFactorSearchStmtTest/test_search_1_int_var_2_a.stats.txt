@@ -470,7 +470,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      296
+           Interpreter call id:      302
     Interpreter call level/max:        0       10
                Frame max level:        8
                   Frame max id:        9
@@ -491,60 +491,60 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1854
+    factor:     1860
       func:       27
 ==========================================================================================================================
 
-Callable stats info: callId=296, row=33, column=38(8), value-max=855, value-unit=2^x
+Callable stats info: callId=302, row=33, column=38(8), value-max=855, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333333333333334681 max=1459, unit=3^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333334568 max=1442, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    855    0 power                                                              X 
-    root   factor    294    0 +                                                                 4X 
-    root   factor    285    0 =                                                                  X 
+    root   factor    855    0 power                                                               X
+    root   factor    294    0 +                                                                 24X
+    root   factor    285    0 =                                                                   X
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     53    0 defun                                                 443441  1444   
-    root   factor     28    0 defconst                                                   4444      
-    root   factor     26    0 return                                                            63 
-  system   factor     21    0 add-constraint                                                    54 
-    root   factor     18    0 do                                                                52 
-  system   factor     10    0 list-stmt                                                          51
-    root   factor      9    0 to-named-list                                                     41 
-    root   factor      9    0 to-atom                                                           41 
-  system   factor      9    0 query-stmt                                                        41 
-  system     func      9    1 (init_cst_rule type#model)                                        41 
-    root   factor      9    0 if                                                                41 
-    root   factor      9    0 equal_def                                                         41 
-  system funcList      9    1 equal                                                             41 
-  system   factor      9    0 add-stmt                                                          41 
-    root   factor      7    0 alias                          4                              1      
-    root   factor      6    0 defmacro                                                2     12 1   
+    root   factor     53    0 defun                                                 443441   1452  
+    root   factor     34    0 defconst                                                   44443     
+    root   factor     26    0 return                                                            46 
+  system   factor     21    0 add-constraint                                                    352
+    root   factor     18    0 do                                                                35 
+  system   factor     10    0 list-stmt                                                           5
+    root   factor      9    0 to-named-list                                                     24 
+    root   factor      9    0 to-atom                                                           24 
+  system   factor      9    0 query-stmt                                                        24 
+  system     func      9    1 (init_cst_rule type#model)                                        24 
+    root   factor      9    0 if                                                                24 
+    root   factor      9    0 equal_def                                                         24 
+  system funcList      9    1 equal                                                             24 
+  system   factor      9    0 add-stmt                                                          24 
+    root   factor      7    0 alias                          4                               1     
+    root   factor      6    0 defmacro                                                2      3  1  
   system   factor      4    0 add-rule                                                          3  
-    root   factor      3    0 defvar                                                1          1 1 
+    root   factor      3    0 defvar                                                1           1 1
     root   factor      3    0 deftemplate                                             3            
-  system     func      3    1 (add_cst_constraint_type type#                                    3  
-  system     func      3    1 (add_cst_constraint_min type#m                                    21 
-  system     func      3    1 (add_cst_constraint_max type#m                                    3  
-  system   factor      2    0 state-of                                                           2 
-  system   factor      1    0 start                                                              1 
+  system     func      3    1 (add_cst_constraint_type type#                                    21 
+  system     func      3    1 (add_cst_constraint_min type#m                                     3 
+  system     func      3    1 (add_cst_constraint_max type#m                                     3 
+  system   factor      2    0 state-of                                                            2
+  system   factor      1    0 start                                                               1
     root   factor      1    0 setq                                                              1  
-  system   factor      1    0 search                                                             1 
-    root   factor      1    0 new                                                              1   
+  system   factor      1    0 search                                                              1
+    root   factor      1    0 new                                                               1  
     root   factor      1    0 load                                                             1   
-  system   factor      1    0 add-node                                                         1   
+  system   factor      1    0 add-node                                                          1  
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1831            0         1831
+        atom:         1849            0         1849
          int:           16            0           16
       string:          118            0          118
         list:         1221            6         1215
-        expr:          799           27          772
+        expr:          805           27          778
          var:           96           72           24
-    constant:           28            0           28
+    constant:           34            0           34
         func:           66            0           66
     template:            1            0            1
        macro:            6            0            6
@@ -552,7 +552,7 @@ Object create count:
       member:           18            0           18
        frame:           57           54            3
  interpreter:            1            0
-  frameEntry:          424            0
+  frameEntry:          430            0
       lambda:            0            0
 ==========================================================================================================================
 
