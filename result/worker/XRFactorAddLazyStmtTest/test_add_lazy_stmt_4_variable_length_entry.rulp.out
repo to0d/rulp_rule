@@ -1,7 +1,7 @@
 (new model m)
 ;=>m
 
-(add-lazy-stmt m '(?n hasRelated ?key ?path) '('(a hasRelated k1 "path 1") '(a hasRelated k2 "path 2") '(a hasRelated k3 "path 3") '(b hasRelated k2 "path 4")))
+(add-lazy-stmt m '(?n hasRelated ?key ?p) '('(a hasRelated k1 "path 1") '(a hasRelated k2 "path 2") '(a hasRelated k3 "path 3") '(b hasRelated k2 "path 4")))
 ;=>nil
 
 (query-stmt m '(?n ?k ?p) from '(?n hasRelated ?k ?p))

@@ -79,6 +79,7 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 public class XRModel extends AbsRInstance implements IRModel {
 
 	static enum RUpdateResult {
+
 		CHANGE, INVALID, NEW, NOCHANGE;
 
 		public static boolean isValidUpdate(RUpdateResult rst) {

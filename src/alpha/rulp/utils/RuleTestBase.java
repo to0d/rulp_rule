@@ -68,7 +68,7 @@ public class RuleTestBase extends RulpTestBase {
 	static int UPDATE_COUNT = 0;
 
 	static {
-		new RuleFactory();
+		RulpFactory.registerLoader(RRuleLoader.class);
 	}
 
 	protected static void _clean_cache(String cachePath) {
