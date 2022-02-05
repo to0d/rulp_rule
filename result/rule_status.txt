@@ -28,10 +28,6 @@ beta.rulp.cache.CacheTest:test_2_node_cache_2:1-mStatus:sc=[0,1], n0=[0,2,2],
 beta.rulp.cache.CacheTest:test_3_model_cache_list_1:1-eCount:size=1, max-id=1, dup=0, null=0
 beta.rulp.cache.CacheTest:test_3_model_cache_list_1:1-mCount:stmt=1, rule=0, match=0, fetch=1, exec=0, idle=0, state=1/1, max-queue=0, uniq-obj=0, entry-cnt=1, entry-maxid=1, waste-node=1, waste-match=0
 beta.rulp.cache.CacheTest:test_3_model_cache_list_1:1-mStatus:sc=[], n0=[0,1,1],
-beta.rulp.constraint.XRFactorAddConstraintTest:test_a_similar_constraint_with_rule_1:1-mStatus:sc=[], n0=[0,1,1,3,1], e0=[1,0,1,99,2,0,0,2,2,0,2/0,1,1], ru=[1,0,2,99,2,0,0,0,2,1],
-beta.rulp.constraint.XRFactorAddConstraintTest:test_a_similar_constraint_with_rule_1:1-oStatus:shared=0
-beta.rulp.constraint.XRFactorAddConstraintTest:test_a_similar_constraint_with_rule_2:1-mStatus:sc=[], n0=[0,3,1,1], e0=[2,0,1,99,2,0,0,2,2,0,2/0,2], ru=[2,0,2,99,2,0,0,0,2],
-beta.rulp.constraint.XRFactorAddConstraintTest:test_a_similar_constraint_with_rule_2:1-oStatus:shared=0
 beta.rulp.factor.XRFactorAddStmtTest:test_add_stmt_b_variable_length_entry:1-mStatus:sc=[0,3],
 beta.rulp.factor.XRFactorAddStmtTest:test_add_stmt_b_variable_length_entry:2-mStatus:sc=[0,3], a0=[2,0,2,0,2,0,0,2,2,0,2/0,2],
 beta.rulp.factor.XRFactorAddStmtTest:test_add_stmt_b_variable_length_entry:3-mStatus:sc=[0,3], a0=[4,0,2,0,4,0,0,4,4,0,4/0,4],

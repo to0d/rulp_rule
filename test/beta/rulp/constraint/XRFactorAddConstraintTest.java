@@ -7,7 +7,7 @@ import alpha.rulp.utils.RuleTestBase;
 class XRFactorAddConstraintTest extends RuleTestBase {
 
 	@Test
-	void test_1_add_constraint_1() {
+	void test_add_constraint_1() {
 
 		_setup();
 		_clean_model_cache();
@@ -17,7 +17,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_type_2_fail_add_stmt() {
+	void test_add_constraint_2_type_fail_add_stmt() {
 
 		_setup();
 		_run_script();
@@ -25,7 +25,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_type_3_fail_add_constraint() {
+	void test_add_constraint_2_type_fail_add_constraint() {
 
 		_setup();
 		_run_script();
@@ -33,7 +33,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_type_4_fail_merge_constraint() {
+	void test_add_constraint_2_type_fail_merge_constraint() {
 
 		_setup();
 		_run_script();
@@ -41,7 +41,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_2_uniq_1() {
+	void test_add_constraint_3_uniq_1() {
 
 		_setup();
 		_run_script();
@@ -49,7 +49,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_3_not_null_1() {
+	void test_add_constraint_4_not_null_1() {
 
 		_setup();
 		_run_script();
@@ -57,7 +57,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_4_expr_1() {
+	void test_add_constraint_5_expr_1() {
 
 		_setup();
 		_run_script();
@@ -65,7 +65,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_4_expr_2_not_equal_var() {
+	void test_add_constraint_5_expr_2_not_equal_var() {
 
 		_setup();
 		_run_script();
@@ -73,7 +73,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_4_expr_3_const() {
+	void test_add_constraint_5_expr_3_const() {
 
 		_setup();
 		_run_script();
@@ -81,36 +81,28 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_5_var_1() {
+	void test_add_constraint_6_var_1() {
 
 		_setup();
 		_run_script();
 	}
 
 	@Test
-	void test_5_var_2() {
+	void test_add_constraint_6_var_2() {
 
 		_setup();
 		_run_script();
 	}
 
 	@Test
-	void test_5_var_3() {
+	void test_add_constraint_6_var_3() {
 
 		_setup();
 		_run_script();
 	}
 
 	@Test
-	void test_6_max_1() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
-	void test_6_max_2_remove_dup() {
+	void test_add_constraint_7_max_1() {
 
 		_setup();
 		_run_script();
@@ -118,7 +110,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_7_min_1() {
+	void test_add_constraint_7_max_2_remove_dup() {
 
 		_setup();
 		_run_script();
@@ -126,7 +118,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_8_one_of_1() {
+	void test_add_constraint_8_min_1() {
 
 		_setup();
 		_run_script();
@@ -134,7 +126,15 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_9_cross_1() {
+	void test_add_constraint_9_one_of_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_add_constraint_a_cross_1() {
 
 		_setup();
 		_clean_model_cache();
@@ -145,20 +145,15 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_a_similar_constraint_with_rule_1() {
+	void test_add_constraint_b_similar_constraint_with_rule_1() {
 
 		_setup();
-
 		_run_script();
-
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
 	@Test
-	void test_a_similar_constraint_with_rule_2() {
+	void test_add_constraint_b_similar_constraint_with_rule_2() {
 
 		_setup();
 
@@ -169,23 +164,19 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_test("(start m)", "5");
 		_test("(state-of m)", "completed");
 		_test("(list-stmt m)", "'(n1:'(a b 5) n2:'(5) n3:'(5))");
-
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
-	
+
 	@Test
-	void test_b_single_1() {
+	void test_add_constraint_c_single_1() {
 
 		_setup();
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
-	void test_b_single_2_dup() {
+	void test_add_constraint_c_single_2_dup() {
 
 		_setup();
 		_run_script();
