@@ -68,3 +68,12 @@
 
 (add-constraint m name10:'(?x ?y) (single))
 ;=>
+
+
+(defun c1 (?node ?stmt)
+    (return (> (get ?stmt 0) (get ?stmt 1)))
+)
+;=>
+
+(add-constraint m name11:'(?x ?y ?z) (c1))
+;=>

@@ -21,6 +21,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -407,6 +408,10 @@ public class ConstraintFactory {
 
 	public static IRConstraint1 expr4(IRExpr expr, List<IRList> matchStmtList) throws RException {
 		return new XRConstraint1Expr4(expr, matchStmtList);
+	}
+
+	public static IRConstraint1Func func(IRFunction func) throws RException {
+		return new XRConstraint1Func(func);
 	}
 
 	public static IRConstraint1 max(int columnIndex, IRObject maxValue) {

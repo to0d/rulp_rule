@@ -7,15 +7,18 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
+import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
+import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
@@ -62,6 +65,27 @@ public class XRFactorAddConstraint extends AbsAtomFactorAdapter implements IRFac
 		// Check constraint expression
 		/**************************************************/
 		IRExpr constraintExpr = RulpUtil.asExpression(args.get(args.size() - 1));
+
+		// user defined function
+		if (constraintExpr.size() == 1) {
+
+			IRObject obj = RulpUtil.lookup(constraintExpr.get(0), interpreter, frame);
+			if (obj.getType() == RType.FUNC) {
+
+				IRFunction func = (IRFunction) obj;
+
+				// (func node ?x ?y ?z)
+				if (func.getArgCount() != 2) {
+					throw new RException(
+							String.format("Fail to add constraint function: %s, unmatch para<actual=%d, expect=%d>",
+									func, func.getArgCount(), 2));
+				}
+
+				IRConstraint1 cons = ConstraintFactory.func(func);
+				return RulpFactory.createBoolean(model.addConstraint(node, cons));
+			}
+		}
+
 		IRConstraint1 cons = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList)))
 				.build(constraintExpr, interpreter, frame);
 
