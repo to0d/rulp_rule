@@ -37,7 +37,7 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	public void test_model_0_p2d_ls() {
+	void test_model_0_p2d_ls() {
 
 		_setup();
 		_run_script();
