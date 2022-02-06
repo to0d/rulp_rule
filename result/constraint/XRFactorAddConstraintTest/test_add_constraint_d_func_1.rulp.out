@@ -1,12 +1,10 @@
 (new model m)
 ;=>m
 
-(setq ?trace true)
-
 (defun c1 (?node ?stmt)
     (return (> (get ?stmt 0) (get ?stmt 1)))
 )
-;=>&?trace c1
+;=>c1
 
 (add-constraint m n1:'(?x ?y) (c1))
 ;=>true

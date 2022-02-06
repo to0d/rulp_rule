@@ -1,8 +1,6 @@
 (new model m)
 ;=>
 
-(setq ?trace true)
-
 (defun c1 (?node ?stmt)
     (return (> (get ?stmt 0) (get ?stmt 1)))
 )
