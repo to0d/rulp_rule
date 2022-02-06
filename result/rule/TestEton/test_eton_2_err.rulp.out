@@ -1,0 +1,32 @@
+(load "eton.rulp")
+;=>nil
+
+(init_eton_model "")
+;=>nil
+
+(defun fun1 (?a1) 
+    (throw fail-process (+ "invalid value: " ?values))
+)
+;=>fun1
+
+(add_task_function "task1" fun1)
+;=>nil
+
+(add_daily_task "task1" "value0")
+;=>nil
+
+(list-stmt (eton_model))
+;=>'(eton_daily_task1:'("task1" "value0") task_func:'("task1" fun1))
+
+(process-eton)
+;err:
+error: fail-process, invalid value: ?values
+at (throw fail-process (+ "invalid value: " ?values)) ; _$fun$_fun1-11
+at (?func ?arg0) ; query-stmt-7
+at (query-stmt ?eton_model '(?task ?func ?arg0 ?day1) from task_func:'(?task ?fu... ; loop-9
+at (defvar ?task_list (query-stmt ?eton_model '(?task ?func ?arg0 ?day1) from ta... ; loop-9
+at (loop (defvar ?model-run-count (start ?eton_model)) (trace "process eton mode... ; do-5
+at (do (defvar ?old_process_count ?process_count) (loop (defvar ?model-run-count... ; _$fun$_process-eton-6
+at (process-eton) ; main-2
+;eof
+

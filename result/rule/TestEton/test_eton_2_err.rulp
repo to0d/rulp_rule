@@ -1,0 +1,22 @@
+(load "eton.rulp")
+;=>
+
+(init_eton_model "")
+;=>
+
+(defun fun1 (?a1) 
+    (throw fail-process (+ "invalid value: " ?values))
+)
+;=>
+
+(add_task_function "task1" fun1)
+;=>
+
+(add_daily_task "task1" "value0")
+;=>
+
+(list-stmt (eton_model))
+;=>
+
+(process-eton)
+;err
