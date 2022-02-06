@@ -165,6 +165,8 @@ public interface Constant {
 
 	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
 	
+	String F_GET_RETE_ENTRY = "get-rete-entry";
+	
 	String F_RETE_NODE_OF = "rete-node-of";
 
 	String F_SAVE_MODEL = "save-model";

@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.factor;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import alpha.rulp.lang.IRFrame;
@@ -47,24 +49,70 @@ public class XRFactorReteNodeOf extends AbsAtomFactorAdapter implements IRFactor
 		// Check parameters
 		/********************************************/
 		int argSize = args.size();
-		if (argSize != 2 && argSize != 3) {
+		if (argSize < 2 && argSize > 4) {
 			throw new RException("Invalid parameters: " + args);
 		}
 
 		IRObject obj = interpreter.compute(frame, args.get(1));
 		RReteType type = null;
-		if (argSize == 3) {
+		if (argSize >= 3) {
 			type = RReteType.getRetetType(RulpUtil.asInteger(interpreter.compute(frame, args.get(2))).asInteger());
 		}
 
+		List<IRReteNode> nodes = new LinkedList<>();
+
 		if (obj instanceof IRModel) {
-			return RulpFactory.createList(getNodesOfModel((IRModel) obj, type));
+			nodes.addAll(getNodesOfModel((IRModel) obj, type));
+
+		} else if (obj instanceof IRRule) {
+			nodes.addAll(getNodesOfRule((IRRule) obj, type));
+
+		} else {
+			throw new RException("unsupport object: " + obj);
 		}
 
-		if (obj instanceof IRRule) {
-			return RulpFactory.createList(getNodesOfRule((IRRule) obj, type));
+		if (argSize >= 4) {
+
+			IRObject arg = interpreter.compute(frame, args.get(3));
+			Iterator<IRReteNode> it = nodes.iterator();
+
+			switch (type) {
+			case ROOT0: {
+				int len = RulpUtil.asInteger(arg).asInteger();
+				while (it.hasNext()) {
+					if (it.next().getEntryLength() != len) {
+						it.remove();
+					}
+				}
+			}
+				break;
+
+			case NAME0: {
+				String name = RulpUtil.asString(arg).asString();
+				while (it.hasNext()) {
+					if (!name.equals(it.next().getNamedName())) {
+						it.remove();
+					}
+				}
+			}
+				break;
+
+			case RULE: {
+				String name = RulpUtil.asString(arg).asString();
+				while (it.hasNext()) {
+					IRRule rule = (IRRule) it.next();
+					if (!name.equals(rule.getRuleName())) {
+						it.remove();
+					}
+				}
+			}
+				break;
+
+			default:
+				throw new RException("Invalid parameters: " + args);
+			}
 		}
 
-		throw new RException("unsupport object: " + obj);
+		return RulpFactory.createList(nodes);
 	}
 }

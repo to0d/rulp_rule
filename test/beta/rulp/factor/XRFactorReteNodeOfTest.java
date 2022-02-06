@@ -14,7 +14,7 @@ class XRFactorReteNodeOfTest extends RuleTestBase {
 	}
 	
 	@Test
-	void test_rete_node_of_2_node() {
+	void test_rete_node_of_2_rule() {
 
 		_setup();
 		_run_script();
