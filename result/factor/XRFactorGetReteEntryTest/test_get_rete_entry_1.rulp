@@ -4,9 +4,19 @@
 (add-stmt m '(a p1 1))
 ;=>
 
-(add-stmt m '(a p1 1))
+(add-stmt m '(a p2 1))
 ;=>
 
-(list-stmt m from '(a p1 ?x))
+(list-stmt m)
 ;=>
 
+(defvar ?node (get-root-rete-node m 3))
+;=>
+
+(rete-entry-count-of ?node)
+;=>
+
+(loop for ?i from 0 to (- (rete-entry-count-of ?node) 1) do
+    (println (get-rete-entry ?node ?i))
+)
+;=>

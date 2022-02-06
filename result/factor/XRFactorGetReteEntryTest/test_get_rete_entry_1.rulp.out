@@ -1,0 +1,28 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a p1 1))
+;=>true
+
+(add-stmt m '(a p2 1))
+;=>true
+
+(list-stmt m)
+;=>'('(a p1 1) '(a p2 1))
+
+(defvar ?node (get-root-rete-node m 3))
+;=>&?node
+
+(rete-entry-count-of ?node)
+;=>2
+
+(loop for ?i from 0 to (- (rete-entry-count-of ?node) 1) do
+    (println (get-rete-entry ?node ?i))
+)
+;=>nil
+;out:
+'(a p1 1)
+'(a p2 1)
+
+;eof
+

@@ -129,6 +129,8 @@ public interface Constant {
 
 	String F_GC_MODEL = "gc-model";
 
+	String F_GET_RETE_ENTRY = "get-rete-entry";
+
 	String F_GET_RULE = "get-rule";
 
 	String F_HAS_STMT = "has-stmt";
@@ -162,10 +164,8 @@ public interface Constant {
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
-
-	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
 	
-	String F_GET_RETE_ENTRY = "get-rete-entry";
+	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
 	
 	String F_RETE_NODE_OF = "rete-node-of";
 

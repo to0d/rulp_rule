@@ -1,0 +1,8 @@
+(new model m)
+;=>
+
+(add-rule "R1" m if '(?a p1 ?b) do (if (equal ?a ?b) (throw err-r1)) (-> (?b p1 ?a)))
+;=>
+
+(rete-node-of m RRT_ROOT 3)
+;=>

@@ -401,7 +401,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      297
+           Interpreter call id:      299
     Interpreter call level/max:        0       10
                Frame max level:        8
                   Frame max id:        9
@@ -422,16 +422,16 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      355
+    factor:      357
       func:        9
 ==========================================================================================================================
 
-Callable stats info: callId=297, row=33, column=38(8), value-max=8, value-unit=2^x
+Callable stats info: callId=299, row=33, column=38(8), value-max=8, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444582 max=68, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444575 max=61, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     53    0 defun                                                 144444    444  
+    root   factor     55    0 defun                                                 144444    4442 
     root   factor     34    0 defconst                                                   34444     
     root   factor      8    0 return                                                             4 
     root   factor      7    0 defvar                                                4           11 
@@ -440,7 +440,7 @@ Callable stats info: callId=297, row=33, column=38(8), value-max=8, value-unit=2
     root   factor      6    0 do                                                                 4 
     root   factor      6    0 defmacro                                                2       3 1  
     root   factor      5    0 make-list                                             4              
-  system   factor      4    0 list-stmt                                                          31
+  system   factor      4    0 list-stmt                                                           3
   system   factor      4    0 add-rule                                                           3 
     root   factor      3    0 to-named-list                                                      3 
     root   factor      3    0 to-atom                                                            3 
@@ -452,10 +452,10 @@ Callable stats info: callId=297, row=33, column=38(8), value-max=8, value-unit=2
     root   factor      3    0 deftemplate                                              3           
   system   factor      3    0 add-stmt                                                           3 
     root   factor      3    0 +                                                                  3 
-  system   factor      2    0 state-of                                                           11
-    root   factor      2    0 =                                                                  2 
-    root   factor      2    0 %                                                                  2 
-  system   factor      1    0 start                                                              1 
+  system   factor      2    0 state-of                                                            2
+    root   factor      2    0 =                                                                   2
+    root   factor      2    0 %                                                                   2
+  system   factor      1    0 start                                                               1
     root   factor      1    0 setq                                                               1 
   system   factor      1    0 search                                                             1 
     root   factor      1    0 new                                                                1 
@@ -469,21 +469,21 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1759            0         1759
+        atom:         1806            0         1806
          int:            1            0            1
-      string:           83            0           83
+      string:           86            0           86
         list:          139            6          133
-        expr:          741            9          732
+        expr:          778            9          769
          var:           48           24           24
     constant:           34            0           34
-        func:           66            0           66
+        func:           68            0           68
     template:            1            0            1
        macro:            6            0            6
     instance:            2            0            2
       member:           18            0           18
        frame:           21           18            3
  interpreter:            1            0
-  frameEntry:          373            0
+  frameEntry:          376            0
       lambda:            0            0
 ==========================================================================================================================
 
