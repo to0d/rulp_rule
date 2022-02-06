@@ -33,7 +33,7 @@ class XRFactorReteNodeOfTest extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
-	
+
 	@Test
 	void test_rete_node_of_3_filter_rule() {
 
