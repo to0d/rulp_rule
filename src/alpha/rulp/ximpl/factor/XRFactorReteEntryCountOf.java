@@ -37,6 +37,14 @@ public class XRFactorReteEntryCountOf extends AbsAtomFactorAdapter implements IR
 					.getRetetStatus(RulpUtil.asInteger(interpreter.compute(frame, args.get(2))).asInteger());
 		}
 
-		return RulpFactory.createInteger(node.getEntryQueue().getEntryCounter().getEntryCount(status));
+		int count;
+
+		if (status == null) {
+			count = node.getEntryQueue().getEntryCounter().getEntryTotalCount();
+		} else {
+			count = node.getEntryQueue().getEntryCounter().getEntryCount(status);
+		}
+
+		return RulpFactory.createInteger(count);
 	}
 }
