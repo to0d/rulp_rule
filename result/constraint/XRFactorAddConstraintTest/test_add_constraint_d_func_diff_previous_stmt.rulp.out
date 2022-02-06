@@ -44,7 +44,7 @@
 )
 ;=>__sub_statement__ __previous_statement__ diff-previous-stmt
 
-(add-constraint m n1:'(?x ?y ?z) (lambda (?n ?s)(return (diff-previous-stmt ?n ?s '(1 2)))))
+(add-constraint m n1:'(?x ?y ?z) (lambda (?n ?s)(return (diff-previous-stmt ?n ?s '(0 1)))))
 ;=>true
 
 (add-stmt m n1:'(a b 1))
