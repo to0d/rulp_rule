@@ -24,5 +24,5 @@ value0
 ;eof
 
 (list-stmt (eton_model))
-;=>'(eton_daily_task1:'("task1" "value0") eton_completed_task1:'("2022-02-06" "task1" "value0") task_func:'("task1" fun1))
+;=>'(eton_daily_task1:'("task1" "value0") eton_completed_task1:'("2022-02-07" "task1" "value0") task_func:'("task1" fun1))
 

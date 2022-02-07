@@ -106,4 +106,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void setNodeSaver(IRReteNode node, IRStmtSaver saver) throws RException;
 
+	public boolean tryAddStatement(IRList stmt) throws RException;
+
 }

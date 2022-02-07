@@ -2087,4 +2087,32 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.modelPriority = oldModelPriority;
 		}
 	}
+
+	@Override
+	public boolean tryAddStatement(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> tryAddStatement: " + stmt);
+		}
+
+		RReteStatus status = _getNewStmtStatus();
+
+		try {
+
+			RUpdateResult rst = _addReteEntry(stmt, status);
+
+			// stmt updated, active the listener
+			if (RUpdateResult.isValidUpdate(rst)) {
+				stmtListenUpdater.update(this);
+				return true;
+			}
+
+		} catch (RConstraintConflict e) {
+			if (RuleUtil.isModelTrace()) {
+				e.printStackTrace();
+			}
+		}
+
+		return false;
+	}
 }

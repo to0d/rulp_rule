@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_LAMBDA;
+import static alpha.rulp.lang.Constant.O_False;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;

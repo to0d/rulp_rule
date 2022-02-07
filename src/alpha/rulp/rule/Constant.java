@@ -68,7 +68,7 @@ public interface Constant {
 	String A_Reasoned = "reasoned";
 
 	String A_Removed = "removed";
-	
+
 	String A_RETE_TYPE = "rete-type";
 
 	String A_RULE = "rule";
@@ -164,9 +164,9 @@ public interface Constant {
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
-	
+
 	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
-	
+
 	String F_RETE_NODE_OF = "rete-node-of";
 
 	String F_SAVE_MODEL = "save-model";
@@ -189,9 +189,11 @@ public interface Constant {
 
 	String F_STATE_OF = "state-of";
 
+	String F_TRACE_RULE = "trace-rule";
+
 //	String F_UPDATE_STMT = "update-stmt";
 
-	String F_TRACE_RULE = "trace-rule";
+	String F_TRY_ADD_STMT = "try-add-stmt";
 
 //	String F_TRY_ADD_STMT = "try-add-stmt";
 

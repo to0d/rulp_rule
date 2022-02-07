@@ -3,7 +3,7 @@ Model<em> stats info:
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 NAME0     0      2      1      0     0     0     0     0      0      0     4      0     5     2    0        0      3      0    0    0  196  199      0      11
-EXPR0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  198  198      0       0
+EXPR0     0      0      0      0     0     0     0     0      0      0     2      0     1     0    0        1      0      0    2    2  197  198      0       0
 EXPR1     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        2      0      0    2    2  195  196      0       0
 BETA0     0      0      4      0     0     0     0     0      0      0     5      0     5     1    0        4      4      0    1    1    0  198      0       4
  RULE     0      0      0      0     0     0     0     0      0      0     5      0     1     0    0        0      1      0    1    3  195  199      0       0
@@ -16,18 +16,19 @@ node info:
 N0001[2]:      0      1      0      0      0      0     0     0   0/0      0      1      0    1    0           0   0 199   0            
 N0003[3]:      0      0      1      0      0      0     0     0   0/0      0      1      0    2    1           0   0 198   0            
 N0007[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   0 197   0            
-N0010[2]:      0      1      0      0      0      0     0     0   0/0      0      1      0    2    1           0   0 196   0            
+N0011[2]:      0      1      0      0      0      0     0     0   0/0      0      1      0    2    1           0   0 196   0            
 E0005[4]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 198   0           1
-E1012[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 196   0           1
-E1015[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 195   0           1
+E0009[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2 197   0           0
+E1013[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 196   0           1
+E1016[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 195   0           1
 B0004[4]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 198   0         1/1
 B0008[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   1 197   0         0/0
-B0011[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
-B0014[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
-B0017[4]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0         1/1
+B0012[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
+B0015[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
+B0018[4]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0         1/1
    R1[2]:      0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   1 199   0           1
    R2[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 198   0           0
-   R3[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2 197   0           0
+   R3[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 197   0           0
    R4[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 196   0           0
    R5[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 195   0           0
 ========================================================================================================================================================
@@ -37,22 +38,23 @@ node info2:
 NODE[n]  Parent         Child                                Rule                           Inherit                        Join
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[2]                [R1]                                 [R1]
-N0003[3]                [B0004, B0004, B0008, B0017]         [R2, R3]
+N0003[3]                [B0004, B0004, B0008, B0018]         [R2, R3]
 N0007[3]                [B0008]                              [R3]
-N0010[2]                [B0011, B0011, B0014, B0014, B0017]  [R4, R5]
+N0011[2]                [B0012, B0012, B0015, B0015, B0018]  [R4, R5]
 E0005[4] [B0004]        [R2]                                 [R2]
-E1012[3] [B0011]        [R4]                                 [R4]
-E1015[3] [B0014]        [R5]                                 [R5]
+E0009[4] [B0008]        [R3]                                 [R3]
+E1013[3] [B0012]        [R4]                                 [R4]
+E1016[3] [B0015]        [R5]                                 [R5]
 B0004[4] [N0003, N0003] [E0005]                              [R2]                           [0/0, 0/1, 0/2, 1/0]           [join(1/1),join(2/2)]
-B0008[4] [N0007, N0003] [R3]                                 [R3]                           [0/0, 0/1, 0/2, 1/0]           [join(1/1),join(2/2)]
-B0011[3] [N0010, N0010] [E1012]                              [R4]                           [0/0, 0/1, 1/1]                [join(0/0)]
-B0014[3] [N0010, N0010] [E1015]                              [R5]                           [0/0, 0/1, 1/0]                [join(1/1)]
-B0017[4] [N0003, N0010]                                                                     [0/0, 0/1, 0/2, 1/1]           [join(1/0)]
+B0008[4] [N0007, N0003] [E0009]                              [R3]                           [0/0, 0/1, 0/2, 1/0]           [join(1/1),join(2/2)]
+B0012[3] [N0011, N0011] [E1013]                              [R4]                           [0/0, 0/1, 1/1]                [join(0/0)]
+B0015[3] [N0011, N0011] [E1016]                              [R5]                           [0/0, 0/1, 1/0]                [join(1/1)]
+B0018[4] [N0003, N0011]                                                                     [0/0, 0/1, 0/2, 1/1]           [join(1/0)]
 R1[2]    [N0001]
 R2[4]    [E0005]
-R3[4]    [B0008]
-R4[3]    [E1012]
-R5[3]    [E1015]
+R3[4]    [E0009]
+R4[3]    [E1013]
+R5[3]    [E1016]
 ========================================================================================================================================================
 
 node info3:
@@ -62,15 +64,16 @@ node info3:
 N0001[2]  eton_daily_task1:'(?0 ?1)
 N0003[3]  eton_working_task1:'(?0 ?1 ?2)
 N0007[3]  eton_completed_task1:'(?0 ?1 ?2)
-N0010[2]  task_func:'(?0 ?1)
+N0011[2]  task_func:'(?0 ?1)
 E0005[4]  '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
-E1012[3]  '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
-E1015[3]  '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
+E0009[4]  '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
+E1013[3]  '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
+E1016[3]  '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
 B0004[4]  '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
 B0008[4]  '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-B0011[3]  '(task_func:'(?0 ?1) task_func:'(?0 ?2))
-B0014[3]  '(task_func:'(?0 ?1) task_func:'(?2 ?1))
-B0017[4]  '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
+B0012[3]  '(task_func:'(?0 ?1) task_func:'(?0 ?2))
+B0015[3]  '(task_func:'(?0 ?1) task_func:'(?2 ?1))
+B0018[4]  '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
    R1[2]  R1
    R2[4]  R2
    R3[4]  R3
@@ -84,9 +87,11 @@ node info4: constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 E0005[4]      1     1
               1     1  C1:(day-is-bigger-than ?0 ?3)
-E1012[3]      1     1
+E0009[4]      0     0
+              0     0  C1:(not (day-is-bigger-than ?3 ?0))
+E1013[3]      1     1
               1     1  C1:(cmp-entry-index != ?1 ?2)
-E1015[3]      1     1
+E1016[3]      1     1
               1     1  C1:(cmp-entry-index != ?0 ?2)
 ========================================================================================================================================================
 
@@ -95,8 +100,10 @@ node info5: action
 NODE[n]  Index Type  Action
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 R1[2]    0     EXPR  (add_working_task ?task ?arg0)
-R2[4]    0     EXPR  (remove-stmt ?1)
-R3[4]    0     EXPR  (remove-stmt ?0)
+R2[4]    0     EXPR  (trace "R2:remove-stmt: " ?1)
+         1     EXPR  (remove-stmt ?1)
+R3[4]    0     EXPR  (trace "R3:remove-stmt: " ?0)
+         1     EXPR  (remove-stmt ?0)
 R4[3]    0     EXPR  (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2))
 R5[3]    0     EXPR  (throw bad-rule (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1))
 ========================================================================================================================================================
@@ -108,15 +115,16 @@ node info6:
 N0001[2] NAME0 Rete0 UNIQ   eton_daily_task1          0     1    1    0    0   0   0 199 [null, null]
 N0003[3] NAME0 Rete0 UNIQ   eton_working_task1        0     4    2    0    0   0   0 198 [null, null, null]
 N0007[3] NAME0 Rete0 UNIQ   eton_completed_task1      0     1    1    0    0   0   0 197 [null, null, null]
-N0010[2] NAME0 Rete0 UNIQ   task_func                 0     5    2    0    0   0   0 196 [null, null]
+N0011[2] NAME0 Rete0 UNIQ   task_func                 0     5    2    0    0   0   0 196 [null, null]
 E0005[4] EXPR0 Rete1 MULTI                            1     1    1    0    0   1   0 198 [?day1, ?task, ?arg0, ?day2]
-E1012[3] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0 196 [?t1, ?f1, ?f2]
-E1015[3] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0 195 [?t1, ?f1, ?t2]
+E0009[4] EXPR0 Rete1 MULTI                            1     1    1    0    0   1   0 197 [?day2, ?task, ?arg0, ?day1]
+E1013[3] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0 196 [?t1, ?f1, ?f2]
+E1016[3] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0 195 [?t1, ?f1, ?t2]
 B0004[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0   0 198 [?day1, ?task, ?arg0, ?day2]
 B0008[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0   0 197 [?day2, ?task, ?arg0, ?day1]
-B0011[3] BETA0 Beta0 MULTI                            2     1    1    3    1   0   0 196 [?t1, ?f1, ?f2]
-B0014[3] BETA0 Beta0 MULTI                            2     1    1    3    1   0   0 195 [?t1, ?f1, ?t2]
-B0017[4] BETA0 Beta0 MULTI                            2     0    0    4    1   0   0   0 [?day1, ?task, ?arg0, ?func]
+B0012[3] BETA0 Beta0 MULTI                            2     1    1    3    1   0   0 196 [?t1, ?f1, ?f2]
+B0015[3] BETA0 Beta0 MULTI                            2     1    1    3    1   0   0 195 [?t1, ?f1, ?t2]
+B0018[4] BETA0 Beta0 MULTI                            2     0    0    4    1   0   0   0 [?day1, ?task, ?arg0, ?func]
    R1[2] RULE  Rule0 ACTION                           1     0    0    0    0   0   0 199 [?task, ?arg0]
    R2[4] RULE  Rule0 ACTION                           1     0    0    0    0   0   0 198 [?day1, ?task, ?arg0, ?day2]
    R3[4] RULE  Rule0 ACTION                           1     0    0    0    0   0   0 197 [?day2, ?task, ?arg0, ?day1]
@@ -130,7 +138,7 @@ Priority        NAME0 EXPR0 EXPR1 BETA0  RULE
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 199          :      1                       1
 198          :      1     1           1     1
-197          :      1                 1     1
+197          :      1     1           1     1
 196          :      1           1     1     1
 195          :                  1     1     1
 000(inactive):                        1      
@@ -143,38 +151,40 @@ node source info:
 N0001(NAME0):               eton_daily_task1:'(?0 ?1)
 N0003(NAME0):               eton_working_task1:'(?0 ?1 ?2)
 N0007(NAME0):               eton_completed_task1:'(?0 ?1 ?2)
-N0010(NAME0):               task_func:'(?0 ?1)
+N0011(NAME0):               task_func:'(?0 ?1)
 E0005(EXPR0):               '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
            0: B0004(BETA0)  '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-E1012(EXPR1):               '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
-           0: B0011(BETA0)  '(task_func:'(?0 ?1) task_func:'(?0 ?2))
-E1015(EXPR1):               '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
-           0: B0014(BETA0)  '(task_func:'(?0 ?1) task_func:'(?2 ?1))
+E0009(EXPR0):               '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
+           0: B0008(BETA0)  '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
+E1013(EXPR1):               '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
+           0: B0012(BETA0)  '(task_func:'(?0 ?1) task_func:'(?0 ?2))
+E1016(EXPR1):               '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
+           0: B0015(BETA0)  '(task_func:'(?0 ?1) task_func:'(?2 ?1))
 B0004(BETA0):               '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
            0: N0003(NAME0)  eton_working_task1:'(?0 ?1 ?2)
            1: N0003(NAME0)  eton_working_task1:'(?0 ?1 ?2)
 B0008(BETA0):               '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
            0: N0007(NAME0)  eton_completed_task1:'(?0 ?1 ?2)
            1: N0003(NAME0)  eton_working_task1:'(?0 ?1 ?2)
-B0011(BETA0):               '(task_func:'(?0 ?1) task_func:'(?0 ?2))
-           0: N0010(NAME0)  task_func:'(?0 ?1)
-           1: N0010(NAME0)  task_func:'(?0 ?1)
-B0014(BETA0):               '(task_func:'(?0 ?1) task_func:'(?2 ?1))
-           0: N0010(NAME0)  task_func:'(?0 ?1)
-           1: N0010(NAME0)  task_func:'(?0 ?1)
-B0017(BETA0):               '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
+B0012(BETA0):               '(task_func:'(?0 ?1) task_func:'(?0 ?2))
+           0: N0011(NAME0)  task_func:'(?0 ?1)
+           1: N0011(NAME0)  task_func:'(?0 ?1)
+B0015(BETA0):               '(task_func:'(?0 ?1) task_func:'(?2 ?1))
+           0: N0011(NAME0)  task_func:'(?0 ?1)
+           1: N0011(NAME0)  task_func:'(?0 ?1)
+B0018(BETA0):               '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
            0: N0003(NAME0)  eton_working_task1:'(?0 ?1 ?2)
-           1: N0010(NAME0)  task_func:'(?0 ?1)
+           1: N0011(NAME0)  task_func:'(?0 ?1)
     R1(RULE):               eton_daily_task1:'(?task ?arg0) ==> (add_working_task ?task ?arg0)
            0: N0001(NAME0)  eton_daily_task1:'(?0 ?1)
-    R2(RULE):               eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) ==> (remove-stmt ?1)
+    R2(RULE):               eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) ==> (trace "R2:remove-stmt: " ?1) (remove-stmt ?1)
            0: E0005(EXPR0)  '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
-    R3(RULE):               eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) ==> (remove-stmt ?0)
-           0: B0008(BETA0)  '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
+    R3(RULE):               eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) ==> (trace "R3:remove-stmt: " ?0) (remove-stmt ?0)
+           0: E0009(EXPR0)  '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
     R4(RULE):               task_func:'(?t1 ?f1) task_func:'(?t1 ?f2) (!= ?f1 ?f2) ==> (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2))
-           0: E1012(EXPR1)  '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
+           0: E1013(EXPR1)  '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
     R5(RULE):               task_func:'(?t1 ?f1) task_func:'(?t2 ?f1) (!= ?t1 ?t2) ==> (throw bad-rule (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1))
-           0: E1015(EXPR1)  '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
+           0: E1016(EXPR1)  '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
 ========================================================================================================================================================
 
 Rule<R1> stats: priority=199, expr=(add-rule "R1" if eton_daily_task1:'(?task ?arg0) do (add_working_task ?task ?arg0))
@@ -198,7 +208,7 @@ Priority         RULE
 199          :      1
 ========================================================================================================================================================
 
-Rule<R2> stats: priority=198, expr=(add-rule "R2" if eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) do (remove-stmt ?1))
+Rule<R2> stats: priority=198, expr=(add-rule "R2" if eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) do (trace "R2:remove-stmt: " ?1) (remove-stmt ?1))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -223,27 +233,29 @@ Priority        EXPR0 BETA0  RULE
 198          :      1     1     1
 ========================================================================================================================================================
 
-Rule<R3> stats: priority=197, expr=(add-rule "R3" if eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) do (remove-stmt ?0))
+Rule<R3> stats: priority=197, expr=(add-rule "R3" if eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) do (trace "R3:remove-stmt: " ?0) (remove-stmt ?0))
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
+EXPR0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    2    2  197  197      0       0
 BETA0     0      0      0      0     0     0     0     0      0      0     1      0     1     1    0        0      0      0    1    1  197  197      0       0
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    2    2  197  197      0       0
+ RULE     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  197  197      0       0
 ========================================================================================================================================================
 
 node info:
 ========================================================================================================================================================
  NODE[n]   Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src      PVisit
 --------------------------------------------------------------------------------------------------------------------------------------------------------
+E0009[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2 197   0           0
 B0008[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   1 197   0         0/0
-   R3[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2 197   0           0
+   R3[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 197   0           0
 ========================================================================================================================================================
 
 priority info:
 ========================================================================================================================================================
-Priority        BETA0  RULE
+Priority        EXPR0 BETA0  RULE
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-197          :      1     1
+197          :      1     1     1
 ========================================================================================================================================================
 
 Rule<R4> stats: priority=196, expr=(add-rule "R4" if task_func:'(?t1 ?f1) task_func:'(?t1 ?f2) (!= ?f1 ?f2) do (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2)))
@@ -259,8 +271,8 @@ node info:
 ========================================================================================================================================================
  NODE[n]   Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src      PVisit
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-E1012[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 196   0           1
-B0011[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
+E1013[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 196   0           1
+B0012[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
    R4[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 196   0           0
 ========================================================================================================================================================
 
@@ -284,8 +296,8 @@ node info:
 ========================================================================================================================================================
  NODE[n]   Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src      PVisit
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-E1015[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 195   0           1
-B0014[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
+E1016[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 195   0           1
+B0015[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
    R5[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 195   0           0
 ========================================================================================================================================================
 
@@ -311,17 +323,17 @@ Model<em> share index:
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0                                                                      0            0                   0                  0    0    0    0               
+EXPR0                                                                      0            0                   0                500  500  501  498               
 EXPR1                                                                      0            0                   0                500  500  501  498               
 BETA0                -333                                               -250         -250     0          -333   -333         750  750 1000  748           -333
- RULE                                                                      0            0                          0         916  750  802  797               
+ RULE                                                                      0            0                          0         923  769  802  797               
 ========================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3
 B0004[4]:          1
-B0011[3]:          1
-B0014[3]:          1
-B0017[4]:          1
+B0012[3]:          1
+B0015[3]:          1
+B0018[4]:          1
 B0008[4]:          0
 
 Entry Table:
@@ -359,7 +371,7 @@ Ref Bit Map: total=7, max-id=7, create=7, removed=0, group-size=10, group-count=
 Child Count:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
        5: entry=task_func:'("task1" fun1), status=define
-       3: entry=eton_working_task1:'("2022-02-06" "task1" "value0"), status=reason
+       3: entry=eton_working_task1:'("2022-02-07" "task1" "value0"), status=reason
        1: entry=eton_daily_task1:'("task1" "value0"), status=define
 --------------------------------------------------------------------------------------------------------------------------------------------------------
            Entry[2]  Entry[3]  Entry[4]
@@ -384,22 +396,22 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 19       3        5    instance   model@em            
 ==========================================================================================================================
 
-Node<R1> frame:id=8, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
+Node<R1> frame:id=7, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 81       8        5    instance   model@em            
-?task                : 82       8        1    var        task1 : type=string 
-?arg0                : 83       8        1    var        value0 : type=string
+default_model        : 81       7        5    instance   model@em            
+?task                : 82       7        1    var        task1 : type=string 
+?arg0                : 83       7        1    var        value0 : type=string
 ==========================================================================================================================
 
-Node<E0005> frame:id=10, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
+Node<E0005> frame:id=11, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 86       10       1    var        2022-02-06 : type=string
-?3                   : 87       10       1    var        2022-02-06 : type=string
-?rv                  : 90       10       1    var        false : type=bool   
+?0                   : 86       11       1    var        2022-02-07 : type=string
+?3                   : 87       11       1    var        2022-02-07 : type=string
+?rv                  : 90       11       1    var        false : type=bool   
 ==========================================================================================================================
 
 node update info: model-exec-count=14, row=8, column=15(1), value-max=1, value-unit=1^x
@@ -408,11 +420,11 @@ node update info: model-exec-count=14, row=8, column=15(1), value-max=1, value-u
 --------------------------------------------------------------------------------------------------------------------------------------------------------
    N0001:    1    1    0  1             
    N0003:    1    2    1    1           
-   N0010:    1    2    1        1       
+   N0011:    1    2    1        1       
    B0004:    1    1    0     1          
-   B0011:    1    1    0         1      
-   B0014:    1    1    0           1    
-   B0017:    1    1    0               1
+   B0012:    1    1    0         1      
+   B0015:    1    1    0           1    
+   B0018:    1    1    0               1
       R1:    1    1    0   1            
 ========================================================================================================================================================
 
@@ -444,21 +456,21 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      420
+    factor:      426
       func:       23
      macro:       10
 ==========================================================================================================================
 
 Callable stats info: callId=296, row=50, column=38(8), value-max=17, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444596 max=133, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444596 max=137, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
     root   factor     70    0 defun                                                 144444    4446 
     root   factor     34    0 defconst                                                   34444     
     root   factor     18    0 defvar                                                4           143
     root   factor     17    0 return                                                             51
-    root   factor     12    0 do                                                                 51
+    root   factor     15    0 do                                                                 52
     root   factor      7    0 defmacro                                                2       3 11 
     root   factor      7    0 alias                          4                               1     
     root   factor      5    0 size-of-list                                                       4 
@@ -475,6 +487,7 @@ Callable stats info: callId=296, row=50, column=38(8), value-max=17, value-unit=
     main    macro      5    1 _eton_priority_                                                    4 
   system    macro      5    1 --                                                                 4 
     root   factor      5    0 -                                                                  4 
+    root   factor      4    0 trace                                                              22
     root   factor      3    0 load                                                              12 
     root   factor      3    0 if                                                                 12
     root   factor      3    0 deftemplate                                              3           
@@ -482,7 +495,6 @@ Callable stats info: callId=296, row=50, column=38(8), value-max=17, value-unit=
     root   factor      2    0 day-number                                                          2
     root   factor      2    0 +                                                                  11
     root   factor      2    0 !=                                                                 11
-    root   factor      1    0 trace                                                               1
     root   factor      1    0 throw                                                               1
   system   factor      1    0 state-of                                                            1
   system   factor      1    0 start                                                               1
@@ -509,11 +521,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2167            0         2167
+        atom:         2193            0         2193
          int:            9            0            9
-      string:          103            0          103
-        list:          107            6          101
-        expr:         1032           22         1010
+      string:          111            0          111
+        list:          108            6          102
+        expr:         1050           22         1028
          var:           85           59           26
     constant:           34            0           34
         func:           84            0           84
@@ -521,9 +533,9 @@ Object create count:
        macro:            7            0            7
     instance:            2            0            2
       member:           17            0           17
-       frame:           42           39            3
+       frame:           45           42            3
  interpreter:            1            0
-  frameEntry:          426            0
+  frameEntry:          427            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -581,22 +593,22 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 19       3        5    instance   model@em            
 ==========================================================================================================================
 
-id=8, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
+id=7, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 81       8        5    instance   model@em            
-?task                : 82       8        1    var        task1 : type=string 
-?arg0                : 83       8        1    var        value0 : type=string
+default_model        : 81       7        5    instance   model@em            
+?task                : 82       7        1    var        task1 : type=string 
+?arg0                : 83       7        1    var        value0 : type=string
 ==========================================================================================================================
 
-id=10, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
+id=11, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 86       10       1    var        2022-02-06 : type=string
-?3                   : 87       10       1    var        2022-02-06 : type=string
-?rv                  : 90       10       1    var        false : type=bool   
+?0                   : 86       11       1    var        2022-02-07 : type=string
+?3                   : 87       11       1    var        2022-02-07 : type=string
+?rv                  : 90       11       1    var        false : type=bool   
 ==========================================================================================================================
 
 Root var list: total=7
@@ -618,8 +630,8 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(model): id=3, lvl=3, subject=model
-                ->FRAME(NF-R1): id=8, lvl=4, subject=NF-R1
-                ->FRAME(NF-E0005): id=10, lvl=4, subject=NF-E0005
+                ->FRAME(NF-R1): id=7, lvl=4, subject=NF-R1
+                ->FRAME(NF-E0005): id=11, lvl=4, subject=NF-E0005
 
 Global Subject list:
 
