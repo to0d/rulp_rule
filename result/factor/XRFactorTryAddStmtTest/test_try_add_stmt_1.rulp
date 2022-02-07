@@ -1,0 +1,18 @@
+(new model m)
+;=>
+
+(try-add-stmt m n1:'(a b c))
+;=>
+
+(try-add-stmt m n1:'(a b c)) ; duplicated
+;=>
+
+(try-add-stmt m n1:'(a b d))
+;=>
+
+(try-add-stmt m n1:'(d b e))
+;=>
+
+(list-stmt m)
+;=>
+

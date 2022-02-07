@@ -1,0 +1,18 @@
+(new model m)
+;=>
+
+(add-constraint m n1:'(?x ?y) (> ?x ?y))
+;=>
+
+(add-stmt m n1:'(1 2))
+;err
+
+(try-add-stmt m n1:'(1 2))
+;=>
+
+(try-add-stmt m n1:'(2 1))
+;=>
+
+(list-stmt m)
+;=>
+
