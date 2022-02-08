@@ -2420,7 +2420,7 @@ public class StatsUtil {
 		StringBuffer sb = new StringBuffer();
 
 		RefPrinter refPrinter = new RefPrinter(model);
-		for (IRList stmt : model.listStatements(null, 0, 0)) {
+		for (IRList stmt : model.listStatements(null, 0, 0, false)) {
 			sb.append(refPrinter.printStmt(stmt));
 		}
 

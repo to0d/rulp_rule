@@ -1,0 +1,55 @@
+(new model m)
+;=>
+
+(add-stmt m '(a))
+(add-stmt m '(a b))
+(add-stmt m '(a b c1))
+(add-stmt m '(a b c2))
+(add-stmt m n1:'(a b c1))
+(add-stmt m n1:'(a b c2))
+(add-stmt m n1:'(a b c3))
+(add-stmt m n1:'(a2 b c2))
+;=>
+
+(list-stmt m)
+;=>
+
+(list-stmt m reverse)
+;=>
+
+(list-stmt m from '(a ? ?))
+;=>
+
+(list-stmt m from '(a ? ?) reverse)
+;=>
+
+(list-stmt m from '(?...))
+;=>
+
+(list-stmt m from '(?...) reverse)
+;=>
+
+(list-stmt m from n1:'(? b ?))
+;=>
+
+(list-stmt m from n1:'(? b ?) reverse)
+;=>
+
+(list-stmt m from n1:'(?x ? ?...))
+;=>
+
+(list-stmt m from n1:'(?x ? ?...) reverse)
+;=>
+
+(list-stmt m from n1:'(a ? ?...))
+;=>
+
+(list-stmt m from n1:'(a ? ?...) reverse)
+;=>
+
+(list-stmt m from n1:'(a ? ?) limit 2)
+;=>
+
+(list-stmt m from n1:'(a ? ?) reverse limit 2)
+;=>
+

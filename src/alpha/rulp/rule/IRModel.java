@@ -86,7 +86,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public List<? extends IRCacheWorker> listCacheWorkers();
 
-	public List<? extends IRList> listStatements(IRList filter, int statusMask, int listCount) throws RException;
+	public List<? extends IRList> listStatements(IRList filter, int statusMask, int limit, boolean reverse)
+			throws RException;
 
 	public void query(IRResultQueue resultQueue, IRList condList, int limit) throws RException;
 

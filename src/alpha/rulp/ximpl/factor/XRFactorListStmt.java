@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.A_Reverse;
 import static alpha.rulp.rule.Constant.A_State;
 
 import alpha.rulp.lang.IRFrame;
@@ -34,10 +35,11 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		int argSize = args.size();
 
 		IRModel model = null;
-		IRList stmtFilter = null;
+		IRList filter = null;
 		int statusMask = 0;
-		int queryLimit = 0; // 0: all, -1: default
+		int limit = 0; // 0: all, -1: default
 		int fromArgIndex = 1;
+		boolean reverse = false;
 
 		/**************************************************/
 		// Check model object
@@ -75,7 +77,7 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
-				stmtFilter = RulpUtil.asList(fromList.get(0));
+				filter = RulpUtil.asList(fromList.get(0));
 				break;
 
 			case A_State:
@@ -84,11 +86,16 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 
 			// limit 1
 			case A_Limit:
-				queryLimit = RulpUtil.asInteger(modifier.obj).asInteger();
-				if (queryLimit <= 0) {
+				limit = RulpUtil.asInteger(modifier.obj).asInteger();
+				if (limit <= 0) {
 					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
+				break;
+
+			// reverse
+			case A_Reverse:
+				reverse = true;
 				break;
 
 			default:
@@ -96,6 +103,6 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 			}
 		}
 
-		return RulpFactory.createList(model.listStatements(stmtFilter, statusMask, queryLimit));
+		return RulpFactory.createList(model.listStatements(filter, statusMask, limit, reverse));
 	}
 }

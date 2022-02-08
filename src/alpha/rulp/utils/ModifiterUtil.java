@@ -11,6 +11,7 @@ import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_Order;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Priority;
+import static alpha.rulp.rule.Constant.A_Reverse;
 import static alpha.rulp.rule.Constant.A_State;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Where;
@@ -53,6 +54,31 @@ public class ModifiterUtil {
 	static class ModifierData {
 		public int fromIndex;
 		public List<IRObject> list;
+	}
+
+	static class XModifier0 implements IModifier {
+
+		protected final String name;
+
+		public XModifier0(String name) {
+			super();
+			this.name = name;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public Modifier process(ModifierData list) throws RException {
+
+			Modifier modifer = new Modifier();
+			modifer.name = this.getName();
+
+			return modifer;
+		}
+
 	}
 
 	static class XModifier1 implements IModifier {
@@ -264,6 +290,7 @@ public class ModifiterUtil {
 		modifierMap.put(A_Type, new XModifier1(A_Type, RType.ATOM));
 		modifierMap.put(A_State, new XModifierState(A_State));
 		modifierMap.put(A_Order, new XModifierOrderBy());
+		modifierMap.put(A_Reverse, new XModifier0(A_Reverse));
 	}
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {

@@ -51,4 +51,12 @@ class XRFactorListStmtTest extends RuleTestBase {
 
 	}
 
+	@Test
+	void test_list_stmt_5_reverse_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }

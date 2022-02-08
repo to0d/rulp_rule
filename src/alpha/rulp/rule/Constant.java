@@ -40,6 +40,8 @@ public interface Constant {
 	String A_Halting = "halting";
 
 	String A_Limit = "limit";
+	
+	String A_Reverse = "reverse";
 
 	String A_M_TRACE = "?model-trace";
 

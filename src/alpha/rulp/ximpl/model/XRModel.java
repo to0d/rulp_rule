@@ -78,6 +78,52 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
+	static class EntryQueueIterator implements Iterator<IRReteEntry> {
+
+		private int index;
+
+		private IREntryQueue queue;
+
+		public EntryQueueIterator(IREntryQueue queue) {
+			super();
+			this.queue = queue;
+			this.index = 0;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return index < queue.size();
+		}
+
+		@Override
+		public IRReteEntry next() {
+			return queue.getEntryAt(index++);
+		}
+	}
+
+	static class EntryQueueReverseIterator implements Iterator<IRReteEntry> {
+
+		private int index;
+
+		private IREntryQueue queue;
+
+		public EntryQueueReverseIterator(IREntryQueue queue) {
+			super();
+			this.queue = queue;
+			this.index = queue.size();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return index > 0;
+		}
+
+		@Override
+		public IRReteEntry next() {
+			return queue.getEntryAt(--index);
+		}
+	}
+
 	static enum RUpdateResult {
 
 		CHANGE, INVALID, NEW, NOCHANGE;
@@ -299,6 +345,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
+//	public static boolean RuleUtility.isModelTrace() = false;
+
 	class XRModelTransaction implements IRTransaction {
 
 		public XRModelTransaction(XRModel model) {
@@ -318,8 +366,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	static List<IRReteNode> EMPTY_NODES = Collections.emptyList();
 
-//	public static boolean RuleUtility.isModelTrace() = false;
-
 	static final String MODEL_CACHE_SUFFIX = ".mc";
 
 	static final RRunState MODEL_SSTATE[][] = {
@@ -334,6 +380,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	};
 
 	protected static int nodeExecId = 0;
+
+	protected static Iterator<IRReteEntry> _statementsIterator(IREntryQueue queue, boolean reverse) {
+		return !reverse ? new EntryQueueIterator(queue) : new EntryQueueReverseIterator(queue);
+	}
 
 	protected List<IRReteNode> activeQueue = new LinkedList<>();
 
@@ -698,20 +748,19 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return this.processingLevel > 0 && getRunState() == RRunState.Completed;
 	}
 
-	protected List<IRReteEntry> _listAllStatements(int mask, int count) throws RException {
+	protected List<IRReteEntry> _listAllStatements(int mask, int count, boolean reverse) throws RException {
 
 		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
 
-		for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
-			_checkCache(rootNode);
-			if (_listAllStatements(rootNode, matchedEntrys, mask, count)) {
-				return matchedEntrys;
-			}
+		List<IRReteNode> nodes = RuleUtil.listNodes(nodeGraph, RReteType.ROOT0, RReteType.NAME0);
+		if (reverse) {
+			Collections.reverse(nodes);
 		}
 
-		for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.NAME0)) {
+		for (IRReteNode rootNode : nodes) {
 			_checkCache(rootNode);
-			if (_listAllStatements(rootNode, matchedEntrys, mask, count)) {
+
+			if (_listAllStatements(rootNode, matchedEntrys, mask, count, reverse)) {
 				return matchedEntrys;
 			}
 		}
@@ -720,14 +769,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	protected boolean _listAllStatements(IRReteNode rootNode, LinkedList<IRReteEntry> matchedEntrys, int mask,
-			int count) throws RException {
+			int count, boolean reverse) throws RException {
 
 		IREntryQueue rootNodeQueue = rootNode.getEntryQueue();
-		int maxCount = rootNodeQueue.size();
 
-		for (int i = 0; i < maxCount; ++i) {
+		Iterator<IRReteEntry> it = _statementsIterator(rootNodeQueue, reverse);
+		while (it.hasNext()) {
 
-			IRReteEntry entry = rootNodeQueue.getEntryAt(i);
+			IRReteEntry entry = it.next();
 			if (entry == null) {
 				continue;
 			}
@@ -751,7 +800,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return false;
 	}
 
-	protected List<IRReteEntry> _listStatements(IRList filter, int statusMask, int limit) throws RException {
+	protected List<IRReteEntry> _listStatements(IRList filter, int statusMask, int limit, boolean reverse)
+			throws RException {
 
 		String namedName = filter.getNamedName();
 
@@ -826,13 +876,46 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				int subLimit = limit;
 
-				FIND_SUB: while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
+				if (!reverse) {
 
-					if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
+					FIND_SUB: while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
 
-						IRList subFilter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+						if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
 
-						List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit);
+							IRList subFilter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+
+							List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit, reverse);
+							matchedEntrys.addAll(subEntries);
+
+							if (limit > 0) {
+								subLimit = subLimit - subEntries.size();
+								if (subLimit <= 0) {
+									break FIND_SUB;
+								}
+							}
+
+						}
+
+						extendFilterObjs.add(tmpVarBuilder.next());
+					}
+
+				} else {
+
+					ArrayList<ArrayList<IRObject>> filterList = new ArrayList<>();
+					while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
+						if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
+							filterList.add(new ArrayList<>(extendFilterObjs));
+						}
+						extendFilterObjs.add(tmpVarBuilder.next());
+					}
+
+					Collections.reverse(filterList);
+
+					FIND_SUB: for (ArrayList<IRObject> extendFilter : filterList) {
+
+						IRList subFilter = RulpFactory.createNamedList(extendFilter, namedName);
+
+						List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit, reverse);
 						matchedEntrys.addAll(subEntries);
 
 						if (limit > 0) {
@@ -841,10 +924,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 								break FIND_SUB;
 							}
 						}
-
 					}
 
-					extendFilterObjs.add(tmpVarBuilder.next());
 				}
 
 				return matchedEntrys;
@@ -902,35 +983,32 @@ public class XRModel extends AbsRInstance implements IRModel {
 		_checkCache(matchedNode);
 
 		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
-		int fromIndex = 0;
+		IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
+		Iterator<IRReteEntry> it = _statementsIterator(matchedNodeQueue, reverse);
+
 		boolean completed = false;
 
 		/******************************************************/
 		// Check cached entry
 		/******************************************************/
-		{
-			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
+		while (it.hasNext()) {
 
-			int maxCount = matchedNodeQueue.size();
-			for (; fromIndex < maxCount; ++fromIndex) {
+			IRReteEntry entry = it.next();
+			if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
+				continue;
+			}
 
-				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
-				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
-					continue;
-				}
-
-				matchedEntrys.add(entry);
-				if (limit > 0 && matchedEntrys.size() >= limit) {
-					completed = true;
-					break;
-				}
+			matchedEntrys.add(entry);
+			if (limit > 0 && matchedEntrys.size() >= limit) {
+				completed = true;
+				break;
 			}
 		}
 
 		/******************************************************/
 		// Update all current node chain
 		/******************************************************/
-		if (!completed) {
+		if (!completed & !reverse) {
 
 			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
@@ -942,11 +1020,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return false;
 			});
 
-			IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
-			int maxCount = matchedNodeQueue.size();
-			for (; fromIndex < maxCount; ++fromIndex) {
+			while (it.hasNext()) {
 
-				IRReteEntry entry = matchedNodeQueue.getEntryAt(fromIndex);
+				IRReteEntry entry = it.next();
+
 				if (entry == null || !ReteUtil.matchReteStatus(entry, statusMask)) {
 					continue;
 				}
@@ -1790,7 +1867,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 
-		List<IRReteEntry> entrys = _listStatements(filter, 0, 1);
+		List<IRReteEntry> entrys = _listStatements(filter, 0, 1, false);
 		if (entrys == null || entrys.isEmpty()) {
 			return false;
 		}
@@ -1827,17 +1904,18 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public List<IRReteEntry> listStatements(IRList filter, int statusMask, int limit) throws RException {
+	public List<IRReteEntry> listStatements(IRList filter, int statusMask, int limit, boolean reverse)
+			throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> listStatements: " + filter + ", " + statusMask + ", " + limit);
+			System.out.println("==> listStatements: " + filter + ", " + statusMask + ", " + limit + ", " + reverse);
 		}
 
 		if (filter == null) {
-			return _listAllStatements(statusMask, limit);
+			return _listAllStatements(statusMask, limit, reverse);
 		}
 
-		return _listStatements(filter, statusMask, limit);
+		return _listStatements(filter, statusMask, limit, reverse);
 	}
 
 	@Override
@@ -1888,7 +1966,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		List<IRReteEntry> dropStmts = new ArrayList<>();
 
-		for (IRReteEntry entry : _listStatements(filter, 0, 0)) {
+		for (IRReteEntry entry : _listStatements(filter, 0, 0, false)) {
 
 			if (entry != null && !entry.isDroped()) {
 

@@ -37,6 +37,7 @@ import alpha.rulp.runtime.IRParser;
 import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
+import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
 import alpha.rulp.ximpl.search.IRASMachine;
@@ -469,6 +470,17 @@ public class RuleUtil {
 
 	public static boolean isModelTrace() throws RException {
 		return varTraceModel.getBoolValue();
+	}
+
+	public static List<IRReteNode> listNodes(IRNodeGraph graph, RReteType... types) {
+
+		ArrayList<IRReteNode> nodes = new ArrayList<>();
+
+		for (RReteType type : types) {
+			nodes.addAll(graph.listNodes(type));
+		}
+
+		return nodes;
 	}
 
 	public static Collection<? extends IRReteNode> listSourceNodes(IRModel model, IRList condList) throws RException {
