@@ -1,0 +1,24 @@
+(load "diff-previous-stmt")
+;=>nil
+
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x ?y ?z) (lambda (?n ?s)(return (diff-previous-stmt ?n ?s '(1 2) '()))))
+;=>true
+
+(add-stmt m n1:'(a xx 1))
+;=>true
+
+(add-stmt m n1:'(a xx 2))
+;=>true
+
+(add-stmt m n1:'(b xx 2))
+;err:
+Unable to add entry<n1:'(b xx 2)> due to constraint<(lambda)>
+at (add-stmt m n1:'(b xx 2)) ; main-2
+;eof
+
+(list-stmt m)
+;=>'(n1:'(a xx 1) n1:'(a xx 2))
+

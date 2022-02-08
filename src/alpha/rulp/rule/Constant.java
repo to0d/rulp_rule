@@ -41,8 +41,6 @@ public interface Constant {
 
 	String A_Limit = "limit";
 	
-	String A_Reverse = "reverse";
-
 	String A_M_TRACE = "?model-trace";
 
 	String A_Max = "max";
@@ -72,6 +70,8 @@ public interface Constant {
 	String A_Removed = "removed";
 
 	String A_RETE_TYPE = "rete-type";
+
+	String A_Reverse = "reverse";
 
 	String A_RULE = "rule";
 
@@ -149,6 +149,8 @@ public interface Constant {
 
 	String F_MBR_RULE_GROUP_PRE = "$RG$";
 
+	String F_MODEL_OF = "model-of";
+
 	String F_NOT_EQUAL = "not-equal";
 
 	String F_OPT_MODEL = "opt-model";
@@ -166,7 +168,7 @@ public interface Constant {
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
-
+	
 	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
 
 	String F_RETE_NODE_OF = "rete-node-of";

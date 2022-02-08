@@ -1008,7 +1008,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Update all current node chain
 		/******************************************************/
-		if (!completed & !reverse) {
+		if (!completed) {
+
+			int oldQueryMatchCount = modelCounter.getQueryMatchCount();
 
 			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
@@ -1019,6 +1021,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				return false;
 			});
+
+			// clear old match entries if there is any updated
+			if (modelCounter.getQueryMatchCount() > oldQueryMatchCount && reverse) {
+				it = _statementsIterator(matchedNodeQueue, reverse);
+				matchedEntrys.clear();
+			}
 
 			while (it.hasNext()) {
 

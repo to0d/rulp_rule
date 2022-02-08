@@ -1,0 +1,20 @@
+(load "diff-previous-stmt")
+;=>
+
+(new model m)
+;=>
+
+(add-constraint m n1:'(?x ?y ?z) (lambda (?n ?s)(return (diff-previous-stmt ?n ?s '(1 2) '()))))
+;=>
+
+(add-stmt m n1:'(a xx 1))
+;=>
+
+(add-stmt m n1:'(a xx 2))
+;=>
+
+(add-stmt m n1:'(b xx 2))
+;err
+
+(list-stmt m)
+;=>
