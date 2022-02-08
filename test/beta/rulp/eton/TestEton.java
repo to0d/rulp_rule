@@ -1,4 +1,4 @@
-package beta.rulp.rule;
+package beta.rulp.eton;
 
 import org.junit.jupiter.api.Test;
 
