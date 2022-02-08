@@ -59,4 +59,13 @@ class XRFactorListStmtTest extends RuleTestBase {
 		_statsInfo("m");
 
 	}
+
+	@Test
+	void test_list_stmt_6_order_by_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }
