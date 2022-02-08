@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(a 10))
+;=>true
+
+(add-stmt m n1:'(b 100))
+;=>true
+
+(add-stmt m n1:'(c 1))
+;=>true
+
+(list-stmt m)
+;=>'(n1:'(a 10) n1:'(b 100) n1:'(c 1))
+
+(query-stmt m ?y from n1:'(?x ?y) order by ?x)
+;=>'(10 100 1)
+
