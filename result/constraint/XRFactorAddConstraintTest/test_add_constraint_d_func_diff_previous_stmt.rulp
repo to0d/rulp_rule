@@ -1,47 +1,7 @@
-(new model m)
+(load "diff-previous-stmt")
 ;=>
 
-(defun __sub_statement__ (?stmt ?index)
-
-    (defvar ?arr (make-array))
-    (loop for ?i from 0 to (- (size-of ?index) 1) do
-        (add ?arr (get ?stmt (get ?index ?i)))
-    )
-    
-    (return (to-list ?arr))
-)
-
-(defun __previous_statement__ (?node)
-
-    (defvar ?count (rete-entry-count-of ?node))
-
-    (loop 
-    
-        (if (<= ?count 0)
-            (break))
-    
-        (-- ?count)
-
-        (defvar ?stmt (get-rete-entry ?node ?count))
-        
-        (if (!= ?stmt nil)
-            (return ?stmt))
-    )
-
-    (return nil)
-)
-
-(defun diff-previous-stmt (?node ?stmt ?index)
-
-    (defvar ?pre (__previous_statement__  ?node))
-    (if (= ?pre nil)
-        (return true))
-
-    (setq ?pre (__sub_statement__ ?pre ?index))
-    (defvar ?cur (__sub_statement__ ?stmt ?index))
-    
-    (return (!= ?pre ?cur))
-)
+(new model m)
 ;=>
 
 (add-constraint m n1:'(?x ?y ?z) (lambda (?n ?s)(return (diff-previous-stmt ?n ?s '(0 1)))))
@@ -50,13 +10,19 @@
 (add-stmt m n1:'(a b 1))
 ;=>
 
-(add-stmt m n1:'(a c 1))
+(add-stmt m n1:'(a c 2))
 ;=>
 
-(add-stmt m n1:'(a b 2))
+(add-stmt m n1:'(a b 3))
 ;=>
 
-(add-stmt m n1:'(a b 2))
+(add-stmt m n1:'(a b 3))
+;=>
+
+(add-stmt m n1:'(a b 4))
+;err
+
+(try-add-stmt m n1:'(a b 4))
 ;=>
 
 (list-stmt m)

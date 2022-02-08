@@ -176,6 +176,7 @@ public class ConstraintFactory {
 
 		int externalVarCount = 0;
 		ArrayList<String> externalVarNames = new ArrayList<>();
+		ArrayList<Integer> constraintIndexArray = new ArrayList<>();
 
 		for (IRObject var : ReteUtil.buildVarList(expr)) {
 
@@ -193,6 +194,7 @@ public class ConstraintFactory {
 				IRAtom idxVar = RulpFactory.createAtom("?" + findIndex);
 				rebuildVarMap.put(var.asString(), idxVar);
 				newVarEntry[findIndex] = idxVar;
+				constraintIndexArray.add(findIndex);
 			} else {
 				externalVarCount++;
 				String externalVarName = var.asString();
@@ -206,13 +208,17 @@ public class ConstraintFactory {
 			return new XRConstraint1Expr0(expr, varEntry);
 		}
 
-		int[] constraintIndexs = new int[rebuildVarMap.size()];
+		int[] constraintIndexs = new int[constraintIndexArray.size()];
 		int cIndex = 0;
-		for (int i = 0; i < varEntryLen; ++i) {
-			if (newVarEntry[i] != null) {
-				constraintIndexs[cIndex] = i;
-			}
+		for (int index : constraintIndexArray) {
+			constraintIndexs[cIndex++] = index;
 		}
+
+//		for (int i = 0; i < varEntryLen; ++i) {
+//			if (newVarEntry[i] != null) {
+//				constraintIndexs[cIndex++] = i;
+//			}
+//		}
 
 		/*****************************************/
 		// Build expr

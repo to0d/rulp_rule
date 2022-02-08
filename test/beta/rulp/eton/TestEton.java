@@ -13,7 +13,7 @@ class TestEton extends RuleTestBase {
 		_run_script();
 		_statsInfo("em");
 	}
-	
+
 	@Test
 	void test_eton_2_err() {
 
@@ -21,4 +21,5 @@ class TestEton extends RuleTestBase {
 		_run_script();
 		_statsInfo("em");
 	}
+
 }

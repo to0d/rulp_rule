@@ -116,7 +116,7 @@ N0005[3]      0     0
 N0006[3]      0     0
               0     0  C1:(cmp-entry-value != ?0 nil)
               0     0  C1:(cmp-entry-value != ?2 1)
-              0     0  C1:(cmp-entry-index != ?0 ?2)
+              0     0  C1:(cmp-entry-index != ?1 ?2)
               0     0  C1:(cmp-entry-value > ?1 5)
               0     0  C1:(cmp-entry-value < ?0 10)
 N0018[3]      0     0
