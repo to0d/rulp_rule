@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a))
+;=>true
+
+(add-stmt m '(a b))
+;=>true
+
+(add-stmt m '(a b c1))
+;=>true
+
+(add-stmt m '(a b c2))
+;=>true
+
+(list-stmt m from '(a ?...) limit 1)
+;=>'('(a))
+
+(list-stmt m from '(a ?...) limit 3)
+;=>'('(a) '(a b) '(a b c1))
+

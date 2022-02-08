@@ -1,0 +1,48 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a))
+;=>true
+
+(add-stmt m '(a b))
+;=>true
+
+(add-stmt m '(a b c1))
+;=>true
+
+(add-stmt m '(a b c2))
+;=>true
+
+(add-stmt m n1:'(a b c1))
+;=>true
+
+(add-stmt m n1:'(a b c2))
+;=>true
+
+(add-stmt m n1:'(a2 b c2))
+;=>true
+
+(list-stmt m from '(?...))
+;=>'('(a) '(a b) '(a b c1) '(a b c2))
+
+(list-stmt m from '(?x ?...))
+;=>'('(a) '(a b) '(a b c1) '(a b c2))
+
+(list-stmt m from '(a ?...))
+;=>'('(a) '(a b) '(a b c1) '(a b c2))
+
+(list-stmt m from '(?x ?y ?...))
+;=>'('(a b) '(a b c1) '(a b c2))
+
+(list-stmt m from n1:'(?...))
+;=>'(n1:'(a b c1) n1:'(a b c2) n1:'(a2 b c2))
+
+(list-stmt m from n2:'(?...))
+;=>'()
+
+(list-stmt m from n1:'(?x ?...))
+;=>'(n1:'(a b c1) n1:'(a b c2) n1:'(a2 b c2))
+
+(list-stmt m from n1:'(a ?...))
+;=>'(n1:'(a b c1) n1:'(a b c2))
+

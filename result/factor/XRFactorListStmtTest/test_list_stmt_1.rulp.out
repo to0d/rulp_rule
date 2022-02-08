@@ -1,0 +1,51 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a1 p1 b1))
+;=>true
+
+(add-stmt m '(a1 p1 b2))
+;=>true
+
+(add-stmt m '(a1 p1 b3))
+;=>true
+
+(add-stmt m '(a2 p1 b1))
+;=>true
+
+(add-stmt m '(a2 p1 b2))
+;=>true
+
+(add-stmt m '(a3 p2 b1))
+;=>true
+
+(add-stmt m '(a3 p2 b2))
+;=>true
+
+(add-stmt m '(a3 p3 b3))
+;=>true
+
+(list-stmt m)
+;=>'('(a1 p1 b1) '(a1 p1 b2) '(a1 p1 b3) '(a2 p1 b1) '(a2 p1 b2) '(a3 p2 b1) '(a3 p2 b2) '(a3 p3 b3))
+
+(size-of m)
+;=>8
+
+(list-stmt m from '(a1 ?x ?y))
+;=>'('(a1 p1 b1) '(a1 p1 b2) '(a1 p1 b3))
+
+(list-stmt m from '(a ?x ?y))
+;=>'()
+
+(list-stmt m from '(?x p1 ?y))
+;=>'('(a1 p1 b1) '(a1 p1 b2) '(a1 p1 b3) '(a2 p1 b1) '(a2 p1 b2))
+
+(list-stmt m from '(?x p ?y))
+;=>'()
+
+(list-stmt m from '(?x ?y b3))
+;=>'('(a1 p1 b3) '(a3 p3 b3))
+
+(list-stmt m from '(?x ?y b))
+;=>'()
+

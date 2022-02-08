@@ -1,0 +1,51 @@
+(new model m)
+;=>
+
+(add-stmt m '(a1 p1 b1))
+;=>
+
+(add-stmt m '(a1 p1 b2))
+;=>
+
+(add-stmt m '(a1 p1 b3))
+;=>
+
+(add-stmt m '(a2 p1 b1))
+;=>
+
+(add-stmt m '(a2 p1 b2))
+;=>
+
+(add-stmt m '(a3 p2 b1))
+;=>
+
+(add-stmt m '(a3 p2 b2))
+;=>
+
+(add-stmt m '(a3 p3 b3))
+;=>
+
+(list-stmt m)
+;=>
+
+(size-of m)
+;=>
+
+(list-stmt m from '(a1 ?x ?y))
+;=>
+
+(list-stmt m from '(a ?x ?y))
+;=>
+
+(list-stmt m from '(?x p1 ?y))
+;=>
+
+(list-stmt m from '(?x p ?y))
+;=>
+
+(list-stmt m from '(?x ?y b3))
+;=>
+
+(list-stmt m from '(?x ?y b))
+;=>
+

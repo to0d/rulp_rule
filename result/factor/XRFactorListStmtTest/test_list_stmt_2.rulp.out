@@ -1,0 +1,42 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a p b))
+;=>true
+
+(add-stmt m '(b p c))
+;=>true
+
+(add-rule m if '(?a ?p ?b) '(?b ?p ?c) do (-> m '(?a ?p ?c)) )
+;=>RU000
+
+(list-stmt m)
+;=>'('(a p b) '(b p c))
+
+(size-of m)
+;=>2
+
+(start m)
+;=>5
+
+(list-stmt m)
+;=>'('(a p b) '(b p c) '(a p c))
+
+(size-of m)
+;=>3
+
+(list-stmt m state defined)
+;=>'('(a p b) '(b p c))
+
+(list-stmt m state reasoned)
+;=>'('(a p c))
+
+(list-stmt m state assumed)
+;=>'()
+
+(list-stmt m state removed)
+;=>'()
+
+(list-stmt m state defined reasoned)
+;=>'('(a p b) '(b p c) '(a p c))
+
