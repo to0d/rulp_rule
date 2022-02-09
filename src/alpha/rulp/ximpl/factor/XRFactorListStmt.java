@@ -78,7 +78,6 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 
 			// from '(a b c)
 			case A_FROM:
-
 				IRList fromList = RulpUtil.asList(modifier.obj);
 				if (fromList.size() != 1 || fromList.get(0).getType() != RType.LIST) {
 					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
@@ -102,9 +101,8 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 
 			// reverse
 			case A_Reverse:
-
 				if (builder != null) {
-					throw new RException("confilct modifier: reverse and " + builderName);
+					throw new RException(String.format("confilct modifier: %s and %s", modifier.name, builderName));
 				}
 
 				reverse = true;
@@ -113,6 +111,16 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 				break;
 
 			case A_Order_by:
+				if (builder != null) {
+					throw new RException(String.format("confilct modifier: %s and %s", modifier.name, builderName));
+				}
+
+				if (filter == null) {
+					throw new RException("need filter modifier");
+				}
+				
+				
+
 				orderByList = RulpUtil.asList(modifier.obj);
 
 				break;
