@@ -12,16 +12,16 @@
 ;=>
 
 (list-stmt m from '(a ? ?x))
-;=>
+;=>'('(a b c1) '(a b c2))
 
 (list-stmt m from '(a ? ?x) order by ?x)
-;=>
+;=>'('(a b c1) '(a b c2))
 
 (list-stmt m from '(a ? ?x) order by ?x asc)
-;=>
+;=>'('(a b c1) '(a b c2))
 
 (list-stmt m from '(a ? ?x) order by ?x desc)
-;=>
+;=>'('(a b c2) '(a b c1))
 
 (list-stmt m from n1:'(? b ?x))
 ;=>

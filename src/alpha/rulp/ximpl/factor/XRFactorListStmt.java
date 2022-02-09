@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Limit;
+import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Reverse;
 import static alpha.rulp.rule.Constant.A_State;
 
@@ -40,6 +41,7 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		int limit = 0; // 0: all, -1: default
 		int fromArgIndex = 1;
 		boolean reverse = false;
+		IRList orderByList = null;
 
 		/**************************************************/
 		// Check model object
@@ -96,6 +98,10 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 			// reverse
 			case A_Reverse:
 				reverse = true;
+				break;
+				
+			case A_Order_by:
+				orderByList = RulpUtil.asList(modifier.obj);
 				break;
 
 			default:

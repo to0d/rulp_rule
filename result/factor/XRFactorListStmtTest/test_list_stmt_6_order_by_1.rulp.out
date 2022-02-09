@@ -15,8 +15,11 @@
 ;=>'('(a b c1) '(a b c2))
 
 (list-stmt m from '(a ? ?x) order by ?x)
-;err:
-unsupport modifier: order by
-at (list-stmt m from '(a ? ?x) order by ?x) ; main-2
-;eof
+;=>'('(a b c1) '(a b c2))
+
+(list-stmt m from '(a ? ?x) order by ?x asc)
+;=>'('(a b c1) '(a b c2))
+
+(list-stmt m from '(a ? ?x) order by ?x desc)
+;=>'('(a b c1) '(a b c2))
 
