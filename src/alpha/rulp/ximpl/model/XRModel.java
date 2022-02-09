@@ -62,11 +62,13 @@ import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
@@ -77,52 +79,6 @@ import alpha.rulp.ximpl.node.XTempVarBuilder;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
-
-	static class EntryQueueIterator implements Iterator<IRReteEntry> {
-
-		private int index;
-
-		private IREntryQueue queue;
-
-		public EntryQueueIterator(IREntryQueue queue) {
-			super();
-			this.queue = queue;
-			this.index = 0;
-		}
-
-		@Override
-		public boolean hasNext() {
-			return index < queue.size();
-		}
-
-		@Override
-		public IRReteEntry next() {
-			return queue.getEntryAt(index++);
-		}
-	}
-
-	static class EntryQueueReverseIterator implements Iterator<IRReteEntry> {
-
-		private int index;
-
-		private IREntryQueue queue;
-
-		public EntryQueueReverseIterator(IREntryQueue queue) {
-			super();
-			this.queue = queue;
-			this.index = queue.size();
-		}
-
-		@Override
-		public boolean hasNext() {
-			return index > 0;
-		}
-
-		@Override
-		public IRReteEntry next() {
-			return queue.getEntryAt(--index);
-		}
-	}
 
 	static enum RUpdateResult {
 
@@ -380,10 +336,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	};
 
 	protected static int nodeExecId = 0;
-
-	protected static Iterator<IRReteEntry> _statementsIterator(IREntryQueue queue, boolean reverse) {
-		return !reverse ? new EntryQueueIterator(queue) : new EntryQueueReverseIterator(queue);
-	}
 
 	protected List<IRReteNode> activeQueue = new LinkedList<>();
 
@@ -748,7 +700,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return this.processingLevel > 0 && getRunState() == RRunState.Completed;
 	}
 
-	protected List<IRReteEntry> _listAllStatements(int mask, int count, boolean reverse) throws RException {
+	protected List<IRReteEntry> _listAllStatements(int mask, int limit, boolean reverse, IREntryIteratorBuilder builder)
+			throws RException {
 
 		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
 
@@ -758,50 +711,41 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		for (IRReteNode rootNode : nodes) {
+
 			_checkCache(rootNode);
 
-			if (_listAllStatements(rootNode, matchedEntrys, mask, count, reverse)) {
-				return matchedEntrys;
+			Iterator<IRReteEntry> it = builder.makeIterator(rootNode.getEntryQueue());
+
+			while (it.hasNext()) {
+
+				IRReteEntry entry = it.next();
+				if (entry == null) {
+					continue;
+				}
+
+				if (mask == 0) {
+					if (entry.isDroped()) {
+						continue;
+					}
+				} else {
+					if (!ReteUtil.matchReteStatus(entry.getStatus(), mask)) {
+						continue;
+					}
+				}
+
+				matchedEntrys.add(entry);
+				if (limit > 0 && matchedEntrys.size() >= limit) {
+					return matchedEntrys;
+				}
 			}
+
 		}
 
 		return matchedEntrys;
 	}
 
-	protected boolean _listAllStatements(IRReteNode rootNode, LinkedList<IRReteEntry> matchedEntrys, int mask,
-			int count, boolean reverse) throws RException {
-
-		IREntryQueue rootNodeQueue = rootNode.getEntryQueue();
-
-		Iterator<IRReteEntry> it = _statementsIterator(rootNodeQueue, reverse);
-		while (it.hasNext()) {
-
-			IRReteEntry entry = it.next();
-			if (entry == null) {
-				continue;
-			}
-
-			if (mask == 0) {
-				if (entry.isDroped()) {
-					continue;
-				}
-			} else {
-				if (!ReteUtil.matchReteStatus(entry.getStatus(), mask)) {
-					continue;
-				}
-			}
-
-			matchedEntrys.add(entry);
-			if (count > 0 && matchedEntrys.size() >= count) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	protected List<IRReteEntry> _listStatements(IRList filter, int statusMask, int limit, boolean reverse)
-			throws RException {
+	protected List<IRReteEntry> _listStatements(IRList filter, int statusMask, int limit, boolean reverse,
+			IREntryIteratorBuilder builder) throws RException {
 
 		String namedName = filter.getNamedName();
 
@@ -884,7 +828,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 							IRList subFilter = RulpFactory.createNamedList(extendFilterObjs, namedName);
 
-							List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit, reverse);
+							List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit, reverse,
+									builder);
 							matchedEntrys.addAll(subEntries);
 
 							if (limit > 0) {
@@ -915,7 +860,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 						IRList subFilter = RulpFactory.createNamedList(extendFilter, namedName);
 
-						List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit, reverse);
+						List<IRReteEntry> subEntries = _listStatements(subFilter, statusMask, subLimit, reverse,
+								builder);
 						matchedEntrys.addAll(subEntries);
 
 						if (limit > 0) {
@@ -984,7 +930,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
 		IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
-		Iterator<IRReteEntry> it = _statementsIterator(matchedNodeQueue, reverse);
+		Iterator<IRReteEntry> it = builder.makeIterator(matchedNodeQueue);
 
 		boolean completed = false;
 
@@ -1024,7 +970,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			// clear old match entries if there is any updated
 			if (modelCounter.getQueryMatchCount() > oldQueryMatchCount && reverse) {
-				it = _statementsIterator(matchedNodeQueue, reverse);
+				it = builder.makeIterator(matchedNodeQueue);
 				matchedEntrys.clear();
 			}
 
@@ -1875,7 +1821,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 
-		List<IRReteEntry> entrys = _listStatements(filter, 0, 1, false);
+		List<IRReteEntry> entrys = _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder());
 		if (entrys == null || entrys.isEmpty()) {
 			return false;
 		}
@@ -1912,18 +1858,23 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public List<IRReteEntry> listStatements(IRList filter, int statusMask, int limit, boolean reverse)
-			throws RException {
+	public List<? extends IRList> listStatements(IRList filter, int statusMask, int limit, boolean reverse,
+			IREntryIteratorBuilder builder) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> listStatements: " + filter + ", " + statusMask + ", " + limit + ", " + reverse);
 		}
 
-		if (filter == null) {
-			return _listAllStatements(statusMask, limit, reverse);
+		if (builder == null) {
+			builder = REntryFactory.defaultBuilder();
 		}
 
-		return _listStatements(filter, statusMask, limit, reverse);
+		if (filter == null) {
+			return _listAllStatements(statusMask, limit, reverse, builder);
+		}
+
+		return _listStatements(filter, statusMask, limit, reverse, builder);
+
 	}
 
 	@Override
@@ -1974,7 +1925,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		List<IRReteEntry> dropStmts = new ArrayList<>();
 
-		for (IRReteEntry entry : _listStatements(filter, 0, 0, false)) {
+		for (IRReteEntry entry : _listStatements(filter, 0, 0, false, REntryFactory.defaultBuilder())) {
 
 			if (entry != null && !entry.isDroped()) {
 

@@ -13,6 +13,7 @@ import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -86,8 +87,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public List<? extends IRCacheWorker> listCacheWorkers();
 
-	public List<? extends IRList> listStatements(IRList filter, int statusMask, int limit, boolean reverse)
-			throws RException;
+	public List<? extends IRList> listStatements(IRList filter, int statusMask, int limit, boolean reverse,
+			IREntryIteratorBuilder builder) throws RException;
 
 	public void query(IRResultQueue resultQueue, IRList condList, int limit) throws RException;
 

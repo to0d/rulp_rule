@@ -19,6 +19,8 @@ import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
+import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
@@ -42,6 +44,9 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		int fromArgIndex = 1;
 		boolean reverse = false;
 		IRList orderByList = null;
+
+		IREntryIteratorBuilder builder = null;
+		String builderName = null;
 
 		/**************************************************/
 		// Check model object
@@ -97,11 +102,19 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 
 			// reverse
 			case A_Reverse:
+
+				if (builder != null) {
+					throw new RException("confilct modifier: reverse and " + builderName);
+				}
+
 				reverse = true;
+				builder = REntryFactory.reverseBuilder();
+				builderName = modifier.name;
 				break;
-				
+
 			case A_Order_by:
 				orderByList = RulpUtil.asList(modifier.obj);
+
 				break;
 
 			default:
@@ -109,6 +122,6 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 			}
 		}
 
-		return RulpFactory.createList(model.listStatements(filter, statusMask, limit, reverse));
+		return RulpFactory.createList(model.listStatements(filter, statusMask, limit, reverse, builder));
 	}
 }
