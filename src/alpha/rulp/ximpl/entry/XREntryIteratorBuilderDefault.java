@@ -8,28 +8,28 @@ public class XREntryIteratorBuilderDefault implements IREntryIteratorBuilder {
 
 		private int index;
 
-		private IREntryQueue queue;
+		private IREntryList list;
 
-		public EntryQueueIterator(IREntryQueue queue) {
+		public EntryQueueIterator(IREntryList list) {
 			super();
-			this.queue = queue;
+			this.list = list;
 			this.index = 0;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return index < queue.size();
+			return index < list.size();
 		}
 
 		@Override
 		public IRReteEntry next() {
-			return queue.getEntryAt(index++);
+			return list.getEntryAt(index++);
 		}
 	}
 
 	@Override
-	public Iterator<IRReteEntry> makeIterator(IREntryQueue queue) {
-		return new EntryQueueIterator(queue);
+	public Iterator<IRReteEntry> makeIterator(IREntryList list) {
+		return new EntryQueueIterator(list);
 	}
 
 }

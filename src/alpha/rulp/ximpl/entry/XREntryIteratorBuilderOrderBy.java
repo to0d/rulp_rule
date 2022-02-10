@@ -86,13 +86,13 @@ public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 	}
 
 	@Override
-	public Iterator<IRReteEntry> makeIterator(IREntryQueue queue) {
+	public Iterator<IRReteEntry> makeIterator(IREntryList list) {
 
 		HeapStack<IRReteEntry> heapStack = new HeapStack<>(new OrderByComparator(orderEntrys));
 
-		int size = queue.size();
+		int size = list.size();
 		for (int i = 0; i < size; ++i) {
-			IRReteEntry entry = queue.getEntryAt(i);
+			IRReteEntry entry = list.getEntryAt(i);
 			if (entry != null && !entry.isDroped()) {
 				heapStack.push(entry);
 			}

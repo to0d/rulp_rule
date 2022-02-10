@@ -14,10 +14,10 @@
 ;=>
 
 (query-stmt m ?y from n1:'(?x ?y) reverse)
-;=>'(10)
+;=>
 
 (query-stmt m ?y from n1:'(?x ?y) reverse limit 1)
-;=>'(10)
+;=>
 
 (query-stmt m ?y from n1:'(?x ?y) reverse limit 2)
-;=>'(10)
+;=>

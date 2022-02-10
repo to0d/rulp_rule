@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.entry;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
 
-public interface IREntryQueue {
+public interface IREntryQueue extends IREntryList {
 
 	public static interface IREntryCounter {
 
@@ -17,8 +17,6 @@ public interface IREntryQueue {
 	public boolean addEntry(IRReteEntry entry) throws RException;
 
 	public int doGC();
-
-	public IRReteEntry getEntryAt(int index);
 
 	public IREntryCounter getEntryCounter();
 
@@ -38,5 +36,4 @@ public interface IREntryQueue {
 
 	public void incNodeUpdateCount();
 
-	public int size();
 }

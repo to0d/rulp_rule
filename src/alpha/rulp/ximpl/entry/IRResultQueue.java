@@ -17,7 +17,7 @@ public interface IRResultQueue {
 
 	public void close() throws RException;
 
-	public List<? extends IRObject> getResultList();
+	public List<? extends IRObject> getResultList() throws RException;
 
 	public void setOrderBuilder(IREntryIteratorBuilder orderBuilder);
 

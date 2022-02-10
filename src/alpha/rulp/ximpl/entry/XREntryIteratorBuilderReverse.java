@@ -8,12 +8,12 @@ public class XREntryIteratorBuilderReverse implements IREntryIteratorBuilder {
 
 		private int index;
 
-		private IREntryQueue queue;
+		private IREntryList list;
 
-		public EntryQueueReverseIterator(IREntryQueue queue) {
+		public EntryQueueReverseIterator(IREntryList list) {
 			super();
-			this.queue = queue;
-			this.index = queue.size();
+			this.list = list;
+			this.index = list.size();
 		}
 
 		@Override
@@ -23,12 +23,12 @@ public class XREntryIteratorBuilderReverse implements IREntryIteratorBuilder {
 
 		@Override
 		public IRReteEntry next() {
-			return queue.getEntryAt(--index);
+			return list.getEntryAt(--index);
 		}
 	}
 
 	@Override
-	public Iterator<IRReteEntry> makeIterator(IREntryQueue queue) {
-		return new EntryQueueReverseIterator(queue);
+	public Iterator<IRReteEntry> makeIterator(IREntryList list) {
+		return new EntryQueueReverseIterator(list);
 	}
 }
