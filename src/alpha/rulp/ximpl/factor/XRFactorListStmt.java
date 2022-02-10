@@ -52,9 +52,8 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		int statusMask = 0;
 		int limit = 0; // 0: all, -1: default
 		int fromArgIndex = 1;
-		boolean reverse = false;
-		IRList orderByList = null;
 
+		boolean reverse = false;
 		IREntryIteratorBuilder builder = null;
 		String builderName = null;
 
@@ -120,6 +119,7 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 				builderName = modifier.name;
 				break;
 
+			// order by
 			case A_Order_by:
 				if (builder != null) {
 					throw new RException(String.format("confilct modifier: %s and %s", modifier.name, builderName));

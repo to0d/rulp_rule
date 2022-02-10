@@ -9,15 +9,19 @@ import alpha.rulp.ximpl.constraint.IRConstraint1;
 
 public interface IRResultQueue {
 
-	public boolean addEntry(IRReteEntry entry) throws RException;
-
-	public List<? extends IRObject> getResultList();
-
-	public int size();
-
 	public void addConstraint(IRConstraint1 con);
 
 	public void addDoExpr(IRExpr expr);
 
+	public boolean addEntry(IRReteEntry entry) throws RException;
+
 	public void close() throws RException;
+
+	public List<? extends IRObject> getResultList();
+
+	public void setOrderBuilder(IREntryIteratorBuilder orderBuilder);
+
+	public void setOrderLimit(int orderLimit);
+
+	public int size();
 }

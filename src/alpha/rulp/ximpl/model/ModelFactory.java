@@ -19,6 +19,18 @@ import alpha.rulp.ximpl.entry.IRResultQueue;
 
 public class ModelFactory {
 
+	public static IRObject[] buildVarEntry(IRModel model, IRList condList) throws RException {
+
+		/******************************************************/
+		// Build var list
+		/******************************************************/
+		List<IRList> matchStmtList = ReteUtil.toCondList(condList, model.getNodeGraph());
+		IRList matchTree = MatchTree.build(matchStmtList, model.getInterpreter(), model.getFrame());
+		IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree));
+
+		return varEntry;
+	}
+
 	public static IRResultQueue createResultQueue(IRModel model, IRObject rstExpr, IRList condList) throws RException {
 
 		/******************************************************/
@@ -31,9 +43,7 @@ public class ModelFactory {
 		/******************************************************/
 		// Build var list
 		/******************************************************/
-		List<IRList> matchStmtList = ReteUtil.toCondList(condList, model.getNodeGraph());
-		IRList matchTree = MatchTree.build(matchStmtList, model.getInterpreter(), model.getFrame());
-		IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree));
+		IRObject[] varEntry = buildVarEntry(model, condList);
 		IRVar[] vars = new IRVar[varEntry.length];
 
 		for (int i = 0; i < varEntry.length; ++i) {

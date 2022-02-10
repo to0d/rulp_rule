@@ -13,6 +13,7 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -23,6 +24,10 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 	protected ArrayList<IRExpr> doExprList = null;
 
 	protected final IRInterpreter interpreter;
+
+	protected IREntryIteratorBuilder orderBuilder;
+
+	protected int orderLimit = -1;
 
 	protected final IRFrame queryFrame;
 
@@ -140,6 +145,16 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 	@Override
 	public List<? extends IRObject> getResultList() {
 		return rstList;
+	}
+
+	@Override
+	public void setOrderBuilder(IREntryIteratorBuilder orderBuilder) {
+		this.orderBuilder = orderBuilder;
+	}
+
+	@Override
+	public void setOrderLimit(int orderLimit) {
+		this.orderLimit = orderLimit;
 	}
 
 	@Override

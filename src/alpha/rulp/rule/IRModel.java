@@ -90,7 +90,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public List<? extends IRList> listStatements(IRList filter, int statusMask, int limit, boolean reverse,
 			IREntryIteratorBuilder builder) throws RException;
 
-	public void query(IRResultQueue resultQueue, IRList condList, int limit) throws RException;
+	public void query(IRResultQueue result, IRList condList, int limit) throws RException;
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 

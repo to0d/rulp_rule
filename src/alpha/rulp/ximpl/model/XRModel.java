@@ -1049,6 +1049,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 					case Completed:
 					case Runnable:
 					case Running:
+
 						int update = execute(node);
 						if (node == queryNode && update > 0) {
 

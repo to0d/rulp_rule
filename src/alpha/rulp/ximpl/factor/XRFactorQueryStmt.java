@@ -2,9 +2,19 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
+import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.rule.Constant.A_Asc;
+import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Order_by;
+import static alpha.rulp.rule.Constant.A_Reverse;
 import static alpha.rulp.rule.Constant.A_Where;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
@@ -24,7 +34,10 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IRResultQueue;
+import alpha.rulp.ximpl.entry.REntryFactory;
+import alpha.rulp.ximpl.entry.XREntryIteratorBuilderOrderBy.OrderEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
@@ -86,11 +99,13 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			throw new RException("unsupport rstExpr: " + rstExpr);
 		}
 
-		IRList fromList = null;
+		IRList condList = null;
 		IRList whereList = null;
 		IRList doList = null;
-		int queryLimit = -1; // 0: all, -1: default
-		IRList orderByList = null;
+		int limit = -1; // 0: all, -1: default
+
+		IREntryIteratorBuilder orderBuilder = null;
+		String orderBuilderName = null;
 
 		/********************************************/
 		// Check modifier
@@ -101,7 +116,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 			// from '(a b c) (factor)
 			case A_FROM:
-				fromList = RulpUtil.asList(modifier.obj);
+				condList = RulpUtil.asList(modifier.obj);
 				break;
 
 			case A_Where:
@@ -114,15 +129,93 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 			// limit 1
 			case A_Limit:
-				queryLimit = RulpUtil.asInteger(modifier.obj).asInteger();
-				if (queryLimit <= 0) {
+				limit = RulpUtil.asInteger(modifier.obj).asInteger();
+				if (limit <= 0) {
 					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
 				}
 
 				break;
 
+			// reverse
+			case A_Reverse:
+				if (orderBuilder != null) {
+					throw new RException(
+							String.format("confilct modifier: %s and %s", modifier.name, orderBuilderName));
+				}
+
+				orderBuilder = REntryFactory.reverseBuilder();
+				orderBuilderName = modifier.name;
+				break;
+
+			// order by
 			case A_Order_by:
-				orderByList = RulpUtil.asList(modifier.obj);
+				if (orderBuilder != null) {
+					throw new RException(
+							String.format("confilct modifier: %s and %s", modifier.name, orderBuilderName));
+				}
+
+				if (condList == null) {
+					throw new RException("need condList");
+				}
+
+				IRObject[] varEntry = ModelFactory.buildVarEntry(model, condList);
+				Map<String, Integer> varIndexMap = new HashMap<>();
+				int len = varEntry.length;
+				for (int i = 0; i < len; ++i) {
+					IRObject obj = varEntry[i];
+					if (obj != null) {
+						varIndexMap.put(obj.asString(), i);
+					}
+				}
+
+				ArrayList<OrderEntry> orderEntrys = new ArrayList<>();
+				Set<Integer> orderIndexs = new HashSet<>();
+
+				for (IRObject o : RulpUtil.toList(RulpUtil.asList(modifier.obj).iterator())) {
+
+					IRList ol = RulpUtil.asList(o);
+
+					IRObject varObj = ol.get(0);
+					IRObject ascObj = ol.get(1);
+
+					if (!varIndexMap.containsKey(varObj.asString())) {
+						throw new RException("unknown var: " + varObj);
+					}
+
+					int index = varIndexMap.get(varObj.asString());
+					if (orderIndexs.contains(index)) {
+						throw new RException("duplicated index: " + index);
+					}
+
+					boolean asc = true;
+					switch (ascObj.asString()) {
+
+					case A_Desc:
+						asc = false;
+						break;
+
+					case A_Asc:
+					case A_NIL:
+						break;
+
+					default:
+						throw new RException("unknown asc: " + ascObj);
+					}
+
+					OrderEntry orderEntry = new OrderEntry();
+					orderEntry.index = index;
+					orderEntry.asc = asc;
+
+					orderIndexs.add(index);
+					orderEntrys.add(orderEntry);
+				}
+
+				if (orderEntrys.isEmpty()) {
+					throw new RException("invalid order: " + modifier.obj);
+				}
+
+				orderBuilder = REntryFactory.orderByBuilder(orderEntrys);
+				orderBuilderName = modifier.name;
 				break;
 
 			default:
@@ -138,20 +231,19 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			subGraph = model.getNodeGraph().buildRuleGroupSubGraph(ruleGroupName);
 		}
 
-		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, fromList);
+		/********************************************/
+		// Build result queue
+		/********************************************/
+		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, condList);
 
-		/********************************************/
 		// Add do expression
-		/********************************************/
 		if (doList != null) {
 			for (IRObject doObj : RulpUtil.toArray(doList)) {
 				resultQueue.addDoExpr(RulpUtil.asExpression(doObj));
 			}
 		}
 
-		/********************************************/
 		// Add constraint
-		/********************************************/
 		if (whereList != null) {
 
 			IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
@@ -166,18 +258,14 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			}
 		}
 
-		/******************************************************************************/
 		// If there is an "order", which means query all possible result, and then order
 		// the result, set the queryLimit to -1
-		/******************************************************************************/
-		int finalLimit = -1;
-		if (orderByList != null) {
-			finalLimit = queryLimit;
-			queryLimit = -1;
+		if (orderBuilder != null) {
 
-			// Check order format
-			for (IRObject orderOption : RulpUtil.toArray(orderByList)) {
-
+			resultQueue.setOrderBuilder(orderBuilder);
+			if (limit > 0) {
+				resultQueue.setOrderLimit(limit);
+				limit = -1;
 			}
 		}
 
@@ -190,7 +278,8 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				subGraph.activate(model.getPriority());
 			}
 
-			model.query(resultQueue, fromList, queryLimit);
+			model.query(resultQueue, condList, limit);
+
 			return RulpFactory.createList(resultQueue.getResultList());
 
 		} finally {
