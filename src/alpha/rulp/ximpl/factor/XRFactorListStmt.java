@@ -1,10 +1,19 @@
 package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_FROM;
+import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.rule.Constant.A_Asc;
+import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Reverse;
 import static alpha.rulp.rule.Constant.A_State;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -21,6 +30,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.REntryFactory;
+import alpha.rulp.ximpl.entry.XREntryIteratorBuilderOrderBy.OrderEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
@@ -118,11 +128,64 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 				if (filter == null) {
 					throw new RException("need filter modifier");
 				}
-				
-				
 
-				orderByList = RulpUtil.asList(modifier.obj);
+				Map<String, Integer> varIndexMap = new HashMap<>();
+				int len = filter.size();
+				for (int i = 0; i < len; ++i) {
+					IRObject obj = filter.get(i);
+					if (RulpUtil.isVarAtom(obj)) {
+						varIndexMap.put(obj.asString(), i);
+					}
+				}
 
+				ArrayList<OrderEntry> orderEntrys = new ArrayList<>();
+				Set<Integer> orderIndexs = new HashSet<>();
+
+				for (IRObject o : RulpUtil.toList(RulpUtil.asList(modifier.obj).iterator())) {
+
+					IRList ol = RulpUtil.asList(o);
+
+					IRObject varObj = ol.get(0);
+					IRObject ascObj = ol.get(1);
+
+					if (!varIndexMap.containsKey(varObj.asString())) {
+						throw new RException("unknown var: " + varObj);
+					}
+
+					int index = varIndexMap.get(varObj.asString());
+					if (orderIndexs.contains(index)) {
+						throw new RException("duplicated index: " + index);
+					}
+
+					boolean asc = true;
+					switch (ascObj.asString()) {
+
+					case A_Desc:
+						asc = false;
+						break;
+
+					case A_Asc:
+					case A_NIL:
+						break;
+
+					default:
+						throw new RException("unknown asc: " + ascObj);
+					}
+
+					OrderEntry orderEntry = new OrderEntry();
+					orderEntry.index = index;
+					orderEntry.asc = asc;
+
+					orderIndexs.add(index);
+					orderEntrys.add(orderEntry);
+				}
+
+				if (orderEntrys.isEmpty()) {
+					throw new RException("invalid order: " + modifier.obj);
+				}
+
+				builder = REntryFactory.orderByBuilder(orderEntrys);
+				builderName = modifier.name;
 				break;
 
 			default:
