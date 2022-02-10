@@ -218,6 +218,137 @@ public class ReteUtil {
 		return varIndex;
 	}
 
+	static void _matchNodes(IRNodeGraph nodeGraph, IRList filter, List<IRReteNode> nodes) throws RException {
+
+		String namedName = filter.getNamedName();
+
+		/******************************************************/
+		// '(a ? ?)
+		/******************************************************/
+		{
+			ArrayList<IRObject> filterObjs = null;
+			XTempVarBuilder tmpVarBuilder = null;
+
+			IRIterator<? extends IRObject> iter = filter.iterator();
+			for (int stmtIndex = 0; iter.hasNext(); stmtIndex++) {
+
+				IRObject obj = iter.next();
+
+				if (ReteUtil.isAnyVar(obj)) {
+
+					if (filterObjs == null) {
+						filterObjs = new ArrayList<>();
+						for (int i = 0; i < stmtIndex; ++i) {
+							filterObjs.add(filter.get(i));
+						}
+					}
+
+					if (tmpVarBuilder == null) {
+						tmpVarBuilder = new XTempVarBuilder("?_ag_");
+					}
+
+					filterObjs.add(tmpVarBuilder.next());
+
+				} else {
+
+					if (filterObjs != null) {
+						filterObjs.add(obj);
+					}
+				}
+			}
+
+			if (filterObjs != null) {
+				if (namedName == null) {
+					filter = RulpFactory.createList(filterObjs);
+				} else {
+					filter = RulpFactory.createNamedList(filterObjs, namedName);
+				}
+			}
+		}
+
+		/******************************************************/
+		// '(?...) or '(?x ?...)
+		// n:'(?...) or n:'(?x ?...)
+		/******************************************************/
+		int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
+		if (anyIndex != -1) {
+
+			if (anyIndex != (filter.size() - 1)) {
+				throw new RException(String.format("invalid filter: %s", filter));
+			}
+
+			ArrayList<IRObject> extendFilterObjs = new ArrayList<>();
+			XTempVarBuilder tmpVarBuilder = new XTempVarBuilder("?_vg_");
+
+			for (int i = 0; i < anyIndex; ++i) {
+				extendFilterObjs.add(filter.get(i));
+			}
+
+			/******************************************************/
+			// '(?...)
+			/******************************************************/
+			if (namedName == null) {
+
+				while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
+					if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
+						_matchNodes(nodeGraph, RulpFactory.createNamedList(extendFilterObjs, namedName), nodes);
+					}
+				}
+
+				return;
+			}
+
+			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
+			if (namedNode == null || extendFilterObjs.size() > namedNode.getEntryLength()) {
+				return;
+			}
+
+			for (int i = anyIndex; i < namedNode.getEntryLength(); ++i) {
+				extendFilterObjs.add(tmpVarBuilder.next());
+			}
+
+			filter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+		}
+
+		/******************************************************/
+		// Check named node
+		/******************************************************/
+		if (namedName != null) {
+
+			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
+			if (namedNode == null || namedNode.getEntryLength() != filter.size()) {
+				return;
+			}
+		}
+
+		/******************************************************/
+		// Query uniq stmt
+		/******************************************************/
+		IRReteNode node;
+
+		if (ReteUtil.getStmtVarCount(filter) == 0) {
+
+			if (filter.getNamedName() == null) {
+				node = nodeGraph.getRootNode(filter.size());
+			} else {
+				node = nodeGraph.getNamedNode(filter.getNamedName(), filter.size());
+			}
+
+		} else {
+			node = nodeGraph.getNodeByTree(filter);
+		}
+
+		if (!RReteType.isRootType(node.getReteType()) && node.getReteType() != RReteType.ALPH0) {
+			throw new RException("Invalid list node: " + node);
+		}
+
+		if (!nodes.contains(node)) {
+			nodes.add(node);
+		}
+
+		return;
+	}
+
 	private static String _toUniq(IRObject obj, Map<String, String> varMap, boolean create) throws RException {
 
 		if (obj == null) {
@@ -1384,6 +1515,12 @@ public class ReteUtil {
 		}
 
 		return false;
+	}
+
+	public static List<IRReteNode> matchNodes(IRNodeGraph nodeGraph, IRList filter) throws RException {
+		List<IRReteNode> nodes = new ArrayList<>();
+		_matchNodes(nodeGraph, filter, nodes);
+		return nodes;
 	}
 
 	public static boolean matchReteStatus(IRReteEntry entry, int mask) {
