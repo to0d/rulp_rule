@@ -10,12 +10,7 @@ public class MannerModelTest extends RuleTestBase {
 	void test_can_sit_forward_1() {
 
 		_setup();
-
 		_run_script();
-
-		_mStatus(1, "mm");
-		_oStatus(1, "mm");
-		_saveTest();
 		_statsInfo("mm");
 	}
 
@@ -26,10 +21,6 @@ public class MannerModelTest extends RuleTestBase {
 
 		_run_script();
 		_test("(canSitTogether guess-1 guess-2)");
-
-		_mStatus(1, "mm");
-		_oStatus(1, "mm");
-		_saveTest();
 		_statsInfo("mm");
 	}
 }

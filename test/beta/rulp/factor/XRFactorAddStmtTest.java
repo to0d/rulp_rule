@@ -15,6 +15,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -23,6 +24,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -31,6 +33,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -39,6 +42,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -47,6 +51,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -55,6 +60,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -63,6 +69,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -71,6 +78,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -79,6 +87,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -87,6 +96,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -106,6 +116,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_test("(add-stmt m '(a b nil))", "false");
 		_test("(list-stmt m)", "'('(a b nil))");
+		_statsInfo("m");
 	}
 
 	@Test
@@ -113,6 +124,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -121,6 +133,7 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -129,38 +142,14 @@ class XRFactorAddStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 	}
 
 	@Test
 	void test_add_stmt_b_variable_length_entry() {
 
 		_setup();
-		_test("(new model m)", "m");
-		_test("(add-stmt m '(a p1 a))", "true");
-		_test("(add-stmt m '(a p1 a b))", "true");
-		_test("(add-stmt m '(a p1 a b c))", "true");
-		_mStatus(1, "m");
-
-		_test("(list-stmt m from '(a p1 ?x))", "'('(a p1 a))");
-		_mStatus(2, "m");
-
-		_test("(list-stmt m from '(a p1 ?x ?y))", "'('(a p1 a b))");
-		_mStatus(3, "m");
-
-		_test("(list-stmt m from '(a p1 ?x ?y ?z))", "'('(a p1 a b c))");
-		_mStatus(4, "m");
-
-		_test("(list-stmt m from '(a p1 ?x ?y ?z ?d))", "'()");
-		_mStatus(5, "m");
-
-		_test("(add-stmt m '(a b))", "true");
-		_test("(list-stmt m from '(a ?x))", "'('(a b))");
-		_mStatus(6, "m");
-
-		_test("(add-stmt m '(c))", "true");
-		_test("(list-stmt m from '(?x))", "'('(c))");
-		_mStatus(7, "m");
-
-		_saveTest();
+		_run_script();
+		_statsInfo("m");
 	}
 }

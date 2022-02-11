@@ -27,10 +27,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(add-stmt m name1:'(a b c))");
 		_save_model_cache("m");
 
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -47,10 +43,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(add-stmt m name1:'(a b c))");
 		_test("(save-model m)", "2");
 
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -64,10 +56,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(save-model m)", "0");
 		_test("(list-stmt m)", "'('(a b c) name2:'(x y z))");
 
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -80,11 +68,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_3\")");
 		_test("(save-model m)", "0");
 		_test("(list-stmt m from name2:'(?x ?y ?z))", "'(name2:'(x y z))");
-
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 
 		_statsInfo("m");
 	}
@@ -104,11 +87,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(list-stmt m from name3:'(?x ?y ?z))", "'(name3:'(a b c))");
 		_test("(save-model m)", "1");
 
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
-
 		_statsInfo("m");
 		_dumpEntryTable("m");
 
@@ -124,11 +102,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_4\")");
 		_test("(add-rule m if name1:'(?x ?y ?z) do (-> name3:'(?x ?y ?z)) )");
 		_test("(query-stmt m '(?x ?y ?z) from name3:'(?x ?y ?z))", "'('(a b c))");
-
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 
 		_test("(save-model m)", "1");
 		_statsInfo("m");
@@ -153,11 +126,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_5\")");
 		_test("(remove-stmt m '(x y z))");
 		_test("(save-model m)", "0");
-
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 
 		_statsInfo("m");
 	}
@@ -191,11 +159,6 @@ public class CacheTest extends RuleTestBase {
 //		_test("(update-stmt m ('(?n typeof node)))", "7");
 		_test("(list-stmt m from n1:'(?))", "'(n1:'(a) n1:'(b))");
 
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_mStatus(1, "m");
-		_saveTest();
-
 		_statsInfo("m");
 	}
 
@@ -215,11 +178,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(set-node-cache-path m name2:'(?...) \"result/cache/CacheTest/test_2_node_cache_2_2\")");
 		_test("(save-model m)", "2");
 
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
-
 		_statsInfo("m");
 
 	}
@@ -234,10 +192,6 @@ public class CacheTest extends RuleTestBase {
 		_test("(add-stmt m n1:'(a '(b c)))");
 		_save_model_cache("m");
 
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 }

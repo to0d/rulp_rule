@@ -33,11 +33,6 @@ public class WorkerTest extends RuleTestBase {
 		}
 
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(a b)");
-
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_mStatus(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -65,21 +60,9 @@ public class WorkerTest extends RuleTestBase {
 		}
 
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(n0)");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_mStatus(1, "m");
-
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(n0 n1)");
-		_mCount(2, "m");
-		_eCount(2, "m");
-		_mStatus(2, "m");
-
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(n0 n1 n2)");
-		_mCount(3, "m");
-		_eCount(3, "m");
-		_mStatus(3, "m");
-		_saveTest();
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
+
 		_statsInfo("m");
 	}
 
@@ -102,14 +85,7 @@ public class WorkerTest extends RuleTestBase {
 		}
 
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(n0)");
-		_mCount(1, "m");
-		_mStatus(1, "m");
-
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(n0)");
-		_mCount(2, "m");
-		_mStatus(2, "m");
-		_saveTest();
-		// System.out.println(OptimizeUtil.printStatsInfo(_model("m")));
 		_statsInfo("m");
 	}
 
@@ -132,10 +108,6 @@ public class WorkerTest extends RuleTestBase {
 		}
 
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(a)");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_mStatus(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -170,10 +142,6 @@ public class WorkerTest extends RuleTestBase {
 		}
 
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(n0)");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_mStatus(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -211,10 +179,6 @@ public class WorkerTest extends RuleTestBase {
 		}
 
 		_test("(query-stmt m ?n from '(?n typeof node))", "'(x0 y0)");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_mStatus(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 }

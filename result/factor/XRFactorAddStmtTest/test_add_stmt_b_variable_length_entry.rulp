@@ -1,0 +1,36 @@
+(new model m)
+;=>
+
+(add-stmt m '(a p1 a))
+;=>
+
+(add-stmt m '(a p1 a b))
+;=>
+
+(add-stmt m '(a p1 a b c))
+;=>
+
+(list-stmt m from '(a p1 ?x))
+;=>
+
+(list-stmt m from '(a p1 ?x ?y))
+;=>
+
+(list-stmt m from '(a p1 ?x ?y ?z))
+;=>
+
+(list-stmt m from '(a p1 ?x ?y ?z ?d))
+;=>
+
+(add-stmt m '(a b))
+;=>
+
+(list-stmt m from '(a ?x))
+;=>
+
+(add-stmt m '(c))
+;=>
+
+(list-stmt m from '(?x))
+;=>
+

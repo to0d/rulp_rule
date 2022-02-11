@@ -30,9 +30,7 @@ public class TestSelect extends RuleTestBase {
 		_test("(add-stmt m (select '(?z ?y ?x) from n1:'(?x ?y ?z)))", "");
 		_test("(list-stmt m)", "'(a a2)");
 
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 }

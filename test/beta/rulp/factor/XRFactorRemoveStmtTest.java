@@ -11,11 +11,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -23,10 +19,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -34,10 +27,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -45,10 +35,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -56,10 +43,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -67,10 +51,7 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -115,10 +96,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_setup();
 		_run_script();
 		_statsInfo("m");
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 	}
 
 	@Test
@@ -127,10 +104,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_setup();
 		_run_script();
 		_statsInfo("m");
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 	}
 
 	@Test
@@ -138,10 +111,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 		_refInfo("m");
 		_dumpEntryTable("m");
@@ -152,10 +121,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -164,10 +129,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
@@ -176,10 +137,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_mCount(1, "m");
-		_eCount(1, "m");
-		_saveTest();
 		_statsInfo("m");
 	}
 
