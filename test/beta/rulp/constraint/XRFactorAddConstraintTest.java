@@ -17,7 +17,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_add_constraint_2_type_fail_add_stmt() {
+	void test_add_constraint_2_type_fail_add_constraint() {
 
 		_setup();
 		_run_script();
@@ -25,7 +25,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_add_constraint_2_type_fail_add_constraint() {
+	void test_add_constraint_2_type_fail_add_stmt() {
 
 		_setup();
 		_run_script();
@@ -156,14 +156,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	void test_add_constraint_b_similar_constraint_with_rule_2() {
 
 		_setup();
-
-		_test("(new model m)", "m");
-		_test("(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n2:'(?b)))");
-		_test("(add-rule m if n1:'(?a ?p ?b) (> ?b 4) do (-> n3:'(?b)))");
-		_test("(add-stmt m n1:'(a b 5))");
-		_test("(start m)", "5");
-		_test("(state-of m)", "completed");
-		_test("(list-stmt m)", "'(n1:'(a b 5) n2:'(5) n3:'(5))");
+		_run_script();
 		_statsInfo("m");
 	}
 
@@ -206,7 +199,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_add_constraint_d_func_diff_previous_stmt_3() {
 

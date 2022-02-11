@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n2:'(?b)))
+;=>RU000
+
+(add-rule m if n1:'(?a ?p ?b) (> ?b 4) do (-> n3:'(?b)))
+;=>RU001
+
+(add-stmt m n1:'(a b 5))
+;=>true
+
+(start m)
+;=>5
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'(n1:'(a b 5) n2:'(5) n3:'(5))
+
