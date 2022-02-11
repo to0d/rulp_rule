@@ -1,10 +1,10 @@
-(load "diff-previous-stmt")
+(load "constraint-diff-stmt")
 ;=>nil
 
 (new model m)
 ;=>m
 
-(add-constraint m n1:'(?x ?y ?z) (lambda (?n ?s)(return (diff-previous-stmt ?n ?s '(1 2) '()))))
+(add-constraint m n1:'(?x ?y ?z) (lambda (?s)(return (diff-stmt (get-named-rete-node m "n1") ?s '(1 2) '()))))
 ;=>true
 
 (add-stmt m n1:'(a xx 1))
@@ -15,7 +15,7 @@
 
 (add-stmt m n1:'(b xx 2))
 ;err:
-Unable to add entry<n1:'(b xx 2)> due to constraint<(lambda)>
+Unable to add entry<n1:'(b xx 2)> due to constraint<(lambda (?s) (return (diff-stmt (get-named-rete-node m "n1") ?s '(1 2) '())))>
 at (add-stmt m n1:'(b xx 2)) ; main-2
 ;eof
 

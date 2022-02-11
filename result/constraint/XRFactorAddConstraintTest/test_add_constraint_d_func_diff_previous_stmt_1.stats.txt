@@ -31,7 +31,7 @@ node info4: constraint
  NODE[n]  Match  Fail  Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[3]      5     2
-              5     2  C1:(lambda)
+              5     2  C1:(lambda (?s) (return (diff-stmt (get-named-rete-node m "n1") ?s '(0 1))))
 ========================================================================================================================================================
 
 node info6:
@@ -141,26 +141,26 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      743
-      func:      130
+    factor:      788
+      func:      145
 ==========================================================================================================================
 
-Callable stats info: callId=299, row=44, column=38(8), value-max=70, value-unit=2^x
+Callable stats info: callId=299, row=47, column=38(8), value-max=79, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         444444444444444444444445444444444445X9 max=318, unit=2^x
+   Frame    RType  Count  Ref Object                         444444444444444444444445444444444445XX max=354, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor    130    0 return                                                             87
+    root   factor    145    0 return                                                             88
     root   factor     60    0 defun                                                 144444    4444 
-    root   factor     47    0 defvar                                                4           166
-    root   factor     36    0 get-of-list                                                        66
-  system funcList     36    1 get                                                                66
+    root   factor     52    0 defvar                                                4           166
+    root   factor     41    0 get-of-list                                                        66
+  system funcList     41    1 get                                                                66
     root   factor     34    0 defconst                                                   34444     
     root   factor     31    0 add-list-to-array                                                  65
   system funcList     31    1 add                                                                65
-    root   factor     18    0 do                                                                 54
-    root   factor     17    0 size-of-list                                                       54
-  system funcList     17    1 size-of                                                            54
+    root   factor     23    0 do                                                                 55
+    root   factor     22    0 size-of-list                                                       55
+  system funcList     22    1 size-of                                                            55
     root   factor     15    0 to-atom                                                            54
     root   factor     15    0 +                                                                  54
     root   factor     14    0 if                                                                 44
@@ -169,7 +169,7 @@ Callable stats info: callId=299, row=44, column=38(8), value-max=70, value-unit=
     root   factor     13    0 loop                                                               44
     root   factor     13    0 add-array-to-list                                                  44
     root   factor     10    0 value-of                                                           43
-    main funcList     10    2 diff-previous-stmt                                                 43
+    main funcList     10    2 diff-stmt                                                          43
     root   factor      9    0 setq                                                               43
     root   factor      9    0 =                                                                  43
     root   factor      9    0 !=                                                                 43
@@ -179,12 +179,15 @@ Callable stats info: callId=299, row=44, column=38(8), value-max=70, value-unit=
   system   factor      6    0 list-stmt                                                          33
     root   factor      6    0 defmacro                                                2       3 1  
     root   factor      5    0 to-named-list                                                      32
+  system   factor      5    0 rete-node-of                                                       32
     root   factor      5    0 name-of                                                            32
   system   factor      5    0 model-of                                                           32
     root   factor      5    0 make-list                                             4              
+  system     func      5    1 (get-named-rete-node type#mode                                     32
     root   factor      5    0 get-attribute                                                      32
     root   factor      5    0 foreach                                                            32
   system     func      5    1 (entry-length-of nil)                                              32
+    root   factor      5    0 case                                                               32
   system   factor      5    0 add-stmt                                                           32
     main     func      5    2 (__make_filter_array__ nil)                                        32
     root   factor      3    0 deftemplate                                              3           
@@ -201,20 +204,20 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1938            0         1938
          int:            1            0            1
-      string:           99            0           99
-        list:          126           18          108
-        expr:          972          130          842
+      string:          100            0          100
+        list:          131           23          108
+        expr:          988          145          843
        array:           13           13            0
-         var:          367          348           19
+         var:          397          378           19
     constant:           34            0           34
         func:           76            0           76
     template:            1            0            1
        macro:            6            0            6
     instance:            2            0            2
       member:           16            0           16
-       frame:          200          198            2
+       frame:          220          218            2
  interpreter:            1            0
-  frameEntry:          710            0
+  frameEntry:          740            0
       lambda:            1            0
 ==========================================================================================================================
 
@@ -244,11 +247,11 @@ _ginfo               : 12       2        1    funcList   '((_ginfo string) (_gin
 __sub_statement__    : 13       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
 __previous_statement__ : 14       2        2    func       (__previous_statement__ nil) : frame=frame@main
 __make_filter_array__ : 15       2        2    func       (__make_filter_array__ nil) : frame=frame@main
-diff-previous-stmt   : 16       2        2    funcList   '((diff-previous-stmt nil list list list) (diff-previous-stmt nil list list)) : frame=null, type=list
-                                         2    func       (diff-previous-stmt nil list list) : frame=frame@main
-                                         1    func       (diff-previous-stmt nil list list list) : frame=frame@main
+diff-stmt            : 16       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
+                                         2    func       (diff-stmt nil list list) : frame=frame@main
+                                         1    func       (diff-stmt nil list list list) : frame=frame@main
 m                    : 18       2        2    instance   model@m             
-?rv                  : 52       2        1    var        false : type=bool   
+?rv                  : 58       2        1    var        false : type=bool   
 ==========================================================================================================================
 
 
@@ -267,7 +270,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '("C:\\data\\rs\\load\\diff-previous-stmt.rulp")
+?load-script         : '("C:\\data\\rs\\load\\constraint-diff-stmt.rulp")
 ?load-system         : '("string")
 ?model-trace         : false
 ?path                : '()

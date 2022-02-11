@@ -1,7 +1,7 @@
 (new model m)
 ;=>m
 
-(defun c1 (?node ?stmt)
+(defun c1 (?stmt)
     (return (> (get ?stmt 0) (get ?stmt 1)))
 )
 ;=>c1

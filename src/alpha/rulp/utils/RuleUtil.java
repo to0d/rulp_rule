@@ -34,7 +34,6 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener3;
 import alpha.rulp.runtime.IRParser;
-import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;

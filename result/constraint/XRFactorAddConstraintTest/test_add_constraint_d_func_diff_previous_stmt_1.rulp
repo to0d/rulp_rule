@@ -1,10 +1,10 @@
-(load "diff-previous-stmt")
+(load "constraint-diff-stmt")
 ;=>
 
 (new model m)
 ;=>
 
-(add-constraint m n1:'(?x ?y ?z) (lambda (?n ?s)(return (diff-previous-stmt ?n ?s '(0 1)))))
+(add-constraint m n1:'(?x ?y ?z) (lambda (?s)(return (diff-stmt (get-named-rete-node m "n1") ?s '(0 1)))))
 ;=>
 
 (add-stmt m n1:'(a b 1))

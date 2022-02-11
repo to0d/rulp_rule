@@ -416,8 +416,8 @@ public class ConstraintFactory {
 		return new XRConstraint1Expr4(expr, matchStmtList);
 	}
 
-	public static IRConstraint1Func func(IRFunction func) throws RException {
-		return new XRConstraint1Func(func);
+	public static IRConstraint1Func func(IRFunction func, String funcName) throws RException {
+		return new XRConstraint1Func(func, funcName);
 	}
 
 	public static IRConstraint1 max(int columnIndex, IRObject maxValue) {

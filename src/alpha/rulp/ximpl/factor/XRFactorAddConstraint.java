@@ -29,15 +29,20 @@ public class XRFactorAddConstraint extends AbsAtomFactorAdapter implements IRFac
 		super(factorName);
 	}
 
-	static IRObject _addFuncConstraint(IRFunction func, IRModel model, IRReteNode node) throws RException {
+	static IRObject _addFuncConstraint(IRFunction func, String funcName, IRModel model, IRReteNode node)
+			throws RException {
 
-		if (func.getArgCount() != 2) {
+		if (func.getArgCount() != 1) {
 			throw new RException(
 					String.format("Fail to add constraint function: %s, unmatch para<actual=%d, expect=%d>", func,
 							func.getArgCount(), 2));
 		}
 
-		IRConstraint1 cons = ConstraintFactory.func(func);
+		if (funcName == null) {
+			funcName = "(" + func.getName() + ")";
+		}
+
+		IRConstraint1 cons = ConstraintFactory.func(func, funcName);
 		return RulpFactory.createBoolean(model.addConstraint(node, cons));
 	}
 
@@ -83,14 +88,14 @@ public class XRFactorAddConstraint extends AbsAtomFactorAdapter implements IRFac
 		if (constraintExpr.size() == 1) {
 			IRObject obj = RulpUtil.lookup(constraintExpr.get(0), interpreter, frame);
 			if (obj.getType() == RType.FUNC) {
-				return _addFuncConstraint(RulpUtil.asFunction(obj), model, node);
+				return _addFuncConstraint(RulpUtil.asFunction(obj), null, model, node);
 			}
 		}
 
 		// lambda function
 		if (constraintExpr.size() > 1 && RulpUtil.isObject(constraintExpr.get(0), A_LAMBDA, RType.ATOM, RType.FACTOR)) {
 			IRFunction func = RulpUtil.asFunction(interpreter.compute(frame, constraintExpr));
-			return _addFuncConstraint(func, model, node);
+			return _addFuncConstraint(func, RulpUtil.toString(constraintExpr), model, node);
 		}
 
 		IRConstraint1 cons = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList)))

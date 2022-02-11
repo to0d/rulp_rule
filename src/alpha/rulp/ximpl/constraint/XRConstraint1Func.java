@@ -24,9 +24,12 @@ public class XRConstraint1Func extends AbsRConstraint1 implements IRConstraint1F
 
 	protected IRFunction func;
 
-	public XRConstraint1Func(IRFunction func) throws RException {
+	protected String funcName;
+
+	public XRConstraint1Func(IRFunction func, String funcName) throws RException {
 		super();
 		this.func = func;
+		this.funcName = funcName;
 
 		RulpUtil.incRef(func);
 	}
@@ -34,9 +37,8 @@ public class XRConstraint1Func extends AbsRConstraint1 implements IRConstraint1F
 	@Override
 	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 
-		IRObject rst = context.getInterpreter().compute(context.getFrame(),
-				RulpFactory.createExpression(func, asRObject(context), entry));
-		
+		IRObject rst = context.getInterpreter().compute(context.getFrame(), RulpFactory.createExpression(func, entry));
+
 		return RulpUtil.asBoolean(rst).asBoolean();
 	}
 
@@ -53,7 +55,7 @@ public class XRConstraint1Func extends AbsRConstraint1 implements IRConstraint1F
 
 	@Override
 	public String getConstraintExpression() {
-		return "(" + func.getName() + ")";
+		return funcName;
 	}
 
 	@Override
