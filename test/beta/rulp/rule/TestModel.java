@@ -33,7 +33,6 @@ public class TestModel extends RuleTestBase {
 
 		_setup();
 		_run_script();
-
 	}
 
 	@Test
@@ -41,6 +40,7 @@ public class TestModel extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("p2d");
 	}
 
 	@Test
@@ -81,9 +81,7 @@ public class TestModel extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -123,9 +121,7 @@ public class TestModel extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -177,9 +173,7 @@ public class TestModel extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -187,8 +181,7 @@ public class TestModel extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 
 	}
 
@@ -220,9 +213,7 @@ public class TestModel extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -253,9 +244,7 @@ public class TestModel extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -286,9 +275,7 @@ public class TestModel extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -329,9 +316,7 @@ public class TestModel extends RuleTestBase {
 			fail(e.toString());
 		}
 
-		_mStatus(1, "m");
-		_oStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -339,6 +324,7 @@ public class TestModel extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 	}
 
 	@Test
@@ -346,5 +332,6 @@ public class TestModel extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 	}
 }

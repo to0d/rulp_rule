@@ -11,7 +11,7 @@ public class TestRuleAction extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_saveTest();
+		_statsInfo("m");
 	}
 
 }

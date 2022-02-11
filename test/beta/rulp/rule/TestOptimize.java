@@ -29,6 +29,7 @@ public class TestOptimize extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 	}
 
 	@Test

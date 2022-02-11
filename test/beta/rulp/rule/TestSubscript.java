@@ -11,8 +11,7 @@ public class TestSubscript extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_mStatus(1, "m");
-		_saveTest();
+		_statsInfo("m");
 	}
 
 }

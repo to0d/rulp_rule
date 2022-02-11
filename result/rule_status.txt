@@ -73,21 +73,6 @@ beta.rulp.factor.XRFactorRemoveStmtTest:test_incomplete_mode:1-mCount:stmt=2, ru
 beta.rulp.factor.XRFactorRemoveStmtTest:test_incomplete_mode:1-mStatus:sc=[0,2,0,0,0,0,0,1],
 beta.rulp.manners.MannerModelTest:test_can_sit_forward_1:1-mStatus:sc=[0,10,4,0,0,0,0,0,4], a0=[6,4,2,99,9,0,0,42,16,0,73/0,12,4], b0=[2,0,3,99,2,0,0,40,14,0,18/0,0,14], b2=[1,0,3,99,2,1,0,21,6,0,6/0,0,6], b3=[1,0,4,99,1,0,0,4,2,0,2/0,0,2], ru=[2,0,5,99,2,0,0,0,8,4],
 beta.rulp.manners.MannerModelTest:test_can_sit_forward_1:1-oStatus:shared=0
-beta.rulp.rule.TestModel:test_model_1_add_factor_rule_1:1-mStatus:sc=[0,3], a0=[2,0,2,99,2,0,0,6,6,0,6/0,6], ru=[1,0,3,99,1,0,0,0,3],
-beta.rulp.rule.TestModel:test_model_1_add_factor_rule_1:1-oStatus:shared=0
-beta.rulp.rule.TestModel:test_model_1_add_factor_rule_2:1-mStatus:sc=[0,3], a0=[2,0,2,99,2,0,0,6,6,0,6/0,6], ru=[1,0,3,99,1,0,0,0,3],
-beta.rulp.rule.TestModel:test_model_1_add_factor_rule_2:1-oStatus:shared=0
-beta.rulp.rule.TestModel:test_model_2_list_stmt_1:1-mStatus:sc=[0,3], a0=[2,0,2,0,2,0,0,6,6,0,6/0,6],
-beta.rulp.rule.TestModel:test_model_2_list_stmt_1:1-oStatus:shared=0
-beta.rulp.rule.TestModel:test_model_3_remove_stmt_after_completed:1-mStatus:sc=[0,2,0,0,1], vc=[1, 0, 0, 2, 0], a0=[1,0,1,99,1,0,0,3,3,0,3/0,2,0,0,1], a1=[1,0,1,99,2,0,0,2,1,0,1/0,0,0,0,0,1], b0=[1,0,3,99,1,0,0,9,1,0,1/0,0,1], b1=[1,0,5,99,2,1,0,1,1,0,1/0,0,1], b2=[1,0,4,99,1,0,0,3,1,0,1/0,0,1], e1=[1,0,2,99,1,0,0,3,3,0,15/0,2,0,0,1], ru=[1,0,6,99,1,0,0,0,1],
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_alpha_1:1-mStatus:sc=[0,3], a0=[2,0,2,0,6,0,0,6,6,0,6/0,6],
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_alpha_1:1-oStatus:shared=0
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_alpha_2:1-mStatus:sc=[0,3], a0=[2,0,2,0,4,0,0,6,6,0,6/0,6],
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_alpha_2:1-oStatus:shared=0
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_root_1:1-mStatus:sc=[0,3],
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_root_1:1-oStatus:shared=0
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_rule_1:1-mStatus:sc=[0,2,1,0,0,0,0,0,1], a0=[3,3,2,99,6,0,0,7,4,0,6/0,3,1], b2=[1,0,3,99,3,1,0,3,2,0,2/0,1,1], ru=[1,0,4,99,2,0,0,0,2,1],
-beta.rulp.rule.TestModel:test_model_4_stmt_listener_rule_1:1-oStatus:shared=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-eCount:size=2, max-id=2, dup=0, null=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-mCount:stmt=2, rule=0, match=0, fetch=6, exec=7, idle=3, state=5/2, max-queue=4, uniq-obj=3, entry-cnt=2, entry-maxid=2, waste-node=0, waste-match=0
 beta.rulp.worker.WorkerTest:test_load_1_model_interface:1-mStatus:sc=[0,2], a0=[2,0,2,0,4,2,0,4,4,0,4,0,1/0,4], wk=[1,0,0,-99,1],

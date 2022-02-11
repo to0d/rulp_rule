@@ -13,6 +13,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.FileUtil;
+import alpha.rulp.utils.FormatUtil;
 import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleTestBase;
