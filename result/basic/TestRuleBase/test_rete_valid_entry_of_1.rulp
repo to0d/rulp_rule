@@ -1,0 +1,17 @@
+(new model m)
+;=>
+
+(add-stmt m n1:'(abc))
+;=>
+
+(remove-stmt m n1:'(?...))
+;=>
+
+(foreach (?n (rete-node-of m)) 
+    (return 
+        (foreach (?s RRS_ALL_STATUS) 
+            (return '(?n ?s (rete-entry-count-of ?n ?s))))))
+;=>
+
+(foreach (?n (rete-node-of m)) (return (rete-valid-entry-of ?n)))
+;=>

@@ -104,12 +104,12 @@
 (defun rete-type-of (?n) (return (get-attribute $(value-of ?n) ATTR_RETE_TYPE)))
 (defun entry-length-of (?n) (return (get-attribute $(value-of ?n) ATTR_ENTRY_LEN)))
 (defun rete-valid-entry-of (?n) 
-    (return (- (+  (rete-entry-count-of ?n RRS_DEFINE)
+    (return (+  (rete-entry-count-of ?n RRS_DEFINE)
                    (rete-entry-count-of ?n RRS_REASON)
                    (rete-entry-count-of ?n RRS_ASSUME)
                    (rete-entry-count-of ?n RRS_FIXED)
                    (rete-entry-count-of ?n RRS_TEMP))
-               (rete-entry-count-of ?n RRS_REMOVE))))
+               ))
 
 ;****************************************************
 ; Constraint utilies
