@@ -113,8 +113,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		private IRReteNode node;
 
-		private int readLines = 0;
-
 		private int saveCount = 0;
 
 		private IRStmtSaver saver;
@@ -147,7 +145,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		@Override
 		public int getReadCount() {
-			return readLines;
+			return loader.getReadLines();
 		}
 
 		@Override
@@ -184,36 +182,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			IREntryQueue entryQueue = node.getEntryQueue();
 
-			final String stmtName = node.getReteType() == RReteType.NAME0 ? ((IRReteNode) node).getNamedName() : null;
-
-			int stmtLen = node.getEntryLength();
-
 			boolean pushEmptyNode = (entryQueue.size() == 0);
 			int oldCacheStmtCount = this.cacheStmtCount;
 
 			try {
 
-				loader.load((stmt) -> {
-
-					++readLines;
-
-					if (stmt.size() != stmtLen) {
-						throw new RException(
-								String.format("Invalid stmt for node<%s:%d>: %s", stmtName, stmtLen, stmt));
-					}
-
-					if (stmt.getNamedName() != null) {
-
-						if (stmtName == null) {
-							stmt = RulpFactory.createList(stmt.iterator());
-
-						} else if (!RuleUtil.equal(stmtName, stmt.getNamedName())) {
-							stmt = RulpFactory.createNamedList(stmt.iterator(), stmtName);
-						}
-
-					} else if (stmtName != null) {
-						stmt = RulpFactory.createNamedList(stmt.iterator(), stmtName);
-					}
+				loader.load(node, (stmt) -> {
 
 					if (RUpdateResult.isValidUpdate(_addStmt(node, stmt, DEFINE))) {
 						XRModel.this.cacheUpdateCount++;
@@ -280,7 +254,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			_fireSaveNodeAction(node);
 
-			int saveLineCount = saver.save(stmtList);
+			int saveLineCount = saver.save(node, stmtList);
 
 			this.cacheLastEntryId = lastEntryId;
 			this.cacheStmtCount = rootQueue.size();
@@ -671,10 +645,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return null;
 			}
 
-			String nodeCachePath = FileUtil.toValidPath(modelCachePath)
-					+ XRStmtFileDefaultCacher.getNodeCacheName(node);
-
-			XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(nodeCachePath, this.getInterpreter());
+			XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(modelCachePath, this.getInterpreter());
 
 			cache = _setNodeCache(node, cacher, cacher);
 		}
