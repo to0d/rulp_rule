@@ -1,6 +1,6 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_ADD_LAZY_STMT;
 import static alpha.rulp.rule.Constant.F_ADD_NODE;
@@ -59,9 +59,7 @@ import static alpha.rulp.ximpl.search.Constant.MTS_NS;
 
 import java.io.IOException;
 
-import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRFrame;
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRObjectLoader;

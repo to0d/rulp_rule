@@ -984,6 +984,18 @@ public class XRModel extends AbsRInstance implements IRModel {
 		int queryEntryIndex = 0;
 
 		/******************************************************/
+		// Update cache
+		/******************************************************/
+		if (isCacheEnable()) {
+			
+			for (IRReteNode node : getNodeGraph().listSourceNodes(queryNode)) {
+				_checkCache(node);
+			}
+			
+			_checkCache(queryNode);
+		}
+
+		/******************************************************/
 		// Load results
 		/******************************************************/
 		{

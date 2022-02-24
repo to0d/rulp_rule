@@ -1,0 +1,21 @@
+(load "constraint-diff-stmt")
+;=>nil
+
+(new model m)
+;=>m
+
+(set-model-cache-path m "C:\data\\rs\\eton\\et-down-beike")
+;=>nan
+
+(size-of (query-stmt m '(?a ?b ?c ?d) from beike_house_property:'(?a ?b ?c ?d)))
+;=>2683
+
+(add-constraint m n1:'(?day ?house ?prop ?value) (lambda (?s)(return (diff-stmt (get-named-rete-node m "n1") ?s '(1 2) '(3)))))
+;=>true
+
+(foreach (?s (query-stmt m '(?a ?b ?c ?d) from beike_house_property:'(?a ?b ?c ?d) limit 3)) (try-add-stmt m (to-named-list n1 ?s)))
+;=>'(true true true)
+
+(list-stmt m from n1:'(?...))
+;=>'(n1:'("2022-02-06" "https://bj.ke.com/ershoufang/101114089451.html" "名称" "龙山华府 2室1厅 南 北") n1:'("2022-02-06" "https://bj.ke.com/ershoufang/101114089451.html" "价格" "375") n1:'("2022-02-06" "https://bj.ke.com/ershoufang/101114089451.html" "单价" "42731"))
+

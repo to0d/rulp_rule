@@ -8,8 +8,10 @@
 ;=>nil
 
 (defun down_html (?url) (print ?url))
+;=>down_html
+
 (add_task_function TASK_DOWN_HTML down_html)
-;=>down_html nil
+;=>nil
 
 (set-model-cache-path (eton_model) "C:\data\\rs\\eton\\et-down-beike")
 ;=>nan
@@ -17,12 +19,14 @@
 (size-of (eton_model))
 ;=>3
 
-;(query-stmt (eton_model) '(?x ?y ?z) from beike_has_house:'(?x ?y ?z))
 (list-stmt (eton_model) from beike_has_house:'(?x ?y ?z) limit 1)
 ;=>'(beike_has_house:'("2022-02-06" "龙山华府" "https://bj.ke.com/ershoufang/101114089451.html"))
 
+(query-stmt (eton_model) '(?a ?b ?c ?d) from beike_house_property:'(?a ?b ?c ?d) limit 1)
+;=>'('("2022-02-06" "https://bj.ke.com/ershoufang/101114089451.html" "名称" "龙山华府 2室1厅 南 北"))
+
 (size-of (eton_model))
-;=>121
+;=>2804
 
 (add_daily_task TASK_DOWN_HTML "https://bj.ke.com/ershoufang/rs龙山华府/")
 ;=>nil

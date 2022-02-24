@@ -14,4 +14,12 @@ public class TestBeike extends RuleTestBase {
 		_statsInfo("em");
 	}
 
+	@Test
+	void test_beike_2_copy_stmt() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
 }

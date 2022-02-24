@@ -1,4 +1,4 @@
-package beta.rulp.cache;
+package beta.rulp.rule;
 
 import static org.junit.Assert.fail;
 
@@ -17,10 +17,10 @@ import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 
-public class CacheTest extends RuleTestBase {
+public class TestCache extends RuleTestBase {
 
 	@Test
-	void test_1_model_cache_1() {
+	void test_cache_model_1a() {
 
 		_setup();
 
@@ -34,14 +34,14 @@ public class CacheTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_model_cache_1b() {
+	void test_cache_model_1b() {
 
 		_setup();
 
 		_clean_model_cache();
 
 		_test("(new model m)");
-		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_1b\")");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_1b\")");
 		_test("(add-stmt m '(x y z))");
 		_test("(add-stmt m name1:'(a b c))");
 		_test("(save-model m)", "2");
@@ -50,12 +50,12 @@ public class CacheTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_model_cache_2() {
+	void test_cache_model_2() {
 
 		_setup();
 
 		_test("(new model m)");
-		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_2\")");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_2\")");
 		_test("(save-model m)", "0");
 		_test("(list-stmt m)", "'('(a b c) name2:'(x y z))");
 
@@ -63,12 +63,12 @@ public class CacheTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_model_cache_3() {
+	void test_cache_model_3() {
 
 		_setup();
 
 		_test("(new model m)");
-		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_3\")");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_3\")");
 		_test("(save-model m)", "0");
 		_test("(list-stmt m from name2:'(?x ?y ?z))", "'(name2:'(x y z))");
 
@@ -76,16 +76,16 @@ public class CacheTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1_model_cache_4a() {
+	void test_cache_model_4a() {
 
 		_setup();
 
 		// XRModel.TRACE_RETE = true;
-		new File("result/cache/CacheTest/test_1_model_cache_4/name3.3.mc").delete();
+		new File("result/rule/TestCache/test_cache_model_4/name3.3.mc").delete();
 
 		_test("(new model m)");
 		_test("(add-rule m if name1:'(?x ?y ?z) do (-> name3:'(?x ?y ?z)) )");
-		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_4\")");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_4\")");
 		_test("(start m)");
 		_test("(list-stmt m from name3:'(?x ?y ?z))", "'(name3:'(a b c))");
 		_test("(save-model m)", "1");
@@ -93,40 +93,40 @@ public class CacheTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 
-		new File("result/cache/CacheTest/test_1_model_cache_4/name3.3.mc").delete();
+		new File("result/rule/TestCache/test_cache_model_4/name3.3.mc").delete();
 	}
 
 	@Test
-	void test_1_model_cache_4b() {
+	void test_cache_model_4b() {
 
 		_setup();
 
 		_test("(new model m)");
-		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_4\")");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_4\")");
 		_test("(add-rule m if name1:'(?x ?y ?z) do (-> name3:'(?x ?y ?z)) )");
 		_test("(query-stmt m '(?x ?y ?z) from name3:'(?x ?y ?z))", "'('(a b c))");
 
 		_test("(save-model m)", "1");
 		_statsInfo("m");
 
-		new File("result/cache/CacheTest/test_1_model_cache_4/name3.3.mc").delete();
+		new File("result/rule/TestCache/test_cache_model_4/name3.3.mc").delete();
 	}
 
 	@Test
-	void test_1_model_cache_5() {
+	void test_cache_model_5() {
 
 		_setup();
 
-		new File("result/cache/CacheTest/test_1_model_cache_5/.3.mc").delete();
+		new File("result/cache/CacheTest/test_cache_model_5/.3.mc").delete();
 
 		_test("(new model m)");
-		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_5\")");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_5\")");
 		_test("(add-stmt m '(x y z))");
 		_test("(save-model m)", "1");
 		_test("(delete m)");
 
 		_test("(new model m)");
-		_test("(set-model-cache-path m \"result/cache/CacheTest/test_1_model_cache_5\")");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_5\")");
 		_test("(remove-stmt m '(x y z))");
 		_test("(save-model m)", "0");
 
@@ -134,7 +134,20 @@ public class CacheTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_2_node_cache_1() {
+	void test_cache_model_6_list() {
+
+		_setup();
+
+		_clean_model_cache();
+		_test("(new model m)");
+		_test("(add-stmt m n1:'(a '(b c)))");
+		_save_model_cache("m");
+
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_cache_node_1() {
 
 		_setup();
 		_test("(new model m)");
@@ -150,16 +163,16 @@ public class CacheTest extends RuleTestBase {
 			model.setNodeLoader(node, new IRStmtLoader() {
 
 				@Override
+				public int getReadLines() {
+					return 0;
+				}
+
+				@Override
 				public void load(IRReteNode node, IRListener1<IRList> stmtListener) throws RException, IOException {
 					IRIterator<? extends IRList> it = RuleUtil.toStmtList("'(n1:'(a) n1:'(b))");
 					while (it.hasNext()) {
 						stmtListener.doAction(it.next());
 					}
-				}
-
-				@Override
-				public int getReadLines() {
-					return 0;
 				}
 			});
 
@@ -175,35 +188,22 @@ public class CacheTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_2_node_cache_2() {
+	void test_cache_node_2() {
 
 		_setup();
 
-		new File("result/cache/CacheTest/test_2_node_cache_2_1/name1.3.mc").delete();
-		new File("result/cache/CacheTest/test_2_node_cache_2_2/name2.3.mc").delete();
+		new File("result/rule/TestCache/test_cache_node_2a/name1.3.mc").delete();
+		new File("result/rule/TestCache/test_cache_node_2b/name2.3.mc").delete();
 
 		_test("(new model m)");
 		_test("(add-stmt m '(x y z))");
 		_test("(add-stmt m name1:'(a b c))");
 		_test("(add-stmt m name2:'(x y z))");
-		_test("(set-node-cache-path m name1:'(?...) \"result/cache/CacheTest/test_2_node_cache_2_1\")");
-		_test("(set-node-cache-path m name2:'(?...) \"result/cache/CacheTest/test_2_node_cache_2_2\")");
+		_test("(set-node-cache-path m name1:'(?...) \"result/rule/TestCache/test_cache_node_2a\")");
+		_test("(set-node-cache-path m name2:'(?...) \"result/rule/TestCache/test_cache_node_2b\")");
 		_test("(save-model m)", "2");
 
 		_statsInfo("m");
 
-	}
-
-	@Test
-	void test_3_model_cache_list_1() {
-
-		_setup();
-
-		_clean_model_cache();
-		_test("(new model m)");
-		_test("(add-stmt m n1:'(a '(b c)))");
-		_save_model_cache("m");
-
-		_statsInfo("m");
 	}
 }
