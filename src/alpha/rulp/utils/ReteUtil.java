@@ -1457,6 +1457,11 @@ public class ReteUtil {
 		return true;
 	}
 
+	public static boolean isValidNodeStmt(IRReteNode node, IRList stmt) throws RException {
+		String nodeName = node.getReteType() == RReteType.NAME0 ? node.getNamedName() : null;
+		return RuleUtil.equal(nodeName, stmt.getNamedName()) && node.getEntryLength() == stmt.size();
+	}
+
 	public static boolean isValidStmtLen(int len) throws RException {
 		return len >= STMT_MIN_LEN && len < STMT_MAX_LEN;
 	}

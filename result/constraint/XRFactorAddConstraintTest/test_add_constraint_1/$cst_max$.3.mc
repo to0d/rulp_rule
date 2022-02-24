@@ -1,1 +1,1 @@
-$cst_max$:'("name8" 0 5)
+"name8" 0 5

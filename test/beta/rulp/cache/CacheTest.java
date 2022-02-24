@@ -3,6 +3,7 @@ package beta.rulp.cache;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +12,10 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.ximpl.cache.IRStmtLoader;
 
 public class CacheTest extends RuleTestBase {
 
@@ -144,10 +147,19 @@ public class CacheTest extends RuleTestBase {
 //				return RuleUtil.toStmtList("'('(a) '(b))");
 //			}, null, null);
 
-			model.setNodeLoader(node, (stmtListener) -> {
-				IRIterator<? extends IRList> it = RuleUtil.toStmtList("'('(a) '(b))");
-				while (it.hasNext()) {
-					stmtListener.doAction(it.next());
+			model.setNodeLoader(node, new IRStmtLoader() {
+
+				@Override
+				public void load(IRReteNode node, IRListener1<IRList> stmtListener) throws RException, IOException {
+					IRIterator<? extends IRList> it = RuleUtil.toStmtList("'(n1:'(a) n1:'(b))");
+					while (it.hasNext()) {
+						stmtListener.doAction(it.next());
+					}
+				}
+
+				@Override
+				public int getReadLines() {
+					return 0;
 				}
 			});
 

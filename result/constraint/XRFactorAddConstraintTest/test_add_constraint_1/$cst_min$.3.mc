@@ -1,1 +1,1 @@
-$cst_min$:'("name8" 1 5)
+"name8" 1 5

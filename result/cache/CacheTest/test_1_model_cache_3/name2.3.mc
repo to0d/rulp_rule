@@ -1,1 +1,1 @@
-name2:'(x y z)
+x y z

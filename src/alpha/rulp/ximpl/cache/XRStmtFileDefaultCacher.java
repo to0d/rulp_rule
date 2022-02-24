@@ -13,10 +13,9 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.utils.FileUtil;
-import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.StringUtil;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
@@ -34,40 +33,6 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 
 		default:
 			throw new RException("not support node: " + node);
-		}
-	}
-
-	public static int save(List<IRList> stmtList, String cachePath) throws RException, IOException {
-
-		// clear
-		if (stmtList.size() == 0) {
-
-			if (FileUtil.isExistFile(cachePath)) {
-				new File(cachePath).delete();
-			}
-
-			return 0;
-		}
-		// save
-		else {
-
-			ArrayList<String> outLines = new ArrayList<>();
-			int stmtCount = 0;
-
-			for (IRList stmt : stmtList) {
-
-				if (stmt == null) {
-					continue;
-				}
-
-				++stmtCount;
-				outLines.add(RulpUtil.toString(stmt));
-			}
-
-			new File(cachePath).getParentFile().mkdirs();
-
-			FileUtil.saveTxtFile(cachePath, outLines, "utf-8");
-			return stmtCount;
 		}
 	}
 
@@ -93,14 +58,14 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 
 		final IRParser parser = interpreter.getParser();
 		final String stmtName = node.getReteType() == RReteType.NAME0 ? ((IRReteNode) node).getNamedName() : null;
-		final String nodeCachePath = FileUtil.toValidPath(modelCachePath) + _nodeCacheName(node);
+		final String cachePath = FileUtil.toValidPath(modelCachePath) + _nodeCacheName(node);
 		final int stmtLen = node.getEntryLength();
 
-		if (!FileUtil.isExistFile(nodeCachePath)) {
+		if (!FileUtil.isExistFile(cachePath)) {
 			return;
 		}
 
-		for (String line : FileUtil.openTxtFile(nodeCachePath, "utf-8")) {
+		for (String line : FileUtil.openTxtFile(cachePath, "utf-8")) {
 
 			++readLines;
 
@@ -118,17 +83,45 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 
 			stmtListener.doAction(stmt);
 		}
-		
+
 	}
 
 	@Override
 	public int save(IRReteNode node, List<IRList> stmtList) throws RException, IOException {
 
-		final String stmtName = node.getReteType() == RReteType.NAME0 ? ((IRReteNode) node).getNamedName() : null;
-		final String nodeCachePath = FileUtil.toValidPath(modelCachePath) + _nodeCacheName(node);
-		final int stmtLen = node.getEntryLength();
+		final String cachePath = FileUtil.toValidPath(modelCachePath) + _nodeCacheName(node);
 
-		return 0;
+		// clear
+		if (stmtList.size() == 0) {
+			if (FileUtil.isExistFile(cachePath)) {
+				new File(cachePath).delete();
+			}
+
+			return 0;
+		}
+
+		// save
+		ArrayList<String> outLines = new ArrayList<>();
+		int stmtCount = 0;
+
+		for (IRList stmt : stmtList) {
+
+			if (stmt == null) {
+				continue;
+			}
+
+			if (!ReteUtil.isValidNodeStmt(node, stmt)) {
+				throw new RException(String.format("Invalid stmt for node<%s>: %s", "" + node, "" + stmt));
+			}
+
+			outLines.add(RulpUtil.toString(stmt.iterator()));
+			++stmtCount;
+		}
+
+		new File(cachePath).getParentFile().mkdirs();
+
+		FileUtil.saveTxtFile(cachePath, outLines, "utf-8");
+		return stmtCount;
 	}
 
 }

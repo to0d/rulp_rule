@@ -189,6 +189,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				loader.load(node, (stmt) -> {
 
+					if (!ReteUtil.isValidNodeStmt(node, stmt)) {
+						throw new RException(String.format("Invalid stmt for node<%s>: %s", "" + node, "" + stmt));
+					}
+
 					if (RUpdateResult.isValidUpdate(_addStmt(node, stmt, DEFINE))) {
 						XRModel.this.cacheUpdateCount++;
 						this.cacheStmtCount++;

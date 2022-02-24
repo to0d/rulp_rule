@@ -1,3 +1,3 @@
-_RBS_TABLE:'("_RBS_TABLE" 2)
-_RBS_TABLE:'("_RBS_COLUMN" 4)
-_RBS_TABLE:'("t1" 3)
+"_RBS_TABLE" 2
+"_RBS_COLUMN" 4
+"t1" 3

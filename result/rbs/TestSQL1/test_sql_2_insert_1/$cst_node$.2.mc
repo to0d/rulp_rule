@@ -1,3 +1,3 @@
-$cst_node$:'("_RBS_TABLE" type)
-$cst_node$:'("_RBS_COLUMN" type)
-$cst_node$:'("t1" type)
+"_RBS_TABLE" type
+"_RBS_COLUMN" type
+"t1" type

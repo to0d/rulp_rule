@@ -1,8 +1,8 @@
-$cst_node$:'("name1" type)
-$cst_node$:'("name2" type)
-$cst_node$:'("name3" type)
-$cst_node$:'("name4" type)
-$cst_node$:'("name5" type)
-$cst_node$:'("name7" type)
-$cst_node$:'("name8" max)
-$cst_node$:'("name8" min)
+"name1" type
+"name2" type
+"name3" type
+"name4" type
+"name5" type
+"name7" type
+"name8" max
+"name8" min
