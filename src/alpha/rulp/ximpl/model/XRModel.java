@@ -896,12 +896,27 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		IRReteNode matchedNode = nodeGraph.getNodeByTree(filter);
-
 		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
 			throw new RException("Invalid list node: " + matchedNode);
 		}
 
 		_checkCache(matchedNode);
+
+		/******************************************************/
+		// Force update node chain if query reverse
+		/******************************************************/
+		if (reverse) {
+
+			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
+
+				int update = execute(node);
+				if (update > 0) {
+					modelCounter.incQueryMatchCount();
+				}
+
+				return false;
+			});
+		}
 
 		LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
 		IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
@@ -929,9 +944,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Update all current node chain
 		/******************************************************/
-		if (!completed) {
-
-			int oldQueryMatchCount = modelCounter.getQueryMatchCount();
+		if (!completed && !reverse) {
 
 			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
@@ -942,12 +955,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				return false;
 			});
-
-			// clear old match entries if there is any updated
-			if (modelCounter.getQueryMatchCount() > oldQueryMatchCount && reverse) {
-				it = builder.makeIterator(matchedNodeQueue);
-				matchedEntrys.clear();
-			}
 
 			while (it.hasNext()) {
 

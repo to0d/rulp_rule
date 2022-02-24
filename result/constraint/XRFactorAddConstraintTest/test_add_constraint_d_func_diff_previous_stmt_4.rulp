@@ -1,0 +1,24 @@
+(load "constraint-diff-stmt")
+;=>
+
+(new model m)
+;=>
+
+(add-constraint m n1:'(?a ?b ?c ?d) 
+    (lambda (?s)(return (diff-stmt (get-named-rete-node m "n1") ?s '(1 2) '(3)))))
+;=>
+
+(try-add-stmt m n1:'("d1" "x1" "k1" "v1"))
+(try-add-stmt m n1:'("d1" "x1" "k2" "v2"))
+(try-add-stmt m n1:'("d2" "x1" "k1" "v3"))
+;=>
+
+(list-stmt m from n1:'(?d "x1" "k1" ?v) reverse limit 1)
+;=>
+
+(try-add-stmt m n1:'("d3" "x1" "k1" "v3"))
+;=>
+
+(list-stmt m)
+;=>
+

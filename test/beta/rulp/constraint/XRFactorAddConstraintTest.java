@@ -207,4 +207,12 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_add_constraint_d_func_diff_previous_stmt_4() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
