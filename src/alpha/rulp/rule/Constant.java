@@ -40,7 +40,7 @@ public interface Constant {
 	String A_Halting = "halting";
 
 	String A_Limit = "limit";
-	
+
 	String A_M_TRACE = "?model-trace";
 
 	String A_Max = "max";
@@ -168,7 +168,7 @@ public interface Constant {
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
-	
+
 	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
 
 	String F_RETE_NODE_OF = "rete-node-of";

@@ -1,8 +1,7 @@
-package alpha.rulp.error;
+package alpha.rulp.ximpl.constraint;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class RConstraintConflict extends RException {

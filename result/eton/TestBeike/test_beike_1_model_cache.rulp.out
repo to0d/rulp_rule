@@ -1,0 +1,35 @@
+(load "beike.rulp")
+;=>nil
+
+(load "eton.rulp")
+;=>nil
+
+(init_eton_model "")
+;=>nil
+
+(defun down_html (?url) (print ?url))
+(add_task_function TASK_DOWN_HTML down_html)
+;=>down_html nil
+
+(set-model-cache-path (eton_model) "C:\data\\rs\\eton\\et-down-beike")
+;=>nan
+
+(size-of (eton_model))
+;=>3
+
+;(query-stmt (eton_model) '(?x ?y ?z) from beike_has_house:'(?x ?y ?z))
+(list-stmt (eton_model) from beike_has_house:'(?x ?y ?z) limit 1)
+;=>'(beike_has_house:'("2022-02-06" "龙山华府" "https://bj.ke.com/ershoufang/101114089451.html"))
+
+(size-of (eton_model))
+;=>123
+
+(add_daily_task TASK_DOWN_HTML "https://bj.ke.com/ershoufang/rs龙山华府/")
+;=>nil
+
+(process-eton)
+;=>2
+;out:
+https://bj.ke.com/ershoufang/rs龙山华府/https://bj.ke.com/ershoufang/rs金隅万科城/
+;eof
+

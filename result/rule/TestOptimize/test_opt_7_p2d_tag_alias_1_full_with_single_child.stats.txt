@@ -2747,7 +2747,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         3273            0         3273
          int:            2            0            2
-      string:          134            0          134
+      string:          135            0          135
         list:          753            5          748
         expr:         1354           62         1292
          var:          224          192           32
@@ -2845,7 +2845,7 @@ Var                  : Value
 ?load-class          : '()
 ?load-jar            : '()
 ?load-script         : '("result/p2d.rulp")
-?load-system         : '()
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

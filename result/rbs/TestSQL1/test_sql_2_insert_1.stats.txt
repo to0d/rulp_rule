@@ -442,7 +442,7 @@ Object create count:
         atom:         1965            0         1965
          int:            1            0            1
        float:            1            0            1
-      string:          109            0          109
+      string:          110            0          110
         list:          182           10          172
         expr:          909           48          861
        array:            1            0            1
@@ -492,7 +492,7 @@ Var                  : Value
 ?load-class          : '()
 ?load-jar            : '()
 ?load-script         : '()
-?load-system         : '()
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

@@ -546,7 +546,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         2195            0         2195
          int:           11            0           11
-      string:          108            0          108
+      string:          109            0          109
         list:          125            9          116
         expr:         1060           27         1033
          var:          113           79           34
@@ -662,7 +662,7 @@ Var                  : Value
 ?load-class          : '()
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\rs\\load\\eton.rulp")
-?load-system         : '("string" "tool")
+?load-system         : '("rule" "string" "tool")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

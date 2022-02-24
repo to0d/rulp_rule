@@ -166,7 +166,7 @@ Object create count:
          int:            1            0            1
        float:            2            0            2
       double:            2            0            2
-      string:           54            0           54
+      string:           55            0           55
         list:           66            1           65
         expr:          667            0          667
          var:           17            0           17
@@ -211,7 +211,7 @@ Var                  : Value
 ?load-class          : '()
 ?load-jar            : '()
 ?load-script         : '()
-?load-system         : '()
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

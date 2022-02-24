@@ -244,7 +244,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1656            0         1656
          int:            1            0            1
-      string:           54            0           54
+      string:           55            0           55
         list:           71            3           68
         expr:          675            0          675
          var:           17            0           17
@@ -289,7 +289,7 @@ Var                  : Value
 ?load-class          : '()
 ?load-jar            : '()
 ?load-script         : '()
-?load-system         : '()
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

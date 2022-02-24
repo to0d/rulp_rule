@@ -1,6 +1,6 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.rule.Constant.A_MODEL;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_ADD_LAZY_STMT;
 import static alpha.rulp.rule.Constant.F_ADD_NODE;
@@ -59,7 +59,9 @@ import static alpha.rulp.ximpl.search.Constant.MTS_NS;
 
 import java.io.IOException;
 
+import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRFrame;
+import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRObjectLoader;
@@ -108,6 +110,10 @@ public class RRuleLoader implements IRObjectLoader {
 
 	@Override
 	public void load(IRInterpreter interpreter, IRFrame frame) throws RException, IOException {
+
+		if (RuntimeUtil.lookupFrameEntry(frame, F_ADD_STMT) != null) {
+			return;
+		}
 
 		// RunStatus
 		RulpUtil.addFrameObject(frame, O_Completed);
@@ -179,7 +185,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorDumpStatus(F_DUMP_STATUS));
 
 		// Load rule library
-		LoadUtil.loadRulpFromJar(interpreter, frame, "alpha/resource/rule.rulp", "utf-8");
+		LoadUtil.loadSystemRulp(interpreter, frame, "rule");
 
 		// RBS init
 		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), RBS_NS, (inp, _frame) -> {
@@ -193,7 +199,6 @@ public class RRuleLoader implements IRObjectLoader {
 
 //		// Native Class Initialization
 //		SearchFactory.initScopeClass(frame);
-
 	}
 
 }

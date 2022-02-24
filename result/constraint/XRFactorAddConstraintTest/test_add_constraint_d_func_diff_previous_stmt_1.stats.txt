@@ -204,7 +204,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1934            0         1934
          int:            1            0            1
-      string:          100            0          100
+      string:          101            0          101
         list:          131           23          108
         expr:          986          145          841
        array:           13           13            0
@@ -271,7 +271,7 @@ Var                  : Value
 ?load-class          : '()
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\rs\\load\\constraint-diff-stmt.rulp")
-?load-system         : '("string")
+?load-system         : '("rule" "string")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
