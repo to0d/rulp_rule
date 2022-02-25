@@ -64,6 +64,7 @@ import alpha.rulp.utils.OptimizeUtil.RefArray;
 import alpha.rulp.utils.OptimizeUtil.RuleCounter;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.IRConstraint;
 import alpha.rulp.ximpl.entry.IFixEntry;
 import alpha.rulp.ximpl.entry.IFixEntryArray;
@@ -557,7 +558,7 @@ public class StatsUtil {
 
 		int loadCount = 0;
 		for (IRCacheWorker cache : caches) {
-			if (cache.isLoaded()) {
+			if (cache.getStatus() == CacheStatus.LOADED) {
 				loadCount++;
 			}
 		}

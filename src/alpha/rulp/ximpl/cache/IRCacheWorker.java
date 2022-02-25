@@ -4,6 +4,10 @@ import alpha.rulp.rule.IRReteNode;
 
 public interface IRCacheWorker {
 
+	public enum CacheStatus {
+		LOADED, LOADING, UNLOAD
+	}
+
 	public int getLastEntryId();
 
 	public int getLoadCount();
@@ -14,10 +18,10 @@ public interface IRCacheWorker {
 
 	public int getSaveCount();
 
+	public CacheStatus getStatus();
+
 	public int getStmtCount();
 
 	public int getWriteCount();
-
-	public boolean isLoaded();
 
 }

@@ -57,6 +57,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
@@ -100,8 +101,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	class XRCacheWorker implements IRCacheWorker {
-
-		private boolean bLoad = false;
 
 		private int cacheLastEntryId = 0;
 
@@ -167,16 +166,17 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return writeLines;
 		}
 
-		@Override
-		public boolean isLoaded() {
-			return bLoad;
-		}
-
 		public int load() throws RException {
 
 			if (loader == null) {
 				return 0;
 			}
+
+			if (status == CacheStatus.LOADING) {
+				throw new RException("invalid status: " + status);
+			}
+
+			this.status = CacheStatus.LOADING;
 
 			_fireLoadNodeAction(node);
 
@@ -215,12 +215,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			this.loadCount++;
-			this.bLoad = true;
+			this.status = CacheStatus.LOADED;
 
 			return cacheStmtCount;
 		}
 
 		public int save() throws RException, IOException {
+
+			if (status == CacheStatus.LOADING) {
+				throw new RException("invalid status: " + status);
+			}
 
 			IREntryQueue rootQueue = node.getEntryQueue();
 
@@ -243,7 +247,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			int stmtSize = stmtList.size();
 
 			// not update
-			if (this.isLoaded()) {
+			if (status == CacheStatus.LOADED) {
 
 				if (stmtSize == cacheStmtCount && cacheLastEntryId == lastEntryId) {
 					return 0;
@@ -264,7 +268,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.cacheStmtCount = rootQueue.size();
 			this.saveCount++;
 			this.writeLines += saveLineCount;
-			this.bLoad = true;
+			this.status = CacheStatus.LOADED;
 
 			return saveLineCount;
 		}
@@ -275,6 +279,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		public void setSaver(IRStmtSaver saver) {
 			this.saver = saver;
+		}
+
+		private CacheStatus status = CacheStatus.UNLOAD;
+
+		@Override
+		public CacheStatus getStatus() {
+			return status;
 		}
 
 	}
@@ -555,7 +566,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		XRCacheWorker cache = (XRCacheWorker) node.getCacheWorker();
-		if (cache == null || cache.isLoaded()) {
+		if (cache == null) {
+			return;
+		}
+
+		if (cache.getStatus() == CacheStatus.LOADING || cache.getStatus() == CacheStatus.LOADED) {
 			return;
 		}
 
@@ -987,11 +1002,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Update cache
 		/******************************************************/
 		if (isCacheEnable()) {
-			
+
 			for (IRReteNode node : getNodeGraph().listSourceNodes(queryNode)) {
 				_checkCache(node);
 			}
-			
+
 			_checkCache(queryNode);
 		}
 
@@ -1576,6 +1591,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> " + node.toString());
 		}
 
+		_checkCache(node);
+
 		int oldQueryMatchCount = modelCounter.getQueryMatchCount();
 
 		modelCounter.incNodeExecCount();
@@ -1794,6 +1811,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (filter == null) {
 
 			for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
+
+				_checkCache(rootNode);
 				IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
 				int totalCount = rootEntryCounter.getEntryTotalCount();
 				int nullCount = rootEntryCounter.getEntryNullCount();

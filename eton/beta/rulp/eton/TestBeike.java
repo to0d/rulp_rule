@@ -22,4 +22,10 @@ public class TestBeike extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_beike_3() {
+
+		_setup();
+		_run_script();
+	}
 }

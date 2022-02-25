@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="benchmark"/>
 	<classpathentry kind="src" path="leetcode"/>
+	<classpathentry kind="src" path="eton"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>

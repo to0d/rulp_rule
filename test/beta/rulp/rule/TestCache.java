@@ -20,6 +20,16 @@ import alpha.rulp.ximpl.cache.IRStmtLoader;
 public class TestCache extends RuleTestBase {
 
 	@Test
+	void test_cache_has_stmt_1() {
+
+		_setup();
+		_test("(new model m)");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_has_stmt_1\")");	
+		_test("(has-stmt m n2:'(x y ?z))", "true");
+		_statsInfo("m");
+	}
+
+	@Test
 	void test_cache_model_1a() {
 
 		_setup();

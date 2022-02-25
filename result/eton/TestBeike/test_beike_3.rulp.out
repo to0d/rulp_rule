@@ -1,0 +1,38 @@
+(load "eton.rulp")
+;=>nil
+
+(load "constraint-diff-stmt")
+;=>nil
+
+(init_eton_model "")
+;=>nil
+
+(defconst TASK_DOWN_HTML        "_down_html_")
+
+(defun init_beike_model ((?m model))
+
+    (set-model-cache-path ?m "C:\data\\rs\\eton\\et-down-beike")
+    (set-default-model ?m)
+
+    (add-constraint ?m beike_house_count:'(?day ?area ?count) 
+        (lambda (?s)(return (diff-stmt (get-named-rete-node ?m "beike_house_count") ?s '(1 2) '()))))
+    
+    (add-constraint ?m beike_has_house:'(?day ?area ?house)
+        (lambda (?s)(return (diff-stmt (get-named-rete-node ?m "beike_has_house") ?s '(1 2) '()))))
+    
+    (add-constraint ?m beike_house_property:'(?day ?house ?prop ?value) 
+        (lambda (?s)(return (diff-stmt (get-named-rete-node ?m "beike_house_property") ?s '(1 2) '(3)))))
+)
+
+
+(defun down_html (?url) (print ?url))
+
+(add_task_function TASK_DOWN_HTML down_html)
+;=>TASK_DOWN_HTML init_beike_model down_html nil
+
+(init_beike_model (eton_model))
+;=>nil
+
+(query-stmt (eton_model) ?url from beike_has_house:'(?x ?y ?url) limit 1)
+;=>'("https://bj.ke.com/ershoufang/101114089451.html")
+
