@@ -371,7 +371,7 @@ Ref Bit Map: total=7, max-id=7, create=7, removed=0, group-size=10, group-count=
 Child Count:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
        5: entry=task_func:'("task1" fun1), status=define
-       3: entry=eton_working_task1:'("2022-02-25" "task1" "value0"), status=reason
+       3: entry=eton_working_task1:'("2022-02-26" "task1" "value0"), status=reason
        1: entry=eton_daily_task1:'("task1" "value0"), status=define
 --------------------------------------------------------------------------------------------------------------------------------------------------------
            Entry[2]  Entry[3]  Entry[4]
@@ -400,18 +400,18 @@ Node<R1> frame:id=7, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 81       7        5    instance   model@em            
-?task                : 82       7        1    var        task1 : type=string 
-?arg0                : 83       7        1    var        value0 : type=string
+default_model        : 82       7        5    instance   model@em            
+?task                : 83       7        1    var        task1 : type=string 
+?arg0                : 84       7        1    var        value0 : type=string
 ==========================================================================================================================
 
 Node<E0005> frame:id=11, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 86       11       1    var        2022-02-25 : type=string
-?3                   : 87       11       1    var        2022-02-25 : type=string
-?rv                  : 90       11       1    var        false : type=bool   
+?0                   : 87       11       1    var        2022-02-26 : type=string
+?3                   : 88       11       1    var        2022-02-26 : type=string
+?rv                  : 91       11       1    var        false : type=bool   
 ==========================================================================================================================
 
 node update info: model-exec-count=14, row=8, column=15(1), value-max=1, value-unit=1^x
@@ -456,17 +456,17 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      426
+    factor:      427
       func:       23
      macro:       10
 ==========================================================================================================================
 
-Callable stats info: callId=296, row=50, column=38(8), value-max=17, value-unit=2^x
+Callable stats info: callId=296, row=50, column=38(8), value-max=18, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444596 max=137, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444596 max=138, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     70    0 defun                                                 144444    4446 
+    root   factor     71    0 defun                                                 144444    4446 
     root   factor     34    0 defconst                                                   34444     
     root   factor     18    0 defvar                                                4           143
     root   factor     17    0 return                                                             51
@@ -521,27 +521,27 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2195            0         2195
+        atom:         2198            0         2198
          int:            9            0            9
       string:          112            0          112
         list:          110            6          104
-        expr:         1050           22         1028
+        expr:         1052           22         1030
          var:           85           59           26
     constant:           34            0           34
-        func:           84            0           84
+        func:           85            0           85
     template:            1            0            1
        macro:            7            0            7
     instance:            2            0            2
       member:           17            0           17
        frame:           45           42            3
  interpreter:            1            0
-  frameEntry:          428            0
+  frameEntry:          429            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=3
 
-id=2, name=main, lvl=2, ref=2/3, entry=30, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=31, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -580,9 +580,10 @@ add_daily_task       : 25       2        2    func       (add_daily_task string 
 add_working_task     : 26       2        2    func       (add_working_task string string) : frame=frame@main
 add_task_function    : 27       2        2    func       (add_task_function string func) : frame=frame@main
 process-eton         : 28       2        2    func       (process-eton) : frame=frame@main
-_eton_priority_      : 31       2        1    macro      _eton_priority_     
-fun1                 : 73       2        2    func       (fun1 nil) : frame=frame@main
-?rv                  : 78       2        1    var        model@em : type=instance
+clean-eton           : 29       2        2    func       (clean-eton) : frame=frame@main
+_eton_priority_      : 32       2        1    macro      _eton_priority_     
+fun1                 : 74       2        2    func       (fun1 nil) : frame=frame@main
+?rv                  : 79       2        1    var        model@em : type=instance
 ==========================================================================================================================
 
 
@@ -597,18 +598,18 @@ id=7, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 81       7        5    instance   model@em            
-?task                : 82       7        1    var        task1 : type=string 
-?arg0                : 83       7        1    var        value0 : type=string
+default_model        : 82       7        5    instance   model@em            
+?task                : 83       7        1    var        task1 : type=string 
+?arg0                : 84       7        1    var        value0 : type=string
 ==========================================================================================================================
 
 id=11, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 86       11       1    var        2022-02-25 : type=string
-?3                   : 87       11       1    var        2022-02-25 : type=string
-?rv                  : 90       11       1    var        false : type=bool   
+?0                   : 87       11       1    var        2022-02-26 : type=string
+?3                   : 88       11       1    var        2022-02-26 : type=string
+?rv                  : 91       11       1    var        false : type=bool   
 ==========================================================================================================================
 
 Root var list: total=7

@@ -82,6 +82,7 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 			}
 
 			stmtListener.doAction(stmt);
+
 		}
 
 	}
