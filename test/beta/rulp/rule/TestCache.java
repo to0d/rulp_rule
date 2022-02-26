@@ -1,5 +1,6 @@
 package beta.rulp.rule;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -13,8 +14,10 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
+import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.StringUtil;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 
 public class TestCache extends RuleTestBase {
@@ -24,7 +27,7 @@ public class TestCache extends RuleTestBase {
 
 		_setup();
 		_test("(new model m)");
-		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_has_stmt_1\")");	
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_has_stmt_1\")");
 		_test("(has-stmt m n2:'(x y ?z))", "true");
 		_statsInfo("m");
 	}
@@ -154,6 +157,49 @@ public class TestCache extends RuleTestBase {
 		_save_model_cache("m");
 
 		_statsInfo("m");
+	}
+
+	@Test
+	void test_cache_model_7_pre_auto_encode() throws IOException {
+
+		_setup();
+
+		// Copy folder
+		String testFolder = "result/rule/TestCache/test_7";
+		FileUtil.deleteFile(new File(testFolder));
+		new File(testFolder).mkdirs();
+		FileUtil.copyFolder(new File("result/rule/TestCache/test_cache_model_7_pre"), new File(testFolder));
+
+		_test("(new model m)");
+		_test("(set-model-cache-path m \"" + testFolder + "\")");
+		_test("(list-stmt m from n1:'(?x ?y ?z))",
+				"'(n1:'(\"2022-02-06\" \"KKK\" https://bj.ke.com/ershoufang/101113237601.html))");
+		_test("(save-model m)", "2");
+
+		try {
+
+			assertEquals(
+					";@: '(pre \"BK2##\" \"https://bj.ke.com/ershoufang/\")\n"
+							+ "\"2022-02-06\" \"KKK\" BK2##101113237601.html",
+					StringUtil.toOneLine(FileUtil.openTxtFile(testFolder + "/n1.3.mc", "utf-8")));
+		} catch (RException | IOException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+
+		FileUtil.deleteFile(new File(testFolder));
+	}
+
+	@Test
+	void test_cache_model_8_pre() throws IOException {
+
+		_setup();
+
+		_test("(new model m)");
+		_test("(set-model-cache-path m \"result/rule/TestCache/test_cache_model_8_pre\")");
+		_test("(list-stmt m from n1:'(?x ?y ?z))",
+				"'(n1:'(\"2022-02-06\" \"KKK\" https://bj.ke.com/ershoufang/101113237601.html))");
+
 	}
 
 	@Test

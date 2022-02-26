@@ -247,7 +247,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			int stmtSize = stmtList.size();
 
 			// not update
-			if (status == CacheStatus.LOADED) {
+			if (status == CacheStatus.LOADED && !saver.needSave()) {
 
 				if (stmtSize == cacheStmtCount && cacheLastEntryId == lastEntryId) {
 					return 0;

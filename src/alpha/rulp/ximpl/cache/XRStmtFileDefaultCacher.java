@@ -3,7 +3,11 @@ package alpha.rulp.ximpl.cache;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -53,6 +57,78 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 		return readLines;
 	}
 
+	static final String COMMNET_CMD_HEAD = ";@:";
+
+	static final String CMD_PRE = "pre";
+
+	static final String PRE_END = "##";
+
+	private Map<String, String> preMap = new HashMap<>();
+
+	private boolean lineNeedUpdate = false;
+
+	private void _set_pre(String pre, String value) throws RException {
+
+		if (!pre.endsWith(PRE_END)) {
+			throw new RException(String.format("invalid pre: %s", pre));
+		}
+
+		String oldVal = preMap.get(pre);
+
+		if (oldVal != null) {
+			if (!oldVal.equals(value)) {
+				throw new RException(String.format("duplicate pre<%s>: old=%s, new=%s", pre, oldVal, value));
+			}
+
+		} else {
+			preMap.put(pre, value);
+		}
+	}
+
+	private String _loadLine(String line) {
+
+		// no pre
+		if (preMap.isEmpty()) {
+			return line;
+		}
+
+		for (Entry<String, String> e : preMap.entrySet()) {
+
+			String pre = e.getKey();
+			String value = e.getValue();
+
+			if (!lineNeedUpdate && line.indexOf(value) != -1) {
+				lineNeedUpdate = true;
+			}
+
+			while (line.indexOf(pre) != -1) {
+				line = line.replace(pre, value);
+			}
+		}
+
+		return line;
+	}
+
+	private String _saveLine(String line) {
+
+		// no pre
+		if (preMap.isEmpty()) {
+			return line;
+		}
+
+		for (Entry<String, String> e : preMap.entrySet()) {
+
+			String pre = e.getKey();
+			String value = e.getValue();
+
+			while (line.indexOf(value) != -1) {
+				line = line.replace(value, pre);
+			}
+		}
+
+		return line;
+	}
+
 	@Override
 	public void load(IRReteNode node, IRListener1<IRList> stmtListener) throws RException, IOException {
 
@@ -69,22 +145,47 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 
 			++readLines;
 
-			List<IRObject> list = parser.parse(line);
-			if (list.size() != stmtLen) {
-				throw new RException(String.format("Invalid stmt for node<%s:%d>: %s", stmtName, stmtLen, list));
-			}
+			// ;@:
+			if (line.startsWith(COMMNET_CMD_HEAD)) {
 
-			IRList stmt;
-			if (stmtName == null) {
-				stmt = RulpFactory.createList(list);
+				String line2 = line.substring(COMMNET_CMD_HEAD.length());
+				NEXT: for (IRObject obj : parser.parse(line2)) {
+
+					IRList cmd = RulpUtil.asList(obj);
+					if (cmd.size() == 3) {
+						switch (cmd.get(0).asString()) {
+						case CMD_PRE:
+							_set_pre(RulpUtil.asString(cmd.get(1)).asString(),
+									RulpUtil.asString(cmd.get(2)).asString());
+							continue NEXT;
+						}
+					}
+
+					throw new RException("unknown cmd: " + cmd);
+				}
+
 			} else {
-				stmt = RulpFactory.createNamedList(list, stmtName);
+
+				List<IRObject> list = parser.parse(_loadLine(line));
+
+				if (list.size() == 0) {
+					continue;
+				}
+
+				if (list.size() != stmtLen) {
+					throw new RException(String.format("Invalid stmt for node<%s:%d>: %s", stmtName, stmtLen, list));
+				}
+
+				IRList stmt;
+				if (stmtName == null) {
+					stmt = RulpFactory.createList(list);
+				} else {
+					stmt = RulpFactory.createNamedList(list, stmtName);
+				}
+
+				stmtListener.doAction(stmt);
 			}
-
-			stmtListener.doAction(stmt);
-
 		}
-
 	}
 
 	@Override
@@ -101,10 +202,19 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 			return 0;
 		}
 
-		// save
 		ArrayList<String> outLines = new ArrayList<>();
-		int stmtCount = 0;
+		// save header
+		if (!preMap.isEmpty()) {
 
+			List<String> preList = new ArrayList<>(preMap.keySet());
+			Collections.sort(preList);
+
+			for (String pre : preList) {
+				outLines.add(String.format("%s '(pre \"%s\" \"%s\")", COMMNET_CMD_HEAD, pre, preMap.get(pre)));
+			}
+		}
+
+		// save stmts
 		for (IRList stmt : stmtList) {
 
 			if (stmt == null) {
@@ -115,14 +225,18 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 				throw new RException(String.format("Invalid stmt for node<%s>: %s", "" + node, "" + stmt));
 			}
 
-			outLines.add(RulpUtil.toString(stmt.iterator()));
-			++stmtCount;
+			outLines.add(_saveLine(RulpUtil.toString(stmt.iterator())));
 		}
 
 		new File(cachePath).getParentFile().mkdirs();
-
 		FileUtil.saveTxtFile(cachePath, outLines, "utf-8");
-		return stmtCount;
+		lineNeedUpdate = false;
+		return outLines.size();
+	}
+
+	@Override
+	public boolean needSave() {
+		return lineNeedUpdate;
 	}
 
 }
