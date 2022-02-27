@@ -9,6 +9,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
+import alpha.rulp.rule.RCountType;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 
@@ -49,7 +50,11 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException;
 
-	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;;
+	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
+
+	public int getGcRemoveCount();;
+
+	public long getGcStatusCount(RCountType countType) throws RException;
 
 	public int getMaxRootStmtLen();
 

@@ -77,6 +77,7 @@ import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRBetaNode;
+import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XRNodeRule0;
@@ -102,10 +103,10 @@ public class StatsUtil {
 			RULE, WORK, CONST };
 
 	static final String SEP_LINE1 = "=========================================================================="
-			+ "==============================================================================\n";
+			+ "=======================================================================================\n";
 
 	static final String SEP_LINE2 = "--------------------------------------------------------------------------"
-			+ "------------------------------------------------------------------------------\n";
+			+ "---------------------------------------------------------------------------------------\n";
 
 	private static List<String> _formatTableResult(List<List<String>> result, List<Integer> maxColumnLen) {
 
@@ -1262,7 +1263,7 @@ public class StatsUtil {
 		sb.append("\nnode info:\n");
 		sb.append(SEP_LINE1);
 		sb.append(
-				String.format("%8s  %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %11s\n",
+				String.format("%-9s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %11s\n",
 						"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null", "Bind",
 						"Match", "Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "PVisit"));
 		sb.append(SEP_LINE2);
@@ -1296,7 +1297,7 @@ public class StatsUtil {
 			}
 
 			sb.append(String.format(
-					"%8s: %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
+					"%-9s %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(FIXED_),
 					entryCounter.getEntryCount(DEFINE), entryCounter.getEntryCount(REASON),
 					entryCounter.getEntryCount(ASSUME), entryCounter.getEntryCount(null),
@@ -1391,11 +1392,11 @@ public class StatsUtil {
 		sb.append("node info3:\n");
 		sb.append(SEP_LINE1);
 
-		sb.append(String.format("%8s  %s\n", "NODE[n]", "UniqName"));
+		sb.append(String.format("%-9s %s\n", "NODE[n]", "UniqName"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : nodes) {
-			sb.append(String.format("%8s  %s", node.getNodeName() + "[" + node.getEntryLength() + "]",
+			sb.append(String.format("%-9s %s", node.getNodeName() + "[" + node.getEntryLength() + "]",
 					node.getUniqName()));
 			sb.append("\n");
 		}
@@ -1427,7 +1428,7 @@ public class StatsUtil {
 
 		sb.append("node info4: constraint\n");
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%8s  %5s %5s  %s\n", "NODE[n]", "Match", "Fail", "Constraint"));
+		sb.append(String.format("%-9s %5s %5s  %s\n", "NODE[n]", "Match", "Fail", "Constraint"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : constraintNodeList) {
@@ -1443,7 +1444,7 @@ public class StatsUtil {
 				consList.addAll(RuleUtil.asBetaNode(node).getConstraint2List());
 			}
 
-			sb.append(String.format("%8s  %5d %5d\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+			sb.append(String.format("%-9s %5d %5d\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
 					node.getNodeMatchCount(), node.getAddEntryFailCount()));
 
 			for (int i = 0; i < consList.size(); ++i) {
@@ -1526,7 +1527,7 @@ public class StatsUtil {
 			}
 		}
 
-		sb.append(String.format("%8s %-5s %-5s %-6s %-" + maxNameLen + "s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n",
+		sb.append(String.format("%-9s %-5s %-5s %-6s %-" + maxNameLen + "s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n",
 				"NODE[n]", "Type", "Class", "Queue", "Named", "Parent", "Child", "Rule", "Inhe", "Join", "C1", "C2",
 				"Pri", "VarEntry"));
 		sb.append(SEP_LINE2);
@@ -1554,7 +1555,7 @@ public class StatsUtil {
 				className = className.substring(6);
 			}
 
-			sb.append(String.format("%8s %-5s %-5s %-6s %-" + maxNameLen + "s %6d %5d %4d %4d %4d %3d %3d %3d %s",
+			sb.append(String.format("%-9s %-5s %-5s %-6s %-" + maxNameLen + "s %6d %5d %4d %4d %4d %3d %3d %3d %s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(), className,
 					"" + node.getEntryQueue().getQueueType(), node.getNamedName() == null ? "" : node.getNamedName(),
 					node.getParentCount(), node.getChildNodes().size(),
@@ -1594,7 +1595,7 @@ public class StatsUtil {
 		});
 
 		for (NodeCount count : nodeCountList) {
-			sb.append(String.format("%4s[%d]: %10d\n", count.node.getNodeName(), count.node.getEntryLength(),
+			sb.append(String.format("%-10s  %10d\n", count.node.getNodeName() + "[" + count.node.getEntryLength() + "]",
 					count.count));
 		}
 
@@ -1684,6 +1685,7 @@ public class StatsUtil {
 			throws RException {
 
 		IRModel model = nodeMatrix.getModel();
+		IRNodeGraph graph = model.getNodeGraph();
 
 		IRReteNodeCounter reteCounter = RuleFactory.createReteCounter(nodeMatrix);
 		ArrayList<IRReteNode> nodes = new ArrayList<>(nodeMatrix.getAllNodes());
@@ -1716,7 +1718,7 @@ public class StatsUtil {
 					continue;
 				}
 
-				sb.append(String.format("%-7s", "" + reteType));
+				sb.append(String.format("%-8s", "" + reteType));
 				for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
 					sb.append(String.format(" %" + _getCountTypeLength(countType) + "d",
 							reteCounter.getCount(reteType, countType)));
@@ -1725,9 +1727,16 @@ public class StatsUtil {
 				sb.append("\n");
 			}
 
-//			if (!isRule) {
-//
-//			}
+			if (!isRule && graph.getGcRemoveCount() > 0) {
+
+				sb.append(String.format("%-8s", "GC(" + graph.getGcRemoveCount() + ")"));
+				for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
+					sb.append(String.format(" %" + _getCountTypeLength(countType) + "d",
+							graph.getGcStatusCount(countType)));
+				}
+
+				sb.append("\n");
+			}
 
 			sb.append(SEP_LINE1);
 		}
@@ -1771,9 +1780,9 @@ public class StatsUtil {
 				String nodeName = String.format("%s(%s)", node.getNodeName(), node.getReteType());
 
 				if (node.getReteType() != RReteType.RULE) {
-					sb.append(String.format("%12s: %12s  %s\n", nodeName, "", node.getUniqName()));
+					sb.append(String.format("%-14s: %14s  %s\n", nodeName, "", node.getUniqName()));
 				} else {
-					sb.append(String.format("%12s: %12s  %s ==> %s\n", nodeName, "",
+					sb.append(String.format("%-14s: %14s  %s ==> %s\n", nodeName, "",
 							RulpUtil.toString(((XRNodeRule0) node).getMatchStmtList()),
 							RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
 				}
@@ -1796,9 +1805,9 @@ public class StatsUtil {
 					String srcName = String.format("%s(%s)", sourceNode.getNodeName(), sourceNode.getReteType());
 
 					if (sourceNode.getReteType() != RReteType.RULE) {
-						sb.append(String.format("%12d: %-12s  %s\n", nodeIndex++, srcName, sourceNode.getUniqName()));
+						sb.append(String.format("%14d: %-14s  %s\n", nodeIndex++, srcName, sourceNode.getUniqName()));
 					} else {
-						sb.append(String.format("%12d: %-12s\n", nodeIndex++, srcName));
+						sb.append(String.format("%14d: %-14s\n", nodeIndex++, srcName));
 					}
 
 				}
@@ -1898,14 +1907,15 @@ public class StatsUtil {
 		sb.append(String.format("node update info: model-exec-count=%d, %s\n", model.getCounter().getNodeExecuteCount(),
 				counterLines.get(execLineIndex++)));
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%8s  %4s %4s %4s %s\n", "NODE[n]", "Update", "Exec", "Idle",
+		sb.append(String.format("%-9s %4s %4s %4s %s\n", "NODE[n]", "Update", "Exec", "Idle",
 				counterLines.get(execLineIndex++)));
 		sb.append(SEP_LINE2);
 
 		for (int i = 0; i < nodeList.size(); ++i) {
 			IRReteNode node = nodeList.get(i);
-			sb.append(String.format("%8s: %4d %4d %4d %s\n", node.getNodeName(), counterList.get(i).getTotalCount(),
-					node.getNodeExecCount(), node.getNodeIdleCount(), counterLines.get(execLineIndex++)));
+			sb.append(String.format("%-9s %4d %4d %4d %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					counterList.get(i).getTotalCount(), node.getNodeExecCount(), node.getNodeIdleCount(),
+					counterLines.get(execLineIndex++)));
 		}
 		sb.append(SEP_LINE1);
 		sb.append("\n");
