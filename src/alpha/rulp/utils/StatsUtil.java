@@ -1262,11 +1262,13 @@ public class StatsUtil {
 
 		sb.append("\nnode info:\n");
 		sb.append(SEP_LINE1);
-		sb.append(
-				String.format("%-9s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %11s\n",
-						"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null", "Bind",
-						"Match", "Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "PVisit"));
+		sb.append(String.format(
+				"%-9s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %5s %8s %11s\n",
+				"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null", "Bind", "Match",
+				"Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "Use", "Stage", "PVisit"));
 		sb.append(SEP_LINE2);
+
+		IRNodeGraph graph = model.getNodeGraph();
 
 		Map<IRReteNode, Integer> wasteMap = getWasteMap(nodes);
 		for (IRReteNode node : nodes) {
@@ -1297,18 +1299,17 @@ public class StatsUtil {
 			}
 
 			sb.append(String.format(
-					"%-9s %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %11s",
+					"%-9s %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %5d %8s %11s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(FIXED_),
 					entryCounter.getEntryCount(DEFINE), entryCounter.getEntryCount(REASON),
 					entryCounter.getEntryCount(ASSUME), entryCounter.getEntryCount(null),
 					entryCounter.getEntryCount(REMOVE), entryCounter.getEntryCount(TEMP__),
 					entryCounter.getEntryNullCount(),
-					"" + model.getNodeGraph().getBindFromNodes(node).size() + "/"
-							+ model.getNodeGraph().getBindToNodes(node).size(),
+					"" + graph.getBindFromNodes(node).size() + "/" + graph.getBindToNodes(node).size(),
 					node.getNodeMatchCount(), entryQueue.getUpdateCount(), entryQueue.getRedundantCount(),
 					node.getNodeExecCount(), node.getNodeIdleCount(), waste, node.getNodeFailedCount(),
-					node.getReteLevel(), node.getPriority(), model.getNodeGraph().listSourceNodes(node).size(),
-					parentVisitIndex));
+					node.getReteLevel(), node.getPriority(), graph.listSourceNodes(node).size(),
+					graph.getUseCount(node), "" + node.getReteStage(), parentVisitIndex));
 
 			sb.append("\n");
 		}

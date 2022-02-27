@@ -2032,6 +2032,13 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
+	public int getUseCount(IRReteNode node) {
+
+		return ((XGraphInfo) node.getGraphInfo()).getUseCount();
+
+	}
+
+	@Override
 	public List<AbsReteNode> listNodes(RReteType reteType) {
 		return this.nodeListArray[reteType.getIndex()].nodes;
 	}

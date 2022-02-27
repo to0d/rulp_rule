@@ -52,7 +52,9 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
 
-	public int getGcRemoveCount();;
+	public int getGcRemoveCount();
+
+	public int getUseCount(IRReteNode node);
 
 	public long getGcStatusCount(RCountType countType) throws RException;
 
