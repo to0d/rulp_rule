@@ -974,58 +974,58 @@ public class ReteUtil {
 
 		switch (type) {
 		case ALPH0:
-			return String.format("A0%03d", nodeId);
+			return String.format("A0%04d", nodeId);
 
 		case ALPH1:
-			return String.format("A1%03d", nodeId);
+			return String.format("A1%04d", nodeId);
 
 		case BETA0:
-			return String.format("B0%03d", nodeId);
+			return String.format("B0%04d", nodeId);
 
 		case BETA1:
-			return String.format("B1%03d", nodeId);
+			return String.format("B1%04d", nodeId);
 
 		case BETA2:
-			return String.format("B2%03d", nodeId);
+			return String.format("B2%04d", nodeId);
 
 		case BETA3:
-			return String.format("B3%03d", nodeId);
+			return String.format("B3%04d", nodeId);
 
 		case EXPR0:
-			return String.format("E0%03d", nodeId);
+			return String.format("E0%04d", nodeId);
 
 		case EXPR1:
-			return String.format("E1%03d", nodeId);
+			return String.format("E1%04d", nodeId);
 
 		case EXPR2:
-			return String.format("E2%03d", nodeId);
+			return String.format("E2%04d", nodeId);
 
 		case EXPR3:
-			return String.format("E3%03d", nodeId);
+			return String.format("E3%04d", nodeId);
 
 		case EXPR4:
-			return String.format("E4%03d", nodeId);
+			return String.format("E4%04d", nodeId);
 
 		case ROOT0:
-			return String.format("R0%03d", nodeId);
+			return String.format("R0%04d", nodeId);
 
 		case NAME0:
-			return String.format("N0%03d", nodeId);
+			return String.format("N0%04d", nodeId);
 
 		case VAR:
-			return String.format("V%04d", nodeId);
+			return String.format("V%05d", nodeId);
 
 		case WORK:
-			return String.format("W%04d", nodeId);
+			return String.format("W%05d", nodeId);
 
 		case RULE:
-			return String.format("U%04d", nodeId);
+			return String.format("U%05d", nodeId);
 
 		case CONST:
-			return String.format("C%04d", nodeId);
+			return String.format("C%05d", nodeId);
 
 		default:
-			return String.format("X%04d", nodeId);
+			return String.format("X%05d", nodeId);
 		}
 	}
 
