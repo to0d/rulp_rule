@@ -1322,7 +1322,7 @@ public class StatsUtil {
 		sb.append(SEP_LINE1);
 
 		List<List<String>> result = new ArrayList<>();
-		List<Integer> maxLen = toList(8, 14, 36, 30, 30, 30);
+		List<Integer> maxLen = toList(10, 14, 36, 30, 30, 30);
 
 		result.add(toList("NODE[n]", "Parent", "Child", "Rule", "Inherit", "Join"));
 
