@@ -116,6 +116,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		private IRStmtSaver saver;
 
+		private CacheStatus status = CacheStatus.UNLOAD;
+
 		private int writeLines = 0;
 
 		public XRCacheWorker(IRReteNode node) {
@@ -154,6 +156,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		public IRStmtSaver getSaver() {
 			return saver;
+		}
+
+		@Override
+		public CacheStatus getStatus() {
+			return status;
 		}
 
 		@Override
@@ -279,13 +286,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		public void setSaver(IRStmtSaver saver) {
 			this.saver = saver;
-		}
-
-		private CacheStatus status = CacheStatus.UNLOAD;
-
-		@Override
-		public CacheStatus getStatus() {
-			return status;
 		}
 
 	}
@@ -738,6 +738,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			IREntryIteratorBuilder builder) throws RException {
 
 		String namedName = filter.getNamedName();
+		filter = _rebuild(filter);
 
 		/******************************************************/
 		// '(a ? ?)
@@ -1102,6 +1103,70 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
+	protected IRList _rebuild(IRList list) throws RException {
+
+		/******************************************************/
+		// '(a ? ?)
+		// update constant
+		/******************************************************/
+		{
+			ArrayList<IRObject> filterObjs = null;
+
+			IRIterator<? extends IRObject> iter = list.iterator();
+			for (int stmtIndex = 0; iter.hasNext(); stmtIndex++) {
+
+				IRObject obj = iter.next();
+				boolean update = false;
+
+				if (obj.getType() == RType.LIST) {
+
+					IRList newObj = _rebuild((IRList) obj);
+					if (newObj != obj) {
+						obj = newObj;
+						update = true;
+					}
+
+				} else {
+
+					if (!update) {
+						IRObject newObj = RulpUtil.lookup(obj, getInterpreter(), this.getFrame());
+						if (newObj.getType() == RType.CONSTANT) {
+							obj = RulpUtil.asConstant(newObj).getValue();
+							update = true;
+						}
+					}
+				}
+
+				if (update) {
+
+					if (filterObjs == null) {
+						filterObjs = new ArrayList<>();
+						for (int i = 0; i < stmtIndex; ++i) {
+							filterObjs.add(list.get(i));
+						}
+					}
+
+					filterObjs.add(obj);
+
+				} else {
+					if (filterObjs != null) {
+						filterObjs.add(obj);
+					}
+				}
+			}
+
+			if (filterObjs != null) {
+				if (list.getNamedName() == null) {
+					list = RulpFactory.createList(filterObjs);
+				} else {
+					list = RulpFactory.createNamedList(filterObjs, list.getNamedName());
+				}
+			}
+		}
+
+		return list;
+	}
+
 	protected int _run(int maxStep) throws RException {
 
 		this.activeUpdate++;
@@ -1307,6 +1372,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (RuleUtil.isModelTrace()) {
 			System.out.println(String.format("==> addRule: %s, %s, %s", ruleName, condList, actionList));
 		}
+
+		// update
+		condList = _rebuild(condList);
 
 		if (OptimizeUtil.OPT_RULE) {
 			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRule(condList, actionList, this.getInterpreter(),
@@ -1811,7 +1879,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (filter == null) {
 
 			for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
-
 				_checkCache(rootNode);
 				IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
 				int totalCount = rootEntryCounter.getEntryTotalCount();

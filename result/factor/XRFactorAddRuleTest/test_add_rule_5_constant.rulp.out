@@ -1,0 +1,24 @@
+(new model m)
+;=>m
+
+(defconst KEY "key")
+;=>KEY
+
+(add-rule m if '(?a ?b ?c) '(?a ?b KEY) do (-> m '(?a typeOf xxx)))
+;=>RU000
+
+(add-stmt m '(a b c))
+;=>true
+
+(add-stmt m '(a b "key"))
+;=>true
+
+(start m)
+;=>7
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a b c) '(a b "key") '(a typeOf xxx))
+

@@ -90,4 +90,11 @@ class XRFactorAddRuleTest extends RuleTestBase {
 
 	}
 
+	@Test
+	void test_add_rule_5_constant() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
