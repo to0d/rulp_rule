@@ -7,7 +7,7 @@
 (defun fun1 (?a1) (println ?a1))
 ;=>fun1
 
-(add_task_function "task1" fun1)
+(register_task_function (eton_model) "task1" fun1)
 ;=>nil
 
 (add_daily_task "task1" "value0")
@@ -24,5 +24,5 @@ value0
 ;eof
 
 (list-stmt (eton_model))
-;=>'(eton_daily_task1:'("task1" "value0") eton_completed_task1:'("2022-02-26" "task1" "value0") task_func:'("task1" fun1))
+;=>'(eton_daily_task1:'("task1" "value0"))
 

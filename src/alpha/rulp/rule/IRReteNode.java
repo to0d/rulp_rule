@@ -54,6 +54,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public void addChildNode(IRReteNode child);
 
+	public void removeChildNode(IRReteNode child);
+
 	public boolean addConstraint1(IRConstraint1 constraint) throws RException;
 
 	public void addQueryMatchCount(int add);

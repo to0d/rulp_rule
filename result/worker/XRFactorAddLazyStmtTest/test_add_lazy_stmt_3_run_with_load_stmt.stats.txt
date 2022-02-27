@@ -1,12 +1,12 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0     0      4      2      0     0     0     0     0      0      0     1      1     5     2    0        0      6      0    0    0  900  900      0      38
-ALPH0     0      4      2      0     0     0     0     0      2      0     3      1     7     2    0       12      6      0    1    1    0   99      0      27
-BETA0     0      0      2      0     0     0     0     0      0      0     1      0     2     0    0       16      2      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        0      2      0    3    3   99   99      0       0
- WORK     0      0      0      0     0     0     0     0      0      2     2      0     1     0    0        0      0      0    0    0  -99    0      0       0
+ROOT0       0      4      2      0     0     0     0     0      0      0     1      1     5     2    0        0      6      0    0    0  900  900      0      38
+ALPH0       0      4      2      0     0     0     0     0      2      0     3      1     7     2    0       12      6      0    1    1    0   99      0      27
+BETA0       0      0      2      0     0     0     0     0      0      0     1      0     2     0    0       16      2      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        0      2      0    3    3   99   99      0       0
+WORK        0      0      0      0     0     0     0     0      0      2     2      0     1     0    0        0      0      0    0    0  -99    0      0       0
 ========================================================================================================================================================
 
 node info:
@@ -128,11 +128,11 @@ node bind info:
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if '(?a typeof ?b) '(?b typeof ?c) do (-> m '(?a typeof2 ?c)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0     0      4      0      0     0     0     0     0      1      0     1      0     5     2    0        6      4      0    1    1   99   99      0      25
-BETA0     0      0      2      0     0     0     0     0      0      0     1      0     2     0    0       16      2      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        0      2      0    3    3   99   99      0       0
+ALPH0       0      4      0      0     0     0     0     0      1      0     1      0     5     2    0        6      4      0    1    1   99   99      0      25
+BETA0       0      0      2      0     0     0     0     0      0      0     1      0     2     0    0       16      2      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        0      2      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:

@@ -1,12 +1,12 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0     0      1      2      0     0     0     0     0      0      0     3      2     1     0    0        0      3      0    0    0    0   99      0       4
-  VAR     0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        0      1      0    0    0   99   99      0       1
-ALPH1     0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
-BETA1     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    3    3   99   99      0       0
+NAME0       0      1      2      0     0     0     0     0      0      0     3      2     1     0    0        0      3      0    0    0    0   99      0       4
+VAR         0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        0      1      0    0    0   99   99      0       1
+ALPH1       0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
+BETA1       0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -112,12 +112,12 @@ B1004(BETA1):               '(n1:'(?0) (var-changed ?x ?x.old true))
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if (var-changed ?x ?f1 true) n1:'(?a) do (-> m n2:'(?a)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-  VAR     0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        0      1      0    0    0   99   99      0       1
-ALPH1     0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
-BETA1     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
+VAR         0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        0      1      0    0    0   99   99      0       1
+ALPH1       0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
+BETA1       0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -139,12 +139,12 @@ Priority          VAR ALPH1 BETA1  RULE
 
 Rule<RU001> stats: priority=099, expr=(add-rule m if (var-changed ?x ?f2 true) n1:'(?a) do (-> m n3:'(?a)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-  VAR     0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        0      1      0    0    0   99   99      0       1
-ALPH1     0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
-BETA1     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
+VAR         0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        0      1      0    0    0   99   99      0       1
+ALPH1       0      0      0      0     0     0     1     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
+BETA1       0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:

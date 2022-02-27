@@ -140,6 +140,26 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
+	public void removeChildNode(IRReteNode child) {
+
+		if (allChildNodes != null) {
+			allChildNodes.remove(child);
+
+			if (allChildNodes.isEmpty()) {
+				allChildNodes = null;
+			}
+		}
+
+		if (autoUpdateChildNodes != null) {
+			autoUpdateChildNodes.remove(child);
+
+			if (autoUpdateChildNodes.isEmpty()) {
+				autoUpdateChildNodes = null;
+			}
+		}
+	}
+
+	@Override
 	public boolean addConstraint1(IRConstraint1 constraint) throws RException {
 
 		/***********************************************/

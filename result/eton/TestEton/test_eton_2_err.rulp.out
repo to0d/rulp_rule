@@ -9,7 +9,7 @@
 )
 ;=>fun1
 
-(add_task_function "task1" fun1)
+(register_task_function (eton_model) "task1" fun1)
 ;=>nil
 
 (add_daily_task "task1" "value0")
@@ -21,12 +21,11 @@
 (process-eton)
 ;err:
 error: fail-process, invalid value: ?values
-at (throw fail-process (+ "invalid value: " ?values)) ; _$fun$_fun1-10
-at (?func ?arg0) ; query-stmt-5
-at (query-stmt ?eton_model '(?task ?func ?arg0 ?day1) from task_func:'(?task ?fu... ; loop-6
-at (defvar ?task_list (query-stmt ?eton_model '(?task ?func ?arg0 ?day1) from ta... ; loop-6
-at (loop (defvar ?model-run-count (start ?eton_model)) (trace "process eton mode... ; do-8
-at (do (defvar ?old_process_count ?process_count) (loop (defvar ?model-run-count... ; _$fun$_process-eton-4
+at (throw fail-process (+ "invalid value: " ?values)) ; _$fun$_fun1-12
+at (?func ?arg0) ; query-stmt-11
+at (query-stmt ?eton_model '(?task ?func ?arg0 ?day1) from task_func:'(?task ?fu... ; loop-7
+at (loop (defvar ?model-run-count (start ?eton_model)) (trace "process eton mode... ; do-9
+at (do (defvar ?old_process_count ?process_count) (loop (defvar ?model-run-count... ; _$fun$_process-eton-8
 at (process-eton) ; main-2
 ;eof
 

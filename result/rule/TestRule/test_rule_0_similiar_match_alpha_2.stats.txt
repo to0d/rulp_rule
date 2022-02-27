@@ -1,10 +1,10 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0     0      1      2      0     0     0     0     0      0      0     1      2     3     0    0        0      3      0    0    0  900  900      0       7
-ALPH0     0      2      0      0     0     0     0     0      0      0     2      0     3     0    0        4      2      0    1    2   99   99      0       3
- RULE     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    3    3   99   99      0       0
+ROOT0       0      1      2      0     0     0     0     0      0      0     1      2     3     0    0        0      3      0    0    0  900  900      0       7
+ALPH0       0      2      0      0     0     0     0     0      0      0     2      0     3     0    0        4      2      0    1    2   99   99      0       3
+RULE        0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -96,10 +96,10 @@ A0003(ALPH0):               '(?0 p1 ?0)
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if '(?a p1 ?a) do (-> '(?a p2 ?a)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0     0      2      0      0     0     0     0     0      0      0     2      0     3     0    0        4      2      0    1    2   99   99      0       3
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
+ALPH0       0      2      0      0     0     0     0     0      0      0     2      0     3     0    0        4      2      0    1    2   99   99      0       3
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -120,10 +120,10 @@ Priority        ALPH0  RULE
 
 Rule<RU001> stats: priority=099, expr=(add-rule m if '(?x p1 ?x) do (-> '(?x p3 ?x)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0     0      2      0      0     0     0     0     0      0      0     2      0     3     0    0        4      2      0    1    2   99   99      0       3
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
+ALPH0       0      2      0      0     0     0     0     0      0      0     2      0     3     0    0        4      2      0    1    2   99   99      0       3
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:

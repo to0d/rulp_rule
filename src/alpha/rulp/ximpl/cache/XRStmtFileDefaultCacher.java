@@ -24,7 +24,13 @@ import alpha.rulp.ximpl.node.RReteType;
 
 public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 
+	static final String CMD_PRE = "pre";
+
+	static final String COMMNET_CMD_HEAD = ";@:";
+
 	static final String MODEL_CACHE_SUFFIX = ".mc";
+
+	static final String PRE_END = "##";
 
 	static String _nodeCacheName(IRReteNode node) throws RException {
 
@@ -42,7 +48,11 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 
 	private IRInterpreter interpreter;
 
+	private boolean lineNeedUpdate = false;
+
 	private String modelCachePath;
+
+	private Map<String, String> preMap = new HashMap<>();
 
 	private int readLines = 0;
 
@@ -50,39 +60,6 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 		super();
 		this.modelCachePath = modelCachePath;
 		this.interpreter = interpreter;
-	}
-
-	@Override
-	public int getReadLines() {
-		return readLines;
-	}
-
-	static final String COMMNET_CMD_HEAD = ";@:";
-
-	static final String CMD_PRE = "pre";
-
-	static final String PRE_END = "##";
-
-	private Map<String, String> preMap = new HashMap<>();
-
-	private boolean lineNeedUpdate = false;
-
-	private void _set_pre(String pre, String value) throws RException {
-
-		if (!pre.endsWith(PRE_END)) {
-			throw new RException(String.format("invalid pre: %s", pre));
-		}
-
-		String oldVal = preMap.get(pre);
-
-		if (oldVal != null) {
-			if (!oldVal.equals(value)) {
-				throw new RException(String.format("duplicate pre<%s>: old=%s, new=%s", pre, oldVal, value));
-			}
-
-		} else {
-			preMap.put(pre, value);
-		}
 	}
 
 	private String _loadLine(String line) {
@@ -98,6 +75,7 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 			String value = e.getValue();
 
 			if (!lineNeedUpdate && line.indexOf(value) != -1) {
+				System.out.println(String.format("update lineNeedUpdate: %s", line));
 				lineNeedUpdate = true;
 			}
 
@@ -129,6 +107,31 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 		return line;
 	}
 
+	private void _set_pre(String pre, String value) throws RException {
+
+//		System.out.println(String.format("_set_pre: %s, %s", pre, value));
+
+		if (!pre.endsWith(PRE_END)) {
+			throw new RException(String.format("invalid pre: %s", pre));
+		}
+
+		String oldVal = preMap.get(pre);
+
+		if (oldVal != null) {
+			if (!oldVal.equals(value)) {
+				throw new RException(String.format("duplicate pre<%s>: old=%s, new=%s", pre, oldVal, value));
+			}
+
+		} else {
+			preMap.put(pre, value);
+		}
+	}
+
+	@Override
+	public int getReadLines() {
+		return readLines;
+	}
+
 	@Override
 	public void load(IRReteNode node, IRListener1<IRList> stmtListener) throws RException, IOException {
 
@@ -136,6 +139,7 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 		final String stmtName = node.getReteType() == RReteType.NAME0 ? ((IRReteNode) node).getNamedName() : null;
 		final String cachePath = FileUtil.toValidPath(modelCachePath) + _nodeCacheName(node);
 		final int stmtLen = node.getEntryLength();
+//		System.out.println(String.format("load cache: %s", cachePath));
 
 		if (!FileUtil.isExistFile(cachePath)) {
 			return;
@@ -189,9 +193,15 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 	}
 
 	@Override
+	public boolean needSave() {
+		return lineNeedUpdate;
+	}
+
+	@Override
 	public int save(IRReteNode node, List<IRList> stmtList) throws RException, IOException {
 
 		final String cachePath = FileUtil.toValidPath(modelCachePath) + _nodeCacheName(node);
+//		System.out.println(String.format("save cache: %s", cachePath));
 
 		// clear
 		if (stmtList.size() == 0) {
@@ -232,11 +242,6 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 		FileUtil.saveTxtFile(cachePath, outLines, "utf-8");
 		lineNeedUpdate = false;
 		return outLines.size();
-	}
-
-	@Override
-	public boolean needSave() {
-		return lineNeedUpdate;
 	}
 
 }

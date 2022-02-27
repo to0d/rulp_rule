@@ -1699,7 +1699,7 @@ public class StatsUtil {
 
 		{
 			sb.append(SEP_LINE1);
-			sb.append(String.format("%5s", "NODE"));
+			sb.append(String.format("%-7s", "NODE"));
 			for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
 				sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", _getCountTypeName(countType)));
 			}
@@ -1716,7 +1716,7 @@ public class StatsUtil {
 					continue;
 				}
 
-				sb.append(String.format("%5s", "" + reteType));
+				sb.append(String.format("%-7s", "" + reteType));
 				for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
 					sb.append(String.format(" %" + _getCountTypeLength(countType) + "d",
 							reteCounter.getCount(reteType, countType)));
@@ -1724,6 +1724,10 @@ public class StatsUtil {
 
 				sb.append("\n");
 			}
+
+//			if (!isRule) {
+//
+//			}
 
 			sb.append(SEP_LINE1);
 		}
@@ -1733,6 +1737,9 @@ public class StatsUtil {
 		/****************************************************/
 		_printNodeInfo1(sb, model, nodes, !isRule);
 
+		/****************************************************/
+		// Output node info2
+		/****************************************************/
 		if (!isRule) {
 
 			_printNodeInfo2(sb, model, nodes);
@@ -1864,96 +1871,6 @@ public class StatsUtil {
 			}
 		}
 	}
-
-//	private static void _printScopeLists(StringBuffer sb, IRScope scope) throws RException {
-//
-//		sb.append("Var List:\n");
-//
-//		Set<IRVar> modelVarSet = new HashSet<>();
-//		// model var list
-//		{
-//			IRFrame frame = scope.getModel().getFrame();
-//
-//			for (IRFrameEntry entry : frame.listEntries()) {
-//
-//				IRObject val = entry.getValue();
-//				if (val.getType() == RType.VAR) {
-//					IRVar var = RulpUtil.asVar(val);
-//					modelVarSet.add(var);
-//				}
-//			}
-//		}
-//
-//		Map<IRVar, IRScopeVar> scopeVarMap = new HashMap<>();
-//		// var scopes
-//		{
-//			for (IRScopeVar varScope : scope.listVarScopes()) {
-//				scopeVarMap.put(varScope.getVar(), varScope);
-//			}
-//		}
-//
-//		ArrayList<IRVar> allVarList = new ArrayList<>();
-//
-//		{
-//			Set<IRVar> allVarSet = new HashSet<>();
-//			allVarSet.addAll(modelVarSet);
-//			allVarSet.addAll(scopeVarMap.keySet());
-//			allVarList.addAll(allVarSet);
-//		}
-//
-//		Collections.sort(allVarList, (v1, v2) -> {
-//			return v1.getName().compareTo(v2.getName());
-//		});
-//
-//		sb.append(SEP_LINE1);
-//		sb.append(String.format("Var Table: total=%d, model-var=%d, scope-var=%d, move=%d\n", allVarList.size(),
-//				modelVarSet.size(), scopeVarMap.size(), scope.getValueMoveCount()));
-//		sb.append(SEP_LINE2);
-//		sb.append(String.format("%s: %12s %10s %6s %6s %6s %8s %6s %6s %6s %8s %6s %6s  %11s\n", "Index", "Name",
-//				"Value", "Model", "Scope", "Type", "Complete", "Assert", "index", "Scaned", "Possible", "Eval", "Move",
-//				"Description"));
-//
-//		{
-//			int index = 0;
-//
-//			for (IRVar var : allVarList) {
-//
-//				IRScopeVar vs = scopeVarMap.get(var);
-//
-//				sb.append(String.format("%5d: %12s %10s %6s %6s", index++, var.getName(), "" + var.getValue(),
-//						modelVarSet.contains(var) ? "Yes" : "", scope != null ? "Yes" : ""));
-//
-//				if (scope == null) {
-//					sb.append("\n");
-//					continue;
-//				}
-//
-//				sb.append(String.format(" %6s", vs.getVarType() == null ? "" : vs.getVarType()));
-//				sb.append(String.format(" %8s", vs.isScanCompleted() ? "Yes" : ""));
-//				sb.append(String.format(" %6d", vs.getConstraintCount()));
-//				sb.append(String.format(" %6d", vs.getCurValueIndex()));
-//				sb.append(String.format(" %6d", vs.getValueScanedCount()));
-//				sb.append(String.format(" %8d", vs.getValuePossibleCount()));
-//				sb.append(String.format(" %6d", vs.getValueEvalCount()));
-//				sb.append(String.format(" %6d", vs.getValueMoveCount()));
-//				sb.append(String.format("  %12s", vs.getDescription()));
-//
-//				sb.append("\n");
-//			}
-//		}
-//
-//		sb.append(SEP_LINE1);
-//
-//		sb.append(String.format("Constraint List: size=%d\n", scope.listVarConstraints().size()));
-//		{
-//			int index = 0;
-//			for (IVarConstraint constraint : scope.listVarConstraints()) {
-//				sb.append(String.format("%5d: %s\n", index++, constraint.getDescription()));
-//			}
-//		}
-//
-//		sb.append(SEP_LINE1);
-//	}
 
 	private static void _printUpdateTable(StringBuffer sb, IRModel model) throws RException {
 
@@ -2427,19 +2344,6 @@ public class StatsUtil {
 
 		return sb.toString();
 	}
-
-//	public static String printScopeInfo(IRScope scope) {
-//
-//		StringBuffer sb = new StringBuffer();
-//
-//		try {
-//			_printScopeLists(sb, scope);
-//		} catch (RException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return sb.toString();
-//	}
 
 	public static String printStatsInfo(IRModel model) {
 

@@ -1,10 +1,10 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0     0      1      2      0     0     0     0     0      0      0     3      2     1     0    0        0      3      0    0    0    0   99      0       5
-EXPR0     0      2      0      0     0     0     0     0      0      0     2      0     2     0    0        2      2      0    1    1   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    2    2   99   99      0       0
+NAME0       0      1      2      0     0     0     0     0      0      0     3      2     1     0    0        0      3      0    0    0    0   99      0       5
+EXPR0       0      2      0      0     0     0     0     0      0      0     2      0     2     0    0        2      2      0    1    1   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    2    2   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -106,10 +106,10 @@ E0004(EXPR0):               '(n1:'(?0 ?1 ?2) (> ?2 4))
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if n1:'(?a ?p ?b) (> ?b 3) do (-> n2:'(?b)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0     0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+EXPR0       0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -129,10 +129,10 @@ Priority        EXPR0  RULE
 
 Rule<RU001> stats: priority=099, expr=(add-rule m if n1:'(?a ?p ?b) (> ?b 4) do (-> n3:'(?b)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0     0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+EXPR0       0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1   99   99      0       1
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ========================================================================================================================================================
 
 node info:

@@ -2131,11 +2131,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.modelPriority = priority;
 
 		try {
+
 			this.processingLevel++;
 			return _run(maxStep);
+
 		} finally {
+
 			this.processingLevel--;
 			this.modelPriority = oldModelPriority;
+			this.nodeGraph.gc();
 		}
 	}
 

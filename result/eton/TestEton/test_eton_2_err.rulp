@@ -9,7 +9,7 @@
 )
 ;=>
 
-(add_task_function "task1" fun1)
+(register_task_function (eton_model) "task1" fun1)
 ;=>
 
 (add_daily_task "task1" "value0")

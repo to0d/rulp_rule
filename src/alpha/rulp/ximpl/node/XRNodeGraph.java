@@ -6,7 +6,7 @@ import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
 import static alpha.rulp.rule.Constant.A_RETE_TYPE;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
@@ -14,6 +14,7 @@ import static alpha.rulp.rule.RReteStatus.TEMP__;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.AttrUtil;
+import alpha.rulp.utils.HeapStack;
 import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
@@ -60,7 +62,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	static class ReteNodeList {
-		public ArrayList<IRReteNode> nodes = new ArrayList<>();
+		public ArrayList<AbsReteNode> nodes = new ArrayList<>();
 	}
 
 	static class XGraphInfo implements IGraphInfo {
@@ -86,6 +88,8 @@ public class XRNodeGraph implements IRNodeGraph {
 		public int sourceNodeLastRuleIndex = -1;
 
 		public Set<IRReteNode> sourceNodes = null;
+
+		public int useCount = 0;
 
 		public XGraphInfo(IRReteNode node) {
 			this.node = node;
@@ -142,6 +146,14 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			return ruleActionUniqStmtList;
+		}
+
+		public int getUseCount() {
+			return this.useCount;
+		}
+
+		public void incUseCount() {
+			this.useCount++;
 		}
 	}
 
@@ -247,6 +259,8 @@ public class XRNodeGraph implements IRNodeGraph {
 			activateMap = null;
 		}
 	}
+
+	static final int MAX_CACHE_NODE_COUNT = 30;
 
 	public static boolean isSymmetricBetaNode(IRReteNode node) {
 
@@ -1108,6 +1122,55 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	}
 
+//	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
+//			throws RException {
+//
+//		IRObject obj = reteTree.get(2);
+//
+//		/*****************************************************/
+//		// (var-changed ?varName ?v2) -> (var-changed ?varName ?tmp ?v2)
+//		/*****************************************************/
+//		if (RulpUtil.isVarAtom(obj)) {
+//
+//			// (var-changed ?varName ?anyVar ?tmp)
+//			List<IRObject> list = new ArrayList<>();
+//			list.add(reteTree.get(0));
+//			list.add(reteTree.get(1));
+//			list.add(tmpVarBuilder.next());
+//			list.add(reteTree.get(2));
+//
+////			InheritIndex[] inheritIndexs = new InheritIndex[2];
+////			inheritIndexs[0] = new InheritIndex(0, 0);
+////			inheritIndexs[1] = new InheritIndex(0, 2);
+//
+//			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+//
+//			AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+//					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+//
+//			return alph0Node;
+//		}
+//
+//		/*****************************************************/
+//		// (var-changed ?varName new-value) -> (var-changed ?varName ?tmp new-value)
+//		/*****************************************************/
+//
+//		// (var-changed ?varName ?tmp1 ?tmp2)
+//		List<IRObject> list = new ArrayList<>();
+//		list.add(reteTree.get(0));
+//		list.add(reteTree.get(1));
+//		list.add(tmpVarBuilder.next());
+//		list.add(tmpVarBuilder.next());
+//
+//		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+//
+//		AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
+//				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+//
+//		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
+//		return alph0Node;
+//	}
+
 	protected AbsReteNode _buildVarChangeNode4(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
 			throws RException {
 
@@ -1219,55 +1282,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		return varNode;
 	}
 
-//	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
-//			throws RException {
-//
-//		IRObject obj = reteTree.get(2);
-//
-//		/*****************************************************/
-//		// (var-changed ?varName ?v2) -> (var-changed ?varName ?tmp ?v2)
-//		/*****************************************************/
-//		if (RulpUtil.isVarAtom(obj)) {
-//
-//			// (var-changed ?varName ?anyVar ?tmp)
-//			List<IRObject> list = new ArrayList<>();
-//			list.add(reteTree.get(0));
-//			list.add(reteTree.get(1));
-//			list.add(tmpVarBuilder.next());
-//			list.add(reteTree.get(2));
-//
-////			InheritIndex[] inheritIndexs = new InheritIndex[2];
-////			inheritIndexs[0] = new InheritIndex(0, 0);
-////			inheritIndexs[1] = new InheritIndex(0, 2);
-//
-//			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-//
-//			AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-//					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-//
-//			return alph0Node;
-//		}
-//
-//		/*****************************************************/
-//		// (var-changed ?varName new-value) -> (var-changed ?varName ?tmp new-value)
-//		/*****************************************************/
-//
-//		// (var-changed ?varName ?tmp1 ?tmp2)
-//		List<IRObject> list = new ArrayList<>();
-//		list.add(reteTree.get(0));
-//		list.add(reteTree.get(1));
-//		list.add(tmpVarBuilder.next());
-//		list.add(tmpVarBuilder.next());
-//
-//		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-//
-//		AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
-//				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-//
-//		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
-//		return alph0Node;
-//	}
-
 	protected AbsReteNode _buildVarNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
 
 		IRObject e0 = reteTree.get(0);
@@ -1293,6 +1307,8 @@ public class XRNodeGraph implements IRNodeGraph {
 			node.setReteTree(reteTree);
 			_addNode(node);
 		}
+
+		((XGraphInfo) node.getGraphInfo()).incUseCount();
 
 		return node;
 	}
@@ -1517,6 +1533,8 @@ public class XRNodeGraph implements IRNodeGraph {
 		this.nodeInfoArray.set(node.getNodeId(), null);
 
 		_graphChanged();
+		
+		
 	}
 
 	@Override
@@ -1807,6 +1825,36 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
+	public void gc() throws RException {
+
+		HeapStack<AbsReteNode> nodeUsedHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
+			@Override
+			public int compare(AbsReteNode n1, AbsReteNode n2) {
+				return ((XGraphInfo) n2.getGraphInfo()).getUseCount() - ((XGraphInfo) n1.getGraphInfo()).getUseCount();
+			}
+		});
+
+		for (AbsReteNode node : listNodes(RReteType.ALPH0)) {
+
+//			if (node.getNodeName().equals("A01398")) {
+//				System.out.println("inactive node: " + node);
+//			}
+
+			if (node.getPriority() == RETE_PRIORITY_INACTIVE && node.getChildNodes().isEmpty()) {
+//				System.out.println("inactive node: " + node);
+				nodeUsedHeap.push(node);
+			}
+		}
+
+		while (nodeUsedHeap.size() > MAX_CACHE_NODE_COUNT) {
+			AbsReteNode node = nodeUsedHeap.pop();
+			node.setReteStage(RReteStage.InActive);
+//			System.out.println("rmove node: " + node);
+			removeNode(node);
+		}
+	}
+
+	@Override
 	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException {
 
 		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
@@ -1929,7 +1977,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public List<? extends IRReteNode> listNodes(RReteType reteType) {
+	public List<AbsReteNode> listNodes(RReteType reteType) {
 		return this.nodeListArray[reteType.getIndex()].nodes;
 	}
 
@@ -2012,7 +2060,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		/********************************************/
 		if (node.getParentCount() > 0) {
 			for (IRReteNode parent : node.getParentNodes()) {
-
+				parent.removeChildNode(node);
 			}
 		}
 

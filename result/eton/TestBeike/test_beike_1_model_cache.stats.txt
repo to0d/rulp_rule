@@ -1,12 +1,13 @@
 Model<em> stats info:
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0     0   3026      0      0     0     2     0     0      0      0     7      0     9     5    0        0   3028      1    0    0    0  199      0      29
-EXPR0     0      0      0      0     2     0     0     0      0      0     2      0     2     0    0        4      2      0    2    2  197  198      0       2
-EXPR1     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        2      0      0    2    2  195  196      0       0
-BETA0     0      0      2      0     6     0     0     0      0      0     5      0     7     2    0       12      8      0    1    1    0  198      0      10
- RULE     0      0      0      0     0     0     0     0      0      0     5      0     2     0    0        0      4      0    1    3  195  199      0       0
+NAME0       0   3065      0      0     0     5     0     0      0      0     5      0  3074     8    0     3063   3070      1    0    0    0  199      0  360542
+ALPH0       0    739      0      0     0     0     0     0      0      0    30      0   769     0    0    86327    739      0    1    1    0    0      0    9296
+EXPR0       0      0      0      0     2     0     0     0      0      0     2      0     2     0    0        4      2      0    2    2  197  198      0       2
+EXPR1       0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        2      0      0    2    2  195  196      0       0
+BETA0       0      0      0      0     8     0     0     0      0      0     5      0     7     2    0       12      8      0    1    1    0  198      0      10
+RULE        0      0      0      0     0     0     0     0      0      0     5      0     2     0    0        0      4      0    1    3  195  199      0       0
 ========================================================================================================================================================
 
 node info:
@@ -15,20 +16,48 @@ node info:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[2]:      0      2      0      0      0      0     0     0   0/0      0      2      1    1    0           0   0 199   0            
 N0003[3]:      0      0      0      0      0      2     0     0   0/0      0      2      0    4    3           0   0 198   0            
-N0007[3]:      0      2      0      0      0      0     0     0   0/0      0      2      0    1    0           0   0 197   0            
-N0011[2]:      0      1      0      0      0      0     0     0   0/0      0      1      0    3    2           0   0 196   0            
-N0018[3]:      0    122      0      0      0      0     0     0   0/0      0    122      0    0    0      *    0   0   0   0            
-N0019[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   0   0   0            
-N0020[4]:      0   2899      0      0      0      0     0     0   0/0      0   2899      0    0    0      *    0   0   0   0            
+N0007[3]:      0      0      0      0      0      2     0     0   0/0      0      2      0    2    1           0   0 197   0            
+N0011[2]:      0      0      0      0      0      1     0     0   0/0      0      1      0    4    3           0   0 196   0            
+N0018[4]:      0   3063      0      0      0      0     0     0   0/0   3063   3063      0 3063    1           0   0   0   0            
+A0023[4]:      0     24      0      0      0      0     0     0   0/0   2834     24      0   25    0           0   1   0   0        2834
+A0073[4]:      0     24      0      0      0      0     0     0   0/0   2845     24      0   25    0           0   1   0   0        2845
+A0123[4]:      0     24      0      0      0      0     0     0   0/0   2850     24      0   25    0           0   1   0   0        2850
+A0148[4]:      0     25      0      0      0      0     0     0   0/0   2852     25      0   26    0           0   1   0   0        2852
+A0173[4]:      0     24      0      0      0      0     0     0   0/0   2856     24      0   25    0           0   1   0   0        2856
+A0248[4]:      0     24      0      0      0      0     0     0   0/0   2861     24      0   25    0           0   1   0   0        2861
+A0273[4]:      0     24      0      0      0      0     0     0   0/0   2865     24      0   25    0           0   1   0   0        2865
+A0298[4]:      0     24      0      0      0      0     0     0   0/0   2866     24      0   25    0           0   1   0   0        2866
+A0432[4]:      0     28      0      0      0      0     0     0   0/0   2889     28      0   29    0           0   1   0   0        2889
+A0457[4]:      0     24      0      0      0      0     0     0   0/0   2891     24      0   25    0           0   1   0   0        2891
+A0507[4]:      0     24      0      0      0      0     0     0   0/0   2893     24      0   25    0           0   1   0   0        2893
+A0574[4]:      0     24      0      0      0      0     0     0   0/0   2903     24      0   25    0           0   1   0   0        2903
+A0599[4]:      0     24      0      0      0      0     0     0   0/0   2904     24      0   25    0           0   1   0   0        2904
+A0699[4]:      0     26      0      0      0      0     0     0   0/0   2913     26      0   27    0           0   1   0   0        2913
+A0724[4]:      0     26      0      0      0      0     0     0   0/0   2915     26      0   27    0           0   1   0   0        2915
+A0917[4]:      0     25      0      0      0      0     0     0   0/0   3010     25      0   26    0           0   1   0   0        3010
+A01067[4]:      0     24      0      0      0      0     0     0   0/0   2825     24      0   25    0           0   1   0   0        2825
+A01117[4]:      0     24      0      0      0      0     0     0   0/0   2827     24      0   25    0           0   1   0   0        2827
+A01142[4]:      0     25      0      0      0      0     0     0   0/0   2828     25      0   26    0           0   1   0   0        2828
+A01242[4]:      0     24      0      0      0      0     0     0   0/0   2832     24      0   25    0           0   1   0   0        2832
+A01267[4]:      0     26      0      0      0      0     0     0   0/0   2833     26      0   27    0           0   1   0   0        2833
+A01292[4]:      0     26      0      0      0      0     0     0   0/0   2835     26      0   27    0           0   1   0   0        2835
+A01317[4]:      0     24      0      0      0      0     0     0   0/0   2836     24      0   25    0           0   1   0   0        2836
+A01392[4]:      0     24      0      0      0      0     0     0   0/0   2839     24      0   25    0           0   1   0   0        2839
+A01417[4]:      0     24      0      0      0      0     0     0   0/0   2841     24      0   25    0           0   1   0   0        2841
+A01442[4]:      0     24      0      0      0      0     0     0   0/0   2842     24      0   25    0           0   1   0   0        2842
+A01534[4]:      0     26      0      0      0      0     0     0   0/0   2849     26      0   27    0           0   1   0   0        2849
+A02160[4]:      0     24      0      0      0      0     0     0   0/0   2894     24      0   25    0           0   1   0   0        2894
+A02185[4]:      0     26      0      0      0      0     0     0   0/0   3037     26      0   27    0           0   1   0   0        3037
+A03093[4]:      0     24      0      0      0      0     0     0   0/0   3062     24      0   25    0           0   1   0   0        3062
 E0005[4]:      0      0      0      0      0      0     0     0   0/0      2      0      0    1    0      2    0   2 198   0           2
 E0009[4]:      0      0      0      0      2      0     0     0   0/0      2      2      0    1    0           0   2 197   0           2
 E1013[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 196   0           1
 E1016[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 195   0           1
 B0004[4]:      0      0      0      0      2      0     0     0   0/0      4      2      0    1    0           0   1 198   0         2/2
 B0008[4]:      0      0      0      0      2      0     0     0   0/0      4      2      0    2    1           0   1 197   0         2/2
-B0012[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
-B0015[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
-B0021[4]:      0      0      0      0      2      0     0     0   0/0      2      2      0    2    1           0   1   0   0         2/1
+B0012[3]:      0      0      0      0      1      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
+B0015[3]:      0      0      0      0      1      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
+B03143[4]:      0      0      0      0      2      0     0     0   0/0      2      2      0    2    1           0   1   0   0         2/1
    R1[2]:      0      0      0      0      0      0     0     0   0/0      0      2      0    1    0           0   1 199   0           2
    R2[4]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 198   0           0
    R3[4]:      0      0      0      0      0      0     0     0   0/0      0      2      0    1    0           0   3 197   0           2
@@ -41,12 +70,60 @@ node info2:
 NODE[n]  Parent         Child                                Rule                           Inherit                        Join
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 N0001[2]                [R1]                                 [R1]
-N0003[3]                [B0004, B0004, B0008, B0021]         [R2, R3]
+N0003[3]                [B0004, B0004, B0008, B03143]        [R2, R3]
 N0007[3]                [B0008]                              [R3]
-N0011[2]                [B0012, B0012, B0015, B0015, B0021]  [R4, R5]
-N0018[3]
-N0019[3]
-N0020[4]
+N0011[2]                [B0012, B0012, B0015, B0015, B03143] [R4, R5]
+N0018[4]                [A0023, A0073, A0123, A0148, A0173,
+                         A0248, A0273, A0298, A0432, A0457,
+                         A0507, A0574, A0599, A0699, A0724,
+                         A0917, A01067, A01117, A01142,
+                         A01242, A01267, A01292, A01317,
+                         A01392, A01417, A01442, A01534,
+                         A02160, A02185, A03093]
+A0023[4] [N0018]
+A0073[4] [N0018]
+A0123[4] [N0018]
+A0148[4] [N0018]
+A0173[4] [N0018]
+A0248[4] [N0018]
+A0273[4] [N0018]
+A0298[4] [N0018]
+A0432[4] [N0018]
+A0457[4] [N0018]
+A0507[4] [N0018]
+A0574[4] [N0018]
+A0599[4] [N0018]
+A0699[4] [N0018]
+A0724[4] [N0018]
+A0917[4] [N0018]
+A01067[4 [N0018]
+]
+A01117[4 [N0018]
+]
+A01142[4 [N0018]
+]
+A01242[4 [N0018]
+]
+A01267[4 [N0018]
+]
+A01292[4 [N0018]
+]
+A01317[4 [N0018]
+]
+A01392[4 [N0018]
+]
+A01417[4 [N0018]
+]
+A01442[4 [N0018]
+]
+A01534[4 [N0018]
+]
+A02160[4 [N0018]
+]
+A02185[4 [N0018]
+]
+A03093[4 [N0018]
+]
 E0005[4] [B0004]        [R2]                                 [R2]
 E0009[4] [B0008]        [R3]                                 [R3]
 E1013[3] [B0012]        [R4]                                 [R4]
@@ -55,7 +132,8 @@ B0004[4] [N0003, N0003] [E0005]                              [R2]               
 B0008[4] [N0007, N0003] [E0009]                              [R3]                           [0/0, 0/1, 0/2, 1/0]           [join(1/1),join(2/2)]
 B0012[3] [N0011, N0011] [E1013]                              [R4]                           [0/0, 0/1, 1/1]                [join(0/0)]
 B0015[3] [N0011, N0011] [E1016]                              [R5]                           [0/0, 0/1, 1/0]                [join(1/1)]
-B0021[4] [N0003, N0011]                                                                     [0/0, 0/1, 0/2, 1/1]           [join(1/0)]
+B03143[4 [N0003, N0011]                                                                     [0/0, 0/1, 0/2, 1/1]           [join(1/0)]
+]
 R1[2]    [N0001]
 R2[4]    [E0005]
 R3[4]    [E0009]
@@ -71,9 +149,37 @@ N0001[2]  eton_daily_task1:'(?0 ?1)
 N0003[3]  eton_working_task1:'(?0 ?1 ?2)
 N0007[3]  eton_completed_task1:'(?0 ?1 ?2)
 N0011[2]  task_func:'(?0 ?1)
-N0018[3]  beike_has_house:'(?0 ?1 ?2)
-N0019[3]  beike_house_count:'(?0 ?1 ?2)
-N0020[4]  beike_house_property:'(?0 ?1 ?2 ?3)
+N0018[4]  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0023[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111933199.html ?1 ?2)
+A0073[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112427226.html ?1 ?2)
+A0123[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112664643.html ?1 ?2)
+A0148[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112688979.html ?1 ?2)
+A0173[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112755303.html ?1 ?2)
+A0248[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112985644.html ?1 ?2)
+A0273[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113061088.html ?1 ?2)
+A0298[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113061175.html ?1 ?2)
+A0432[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113687832.html ?1 ?2)
+A0457[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113808549.html ?1 ?2)
+A0507[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113836371.html ?1 ?2)
+A0574[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113960519.html ?1 ?2)
+A0599[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113960527.html ?1 ?2)
+A0699[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101114089451.html ?1 ?2)
+A0724[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101114105684.html ?1 ?2)
+A0917[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101107953673.html ?1 ?2)
+A01067[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101110652704.html ?1 ?2)
+A01117[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101110904789.html ?1 ?2)
+A01142[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111223206.html ?1 ?2)
+A01242[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111855930.html ?1 ?2)
+A01267[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111915638.html ?1 ?2)
+A01292[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111942793.html ?1 ?2)
+A01317[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111970888.html ?1 ?2)
+A01392[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112241192.html ?1 ?2)
+A01417[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112264449.html ?1 ?2)
+A01442[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112301907.html ?1 ?2)
+A01534[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112628666.html ?1 ?2)
+A02160[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113843920.html ?1 ?2)
+A02185[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113902409.html ?1 ?2)
+A03093[4]  eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101114344142.html ?1 ?2)
 E0005[4]  '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
 E0009[4]  '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
 E1013[3]  '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
@@ -82,7 +188,7 @@ B0004[4]  '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
 B0008[4]  '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
 B0012[3]  '(task_func:'(?0 ?1) task_func:'(?0 ?2))
 B0015[3]  '(task_func:'(?0 ?1) task_func:'(?2 ?1))
-B0021[4]  '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
+B03143[4]  '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
    R1[2]  R1
    R2[4]  R2
    R3[4]  R3
@@ -94,6 +200,68 @@ node info4: constraint
 ========================================================================================================================================================
  NODE[n]  Match  Fail  Constraint
 --------------------------------------------------------------------------------------------------------------------------------------------------------
+N0018[4]   3063     0
+           3063     0  C1:(lambda (?s) (return (diff-stmt (get-named-rete-node ?eton_model "eton_daily_data") ?s '(1 2) '(3))))
+A0023[4]   2834  2810
+           2834  2810  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101111933199.html)
+A0073[4]   2845  2821
+           2845  2821  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112427226.html)
+A0123[4]   2850  2826
+           2850  2826  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112664643.html)
+A0148[4]   2852  2827
+           2852  2827  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112688979.html)
+A0173[4]   2856  2832
+           2856  2832  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112755303.html)
+A0248[4]   2861  2837
+           2861  2837  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112985644.html)
+A0273[4]   2865  2841
+           2865  2841  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113061088.html)
+A0298[4]   2866  2842
+           2866  2842  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113061175.html)
+A0432[4]   2889  2861
+           2889  2861  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113687832.html)
+A0457[4]   2891  2867
+           2891  2867  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113808549.html)
+A0507[4]   2893  2869
+           2893  2869  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113836371.html)
+A0574[4]   2903  2879
+           2903  2879  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113960519.html)
+A0599[4]   2904  2880
+           2904  2880  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113960527.html)
+A0699[4]   2913  2887
+           2913  2887  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101114089451.html)
+A0724[4]   2915  2889
+           2915  2889  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101114105684.html)
+A0917[4]   3010  2985
+           3010  2985  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101107953673.html)
+A01067[4]   2825  2801
+           2825  2801  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101110652704.html)
+A01117[4]   2827  2803
+           2827  2803  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101110904789.html)
+A01142[4]   2828  2803
+           2828  2803  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101111223206.html)
+A01242[4]   2832  2808
+           2832  2808  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101111855930.html)
+A01267[4]   2833  2807
+           2833  2807  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101111915638.html)
+A01292[4]   2835  2809
+           2835  2809  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101111942793.html)
+A01317[4]   2836  2812
+           2836  2812  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101111970888.html)
+A01392[4]   2839  2815
+           2839  2815  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112241192.html)
+A01417[4]   2841  2817
+           2841  2817  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112264449.html)
+A01442[4]   2842  2818
+           2842  2818  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112301907.html)
+A01534[4]   2849  2823
+           2849  2823  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101112628666.html)
+A02160[4]   2894  2870
+           2894  2870  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113843920.html)
+A02185[4]   3037  3011
+           3037  3011  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101113902409.html)
+A03093[4]   3062  3038
+           3062  3038  C1:(cmp-entry-value = ?1 https://bj.ke.com/ershoufang/101114344142.html)
 E0005[4]      2     2
               2     2  C1:(day-is-bigger-than ?0 ?3)
 E0009[4]      2     0
@@ -125,9 +293,37 @@ N0001[2] NAME0 Rete0 UNIQ   eton_daily_task1          0     1    1    0    0   0
 N0003[3] NAME0 Rete0 UNIQ   eton_working_task1        0     4    2    0    0   0   0 198 [null, null, null]
 N0007[3] NAME0 Rete0 UNIQ   eton_completed_task1      0     1    1    0    0   0   0 197 [null, null, null]
 N0011[2] NAME0 Rete0 UNIQ   task_func                 0     5    2    0    0   0   0 196 [null, null]
-N0018[3] NAME0 Rete0 UNIQ   beike_has_house           0     0    0    0    0   0   0   0 [null, null, null]
-N0019[3] NAME0 Rete0 UNIQ   beike_house_count         0     0    0    0    0   0   0   0 [null, null, null]
-N0020[4] NAME0 Rete0 UNIQ   beike_house_property      0     0    0    0    0   0   0   0 [null, null, null, null]
+N0018[4] NAME0 Rete0 UNIQ   eton_daily_data           0    30    0    0    0   1   0   0 [null, null, null, null]
+A0023[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0073[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0123[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0148[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0173[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0248[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0273[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0298[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0432[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0457[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0507[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0574[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0599[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0699[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0724[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A0917[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01067[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01117[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01142[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01242[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01267[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01292[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01317[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01392[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01417[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01442[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A01534[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A02160[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A02185[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
+A03093[4] ALPH0 Rete1 MULTI  eton_daily_data           1     0    0    0    0   1   0   0 [?x1, null, ?_tmp_0, ?x4]
 E0005[4] EXPR0 Rete1 MULTI                            1     1    1    0    0   1   0 198 [?day1, ?task, ?arg0, ?day2]
 E0009[4] EXPR0 Rete1 MULTI                            1     1    1    0    0   1   0 197 [?day2, ?task, ?arg0, ?day1]
 E1013[3] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0 196 [?t1, ?f1, ?f2]
@@ -136,7 +332,7 @@ B0004[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0
 B0008[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0   0 197 [?day2, ?task, ?arg0, ?day1]
 B0012[3] BETA0 Beta0 MULTI                            2     1    1    3    1   0   0 196 [?t1, ?f1, ?f2]
 B0015[3] BETA0 Beta0 MULTI                            2     1    1    3    1   0   0 195 [?t1, ?f1, ?t2]
-B0021[4] BETA0 Beta0 MULTI                            2     0    0    4    1   0   0   0 [?day1, ?task, ?arg0, ?func]
+B03143[4] BETA0 Beta0 MULTI                            2     0    0    4    1   0   0   0 [?day1, ?task, ?arg0, ?func]
    R1[2] RULE  Rule0 ACTION                           1     0    0    0    0   0   0 199 [?task, ?arg0]
    R2[4] RULE  Rule0 ACTION                           1     0    0    0    0   0   0 198 [?day1, ?task, ?arg0, ?day2]
    R3[4] RULE  Rule0 ACTION                           1     0    0    0    0   0   0 197 [?day2, ?task, ?arg0, ?day1]
@@ -146,14 +342,14 @@ B0021[4] BETA0 Beta0 MULTI                            2     0    0    4    1   0
 
 priority info:
 ========================================================================================================================================================
-Priority        NAME0 EXPR0 EXPR1 BETA0  RULE
+Priority        NAME0 ALPH0 EXPR0 EXPR1 BETA0  RULE
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-199          :      1                       1
-198          :      1     1           1     1
-197          :      1     1           1     1
-196          :      1           1     1     1
-195          :                  1     1     1
-000(inactive):      3                 1      
+199          :      1                             1
+198          :      1           1           1     1
+197          :      1           1           1     1
+196          :      1                 1     1     1
+195          :                        1     1     1
+000(inactive):      1    30                 1      
 ========================================================================================================================================================
 
 node source info:
@@ -164,9 +360,67 @@ N0001(NAME0):               eton_daily_task1:'(?0 ?1)
 N0003(NAME0):               eton_working_task1:'(?0 ?1 ?2)
 N0007(NAME0):               eton_completed_task1:'(?0 ?1 ?2)
 N0011(NAME0):               task_func:'(?0 ?1)
-N0018(NAME0):               beike_has_house:'(?0 ?1 ?2)
-N0019(NAME0):               beike_house_count:'(?0 ?1 ?2)
-N0020(NAME0):               beike_house_property:'(?0 ?1 ?2 ?3)
+N0018(NAME0):               eton_daily_data:'(?0 ?1 ?2 ?3)
+A0023(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111933199.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0073(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112427226.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0123(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112664643.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0148(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112688979.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0173(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112755303.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0248(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112985644.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0273(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113061088.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0298(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113061175.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0432(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113687832.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0457(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113808549.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0507(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113836371.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0574(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113960519.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0599(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113960527.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0699(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101114089451.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0724(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101114105684.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A0917(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101107953673.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01067(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101110652704.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01117(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101110904789.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01142(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111223206.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01242(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111855930.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01267(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111915638.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01292(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111942793.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01317(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101111970888.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01392(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112241192.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01417(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112264449.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01442(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112301907.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A01534(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101112628666.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A02160(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113843920.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A02185(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101113902409.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
+A03093(ALPH0):               eton_daily_data:'(?0 https://bj.ke.com/ershoufang/101114344142.html ?1 ?2)
+           0: N0018(NAME0)  eton_daily_data:'(?0 ?1 ?2 ?3)
 E0005(EXPR0):               '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
            0: B0004(BETA0)  '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
 E0009(EXPR0):               '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
@@ -187,7 +441,7 @@ B0012(BETA0):               '(task_func:'(?0 ?1) task_func:'(?0 ?2))
 B0015(BETA0):               '(task_func:'(?0 ?1) task_func:'(?2 ?1))
            0: N0011(NAME0)  task_func:'(?0 ?1)
            1: N0011(NAME0)  task_func:'(?0 ?1)
-B0021(BETA0):               '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
+B03143(BETA0):               '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
            0: N0003(NAME0)  eton_working_task1:'(?0 ?1 ?2)
            1: N0011(NAME0)  task_func:'(?0 ?1)
     R1(RULE):               eton_daily_task1:'(?task ?arg0) ==> (add_working_task ?task ?arg0)
@@ -204,9 +458,9 @@ B0021(BETA0):               '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
 
 Rule<R1> stats: priority=199, expr=(add-rule "R1" if eton_daily_task1:'(?task ?arg0) do (add_working_task ?task ?arg0))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    1    1  199  199      0       0
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    1    1  199  199      0       0
 ========================================================================================================================================================
 
 node info:
@@ -225,11 +479,11 @@ Priority         RULE
 
 Rule<R2> stats: priority=198, expr=(add-rule "R2" if eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) do (trace "R2:remove-stmt: " ?1) (remove-stmt ?1))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        2      0      0    2    2  198  198      0       0
-BETA0     0      0      0      0     2     0     0     0      0      0     1      0     1     0    0        4      2      0    1    1  198  198      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  198  198      0       0
+EXPR0       0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        2      0      0    2    2  198  198      0       0
+BETA0       0      0      0      0     2     0     0     0      0      0     1      0     1     0    0        4      2      0    1    1  198  198      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  198  198      0       0
 ========================================================================================================================================================
 
 node info:
@@ -250,11 +504,11 @@ Priority        EXPR0 BETA0  RULE
 
 Rule<R3> stats: priority=197, expr=(add-rule "R3" if eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) do (trace "R3:remove-stmt: " ?0) (remove-stmt ?0))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0     0      0      0      0     2     0     0     0      0      0     1      0     1     0    0        2      2      0    2    2  197  197      0       2
-BETA0     0      0      0      0     2     0     0     0      0      0     1      0     2     1    0        4      2      0    1    1  197  197      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    3    3  197  197      0       0
+EXPR0       0      0      0      0     2     0     0     0      0      0     1      0     1     0    0        2      2      0    2    2  197  197      0       2
+BETA0       0      0      0      0     2     0     0     0      0      0     1      0     2     1    0        4      2      0    1    1  197  197      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    3    3  197  197      0       0
 ========================================================================================================================================================
 
 node info:
@@ -275,11 +529,11 @@ Priority        EXPR0 BETA0  RULE
 
 Rule<R4> stats: priority=196, expr=(add-rule "R4" if task_func:'(?t1 ?f1) task_func:'(?t1 ?f2) (!= ?f1 ?f2) do (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  196  196      0       0
-BETA0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1  196  196      0       1
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  196  196      0       0
+EXPR1       0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  196  196      0       0
+BETA0       0      0      0      0     1     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1  196  196      0       1
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  196  196      0       0
 ========================================================================================================================================================
 
 node info:
@@ -287,7 +541,7 @@ node info:
  NODE[n]   Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src      PVisit
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 E1013[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 196   0           1
-B0012[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
+B0012[3]:      0      0      0      0      1      0     0     0   0/0      1      1      0    1    0           0   1 196   0         1/1
    R4[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 196   0           0
 ========================================================================================================================================================
 
@@ -300,11 +554,11 @@ Priority        EXPR1 BETA0  RULE
 
 Rule<R5> stats: priority=195, expr=(add-rule "R5" if task_func:'(?t1 ?f1) task_func:'(?t2 ?f1) (!= ?t1 ?t2) do (throw bad-rule (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  195  195      0       0
-BETA0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1  195  195      0       1
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  195  195      0       0
+EXPR1       0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  195  195      0       0
+BETA0       0      0      0      0     1     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1  195  195      0       1
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  195  195      0       0
 ========================================================================================================================================================
 
 node info:
@@ -312,7 +566,7 @@ node info:
  NODE[n]   Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src      PVisit
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 E1016[3]:      0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   2 195   0           1
-B0015[3]:      0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
+B0015[3]:      0      0      0      0      1      0     0     0   0/0      1      1      0    1    0           0   1 195   0         1/1
    R5[3]:      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3 195   0           0
 ========================================================================================================================================================
 
@@ -338,145 +592,160 @@ Model<em> share index:
 ========================================================================================================================================================
  NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
+ALPH0                                                                                                                                                         
 EXPR0                                0                                     0            0                   0      0         500  500  501  498              0
 EXPR1                                                                      0            0                   0                500  500  501  498               
-BETA0                   0         -500                                  -250         -399 -1000          -200   -333         750  750 1000  748           -666
+BETA0                             -333                                  -250         -399 -1000          -200   -333         750  750 1000  748           -666
  RULE                                                                      0            0                          0         923  769  802  797               
 ========================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3
 B0004[4]:          4
 B0008[4]:          4
-B0021[4]:          2
+B03143[4]:          2
 B0012[3]:          1
 B0015[3]:          1
 
 Entry Table:
-	    ETA: total-action=8, new-action=3, max-size=3, capacity=256, expend=0
-	  Entry: count=3028, stmt=3026
+	    ETA: total-action=13, new-action=3, max-size=3, capacity=256, expend=0
+	  Entry: count=3065, stmt=3065
 ========================================================================================================================================================
-Entry Bit Map: total=3028, max-id=3036, create=3036, removed=8, group-size=10, group-count=304
+Entry Bit Map: total=3065, max-id=3078, create=3078, removed=13, group-size=10, group-count=308
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-.................................................................................................... [1000]
+9................................................................................................... [1000]
 .................................................................................................... [2000]
 .................................................................................................... [3000]
-..62                                                                                                 [3036]
+......60                                                                                             [3078]
 ========================================================================================================================================================
 Length Array: min=2, max=4
-Entry[2]= 3, eton_daily_task1(2), task_func(1)
-Entry[3]= 126, beike_has_house(122), eton_completed_task1(2)
-Entry[4]= 2899, beike_house_property(2899)
+Entry[2]= 2, eton_daily_task1(2)
+Entry[3]= 0
+Entry[4]= 3063, eton_daily_data(3063)
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Length Array:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-Length:   NAME0   BETA0
-     2:       3       0
-     3:     124       2
-     4:    2899       0
- total:    3026       2
+Length:   NAME0
+     2:       2
+     4:    3063
+ total:    3065
 ========================================================================================================================================================
 Ref Array:
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-RefCount: unRefer   NAME0   BETA0
+RefCount: unRefer   NAME0
        0:       0
-       1:       0    3026       2
-   total:       0    3026       2
+       1:       0    3065
+   total:       0    3065
 ========================================================================================================================================================
-Ref Bit Map: total=3028, max-id=3036, create=3036, removed=8, group-size=10, group-count=304
+Ref Bit Map: total=3065, max-id=3078, create=3078, removed=13, group-size=10, group-count=308
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-.................................................................................................... [1000]
+9................................................................................................... [1000]
 .................................................................................................... [2000]
 .................................................................................................... [3000]
-..62                                                                                                 [3036]
-========================================================================================================================================================
-Child Count:
---------------------------------------------------------------------------------------------------------------------------------------------------------
-       4: entry=task_func:'("_down_html_" down_html), status=define
---------------------------------------------------------------------------------------------------------------------------------------------------------
-           Entry[2]  Entry[3]  Entry[4]
- 0 -  0:         2       126      2899
- 4 -  4:         1         0         0
-  total:         3       126      2899
---------------------------------------------------------------------------------------------------------------------------------------------------------
-           NAME0   BETA0
- 0 -  0:    3025       2
- 4 -  4:       1       0
-  total:    3026       2
+......60                                                                                             [3078]
 ========================================================================================================================================================
 
 Model<em> frame:id=3, name=model, lvl=3, ref=5/6, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 44       3        5    instance   model@em            
+default_model        : 23       3        5    instance   model@em            
 ==========================================================================================================================
 
-Node<R1> frame:id=4, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
+Node<R1> frame:id=15, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 114      4        5    instance   model@em            
-?task                : 115      4        1    var        _down_html_ : type=string
-?arg0                : 116      4        1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=string
+default_model        : 137109   15       5    instance   model@em            
+?task                : 137110   15       1    var        _down_html_ : type=string
+?arg0                : 137111   15       1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=atom
 ==========================================================================================================================
 
-Node<E0005> frame:id=5, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
+Node<E0005> frame:id=9, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 121      5        1    var        2022-02-26 : type=string
-?3                   : 122      5        1    var        2022-02-26 : type=string
-?rv                  : 125      5        1    var        false : type=bool   
+?0                   : 137116   9        1    var        2022-02-27 : type=string
+?3                   : 137117   9        1    var        2022-02-27 : type=string
+?rv                  : 137120   9        1    var        false : type=bool   
 ==========================================================================================================================
 
-Node<E0009> frame:id=11, name=NF-E0009, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0009
+Node<E0009> frame:id=12, name=NF-E0009, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0009
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 140      11       1    var        2022-02-26 : type=string
-?3                   : 141      11       1    var        2022-02-26 : type=string
-?rv                  : 144      11       1    var        false : type=bool   
+?0                   : 137132   12       1    var        2022-02-27 : type=string
+?3                   : 137133   12       1    var        2022-02-27 : type=string
+?rv                  : 137136   12       1    var        false : type=bool   
 ==========================================================================================================================
 
-Node<R3> frame:id=6, name=NF-R3, lvl=4, ref=1/2, entry=6, pid=3(model), subject=NF-R3
+Node<R3> frame:id=11, name=NF-R3, lvl=4, ref=1/2, entry=6, pid=3(model), subject=NF-R3
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 147      6        1    var        eton_working_task1:'(?day1 ?task ?arg0) : type=list
-default_model        : 148      6        5    instance   model@em            
-?day2                : 149      6        1    var        2022-02-26 : type=string
-?task                : 150      6        1    var        _down_html_ : type=string
-?arg0                : 151      6        1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=string
-?day1                : 152      6        1    var        2022-02-26 : type=string
+?0                   : 137139   11       1    var        eton_working_task1:'(?day1 ?task ?arg0) : type=list
+default_model        : 137140   11       5    instance   model@em            
+?day2                : 137141   11       1    var        2022-02-27 : type=string
+?task                : 137142   11       1    var        _down_html_ : type=string
+?arg0                : 137143   11       1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=atom
+?day1                : 137144   11       1    var        2022-02-27 : type=string
 ==========================================================================================================================
 
-node update info: model-exec-count=22, row=12, column=19(1), value-max=1, value-unit=1^x
+node update info: model-exec-count=9213, row=43, column=72(128), value-max=43, value-unit=2^x
 ========================================================================================================================================================
- NODE[n]  Update Exec Idle .1111..11.1...11111 max=1, unit=1^x
+ NODE[n]  Update Exec Idle 888878877877887877778777787888788787777777777777877777777777777777777778 max=84, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-   N0001:    1    1    0  1                 
-   N0003:    1    4    3    1               
-   N0007:    1    1    0                1   
-   N0011:    1    3    2        1           
-   E0009:    1    1    0                  1 
-   B0004:    1    1    0     1              
-   B0008:    1    2    1                 1  
-   B0012:    1    1    0         1          
-   B0015:    1    1    0           1        
-   B0021:    1    2    1               1    
-      R1:    1    1    0   1                
-      R3:    1    1    0                   1
+   N0018: 3062 3063    1 777777777777777777777777777777777777777777777777777777777777777777777777
+   A0432:   28   29    0          6                                               2         3    
+   A0699:   26   27    0                6                                      1  1          1   
+   A0724:   26   27    0                45                                        2          1   
+  A01267:   26   27    0                             6                            2        1     
+  A01292:   26   27    0                             64                          11        1     
+  A01534:   26   27    0                                   6                          2    1     
+  A02185:   26   27    0                                                 55                 1   2
+   A0148:   25   26    0   46                                                      1       1     
+   A0917:   25   26    0                     6                                             1   1 
+  A01142:   25   26    0                          6                              1         1     
+   A0023:   24   25    0 6                                                                 1     
+   A0073:   24   25    0  6                                                                1     
+   A0123:   24   25    0   6                                                               1     
+   A0173:   24   25    0    6                                                              1     
+   A0248:   24   25    0      6                                                             1    
+   A0273:   24   25    0      55                                                            1    
+   A0298:   24   25    0       6                                                            1    
+   A0457:   24   25    0          45                                                        1    
+   A0507:   24   25    0           26                                                       1    
+   A0574:   24   25    0             6                                                       1   
+   A0599:   24   25    0              6                                                      1   
+  A01067:   24   25    0                        63                                         1     
+  A01117:   24   25    0                         55                                        1     
+  A01242:   24   25    0                            61                                     1     
+  A01317:   24   25    0                              6                                    1     
+  A01392:   24   25    0                               46                                  1     
+  A01417:   24   25    0                                6                                  1     
+  A01442:   24   25    0                                16                                 1     
+  A02160:   24   25    0                                                 6                  1    
+  A03093:   24   25    0                                                                        6
+   N0001:    1    1    0                                                                        1
+   N0003:    1    4    3                                                                        1
+   N0007:    1    2    1                                                                        1
+   N0011:    1    4    3                                                                        1
+   E0009:    1    1    0                                                                        1
+   B0004:    1    1    0                                                                        1
+   B0008:    1    2    1                                                                        1
+   B0012:    1    1    0                                                                        1
+   B0015:    1    1    0                                                                        1
+  B03143:    1    2    1                                                                        1
+      R1:    1    1    0                                                                        1
+      R3:    1    1    0                                                                        1
 ========================================================================================================================================================
 
 
-node cache info: load=3, total=4, path=C:\data\rs\eton\et-down-beike
+node cache info: load=2, total=2, path=C:\data\rs\eton\et-down-beike
 ========================================================================================================================================================
  NODE[n]    Stmt   Last   Load   Save   Read  Write Key
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-   N0001:      2      3      1      0      2      0
-   N0018:    122    125      1      0    122      0
-   N0019:      0      0      0      0      0      0
-   N0020:   2899   3024      1      0   2899      0
+   N0001:      2      2      1      0      2      0
+   N0018:   3063   3066      1      0   3064      0
 ========================================================================================================================================================
 
 Global Info:
@@ -485,11 +754,11 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      301
-    Interpreter call level/max:        0       13
-               Frame max level:        8
-                  Frame max id:       13
-           Frame free id count:        5
+           Interpreter call id:      299
+    Interpreter call level/max:        0       14
+               Frame max level:       12
+                  Frame max id:       16
+           Frame free id count:        6
 ==========================================================================================================================
 
 Optimize info:
@@ -506,106 +775,128 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      525
-      func:       39
+    factor:   190039
+      func:    46877
      macro:       12
 ==========================================================================================================================
 
-Callable stats info: callId=301, row=58, column=38(8), value-max=34, value-unit=2^x
+Callable stats info: callId=299, row=79, column=38(8), value-max=46850, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444598 max=166, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333335X max=233418, unit=4^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     87    0 defun                                                 144444    4447 
-    root   factor     41    0 defconst                                                   34444   4 
-    root   factor     30    0 return                                                             55
-    root   factor     22    0 defvar                                                4           144
-    root   factor     16    0 do                                                                 53
-  system funcList     10    1 size-of                                                            44
-    root   factor     10    0 load                                                              15 
-    root   factor      8    0 trace                                                              14
-    root   factor      8    0 size-of-list                                                       43
-    root   factor      8    0 if                                                                 14
-    root   factor      8    0 day-number                                                          4
-    root   factor      7    0 setq                                                               42
-    root   factor      7    0 defmacro                                                2       3 11 
-    root   factor      7    0 alias                          4                               1     
-  system   factor      6    0 add-stmt                                                           14
-    root   factor      6    0 -                                                                  41
-  system   factor      5    0 set-priority                                                       4 
-  system   factor      5    0 rete-node-of                                                       4 
-    root   factor      5    0 make-list                                             4              
-  system     func      5    1 (get-rule type#model string)                                       4 
-    root   factor      5    0 get-of-list                                                        4 
-  system funcList      5    1 get                                                                4 
-    main     func      5    2 (eton_model)                                                       13
-    root   factor      5    0 case                                                               4 
-  system   factor      5    0 add-rule                                                           4 
-    main    macro      5    1 _eton_priority_                                                    4 
-  system    macro      5    1 --                                                                 4 
+    root   factor  46868    0 return                                                             4X
+    root   factor  18655    0 defvar                                                3           13X
+    root   factor  12380    0 add-list-to-array                                                   X
+  system funcList  12380    1 add                                                                 X
+    root   factor  12255    0 +                                                                  1X
+    root   factor  12252    0 to-atom                                                             X
+    root   factor   9514    0 get-of-list                                                        3X
+  system funcList   9514    1 get                                                                3X
+    root   factor   9333    0 do                                                                 4X
+  system funcList   6326    1 size-of                                                            39
+    root   factor   6324    0 size-of-list                                                       39
+    root   factor   6199    0 if                                                                 19
+    root   factor   6126    0 value-of                                                            9
+    root   factor   6126    0 seta                                                                9
+    root   factor   3192    0 loop                                                                9
+  system funcList   3191    1 to-list                                                             9
+    root   factor   3191    0 make-array                                                          9
+    root   factor   3191    0 add-array-to-list                                                   9
+    root   factor   3134    0 setq                                                               39
+    root   factor   3132    0 =                                                                   9
+    root   factor   3131    0 !=                                                                 19
+  system   factor   3068    0 rete-node-of                                                       39
+    root   factor   3068    0 case                                                               39
+    root   factor   3063    0 to-named-list                                                       9
+    root   factor   3063    0 name-of                                                             9
+  system   factor   3063    0 model-of                                                            9
+  system   factor   3063    0 list-stmt                                                           9
+  system     func   3063    1 (get-named-rete-node type#mode                                      9
+    root   factor   3063    0 get-attribute                                                       9
+    root   factor   3063    0 foreach                                                             9
+  system     func   3063    1 (entry-length-of nil)                                               9
+    main funcList   3063    2 diff-stmt                                                           9
+    main     func   3063    2 (__make_filter_array__ nil)                                         9
+    root   factor    179    0 add-attribute                  133333333333333333333332              
+    root   factor    134    0 -                                                                  36
+    main     func    128    2 (__sub_statement__ nil nil)                                         6
+    root   factor     77    0 defun                                                 133333    3334 
+    root   factor     35    0 defconst                                                   23333   1 
+    root   factor      9    0 trace                                                              13
+    root   factor      8    0 day-number                                                          3
+    root   factor      7    0 defmacro                                                2       2 11 
+    root   factor      7    0 alias                          3                               1     
+    root   factor      6    0 load                                                              13 
+  system   factor      6    0 add-stmt                                                           13
+  system   factor      5    0 set-priority                                                       3 
+    root   factor      5    0 make-list                                             3              
+  system     func      5    1 (get-rule type#model string)                                       3 
+  system   factor      5    0 add-rule                                                           3 
+    main    macro      5    1 _eton_priority_                                                    3 
+  system    macro      5    1 --                                                                 3 
+  system   factor      4    0 state-of                                                            3
+  system   factor      4    0 remove-stmt                                                         3
   system   factor      4    0 query-stmt                                                          3
+    main     func      4    2 (eton_model)                                                       22
     main     func      4    1 (day-is-bigger-than string str                                      3
     root   factor      4    0 >                                                                   3
-    root   factor      4    0 =                                                                   3
-    root   factor      4    0 !=                                                                 13
-    root   factor      3    0 deftemplate                                              3           
-    root   factor      3    0 +                                                                  12
-  system   factor      2    0 state-of                                                            2
-  system   factor      2    0 start                                                               2
-  system   factor      2    0 size-of-model                                                       2
-  system   factor      2    0 remove-stmt                                                         2
+  system   factor      3    0 start                                                               2
+    root   factor      3    0 deftemplate                                              2           
+  system   factor      2    0 size-of-model                                                      11
     root   factor      2    0 print                                                               2
     root   factor      2    0 not                                                                 2
-    root   factor      2    0 load-class                                                         2 
-    main     func      2    2 (down_html nil)                                                     2
+    main     func      2    4 (down_html nil)                                                     2
     root   factor      2    0 date                                                                2
-    main     func      2    2 (add_working_task string strin                                      2
+    main     func      2    2 (add_working_task string nil)                                       2
     main     func      2    4 (__inc_process_count__)                                             2
   system    macro      2    1 ++                                                                  2
   system   factor      1    0 set-model-cache-path                                               1 
   system   factor      1    0 set-default-model                                                  1 
+    main     func      1    2 (register_task_function type#m                                     1 
     main     func      1    2 (process-eton)                                                      1
     root   factor      1    0 new                                                                1 
-    root   factor      1    0 loop                                                                1
-  system   factor      1    0 list-stmt                                                           1
+    root   factor      1    0 load-class                                                         1 
+    root   factor      1    0 lambda                                                             1 
     main     func      1    2 (init_eton_model string)                                           1 
+    root   factor      1    0 file-exist                                                         1 
     root   factor      1    0 break                                                               1
     root   factor      1    0 and                                                                1 
-    main     func      1    2 (add_task_function string func                                     1 
-    main     func      1    2 (add_daily_task string string)                                      1
+    main     func      1    2 (add_daily_task string nil)                                         1
+  system   factor      1    0 add-constraint                                                     1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2640            0         2640
+        atom:        30881            0        30881
          int:           16            0           16
-      string:        12120            0        12120
-        list:         3177           11         3166
-        expr:         1305           32         1273
-         var:          125           91           34
-    constant:           41            0           41
-        func:          102            0          102
+      string:        39498            0        39498
+        list:        37376         6325        31051
+        expr:        57208        46871        10337
+       array:         3191          128         3063
+         var:       133943       133907           36
+    constant:           35            0           35
+        func:           94            0           94
     template:            1            0            1
        macro:            7            0            7
     instance:            2            0            2
       member:           17            0           17
-       frame:           71           66            5
+       frame:        84050        84043            7
  interpreter:            1            0
-  frameEntry:          498            0
-      lambda:            0            0
+  frameEntry:       137488            0
+      lambda:            1            0
 ==========================================================================================================================
 
-Global frame list: total=5
+Global frame list: total=7
 
-id=2, name=main, lvl=2, ref=2/3, entry=56, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=37, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
-main                 : 3        2        2    frame      frame@main          
+main                 : 3        2        3    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
 is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
@@ -628,47 +919,28 @@ to-valid-path        : 14       2        1    func       (to-valid-path string) 
 day-is-bigger-than   : 15       2        1    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 16       2        1    func       (day-is-smaller-than string string) : frame=frame@main
 index-of             : 17       2        1    func       (index-of nil list) : frame=frame@main
-end                  : 18       2        0    factor     end                 
-log                  : 19       2        0    factor     log                 
-exec                 : 20       2        0    factor     exec                
-sh-exec-no-err       : 21       2        2    func       (sh-exec-no-err string) : frame=frame@main
-sh-exec-no-err-return-line1 : 22       2        2    func       (sh-exec-no-err-return-line1 string) : frame=frame@main
-pwd_win              : 23       2        2    func       (pwd_win) : frame=frame@main
-pwd_linux            : 24       2        2    func       (pwd_linux) : frame=frame@main
-pwd                  : 25       2        2    func       (pwd) : frame=frame@main
-rs_base              : 26       2        2    func       (rs_base) : frame=frame@main
-__sub_statement__    : 27       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
-__previous_statement__ : 28       2        2    func       (__previous_statement__ nil) : frame=frame@main
-__make_filter_array__ : 29       2        2    func       (__make_filter_array__ nil) : frame=frame@main
-diff-stmt            : 30       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
+__sub_statement__    : 18       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
+__previous_statement__ : 19       2        2    func       (__previous_statement__ nil) : frame=frame@main
+__make_filter_array__ : 20       2        2    func       (__make_filter_array__ nil) : frame=frame@main
+diff-stmt            : 21       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
                                          2    func       (diff-stmt nil list list) : frame=frame@main
                                          1    func       (diff-stmt nil list list list) : frame=frame@main
-URL_BEIKE_HOME       : 31       2        2    constant   URL_BEIKE_HOME:"https://bj.ke.com"
-URL_BEIKE_AREA_HEAD  : 32       2        2    constant   URL_BEIKE_AREA_HEAD:"https://bj.ke.com/ershoufang/rs"
-URL_BEIKE_AREA_MODE  : 33       2        2    constant   URL_BEIKE_AREA_MODE:"https://bj.ke.com/ershoufang/rs%?"
-URL_BEIKE_AREA_HEAD2 : 34       2        2    constant   URL_BEIKE_AREA_HEAD2:"https://bj.ke.com/ershoufang/pg"
-URL_BEIKE_AREA_MODE2 : 35       2        2    constant   URL_BEIKE_AREA_MODE2:"https://bj.ke.com/ershoufang/pg%drs%?"
-URL_BEIKE_HOUSE_MODE : 36       2        2    constant   URL_BEIKE_HOUSE_MODE:"https://bj.ke.com/ershoufang/%d.html"
-TASK_DOWN_HTML       : 37       2        2    constant   TASK_DOWN_HTML:"_down_html_"
-add_stmt_beike_house_count : 38       2        2    func       (add_stmt_beike_house_count nil nil) : frame=frame@main
-add_stmt_beike_has_house : 39       2        2    func       (add_stmt_beike_has_house nil nil) : frame=frame@main
-add_stmt_beike_house_property : 40       2        2    func       (add_stmt_beike_house_property nil nil nil) : frame=frame@main
-init_beike_model     : 41       2        2    func       (init_beike_model type#model) : frame=frame@main
-size_of_html_task    : 42       2        2    func       (size_of_html_task) : frame=frame@main
-?eton_model          : 43       2        2    var        model@em : type=instance
-em                   : 45       2        5    instance   model@em            
-?process_count       : 46       2        2    var        2 : type=int        
-__inc_process_count__ : 47       2        4    func       (__inc_process_count__) : frame=frame@main
-eton_model           : 48       2        2    func       (eton_model) : frame=frame@main
-init_eton_model      : 49       2        2    func       (init_eton_model string) : frame=frame@main
-add_daily_task       : 50       2        2    func       (add_daily_task string string) : frame=frame@main
-add_working_task     : 51       2        2    func       (add_working_task string string) : frame=frame@main
-add_task_function    : 52       2        2    func       (add_task_function string func) : frame=frame@main
-process-eton         : 53       2        2    func       (process-eton) : frame=frame@main
-clean-eton           : 54       2        2    func       (clean-eton) : frame=frame@main
-_eton_priority_      : 57       2        1    macro      _eton_priority_     
-down_html            : 99       2        2    func       (down_html nil) : frame=frame@main
-?rv                  : 102      2        1    var        2 : type=int        
+?eton_model          : 22       2        2    var        model@em : type=instance
+em                   : 24       2        5    instance   model@em            
+?process_count       : 25       2        2    var        2 : type=int        
+__inc_process_count__ : 26       2        4    func       (__inc_process_count__) : frame=frame@main
+eton_model           : 27       2        2    func       (eton_model) : frame=frame@main
+init_eton_model      : 28       2        2    func       (init_eton_model string) : frame=frame@main
+add_daily_task       : 29       2        2    func       (add_daily_task string nil) : frame=frame@main
+add_working_task     : 30       2        2    func       (add_working_task string nil) : frame=frame@main
+register_task_function : 31       2        2    func       (register_task_function type#model string func) : frame=frame@main
+update_eton          : 32       2        2    func       (update_eton atom nil nil) : frame=frame@main
+has_subject_property : 33       2        2    func       (has_subject_property atom nil nil) : frame=frame@main
+process-eton         : 34       2        2    func       (process-eton) : frame=frame@main
+TASK_DOWN_HTML       : 35       2        1    constant   TASK_DOWN_HTML:"_down_html_"
+_eton_priority_      : 38       2        1    macro      _eton_priority_     
+down_html            : 80       2        4    func       (down_html nil) : frame=frame@main
+?rv                  : 81       2        1    var        2 : type=int        
 ==========================================================================================================================
 
 
@@ -676,55 +948,69 @@ id=3, name=model, lvl=3, ref=5/6, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 44       3        5    instance   model@em            
+default_model        : 23       3        5    instance   model@em            
 ==========================================================================================================================
 
-id=4, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
+id=4, name=_$fun$_init_eton_model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=_$fun$_init_eton_model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 114      4        5    instance   model@em            
-?task                : 115      4        1    var        _down_html_ : type=string
-?arg0                : 116      4        1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=string
+?path                : 36       4        1    var        C:\data\rs\eton\et-down-beike : type=string
 ==========================================================================================================================
 
-id=5, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
+id=5, name=do, lvl=4, ref=1/2, entry=1, pid=4(_$fun$_init_eton_model), subject=do
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 121      5        1    var        2022-02-26 : type=string
-?3                   : 122      5        1    var        2022-02-26 : type=string
-?rv                  : 125      5        1    var        false : type=bool   
+?rv                  : 135      5        1    var        true : type=bool    
 ==========================================================================================================================
 
-id=6, name=NF-R3, lvl=4, ref=1/2, entry=6, pid=3(model), subject=NF-R3
+id=9, name=NF-E0005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 147      6        1    var        eton_working_task1:'(?day1 ?task ?arg0) : type=list
-default_model        : 148      6        5    instance   model@em            
-?day2                : 149      6        1    var        2022-02-26 : type=string
-?task                : 150      6        1    var        _down_html_ : type=string
-?arg0                : 151      6        1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=string
-?day1                : 152      6        1    var        2022-02-26 : type=string
+?0                   : 137116   9        1    var        2022-02-27 : type=string
+?3                   : 137117   9        1    var        2022-02-27 : type=string
+?rv                  : 137120   9        1    var        false : type=bool   
 ==========================================================================================================================
 
-id=11, name=NF-E0009, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0009
+id=11, name=NF-R3, lvl=4, ref=1/2, entry=6, pid=3(model), subject=NF-R3
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 140      11       1    var        2022-02-26 : type=string
-?3                   : 141      11       1    var        2022-02-26 : type=string
-?rv                  : 144      11       1    var        false : type=bool   
+?0                   : 137139   11       1    var        eton_working_task1:'(?day1 ?task ?arg0) : type=list
+default_model        : 137140   11       5    instance   model@em            
+?day2                : 137141   11       1    var        2022-02-27 : type=string
+?task                : 137142   11       1    var        _down_html_ : type=string
+?arg0                : 137143   11       1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=atom
+?day1                : 137144   11       1    var        2022-02-27 : type=string
+==========================================================================================================================
+
+id=12, name=NF-E0009, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E0009
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+?0                   : 137132   12       1    var        2022-02-27 : type=string
+?3                   : 137133   12       1    var        2022-02-27 : type=string
+?rv                  : 137136   12       1    var        false : type=bool   
+==========================================================================================================================
+
+id=15, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+default_model        : 137109   15       5    instance   model@em            
+?task                : 137110   15       1    var        _down_html_ : type=string
+?arg0                : 137111   15       1    var        https://bj.ke.com/ershoufang/rs金隅万科城/ : type=atom
 ==========================================================================================================================
 
 Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
-?load-class          : '("alpha.rulp.utils.RSLoader" "alpha.rulp.utils.RRuleLoader")
-?load-jar            : '("C:\\data\\rs\\bin\\irulp_shell_bin_0.0.1.jar" "irulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\rs.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\constraint-diff-stmt.rulp" "C:\\data\\rs\\load\\beike.rulp" "C:\\data\\rs\\load\\eton.rulp")
+?load-class          : '("alpha.rulp.utils.RRuleLoader")
+?load-jar            : '("irulp_rule_bin_0.0.1.jar")
+?load-script         : '("C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\constraint-diff-stmt.rulp" "C:\\data\\rs\\load\\eton.rulp")
 ?load-system         : '("rule" "string" "tool")
 ?model-trace         : false
 ?path                : '()
@@ -737,14 +1023,16 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(model): id=3, lvl=3, subject=model
-                ->FRAME(NF-R1): id=4, lvl=4, subject=NF-R1
-                ->FRAME(NF-E0005): id=5, lvl=4, subject=NF-E0005
-                ->FRAME(NF-R3): id=6, lvl=4, subject=NF-R3
-                ->FRAME(NF-E0009): id=11, lvl=4, subject=NF-E0009
+                ->FRAME(NF-E0005): id=9, lvl=4, subject=NF-E0005
+                ->FRAME(NF-R3): id=11, lvl=4, subject=NF-R3
+                ->FRAME(NF-E0009): id=12, lvl=4, subject=NF-E0009
+                ->FRAME(NF-R1): id=15, lvl=4, subject=NF-R1
+            ->FRAME(_$fun$_init_eton_model): id=4, lvl=3, subject=_$fun$_init_eton_model
+                ->FRAME(do): id=5, lvl=4, subject=do
 
 Global Subject list:
 
-name=em, string=model@em, lvl=1, ref=5/6, parent=model, final=false, mbrs=4, frame=null
+name=em, string=model@em, lvl=1, ref=5/7, parent=model, final=false, mbrs=4, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

@@ -45,11 +45,13 @@ public interface IRNodeGraph {
 
 	public IRReteNode findRootNode(int stmtLen) throws RException;
 
+	public void gc() throws RException;
+
 	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException;
 
-	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
+	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;;
 
-	public int getMaxRootStmtLen();;
+	public int getMaxRootStmtLen();
 
 	public IRReteNode getNamedNode(String name, int stmtLen) throws RException;
 

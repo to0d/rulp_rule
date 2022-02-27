@@ -1,9 +1,9 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0     0      2      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    0    0   99   99      0       4
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    1    1   99   99      0       0
+NAME0       0      2      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    0    0   99   99      0       4
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    1    1   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -63,9 +63,9 @@ N0001(NAME0):               name1:'(?0 ?1)
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if name1:'(?a ?b) do (?a ?b))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    1    1   99   99      0       0
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    1    1   99   99      0       0
 ========================================================================================================================================================
 
 node info:

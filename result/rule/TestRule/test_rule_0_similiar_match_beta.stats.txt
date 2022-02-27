@@ -1,11 +1,11 @@
 Model<m> stats info:
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0     0      2      2      0     0     0     0     0      0      0     1      2     3     0    0        0      4      0    0    0  900  900      0      14
-ALPH0     0      2      0      0     0     0     0     0      0      0     2      0     4     0    0        8      2      0    1    1   99   99      0       2
-BETA0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    3    3   99   99      0       0
+ROOT0       0      2      2      0     0     0     0     0      0      0     1      2     3     0    0        0      4      0    0    0  900  900      0      14
+ALPH0       0      2      0      0     0     0     0     0      0      0     2      0     4     0    0        8      2      0    1    1   99   99      0       2
+BETA0       0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      2      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -104,11 +104,11 @@ B0004(BETA0):               '('(?0 p1 ?1) '(?1 p2 ?2))
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if '(?a p1 ?b) '(?b p2 ?c) do (-> '(?a p3 ?c)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0     0      2      0      0     0     0     0     0      0      0     2      0     4     0    0        8      2      0    1    1   99   99      0       2
-BETA0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
+ALPH0       0      2      0      0     0     0     0     0      0      0     2      0     4     0    0        8      2      0    1    1   99   99      0       2
+BETA0       0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
@@ -130,11 +130,11 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<RU001> stats: priority=099, expr=(add-rule m if '(?x p1 ?y) '(?y p2 ?z) do (-> '(?x p4 ?z)))
 ========================================================================================================================================================
- NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0     0      2      0      0     0     0     0     0      0      0     2      0     4     0    0        8      2      0    1    1   99   99      0       2
-BETA0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
- RULE     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
+ALPH0       0      2      0      0     0     0     0     0      0      0     2      0     4     0    0        8      2      0    1    1   99   99      0       2
+BETA0       0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
+RULE        0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    3    3   99   99      0       0
 ========================================================================================================================================================
 
 node info:
