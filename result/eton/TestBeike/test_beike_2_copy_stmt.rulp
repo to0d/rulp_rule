@@ -4,7 +4,7 @@
 (new model m)
 ;=>
 
-(set-model-cache-path m "C:\data\\rs\\eton\\et-down-beike")
+(set-model-cache-path m "C:\data\\eton\beike")
 ;=>
 
 (size-of (query-stmt m '(?a ?b ?c ?d) from eton_daily_data:'(?a ?b ?c ?d)))

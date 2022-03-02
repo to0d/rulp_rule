@@ -267,7 +267,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '("C:\\data\\rs\\load\\constraint-diff-stmt.rulp")
+?load-script         : '("C:\\data\\eton\\load\\constraint-diff-stmt.rulp")
 ?load-system         : '("rule" "string")
 ?model-trace         : false
 ?path                : '()

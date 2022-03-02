@@ -11,7 +11,7 @@ public class TestBeike extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_statsInfo("em");
+//		_statsInfo("em");
 	}
 
 	@Test
@@ -19,7 +19,7 @@ public class TestBeike extends RuleTestBase {
 
 		_setup();
 		_run_script();
-		_statsInfo("m");
+//		_statsInfo("m");
 	}
 
 	@Test

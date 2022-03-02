@@ -11,7 +11,7 @@
 
 (defun init_beike_model ((?m model))
 
-    (set-model-cache-path ?m "C:\data\\rs\\eton\\et-down-beike")
+    (set-model-cache-path ?m "C:\data\\eton\beike")
     (set-default-model ?m)
    
     (add-constraint ?m eton_daily_data:'(?day ?house ?prop ?value) 

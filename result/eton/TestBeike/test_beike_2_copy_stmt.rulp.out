@@ -4,11 +4,11 @@
 (new model m)
 ;=>m
 
-(set-model-cache-path m "C:\data\\rs\\eton\\et-down-beike")
+(set-model-cache-path m "C:\data\\eton\beike")
 ;=>nan
 
 (size-of (query-stmt m '(?a ?b ?c ?d) from eton_daily_data:'(?a ?b ?c ?d)))
-;=>3096
+;=>3111
 
 (add-constraint m n1:'(?day ?house ?prop ?value) (lambda (?s)(return (diff-stmt (get-named-rete-node m "n1") ?s '(1 2) '(3)))))
 ;=>true

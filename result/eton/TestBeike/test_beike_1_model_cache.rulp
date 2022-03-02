@@ -4,7 +4,7 @@
 (defconst TASK_DOWN_HTML "_down_html_")
 ;=>
 
-(init_eton_model "C:\data\\rs\\eton\\et-down-beike")
+(init_eton_model "C:\data\\eton\beike")
 ;=>
 
 (defun down_html (?url) (print ?url))

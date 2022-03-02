@@ -4,7 +4,7 @@
 (defconst TASK_DOWN_HTML "_down_html_")
 ;=>TASK_DOWN_HTML
 
-(init_eton_model "C:\data\\rs\\eton\\et-down-beike")
+(init_eton_model "C:\data\\eton\beike")
 ;=>nil
 
 (defun down_html (?url) (print ?url))
@@ -20,7 +20,7 @@
 ;=>'('("2022-02-05" https://bj.ke.com/ershoufang/rs金隅万科城/ "名称" "金隅万科城"))
 
 (size-of (eton_model))
-;=>3099
+;=>3114
 
 (add_daily_task TASK_DOWN_HTML https://bj.ke.com/ershoufang/rs龙山华府/)
 ;=>nil
