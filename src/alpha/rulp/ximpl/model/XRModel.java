@@ -3,10 +3,12 @@ package alpha.rulp.ximpl.model;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
+import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
 import static alpha.rulp.rule.Constant.V_M_GC_CAPACITY;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.V_M_GC_INTERVAL;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
@@ -1993,6 +1995,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RuleUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
 		RuleUtil.createModelVar(this, V_M_CST_INIT, RulpFactory.createBoolean(false));
 
+		this.gcLastGcTime = System.currentTimeMillis();
+
 		RuleUtil.createModelVar(this, V_M_GC_CAPACITY, RulpFactory.createLong(gcCapacity))
 				.addVarListener((v1, o1, o2) -> {
 					gcCapacity = RulpUtil.asLong(o2).asLong();
@@ -2003,7 +2007,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 					gcInterval = RulpUtil.asLong(o2).asLong();
 				});
 
-		gcLastGcTime = System.currentTimeMillis();
+		RuleUtil.createModelVar(this, V_M_GC_INACTIVE_LEAF, RulpFactory.createLong(DEF_GC_INACTIVE_LEAF))
+				.addVarListener((v1, o1, o2) -> {
+					nodeGraph.setGcMaxInactiveLeafCount(RulpUtil.asInteger(o2).asInteger());
+				});
+
+		RuleUtil.createModelVar(this, V_M_GC_MAX_CACHE_NODE, RulpFactory.createLong(-1)).addVarListener((v1, o1, o2) -> {
+			nodeGraph.setGcMaxCacheNodeCount(RulpUtil.asInteger(o2).asInteger());
+		});
 
 	}
 

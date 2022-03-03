@@ -52,11 +52,13 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
 
+	public int getGcCacheCount();
+
 	public int getGcInactiveLeafCount();
 
-	public int getGcNodeRemoveCount();
+	public long getGcNodeRemoveCount(RCountType countType) throws RException;
 
-	public long getGcStatusCount(RCountType countType) throws RException;
+	public int getGcRemoveNodeCount();
 
 	public int getMaxRootStmtLen();
 
@@ -85,6 +87,10 @@ public interface IRNodeGraph {
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public boolean removeNode(IRReteNode node) throws RException;
+
+	public void setGcMaxCacheNodeCount(int gcMaxCacheNodeCount);
+
+	public void setGcMaxInactiveLeafCount(int gcMaxInactiveLeafCount);
 
 	public void setNodePriority(IRReteNode node, int priority) throws RException;
 

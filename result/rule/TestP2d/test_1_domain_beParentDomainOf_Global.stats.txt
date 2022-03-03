@@ -1335,8 +1335,9 @@ name                              count
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-gc-trigger                      0
 model-gc-count                        0
-graph-gc-inactive-leaf-count          1
 graph-gc-node-remove                  0
+graph-gc-inactive-leaf-count          1
+graph-gc-cache-count                  0
 =================================================================================================================================================================
 
 
@@ -2708,7 +2709,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      300
+           Interpreter call id:      302
     Interpreter call level/max:        0        8
                Frame max level:        5
                   Frame max id:        9
@@ -2729,17 +2730,17 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      671
+    factor:      673
       func:       41
      macro:        2
 ==========================================================================================================================
 
-Callable stats info: callId=300, row=27, column=38(8), value-max=58, value-unit=2^x
+Callable stats info: callId=302, row=27, column=38(8), value-max=58, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444458X max=334, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444448X max=336, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     61    0 defun                                                 144444   13454 
+    root   factor     63    0 defun                                                 144444   13445 
     root   factor     58    0 if                                                                  7
     root   factor     44    0 not                                                                 7
   system   factor     42    0 state-of                                                            7
@@ -2754,10 +2755,10 @@ Callable stats info: callId=300, row=27, column=38(8), value-max=58, value-unit=
     root   factor      8    0 defvar                                                4            3 
     root   factor      8    0 defmacro                                                2       3  3 
     root   factor      7    0 alias                          4                                1    
-  system   factor      6    0 add-stmt                                                           33
+  system   factor      6    0 add-stmt                                                           14
     root   factor      5    0 make-list                                             4              
     root   factor      3    0 deftemplate                                              3           
-    root   factor      2    0 load                                                              11 
+    root   factor      2    0 load                                                               2 
   system   factor      1    0 start                                                               1
   system   factor      1    0 rete-node-of                                                        1
     root   factor      1    0 new                                                                1 
@@ -2771,21 +2772,21 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3401            0         3401
+        atom:         3419            0         3419
          int:            2            0            2
       string:          130            0          130
-        list:          764            3          761
-        expr:         1402           41         1361
-         var:          152          123           29
+        list:          766            3          763
+        expr:         1412           41         1371
+         var:          154          123           31
     constant:           34            0           34
-        func:           74            0           74
+        func:           76            0           76
     template:            1            0            1
        macro:            8            0            8
     instance:            2            0            2
-      member:           20            0           20
+      member:           24            0           24
        frame:          103          100            3
  interpreter:            1            0
-  frameEntry:          486            0
+  frameEntry:          488            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -2876,30 +2877,32 @@ Global frame tree:
 
 Global Subject list:
 
-name=p2d, string=model@p2d, lvl=1, ref=5/5, parent=model, final=false, mbrs=6, frame=null
+name=p2d, string=model@p2d, lvl=1, ref=5/5, parent=model, final=false, mbrs=8, frame=null
 ==========================================================================================================================
-Name                 : Access  Final Static Inherit Prop Ref  Type       Value
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-?cst-init            : DEFAULT                      0    1    var        false : type=bool
-?model-gc-capacity   : DEFAULT                      0    1    var        2048L : type=long
-?model-gc-interval   : DEFAULT                      0    1    var        -1L : type=long
-?model-state         : DEFAULT                      0    3    var        completed : type=atom
-?rbs-init            : DEFAULT                      0    1    var        false : type=bool
-this                 : DEFAULT                      0    5    instance   model@p2d
+?cst-init                      : DEFAULT                      0    1    var        false : type=bool
+?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
+?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
+?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
+?model-state                   : DEFAULT                      0    3    var        completed : type=atom
+?rbs-init                      : DEFAULT                      0    1    var        false : type=bool
+this                           : DEFAULT                      0    5    instance   model@p2d
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
-Name                 : Access  Final Static Inherit Prop Ref  Type       Value
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   namespace@mts
+this                           : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
-Name                 : Access  Final Static Inherit Prop Ref  Type       Value
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   namespace@rbs
+this                           : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

@@ -4,6 +4,7 @@ import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
 import static alpha.rulp.rule.Constant.A_RETE_TYPE;
+import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
@@ -290,8 +291,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
-	private int maxInactiveLeafNodeCount = 30;
-
 	public static boolean isSymmetricBetaNode(IRReteNode node) {
 
 		if (!RReteType.isBetaType(node.getReteType())) {
@@ -330,11 +329,17 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IREntryTable entryTable;
 
-	private long gcCacheCount[] = new long[RCountType.COUNT_TYPE_NUM];
+	protected int gcCacheCount = 0;
 
 	protected int gcInactiveLeafCount = 0;
 
-	private int gcRemoveCount = 0;
+	protected int gcMaxCacheNodeCount = 0;
+
+	protected int gcMaxInactiveLeafCount = DEF_GC_INACTIVE_LEAF;
+
+	protected int gcRemoveNodeCount = 0;
+
+	protected long gcRemoveNodeCountArray[] = new long[RCountType.COUNT_TYPE_NUM];
 
 	protected int maxNodeIndex = 0;
 
@@ -370,7 +375,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		for (int i = 0; i < RCountType.COUNT_TYPE_NUM; ++i) {
-			this.gcCacheCount[i] = 0;
+			this.gcRemoveNodeCountArray[i] = 0;
 		}
 	}
 
@@ -1054,55 +1059,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		return subGraph;
 	}
 
-//	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
-//			throws RException {
-//
-//		IRObject obj = reteTree.get(2);
-//
-//		/*****************************************************/
-//		// (var-changed ?varName ?v2) -> (var-changed ?varName ?tmp ?v2)
-//		/*****************************************************/
-//		if (RulpUtil.isVarAtom(obj)) {
-//
-//			// (var-changed ?varName ?anyVar ?tmp)
-//			List<IRObject> list = new ArrayList<>();
-//			list.add(reteTree.get(0));
-//			list.add(reteTree.get(1));
-//			list.add(tmpVarBuilder.next());
-//			list.add(reteTree.get(2));
-//
-////			InheritIndex[] inheritIndexs = new InheritIndex[2];
-////			inheritIndexs[0] = new InheritIndex(0, 0);
-////			inheritIndexs[1] = new InheritIndex(0, 2);
-//
-//			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-//
-//			AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-//					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-//
-//			return alph0Node;
-//		}
-//
-//		/*****************************************************/
-//		// (var-changed ?varName new-value) -> (var-changed ?varName ?tmp new-value)
-//		/*****************************************************/
-//
-//		// (var-changed ?varName ?tmp1 ?tmp2)
-//		List<IRObject> list = new ArrayList<>();
-//		list.add(reteTree.get(0));
-//		list.add(reteTree.get(1));
-//		list.add(tmpVarBuilder.next());
-//		list.add(tmpVarBuilder.next());
-//
-//		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-//
-//		AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
-//				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-//
-//		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
-//		return alph0Node;
-//	}
-
 	protected IRNodeSubGraph _buildSubGraphRuleGroup(String ruleGroupName) throws RException {
 
 		XRNodeSubGraph subGraph = new XRNodeSubGraph();
@@ -1210,6 +1166,55 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 	}
+
+//	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
+//			throws RException {
+//
+//		IRObject obj = reteTree.get(2);
+//
+//		/*****************************************************/
+//		// (var-changed ?varName ?v2) -> (var-changed ?varName ?tmp ?v2)
+//		/*****************************************************/
+//		if (RulpUtil.isVarAtom(obj)) {
+//
+//			// (var-changed ?varName ?anyVar ?tmp)
+//			List<IRObject> list = new ArrayList<>();
+//			list.add(reteTree.get(0));
+//			list.add(reteTree.get(1));
+//			list.add(tmpVarBuilder.next());
+//			list.add(reteTree.get(2));
+//
+////			InheritIndex[] inheritIndexs = new InheritIndex[2];
+////			inheritIndexs[0] = new InheritIndex(0, 0);
+////			inheritIndexs[1] = new InheritIndex(0, 2);
+//
+//			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+//
+//			AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+//					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+//
+//			return alph0Node;
+//		}
+//
+//		/*****************************************************/
+//		// (var-changed ?varName new-value) -> (var-changed ?varName ?tmp new-value)
+//		/*****************************************************/
+//
+//		// (var-changed ?varName ?tmp1 ?tmp2)
+//		List<IRObject> list = new ArrayList<>();
+//		list.add(reteTree.get(0));
+//		list.add(reteTree.get(1));
+//		list.add(tmpVarBuilder.next());
+//		list.add(tmpVarBuilder.next());
+//
+//		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+//
+//		AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
+//				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+//
+//		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
+//		return alph0Node;
+//	}
 
 	protected AbsReteNode _buildVarChangeNode4(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
 			throws RException {
@@ -1558,32 +1563,42 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		// update gc cache count before removed
 		{
-			gcRemoveCount++;
+			gcRemoveNodeCount++;
 
-			gcCacheCount[DefinedCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(DEFINE);
-			gcCacheCount[FixedCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(FIXED_);
-			gcCacheCount[AssumeCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(ASSUME);
-			gcCacheCount[ReasonCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(REASON);
-			gcCacheCount[DropCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(null);
-			gcCacheCount[RemoveCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(REMOVE);
-			gcCacheCount[TempCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(TEMP__);
-			gcCacheCount[NullCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryNullCount();
-			gcCacheCount[RedundantCount.getIndex()] += node.getEntryQueue().getRedundantCount();
-			gcCacheCount[BindFromCount.getIndex()] += model.getNodeGraph().getBindFromNodes(node).size();
-			gcCacheCount[BindToCount.getIndex()] += model.getNodeGraph().getBindToNodes(node).size();
-			gcCacheCount[NodeCount.getIndex()] += 1;
-			gcCacheCount[SourceCount.getIndex()] += listSourceNodes(node).size();
-			gcCacheCount[MatchCount.getIndex()] += node.getNodeMatchCount();
-			gcCacheCount[ExecCount.getIndex()] += node.getNodeExecCount();
-			gcCacheCount[IdleCount.getIndex()] += node.getNodeIdleCount();
-			gcCacheCount[UpdateCount.getIndex()] += node.getEntryQueue().getUpdateCount();
-			gcCacheCount[FailedCount.getIndex()] += node.getNodeFailedCount();
-			gcCacheCount[QueryFetch.getIndex()] += node.getEntryQueue().getQueryFetchCount();
-			gcCacheCount[QueryMatch.getIndex()] += node.getQueryMatchCount();
-			gcCacheCount[QueryMatch.getIndex()] = Math.min(gcCacheCount[QueryMatch.getIndex()], node.getReteLevel());
-			gcCacheCount[MinPriority.getIndex()] = Math.min(gcCacheCount[MinPriority.getIndex()], node.getPriority());
-			gcCacheCount[MaxLevel.getIndex()] = Math.min(gcCacheCount[MaxLevel.getIndex()], node.getReteLevel());
-			gcCacheCount[MaxPriority.getIndex()] = Math.min(gcCacheCount[MaxPriority.getIndex()], node.getPriority());
+			gcRemoveNodeCountArray[DefinedCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryCount(DEFINE);
+			gcRemoveNodeCountArray[FixedCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryCount(FIXED_);
+			gcRemoveNodeCountArray[AssumeCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryCount(ASSUME);
+			gcRemoveNodeCountArray[ReasonCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryCount(REASON);
+			gcRemoveNodeCountArray[DropCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(null);
+			gcRemoveNodeCountArray[RemoveCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryCount(REMOVE);
+			gcRemoveNodeCountArray[TempCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryCount(TEMP__);
+			gcRemoveNodeCountArray[NullCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryNullCount();
+			gcRemoveNodeCountArray[RedundantCount.getIndex()] += node.getEntryQueue().getRedundantCount();
+			gcRemoveNodeCountArray[BindFromCount.getIndex()] += model.getNodeGraph().getBindFromNodes(node).size();
+			gcRemoveNodeCountArray[BindToCount.getIndex()] += model.getNodeGraph().getBindToNodes(node).size();
+			gcRemoveNodeCountArray[NodeCount.getIndex()] += 1;
+			gcRemoveNodeCountArray[SourceCount.getIndex()] += listSourceNodes(node).size();
+			gcRemoveNodeCountArray[MatchCount.getIndex()] += node.getNodeMatchCount();
+			gcRemoveNodeCountArray[ExecCount.getIndex()] += node.getNodeExecCount();
+			gcRemoveNodeCountArray[IdleCount.getIndex()] += node.getNodeIdleCount();
+			gcRemoveNodeCountArray[UpdateCount.getIndex()] += node.getEntryQueue().getUpdateCount();
+			gcRemoveNodeCountArray[FailedCount.getIndex()] += node.getNodeFailedCount();
+			gcRemoveNodeCountArray[QueryFetch.getIndex()] += node.getEntryQueue().getQueryFetchCount();
+			gcRemoveNodeCountArray[QueryMatch.getIndex()] += node.getQueryMatchCount();
+			gcRemoveNodeCountArray[QueryMatch.getIndex()] = Math.min(gcRemoveNodeCountArray[QueryMatch.getIndex()],
+					node.getReteLevel());
+			gcRemoveNodeCountArray[MinPriority.getIndex()] = Math.min(gcRemoveNodeCountArray[MinPriority.getIndex()],
+					node.getPriority());
+			gcRemoveNodeCountArray[MaxLevel.getIndex()] = Math.min(gcRemoveNodeCountArray[MaxLevel.getIndex()],
+					node.getReteLevel());
+			gcRemoveNodeCountArray[MaxPriority.getIndex()] = Math.min(gcRemoveNodeCountArray[MaxPriority.getIndex()],
+					node.getPriority());
 
 		}
 
@@ -1897,7 +1912,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	@Override
 	public void gc() throws RException {
 
-		if (maxInactiveLeafNodeCount > 0) {
+		if (gcMaxInactiveLeafCount > 0) {
 
 			gcInactiveLeafCount++;
 
@@ -1915,7 +1930,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 			}
 
-			while (nodeUsedHeap.size() > maxInactiveLeafNodeCount) {
+			while (nodeUsedHeap.size() > gcMaxInactiveLeafCount) {
 				AbsReteNode node = nodeUsedHeap.pop();
 				node.setReteStage(RReteStage.InActive);
 //				System.out.println("rmove node: " + node);
@@ -1940,18 +1955,23 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
+	public int getGcCacheCount() {
+		return gcCacheCount;
+	}
+
+	@Override
 	public int getGcInactiveLeafCount() {
 		return gcInactiveLeafCount;
 	}
 
 	@Override
-	public int getGcNodeRemoveCount() {
-		return gcRemoveCount;
+	public long getGcNodeRemoveCount(RCountType countType) throws RException {
+		return gcRemoveNodeCountArray[countType.getIndex()];
 	}
 
 	@Override
-	public long getGcStatusCount(RCountType countType) throws RException {
-		return gcCacheCount[countType.getIndex()];
+	public int getGcRemoveNodeCount() {
+		return gcRemoveNodeCount;
 	}
 
 	@Override
@@ -2161,6 +2181,16 @@ public class XRNodeGraph implements IRNodeGraph {
 		/********************************************/
 
 		return false;
+	}
+
+	@Override
+	public void setGcMaxCacheNodeCount(int gcMaxCacheNodeCount) {
+		this.gcMaxCacheNodeCount = gcMaxCacheNodeCount;
+	}
+
+	@Override
+	public void setGcMaxInactiveLeafCount(int gcMaxInactiveLeafCount) {
+		this.gcMaxInactiveLeafCount = gcMaxInactiveLeafCount;
 	}
 
 	@Override

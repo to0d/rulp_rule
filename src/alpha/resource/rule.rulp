@@ -55,6 +55,13 @@
     (setq ?m::?model-gc-interval ?interval)
 )
 
+(defun set-model-gc-inactive-leaf ((?m model) (?count int))
+    (setq ?m::?model-gc-inactive-leaf ?count)
+)
+
+(defun set-model-gc-max-cache-node ((?m model) (?count int))
+    (setq ?m::?model-gc-max-cache-node ?count)
+)
 
 ;****************************************************
 ; Common utilies

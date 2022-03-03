@@ -272,4 +272,10 @@ public interface Constant {
 	String V_M_GC_INTERVAL = "?model-gc-interval";
 
 	String V_M_STATE = "?model-state";
+
+	String V_M_GC_INACTIVE_LEAF = "?model-gc-inactive-leaf";
+
+	String V_M_GC_MAX_CACHE_NODE = "?model-gc-max-cache-node";
+
+	int DEF_GC_INACTIVE_LEAF = 30;
 }

@@ -1224,15 +1224,17 @@ public class StatsUtil {
 
 	private static void _printModelCountInfo(StringBuffer sb, IRModel model) throws RException {
 
+		IRNodeGraph graph = model.getNodeGraph();
+
 		sb.append(String.format("model count info:\n"));
 		sb.append(SEP_LINE1);
 		sb.append(String.format("%-30s %8s\n", "name", "count"));
 		sb.append(SEP_LINE2);
 		sb.append(String.format("%-30s %8d\n", "model-gc-trigger", model.getGcTrigger()));
 		sb.append(String.format("%-30s %8d\n", "model-gc-count", model.getGcCount()));
-		sb.append(String.format("%-30s %8d\n", "graph-gc-inactive-leaf-count",
-				model.getNodeGraph().getGcInactiveLeafCount()));
-		sb.append(String.format("%-30s %8d\n", "graph-gc-node-remove", model.getNodeGraph().getGcNodeRemoveCount()));
+		sb.append(String.format("%-30s %8d\n", "graph-gc-node-remove", graph.getGcRemoveNodeCount()));
+		sb.append(String.format("%-30s %8d\n", "graph-gc-inactive-leaf-count", graph.getGcInactiveLeafCount()));
+		sb.append(String.format("%-30s %8d\n", "graph-gc-cache-count", graph.getGcCacheCount()));
 
 		sb.append(SEP_LINE1);
 
@@ -1746,12 +1748,12 @@ public class StatsUtil {
 				sb.append("\n");
 			}
 
-			if (!isRule && graph.getGcNodeRemoveCount() > 0) {
+			if (!isRule && graph.getGcRemoveNodeCount() > 0) {
 
-				sb.append(String.format("%-8s", "GC(" + graph.getGcNodeRemoveCount() + ")"));
+				sb.append(String.format("%-8s", "GC(" + graph.getGcRemoveNodeCount() + ")"));
 				for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
 					sb.append(String.format(" %" + _getCountTypeLength(countType) + "d",
-							graph.getGcStatusCount(countType)));
+							graph.getGcNodeRemoveCount(countType)));
 				}
 
 				sb.append("\n");

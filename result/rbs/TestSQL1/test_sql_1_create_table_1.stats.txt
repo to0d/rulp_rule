@@ -173,8 +173,9 @@ name                              count
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-gc-trigger                      0
 model-gc-count                        0
-graph-gc-inactive-leaf-count          0
 graph-gc-node-remove                  0
+graph-gc-inactive-leaf-count          0
+graph-gc-cache-count                  0
 =================================================================================================================================================================
 
 
@@ -370,7 +371,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      290
+           Interpreter call id:      292
     Interpreter call level/max:        0       14
                Frame max level:        8
                   Frame max id:       14
@@ -391,17 +392,17 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      510
+    factor:      512
       func:       38
   template:        5
 ==========================================================================================================================
 
-Callable stats info: callId=290, row=43, column=37(8), value-max=37, value-unit=2^x
+Callable stats info: callId=292, row=43, column=37(8), value-max=37, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         444444444444444444444445444444444445X max=260, unit=2^x
+   Frame    RType  Count  Ref Object                         444444444444444444444445444444444444X max=264, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442             
-    root   factor     53    0 defun                                                 144444   13442
+    root   factor     55    0 defun                                                 144444   13442
     root   factor     37    0 return                                                             7
     root   factor     34    0 defconst                                                   34444    
     root   factor     18    0 do                                                                 6
@@ -417,7 +418,7 @@ Callable stats info: callId=290, row=43, column=37(8), value-max=37, value-unit=
   system   factor      8    0 query-stmt                                                         4
   system     func      8    1 (init_cst_rule type#model)                                         4
   system     func      8    1 (add_cst_constraint_type type#                                     4
-    root   factor      7    0 value-of                                                          14
+    root   factor      7    0 value-of                                                           4
     root   factor      7    0 deftemplate                                              3         3
     root   factor      7    0 alias                          4                                1   
     root   factor      6    0 setq                                                               4
@@ -426,10 +427,10 @@ Callable stats info: callId=290, row=43, column=37(8), value-max=37, value-unit=
     root   factor      5    0 make-list                                             4             
     root   factor      5    0 defmacro                                                2       3   
   system   factor      4    0 add-rule                                                           3
-  system template      3    1 use                                                               12
+  system template      3    1 use                                                                3
     root   factor      3    0 not                                                                3
-    root   factor      3    0 frame-of                                                          12
-    root   factor      3    0 add_search_frame                                                  12
+    root   factor      3    0 frame-of                                                           3
+    root   factor      3    0 add_search_frame                                                   3
   system   factor      3    0 add-node                                                           3
   system   factor      2    0 set-default-model                                                  2
     root   factor      1    0 to-string                                                          1
@@ -449,22 +450,22 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1976            0         1976
+        atom:         1994            0         1994
          int:            1            0            1
       string:          109            0          109
-        list:          180            9          171
-        expr:          908           42          866
+        list:          182            9          173
+        expr:          918           42          876
        array:            1            0            1
-         var:          138          114           24
+         var:          140          114           26
     constant:           34            0           34
-        func:           68            0           68
+        func:           70            0           70
     template:            4            0            4
        macro:            5            0            5
     instance:            2            0            2
-      member:           51            0           51
+      member:           55            0           55
        frame:           75           73            2
  interpreter:            1            0
-  frameEntry:          483            0
+  frameEntry:          485            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -517,40 +518,42 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=19/23, parent=model, final=false, mbrs=8, frame=null
+name=m, string=model@m, lvl=1, ref=19/23, parent=model, final=false, mbrs=10, frame=null
 ==========================================================================================================================
-Name                 : Access  Final Static Inherit Prop Ref  Type       Value
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-$RG$$cst$            : PRIVATE Y                    1    1    var        '(CST01 CST02 CST03 CST04) : type=list
-$RG-names$           : PRIVATE Y                    1    1    var        '("$cst$") : type=list
-?cst-init            : DEFAULT                      0    1    var        true : type=bool
-?model-gc-capacity   : DEFAULT                      0    1    var        2048L : type=long
-?model-gc-interval   : DEFAULT                      0    1    var        -1L : type=long
-?model-state         : DEFAULT                      0    1    var        completed : type=atom
-?rbs-init            : DEFAULT                      0    1    var        true : type=bool
-this                 : DEFAULT                      0    19   instance   model@m
+$RG$$cst$                      : PRIVATE Y                    1    1    var        '(CST01 CST02 CST03 CST04) : type=list
+$RG-names$                     : PRIVATE Y                    1    1    var        '("$cst$") : type=list
+?cst-init                      : DEFAULT                      0    1    var        true : type=bool
+?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
+?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
+?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
+?model-state                   : DEFAULT                      0    1    var        completed : type=atom
+?rbs-init                      : DEFAULT                      0    1    var        true : type=bool
+this                           : DEFAULT                      0    19   instance   model@m
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
 ==========================================================================================================================
-Name                 : Access  Final Static Inherit Prop Ref  Type       Value
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-this                 : DEFAULT                      0    1    instance   namespace@mts
+this                           : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 name=rbs, string=namespace@rbs, lvl=1, ref=4/6, parent=namespace, final=false, mbrs=9, frame=4(SF-rbs-0)
 ==========================================================================================================================
-Name                 : Access  Final Static Inherit Prop Ref  Type       Value
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
-?current_schema      : DEFAULT                      0    1    var        model@m : type=instance
-create               : DEFAULT                      0    1    template   (create '('(table atom) '(? atom) '(? array))) : frame=frame@SF-rbs-0
-has-sql-table-names  : DEFAULT                      0    1    func       (has-sql-table-names type#model string) : frame=frame@SF-rbs-0
-init-sql-schema      : DEFAULT                      0    1    func       (init-sql-schema) : frame=frame@SF-rbs-0
-insert               : DEFAULT                      0    1    template   (insert '('(into atom) '(? atom) '(values atom) '(? expr)) '('(into atom) '(? atom) '(? expr) '(values atom) '(? expr))) : frame=frame@SF-rbs-0
-parse-column-def-list : DEFAULT                      0    0    factor     parse-column-def-list
-parse-values-list    : DEFAULT                      0    0    factor     parse-values-list
-set                  : DEFAULT                      0    1    template   (set '('(schema atom) '(? type#model))) : frame=frame@SF-rbs-0
-this                 : DEFAULT                      0    4    instance   namespace@rbs
+?current_schema                : DEFAULT                      0    1    var        model@m : type=instance
+create                         : DEFAULT                      0    1    template   (create '('(table atom) '(? atom) '(? array))) : frame=frame@SF-rbs-0
+has-sql-table-names            : DEFAULT                      0    1    func       (has-sql-table-names type#model string) : frame=frame@SF-rbs-0
+init-sql-schema                : DEFAULT                      0    1    func       (init-sql-schema) : frame=frame@SF-rbs-0
+insert                         : DEFAULT                      0    1    template   (insert '('(into atom) '(? atom) '(values atom) '(? expr)) '('(into atom) '(? atom) '(? expr) '(values atom) '(? expr))) : frame=frame@SF-rbs-0
+parse-column-def-list          : DEFAULT                      0    0    factor     parse-column-def-list
+parse-values-list              : DEFAULT                      0    0    factor     parse-values-list
+set                            : DEFAULT                      0    1    template   (set '('(schema atom) '(? type#model))) : frame=frame@SF-rbs-0
+this                           : DEFAULT                      0    4    instance   namespace@rbs
 ==========================================================================================================================
 
 
