@@ -2942,7 +2942,7 @@ Callable stats info: callId=306, row=43, column=39(8), value-max=92, value-unit=
     root   factor     89    0 if                                                                  8 
     root   factor     62    0 equal_def                                                           7 
   system funcList     62    1 equal                                                               7 
-    root   factor     59    0 defun                                                 144444    3454  
+    root   factor     61    0 defun                                                 144444   13454  
   system   factor     42    0 state-of                                                            7 
     root   factor     42    0 let                                                                 7 
     root   factor     41    0 not                                                                 7 
@@ -2955,7 +2955,7 @@ Callable stats info: callId=306, row=43, column=39(8), value-max=92, value-unit=
   system   factor     20    0 has-stmt                                                            6 
     root   factor     14    0 ref                                                                 5 
     main     func     14    2 (get-uri-name nil)                                                  5 
-    root   factor     10    0 defvar                                                4        11  3  
+    root   factor      8    0 defvar                                                4            3  
     root   factor      8    0 defmacro                                                2       3  3  
     root   factor      7    0 str-match                                                           4 
     root   factor      7    0 str-last-index-of                                                   4 
@@ -2986,18 +2986,18 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3464            0         3464
-         int:            3            0            3
+        atom:         3478            0         3478
+         int:            2            0            2
       string:          160            0          160
-        list:          934            8          926
-        expr:         1451           92         1359
+        list:          936            8          928
+        expr:         1459           92         1367
          var:          321          286           35
     constant:           34            0           34
-        func:           72            0           72
+        func:           74            0           74
     template:            1            0            1
        macro:            8            0            8
     instance:            2            0            2
-      member:           16            0           16
+      member:           20            0           20
        frame:          209          203            6
  interpreter:            1            0
   frameEntry:          655            0
@@ -3091,7 +3091,7 @@ default_model        : 183      11       5    instance   model@p2d
 ?model-state         : 185      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-Root var list: total=9
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -3099,8 +3099,6 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '("result/p2d.rulp")
 ?load-system         : '("rule" "string")
-?model-gc-interval   : -1
-?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -3120,11 +3118,13 @@ Global frame tree:
 
 Global Subject list:
 
-name=p2d, string=model@p2d, lvl=1, ref=5/5, parent=model, final=false, mbrs=4, frame=null
+name=p2d, string=model@p2d, lvl=1, ref=5/5, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?cst-init            : DEFAULT                      0    1    var        false : type=bool
+?model-gc-capacity   : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-interval   : DEFAULT                      0    1    var        -1L : type=long
 ?model-state         : DEFAULT                      0    3    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
 this                 : DEFAULT                      0    5    instance   model@p2d

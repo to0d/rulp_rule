@@ -103,6 +103,8 @@ public interface Constant {
 
 	IRAtom C_RULE = RulpFactory.createAtom(A_RULE);
 
+	long DEF_GC_CAPACITY = 2048;
+
 	String F_ADD_CONSTRAINT = "add-constraint";
 
 	String F_ADD_LAZY_STMT = "add-lazy-stmt";
@@ -193,13 +195,13 @@ public interface Constant {
 
 	String F_STATE_OF = "state-of";
 
-	String F_TRACE_RULE = "trace-rule";
-
 //	String F_UPDATE_STMT = "update-stmt";
 
-	String F_TRY_ADD_STMT = "try-add-stmt";
+	String F_TRACE_RULE = "trace-rule";
 
 //	String F_TRY_ADD_STMT = "try-add-stmt";
+
+	String F_TRY_ADD_STMT = "try-add-stmt";
 
 	String F_VAR_CHANGED = "var-changed";
 
@@ -245,11 +247,11 @@ public interface Constant {
 
 	int RETE_PRIORITY_INACTIVE = 0;
 
-	int RETE_PRIORITY_MAXIMUM = 499; // maximum
-
 //	int RETE_PRIORITY_GROUP_MAX = 699;
 //
 //	int RETE_PRIORITY_GROUP_MIN = 600;
+
+	int RETE_PRIORITY_MAXIMUM = 499; // maximum
 
 	int RETE_PRIORITY_PARTIAL_MAX = 599;
 
@@ -265,7 +267,7 @@ public interface Constant {
 
 	String V_M_CST_INIT = "?cst-init";
 
-	String V_M_GC_MIN_GATE = "?model-gc-min-gate";
+	String V_M_GC_CAPACITY = "?model-gc-capacity";
 
 	String V_M_GC_INTERVAL = "?model-gc-interval";
 

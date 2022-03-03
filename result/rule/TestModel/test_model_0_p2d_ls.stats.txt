@@ -2586,16 +2586,16 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    18872
+    factor:    18866
       func:     1512
 ==========================================================================================================================
 
-Callable stats info: callId=297, row=29, column=38(8), value-max=5628, value-unit=3^x
+Callable stats info: callId=297, row=29, column=38(8), value-max=5624, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333334333333333334X8 max=18604, unit=3^x
+   Frame    RType  Count  Ref Object                         333333333333333333333334333333333334X8 max=18598, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   6056    0 value-of                                                           97
-    root   factor   2653    0 print                                                              96
+    root   factor   6052    0 value-of                                                           97
+    root   factor   2651    0 print                                                              96
     root   factor   1879    0 if                                                                 86
     root   factor   1504    0 return                                                             86
     root   factor   1504    0 equal_def                                                          86
@@ -2608,12 +2608,12 @@ Callable stats info: callId=297, row=29, column=38(8), value-max=5628, value-uni
     root   factor    375    0 and                                                                74
     root   factor    375    0 access                                                             74
     root   factor    179    0 add-attribute                  133333333333333333333332              
-    root   factor     66    0 defun                                                 133333    23333
+    root   factor     68    0 defun                                                 133333   133333
   system   factor     41    0 add-rule                                                            5
     root   factor     34    0 defconst                                                   23333     
   system   factor     28    0 fix-stmt                                                            5
-    root   factor     10    0 defvar                                                3        11  12
     main funcList      8   13 print-list                                                         32
+    root   factor      8    0 defvar                                                3            12
     root   factor      8    0 defmacro                                                2       2  12
     root   factor      7    0 alias                          3                                1    
     root   factor      5    0 make-list                                             3              
@@ -2629,18 +2629,18 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3541            0         3541
-         int:            2            0            2
+        atom:         3555            0         3555
+         int:            1            0            1
       string:          857            0          857
-        list:         1062            0         1062
-        expr:         6759         1512         5247
+        list:         1064            0         1064
+        expr:         6765         1512         5253
          var:         3421         3399           22
     constant:           34            0           34
-        func:           80            0           80
+        func:           82            0           82
     template:            1            0            1
        macro:            8            0            8
     instance:            2            0            2
-      member:           17            0           17
+      member:           21            0           21
        frame:         1892         1891            1
  interpreter:            1            0
   frameEntry:         3766            0
@@ -2697,7 +2697,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 3183     4        10   instance   model@p2d           
 ==========================================================================================================================
 
-Root var list: total=9
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -2705,8 +2705,6 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '("result/p2d.rulp")
 ?load-system         : '("rule" "string" "tool")
-?model-gc-interval   : -1
-?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -2721,11 +2719,13 @@ Global frame tree:
 
 Global Subject list:
 
-name=p2d, string=model@p2d, lvl=1, ref=10/10, parent=model, final=false, mbrs=4, frame=null
+name=p2d, string=model@p2d, lvl=1, ref=10/10, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?cst-init            : DEFAULT                      0    1    var        false : type=bool
+?model-gc-capacity   : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-interval   : DEFAULT                      0    1    var        -1L : type=long
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
 this                 : DEFAULT                      0    10   instance   model@p2d

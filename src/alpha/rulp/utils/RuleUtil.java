@@ -369,7 +369,7 @@ public class RuleUtil {
 		}
 	}
 
-	public static void createModelVar(IRModel model, String varName, IRObject value) throws RException {
+	public static IRVar createModelVar(IRModel model, String varName, IRObject value) throws RException {
 
 		IRVar var = RulpFactory.createVar(varName);
 		if (value != null) {
@@ -377,6 +377,8 @@ public class RuleUtil {
 		}
 
 		RulpUtil.setMember(model, varName, var);
+
+		return var;
 	}
 
 	public static boolean equal(String a, String b) throws RException {

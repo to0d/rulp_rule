@@ -179,8 +179,8 @@ Callable stats info: callId=299, row=47, column=38(8), value-max=73, value-unit=
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
     root   factor     88    0 return                                                             58
-    root   factor     60    0 defun                                                 144444    3454 
-    root   factor     40    0 defvar                                                4        11  46
+    root   factor     62    0 defun                                                 144444   13454 
+    root   factor     38    0 defvar                                                4            46
     root   factor     34    0 defconst                                                   34444     
     root   factor     22    0 get-of-list                                                        36
   system funcList     22    1 get                                                                36
@@ -230,19 +230,19 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1964            0         1964
-         int:            2            0            2
+        atom:         1978            0         1978
+         int:            1            0            1
       string:          102            0          102
-        list:          117           15          102
-        expr:          926           88          838
+        list:          119           15          104
+        expr:          934           88          846
        array:            8            4            4
          var:          259          238           21
     constant:           34            0           34
-        func:           76            0           76
+        func:           78            0           78
     template:            1            0            1
        macro:            6            0            6
     instance:            2            0            2
-      member:           16            0           16
+      member:           20            0           20
        frame:          149          148            1
  interpreter:            1            0
   frameEntry:          597            0
@@ -290,7 +290,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 17       3        2    instance   model@m             
 ==========================================================================================================================
 
-Root var list: total=9
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -298,8 +298,6 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\eton\\load\\constraint-diff-stmt.rulp")
 ?load-system         : '("rule" "string")
-?model-gc-interval   : -1
-?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -314,11 +312,13 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=4, frame=null
+name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=6, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?cst-init            : DEFAULT                      0    1    var        false : type=bool
+?model-gc-capacity   : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-interval   : DEFAULT                      0    1    var        -1L : type=long
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
 this                 : DEFAULT                      0    2    instance   model@m

@@ -47,8 +47,13 @@
 (defconst RRUN_STATE_RUNNING   running)
 (defconst RRUN_STATE_PARTIAL   partial)
 
-(defvar ?model-gc-min-gate 2048)        ; GC memory gate (M)
-(defvar ?model-gc-interval -1)          ; GC interval (ms), -1 means no auto GC
+(defun set-model-gc-capacity ((?m model) (?capacity int))   ; GC memory gate (M)
+    (setq ?m::?model-gc-capacity ?capacity)
+)
+
+(defun set-model-gc-interval ((?m model) (?interval int))   ; GC interval (ms), -1 means no auto GC
+    (setq ?m::?model-gc-interval ?interval)
+)
 
 ;****************************************************
 ; Common utilies

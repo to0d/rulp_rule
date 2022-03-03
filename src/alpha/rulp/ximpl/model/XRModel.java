@@ -346,7 +346,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	private long gcLastGcTime = -1;
 
-	private int gcMinGate = -1;
+	private long gcCapacity = DEF_GC_CAPACITY;
 
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
 
@@ -666,7 +666,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/*****************************************************/
 		// Never do GC
 		/*****************************************************/
-		if (gcInterval < 0 || gcMinGate < 0) {
+		if (gcInterval < 0 || gcCapacity < 0) {
 			return;
 		}
 
@@ -685,7 +685,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		try {
 
 			long used = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024;
-			if (used < gcMinGate) {
+			if (used < gcCapacity) {
 				return;
 			}
 
@@ -1971,9 +1971,18 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RuleUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
 		RuleUtil.createModelVar(this, V_M_CST_INIT, RulpFactory.createBoolean(false));
 
-		gcMinGate = RulpUtil.asInteger(RulpUtil.asVar(frame.getObject(V_M_GC_MIN_GATE)).getValue()).asInteger();
-		gcInterval = RulpUtil.asInteger(RulpUtil.asVar(frame.getObject(V_M_GC_INTERVAL)).getValue()).asInteger();
+		RuleUtil.createModelVar(this, V_M_GC_CAPACITY, RulpFactory.createLong(gcCapacity))
+				.addVarListener((v1, o1, o2) -> {
+					gcCapacity = RulpUtil.asLong(o2).asLong();
+				});
+
+		RuleUtil.createModelVar(this, V_M_GC_INTERVAL, RulpFactory.createLong(gcInterval))
+				.addVarListener((v1, o1, o2) -> {
+					gcInterval = RulpUtil.asLong(o2).asLong();
+				});
+
 		gcLastGcTime = System.currentTimeMillis();
+
 	}
 
 	@Override

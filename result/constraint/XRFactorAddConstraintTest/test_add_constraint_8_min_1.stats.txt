@@ -329,10 +329,10 @@ Callable stats info: callId=300, row=31, column=38(8), value-max=9, value-unit=2
    Frame    RType  Count  Ref Object                         44444444444444444444444544444444444566 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     55    0 defun                                                 144444    3452 
+    root   factor     57    0 defun                                                 144444   13452 
     root   factor     34    0 defconst                                                   34444     
-    root   factor      9    0 defvar                                                4        11  11
     root   factor      7    0 return                                                             24
+    root   factor      7    0 defvar                                                4            11
     root   factor      7    0 alias                          4                                1    
     root   factor      6    0 defmacro                                                2       3  1 
     root   factor      5    0 make-list                                             4              
@@ -365,18 +365,18 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1760            0         1760
-         int:            2            0            2
+        atom:         1774            0         1774
+         int:            1            0            1
       string:           69            0           69
-        list:          101            9           92
-        expr:          760            8          752
+        list:          103            9           94
+        expr:          768            8          760
          var:           44           21           23
     constant:           34            0           34
-        func:           68            0           68
+        func:           70            0           70
     template:            1            0            1
        macro:            6            0            6
     instance:            2            0            2
-      member:           18            0           18
+      member:           22            0           22
        frame:           14           13            1
  interpreter:            1            0
   frameEntry:          371            0
@@ -418,7 +418,7 @@ default_model        : 13       3        5    instance   model@m
 ?rv                  : 25       3        1    var        '((min 5 on ?0)) : type=list
 ==========================================================================================================================
 
-Root var list: total=9
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -426,8 +426,6 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule" "string")
-?model-gc-interval   : -1
-?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -442,13 +440,15 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=5/9, parent=model, final=false, mbrs=6, frame=null
+name=m, string=model@m, lvl=1, ref=5/9, parent=model, final=false, mbrs=8, frame=null
 ==========================================================================================================================
 Name                 : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 $RG$$cst$            : PRIVATE Y                    1    1    var        '(CST01 CST02 CST03 CST04) : type=list
 $RG-names$           : PRIVATE Y                    1    1    var        '("$cst$") : type=list
 ?cst-init            : DEFAULT                      0    1    var        true : type=bool
+?model-gc-capacity   : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-interval   : DEFAULT                      0    1    var        -1L : type=long
 ?model-state         : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init            : DEFAULT                      0    1    var        false : type=bool
 this                 : DEFAULT                      0    5    instance   model@m
