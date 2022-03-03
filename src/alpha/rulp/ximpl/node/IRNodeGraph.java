@@ -52,7 +52,7 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
 
-	public int getGcCount();
+	public int getGcInactiveLeafCount();
 
 	public int getGcNodeRemoveCount();
 

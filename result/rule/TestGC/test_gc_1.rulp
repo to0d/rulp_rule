@@ -1,0 +1,11 @@
+(new model m)
+;=>
+
+(set-model-gc-interval m 50L)
+;=>
+
+(sleep 100)
+;=>
+
+(list-stmt m)
+;=>

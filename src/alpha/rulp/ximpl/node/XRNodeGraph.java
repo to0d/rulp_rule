@@ -290,7 +290,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
-	static final int MAX_CACHE_NODE_COUNT = 30;
+	private int maxInactiveLeafNodeCount = 30;
 
 	public static boolean isSymmetricBetaNode(IRReteNode node) {
 
@@ -332,7 +332,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	private long gcCacheCount[] = new long[RCountType.COUNT_TYPE_NUM];
 
-	protected int gcCount = 0;
+	protected int gcInactiveLeafCount = 0;
 
 	private int gcRemoveCount = 0;
 
@@ -1897,32 +1897,30 @@ public class XRNodeGraph implements IRNodeGraph {
 	@Override
 	public void gc() throws RException {
 
-		gcCount++;
+		if (maxInactiveLeafNodeCount > 0) {
 
-		HeapStack<AbsReteNode> nodeUsedHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
-			@Override
-			public int compare(AbsReteNode n1, AbsReteNode n2) {
-				return ((XGraphInfo) n2.getGraphInfo()).getUseCount() - ((XGraphInfo) n1.getGraphInfo()).getUseCount();
+			gcInactiveLeafCount++;
+
+			HeapStack<AbsReteNode> nodeUsedHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
+				@Override
+				public int compare(AbsReteNode n1, AbsReteNode n2) {
+					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
+							- ((XGraphInfo) n1.getGraphInfo()).getUseCount();
+				}
+			});
+
+			for (AbsReteNode node : listNodes(RReteType.ALPH0)) {
+				if (node.getPriority() == RETE_PRIORITY_INACTIVE && node.getChildNodes().isEmpty()) {
+					nodeUsedHeap.push(node);
+				}
 			}
-		});
 
-		for (AbsReteNode node : listNodes(RReteType.ALPH0)) {
-
-//			if (node.getNodeName().equals("A01398")) {
-//				System.out.println("inactive node: " + node);
-//			}
-
-			if (node.getPriority() == RETE_PRIORITY_INACTIVE && node.getChildNodes().isEmpty()) {
-//				System.out.println("inactive node: " + node);
-				nodeUsedHeap.push(node);
+			while (nodeUsedHeap.size() > maxInactiveLeafNodeCount) {
+				AbsReteNode node = nodeUsedHeap.pop();
+				node.setReteStage(RReteStage.InActive);
+//				System.out.println("rmove node: " + node);
+				removeNode(node);
 			}
-		}
-
-		while (nodeUsedHeap.size() > MAX_CACHE_NODE_COUNT) {
-			AbsReteNode node = nodeUsedHeap.pop();
-			node.setReteStage(RReteStage.InActive);
-//			System.out.println("rmove node: " + node);
-			removeNode(node);
 		}
 	}
 
@@ -1942,8 +1940,8 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public int getGcCount() {
-		return gcCount;
+	public int getGcInactiveLeafCount() {
+		return gcInactiveLeafCount;
 	}
 
 	@Override

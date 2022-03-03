@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(set-model-gc-interval m 50L)
+;=>nil
+
+(sleep 100)
+;=>nil
+
+(list-stmt m)
+;=>'()
+

@@ -684,6 +684,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return;
 		}
 
+		this.nodeGraph.gc();
+
 		long curTime = System.currentTimeMillis();
 		if (curTime < (gcLastGcTime + gcInterval)) {
 			return;
@@ -2035,7 +2037,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _listStatements(filter, statusMask, limit, reverse, builder);
 
 		} finally {
-
 			_gc();
 		}
 
@@ -2055,8 +2056,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Can't query, the model is running");
 		}
 
-		IRReteNode queryNode = this.findNode(condList);
-		_queryCond(resultQueue, queryNode, limit);
+		try {
+
+			IRReteNode queryNode = this.findNode(condList);
+			_queryCond(resultQueue, queryNode, limit);
+
+		} finally {
+			_gc();
+		}
+
 	}
 
 	@Override

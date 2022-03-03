@@ -1226,12 +1226,13 @@ public class StatsUtil {
 
 		sb.append(String.format("model count info:\n"));
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%-20s %8s\n", "name", "count"));
+		sb.append(String.format("%-30s %8s\n", "name", "count"));
 		sb.append(SEP_LINE2);
-		sb.append(String.format("%-20s %8d\n", "model-gc-trigger", model.getGcTrigger()));
-		sb.append(String.format("%-20s %8d\n", "model-gc-count", model.getGcCount()));
-		sb.append(String.format("%-20s %8d\n", "graph-gc-count", model.getNodeGraph().getGcCount()));
-		sb.append(String.format("%-20s %8d\n", "graph-gc-node-remove", model.getNodeGraph().getGcNodeRemoveCount()));
+		sb.append(String.format("%-30s %8d\n", "model-gc-trigger", model.getGcTrigger()));
+		sb.append(String.format("%-30s %8d\n", "model-gc-count", model.getGcCount()));
+		sb.append(String.format("%-30s %8d\n", "graph-gc-inactive-leaf-count",
+				model.getNodeGraph().getGcInactiveLeafCount()));
+		sb.append(String.format("%-30s %8d\n", "graph-gc-node-remove", model.getNodeGraph().getGcNodeRemoveCount()));
 
 		sb.append(SEP_LINE1);
 
