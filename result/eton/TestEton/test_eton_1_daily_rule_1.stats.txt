@@ -545,7 +545,7 @@ Object create count:
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
         atom:         2426            0         2426
-         int:           13            0           13
+         int:           12            0           12
       string:          122            0          122
         list:          136            7          129
         expr:         1170           25         1145
@@ -680,7 +680,7 @@ Var                  : Value
 ?load-jar            : '("irulp_rule_bin_0.0.1.jar")
 ?load-script         : '("C:\\data\\rs\\load\\rule.rulp" "C:\\data\\eton\\load\\constraint-diff-stmt.rulp" "C:\\data\\eton\\load\\eton.rulp")
 ?load-system         : '("rule" "string" "tool")
-?model-gc-interval   : 1000
+?model-gc-interval   : -1
 ?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()

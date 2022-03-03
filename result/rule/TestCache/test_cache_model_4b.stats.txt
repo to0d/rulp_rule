@@ -242,7 +242,7 @@ Object create count:
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1656            0         1656
-         int:            3            0            3
+         int:            2            0            2
       string:           56            0           56
         list:           69            2           67
         expr:          674            0          674
@@ -289,7 +289,7 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule")
-?model-gc-interval   : 1000
+?model-gc-interval   : -1
 ?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()

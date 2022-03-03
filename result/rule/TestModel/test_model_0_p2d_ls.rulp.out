@@ -216,7 +216,7 @@ mbr=?load-class, mbr-property='(public), mbr-attribute='(), obj=?load-class, obj
 mbr=?load-jar, mbr-property='(public), mbr-attribute='(), obj=?load-jar, obj-type=var, obj-attribute='(), var-value="'()"
 mbr=?load-script, mbr-property='(public), mbr-attribute='(), obj=?load-script, obj-type=var, obj-attribute='(), var-value="'()"
 mbr=?load-system, mbr-property='(public), mbr-attribute='(), obj=?load-system, obj-type=var, obj-attribute='(), var-value="'(rule string tool)"
-mbr=?model-gc-interval, mbr-property='(public), mbr-attribute='(), obj=?model-gc-interval, obj-type=var, obj-attribute='(), var-value="1000"
+mbr=?model-gc-interval, mbr-property='(public), mbr-attribute='(), obj=?model-gc-interval, obj-type=var, obj-attribute='(), var-value="-1"
 mbr=?model-gc-min-gate, mbr-property='(public), mbr-attribute='(), obj=?model-gc-min-gate, obj-type=var, obj-attribute='(), var-value="2048"
 mbr=?model-trace, mbr-property='(public), mbr-attribute='(), obj=?model-trace, obj-type=var, obj-attribute='(), var-value="false"
 mbr=?path, mbr-property='(public), mbr-attribute='(), obj=?path, obj-type=var, obj-attribute='(), var-value="'()"

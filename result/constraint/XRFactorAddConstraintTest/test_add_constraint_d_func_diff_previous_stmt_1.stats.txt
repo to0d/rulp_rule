@@ -202,7 +202,7 @@ Object create count:
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1938            0         1938
-         int:            3            0            3
+         int:            2            0            2
       string:          101            0          101
         list:          131           23          108
         expr:          988          145          843
@@ -269,7 +269,7 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\eton\\load\\constraint-diff-stmt.rulp")
 ?load-system         : '("rule" "string")
-?model-gc-interval   : 1000
+?model-gc-interval   : -1
 ?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()

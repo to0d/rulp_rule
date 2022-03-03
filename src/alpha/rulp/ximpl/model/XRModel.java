@@ -342,7 +342,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final IREntryTable entryTable = new XREntryTable();
 
-	private int gcInterval = -1;
+	private long gcInterval = -1;
+
+	private long gcLastGcTime = -1;
 
 	private int gcMinGate = -1;
 
@@ -657,6 +659,44 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		saveNodeListener.doAction(node);
+	}
+
+	protected void _gc() throws RException {
+
+		/*****************************************************/
+		// Never do GC
+		/*****************************************************/
+		if (gcInterval < 0 || gcMinGate < 0) {
+			return;
+		}
+
+		/*****************************************************/
+		// the function must be called at first level
+		/*****************************************************/
+		if (processingLevel != 0) {
+			return;
+		}
+
+		long curTime = System.currentTimeMillis();
+		if (curTime < (gcLastGcTime + gcInterval)) {
+			return;
+		}
+
+		try {
+
+			long used = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024;
+			if (used < gcMinGate) {
+				return;
+			}
+
+			doGC();
+			System.gc();
+
+		} finally {
+
+			gcLastGcTime = curTime;
+		}
+
 	}
 
 	protected XRCacheWorker _getCacheWorker(IRReteNode node) throws RException {
@@ -1933,6 +1973,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		gcMinGate = RulpUtil.asInteger(RulpUtil.asVar(frame.getObject(V_M_GC_MIN_GATE)).getValue()).asInteger();
 		gcInterval = RulpUtil.asInteger(RulpUtil.asVar(frame.getObject(V_M_GC_INTERVAL)).getValue()).asInteger();
+		gcLastGcTime = System.currentTimeMillis();
 	}
 
 	@Override
@@ -1957,11 +1998,17 @@ public class XRModel extends AbsRInstance implements IRModel {
 			builder = REntryFactory.defaultBuilder();
 		}
 
-		if (filter == null) {
-			return _listAllStatements(statusMask, limit, reverse, builder);
-		}
+		try {
 
-		return _listStatements(filter, statusMask, limit, reverse, builder);
+			if (filter == null) {
+				return _listAllStatements(statusMask, limit, reverse, builder);
+			}
+			return _listStatements(filter, statusMask, limit, reverse, builder);
+
+		} finally {
+
+			_gc();
+		}
 
 	}
 
@@ -1991,10 +2038,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		try {
+
 			this.tryRemoveConstraintLevel++;
 			return constraintUtil.removeConstraint(node, constraint);
+
 		} finally {
 			this.tryRemoveConstraintLevel--;
+			_gc();
 		}
 	}
 
@@ -2070,7 +2120,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			throw new RException(e.toString());
+
+		} finally {
+
+			_gc();
 		}
+
 	}
 
 	@Override
@@ -2214,6 +2269,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.processingLevel--;
 			this.modelPriority = oldModelPriority;
 			this.nodeGraph.gc();
+			_gc();
 		}
 	}
 

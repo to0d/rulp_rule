@@ -2911,7 +2911,7 @@ Object create count:
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
         atom:         3383            0         3383
-         int:            4            0            4
+         int:            3            0            3
       string:          195            0          195
         list:          835            3          832
         expr:         1465          113         1352
@@ -3081,7 +3081,7 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '("result/p2d.rulp")
 ?load-system         : '("rule" "string")
-?model-gc-interval   : 1000
+?model-gc-interval   : -1
 ?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
