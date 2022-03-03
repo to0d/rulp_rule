@@ -332,6 +332,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	private long gcCacheCount[] = new long[RCountType.COUNT_TYPE_NUM];
 
+	protected int gcCount = 0;
+
 	private int gcRemoveCount = 0;
 
 	protected int maxNodeIndex = 0;
@@ -1052,29 +1054,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		return subGraph;
 	}
 
-	protected IRNodeSubGraph _buildSubGraphRuleGroup(String ruleGroupName) throws RException {
-
-		XRNodeSubGraph subGraph = new XRNodeSubGraph();
-
-		IRList ruleList = RuleUtil.getRuleGroupRuleList(model, ruleGroupName);
-		if (ruleList.size() == 0) {
-			throw new RException("no rule found for group: " + ruleGroupName);
-		}
-
-		IRIterator<? extends IRObject> it = ruleList.iterator();
-		while (it.hasNext()) {
-			RuleUtil.travelReteParentNodeByPostorder(RuleUtil.asRule(it.next()), (node) -> {
-				if (!subGraph.containNode(node) && node.getPriority() < RETE_PRIORITY_MAXIMUM
-						&& node.getPriority() > RETE_PRIORITY_DISABLED) {
-					subGraph.addNode(node);
-				}
-				return false;
-			});
-		}
-
-		return subGraph;
-	}
-
 //	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
 //			throws RException {
 //
@@ -1123,6 +1102,29 @@ public class XRNodeGraph implements IRNodeGraph {
 //		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
 //		return alph0Node;
 //	}
+
+	protected IRNodeSubGraph _buildSubGraphRuleGroup(String ruleGroupName) throws RException {
+
+		XRNodeSubGraph subGraph = new XRNodeSubGraph();
+
+		IRList ruleList = RuleUtil.getRuleGroupRuleList(model, ruleGroupName);
+		if (ruleList.size() == 0) {
+			throw new RException("no rule found for group: " + ruleGroupName);
+		}
+
+		IRIterator<? extends IRObject> it = ruleList.iterator();
+		while (it.hasNext()) {
+			RuleUtil.travelReteParentNodeByPostorder(RuleUtil.asRule(it.next()), (node) -> {
+				if (!subGraph.containNode(node) && node.getPriority() < RETE_PRIORITY_MAXIMUM
+						&& node.getPriority() > RETE_PRIORITY_DISABLED) {
+					subGraph.addNode(node);
+				}
+				return false;
+			});
+		}
+
+		return subGraph;
+	}
 
 	protected IRNodeSubGraph _buildSubGroupSource(IRReteNode queryNode) throws RException {
 
@@ -1895,6 +1897,8 @@ public class XRNodeGraph implements IRNodeGraph {
 	@Override
 	public void gc() throws RException {
 
+		gcCount++;
+
 		HeapStack<AbsReteNode> nodeUsedHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
 			@Override
 			public int compare(AbsReteNode n1, AbsReteNode n2) {
@@ -1938,7 +1942,12 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public int getGcRemoveCount() {
+	public int getGcCount() {
+		return gcCount;
+	}
+
+	@Override
+	public int getGcNodeRemoveCount() {
 		return gcRemoveCount;
 	}
 

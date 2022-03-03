@@ -135,6 +135,18 @@ RR5(RULE)     :                 '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p n
              0: B20009(BETA2)   '('('('('(?0 ?1 ?2) (!= ?1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
 =================================================================================================================================================================
 
+
+model count info:
+=================================================================================================================================================================
+name                    count
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+model-gc-trigger            0
+model-gc-count              0
+graph-gc-count              1
+graph-gc-node-remove        0
+=================================================================================================================================================================
+
+
 Rule<T7> stats: priority=099, expr=(add-rule "T7" m if '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not-equal nm:hasAutoRelatedTag ?p) (not-equal nm:hasRelation ?p) do (-> '(?a nm:hasRelation ?b)))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch

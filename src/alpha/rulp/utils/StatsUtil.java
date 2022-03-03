@@ -1222,6 +1222,23 @@ public class StatsUtil {
 		sb.append(SEP_LINE1);
 	}
 
+	private static void _printModelCountInfo(StringBuffer sb, IRModel model) throws RException {
+
+		sb.append(String.format("model count info:\n"));
+		sb.append(SEP_LINE1);
+		sb.append(String.format("%-20s %8s\n", "name", "count"));
+		sb.append(SEP_LINE2);
+		sb.append(String.format("%-20s %8d\n", "model-gc-trigger", model.getGcTrigger()));
+		sb.append(String.format("%-20s %8d\n", "model-gc-count", model.getGcCount()));
+		sb.append(String.format("%-20s %8d\n", "graph-gc-count", model.getNodeGraph().getGcCount()));
+		sb.append(String.format("%-20s %8d\n", "graph-gc-node-remove", model.getNodeGraph().getGcNodeRemoveCount()));
+
+		sb.append(SEP_LINE1);
+
+		sb.append("\n");
+		sb.append("\n");
+	}
+
 	private static void _printModelFrame(StringBuffer sb, IRModel model) throws RException {
 
 		/*********************************************************************/
@@ -1728,9 +1745,9 @@ public class StatsUtil {
 				sb.append("\n");
 			}
 
-			if (!isRule && graph.getGcRemoveCount() > 0) {
+			if (!isRule && graph.getGcNodeRemoveCount() > 0) {
 
-				sb.append(String.format("%-8s", "GC(" + graph.getGcRemoveCount() + ")"));
+				sb.append(String.format("%-8s", "GC(" + graph.getGcNodeRemoveCount() + ")"));
 				for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
 					sb.append(String.format(" %" + _getCountTypeLength(countType) + "d",
 							graph.getGcStatusCount(countType)));
@@ -2376,6 +2393,12 @@ public class StatsUtil {
 			/*********************************************************************/
 			sb.append(String.format("Model<%s> stats info:\n", "" + model.getModelName()));
 			_printReteCounter(sb, modelNodeMatrix, false);
+			sb.append("\n");
+
+			/****************************************************/
+			// Output count info
+			/****************************************************/
+			_printModelCountInfo(sb, model);
 
 			/*********************************************************************/
 			// Rule stats
@@ -2407,7 +2430,7 @@ public class StatsUtil {
 			// Rule order
 			/*********************************************************************/
 			if (!ruleCounterList.isEmpty()) {
-				
+
 				sb.append("Rule resource\n");
 				sb.append(SEP_LINE1);
 				sb.append(String.format("%-10s: ", "RULE"));
