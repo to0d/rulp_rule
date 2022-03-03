@@ -75,7 +75,7 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 			String value = e.getValue();
 
 			if (!lineNeedUpdate && line.indexOf(value) != -1) {
-				System.out.println(String.format("update lineNeedUpdate: %s", line));
+//				System.out.println(String.format("update lineNeedUpdate: %s", line));
 				lineNeedUpdate = true;
 			}
 
