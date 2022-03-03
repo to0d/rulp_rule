@@ -2406,34 +2406,37 @@ public class StatsUtil {
 			/*********************************************************************/
 			// Rule order
 			/*********************************************************************/
-			sb.append("Rule resource\n");
-			sb.append(SEP_LINE1);
-			sb.append(String.format("%-10s: ", "RULE"));
-			for (OutputType outType : ALL_OUT_TYPE) {
-				sb.append(String.format("%10s", "" + _getReteTypeShortName(outType.reteType).toUpperCase() + "-"
-						+ _getCountTypeName(outType.countType)));
-			}
-
-			sb.append("\n");
-			sb.append(SEP_LINE2);
-
-			Collections.sort(ruleCounterList, (c1, c2) -> {
-				return c1.rule.getRuleName().compareTo(c2.rule.getRuleName());
-			});
-
-			for (RuleCounter rc : ruleCounterList) {
-
-				sb.append(String.format("%-10s: ", rc.rule.getRuleName()));
-
+			if (!ruleCounterList.isEmpty()) {
+				
+				sb.append("Rule resource\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format("%-10s: ", "RULE"));
 				for (OutputType outType : ALL_OUT_TYPE) {
-					sb.append(String.format("%10d", rc.counter.getCount(outType.reteType, outType.countType)));
+					sb.append(String.format("%10s", "" + _getReteTypeShortName(outType.reteType).toUpperCase() + "-"
+							+ _getCountTypeName(outType.countType)));
 				}
 
 				sb.append("\n");
-			}
+				sb.append(SEP_LINE2);
 
-			sb.append(SEP_LINE1);
-			sb.append("\n");
+				Collections.sort(ruleCounterList, (c1, c2) -> {
+					return c1.rule.getRuleName().compareTo(c2.rule.getRuleName());
+				});
+
+				for (RuleCounter rc : ruleCounterList) {
+
+					sb.append(String.format("%-10s: ", rc.rule.getRuleName()));
+
+					for (OutputType outType : ALL_OUT_TYPE) {
+						sb.append(String.format("%10d", rc.counter.getCount(outType.reteType, outType.countType)));
+					}
+
+					sb.append("\n");
+				}
+
+				sb.append(SEP_LINE1);
+				sb.append("\n");
+			}
 
 			/*********************************************************************/
 			// Model share index

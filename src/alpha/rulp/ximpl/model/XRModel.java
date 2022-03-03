@@ -2,9 +2,12 @@ package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_MODEL;
+import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.V_M_CST_INIT;
+import static alpha.rulp.rule.Constant.V_M_GC_CAPACITY;
+import static alpha.rulp.rule.Constant.V_M_GC_INTERVAL;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
@@ -342,11 +345,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final IREntryTable entryTable = new XREntryTable();
 
-	private long gcInterval = -1;
+	protected long gcCapacity = DEF_GC_CAPACITY;
 
-	private long gcLastGcTime = -1;
+	protected long gcCount = 0;
 
-	private long gcCapacity = DEF_GC_CAPACITY;
+	protected long gcInterval = -1;
+
+	protected long gcLastGcTime = -1;
+
+	protected long gcTrigger = 0;
 
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
 
@@ -695,6 +702,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		} finally {
 
 			gcLastGcTime = curTime;
+			gcTrigger++;
 		}
 
 	}
@@ -1693,6 +1701,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 					betaGcCount, exprGcCount, ruleGcCount));
 		}
 
+		this.gcCount++;
+
 		return smtGcCount + alpahGcCount + betaGcCount + exprGcCount + ruleGcCount;
 	}
 
@@ -1819,6 +1829,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRFrame getFrame() {
 		return this.modelFrame;
+	}
+
+	@Override
+	public long getGcCount() {
+		return gcCount;
+	}
+
+	@Override
+	public long getGcTrigger() {
+		return gcTrigger;
 	}
 
 	@Override

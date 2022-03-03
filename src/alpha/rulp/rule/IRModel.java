@@ -73,6 +73,10 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IREntryTable getEntryTable();
 
+	public long getGcCount();
+
+	public long getGcTrigger();
+
 	public String getModelName();
 
 	public IRNodeGraph getNodeGraph();
