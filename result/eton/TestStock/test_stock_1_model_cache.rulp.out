@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(set-model-cache-path m "C:\data\\eton\stock")
+;=>nan
+
+(query-stmt m ?code from stock_info:'(?day ?code ?...) limit 1)
+;=>'("000001")
+
