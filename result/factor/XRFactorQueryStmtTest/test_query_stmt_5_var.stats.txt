@@ -174,7 +174,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      299
+           Interpreter call id:      301
     Interpreter call level/max:        0        6
                Frame max level:        5
                   Frame max id:        7
@@ -195,23 +195,23 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      315
+    factor:      317
       func:        2
 ==========================================================================================================================
 
-Callable stats info: callId=299, row=16, column=38(8), value-max=8, value-unit=2^x
+Callable stats info: callId=301, row=16, column=38(8), value-max=9, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444545 max=15, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444546 max=17, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     55    0 defun                                                 144444    4442 
+    root   factor     55    0 defun                                                 144444    3452 
     root   factor     34    0 defconst                                                   34444     
-    root   factor      7    0 alias                          4                               1     
+    root   factor      8    0 defvar                                                4        11  1 
+    root   factor      7    0 alias                          4                                1    
   system   factor      6    0 query-stmt                                                          4
-    root   factor      6    0 defvar                                                4           1  
-    root   factor      6    0 defmacro                                                2       3 1  
+    root   factor      6    0 defmacro                                                2       3  1 
     root   factor      5    0 make-list                                             4              
-  system   factor      5    0 add-stmt                                                           4 
+  system   factor      5    0 add-stmt                                                           32
     root   factor      4    0 return                                                              3
     root   factor      3    0 deftemplate                                              3           
     root   factor      2    0 size-of-list                                                        2
@@ -225,12 +225,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1820            0         1820
-         int:            1            0            1
+        atom:         1824            0         1824
+         int:            3            0            3
       string:           62            0           62
         list:          105            9           96
-        expr:          742            2          740
-         var:           30           11           19
+        expr:          744            2          742
+         var:           32           11           21
     constant:           34            0           34
         func:           68            0           68
     template:            1            0            1
@@ -239,7 +239,7 @@ Object create count:
       member:           16            0           16
        frame:           12           11            1
  interpreter:            1            0
-  frameEntry:          362            0
+  frameEntry:          364            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -278,7 +278,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 13       3        2    instance   model@m             
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -286,6 +286,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule" "string")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

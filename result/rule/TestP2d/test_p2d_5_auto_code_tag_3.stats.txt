@@ -2945,7 +2945,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      301
+           Interpreter call id:      303
     Interpreter call level/max:        0       14
                Frame max level:        9
                   Frame max id:       21
@@ -2966,20 +2966,20 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1982
+    factor:     1984
       func:      468
 ==========================================================================================================================
 
-Callable stats info: callId=301, row=43, column=38(8), value-max=468, value-unit=2^x
+Callable stats info: callId=303, row=43, column=38(8), value-max=468, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333433333333333468 max=2070, unit=3^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333433333333333468 max=2072, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    468    0 return                                                              X
     root   factor    420    0 equal_def                                                           X
   system funcList    420   38 equal                                                               X
     root   factor    397    0 not                                                                 X
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     59    0 defun                                                 144444    4444 
+    root   factor     59    0 defun                                                 144444    3454 
     root   factor     53    0 if                                                                  7
     root   factor     48    0 let                                                                 7
   system   factor     41    0 add-rule                                                           7 
@@ -2994,12 +2994,12 @@ Callable stats info: callId=301, row=43, column=38(8), value-max=468, value-unit
   system funcList     18    1 length-of                                                           6
     main     func     18    2 (get-uri-name nil)                                                  6
     root   factor     18    0 +                                                                   6
-  system   factor     12    0 add-stmt                                                           44
+  system   factor     12    0 add-stmt                                                           35
+    root   factor     10    0 defvar                                                4        11  3 
     root   factor      9    0 str-match                                                           5
     root   factor      8    0 to-atom                                                             4
-    root   factor      8    0 defvar                                                4           12 
-    root   factor      8    0 defmacro                                                2       3 12 
-    root   factor      7    0 alias                          4                               1     
+    root   factor      8    0 defmacro                                                2       3  3 
+    root   factor      7    0 alias                          4                                1    
     root   factor      6    0 strcat                                                              4
     root   factor      6    0 str-last-index-of                                                   4
     root   factor      6    0 str-end-with                                                        4
@@ -3023,12 +3023,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3469            0         3469
-         int:            2            0            2
+        atom:         3473            0         3473
+         int:            4            0            4
       string:          195            0          195
         list:          887            1          886
-        expr:         1893          468         1425
-         var:         1059         1001           58
+        expr:         1895          468         1427
+         var:         1061         1001           60
     constant:           34            0           34
         func:           72            0           72
     template:            1            0            1
@@ -3037,7 +3037,7 @@ Object create count:
       member:           16            0           16
        frame:          564          548           16
  interpreter:            1            0
-  frameEntry:         1400            0
+  frameEntry:         1402            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -3219,7 +3219,7 @@ default_model        : 235      19       11   instance   model@p2d
 ?b                   : 238      19       1    var        nt:SQL-Code : type=atom
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -3227,6 +3227,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '("result/p2d.rulp")
 ?load-system         : '("rule" "string")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

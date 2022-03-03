@@ -402,7 +402,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      299
+           Interpreter call id:      301
     Interpreter call level/max:        0       10
                Frame max level:        8
                   Frame max id:        9
@@ -423,23 +423,23 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      361
+    factor:      363
       func:        9
 ==========================================================================================================================
 
-Callable stats info: callId=299, row=33, column=38(8), value-max=8, value-unit=2^x
+Callable stats info: callId=301, row=33, column=38(8), value-max=9, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444575 max=61, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444576 max=60, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     55    0 defun                                                 144444    4442 
+    root   factor     55    0 defun                                                 144444    3452 
     root   factor     34    0 defconst                                                   34444     
+    root   factor      9    0 defvar                                                4        11  11
     root   factor      8    0 return                                                             4 
-    root   factor      7    0 defvar                                                4           11 
-    root   factor      7    0 alias                          4                               1     
-  system   factor      7    0 add-constraint                                                     4 
+    root   factor      7    0 alias                          4                                1    
+  system   factor      7    0 add-constraint                                                     41
     root   factor      6    0 do                                                                 4 
-    root   factor      6    0 defmacro                                                2       3 1  
+    root   factor      6    0 defmacro                                                2       3  1 
     root   factor      5    0 make-list                                             4              
   system   factor      4    0 list-stmt                                                           3
   system   factor      4    0 add-rule                                                           3 
@@ -458,7 +458,7 @@ Callable stats info: callId=299, row=33, column=38(8), value-max=8, value-unit=2
   system   factor      2    0 state-of                                                            2
   system   factor      1    0 start                                                               1
     root   factor      1    0 setq                                                               1 
-  system   factor      1    0 search                                                             1 
+  system   factor      1    0 search                                                              1
     root   factor      1    0 new                                                                1 
     root   factor      1    0 load                                                              1  
   system     func      1    1 (add_cst_constraint_type type#                                     1 
@@ -470,12 +470,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1801            0         1801
-         int:            1            0            1
+        atom:         1805            0         1805
+         int:            3            0            3
       string:           87            0           87
         list:          142            6          136
-        expr:          776            9          767
-         var:           48           24           24
+        expr:          778            9          769
+         var:           50           24           26
     constant:           34            0           34
         func:           68            0           68
     template:            1            0            1
@@ -484,7 +484,7 @@ Object create count:
       member:           18            0           18
        frame:           21           18            3
  interpreter:            1            0
-  frameEntry:          378            0
+  frameEntry:          380            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -538,7 +538,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?x                   : 47       6        1    var        40 : type=int       
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -546,6 +546,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule" "string")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

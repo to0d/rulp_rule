@@ -4,7 +4,7 @@ import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.V_M_CST_INIT;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
@@ -341,6 +341,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected final ModelConstraintUtil constraintUtil;
 
 	protected final IREntryTable entryTable = new XREntryTable();
+
+	private int gcInterval = -1;
+
+	private int gcMinGate = -1;
 
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
 
@@ -1926,6 +1930,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RuleUtil.createModelVar(this, V_M_STATE, RRunState.toObject(this.getRunState()));
 		RuleUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
 		RuleUtil.createModelVar(this, V_M_CST_INIT, RulpFactory.createBoolean(false));
+
+		gcMinGate = RulpUtil.asInteger(RulpUtil.asVar(frame.getObject(V_M_GC_MIN_GATE)).getValue()).asInteger();
+		gcInterval = RulpUtil.asInteger(RulpUtil.asVar(frame.getObject(V_M_GC_INTERVAL)).getValue()).asInteger();
 	}
 
 	@Override

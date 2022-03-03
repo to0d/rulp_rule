@@ -237,7 +237,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      299
+           Interpreter call id:      301
     Interpreter call level/max:        0       14
                Frame max level:        9
                   Frame max id:       10
@@ -258,28 +258,28 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      400
+    factor:      402
       func:       17
 ==========================================================================================================================
 
-Callable stats info: callId=299, row=33, column=38(8), value-max=17, value-unit=2^x
+Callable stats info: callId=301, row=33, column=38(8), value-max=17, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444548 max=115, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444548 max=117, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     57    0 defun                                                 144444    4443 
+    root   factor     57    0 defun                                                 144444    3453 
     root   factor     34    0 defconst                                                   34444     
     root   factor     17    0 return                                                              6
-    root   factor     14    0 defvar                                                4           1 4
+    root   factor     16    0 defvar                                                4        11  14
     root   factor      8    0 to-string                                                           4
     root   factor      8    0 let                                                                 4
     root   factor      8    0 if                                                                  4
-  system   factor      8    0 add-stmt                                                           24
-    root   factor      7    0 alias                          4                               1     
+  system   factor      8    0 add-stmt                                                            4
+    root   factor      7    0 alias                          4                                1    
     root   factor      6    0 str-last-index-of                                                   4
     root   factor      6    0 equal_def                                                           4
   system funcList      6    1 equal                                                               4
-    root   factor      6    0 defmacro                                                2       3 1  
+    root   factor      6    0 defmacro                                                2       3  1 
     root   factor      5    0 str-substr                                                          4
     root   factor      5    0 make-list                                             4              
     root   factor      4    0 to-atom                                                             3
@@ -305,12 +305,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1849            0         1849
-         int:            1            0            1
+        atom:         1853            0         1853
+         int:            3            0            3
       string:           80            0           80
         list:           90            1           89
-        expr:          800           17          783
-         var:           74           53           21
+        expr:          802           17          785
+         var:           76           53           23
     constant:           34            0           34
         func:           70            0           70
     template:            1            0            1
@@ -319,7 +319,7 @@ Object create count:
       member:           16            0           16
        frame:           34           31            3
  interpreter:            1            0
-  frameEntry:          403            0
+  frameEntry:          405            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -375,7 +375,7 @@ default_model        : 58       5        3    instance   model@m
 ?tag                 : 59       5        1    var        Javav8 : type=atom  
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -383,6 +383,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule" "string")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

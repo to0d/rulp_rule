@@ -117,7 +117,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      298
+           Interpreter call id:      300
     Interpreter call level/max:        0        8
                Frame max level:        6
                   Frame max id:        7
@@ -138,29 +138,29 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      317
+    factor:      319
       func:        6
 ==========================================================================================================================
 
-Callable stats info: callId=298, row=19, column=38(8), value-max=8, value-unit=2^x
+Callable stats info: callId=300, row=19, column=38(8), value-max=9, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444563 max=26, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444565 max=17, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     56    0 defun                                                 144444    4443 
+    root   factor     56    0 defun                                                 144444    3453 
     root   factor     34    0 defconst                                                   34444     
-    root   factor      7    0 alias                          4                               1     
-    root   factor      6    0 return                                                             4 
-    root   factor      6    0 defvar                                                4           1  
-    root   factor      6    0 defmacro                                                2       3 1  
+    root   factor      8    0 defvar                                                4        11  1 
+    root   factor      7    0 alias                          4                                1    
+    root   factor      6    0 return                                                             33
+    root   factor      6    0 defmacro                                                2       3  1 
     root   factor      5    0 make-list                                             4              
-    root   factor      4    0 get-of-list                                                        3 
-  system funcList      4    1 get                                                                3 
+    root   factor      4    0 get-of-list                                                        22
+  system funcList      4    1 get                                                                22
     root   factor      3    0 deftemplate                                              3           
-  system   factor      3    0 add-stmt                                                           21
-  system   factor      2    0 list-stmt                                                          11
-    main     func      2    4 (c1 nil)                                                           2 
-    root   factor      2    0 >                                                                  2 
+  system   factor      3    0 add-stmt                                                           12
+  system   factor      2    0 list-stmt                                                           2
+    main     func      2    4 (c1 nil)                                                           11
+    root   factor      2    0 >                                                                  11
   system   factor      1    0 remove-constraint                                                   1
     root   factor      1    0 new                                                                1 
     root   factor      1    0 load                                                              1  
@@ -171,12 +171,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1741            0         1741
-         int:            1            0            1
+        atom:         1745            0         1745
+         int:            3            0            3
       string:           62            0           62
         list:           61            3           58
-        expr:          749            6          743
-         var:           31           12           19
+        expr:          751            6          745
+         var:           33           12           21
     constant:           34            0           34
         func:           69            0           69
     template:            1            0            1
@@ -185,7 +185,7 @@ Object create count:
       member:           16            0           16
        frame:            8            6            2
  interpreter:            1            0
-  frameEntry:          358            0
+  frameEntry:          360            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -231,7 +231,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 22       4        1    var        false : type=bool   
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -239,6 +239,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule" "string")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

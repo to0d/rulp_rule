@@ -187,7 +187,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      290
+           Interpreter call id:      292
     Interpreter call level/max:        0        9
                Frame max level:        5
                   Frame max id:        8
@@ -208,24 +208,24 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      314
+    factor:      316
       func:        6
 ==========================================================================================================================
 
-Callable stats info: callId=290, row=21, column=37(8), value-max=8, value-unit=2^x
+Callable stats info: callId=292, row=21, column=37(8), value-max=8, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444446 max=27, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444446 max=29, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442             
-    root   factor     49    0 defun                                                 144444    443 
+    root   factor     49    0 defun                                                 144444    344 
     root   factor     34    0 defconst                                                   34444    
-    root   factor      7    0 defvar                                                4            2
-    root   factor      7    0 alias                          4                               1    
+    root   factor      9    0 defvar                                                4        11  2
+    root   factor      7    0 alias                          4                                1   
     root   factor      6    0 return                                                             4
     root   factor      5    0 make-list                                             4             
     root   factor      5    0 defmacro                                                2       3   
     root   factor      3    0 deftemplate                                              3          
-  system   factor      3    0 add-stmt                                                          21
+  system   factor      3    0 add-stmt                                                           3
     root   factor      2    0 size-of-list                                                       2
   system funcList      2    1 size-of                                                            2
   system   factor      2    0 rete-node-of                                                       2
@@ -243,12 +243,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1648            0         1648
-         int:            1            0            1
+        atom:         1652            0         1652
+         int:            3            0            3
       string:           57            0           57
         list:           74            2           72
-        expr:          680            6          674
-         var:           33           14           19
+        expr:          682            6          676
+         var:           35           14           21
     constant:           34            0           34
         func:           60            0           60
     template:            1            0            1
@@ -257,7 +257,7 @@ Object create count:
       member:           16            0           16
        frame:           13           11            2
  interpreter:            1            0
-  frameEntry:          354            0
+  frameEntry:          356            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -292,7 +292,7 @@ default_model        : 16       6        3    instance   model@m
 ?n                   : 17       6        1    var        c : type=atom       
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -300,6 +300,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

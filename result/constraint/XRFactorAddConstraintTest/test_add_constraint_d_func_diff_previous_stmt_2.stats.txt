@@ -148,7 +148,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      297
+           Interpreter call id:      299
     Interpreter call level/max:        0       14
                Frame max level:       10
                   Frame max id:       13
@@ -169,56 +169,56 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      638
+    factor:      640
       func:       88
 ==========================================================================================================================
 
-Callable stats info: callId=297, row=47, column=38(8), value-max=59, value-unit=2^x
+Callable stats info: callId=299, row=47, column=38(8), value-max=73, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         444444444444444444444445444444444445X9 max=295, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444458X max=341, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     88    0 return                                                             76
-    root   factor     60    0 defun                                                 144444    4444 
-    root   factor     38    0 defvar                                                4           165
+    root   factor     88    0 return                                                             58
+    root   factor     60    0 defun                                                 144444    3454 
+    root   factor     40    0 defvar                                                4        11  46
     root   factor     34    0 defconst                                                   34444     
-    root   factor     22    0 get-of-list                                                        54
-  system funcList     22    1 get                                                                54
-    root   factor     20    0 add-list-to-array                                                  54
-  system funcList     20    1 add                                                                54
-    root   factor     16    0 to-atom                                                            53
-    root   factor     16    0 do                                                                 54
-    root   factor     16    0 +                                                                  53
-    root   factor     14    0 size-of-list                                                       54
-  system funcList     14    1 size-of                                                            54
-    root   factor     10    0 if                                                                 43
-    root   factor      8    0 value-of                                                           42
-  system funcList      8    1 to-list                                                            43
-    root   factor      8    0 seta                                                               42
-    root   factor      8    0 make-array                                                         43
-    root   factor      8    0 loop                                                               43
-    root   factor      8    0 add-array-to-list                                                  43
-    root   factor      7    0 alias                          4                               1     
-    root   factor      6    0 setq                                                               32
-    root   factor      6    0 defmacro                                                2       3 1  
-    root   factor      6    0 =                                                                  32
-    root   factor      6    0 !=                                                                 32
+    root   factor     22    0 get-of-list                                                        36
+  system funcList     22    1 get                                                                36
+    root   factor     20    0 add-list-to-array                                                  35
+  system funcList     20    1 add                                                                35
+    root   factor     16    0 to-atom                                                            35
+    root   factor     16    0 do                                                                 35
+    root   factor     16    0 +                                                                  35
+    root   factor     14    0 size-of-list                                                       25
+  system funcList     14    1 size-of                                                            25
+    root   factor     10    0 if                                                                 24
+    root   factor      8    0 value-of                                                           24
+  system funcList      8    1 to-list                                                            14
+    root   factor      8    0 seta                                                               24
+    root   factor      8    0 make-array                                                         14
+    root   factor      8    0 loop                                                               14
+    root   factor      8    0 add-array-to-list                                                  14
+    root   factor      7    0 alias                          4                                1    
+    root   factor      6    0 setq                                                               14
+    root   factor      6    0 defmacro                                                2       3  1 
+    root   factor      6    0 =                                                                  14
+    root   factor      6    0 !=                                                                 14
     root   factor      5    0 make-list                                             4              
-  system   factor      5    0 list-stmt                                                          32
-    root   factor      4    0 to-named-list                                                      31
-  system   factor      4    0 rete-node-of                                                       31
-    root   factor      4    0 name-of                                                            31
-  system   factor      4    0 model-of                                                           31
-  system     func      4    1 (get-named-rete-node type#mode                                     31
-    root   factor      4    0 get-attribute                                                      31
-    root   factor      4    0 foreach                                                            31
-  system     func      4    1 (entry-length-of nil)                                              31
-    main funcList      4    2 diff-stmt                                                          31
-    root   factor      4    0 case                                                               31
-  system   factor      4    0 add-stmt                                                           31
-    main     func      4    2 (__sub_statement__ nil nil)                                        22
-    main     func      4    2 (__make_filter_array__ nil)                                        31
-    root   factor      4    0 -                                                                  22
+  system   factor      5    0 list-stmt                                                          13
+    root   factor      4    0 to-named-list                                                      13
+  system   factor      4    0 rete-node-of                                                       13
+    root   factor      4    0 name-of                                                            13
+  system   factor      4    0 model-of                                                           13
+  system     func      4    1 (get-named-rete-node type#mode                                     13
+    root   factor      4    0 get-attribute                                                      13
+    root   factor      4    0 foreach                                                            13
+  system     func      4    1 (entry-length-of nil)                                              13
+    main funcList      4    2 diff-stmt                                                          13
+    root   factor      4    0 case                                                               13
+  system   factor      4    0 add-stmt                                                           13
+    main     func      4    2 (__sub_statement__ nil nil)                                         3
+    main     func      4    2 (__make_filter_array__ nil)                                        13
+    root   factor      4    0 -                                                                   3
     root   factor      3    0 deftemplate                                              3           
     root   factor      2    0 load                                                              11 
     root   factor      1    0 new                                                                1 
@@ -230,13 +230,13 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1960            0         1960
-         int:            1            0            1
+        atom:         1964            0         1964
+         int:            3            0            3
       string:          102            0          102
         list:          117           15          102
-        expr:          924           88          836
+        expr:          926           88          838
        array:            8            4            4
-         var:          257          238           19
+         var:          259          238           21
     constant:           34            0           34
         func:           76            0           76
     template:            1            0            1
@@ -245,7 +245,7 @@ Object create count:
       member:           16            0           16
        frame:          149          148            1
  interpreter:            1            0
-  frameEntry:          595            0
+  frameEntry:          597            0
       lambda:            1            0
 ==========================================================================================================================
 
@@ -290,7 +290,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 17       3        2    instance   model@m             
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -298,6 +298,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\eton\\load\\constraint-diff-stmt.rulp")
 ?load-system         : '("rule" "string")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

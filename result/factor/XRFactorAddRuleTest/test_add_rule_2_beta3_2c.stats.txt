@@ -203,7 +203,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      298
+           Interpreter call id:      300
     Interpreter call level/max:        0        9
                Frame max level:        5
                   Frame max id:        7
@@ -224,21 +224,21 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      325
+    factor:      327
       func:        6
 ==========================================================================================================================
 
-Callable stats info: callId=298, row=25, column=38(8), value-max=8, value-unit=2^x
+Callable stats info: callId=300, row=25, column=38(8), value-max=9, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         44444444444444444444444544444444444564 max=32, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     55    0 defun                                                 144444    4442 
+    root   factor     55    0 defun                                                 144444    3452 
     root   factor     34    0 defconst                                                   34444     
-    root   factor      8    0 defvar                                                4           12 
-    root   factor      7    0 alias                          4                               1     
+    root   factor     10    0 defvar                                                4        11  3 
+    root   factor      7    0 alias                          4                                1    
     root   factor      6    0 return                                                             4 
-    root   factor      6    0 defmacro                                                2       3 1  
+    root   factor      6    0 defmacro                                                2       3  1 
     root   factor      5    0 make-list                                             4              
   system   factor      4    0 rete-node-of                                                       3 
     root   factor      3    0 deftemplate                                              3           
@@ -249,7 +249,7 @@ Callable stats info: callId=298, row=25, column=38(8), value-max=8, value-unit=2
   system funcList      2    1 get                                                                2 
     root   factor      2    0 do                                                                 2 
     root   factor      2    0 case                                                               2 
-  system   factor      2    0 add-stmt                                                           2 
+  system   factor      2    0 add-stmt                                                            2
     root   factor      2    0 !=                                                                  2
   system   factor      1    0 state-of                                                            1
   system   factor      1    0 start                                                               1
@@ -263,12 +263,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1762            0         1762
-         int:            1            0            1
+        atom:         1766            0         1766
+         int:            3            0            3
       string:           65            0           65
         list:           70            4           66
-        expr:          750            6          744
-         var:           39           14           25
+        expr:          752            6          746
+         var:           41           14           27
     constant:           34            0           34
         func:           68            0           68
     template:            1            0            1
@@ -277,7 +277,7 @@ Object create count:
       member:           16            0           16
        frame:           10            8            2
  interpreter:            1            0
-  frameEntry:          366            0
+  frameEntry:          368            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -329,7 +329,7 @@ default_model        : 30       4        3    instance   model@m
 ?z                   : 36       4        1    var        z : type=atom       
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=9
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -337,6 +337,8 @@ Var                  : Value
 ?load-jar            : '()
 ?load-script         : '()
 ?load-system         : '("rule" "string")
+?model-gc-interval   : 1000
+?model-gc-min-gate   : 2048
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

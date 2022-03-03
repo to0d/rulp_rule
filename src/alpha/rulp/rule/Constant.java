@@ -265,5 +265,9 @@ public interface Constant {
 
 	String V_M_CST_INIT = "?cst-init";
 
+	String V_M_GC_MIN_GATE = "?model-gc-min-gate";
+
+	String V_M_GC_INTERVAL = "?model-gc-interval";
+
 	String V_M_STATE = "?model-state";
 }

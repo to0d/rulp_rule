@@ -47,6 +47,9 @@
 (defconst RRUN_STATE_RUNNING   running)
 (defconst RRUN_STATE_PARTIAL   partial)
 
+(defvar ?model-gc-min-gate 2048)        ; GC memory gate (M)
+(defvar ?model-gc-interval 1000)        ; GC interval (ms)
+
 ;****************************************************
 ; Common utilies
 ;****************************************************
