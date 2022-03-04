@@ -109,14 +109,14 @@ node info6:
 =================================================================================================================================================================
 NODE[n]   Type  Class Queue  Named                Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[2] NAME0 Rete0 UNIQ   _RBS_TABLE                0     1    0    0    0   2   0   0 [null, null]
-N00002[3] NAME0 Rete0 UNIQ   $cst_type$                0     3    2    0    0   0   0   0 [null, null, null]
-N00007[3] NAME0 Rete0 UNIQ   $cst_max$                 0     1    1    0    0   0   0   0 [null, null, null]
-N00009[3] NAME0 Rete0 UNIQ   $cst_min$                 0     1    1    0    0   0   0   0 [null, null, null]
-N00011[1] NAME0 Rete0 UNIQ   $invalid_constraint$      0     0    0    0    0   0   0   0 [null]
-N00012[2] NAME0 Rete0 UNIQ   $cst_node$                0     0    0    0    0   0   0   0 [null, null]
-N00013[4] NAME0 Rete0 UNIQ   _RBS_COLUMN               0     0    0    0    0   3   0   0 [null, null, null, null]
-N00015[3] NAME0 Rete0 UNIQ   t1                        0     0    0    0    0   3   0   0 [null, null, null]
+N00001[2] NAME0 Named UNIQ   _RBS_TABLE                0     1    0    0    0   2   0   0 [null, null]
+N00002[3] NAME0 Named UNIQ   $cst_type$                0     3    2    0    0   0   0   0 [null, null, null]
+N00007[3] NAME0 Named UNIQ   $cst_max$                 0     1    1    0    0   0   0   0 [null, null, null]
+N00009[3] NAME0 Named UNIQ   $cst_min$                 0     1    1    0    0   0   0   0 [null, null, null]
+N00011[1] NAME0 Named UNIQ   $invalid_constraint$      0     0    0    0    0   0   0   0 [null]
+N00012[2] NAME0 Named UNIQ   $cst_node$                0     0    0    0    0   0   0   0 [null, null]
+N00013[4] NAME0 Named UNIQ   _RBS_COLUMN               0     0    0    0    0   3   0   0 [null, null, null, null]
+N00015[3] NAME0 Named UNIQ   t1                        0     0    0    0    0   3   0   0 [null, null, null]
 A00014[2] ALPH0 Rete1 MULTI  _RBS_TABLE                1     0    0    0    0   1   0   0 [null, ?_vg_0]
 E10004[4] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0   0 [?node, ?index, ?type1, ?type2]
 B00003[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0   0   0 [?node, ?index, ?type1, ?type2]
@@ -175,8 +175,9 @@ model-gc-trigger                      0
 model-gc-count                        0
 graph-gc-count                        0
 graph-gc-node-remove                  0
-graph-gc-inactive-leaf-count          0
-graph-gc-cache-count                  0
+graph-gc-node-clean                   0
+graph-gc-inactive-leaf                0
+graph-gc-cache                        0
 =================================================================================================================================================================
 
 

@@ -36,4 +36,6 @@ public interface IREntryQueue extends IREntryList {
 
 	public void incNodeUpdateCount();
 
+	public void cleanCache();
+
 }

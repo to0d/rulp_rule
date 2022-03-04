@@ -77,6 +77,8 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.action.ActionUtil;
+import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
@@ -338,6 +340,13 @@ public class XRNodeGraph implements IRNodeGraph {
 	protected int gcMaxInactiveLeafCount = DEF_GC_INACTIVE_LEAF;
 
 	protected int gcRemoveNodeCount = 0;
+
+	protected int gcCleanNodeCount = 0;
+
+	@Override
+	public int getGcCleanNodeCount() {
+		return gcCleanNodeCount;
+	}
 
 	protected long gcRemoveNodeCountArray[] = new long[RCountType.COUNT_TYPE_NUM];
 
@@ -1935,9 +1944,16 @@ public class XRNodeGraph implements IRNodeGraph {
 			});
 
 			for (AbsReteNode node : listNodes(RReteType.ALPH0)) {
-				if (node.getPriority() == RETE_PRIORITY_INACTIVE && node.getChildNodes().isEmpty()) {
-					nodeHeap.push(node);
+
+				if (!node.getChildNodes().isEmpty()) {
+					continue;
 				}
+
+				if (node.getPriority() > RETE_PRIORITY_INACTIVE) {
+					continue;
+				}
+
+				nodeHeap.push(node);
 			}
 
 			if (nodeHeap.size() > gcMaxInactiveLeafCount) {
@@ -1969,13 +1985,37 @@ public class XRNodeGraph implements IRNodeGraph {
 //			});
 //
 //			for (AbsReteNode node : listNodes(RReteType.NAME0)) {
-//				
-//				
-//				if (node.getPriority() == RETE_PRIORITY_INACTIVE && node.getChildNodes().isEmpty()) {
-//					nodeHeap.push(node);
+//
+//				if (!node.getChildNodes().isEmpty()) {
+//					continue;
 //				}
+//
+//				IRCacheWorker cache = node.getCacheWorker();
+//				if (cache == null) {
+//					continue;
+//				}
+//
+//				if (cache.getStatus() != CacheStatus.LOADED) {
+//					continue;
+//				}
+//
+//				if (cache.isDirty()) {
+//					continue;
+//				}
+//
+//				nodeHeap.push(node);
 //			}
 //
+//			if (nodeHeap.size() > gcMaxCacheNodeCount) {
+//
+//				gcInactiveLeafCount++;
+//
+//				while (nodeHeap.size() > gcMaxCacheNodeCount) {
+//					IRNamedNode node = (IRNamedNode) nodeHeap.pop();
+//					node.cleanCache();
+//					gcCleanNodeCount++;
+//				}
+//			}
 //		}
 	}
 

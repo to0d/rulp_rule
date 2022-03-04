@@ -176,6 +176,11 @@ public class XREntryQueueMulit implements IREntryQueue {
 	}
 
 	@Override
+	public void cleanCache() {
+		entryList = null;
+	}
+
+	@Override
 	public int doGC() {
 
 		int removeCount = 0;

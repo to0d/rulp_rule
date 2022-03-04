@@ -54,6 +54,10 @@ public interface IRNodeGraph {
 
 	public int getGcCacheCount();
 
+	public int getGcCleanNodeCount();
+
+	public int getGcCount();
+
 	public int getGcInactiveLeafCount();
 
 	public long getGcNodeRemoveCount(RCountType countType) throws RException;
@@ -95,7 +99,5 @@ public interface IRNodeGraph {
 	public void setNodePriority(IRReteNode node, int priority) throws RException;
 
 	public void setRulePriority(IRRule rule, int priority) throws RException;
-
-	public int getGcCount();
 
 }

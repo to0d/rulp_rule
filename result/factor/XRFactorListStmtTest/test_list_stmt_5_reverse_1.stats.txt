@@ -65,7 +65,7 @@ NODE[n]   Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEn
 R00001[1] ROOT0 Rete0 UNIQ              0     0    0    0    0   0   0 900 [null]
 R00002[2] ROOT0 Rete0 UNIQ              0     0    0    0    0   0   0 900 [null, null]
 R00003[3] ROOT0 Rete0 UNIQ              0     1    0    0    0   0   0 900 [null, null, null]
-N00004[3] NAME0 Rete0 UNIQ   n1         0     2    0    0    0   0   0   0 [null, null, null]
+N00004[3] NAME0 Named UNIQ   n1         0     2    0    0    0   0   0   0 [null, null, null]
 A00005[3] ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [null, ?_ag_0, ?_ag_1]
 A00006[3] ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [?_ag_0, null, ?_ag_1]
 A00007[3] ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [null, ?_ag_0, ?_vg_0]
@@ -104,8 +104,9 @@ model-gc-trigger                      0
 model-gc-count                        0
 graph-gc-count                        0
 graph-gc-node-remove                  0
-graph-gc-inactive-leaf-count          0
-graph-gc-cache-count                  0
+graph-gc-node-clean                   0
+graph-gc-inactive-leaf                0
+graph-gc-cache                        0
 =================================================================================================================================================================
 
 

@@ -48,8 +48,9 @@ model-gc-trigger                      0
 model-gc-count                        0
 graph-gc-count                        0
 graph-gc-node-remove                  0
-graph-gc-inactive-leaf-count          0
-graph-gc-cache-count                  0
+graph-gc-node-clean                   0
+graph-gc-inactive-leaf                0
+graph-gc-cache                        0
 =================================================================================================================================================================
 
 
@@ -233,20 +234,6 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=8, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-?cst-init                      : DEFAULT                      0    1    var        false : type=bool
-?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
-?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
-?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
-?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
-?model-state                   : DEFAULT                      0    1    var        completed : type=atom
-?rbs-init                      : DEFAULT                      0    1    var        false : type=bool
-this                           : DEFAULT                      0    2    instance   model@m
-==========================================================================================================================
-
 name=m, string=model@m, lvl=1, ref=1/1, parent=model, final=false, mbrs=8, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
@@ -259,6 +246,20 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
 ?rbs-init                      : DEFAULT                      0    1    var        false : type=bool
 this                           : DEFAULT                      0    1    instance   model@m
+==========================================================================================================================
+
+name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=8, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?cst-init                      : DEFAULT                      0    1    var        false : type=bool
+?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
+?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
+?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
+?model-state                   : DEFAULT                      0    1    var        completed : type=atom
+?rbs-init                      : DEFAULT                      0    1    var        false : type=bool
+this                           : DEFAULT                      0    2    instance   model@m
 ==========================================================================================================================
 
 name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null

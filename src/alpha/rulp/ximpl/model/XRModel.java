@@ -131,6 +131,18 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		@Override
+		public void cleanCache() throws RException {
+
+			if (this.isDirty()) {
+				throw new RException("Can't clean dirty cache:" + this.getNode());
+			}
+
+			this.cacheLastEntryId = 0;
+			this.cacheCacheStmtCount = 0;
+			this.status = CacheStatus.CLEAN;
+		}
+
+		@Override
 		public int getCacheLastEntryId() {
 			return cacheLastEntryId;
 		}
@@ -176,6 +188,44 @@ public class XRModel extends AbsRInstance implements IRModel {
 		@Override
 		public int getWriteCount() {
 			return writeLines;
+		}
+
+		public boolean isDirty() throws RException {
+
+			if (saver == null) {
+				return false;
+			}
+
+			switch (status) {
+			case LOADED:
+
+				if (saver.needSave()) {
+					return true;
+				}
+
+				if (node.getEntryQueue().size() != cacheCacheStmtCount) {
+					return true;
+				}
+
+				IRReteEntry lastEntry = ReteUtil.getLastEntry(node.getEntryQueue());
+				int lastEntryId = lastEntry == null ? -1 : lastEntry.getEntryId();
+				if (cacheLastEntryId != lastEntryId) {
+					return true;
+				}
+
+				return false;
+
+			case LOADING:
+				return true;
+
+			case UNLOAD:
+			case CLEAN:
+				return node.getEntryQueue().size() > 0;
+
+			default:
+				throw new RException("invalid status: " + status);
+			}
+
 		}
 
 		public int load() throws RException {
@@ -230,43 +280,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.status = CacheStatus.LOADED;
 
 			return cacheCacheStmtCount;
-		}
-
-		public boolean isDirty() throws RException {
-
-			if (saver == null) {
-				return false;
-			}
-
-			switch (status) {
-			case LOADED:
-
-				if (saver.needSave()) {
-					return true;
-				}
-
-				if (node.getEntryQueue().size() != cacheCacheStmtCount) {
-					return true;
-				}
-
-				IRReteEntry lastEntry = ReteUtil.getLastEntry(node.getEntryQueue());
-				int lastEntryId = lastEntry == null ? -1 : lastEntry.getEntryId();
-				if (cacheLastEntryId != lastEntryId) {
-					return true;
-				}
-
-				return false;
-
-			case LOADING:
-				return true;
-
-			case UNLOAD:
-				return node.getEntryQueue().size() > 0;
-
-			default:
-				throw new RException("invalid status: " + status);
-			}
-
 		}
 
 		public int save() throws RException, IOException {

@@ -6,7 +6,7 @@ import alpha.rulp.rule.IRReteNode;
 public interface IRCacheWorker {
 
 	public enum CacheStatus {
-		LOADED, LOADING, UNLOAD
+		LOADED, LOADING, UNLOAD, CLEAN
 	}
 
 	public int getCacheLastEntryId();
@@ -24,6 +24,8 @@ public interface IRCacheWorker {
 	public int getStmtCount();
 
 	public int getWriteCount();
+
+	public void cleanCache() throws RException;
 
 	public boolean isDirty() throws RException;
 

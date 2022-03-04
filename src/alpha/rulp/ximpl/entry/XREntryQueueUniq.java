@@ -54,6 +54,12 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IRListener1<I
 	}
 
 	@Override
+	public void cleanCache() {
+		uniqEntryMap.clear();
+		super.cleanCache();
+	}
+
+	@Override
 	public void doAction(IRReteEntry entry) throws RException {
 
 		switch (entry.getStatus()) {

@@ -62,6 +62,11 @@ public class XREntryQueueSingle implements IREntryQueue {
 	}
 
 	@Override
+	public void cleanCache() {
+		this.curEntry = null;
+	}
+
+	@Override
 	public int doGC() {
 		return 0;
 	}
@@ -120,6 +125,16 @@ public class XREntryQueueSingle implements IREntryQueue {
 	}
 
 	@Override
+	public IRReteEntry getStmt(String uniqName) throws RException {
+
+		if (curEntry != null && !curEntry.isDroped() && ReteUtil.uniqName(curEntry).equals(uniqName)) {
+			return curEntry;
+		}
+
+		return null;
+	}
+
+	@Override
 	public int getUpdateCount() {
 		return nodeUpdateCount;
 	}
@@ -145,16 +160,6 @@ public class XREntryQueueSingle implements IREntryQueue {
 	@Override
 	public int size() {
 		return maxValueCount;
-	}
-
-	@Override
-	public IRReteEntry getStmt(String uniqName) throws RException {
-
-		if (curEntry != null && !curEntry.isDroped() && ReteUtil.uniqName(curEntry).equals(uniqName)) {
-			return curEntry;
-		}
-
-		return null;
 	}
 
 }

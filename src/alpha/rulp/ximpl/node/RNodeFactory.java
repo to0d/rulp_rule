@@ -542,10 +542,10 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static AbsReteNode createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
+	public static XRNodeNamed createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
 			throws RException {
 
-		XRNodeRete0 node = new XRNodeRete0(namedName);
+		XRNodeNamed node = new XRNodeNamed(namedName);
 
 		// Model
 		node.setModel(model);

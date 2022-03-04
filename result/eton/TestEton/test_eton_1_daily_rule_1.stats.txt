@@ -123,11 +123,11 @@ node info6:
 =================================================================================================================================================================
 NODE[n]   Type  Class Queue  Named                Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[2] NAME0 Rete0 UNIQ   eton_daily_task1          0     1    1    0    0   0   0 199 [null, null]
-N00003[3] NAME0 Rete0 UNIQ   eton_working_task1        0     4    2    0    0   0   0 198 [null, null, null]
-N00007[3] NAME0 Rete0 UNIQ   eton_completed_task1      0     1    1    0    0   0   0 197 [null, null, null]
-N00011[2] NAME0 Rete0 UNIQ   task_func                 0     5    2    0    0   0   0 196 [null, null]
-N00018[4] NAME0 Rete0 UNIQ   eton_daily_data           0     0    0    0    0   1   0   0 [null, null, null, null]
+N00001[2] NAME0 Named UNIQ   eton_daily_task1          0     1    1    0    0   0   0 199 [null, null]
+N00003[3] NAME0 Named UNIQ   eton_working_task1        0     4    2    0    0   0   0 198 [null, null, null]
+N00007[3] NAME0 Named UNIQ   eton_completed_task1      0     1    1    0    0   0   0 197 [null, null, null]
+N00011[2] NAME0 Named UNIQ   task_func                 0     5    2    0    0   0   0 196 [null, null]
+N00018[4] NAME0 Named UNIQ   eton_daily_data           0     0    0    0    0   1   0   0 [null, null, null, null]
 E00005[4] EXPR0 Rete1 MULTI                            1     1    1    0    0   1   0 198 [?day1, ?task, ?arg0, ?day2]
 E00009[4] EXPR0 Rete1 MULTI                            1     1    1    0    0   1   0 197 [?day2, ?task, ?arg0, ?day1]
 E10013[3] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0 196 [?t1, ?f1, ?f2]
@@ -209,8 +209,9 @@ model-gc-trigger                      0
 model-gc-count                        0
 graph-gc-count                        3
 graph-gc-node-remove                  0
-graph-gc-inactive-leaf-count          0
-graph-gc-cache-count                  0
+graph-gc-node-clean                   0
+graph-gc-inactive-leaf                0
+graph-gc-cache                        0
 =================================================================================================================================================================
 
 

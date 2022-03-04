@@ -29,6 +29,11 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	}
 
 	@Override
+	public void cleanCache() {
+
+	}
+
+	@Override
 	public int doGC() {
 		return 0;
 	}

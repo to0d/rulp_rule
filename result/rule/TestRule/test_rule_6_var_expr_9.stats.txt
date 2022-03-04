@@ -65,8 +65,8 @@ node info6:
 =================================================================================================================================================================
 NODE[n]   Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[1] NAME0 Rete0 UNIQ   name1      0     1    1    0    0   0   0  99 [null]
-N00006[1] NAME0 Rete0 UNIQ   name2      0     0    0    0    0   0   0   0 [null]
+N00001[1] NAME0 Named UNIQ   name1      0     1    1    0    0   0   0  99 [null]
+N00006[1] NAME0 Named UNIQ   name2      0     0    0    0    0   0   0   0 [null]
 V00002[3] VAR   Rete0 SINGLE            0     1    1    0    0   0   0  99 [?xmode, ?xmode.old, ?_tmp_0]
 A10003[3] ALPH1 Rete1 SINGLE            1     1    1    0    0   1   0  99 [?xmode, ?xmode.old, null]
 B10004[3] BETA1 Beta1 MULTI             2     1    1    3    0   0   0  99 [?a, ?xmode, ?xmode.old]
@@ -107,8 +107,9 @@ model-gc-trigger                      0
 model-gc-count                        0
 graph-gc-count                        0
 graph-gc-node-remove                  0
-graph-gc-inactive-leaf-count          0
-graph-gc-cache-count                  0
+graph-gc-node-clean                   0
+graph-gc-inactive-leaf                0
+graph-gc-cache                        0
 =================================================================================================================================================================
 
 

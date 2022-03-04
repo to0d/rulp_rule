@@ -151,23 +151,23 @@ node info6:
 =================================================================================================================================================================
 NODE[n]   Type  Class Queue  Named                Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[3] NAME0 Rete0 UNIQ   name1                     0     0    0    0    0   3   0   0 [null, null, null]
-N00002[3] NAME0 Rete0 UNIQ   name2                     0     0    0    0    0   1   0   0 [null, null, null]
-N00003[3] NAME0 Rete0 UNIQ   name3                     0     0    0    0    0   1   0   0 [null, null, null]
-N00004[3] NAME0 Rete0 UNIQ   name4                     0     0    0    0    0   2   0   0 [null, null, null]
-N00005[3] NAME0 Rete0 UNIQ   name5                     0     0    0    0    0   2   0   0 [null, null, null]
-N00006[3] NAME0 Rete0 UNIQ   name6                     0     0    0    0    0   5   0   0 [null, null, null]
-N00007[3] NAME0 Rete0 UNIQ   $cst_type$                0     3    2    0    0   0   0   0 [null, null, null]
-N00012[3] NAME0 Rete0 UNIQ   $cst_max$                 0     1    1    0    0   0   0   0 [null, null, null]
-N00014[3] NAME0 Rete0 UNIQ   $cst_min$                 0     1    1    0    0   0   0   0 [null, null, null]
-N00016[1] NAME0 Rete0 UNIQ   $invalid_constraint$      0     0    0    0    0   0   0   0 [null]
-N00017[2] NAME0 Rete0 UNIQ   $cst_node$                0     0    0    0    0   0   0   0 [null, null]
-N00018[3] NAME0 Rete0 UNIQ   name7                     0     0    0    0    0   1   0   0 [null, null, null]
-N00019[2] NAME0 Rete0 UNIQ   name8                     0     0    0    0    0   3   0   0 [null, null]
-N00020[2] NAME0 Rete0 UNIQ   name9                     0     0    0    0    0   1   0   0 [null, null]
-N00021[3] NAME0 Rete0 UNIQ   $cst_one_of$              0     0    0    0    0   0   0   0 [null, null, null]
-N00022[2] NAME0 Rete0 UNIQ   name10                    0     0    0    0    0   1   0   0 [null, null]
-N00023[3] NAME0 Rete0 UNIQ   name11                    0     0    0    0    0   1   0   0 [null, null, null]
+N00001[3] NAME0 Named UNIQ   name1                     0     0    0    0    0   3   0   0 [null, null, null]
+N00002[3] NAME0 Named UNIQ   name2                     0     0    0    0    0   1   0   0 [null, null, null]
+N00003[3] NAME0 Named UNIQ   name3                     0     0    0    0    0   1   0   0 [null, null, null]
+N00004[3] NAME0 Named UNIQ   name4                     0     0    0    0    0   2   0   0 [null, null, null]
+N00005[3] NAME0 Named UNIQ   name5                     0     0    0    0    0   2   0   0 [null, null, null]
+N00006[3] NAME0 Named UNIQ   name6                     0     0    0    0    0   5   0   0 [null, null, null]
+N00007[3] NAME0 Named UNIQ   $cst_type$                0     3    2    0    0   0   0   0 [null, null, null]
+N00012[3] NAME0 Named UNIQ   $cst_max$                 0     1    1    0    0   0   0   0 [null, null, null]
+N00014[3] NAME0 Named UNIQ   $cst_min$                 0     1    1    0    0   0   0   0 [null, null, null]
+N00016[1] NAME0 Named UNIQ   $invalid_constraint$      0     0    0    0    0   0   0   0 [null]
+N00017[2] NAME0 Named UNIQ   $cst_node$                0     0    0    0    0   0   0   0 [null, null]
+N00018[3] NAME0 Named UNIQ   name7                     0     0    0    0    0   1   0   0 [null, null, null]
+N00019[2] NAME0 Named UNIQ   name8                     0     0    0    0    0   3   0   0 [null, null]
+N00020[2] NAME0 Named UNIQ   name9                     0     0    0    0    0   1   0   0 [null, null]
+N00021[3] NAME0 Named UNIQ   $cst_one_of$              0     0    0    0    0   0   0   0 [null, null, null]
+N00022[2] NAME0 Named UNIQ   name10                    0     0    0    0    0   1   0   0 [null, null]
+N00023[3] NAME0 Named UNIQ   name11                    0     0    0    0    0   1   0   0 [null, null, null]
 E10009[4] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0   0 [?node, ?index, ?type1, ?type2]
 B00008[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0   0   0 [?node, ?index, ?type1, ?type2]
 CST01[4]  RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?type1, ?type2]
@@ -232,8 +232,9 @@ model-gc-trigger                      0
 model-gc-count                        0
 graph-gc-count                        0
 graph-gc-node-remove                  0
-graph-gc-inactive-leaf-count          0
-graph-gc-cache-count                  0
+graph-gc-node-clean                   0
+graph-gc-inactive-leaf                0
+graph-gc-cache                        0
 =================================================================================================================================================================
 
 
