@@ -198,7 +198,7 @@ public class XRStmtFileDefaultCacher implements IRStmtSaver, IRStmtLoader {
 	}
 
 	@Override
-	public int save(IRReteNode node, List<IRList> stmtList) throws RException, IOException {
+	public int save(IRReteNode node, List<? extends IRList> stmtList) throws RException, IOException {
 
 		final String cachePath = FileUtil.toValidPath(modelCachePath) + _nodeCacheName(node);
 //		System.out.println(String.format("save cache: %s", cachePath));

@@ -53,6 +53,8 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRObjBuilder;
 import alpha.rulp.ximpl.node.IRNodeGraph;
@@ -945,6 +947,42 @@ public class ReteUtil {
 		}
 
 		return nodeEntryLengh;
+	}
+
+	public static IRReteEntry getLastEntry(IREntryQueue queue) {
+
+		int size = queue.size();
+		for (int i = size - 1; i >= 0; --i) {
+			IRReteEntry entry = queue.getEntryAt(i);
+			if (entry != null && !entry.isDroped()) {
+				return entry;
+			}
+		}
+
+		return null;
+	}
+
+	public static List<IRReteEntry> getAllEntries(IREntryQueue queue) {
+
+		int size = queue.size();
+
+		ArrayList<IRReteEntry> stmtList = new ArrayList<>();
+
+		for (int i = 0; i < size; ++i) {
+
+			IRReteEntry entry = queue.getEntryAt(i);
+			if (entry == null || entry.isDroped()) {
+				continue;
+			}
+
+			if (stmtList == null) {
+				stmtList = new ArrayList<>();
+			}
+
+			stmtList.add(entry);
+		}
+
+		return stmtList == null ? Collections.emptyList() : stmtList;
 	}
 
 	public static int getMainInheritIndex(InheritIndex inheritIndexs[]) {

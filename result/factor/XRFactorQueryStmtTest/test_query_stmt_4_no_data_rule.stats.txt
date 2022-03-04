@@ -122,6 +122,7 @@ name                              count
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-gc-trigger                      0
 model-gc-count                        0
+graph-gc-count                        0
 graph-gc-node-remove                  0
 graph-gc-inactive-leaf-count          0
 graph-gc-cache-count                  0

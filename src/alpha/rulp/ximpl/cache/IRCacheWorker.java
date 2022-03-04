@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.cache;
 
+import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 
 public interface IRCacheWorker {
@@ -8,7 +9,7 @@ public interface IRCacheWorker {
 		LOADED, LOADING, UNLOAD
 	}
 
-	public int getLastEntryId();
+	public int getCacheLastEntryId();
 
 	public int getLoadCount();
 
@@ -23,5 +24,7 @@ public interface IRCacheWorker {
 	public int getStmtCount();
 
 	public int getWriteCount();
+
+	public boolean isDirty() throws RException;
 
 }

@@ -1909,14 +1909,24 @@ public class XRNodeGraph implements IRNodeGraph {
 		return rootNodeArray[stmtLen];
 	}
 
+	protected int gcCount = 0;
+
+	@Override
+	public int getGcCount() {
+		return gcCount;
+	}
+
 	@Override
 	public void gc() throws RException {
 
+		gcCount++;
+
+		/**************************************************/
+		// Clean inactive leaf node
+		/**************************************************/
 		if (gcMaxInactiveLeafCount > 0) {
 
-			gcInactiveLeafCount++;
-
-			HeapStack<AbsReteNode> nodeUsedHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
+			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
 				@Override
 				public int compare(AbsReteNode n1, AbsReteNode n2) {
 					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
@@ -1926,17 +1936,47 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			for (AbsReteNode node : listNodes(RReteType.ALPH0)) {
 				if (node.getPriority() == RETE_PRIORITY_INACTIVE && node.getChildNodes().isEmpty()) {
-					nodeUsedHeap.push(node);
+					nodeHeap.push(node);
 				}
 			}
 
-			while (nodeUsedHeap.size() > gcMaxInactiveLeafCount) {
-				AbsReteNode node = nodeUsedHeap.pop();
-				node.setReteStage(RReteStage.InActive);
-//				System.out.println("rmove node: " + node);
-				removeNode(node);
+			if (nodeHeap.size() > gcMaxInactiveLeafCount) {
+
+				gcInactiveLeafCount++;
+
+				while (nodeHeap.size() > gcMaxInactiveLeafCount) {
+					AbsReteNode node = nodeHeap.pop();
+					node.setReteStage(RReteStage.InActive);
+					removeNode(node);
+				}
 			}
+
 		}
+
+		/**************************************************/
+		// Clean unused cache node
+		/**************************************************/
+//		if (gcMaxCacheNodeCount > 0) {
+//
+//			gcCacheCount++;
+//
+//			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
+//				@Override
+//				public int compare(AbsReteNode n1, AbsReteNode n2) {
+//					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
+//							- ((XGraphInfo) n1.getGraphInfo()).getUseCount();
+//				}
+//			});
+//
+//			for (AbsReteNode node : listNodes(RReteType.NAME0)) {
+//				
+//				
+//				if (node.getPriority() == RETE_PRIORITY_INACTIVE && node.getChildNodes().isEmpty()) {
+//					nodeHeap.push(node);
+//				}
+//			}
+//
+//		}
 	}
 
 	@Override

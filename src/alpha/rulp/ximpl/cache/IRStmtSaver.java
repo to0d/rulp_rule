@@ -9,7 +9,7 @@ import alpha.rulp.rule.IRReteNode;
 
 public interface IRStmtSaver {
 
-	public int save(IRReteNode node, List<IRList> stmtList) throws RException, IOException;
+	public int save(IRReteNode node, List<? extends IRList> stmtList) throws RException, IOException;
 
 	public boolean needSave();
 }

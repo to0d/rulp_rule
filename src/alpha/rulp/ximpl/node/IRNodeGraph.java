@@ -96,4 +96,6 @@ public interface IRNodeGraph {
 
 	public void setRulePriority(IRRule rule, int priority) throws RException;
 
+	public int getGcCount();
+
 }

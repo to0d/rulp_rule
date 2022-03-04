@@ -568,13 +568,20 @@ public class StatsUtil {
 				model.getCachePath()));
 
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%8s  %6s %6s %6s %6s %6s %6s %s\n", "NODE[n]", "Stmt", "Last", "Load", "Save", "Read",
-				"Write", "Key"));
+		sb.append(String.format("%9s %7s %6s %6s %6s %6s %6s %6s %6s %6s %6s\n", "NODE[n]", "Status", "Dirty", "NStmt",
+				"NLast", "CStmt", "CLast", "Load", "Save", "Read", "Write"));
 		sb.append(SEP_LINE2);
 
 		for (IRCacheWorker cache : caches) {
-			sb.append(String.format("%8s: %6d %6d %6d %6d %6d %6d\n", cache.getNode().getNodeName(),
-					cache.getStmtCount(), cache.getLastEntryId(), cache.getLoadCount(), cache.getSaveCount(),
+
+			IRReteNode node = cache.getNode();
+			IREntryQueue queue = node.getEntryQueue();
+			IRReteEntry lastEntry = ReteUtil.getLastEntry(queue);
+
+			sb.append(String.format("%9s %7s %6s %6d %6d %6d %6d %6d %6d %6d %6d\n",
+					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + cache.getStatus(),
+					"" + cache.isDirty(), queue.size(), lastEntry == null ? -1 : lastEntry.getEntryId(),
+					cache.getStmtCount(), cache.getCacheLastEntryId(), cache.getLoadCount(), cache.getSaveCount(),
 					cache.getReadCount(), cache.getWriteCount()));
 		}
 
@@ -1232,6 +1239,7 @@ public class StatsUtil {
 		sb.append(SEP_LINE2);
 		sb.append(String.format("%-30s %8d\n", "model-gc-trigger", model.getGcTrigger()));
 		sb.append(String.format("%-30s %8d\n", "model-gc-count", model.getGcCount()));
+		sb.append(String.format("%-30s %8d\n", "graph-gc-count", graph.getGcCount()));
 		sb.append(String.format("%-30s %8d\n", "graph-gc-node-remove", graph.getGcRemoveNodeCount()));
 		sb.append(String.format("%-30s %8d\n", "graph-gc-inactive-leaf-count", graph.getGcInactiveLeafCount()));
 		sb.append(String.format("%-30s %8d\n", "graph-gc-cache-count", graph.getGcCacheCount()));
