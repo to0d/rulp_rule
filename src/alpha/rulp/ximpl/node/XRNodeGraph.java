@@ -333,6 +333,10 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected int gcCacheCount = 0;
 
+	protected int gcCleanNodeCount = 0;
+
+	protected int gcCount = 0;
+
 	protected int gcInactiveLeafCount = 0;
 
 	protected int gcMaxCacheNodeCount = 0;
@@ -340,13 +344,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	protected int gcMaxInactiveLeafCount = DEF_GC_INACTIVE_LEAF;
 
 	protected int gcRemoveNodeCount = 0;
-
-	protected int gcCleanNodeCount = 0;
-
-	@Override
-	public int getGcCleanNodeCount() {
-		return gcCleanNodeCount;
-	}
 
 	protected long gcRemoveNodeCountArray[] = new long[RCountType.COUNT_TYPE_NUM];
 
@@ -1918,13 +1915,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		return rootNodeArray[stmtLen];
 	}
 
-	protected int gcCount = 0;
-
-	@Override
-	public int getGcCount() {
-		return gcCount;
-	}
-
 	@Override
 	public void gc() throws RException {
 
@@ -1972,51 +1962,51 @@ public class XRNodeGraph implements IRNodeGraph {
 		/**************************************************/
 		// Clean unused cache node
 		/**************************************************/
-//		if (gcMaxCacheNodeCount > 0) {
-//
-//			gcCacheCount++;
-//
-//			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
-//				@Override
-//				public int compare(AbsReteNode n1, AbsReteNode n2) {
-//					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
-//							- ((XGraphInfo) n1.getGraphInfo()).getUseCount();
-//				}
-//			});
-//
-//			for (AbsReteNode node : listNodes(RReteType.NAME0)) {
-//
-//				if (!node.getChildNodes().isEmpty()) {
-//					continue;
-//				}
-//
-//				IRCacheWorker cache = node.getCacheWorker();
-//				if (cache == null) {
-//					continue;
-//				}
-//
-//				if (cache.getStatus() != CacheStatus.LOADED) {
-//					continue;
-//				}
-//
-//				if (cache.isDirty()) {
-//					continue;
-//				}
-//
-//				nodeHeap.push(node);
-//			}
-//
-//			if (nodeHeap.size() > gcMaxCacheNodeCount) {
-//
-//				gcInactiveLeafCount++;
-//
-//				while (nodeHeap.size() > gcMaxCacheNodeCount) {
-//					IRNamedNode node = (IRNamedNode) nodeHeap.pop();
-//					node.cleanCache();
-//					gcCleanNodeCount++;
-//				}
-//			}
-//		}
+		if (gcMaxCacheNodeCount > 0) {
+
+			gcCacheCount++;
+
+			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
+				@Override
+				public int compare(AbsReteNode n1, AbsReteNode n2) {
+					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
+							- ((XGraphInfo) n1.getGraphInfo()).getUseCount();
+				}
+			});
+
+			for (AbsReteNode node : listNodes(RReteType.NAME0)) {
+
+				if (!node.getChildNodes().isEmpty()) {
+					continue;
+				}
+
+				IRCacheWorker cache = node.getCacheWorker();
+				if (cache == null) {
+					continue;
+				}
+
+				if (cache.getStatus() != CacheStatus.LOADED) {
+					continue;
+				}
+
+				if (cache.isDirty()) {
+					continue;
+				}
+
+				nodeHeap.push(node);
+			}
+
+			if (nodeHeap.size() > gcMaxCacheNodeCount) {
+
+				gcInactiveLeafCount++;
+
+				while (nodeHeap.size() > gcMaxCacheNodeCount) {
+					IRNamedNode node = (IRNamedNode) nodeHeap.pop();
+					node.cleanCache();
+					gcCleanNodeCount++;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -2037,6 +2027,16 @@ public class XRNodeGraph implements IRNodeGraph {
 	@Override
 	public int getGcCacheCount() {
 		return gcCacheCount;
+	}
+
+	@Override
+	public int getGcCleanNodeCount() {
+		return gcCleanNodeCount;
+	}
+
+	@Override
+	public int getGcCount() {
+		return gcCount;
 	}
 
 	@Override
@@ -2110,10 +2110,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			public List<? extends IRReteNode> getAllNodes() {
 
 				if (allNodeList == null) {
-					allNodeList = new ArrayList<>();
-					for (RReteType t : RReteType.ALL_RETE_TYPE) {
-						allNodeList.addAll(getNodeList(t));
-					}
+					allNodeList = ReteUtil.getAllNodes(XRNodeGraph.this);
 				}
 
 				return allNodeList;

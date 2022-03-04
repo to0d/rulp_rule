@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_clean_1")
+;=>nan
+
+(list-stmt m)
+;=>'('(a b c) n1:'(x y z) n2:'(x y z) n3:'(x y z))
+
+(set-model-gc-max-cache-node m 1) ;; max keep 1 cached named node
+;=>nil
+
+(gc-model m)
+;=>0
+
+(list-stmt m) ; reload
+;=>'('(a b c) n1:'(x y z) n2:'(x y z) n3:'(x y z))
+

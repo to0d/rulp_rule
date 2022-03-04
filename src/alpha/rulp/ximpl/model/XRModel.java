@@ -8,8 +8,9 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
 import static alpha.rulp.rule.Constant.V_M_GC_CAPACITY;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.V_M_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.V_M_GC_INTERVAL;
+import static alpha.rulp.rule.Constant.V_M_GC_MAX_CACHE_NODE;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
@@ -690,43 +691,99 @@ public class XRModel extends AbsRInstance implements IRModel {
 		saveNodeListener.doAction(node);
 	}
 
-	protected void _gc() throws RException {
-
-		/*****************************************************/
-		// Never do GC
-		/*****************************************************/
-		if (gcInterval < 0 || gcCapacity < 0) {
-			return;
-		}
+	protected int _gc(boolean force) throws RException {
 
 		/*****************************************************/
 		// the function must be called at first level
 		/*****************************************************/
 		if (processingLevel != 0) {
-			return;
+			return 0;
 		}
 
+		/*****************************************************/
+		// Never do GC
+		/*****************************************************/
+		if (!force && (gcInterval < 0 || gcCapacity < 0)) {
+			return 0;
+		}
+
+		int totalGcCount = 0;
+		int smtGcCount = 0;
+		int alpahGcCount = 0;
+		int betaGcCount = 0;
+		int exprGcCount = 0;
+		int ruleGcCount = 0;
+
+		for (IRReteNode node : ReteUtil.getAllNodes(this.getNodeGraph())) {
+
+			int gcCount = node.doGC();
+			totalGcCount += gcCount;
+
+			switch (node.getReteType()) {
+			case ALPH0:
+			case ALPH1:
+				alpahGcCount += gcCount;
+				break;
+
+			case BETA0:
+			case BETA1:
+			case BETA2:
+			case BETA3:
+				betaGcCount += gcCount;
+				break;
+
+			case ROOT0:
+				smtGcCount += gcCount;
+				break;
+
+			case RULE:
+				ruleGcCount += gcCount;
+				break;
+
+			case EXPR0:
+			case EXPR1:
+			case EXPR2:
+			case EXPR3:
+				exprGcCount += gcCount;
+				break;
+
+			case VAR:
+			case CONST:
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println(String.format("==> GC: rs=%d, ra=%d, rb=%d, re=%d, rr=%d", smtGcCount, alpahGcCount,
+					betaGcCount, exprGcCount, ruleGcCount));
+		}
+
+		this.gcCount++;
 		this.nodeGraph.gc();
+		this.entryTable.doGC();
 
 		long curTime = System.currentTimeMillis();
 		if (curTime < (gcLastGcTime + gcInterval)) {
-			return;
+			return totalGcCount;
 		}
+
+		gcTrigger++;
 
 		try {
 
 			long used = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024;
-			if (used < gcCapacity) {
-				return;
+			if (used >= gcCapacity) {
+				System.gc();
 			}
 
-			doGC();
-			System.gc();
+			return totalGcCount;
 
 		} finally {
 
 			gcLastGcTime = curTime;
-			gcTrigger++;
 		}
 
 	}
@@ -1665,69 +1722,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public int doGC() throws RException {
 
-		int smtGcCount = 0;
-		int alpahGcCount = 0;
-		int betaGcCount = 0;
-		int exprGcCount = 0;
-		int ruleGcCount = 0;
-
-		LinkedList<IRReteNode> gcQueue = new LinkedList<>(nodeGraph.listNodes(RReteType.ROOT0));
-
-		while (!gcQueue.isEmpty()) {
-
-			IRReteNode node = gcQueue.pop();
-			int gcCount = node.doGC();
-			switch (node.getReteType()) {
-			case ALPH0:
-			case ALPH1:
-//			case ALPH2:
-				alpahGcCount += gcCount;
-				break;
-
-			case BETA0:
-			case BETA1:
-			case BETA2:
-			case BETA3:
-				betaGcCount += gcCount;
-				break;
-
-			case ROOT0:
-				smtGcCount += gcCount;
-				break;
-
-			case RULE:
-				ruleGcCount += gcCount;
-				break;
-
-			case EXPR0:
-			case EXPR1:
-			case EXPR2:
-			case EXPR3:
-				exprGcCount += gcCount;
-				break;
-
-			case VAR:
-			case CONST:
-				break;
-
-			default:
-				break;
-
-			}
-
-			gcQueue.addAll(node.getChildNodes());
-		}
-
-		entryTable.doGC();
-
 		if (RuleUtil.isModelTrace()) {
-			System.out.println(String.format("==> GC: rs=%d, ra=%d, rb=%d, re=%d, rr=%d", smtGcCount, alpahGcCount,
-					betaGcCount, exprGcCount, ruleGcCount));
+			System.out.println("==> doGC: ");
 		}
 
-		this.gcCount++;
-
-		return smtGcCount + alpahGcCount + betaGcCount + exprGcCount + ruleGcCount;
+		return _gc(true);
 	}
 
 	@Override
@@ -2069,7 +2068,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _listStatements(filter, statusMask, limit, reverse, builder);
 
 		} finally {
-			_gc();
+			_gc(false);
 		}
 
 	}
@@ -2094,7 +2093,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			_queryCond(resultQueue, queryNode, limit);
 
 		} finally {
-			_gc();
+			_gc(false);
 		}
 
 	}
@@ -2113,7 +2112,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		} finally {
 			this.tryRemoveConstraintLevel--;
-			_gc();
+			_gc(false);
 		}
 	}
 
@@ -2192,7 +2191,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		} finally {
 
-			_gc();
+			_gc(false);
 		}
 
 	}
@@ -2337,8 +2336,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			this.processingLevel--;
 			this.modelPriority = oldModelPriority;
-			this.nodeGraph.gc();
-			_gc();
+			_gc(false);
 		}
 	}
 

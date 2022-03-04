@@ -1,0 +1,17 @@
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_clean_1")
+;=>
+
+(list-stmt m)
+;=>
+
+(set-model-gc-max-cache-node m 1) ;; max keep 1 cached named node
+;=>
+
+(gc-model m)
+;=>
+
+(list-stmt m) ; reload
+;=>

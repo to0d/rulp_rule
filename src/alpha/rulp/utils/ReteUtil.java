@@ -53,7 +53,6 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRObjBuilder;
@@ -866,6 +865,39 @@ public class ReteUtil {
 		return namedNode;
 	}
 
+	public static List<IRReteEntry> getAllEntries(IREntryQueue queue) {
+
+		int size = queue.size();
+
+		ArrayList<IRReteEntry> stmtList = new ArrayList<>();
+
+		for (int i = 0; i < size; ++i) {
+
+			IRReteEntry entry = queue.getEntryAt(i);
+			if (entry == null || entry.isDroped()) {
+				continue;
+			}
+
+			if (stmtList == null) {
+				stmtList = new ArrayList<>();
+			}
+
+			stmtList.add(entry);
+		}
+
+		return stmtList == null ? Collections.emptyList() : stmtList;
+	}
+
+	public static List<IRReteNode> getAllNodes(IRNodeGraph graph) {
+
+		ArrayList<IRReteNode> allNodeList = new ArrayList<>();
+		for (RReteType t : RReteType.ALL_RETE_TYPE) {
+			allNodeList.addAll(graph.listNodes(t));
+		}
+
+		return allNodeList;
+	}
+
 	public static RReteStatus getChildStatus(IRReteEntry... parents) throws RException {
 
 //		RReteStatus status = 
@@ -960,29 +992,6 @@ public class ReteUtil {
 		}
 
 		return null;
-	}
-
-	public static List<IRReteEntry> getAllEntries(IREntryQueue queue) {
-
-		int size = queue.size();
-
-		ArrayList<IRReteEntry> stmtList = new ArrayList<>();
-
-		for (int i = 0; i < size; ++i) {
-
-			IRReteEntry entry = queue.getEntryAt(i);
-			if (entry == null || entry.isDroped()) {
-				continue;
-			}
-
-			if (stmtList == null) {
-				stmtList = new ArrayList<>();
-			}
-
-			stmtList.add(entry);
-		}
-
-		return stmtList == null ? Collections.emptyList() : stmtList;
 	}
 
 	public static int getMainInheritIndex(InheritIndex inheritIndexs[]) {
