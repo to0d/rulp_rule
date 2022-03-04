@@ -862,6 +862,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				}
 			}
 
+			_gc(false);
 		}
 
 		return matchedEntrys;
@@ -1041,6 +1042,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			LinkedList<IRReteEntry> matchedEntrys = new LinkedList<>();
 			matchedEntrys.add(oldEntry);
 
+			_gc(false);
 			return matchedEntrys;
 		}
 
@@ -1120,6 +1122,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 
+		_gc(false);
 		return matchedEntrys;
 	}
 
@@ -1196,11 +1199,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 						int update = execute(node);
 						if (node == queryNode && update > 0) {
 
-							IREntryQueue queryNodeQueue = queryNode.getEntryQueue();
+							IREntryQueue queue = queryNode.getEntryQueue();
 
-							while (queryEntryIndex < queryNodeQueue.size()) {
+							while (queryEntryIndex < queue.size()) {
 
-								IRReteEntry entry = queryNodeQueue.getEntryAt(queryEntryIndex++);
+								IRReteEntry entry = queue.getEntryAt(queryEntryIndex++);
 								if (!objQueue.addEntry(entry)) {
 									continue;
 								}
@@ -1210,6 +1213,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 									return;
 								}
 							}
+
+							_gc(false);
 						}
 
 						break;
@@ -1233,6 +1238,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.processingLevel--;
 			this._setRunState(RRunState.Partial);
 			subGraph.rollback();
+			_gc(false);
 		}
 	}
 
@@ -2087,15 +2093,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Can't query, the model is running");
 		}
 
-		try {
-
-			IRReteNode queryNode = this.findNode(condList);
-			_queryCond(resultQueue, queryNode, limit);
-
-		} finally {
-			_gc(false);
-		}
-
+		_queryCond(resultQueue, findNode(condList), limit);
 	}
 
 	@Override
