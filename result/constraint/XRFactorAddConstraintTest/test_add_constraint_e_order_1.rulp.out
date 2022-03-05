@@ -1,0 +1,39 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x ?y) (order by ?x))
+;=>true
+
+(add-stmt m n1:'(1 1))
+;=>true
+
+(add-stmt m n1:'(2 2))
+;=>true
+
+(add-stmt m n1:'(2 3))
+;=>true
+
+(add-stmt m n1:'(1 4))
+;err:
+Unable to add entry<n1:'(1 4)> due to constraint<(order by ?0 asc)>
+at (add-stmt m n1:'(1 4)) ; main-2
+;eof
+
+(add-stmt m n1:'(2 2))
+;err:
+Unable to add entry<n1:'(2 2)> due to constraint<(order by ?0 asc)>
+at (add-stmt m n1:'(2 2)) ; main-2
+;eof
+
+(list-stmt m)
+;=>'(n1:'(1 1) n1:'(2 2) n1:'(2 3))
+
+(remove-constraint m n1:'(2) (? on ?))
+;=>'((order by ?0 asc))
+
+(add-stmt m n1:'(1 4))
+;=>true
+
+(list-stmt m)
+;=>'(n1:'(1 1) n1:'(2 2) n1:'(2 3) n1:'(1 4))
+

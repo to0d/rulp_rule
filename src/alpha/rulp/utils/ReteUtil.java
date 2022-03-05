@@ -12,7 +12,8 @@ import static alpha.rulp.lang.Constant.F_O_LE;
 import static alpha.rulp.lang.Constant.F_O_LT;
 import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Order_by;
+import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
@@ -65,6 +66,11 @@ import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
+
+	public static class OrderEntry {
+		public boolean asc;
+		public int index;
+	}
 
 	static class ReplaceMap implements Map<String, IRObject> {
 
@@ -825,6 +831,29 @@ public class ReteUtil {
 		return varList;
 	}
 
+	public static int compareEntry(IRReteEntry e1, IRReteEntry e2, List<OrderEntry> orderEntries) throws RException {
+
+		int d = 0;
+
+		for (OrderEntry order : orderEntries) {
+
+			IRObject o1 = e1.get(order.index);
+			IRObject o2 = e2.get(order.index);
+
+			if (order.asc) {
+				d = RulpUtil.compare(o2, o1);
+			} else {
+				d = RulpUtil.compare(o1, o2);
+			}
+
+			if (d != 0) {
+				break;
+			}
+		}
+
+		return d;
+	}
+
 	public static IRReteNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 
 		String namedName = filter.getNamedName();
@@ -1017,6 +1046,10 @@ public class ReteUtil {
 		return mainInheritIndex;
 	}
 
+	public static String getNamedUniqName(String name, int stmtLen) {
+		return name + ":" + ReteUtil.getRootUniqName(stmtLen);
+	}
+
 	public static List<IRConstraint1> getNodeConstraint1List(IRReteNode node) {
 
 		int count = node.getConstraint1Count();
@@ -1030,63 +1063,6 @@ public class ReteUtil {
 		}
 
 		return cons;
-	}
-
-	public static boolean tryChangeNodeQueue(IRReteNode node, REntryQueueType fromType, REntryQueueType toType)
-			throws RException {
-
-		IREntryQueue oldQueue = node.getEntryQueue();
-		REntryQueueType oldType = oldQueue.getQueueType();
-		if (oldType != fromType) {
-			return false;
-		}
-
-		if (oldType == toType) {
-			return true;
-		}
-
-		if (fromType == REntryQueueType.MULTI && toType == REntryQueueType.UNIQ) {
-
-			for (IRConstraint1 cons : ReteUtil.getNodeConstraint1List(node)) {
-				switch (cons.getConstraintName()) {
-
-				// No need to change since the following constraints will make sure that entries
-				// are uniq
-				case A_Uniq:
-				case A_Order_by:
-					return false;
-				}
-			}
-		}
-
-		int oldSize = oldQueue.size();
-		IREntryQueue newQueue = REntryFactory.createQueue(toType, node.getEntryLength());
-
-		boolean ignoreInvalidEntry = node.getChildNodes().size() == 0;
-
-		if (oldSize > 0) {
-
-			for (int i = 0; i < oldSize; ++i) {
-
-				IRReteEntry entry = oldQueue.getEntryAt(i);
-
-				// Should
-				if (ignoreInvalidEntry && (entry == null || entry.isDroped())) {
-					continue;
-				}
-
-				if (!newQueue.addEntry(entry)) {
-					return false;
-				}
-			}
-		}
-
-		node.setEntryQueue(newQueue);
-		return true;
-	}
-
-	public static String getNamedUniqName(String name, int stmtLen) {
-		return name + ":" + ReteUtil.getRootUniqName(stmtLen);
 	}
 
 	public static String getNodeName(RReteType type, int nodeId) {
@@ -1943,6 +1919,59 @@ public class ReteUtil {
 		default:
 			return null;
 		}
+	}
+
+	public static boolean tryChangeNodeQueue(IRReteNode node, REntryQueueType fromType, REntryQueueType toType)
+			throws RException {
+
+		IREntryQueue oldQueue = node.getEntryQueue();
+		REntryQueueType oldType = oldQueue.getQueueType();
+		if (oldType != fromType) {
+			return false;
+		}
+
+		if (oldType == toType) {
+			return true;
+		}
+
+		if (fromType == REntryQueueType.MULTI && toType == REntryQueueType.UNIQ) {
+
+			for (IRConstraint1 cons : ReteUtil.getNodeConstraint1List(node)) {
+				switch (cons.getConstraintName()) {
+
+				// No need to change since the following constraints will make sure that entries
+				// are uniq
+				case A_Uniq:
+				case A_Order_by:
+					return false;
+				}
+			}
+		}
+
+		int oldSize = oldQueue.size();
+		IREntryQueue newQueue = REntryFactory.createQueue(toType, node);
+
+		boolean ignoreInvalidEntry = node.getChildNodes().size() == 0;
+
+		if (oldSize > 0) {
+
+			for (int i = 0; i < oldSize; ++i) {
+
+				IRReteEntry entry = oldQueue.getEntryAt(i);
+
+				// Should
+				if (ignoreInvalidEntry && (entry == null || entry.isDroped())) {
+					continue;
+				}
+
+				if (!newQueue.addEntry(entry)) {
+					return false;
+				}
+			}
+		}
+
+		node.setEntryQueue(newQueue);
+		return true;
 	}
 
 	public static String uniqName(IRList tree) throws RException {

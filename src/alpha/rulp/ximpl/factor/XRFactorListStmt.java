@@ -25,12 +25,12 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
+import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.REntryFactory;
-import alpha.rulp.ximpl.entry.XREntryIteratorBuilderOrderBy.OrderEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {

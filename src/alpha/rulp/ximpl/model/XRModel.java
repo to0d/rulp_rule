@@ -76,6 +76,7 @@ import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
+import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
@@ -472,8 +473,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 					.println(String.format("%s: addEntry(%s, %s)", rootNode.getNodeName(), "" + stmt, "" + newStatus));
 		}
 
-		String stmtUniqName = ReteUtil.uniqName(stmt);
-		IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(stmtUniqName);
+		IRReteEntry oldEntry = null;
+		if (rootNode.getEntryQueue().getQueueType() == REntryQueueType.UNIQ) {
+			oldEntry = rootNode.getEntryQueue().getStmt(ReteUtil.uniqName(stmt));
+		}
 
 		/*******************************************************/
 		// Insert entry

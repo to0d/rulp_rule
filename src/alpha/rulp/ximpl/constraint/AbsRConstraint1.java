@@ -2,11 +2,16 @@ package alpha.rulp.ximpl.constraint;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public abstract class AbsRConstraint1 extends AbsRConstraint implements IRConstraint1 {
 
 	protected abstract boolean _addEntry(IRReteEntry entry, IRContext context) throws RException;
+
+	public void setNode(IRReteNode node) {
+
+	}
 
 	@Override
 	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {

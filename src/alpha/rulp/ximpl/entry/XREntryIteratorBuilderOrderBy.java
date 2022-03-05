@@ -1,13 +1,12 @@
 package alpha.rulp.ximpl.entry;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.HeapStack;
-import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.ReteUtil.OrderEntry;
 
 public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 
@@ -31,53 +30,6 @@ public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 		}
 	}
 
-	static class OrderByComparator implements Comparator<IRReteEntry> {
-
-		private final List<OrderEntry> orderEntrys;
-
-		public OrderByComparator(List<OrderEntry> orderEntrys) {
-			super();
-			this.orderEntrys = orderEntrys;
-		}
-
-		@Override
-		public int compare(IRReteEntry e1, IRReteEntry e2) {
-
-			try {
-
-				int d = 0;
-
-				for (OrderEntry order : orderEntrys) {
-
-					IRObject o1 = e1.get(order.index);
-					IRObject o2 = e2.get(order.index);
-
-					if (order.asc) {
-						d = RulpUtil.compare(o2, o1);
-					} else {
-						d = RulpUtil.compare(o1, o2);
-					}
-
-					if (d != 0) {
-						break;
-					}
-				}
-
-				return d;
-
-			} catch (RException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e.toString());
-			}
-		}
-
-	}
-
-	public static class OrderEntry {
-		public boolean asc;
-		public int index;
-	}
-
 	private final List<OrderEntry> orderEntrys;
 
 	public XREntryIteratorBuilderOrderBy(List<OrderEntry> orderEntrys) {
@@ -88,7 +40,15 @@ public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 	@Override
 	public Iterator<IRReteEntry> makeIterator(IREntryList list) {
 
-		HeapStack<IRReteEntry> heapStack = new HeapStack<>(new OrderByComparator(orderEntrys));
+		HeapStack<IRReteEntry> heapStack = new HeapStack<>((e1, e2) -> {
+
+			try {
+				return ReteUtil.compareEntry(e1, e2, orderEntrys);
+			} catch (RException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e.toString());
+			}
+		});
 
 		int size = list.size();
 		for (int i = 0; i < size; ++i) {

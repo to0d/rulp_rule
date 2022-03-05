@@ -77,3 +77,6 @@
 
 (add-constraint m name11:'(?x ?y ?z) (c1))
 ;=>
+
+(add-constraint m name12:'(?x ?y) (order by ?x))
+;=>

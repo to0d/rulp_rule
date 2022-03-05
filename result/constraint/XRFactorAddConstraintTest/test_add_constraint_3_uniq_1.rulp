@@ -16,6 +16,9 @@
 (add-stmt m name1:'(x y dup))
 ;err
 
+(add-stmt m name1:'(x y 2))
+;err
+
 (list-stmt m)
 ;=>
 

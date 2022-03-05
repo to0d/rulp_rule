@@ -1,9 +1,5 @@
 package alpha.rulp.ximpl.factor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -16,7 +12,6 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorListConstraint extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {

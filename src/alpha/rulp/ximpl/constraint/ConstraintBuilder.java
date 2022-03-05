@@ -2,11 +2,15 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.A_QUESTION;
 import static alpha.rulp.lang.Constant.O_Nil;
+import static alpha.rulp.lang.Constant.O_True;
+import static alpha.rulp.rule.Constant.A_By;
 import static alpha.rulp.rule.Constant.A_Max;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_One_Of;
+import static alpha.rulp.rule.Constant.A_Order;
+import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_SINGLE;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -152,6 +156,7 @@ public class ConstraintBuilder {
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Order_by;
 			cons.onObject = interpreter.compute(frame, expr.get(2));
+			cons.constraintValue = O_True;
 
 			return cons;
 		}
@@ -504,6 +509,33 @@ public class ConstraintBuilder {
 		}
 	}
 
+	private IRConstraint1 _orderByConstraint(RConstraint cons) throws RException {
+
+		boolean asc = RulpUtil.asBoolean(cons.constraintValue).asBoolean();
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.orderBy(asc, _getColumnIndex(cons.onObject));
+
+		case LIST:
+
+			IRList onList = (IRList) cons.onObject;
+
+			int uniqIndexCount = onList.size();
+			int[] columnIndexs = new int[uniqIndexCount];
+
+			for (int i = 0; i < uniqIndexCount; ++i) {
+				columnIndexs[i] = _getColumnIndex(onList.get(i));
+			}
+
+			return ConstraintFactory.orderBy(asc, columnIndexs);
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
 	public IRConstraint1 build(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		RConstraint cons = _toConstraint(expr, interpreter, frame);
@@ -529,8 +561,9 @@ public class ConstraintBuilder {
 
 			case A_SINGLE:
 				return ConstraintFactory.single();
-				
+
 			case A_Order_by:
+				return _orderByConstraint(cons);
 
 			default:
 				throw new RException("unsupport constraint: " + expr);

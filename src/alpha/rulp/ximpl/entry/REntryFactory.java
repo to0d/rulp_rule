@@ -8,32 +8,11 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
+import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.action.ActionUtil;
-import alpha.rulp.ximpl.entry.XREntryIteratorBuilderOrderBy.OrderEntry;
+import alpha.rulp.ximpl.node.RReteType;
 
 public class REntryFactory {
-
-	public static IREntryIteratorBuilder defaultBuilder() {
-		return new XREntryIteratorBuilderDefault();
-	}
-
-	public static IREntryIteratorBuilder orderByBuilder(List<OrderEntry> orders) {
-		return new XREntryIteratorBuilderOrderBy(orders);
-	}
-
-	public static IREntryIteratorBuilder reverseBuilder() {
-		return new XREntryIteratorBuilderReverse();
-	}
-
-	public static IREntryQueue createSingleQueue(int entryLength, IRReteNode node, IREntryTable entryTable)
-			throws RException {
-
-		XREntryQueueSingle queue = new XREntryQueueSingle(entryLength);
-		queue.setBindNode(node);
-		queue.setEntryTable(entryTable);
-
-		return queue;
-	}
 
 	public static IREntryQueue createActionQueue(IRRule node, List<IRExpr> actionList) throws RException {
 
@@ -49,7 +28,7 @@ public class REntryFactory {
 		return queue;
 	}
 
-	public static IREntryQueue createQueue(REntryQueueType type, int entryLength) throws RException {
+	public static IREntryQueue createQueue(REntryQueueType type, IRReteNode node) throws RException {
 
 		switch (type) {
 
@@ -57,13 +36,22 @@ public class REntryFactory {
 			return new XREntryQueueEmpty();
 
 		case MULTI:
-			return new XREntryQueueMulit(entryLength);
+			return new XREntryQueueMulit(node.getEntryLength());
 
 		case SINGLE:
-			return createSingleQueue(entryLength, null, null);
+
+			XREntryQueueSingle queue = new XREntryQueueSingle(node.getEntryLength());
+
+			// Should not bind alpha node
+			if (!RReteType.isAlphaType(node.getReteType())) {
+				queue.setBindNode(node);
+				queue.setEntryTable(node.getModel().getEntryTable());
+			}
+
+			return queue;
 
 		case UNIQ:
-			return new XREntryQueueUniq(entryLength);
+			return new XREntryQueueUniq(node.getEntryLength());
 
 		case ACTION:
 			throw new RException("Unsupport type: " + type);
@@ -71,5 +59,17 @@ public class REntryFactory {
 		default:
 			throw new RException("Unknown type: " + type);
 		}
+	}
+
+	public static IREntryIteratorBuilder defaultBuilder() {
+		return new XREntryIteratorBuilderDefault();
+	}
+
+	public static IREntryIteratorBuilder orderByBuilder(List<OrderEntry> orders) {
+		return new XREntryIteratorBuilderOrderBy(orders);
+	}
+
+	public static IREntryIteratorBuilder reverseBuilder() {
+		return new XREntryIteratorBuilderReverse();
 	}
 }
