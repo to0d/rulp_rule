@@ -21,7 +21,7 @@ import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.FIXED_;
-import static alpha.rulp.rule.RReteStatus.REASON;
+import static alpha.rulp.rule.RReteStatus.*;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 
@@ -172,13 +172,14 @@ public class ReteUtil {
 	};
 
 	static RReteStatus reteStatusConvertArray[][] = {
-			// DEFINE,REASON, ASSUME, REMOVE, FIXED, TEMP
-			{ DEFINE, DEFINE, DEFINE, REMOVE, FIXED_, DEFINE }, // DEFINE
-			{ DEFINE, REASON, REASON, REMOVE, FIXED_, REASON }, // REASON
-			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_, ASSUME }, // ASSUME
-			{ REMOVE, REMOVE, REMOVE, REMOVE, null, REMOVE }, // REMOVE
-			{ FIXED_, FIXED_, FIXED_, null, FIXED_, FIXED_ }, // FIX
-			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__ }, // TEMP
+			// DEFINE,REASON, ASSUME, REMOVE, FIXED, TEMP__, CLEAN
+			{ DEFINE, DEFINE, DEFINE, REMOVE, FIXED_, DEFINE, DEFINE }, // DEFINE
+			{ DEFINE, REASON, REASON, REMOVE, FIXED_, REASON, REASON }, // REASON
+			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_, ASSUME, ASSUME }, // ASSUME
+			{ REMOVE, REMOVE, REMOVE, REMOVE, null, REMOVE, REMOVE }, // REMOVE
+			{ FIXED_, FIXED_, FIXED_, null, FIXED_, FIXED_, FIXED_ }, // FIX
+			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__, TEMP__ }, // TEMP
+			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__, CLEAN }, // CLEAN
 	};
 
 	static void _fillVarList(IRList stmt, Set<String> varSet) throws RException {

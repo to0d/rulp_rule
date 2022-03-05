@@ -64,15 +64,6 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_5_remove_list_1() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-		_dumpEntryTable("m");
-	}
-
-	@Test
 	void test_4_remove_define() {
 
 		_setup();
@@ -83,6 +74,15 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 
 	@Test
 	void test_4_rule_auto_delete() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_5_remove_list_1() {
 
 		_setup();
 		_run_script();

@@ -14,7 +14,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1, IRListener1<IRReteEntry> {
+public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 {
 
 	private String _constraintExpression = null;
 
@@ -35,14 +35,19 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 
 		String uniqName = _getUniqString(entry);
 
+		if (uniqEntryMap != null) {
+			IRReteEntry oldEntry = uniqEntryMap.get(uniqName);
+			if (oldEntry != null && !oldEntry.isDroped()) {
+				return false;
+			}
+		}
+
 		if (uniqEntryMap == null) {
 			uniqEntryMap = new HashMap<>();
-		} else if (uniqEntryMap.containsKey(uniqName)) {
-			return false;
 		}
 
 		uniqEntryMap.put(uniqName, entry);
-		entry.addEntryRemovedListener(this);
+//		entry.addEntryRemovedListener(this);
 
 		return true;
 	}
@@ -59,26 +64,26 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1,
 	@Override
 	public void close() {
 
-		if (uniqEntryMap == null) {
-			return;
-		}
-
-		for (IRReteEntry entry : uniqEntryMap.values()) {
-			entry.removeEntryRemovedListener(this);
-		}
+//		if (uniqEntryMap == null) {
+//			return;
+//		}
+//
+//		for (IRReteEntry entry : uniqEntryMap.values()) {
+//			entry.removeEntryRemovedListener(this);
+//		}
 
 		uniqEntryMap = null;
 	}
 
-	@Override
-	public void doAction(IRReteEntry obj) throws RException {
-
-		if (uniqEntryMap == null) {
-			return;
-		}
-
-		uniqEntryMap.remove(_getUniqString(obj));
-	}
+//	@Override
+//	public void doAction(IRReteEntry obj) throws RException {
+//
+//		if (uniqEntryMap == null) {
+//			return;
+//		}
+//
+//		uniqEntryMap.remove(_getUniqString(obj));
+//	}
 
 	@Override
 	public String getConstraintExpression() {

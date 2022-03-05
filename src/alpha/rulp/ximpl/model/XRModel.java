@@ -13,7 +13,7 @@ import static alpha.rulp.rule.Constant.V_M_GC_INTERVAL;
 import static alpha.rulp.rule.Constant.V_M_GC_MAX_CACHE_NODE;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
-import static alpha.rulp.rule.RReteStatus.REMOVE;
+import static alpha.rulp.rule.RReteStatus.*;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 import static alpha.rulp.rule.RRunState.Completed;
 import static alpha.rulp.rule.RRunState.Failed;
@@ -473,9 +473,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 					.println(String.format("%s: addEntry(%s, %s)", rootNode.getNodeName(), "" + stmt, "" + newStatus));
 		}
 
+		IREntryQueue entryQueue = rootNode.getEntryQueue();
+
 		IRReteEntry oldEntry = null;
-		if (rootNode.getEntryQueue().getQueueType() == REntryQueueType.UNIQ) {
-			oldEntry = rootNode.getEntryQueue().getStmt(ReteUtil.uniqName(stmt));
+		if (entryQueue.getQueueType() == REntryQueueType.UNIQ) {
+			oldEntry = entryQueue.getStmt(ReteUtil.uniqName(stmt));
 		}
 
 		/*******************************************************/
@@ -483,7 +485,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// - Entry not exist
 		// - or marked as "drop" (removed by entry table automatically)
 		/*******************************************************/
-		if (oldEntry == null || oldEntry.getStatus() == null) {
+		if (oldEntry == null || oldEntry.getStatus() == null || oldEntry.getStatus() == CLEAN) {
 
 			int stmtLen = stmt.size();
 
@@ -533,8 +535,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException(String.format("Invalid status convert: from=%s, to=%s", oldStatus, newStatus));
 		}
 
-		IREntryQueue entryQueue = rootNode.getEntryQueue();
-
 		// status not changed
 		if (finalStatus == oldStatus) {
 
@@ -557,6 +557,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		case FIXED_:
 			entryTable.setEntryStatus(oldEntry, finalStatus);
 			break;
+
 		case TEMP__:
 			entryTable.setEntryStatus(oldEntry, finalStatus);
 			break;
@@ -564,6 +565,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		case REMOVE:
 			entryTable.removeEntryReference(oldEntry, rootNode);
 			break;
+
 		default:
 			throw new RException("Unknown status: " + finalStatus);
 		}
@@ -2135,7 +2137,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		for (IRReteEntry entry : _listStatements(filter, 0, 0, false, REntryFactory.defaultBuilder())) {
 
 			if (entry != null && !entry.isDroped()) {
-
 				entryTable.removeEntry(entry);
 				if (RuleUtil.isModelTrace()) {
 					System.out.println("\t" + entry);

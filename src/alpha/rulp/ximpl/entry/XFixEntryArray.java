@@ -9,23 +9,15 @@ public class XFixEntryArray<T extends IFixEntry> implements IFixEntryArray<T> {
 
 	public static boolean REUSE_ENTRY_ID = true;
 
+	protected int createdCount = 0;
+
 	protected ArrayList<T> entryArray = new ArrayList<>();
 
 	protected int entryCount = 0;
 
-	protected int createdCount = 0;
+	protected LinkedList<Integer> freeEntryIdList = new LinkedList<>();
 
 	protected int removedCount = 0;
-
-	public int getCreatedCount() {
-		return createdCount;
-	}
-
-	public int getRemovedCount() {
-		return removedCount;
-	}
-
-	protected LinkedList<Integer> freeEntryIdList = new LinkedList<>();
 
 	public void addEntry(T entry) {
 
@@ -71,6 +63,10 @@ public class XFixEntryArray<T extends IFixEntry> implements IFixEntryArray<T> {
 		return update;
 	}
 
+	public int getCreatedCount() {
+		return createdCount;
+	}
+
 	public T getEntry(int entryId) throws RException {
 
 		if (entryId == 0 || entryId > entryArray.size()) {
@@ -86,6 +82,10 @@ public class XFixEntryArray<T extends IFixEntry> implements IFixEntryArray<T> {
 
 	public int getEntryMaxId() {
 		return entryArray.size();
+	}
+
+	public int getRemovedCount() {
+		return removedCount;
 	}
 
 	public void removeEntry(T entry) throws RException {

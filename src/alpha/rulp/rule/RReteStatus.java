@@ -22,7 +22,8 @@ public enum RReteStatus {
 	ASSUME(2, 4, "assume"), //
 	REMOVE(3, 8, "remove"), //
 	FIXED_(4, 16, "fixed"), //
-	TEMP__(5, 32, "temp"); //
+	TEMP__(5, 32, "temp"), //
+	CLEAN(6, 64, "clean"); //
 
 	static final int RRS_DEFINE = 0;
 	static final int RRS_REASON = 1;
@@ -30,10 +31,11 @@ public enum RReteStatus {
 	static final int RRS_REMOVE = 3;
 	static final int RRS_FIXED = 4;
 	static final int RRS_TEMP = 5;
+	static final int RRS_CLEAN = 6;
 
-	public static final RReteStatus ALL_RETE_STATUS[] = { DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__ };
+	public static final RReteStatus ALL_RETE_STATUS[] = { DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__, CLEAN };
 
-	public static final int RETE_STATUS_NUM = 6;
+	public static final int RETE_STATUS_NUM = 7;
 
 	public static RReteStatus getRetetStatus(int ts) throws RException {
 
@@ -55,6 +57,9 @@ public enum RReteStatus {
 
 		case RRS_TEMP:
 			return TEMP__;
+
+		case RRS_CLEAN:
+			return CLEAN;
 
 		default:
 			throw new RException("invalid unknown RRS value: " + ts);

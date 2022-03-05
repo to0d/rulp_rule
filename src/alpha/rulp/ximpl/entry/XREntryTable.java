@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.entry;
 
-import static alpha.rulp.rule.RReteStatus.REMOVE;
+import static alpha.rulp.rule.RReteStatus.*;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -325,7 +325,7 @@ public class XREntryTable implements IREntryTable {
 
 		@Override
 		public boolean isDroped() {
-			return this.status == REMOVE || this.status == null;
+			return this.status == REMOVE || this.status == CLEAN || this.status == null;
 		}
 
 		@Override
@@ -381,6 +381,19 @@ public class XREntryTable implements IREntryTable {
 
 	public static boolean TRACE = false;
 
+	protected static int _indexOf(int[] array, int id) throws RException {
+
+		if (array != null) {
+			for (int i = 0; i < array.length; ++i) {
+				if (array[i] == id) {
+					return i;
+				}
+			}
+		}
+
+		return -1;
+	}
+
 	static boolean _isFix(XRReteEntry entry) {
 		return entry != null && entry.getStatus() == RReteStatus.FIXED_;
 	}
@@ -433,19 +446,6 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		refFixArray.addEntry(ref);
-	}
-
-	protected int _indexOf(int[] array, int id) throws RException {
-
-		if (array != null) {
-			for (int i = 0; i < array.length; ++i) {
-				if (array[i] == id) {
-					return i;
-				}
-			}
-		}
-
-		return -1;
 	}
 
 	protected void _processEtaQueue() throws RException {
@@ -786,11 +786,17 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		XRReteEntry xEntry = _toEntry(entry);
+		RReteStatus status = xEntry.getStatus();
 
 		_pushRemoveEntry(_toEntry(xEntry));
 		_processEtaQueue();
 
-		xEntry.status = REMOVE; // mark entry as "remove"
+		// Remove assume from uniq node
+		if (status == RReteStatus.ASSUME) {
+			xEntry.status = CLEAN;
+		} else {
+			xEntry.status = REMOVE; // mark entry as "remove"
+		}
 	}
 
 	@Override
