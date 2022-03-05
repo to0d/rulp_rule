@@ -426,9 +426,9 @@ public class XREntryTable implements IREntryTable {
 			throws RException {
 
 		/****************************************************/
-		// Optimization: "fix" entry only need one reference
+		// Optimization: "fix" entry no need reference
 		/****************************************************/
-		if (_isFix(childEntry) && childEntry.getReferenceCount() > 0) {
+		if (_isFix(childEntry)) {
 			return;
 		}
 
@@ -810,6 +810,9 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		XRReteEntry xEntry = _toEntry(entry);
+		if (_isFix(xEntry)) {
+			return;
+		}
 
 		int find = 0;
 

@@ -278,4 +278,12 @@ public class TestCache extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_cache_node_4_fix_attribute() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

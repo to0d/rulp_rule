@@ -4,6 +4,7 @@ import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
 import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
+import static alpha.rulp.rule.Constant.F_FIX_STMT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
@@ -14,6 +15,8 @@ import static alpha.rulp.rule.Constant.V_M_GC_MAX_CACHE_NODE;
 import static alpha.rulp.rule.Constant.V_M_STATE;
 import static alpha.rulp.rule.RReteStatus.CLEAN;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
+import static alpha.rulp.rule.RReteStatus.FIXED_;
+import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
 import static alpha.rulp.rule.RRunState.Completed;
@@ -54,6 +57,7 @@ import alpha.rulp.rule.RRunState;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
+import alpha.rulp.utils.AttrUtil;
 import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
@@ -472,6 +476,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (RuleUtil.isModelTrace()) {
 			System.out
 					.println(String.format("%s: addEntry(%s, %s)", rootNode.getNodeName(), "" + stmt, "" + newStatus));
+		}
+
+		if ((newStatus == DEFINE || newStatus == REASON) && AttrUtil.containAttribute(rootNode, F_FIX_STMT)) {
+			newStatus = FIXED_;
 		}
 
 		IREntryQueue entryQueue = rootNode.getEntryQueue();

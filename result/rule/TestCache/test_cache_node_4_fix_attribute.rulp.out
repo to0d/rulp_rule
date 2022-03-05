@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_node_4_fix_attribute")
+;=>nan
+
+(add-attribute $(get-named-rete-node m "n1") fix-stmt)
+;=>nil
+
+(list-stmt m from n1:'(?...))
+;=>'(n1:'(1 x 1) n1:'(2 y 2) n1:'(2 y 3))
+
+(list-stmt m from n2:'(?...))
+;=>'(n2:'(2 y 2) n2:'(1 x 1))
+
