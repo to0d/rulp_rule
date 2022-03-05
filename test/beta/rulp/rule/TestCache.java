@@ -23,6 +23,14 @@ import alpha.rulp.ximpl.cache.IRStmtLoader;
 public class TestCache extends RuleTestBase {
 
 	@Test
+	void test_cache_clean_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
 	void test_cache_has_stmt_1() {
 
 		_setup();
@@ -264,11 +272,10 @@ public class TestCache extends RuleTestBase {
 	}
 
 	@Test
-	void test_cache_clean_1() {
+	void test_cache_node_3_constrain_order_by() {
 
 		_setup();
 		_run_script();
-		_statsInfo("m");	
-
+		_statsInfo("m");
 	}
 }

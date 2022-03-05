@@ -11,7 +11,7 @@ import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
-public class XREntryQueueUniq extends XREntryQueueMulit implements IRListener1<IRReteEntry> {
+public class XREntryQueueUniq extends XREntryQueueMulit {
 
 	protected Map<String, IRReteEntry> uniqEntryMap = new HashMap<>();
 
@@ -42,7 +42,6 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IRListener1<I
 			}
 
 			entryList.add(newEntry);
-			newEntry.addEntryRemovedListener(this);
 			return true;
 
 		} else {
@@ -57,23 +56,6 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IRListener1<I
 	public void cleanCache() {
 		uniqEntryMap.clear();
 		super.cleanCache();
-	}
-
-	@Override
-	public void doAction(IRReteEntry entry) throws RException {
-
-		switch (entry.getStatus()) {
-		case ASSUME:
-			uniqEntryMap.remove(ReteUtil.uniqName(entry));
-			break;
-
-		case FIXED_:
-			throw new RException("Can't remove fixed entry: " + entry);
-
-		case DEFINE: // keep the defined entry, means the stmt will not allow be added again
-		default:
-		}
-
 	}
 
 	@Override

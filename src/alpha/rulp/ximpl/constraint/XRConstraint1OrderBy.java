@@ -16,7 +16,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstraint1, IRListener1<IRReteEntry> {
+public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstraint1 {
 
 	static String _toString(OrderEntry orderEntry) {
 		return String.format("%s ?%d %s", A_Order_by, orderEntry.index, orderEntry.asc ? A_Asc : A_Desc);
@@ -64,7 +64,8 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 
 				if (uniqEntryMap != null) {
 					uniqName = ReteUtil.uniqName(entry);
-					if (uniqEntryMap.containsKey(uniqName)) {
+					IRReteEntry oldEntry = uniqEntryMap.get(uniqName);
+					if (oldEntry != null && !oldEntry.isDroped()) {
 						return false;
 					}
 				}
@@ -84,11 +85,10 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 
 		uniqEntryMap.put(uniqName, entry);
 		lastEntry = entry;
-		entry.addEntryRemovedListener(this);
 		return true;
 	}
 
-	private IRReteEntry _getLastEntry() {
+	protected IRReteEntry _getLastEntry() {
 
 		if (lastEntry != null && lastEntry.isDroped()) {
 			lastEntry = null;
@@ -103,26 +103,7 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 
 	@Override
 	public void close() {
-
-		if (uniqEntryMap == null) {
-			return;
-		}
-
-		for (IRReteEntry entry : uniqEntryMap.values()) {
-			entry.removeEntryRemovedListener(this);
-		}
-
 		uniqEntryMap = null;
-	}
-
-	@Override
-	public void doAction(IRReteEntry obj) throws RException {
-
-		if (uniqEntryMap == null) {
-			return;
-		}
-
-		uniqEntryMap.remove(ReteUtil.uniqName(obj));
 	}
 
 	@Override
@@ -147,23 +128,6 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 
 				_constraintExpression += ")";
 			}
-
-//			if (orderColumnIndexs.length == 1) {
-//
-//			} else {
-//
-//				ArrayList<IRObject> indexs = new ArrayList<>();
-//				for (int i : orderColumnIndexs) {
-//					indexs.add(RulpFactory.createAtom("?" + i));
-//				}
-//
-//				try {
-//					_constraintExpression = String.format("(%s %s %s)", getConstraintName(),
-//							RulpFactory.createNativeList(indexs), asc ? A_Asc : A_Desc);
-//				} catch (RException e) {
-//					e.printStackTrace();
-//				}
-//			}
 
 		}
 

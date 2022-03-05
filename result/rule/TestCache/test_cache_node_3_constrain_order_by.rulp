@@ -1,0 +1,17 @@
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_node_3_constrain_order_by")
+;=>
+
+(add-constraint m n1:'(?x ?y ?z) (order by ?x))
+;=>
+
+(list-stmt m from n1:'(?...))
+;=>
+
+(add-constraint m n2:'(?x ?y ?z) (order by ?x))
+;=>
+
+(list-stmt m from n2:'(?...))
+;err

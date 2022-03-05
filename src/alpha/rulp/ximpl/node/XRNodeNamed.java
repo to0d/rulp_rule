@@ -1,6 +1,9 @@
 package alpha.rulp.ximpl.node;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.ximpl.entry.IREntryTable;
+import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeNamed extends XRNodeRete0 implements IRNamedNode {
 
@@ -15,6 +18,12 @@ public class XRNodeNamed extends XRNodeRete0 implements IRNamedNode {
 		}
 
 		this.cache.cleanCache();
+
+		IREntryTable entryTable = this.getModel().getEntryTable();
+		for (IRReteEntry entry : ReteUtil.getAllEntries(this.getEntryQueue())) {
+			entryTable.removeEntryReference(entry, this);
+		}
+
 		this.entryQueue.cleanCache();
 		this.lastEntryCount = 0;
 		this.reteStage = RReteStage.InActive;
