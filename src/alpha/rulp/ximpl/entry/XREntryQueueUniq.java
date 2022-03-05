@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import alpha.rulp.lang.RException;
-import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 

@@ -11,7 +11,6 @@ import java.util.Map;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.entry.IRReteEntry;

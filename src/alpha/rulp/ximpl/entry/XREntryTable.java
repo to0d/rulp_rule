@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.entry;
 
-import static alpha.rulp.rule.RReteStatus.*;
+import static alpha.rulp.rule.RReteStatus.CLEAN;
+import static alpha.rulp.rule.RReteStatus.REMOVE;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -420,21 +421,22 @@ public class XREntryTable implements IREntryTable {
 
 	protected XFixEntryArray<XRReference> refFixArray = new XFixEntryArray<>();
 
-	protected void _addReference(XRReteEntry entry, IRReteNode node, XRReteEntry[] parentEntrys) throws RException {
+	protected void _addReference(XRReteEntry childEntry, IRReteNode node, XRReteEntry[] parentEntrys)
+			throws RException {
 
 		/****************************************************/
 		// Optimization: "fix" entry only need one reference
 		/****************************************************/
-		if (_isFix(entry) && entry.getReferenceCount() > 0) {
+		if (_isFix(childEntry) && childEntry.getReferenceCount() > 0) {
 			return;
 		}
 
 		int parentEntryCount = parentEntrys == null ? 0 : parentEntrys.length;
 
-		XRReference ref = new XRReference(node, entry, parentEntryCount, parentEntrys);
+		XRReference ref = new XRReference(node, childEntry, parentEntryCount, parentEntrys);
 
 		// Add links to child
-		entry.addReference(ref);
+		childEntry.addReference(ref);
 
 		// Add links to parent
 		if (parentEntrys != null) {
