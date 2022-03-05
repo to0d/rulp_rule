@@ -180,11 +180,11 @@ public class XREntryTable implements IREntryTable {
 		}
 	}
 
-	static class XRReference implements IRReference, IFixEntry {
+	static class XRReference implements IRReference {
 
 		public XRReteEntry childEntry;
 
-		public IRReteNode node;
+		public final IRReteNode node;
 
 		public int parentEntryCount;
 
@@ -238,11 +238,12 @@ public class XREntryTable implements IREntryTable {
 		public void setEntryId(int id) {
 			this.refId = id;
 		}
+
 	}
 
 	static class XRReteEntry extends XRListNative implements IRReteEntry, IFixEntry {
 
-		private List<XRReference> childList = null;
+		private List<XRReference> childReferenceList = null;
 
 		private int entryId = 0;
 
@@ -261,13 +262,13 @@ public class XREntryTable implements IREntryTable {
 			this.entryIndex = entryIndex;
 		}
 
-		public void addChild(XRReference ref) {
+		public void addChildReference(XRReference ref) {
 
-			if (childList == null) {
-				childList = new LinkedList<>();
+			if (childReferenceList == null) {
+				childReferenceList = new LinkedList<>();
 			}
 
-			childList.add(ref);
+			childReferenceList.add(ref);
 		}
 
 		@Override
@@ -291,12 +292,12 @@ public class XREntryTable implements IREntryTable {
 
 		@Override
 		public int getChildCount() {
-			return childList == null ? 0 : childList.size();
+			return childReferenceList == null ? 0 : childReferenceList.size();
 		}
 
 		@Override
-		public Iterator<? extends IRReference> getChildIterator() {
-			return childList == null ? Collections.emptyIterator() : childList.iterator();
+		public Iterator<XRReference> getChildIterator() {
+			return childReferenceList == null ? Collections.emptyIterator() : childReferenceList.iterator();
 		}
 
 		@Override
@@ -315,7 +316,7 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		@Override
-		public Iterator<? extends IRReference> getReferenceIterator() {
+		public Iterator<XRReference> getReferenceIterator() {
 			return referenceList == null ? Collections.emptyIterator() : referenceList.iterator();
 		}
 
@@ -442,7 +443,7 @@ public class XREntryTable implements IREntryTable {
 		if (parentEntrys != null) {
 			for (XRReteEntry parent : parentEntrys) {
 				if (!_isFix(parent)) {
-					parent.addChild(ref);
+					parent.addChildReference(ref);
 				}
 			}
 		}
@@ -494,9 +495,9 @@ public class XREntryTable implements IREntryTable {
 			System.out.println("    removeEntry: id=" + entryId + ", entry=" + entry);
 		}
 
-		if (entry.childList != null) {
+		if (entry.childReferenceList != null) {
 
-			for (XRReference ref : entry.childList) {
+			for (XRReference ref : entry.childReferenceList) {
 
 				int parentCount = ref.getParentEntryCount();
 				for (int i = 0; i < parentCount; ++i) {
@@ -511,11 +512,11 @@ public class XREntryTable implements IREntryTable {
 				_processRemoveRef(ref);
 			}
 
-			entry.childList = null;
+			entry.childReferenceList = null;
 
 		}
 
-		if (entry.referenceList != null) {
+		if (entry.getReferenceCount() > 0) {
 
 			for (XRReference ref : entry.referenceList) {
 				// Break the link between child entry and reference
@@ -542,7 +543,7 @@ public class XREntryTable implements IREntryTable {
 
 		if (ref.childEntry != null) {
 
-			Iterator<XRReference> it = ref.childEntry.referenceList.iterator();
+			Iterator<XRReference> it = ref.childEntry.getReferenceIterator();
 
 			while (it.hasNext()) {
 				if (it.next() == ref) {
@@ -550,7 +551,7 @@ public class XREntryTable implements IREntryTable {
 				}
 			}
 
-			if (ref.childEntry.referenceList.isEmpty()) {
+			if (ref.childEntry.getReferenceCount() == 0) {
 				ref.childEntry.referenceList = null;
 				_pushRemoveEntry(ref.childEntry);
 			}
@@ -566,15 +567,15 @@ public class XREntryTable implements IREntryTable {
 
 				if (!_isFix(parentEntry)) {
 
-					Iterator<XRReference> it = parentEntry.childList.iterator();
+					Iterator<XRReference> it = parentEntry.childReferenceList.iterator();
 					while (it.hasNext()) {
 						if (it.next() == ref) {
 							it.remove();
 						}
 					}
 
-					if (parentEntry.childList.isEmpty()) {
-						parentEntry.childList = null;
+					if (parentEntry.childReferenceList.isEmpty()) {
+						parentEntry.childReferenceList = null;
 					}
 				}
 
@@ -611,7 +612,7 @@ public class XREntryTable implements IREntryTable {
 		entry.setStatus(status);
 
 		if (status == RReteStatus.FIXED_) {
-			entry.childList = null;
+			entry.childReferenceList = null;
 		}
 	}
 
@@ -812,9 +813,9 @@ public class XREntryTable implements IREntryTable {
 
 		int find = 0;
 
-		if (xEntry.referenceList != null) {
+		if (xEntry.getReferenceCount() > 0) {
 
-			Iterator<XRReference> it = xEntry.referenceList.iterator();
+			Iterator<XRReference> it = xEntry.getReferenceIterator();
 			while (it.hasNext()) {
 
 				XRReference ref = it.next();
