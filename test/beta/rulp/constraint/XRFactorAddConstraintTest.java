@@ -49,6 +49,14 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_add_constraint_3_uniq_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
 	void test_add_constraint_4_not_null_1() {
 
 		_setup();
@@ -207,7 +215,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_add_constraint_d_func_diff_previous_stmt_4() {
 
@@ -215,7 +223,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_add_constraint_e_order_1() {
 
