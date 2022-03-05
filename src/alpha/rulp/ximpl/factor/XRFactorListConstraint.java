@@ -1,6 +1,8 @@
 package alpha.rulp.ximpl.factor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -64,11 +66,7 @@ public class XRFactorListConstraint extends AbsAtomFactorAdapter implements IRFa
 			throw new RException(String.format("node not found: %s", namedList));
 		}
 
-		ArrayList<IRConstraint1> cons = new ArrayList<>();
-		for (int i = 0; i < node.getConstraint1Count(); ++i) {
-			cons.add(node.getConstraint1(i));
-		}
-
-		return RulpFactory.createList(cons);
+		return RulpFactory.createList(ReteUtil.getNodeConstraint1List(node));
 	}
+
 }

@@ -12,6 +12,7 @@ import static alpha.rulp.lang.Constant.F_O_LE;
 import static alpha.rulp.lang.Constant.F_O_LT;
 import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
@@ -53,8 +54,11 @@ import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+import alpha.rulp.ximpl.entry.REntryFactory;
+import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IRObjBuilder;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
@@ -1011,6 +1015,74 @@ public class ReteUtil {
 		}
 
 		return mainInheritIndex;
+	}
+
+	public static List<IRConstraint1> getNodeConstraint1List(IRReteNode node) {
+
+		int count = node.getConstraint1Count();
+		if (count == 0) {
+			return Collections.emptyList();
+		}
+
+		ArrayList<IRConstraint1> cons = new ArrayList<>();
+		for (int i = 0; i < count; ++i) {
+			cons.add(node.getConstraint1(i));
+		}
+
+		return cons;
+	}
+
+	public static boolean tryChangeNodeQueue(IRReteNode node, REntryQueueType fromType, REntryQueueType toType)
+			throws RException {
+
+		IREntryQueue oldQueue = node.getEntryQueue();
+		REntryQueueType oldType = oldQueue.getQueueType();
+		if (oldType != fromType) {
+			return false;
+		}
+
+		if (oldType == toType) {
+			return true;
+		}
+
+		if (fromType == REntryQueueType.MULTI && toType == REntryQueueType.UNIQ) {
+
+			for (IRConstraint1 cons : ReteUtil.getNodeConstraint1List(node)) {
+				switch (cons.getConstraintName()) {
+
+				// No need to change since the following constraints will make sure that entries
+				// are uniq
+				case A_Uniq:
+				case A_Order_by:
+					return false;
+				}
+			}
+		}
+
+		int oldSize = oldQueue.size();
+		IREntryQueue newQueue = REntryFactory.createQueue(toType, node.getEntryLength());
+
+		boolean ignoreInvalidEntry = node.getChildNodes().size() == 0;
+
+		if (oldSize > 0) {
+
+			for (int i = 0; i < oldSize; ++i) {
+
+				IRReteEntry entry = oldQueue.getEntryAt(i);
+
+				// Should
+				if (ignoreInvalidEntry && (entry == null || entry.isDroped())) {
+					continue;
+				}
+
+				if (!newQueue.addEntry(entry)) {
+					return false;
+				}
+			}
+		}
+
+		node.setEntryQueue(newQueue);
+		return true;
 	}
 
 	public static String getNamedUniqName(String name, int stmtLen) {

@@ -155,7 +155,7 @@ N00001[3] NAME0 Named UNIQ   name1                     0     0    0    0    0   
 N00002[3] NAME0 Named UNIQ   name2                     0     0    0    0    0   1   0   0 [null, null, null]
 N00003[3] NAME0 Named UNIQ   name3                     0     0    0    0    0   1   0   0 [null, null, null]
 N00004[3] NAME0 Named UNIQ   name4                     0     0    0    0    0   2   0   0 [null, null, null]
-N00005[3] NAME0 Named UNIQ   name5                     0     0    0    0    0   2   0   0 [null, null, null]
+N00005[3] NAME0 Named MULTI  name5                     0     0    0    0    0   2   0   0 [null, null, null]
 N00006[3] NAME0 Named UNIQ   name6                     0     0    0    0    0   5   0   0 [null, null, null]
 N00007[3] NAME0 Named UNIQ   $cst_type$                0     3    2    0    0   0   0   0 [null, null, null]
 N00012[3] NAME0 Named UNIQ   $cst_max$                 0     1    1    0    0   0   0   0 [null, null, null]

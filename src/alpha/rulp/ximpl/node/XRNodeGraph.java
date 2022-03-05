@@ -1,16 +1,7 @@
 package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
-import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
-import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.A_RETE_TYPE;
-import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
-import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.RCountType.AssumeCount;
 import static alpha.rulp.rule.RCountType.BindFromCount;
 import static alpha.rulp.rule.RCountType.BindToCount;
@@ -83,6 +74,7 @@ import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
@@ -1637,6 +1629,17 @@ public class XRNodeGraph implements IRNodeGraph {
 			return false;
 		}
 
+		switch (constraint.getConstraintName()) {
+
+		// If a sub-list is uniq, then the whole list is also uniq. Change the Queue
+		// from "UNIQ" to "MULTI"
+		case A_Uniq:
+		case A_Order_by:
+			ReteUtil.tryChangeNodeQueue(node, REntryQueueType.UNIQ, REntryQueueType.MULTI);
+
+			break;
+		}
+
 		_graphChanged();
 		return true;
 	}
@@ -2190,10 +2193,21 @@ public class XRNodeGraph implements IRNodeGraph {
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		IRConstraint1 removedConstraint = node.removeConstraint(constraint.getConstraintExpression());
-
-		if (removedConstraint != null) {
-			_graphChanged();
+		if (removedConstraint == null) {
+			return null;
 		}
+
+		switch (constraint.getConstraintName()) {
+
+		// If there is other constraint, change the queue back to uniq
+		case A_Uniq:
+		case A_Order_by:
+			ReteUtil.tryChangeNodeQueue(node, REntryQueueType.MULTI, REntryQueueType.UNIQ);
+
+			break;
+		}
+
+		_graphChanged();
 
 		return removedConstraint;
 	}

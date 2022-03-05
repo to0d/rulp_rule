@@ -54,8 +54,6 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public void addChildNode(IRReteNode child);
 
-	public void removeChildNode(IRReteNode child);
-
 	public boolean addConstraint1(IRConstraint1 constraint) throws RException;
 
 	public void addQueryMatchCount(int add);
@@ -132,11 +130,15 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public boolean isNodeFresh();
 
+	public void removeChildNode(IRReteNode child);
+
 	public IRConstraint1 removeConstraint(String constraintExpression);
 
 	public void setCacheWorker(IRCacheWorker cache);
 
 	public void setChildNodeUpdateMode(IRReteNode child, boolean auto) throws RException;
+
+	public void setEntryQueue(IREntryQueue entryQueue);
 
 	public void setGraphInfo(IGraphInfo graphInfo);
 

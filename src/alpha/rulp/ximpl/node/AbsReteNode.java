@@ -568,6 +568,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		this.entryLength = entryLength;
 	}
 
+	@Override
 	public void setEntryQueue(IREntryQueue entryQueue) {
 		this.entryQueue = entryQueue;
 	}
