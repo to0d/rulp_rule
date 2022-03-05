@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.constraint;
 import static alpha.rulp.lang.Constant.A_QUESTION;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Max;
-import static alpha.rulp.rule.Constant.A_Min;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_One_Of;
@@ -63,10 +63,10 @@ public class ConstraintBuilder {
 
 	static RConstraint _toConstraint(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
-		int consListSize = expr.size();
+		int size = expr.size();
 
 		// (type int on ?x)
-		if (consListSize == 4 && _isAtom(expr, 0, A_Type) && _isAtom(expr, 2, A_On)) {
+		if (size == 4 && _isAtom(expr, 0, A_Type) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Type;
@@ -77,7 +77,7 @@ public class ConstraintBuilder {
 		}
 
 		// (uniq on ?x)
-		if (consListSize == 3 && (_isAtom(expr, 0, A_Uniq) || _isFactor(expr, 0, A_Uniq)) && _isAtom(expr, 1, A_On)) {
+		if (size == 3 && (_isAtom(expr, 0, A_Uniq) || _isFactor(expr, 0, A_Uniq)) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Uniq;
@@ -87,7 +87,7 @@ public class ConstraintBuilder {
 		}
 
 		// (max 10 on ?x)
-		if (consListSize == 4 && _isAtom(expr, 0, A_Max) && _isAtom(expr, 2, A_On)) {
+		if (size == 4 && _isAtom(expr, 0, A_Max) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Max;
@@ -97,7 +97,7 @@ public class ConstraintBuilder {
 		}
 
 		// (min 10 on ?x)
-		if (consListSize == 4 && _isAtom(expr, 0, A_Min) && _isAtom(expr, 2, A_On)) {
+		if (size == 4 && _isAtom(expr, 0, A_Min) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Min;
@@ -107,7 +107,7 @@ public class ConstraintBuilder {
 		}
 
 		// (? on ?x)
-		if (consListSize == 3 && _isAtom(expr, 0, A_QUESTION) && _isAtom(expr, 1, A_On)) {
+		if (size == 3 && _isAtom(expr, 0, A_QUESTION) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_QUESTION;
@@ -117,7 +117,7 @@ public class ConstraintBuilder {
 		}
 
 		// (not-nil on ?x)
-		if (consListSize == 3 && _isAtom(expr, 0, A_NOT_NULL) && _isAtom(expr, 1, A_On)) {
+		if (size == 3 && _isAtom(expr, 0, A_NOT_NULL) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_NOT_NULL;
@@ -127,7 +127,7 @@ public class ConstraintBuilder {
 		}
 
 		// (one-of '(a b c) on ?x)
-		if (consListSize == 4 && _isAtom(expr, 0, A_One_Of) && _isAtom(expr, 2, A_On)) {
+		if (size == 4 && _isAtom(expr, 0, A_One_Of) && _isAtom(expr, 2, A_On)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_One_Of;
@@ -138,10 +138,20 @@ public class ConstraintBuilder {
 		}
 
 		// (single)
-		if (consListSize == 1 && _isAtom(expr, 0, A_SINGLE)) {
+		if (size == 1 && _isAtom(expr, 0, A_SINGLE)) {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_SINGLE;
+
+			return cons;
+		}
+
+		// (order by ?x)
+		if (size == 3 && _isAtom(expr, 0, A_Order) && _isAtom(expr, 1, A_By)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Order_by;
+			cons.onObject = interpreter.compute(frame, expr.get(2));
 
 			return cons;
 		}
@@ -519,6 +529,8 @@ public class ConstraintBuilder {
 
 			case A_SINGLE:
 				return ConstraintFactory.single();
+				
+			case A_Order_by:
 
 			default:
 				throw new RException("unsupport constraint: " + expr);

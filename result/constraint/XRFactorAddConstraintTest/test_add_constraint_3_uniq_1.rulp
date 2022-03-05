@@ -1,41 +1,41 @@
 (new model m)
-;;;
+;=>
 
 (add-node m name1:'(3))
-;;;
+;=>
 
 (add-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
-;;;
+;=>
 
 (add-stmt m name1:'(a b 1))
-;;;
+;=>
 
 (add-stmt m name1:'(x y 2))
-;;;
+;=>
 
 (add-stmt m name1:'(x y dup))
-;;;
+;err
 
 (list-stmt m)
-;;;
+;=>
 
 (remove-stmt m name1:'(x y 2))
-;;;
+;=>
 
 (add-stmt m name1:'(x y dup))
-;;;
+;=>
 
 (list-stmt m)
-;;;
+;=>
 
 (add-stmt m name1:'(x y 3))
-;;;
+;err
 
 (remove-constraint m name1:'(3) (? on ?))
-;;;
+;=>
 
 (add-stmt m name1:'(x y 3))
-;;;
+;=>
 
 (list-stmt m)
-;;;
+;=>
