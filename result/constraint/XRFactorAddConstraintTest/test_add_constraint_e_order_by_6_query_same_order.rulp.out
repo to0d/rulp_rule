@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x ?y) (order by ?x))
+;=>true
+
+(add-stmt m n1:'(1 1))
+(add-stmt m n1:'(2 2))
+(add-stmt m n1:'(3 2))
+(add-stmt m n1:'(4 3))
+;=>true true true true
+
+(query-stmt m ?x from n1:'(?x 2) order by ?x)
+;=>'(2 3)
+

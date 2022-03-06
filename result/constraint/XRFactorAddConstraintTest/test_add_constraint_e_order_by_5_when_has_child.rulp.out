@@ -1,0 +1,20 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(1 1))
+(add-stmt m n1:'(2 2))
+(add-stmt m n1:'(2 3))
+;=>true true true
+
+(query-stmt m ?x from n1:'(?x 2))
+;=>'(2)
+
+(query-stmt m ?y from n1:'(2 ?y))
+;=>'(2 3)
+
+(add-constraint m n1:'(?x ?y) (order by ?x))
+;err:
+Unable to add constraint<(order by ?0 asc)> due to entry<n1:'(1 1)>
+at (add-constraint m n1:'(?x ?y) (order by ?x)) ; main-2
+;eof
+

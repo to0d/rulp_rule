@@ -247,4 +247,28 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_add_constraint_e_order_by_4_after_add_stmt() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_add_constraint_e_order_by_5_when_has_child() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_add_constraint_e_order_by_6_query_same_order() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

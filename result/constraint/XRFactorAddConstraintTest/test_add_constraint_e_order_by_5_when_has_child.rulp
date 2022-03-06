@@ -1,0 +1,25 @@
+(new model m)
+;=>
+
+(add-stmt m n1:'(1 1))
+(add-stmt m n1:'(2 2))
+(add-stmt m n1:'(2 3))
+;=>
+
+(query-stmt m ?x from n1:'(?x 2))
+;=>
+
+(query-stmt m ?y from n1:'(2 ?y))
+;=>
+
+(add-constraint m n1:'(?x ?y) (order by ?x))
+;=>
+
+(add-stmt m n1:'(3 4))
+;err
+
+(add-stmt m n1:'(2 2))
+;err
+
+(list-stmt m)
+;=>
