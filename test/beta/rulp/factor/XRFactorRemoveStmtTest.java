@@ -140,5 +140,40 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
+	
+	
+	@Test
+	void test_remove_stmt_7_limit_1() {
 
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+	
+	@Test
+	void test_remove_stmt_8_reverse_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+	
+	@Test
+	void test_remove_stmt_9_order_by_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+	
+	@Test
+	void test_remove_stmt_a_constant_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(defconst KEY "key")
+;=>KEY
+
+(add-stmt m n1:'("sub" "key" "value"))
+;=>true
+
+(remove-stmt m from n1:'(?x KEY ?y))
+;err:
+Invalid parameters: (remove-stmt m from n1:'(?x KEY ?y))
+at (remove-stmt m from n1:'(?x KEY ?y)) ; main-2
+;eof
+

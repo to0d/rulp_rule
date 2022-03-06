@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a))
+(add-stmt m '(a b))
+(add-stmt m '(a b c1))
+(add-stmt m '(a b c2))
+;=>true true true true
+
+(remove-stmt m from '(a ?...) limit 1)
+;err:
+Invalid parameters: (remove-stmt m from '(a ?...) limit 1)
+at (remove-stmt m from '(a ?...) limit 1) ; main-2
+;eof
+

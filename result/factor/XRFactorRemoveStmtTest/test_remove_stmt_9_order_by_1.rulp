@@ -1,0 +1,21 @@
+(new model m)
+;=>
+
+(add-stmt m '(a))
+(add-stmt m '(a b))
+(add-stmt m '(a b c1))
+(add-stmt m '(a b c2))
+(add-stmt m n1:'(a b c1))
+(add-stmt m n1:'(a b c2))
+(add-stmt m n1:'(a b c3))
+(add-stmt m n1:'(a2 b c2))
+;=>
+
+(remove-stmt m from '(a ? ?x) order by ?x limit 2)
+;=>
+
+(remove-stmt m from n1:'(? b ?x) order by ?x desc limit 2)
+;=>
+
+(list-stmt m)
+;=>
