@@ -39,5 +39,4 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 
 		return RulpFactory.createList(model.removeStatement(stmt));
 	}
-
 }

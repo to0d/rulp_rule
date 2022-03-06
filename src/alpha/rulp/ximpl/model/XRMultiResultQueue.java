@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import static alpha.rulp.lang.Constant.*;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;
@@ -20,26 +20,6 @@ import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRMultiResultQueue implements IRResultQueue, IRContext {
-
-	protected ArrayList<IRConstraint1> constraintList = null;
-
-	protected ArrayList<IRExpr> doExprList = null;
-
-	protected final IRInterpreter interpreter;
-
-	protected IREntryIteratorBuilder orderBuilder;
-
-	protected OrderEntryList orderCacheList = null;
-
-	protected int orderLimit = -1;
-
-	protected final IRFrame queryFrame;
-
-	protected final IRObject rstExpr;
-
-	protected final ArrayList<IRObject> rstList = new ArrayList<>();
-
-	protected final IRVar[] vars;
 
 	static class OrderEntryList implements IREntryList {
 
@@ -60,12 +40,38 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		}
 	}
 
+	protected ArrayList<IRConstraint1> constraintList = null;
+
+	protected ArrayList<IRExpr> doExprList = null;
+
+	protected final IRInterpreter interpreter;
+
+	protected IREntryIteratorBuilder orderBuilder;
+
+	protected OrderEntryList orderCacheList = null;
+
+	protected int orderLimit = -1;
+
+	protected final IRFrame queryFrame;
+
+	protected boolean rebuildResult = false;
+
+	protected final IRObject rstExpr;
+
+	protected final ArrayList<IRObject> rstList = new ArrayList<>();
+
+	protected final IRVar[] vars;
+
 	public XRMultiResultQueue(IRInterpreter interpreter, IRFrame queryFrame, IRObject rstExpr, IRVar[] vars) {
 		super();
 		this.interpreter = interpreter;
 		this.queryFrame = queryFrame;
 		this.rstExpr = rstExpr;
 		this.vars = vars;
+
+		if (!RulpUtil.isAtom(rstExpr, A_QUESTION_LIST)) {
+			this.rebuildResult = true;
+		}
 	}
 
 	private boolean _addEntry(IRReteEntry entry) throws RException {
@@ -73,10 +79,12 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		/******************************************************/
 		// Update variable value
 		/******************************************************/
-		for (int j = 0; j < vars.length; ++j) {
-			IRVar var = vars[j];
-			if (var != null) {
-				var.setValue(entry.get(j));
+		if (rebuildResult || constraintList != null || doExprList != null) {
+			for (int j = 0; j < vars.length; ++j) {
+				IRVar var = vars[j];
+				if (var != null) {
+					var.setValue(entry.get(j));
+				}
 			}
 		}
 
@@ -97,7 +105,11 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 			}
 		}
 
-		return _addResult(interpreter.compute(queryFrame, rstExpr));
+		if (rebuildResult) {
+			return _addResult(interpreter.compute(queryFrame, rstExpr));
+		} else {
+			return _addResult(entry);
+		}
 	}
 
 	private boolean _addResult(IRObject rst) {

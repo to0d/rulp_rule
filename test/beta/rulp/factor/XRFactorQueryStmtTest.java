@@ -12,7 +12,6 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_setup();
 		_run_script();
 		_statsInfo("m");
-
 	}
 
 	@Test
@@ -97,7 +96,16 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_query_stmt_6_where_1_uniq_1() {
+	void test_query_stmt_6_where_2_uniq_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_query_stmt_6_where_1_expr_2() {
 
 		_setup();
 		_run_script();
@@ -166,5 +174,13 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 
+	}
+
+	@Test
+	void test_query_stmt_b_any() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
 	}
 }

@@ -1,0 +1,14 @@
+(new model m)
+;=>
+
+(add-stmt m '(n1 typeof node))
+(add-stmt m '(n2 typeof node))
+(add-stmt m '(n1 hasPath path1))
+(add-stmt m '(n2 hasPath path2))
+;=>
+
+(query-stmt m ?... from '(?n hasPath ?p))
+;=>
+
+(query-stmt m ?... from '(?n typeof node) '(?n hasPath ?p))
+;=>
