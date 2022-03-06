@@ -64,8 +64,8 @@ node info5: action
 =================================================================================================================================================================
 NODE[n]  Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-RU000[2] 0     EXPR  (remove-stmt ?0)
-         1     EXPR  (remove-stmt ?1)
+RU000[2] 0     EXPR  (remove-stmt '(?x p1 ?y))
+         1     EXPR  (remove-stmt '(?y p1 ?x))
 RU001[3] 0     ADD   (-> '(?0, p1, ?2))
 =================================================================================================================================================================
 
@@ -107,7 +107,7 @@ B00004(BETA0) :                 '('('(?0 p1 ?1) (!= ?0 ?1)) '(?1 p1 ?0))
 B00006(BETA0) :                 '('(?0 p1 ?1) '(?1 p1 ?2))
              0: A00002(ALPH0)   '(?0 p1 ?1)
              1: A00002(ALPH0)   '(?0 p1 ?1)
-RU000(RULE)   :                 '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) ==> (remove-stmt ?0) (remove-stmt ?1)
+RU000(RULE)   :                 '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) ==> (remove-stmt '(?x p1 ?y)) (remove-stmt '(?y p1 ?x))
              0: B00004(BETA0)   '('('(?0 p1 ?1) (!= ?0 ?1)) '(?1 p1 ?0))
 RU001(RULE)   :                 '(?x p1 ?y) '(?y p1 ?z) ==> (add-stmt m '(?x p1 ?z))
              0: B00006(BETA0)   '('(?0 p1 ?1) '(?1 p1 ?2))
@@ -128,7 +128,7 @@ graph-gc-cache                        0
 =================================================================================================================================================================
 
 
-Rule<RU000> stats: priority=099, expr=(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do (remove-stmt ?0) (remove-stmt ?1))
+Rule<RU000> stats: priority=099, expr=(add-rule m if '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) do (remove-stmt '(?x p1 ?y)) (remove-stmt '(?y p1 ?x)))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -253,15 +253,13 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 13       3        3    instance   model@m             
 ==========================================================================================================================
 
-Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RU000
+Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 15       4        1    var        '(?x p1 ?y) : type=list
-?1                   : 16       4        1    var        '(?y p1 ?x) : type=list
-default_model        : 17       4        3    instance   model@m             
-?y                   : 18       4        1    var        a : type=atom       
-?x                   : 19       4        1    var        c : type=atom       
+default_model        : 15       4        3    instance   model@m             
+?y                   : 16       4        1    var        a : type=atom       
+?x                   : 17       4        1    var        c : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=13, row=7, column=13(1), value-max=1, value-unit=1^x
@@ -335,12 +333,12 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1823            0         1823
+        atom:         1827            0         1827
          int:            1            0            1
       string:           62            0           62
-        list:           86            2           84
+        list:           88            2           86
         expr:          771            0          771
-         var:           26            0           26
+         var:           24            0           24
     constant:           34            0           34
         func:           72            0           72
     template:            1            0            1
@@ -349,7 +347,7 @@ Object create count:
       member:           24            0           24
        frame:            3            1            2
  interpreter:            1            0
-  frameEntry:          353            0
+  frameEntry:          351            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -371,7 +369,7 @@ is-empty             : 6        2        1    funcList   '((is-empty array) (is-
 is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
 file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
 file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        1    var        result\factor\XRFactorRemoveStmtTest\test_drop_stmt_rule_2.rulp : type=string
+?script-path         : 10       2        1    var        result\factor\XRFactorRemoveStmtTest\test_remove_stmt_0_in_rule_1.rulp : type=string
 script_out           : 11       2        1    macro      script_out          
 _ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          1    func       (_ginfo) : frame=frame@main
@@ -387,15 +385,13 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 13       3        3    instance   model@m             
 ==========================================================================================================================
 
-id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RU000
+id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 15       4        1    var        '(?x p1 ?y) : type=list
-?1                   : 16       4        1    var        '(?y p1 ?x) : type=list
-default_model        : 17       4        3    instance   model@m             
-?y                   : 18       4        1    var        a : type=atom       
-?x                   : 19       4        1    var        c : type=atom       
+default_model        : 15       4        3    instance   model@m             
+?y                   : 16       4        1    var        a : type=atom       
+?x                   : 17       4        1    var        c : type=atom       
 ==========================================================================================================================
 
 Root var list: total=7
