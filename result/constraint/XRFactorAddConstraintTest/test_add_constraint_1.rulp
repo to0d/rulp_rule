@@ -80,3 +80,9 @@
 
 (add-constraint m name12:'(?x ?y) (order by ?x))
 ;=>
+
+(add-constraint m name13:'(?x ?y) (order by ?x asc))
+;=>
+
+(add-constraint m name14:'(?x ?y) (order by ?x desc))
+;=>

@@ -1,11 +1,11 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.lang.Constant.A_QUESTION;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.lang.Constant.O_True;
 import static alpha.rulp.rule.Constant.A_By;
 import static alpha.rulp.rule.Constant.A_Max;
-import static alpha.rulp.rule.Constant.A_Min;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_One_Of;
@@ -157,6 +157,28 @@ public class ConstraintBuilder {
 			cons.constraintName = A_Order_by;
 			cons.onObject = interpreter.compute(frame, expr.get(2));
 			cons.constraintValue = O_True;
+
+			return cons;
+		}
+
+		// (order by ?x asc)
+		if (size == 4 && _isAtom(expr, 0, A_Order) && _isAtom(expr, 1, A_By) && _isAtom(expr, 3, A_Asc)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Order_by;
+			cons.onObject = interpreter.compute(frame, expr.get(2));
+			cons.constraintValue = O_True;
+
+			return cons;
+		}
+
+		// (order by ?x asc)
+		if (size == 4 && _isAtom(expr, 0, A_Order) && _isAtom(expr, 1, A_By) && _isAtom(expr, 3, A_Desc)) {
+
+			RConstraint cons = new RConstraint();
+			cons.constraintName = A_Order_by;
+			cons.onObject = interpreter.compute(frame, expr.get(2));
+			cons.constraintValue = O_False;
 
 			return cons;
 		}
@@ -434,6 +456,33 @@ public class ConstraintBuilder {
 		}
 	}
 
+	private IRConstraint1 _orderByConstraint(RConstraint cons) throws RException {
+
+		boolean asc = RulpUtil.asBoolean(cons.constraintValue).asBoolean();
+
+		switch (cons.onObject.getType()) {
+		case INT:
+		case ATOM:
+			return ConstraintFactory.orderBy(asc, _getColumnIndex(cons.onObject));
+
+		case LIST:
+
+			IRList onList = (IRList) cons.onObject;
+
+			int uniqIndexCount = onList.size();
+			int[] columnIndexs = new int[uniqIndexCount];
+
+			for (int i = 0; i < uniqIndexCount; ++i) {
+				columnIndexs[i] = _getColumnIndex(onList.get(i));
+			}
+
+			return ConstraintFactory.orderBy(asc, columnIndexs);
+
+		default:
+			throw new RException("Invalid column: " + cons.onObject);
+		}
+	}
+
 	private int[] _toIndex(IRObject obj) throws RException {
 
 		int columnIndexs[] = null;
@@ -503,33 +552,6 @@ public class ConstraintBuilder {
 			}
 
 			return ConstraintFactory.uniq(columnIndexs);
-
-		default:
-			throw new RException("Invalid column: " + cons.onObject);
-		}
-	}
-
-	private IRConstraint1 _orderByConstraint(RConstraint cons) throws RException {
-
-		boolean asc = RulpUtil.asBoolean(cons.constraintValue).asBoolean();
-
-		switch (cons.onObject.getType()) {
-		case INT:
-		case ATOM:
-			return ConstraintFactory.orderBy(asc, _getColumnIndex(cons.onObject));
-
-		case LIST:
-
-			IRList onList = (IRList) cons.onObject;
-
-			int uniqIndexCount = onList.size();
-			int[] columnIndexs = new int[uniqIndexCount];
-
-			for (int i = 0; i < uniqIndexCount; ++i) {
-				columnIndexs[i] = _getColumnIndex(onList.get(i));
-			}
-
-			return ConstraintFactory.orderBy(asc, columnIndexs);
 
 		default:
 			throw new RException("Invalid column: " + cons.onObject);

@@ -433,6 +433,20 @@ public class ConstraintFactory {
 		return new XRConstraint1OneOf(index, valueList);
 	}
 
+	public static IRConstraint1 orderBy(boolean asc, int... columnIndexs) throws RException {
+
+		ArrayList<OrderEntry> orderList = new ArrayList<>();
+
+		for (int index : columnIndexs) {
+			OrderEntry orderEntry = new OrderEntry();
+			orderEntry.index = index;
+			orderEntry.asc = asc;
+			orderList.add(orderEntry);
+		}
+		
+		return new XRConstraint1OrderBy(orderList);
+	}
+
 	public static IRConstraint1 rebuildConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		IRConstraint1 lastConstraint = constraint;
@@ -464,20 +478,6 @@ public class ConstraintFactory {
 
 	public static IRConstraint1 type(int columnIndex, RType columnType) {
 		return new XRConstraint1Type(columnIndex, columnType);
-	}
-
-	public static IRConstraint1 orderBy(boolean asc, int... columnIndexs) throws RException {
-
-		ArrayList<OrderEntry> orderList = new ArrayList<>();
-
-		for (int index : columnIndexs) {
-			OrderEntry orderEntry = new OrderEntry();
-			orderEntry.index = index;
-			orderEntry.asc = asc;
-			orderList.add(orderEntry);
-		}
-		
-		return new XRConstraint1OrderBy(orderList);
 	}
 
 	public static IRConstraint1 uniq(int... columnIndexs) throws RException {

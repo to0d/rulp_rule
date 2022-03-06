@@ -80,3 +80,9 @@
 (add-constraint m name12:'(?x ?y) (order by ?x))
 ;=>true
 
+(add-constraint m name13:'(?x ?y) (order by ?x asc))
+;=>true
+
+(add-constraint m name14:'(?x ?y) (order by ?x desc))
+;=>true
+
