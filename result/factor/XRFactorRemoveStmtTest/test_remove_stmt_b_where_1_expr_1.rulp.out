@@ -1,0 +1,14 @@
+(new model m)
+;=>m
+
+(add-stmt m name1:'(a 1))
+(add-stmt m name1:'(b 10))
+(add-stmt m name1:'(b 100))
+;=>true true true
+
+(remove-stmt m from name1:'(?x ?y) where (> ?y 1))
+;err:
+Invalid parameters: (remove-stmt m from name1:'(?x ?y) where (> ?y 1))
+at (remove-stmt m from name1:'(?x ?y) where (> ?y 1)) ; main-2
+;eof
+

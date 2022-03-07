@@ -22,6 +22,9 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
+		// (remove-stmt m '(a b c)), return true or false
+		// (remove-stmt m from '(?a ?b ?c) where (> ?a 10)), return the deleted list
+
 		int argSize = args.size();
 		if (argSize != 2 && argSize != 3) {
 			throw new RException("Invalid parameters: " + args);

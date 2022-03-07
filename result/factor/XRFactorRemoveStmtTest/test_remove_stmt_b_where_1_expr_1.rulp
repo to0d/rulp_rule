@@ -1,0 +1,13 @@
+(new model m)
+;=>
+
+(add-stmt m name1:'(a 1))
+(add-stmt m name1:'(b 10))
+(add-stmt m name1:'(b 100))
+;=>
+
+(remove-stmt m from name1:'(?x ?y) where (> ?y 1))
+;=>
+
+(list-stmt m)
+;=>

@@ -75,4 +75,12 @@ class XRFactorListStmtTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_list_stmt_8_where_1_expr_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

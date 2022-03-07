@@ -176,4 +176,12 @@ class XRFactorRemoveStmtTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_remove_stmt_b_where_1_expr_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
