@@ -177,6 +177,7 @@ mbr=subject-of, mbr-property='(public), mbr-attribute='(), obj=subject-of, obj-t
 mbr=sys-free-memory, mbr-property='(public), mbr-attribute='(), obj=sys-free-memory, obj-type=factor, obj-attribute='()
 mbr=sys-gc, mbr-property='(public), mbr-attribute='(), obj=sys-gc, obj-type=factor, obj-attribute='()
 mbr=sys-os-type, mbr-property='(public), mbr-attribute='(), obj=sys-os-type, obj-type=factor, obj-attribute='()
+mbr=sys-set-property, mbr-property='(public), mbr-attribute='(), obj=sys-set-property, obj-type=factor, obj-attribute='()
 mbr=sys-time, mbr-property='(public), mbr-attribute='(), obj=sys-time, obj-type=factor, obj-attribute='()
 mbr=sys-total-memory, mbr-property='(public), mbr-attribute='(), obj=sys-total-memory, obj-type=factor, obj-attribute='()
 mbr=throw, mbr-property='(public), mbr-attribute='(), obj=throw, obj-type=factor, obj-attribute='()
