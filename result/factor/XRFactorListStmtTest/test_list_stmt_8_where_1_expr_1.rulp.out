@@ -7,8 +7,5 @@
 ;=>true true true
 
 (list-stmt m from name1:'(?x ?y) where (> ?y 1))
-;err:
-unsupport modifier: where
-at (list-stmt m from name1:'(?x ?y) where (> ?y 1)) ; main-2
-;eof
+;=>'(name1:'(b 10) name1:'(b 100))
 

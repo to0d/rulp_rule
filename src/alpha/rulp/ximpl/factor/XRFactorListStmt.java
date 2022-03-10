@@ -2,12 +2,14 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.lang.Constant.O_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Reverse;
 import static alpha.rulp.rule.Constant.A_State;
+import static alpha.rulp.rule.Constant.A_Where;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,23 +17,32 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.constraint.ConstraintBuilder;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
+import alpha.rulp.ximpl.entry.IREntryTable;
+import alpha.rulp.ximpl.entry.IRResultQueue;
+import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.ModelFactory;
 
 public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -51,9 +62,7 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		int argSize = args.size();
 
 		IRModel model = null;
-		IRList filter = null;
-		int statusMask = 0;
-		int limit = 0; // 0: all, -1: default
+
 		int fromArgIndex = 1;
 
 		boolean reverse = false;
@@ -80,6 +89,11 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 				throw new RException("no model be specified");
 			}
 		}
+
+		IRList filter = null;
+		int statusMask = 0;
+		int limit = 0; // 0: all, -1: default
+		IRList whereList = null;
 
 		/********************************************/
 		// Check modifier
@@ -191,11 +205,40 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 				builderName = modifier.name;
 				break;
 
+			case A_Where:
+				whereList = RulpUtil.asList(modifier.obj);
+				break;
+
 			default:
 				throw new RException("unsupport modifier: " + modifier.name);
 			}
 		}
 
-		return RulpFactory.createList(RuleUtil.listStatements(model,filter, statusMask, limit, reverse, builder));
+		/********************************************/
+		// Build result queue
+		/********************************************/
+		IRResultQueue resultQueue = null;
+		if (whereList != null) {
+			resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST, RulpFactory.createList(filter));
+
+			IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
+					filter.getType() == RType.LIST ? (IRList) filter : RulpFactory.createList(filter)));
+
+			ConstraintBuilder cb = new ConstraintBuilder(varEntry);
+			for (IRObject where : RulpUtil.toArray(whereList)) {
+				IRConstraint1 cons = cb.build((IRExpr) where, interpreter, frame);
+				if (cons != null) {
+					resultQueue.addConstraint(cons);
+				}
+			}
+		}
+
+		if (resultQueue != null) {
+			model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder,
+					resultQueue);
+			return RulpFactory.createList(resultQueue.getResultList());
+		}
+
+		return RulpFactory.createList(RuleUtil.listStatements(model, filter, statusMask, limit, reverse, builder));
 	}
 }
