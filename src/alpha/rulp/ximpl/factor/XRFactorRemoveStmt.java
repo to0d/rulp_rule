@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.lang.Constant.O_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Limit;
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -31,13 +33,50 @@ import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.constraint.ConstraintBuilder;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryTable;
+import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.model.ModelFactory;
 
 public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
+
+	static IRList _remove(IRModel model, IRList filter, int limit, boolean reverse, IREntryIteratorBuilder builder)
+			throws RException {
+
+		IREntryTable entryTable = model.getEntryTable();
+		ArrayList<IRReteEntry> list = new ArrayList<>();
+
+		model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder, (entry) -> {
+			list.add(entry);
+			entryTable.removeEntry(entry);
+			return true;
+		});
+
+		return RulpFactory.createList(list);
+	}
+
+	static IRList _remove(IRModel model, IRList filter, int limit, boolean reverse, IREntryIteratorBuilder builder,
+			IRResultQueue resultQueue) throws RException {
+
+		IREntryTable entryTable = model.getEntryTable();
+
+		model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder, (entry) -> {
+
+			if (!resultQueue.addEntry(entry)) {
+				return false;
+			}
+
+			entryTable.removeEntry(entry);
+			return true;
+		});
+
+		return RulpFactory.createList(resultQueue.getResultList());
+	}
 
 	public XRFactorRemoveStmt(String factorName) {
 		super(factorName);
@@ -216,15 +255,30 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 			}
 		}
 
-		ArrayList<IRReteEntry> list = new ArrayList<>();
-		IREntryTable entryTable = model.getEntryTable();
+		/********************************************/
+		// Build result queue
+		/********************************************/
+		IRResultQueue resultQueue = null;
+		if (whereList != null) {
+			resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST, RulpFactory.createList(filter));
 
-		model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder, (entry) -> {
-			entryTable.removeEntry(entry);
-			list.add(entry);
-			return true;
-		});
+			IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
+					filter.getType() == RType.LIST ? (IRList) filter : RulpFactory.createList(filter)));
 
-		return RulpFactory.createList(list);
+			ConstraintBuilder cb = new ConstraintBuilder(varEntry);
+			for (IRObject where : RulpUtil.toArray(whereList)) {
+				IRConstraint1 cons = cb.build((IRExpr) where, interpreter, frame);
+				if (cons != null) {
+					resultQueue.addConstraint(cons);
+				}
+			}
+		}
+
+		if (resultQueue != null) {
+			return _remove(model, filter, limit, reverse, builder, resultQueue);
+		} else {
+			return _remove(model, filter, limit, reverse, builder);
+		}
+
 	}
 }

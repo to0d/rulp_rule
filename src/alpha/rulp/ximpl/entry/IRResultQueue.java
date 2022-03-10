@@ -5,15 +5,14 @@ import java.util.List;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 
-public interface IRResultQueue {
+public interface IRResultQueue extends IREntryAction {
 
 	public void addConstraint(IRConstraint1 con);
 
 	public void addDoExpr(IRExpr expr);
-
-	public boolean addEntry(IRReteEntry entry) throws RException;
 
 	public void close() throws RException;
 
