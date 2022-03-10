@@ -92,7 +92,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public List<? extends IRCacheWorker> listCacheWorkers();
 
 	public int listStatements(IRList filter, int statusMask, int limit, boolean reverse, IREntryIteratorBuilder builder,
-			IRListener1<IRReteEntry> action) throws RException;
+			IREntryAction action) throws RException;
 
 	public void query(IRResultQueue result, IRList condList, int limit) throws RException;
 

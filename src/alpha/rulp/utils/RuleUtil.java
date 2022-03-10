@@ -511,6 +511,7 @@ public class RuleUtil {
 
 		model.listStatements(filter, statusMask, limit, reverse, builder, (entry) -> {
 			list.add(entry);
+			return true;
 		});
 
 		return list;

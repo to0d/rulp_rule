@@ -7,8 +7,8 @@
 ;=>true true true
 
 (remove-stmt m from name1:'(?x ?y) where (> ?y 1))
-;err:
-unsupport modifier: where
-at (remove-stmt m from name1:'(?x ?y) where (> ?y 1)) ; main-2
-;eof
+;=>'(name1:'(a 1) name1:'(b 10) name1:'(b 100))
+
+(list-stmt m)
+;=>'()
 

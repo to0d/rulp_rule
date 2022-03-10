@@ -7,6 +7,7 @@ import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Reverse;
+import static alpha.rulp.rule.Constant.A_Where;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,6 +102,7 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 		boolean reverse = false;
 		IREntryIteratorBuilder builder = null;
 		String builderName = null;
+		IRList whereList = null;
 
 		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(fromArgIndex), frame)) {
 
@@ -205,6 +207,10 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 				builderName = modifier.name;
 				break;
 
+			case A_Where:
+				whereList = RulpUtil.asList(modifier.obj);
+				break;
+
 			default:
 				throw new RException("unsupport modifier: " + modifier.name);
 			}
@@ -216,6 +222,7 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 		model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder, (entry) -> {
 			entryTable.removeEntry(entry);
 			list.add(entry);
+			return true;
 		});
 
 		return RulpFactory.createList(list);

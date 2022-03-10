@@ -1,9 +1,10 @@
 package alpha.rulp.ximpl.entry;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.rule.RReteStatus;
 
-public interface IREntryQueue extends IREntryList {
+public interface IREntryQueue extends IREntryList, IREntryAction {
 
 	public static interface IREntryCounter {
 
@@ -13,8 +14,6 @@ public interface IREntryQueue extends IREntryList {
 
 		public int getEntryTotalCount();
 	}
-
-	public boolean addEntry(IRReteEntry entry) throws RException;
 
 	public int doGC();
 

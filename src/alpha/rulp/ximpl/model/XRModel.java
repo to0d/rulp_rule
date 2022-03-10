@@ -44,6 +44,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModelCounter;
 import alpha.rulp.rule.IRReteNode;
@@ -830,7 +831,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	protected int _listAllStatements(int mask, int limit, boolean reverse, IREntryIteratorBuilder builder,
-			IRListener1<IRReteEntry> action) throws RException {
+			IREntryAction action) throws RException {
 
 		int size = 0;
 
@@ -862,9 +863,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 					}
 				}
 
-				action.doAction(entry);
-				size++;
+				if (!action.addEntry(entry)) {
+					continue;
+				}
 
+				size++;
 				if (limit > 0 && size >= limit) {
 					return size;
 				}
@@ -877,7 +880,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	protected int _listStatements(IRList filter, int statusMask, int limit, boolean reverse,
-			IREntryIteratorBuilder builder, IRListener1<IRReteEntry> action) throws RException {
+			IREntryIteratorBuilder builder, IREntryAction action) throws RException {
 
 		if (filter == null) {
 			return _listAllStatements(statusMask, limit, reverse, builder, action);
@@ -1047,7 +1050,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return 0;
 			}
 
-			action.doAction(oldEntry);
+			if (!action.addEntry(oldEntry)) {
+				return 0;
+			}
+
 			size++;
 
 			_gc(false);
@@ -1112,9 +1118,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 				continue;
 			}
 
-			action.doAction(entry);
-			size++;
+			if (!action.addEntry(entry)) {
+				continue;
+			}
 
+			size++;
 			if (limit > 0 && size >= limit) {
 				completed = true;
 				break;
@@ -1144,7 +1152,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 					continue;
 				}
 
-				action.doAction(entry);
+				if (!action.addEntry(entry)) {
+					continue;
+				}
 				size++;
 
 				if (limit > 0 && size >= limit) {
@@ -2028,6 +2038,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		return _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), (entry) -> {
 			hasEntryCacheMap.put(uniqName, entry);
+			return true;
 		}) > 0;
 	}
 
@@ -2083,7 +2094,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public int listStatements(IRList filter, int statusMask, int limit, boolean reverse, IREntryIteratorBuilder builder,
-			IRListener1<IRReteEntry> action) throws RException {
+			IREntryAction action) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> listStatements: " + filter + ", " + statusMask + ", " + limit + ", " + reverse);
