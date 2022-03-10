@@ -42,6 +42,9 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
+		// (list-stmt m)
+		// (list-stmt m from '(?a ?b ?c) where (> ?a 10))
+
 		/********************************************/
 		// Check parameters
 		/********************************************/
@@ -61,7 +64,7 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		// Check model object
 		/**************************************************/
 		if (argSize >= 2) {
-			IRObject obj = interpreter.compute(frame, args.get(1));
+			IRObject obj = interpreter.compute(frame, args.get(fromArgIndex));
 			if (obj instanceof IRModel) {
 				model = (IRModel) obj;
 				fromArgIndex++;
@@ -193,6 +196,6 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 			}
 		}
 
-		return RulpFactory.createList(model.listStatements(filter, statusMask, limit, reverse, builder));
+		return RulpFactory.createList(RuleUtil.listStatements(model,filter, statusMask, limit, reverse, builder));
 	}
 }

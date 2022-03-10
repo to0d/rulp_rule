@@ -1,11 +1,14 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_QUESTION;
+import static alpha.rulp.lang.Constant.O_False;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.lang.Constant.O_True;
+import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_By;
+import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Max;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Min;
 import static alpha.rulp.rule.Constant.A_NOT_NULL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_One_Of;

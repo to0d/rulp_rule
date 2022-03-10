@@ -7,5 +7,5 @@
 (add-stmt m n1:'(a b c1))
 ;=>
 
-(remove-stmt m '(?x ?...))
+(remove-stmt m from '(?x ?...))
 ;=>

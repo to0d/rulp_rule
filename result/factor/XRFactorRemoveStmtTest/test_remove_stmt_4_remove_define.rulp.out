@@ -8,7 +8,7 @@
 ;=>'('(a b c))
 
 (remove-stmt m '(a b c))
-;=>'('(a b c))
+;=>true
 
 (list-stmt m)
 ;=>'()

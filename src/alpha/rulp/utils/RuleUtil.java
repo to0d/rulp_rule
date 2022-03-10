@@ -34,6 +34,8 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener3;
 import alpha.rulp.runtime.IRParser;
+import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
+import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.error.RIException;
 import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
@@ -490,16 +492,28 @@ public class RuleUtil {
 	}
 
 	public static List<? extends IRList> listStatements(IRModel model) throws RException {
-		return model.listStatements(null, 0, 0, false, null);
+		return listStatements(model, null, 0, 0, false, null);
 	}
 
 	public static List<? extends IRList> listStatements(IRModel model, IRList filter) throws RException {
-		return model.listStatements(filter, 0, 0, false, null);
+		return listStatements(model, filter, 0, 0, false, null);
 	}
 
 	public static List<? extends IRList> listStatements(IRModel model, IRList filter, int statusMask, int limit)
 			throws RException {
-		return model.listStatements(filter, statusMask, limit, false, null);
+		return listStatements(model, filter, statusMask, limit, false, null);
+	}
+
+	public static List<? extends IRList> listStatements(IRModel model, IRList filter, int statusMask, int limit,
+			boolean reverse, IREntryIteratorBuilder builder) throws RException {
+
+		ArrayList<IRReteEntry> list = new ArrayList<>();
+
+		model.listStatements(filter, statusMask, limit, reverse, builder, (entry) -> {
+			list.add(entry);
+		});
+
+		return list;
 	}
 
 	public static int recalcuatePriority(IRModel model, IRReteNode node) throws RException {

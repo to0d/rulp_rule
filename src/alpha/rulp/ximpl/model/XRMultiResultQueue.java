@@ -1,9 +1,11 @@
 package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import static alpha.rulp.lang.Constant.*;
+
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRObject;

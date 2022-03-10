@@ -91,8 +91,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public List<? extends IRCacheWorker> listCacheWorkers();
 
-	public List<? extends IRList> listStatements(IRList filter, int statusMask, int limit, boolean reverse,
-			IREntryIteratorBuilder builder) throws RException;
+	public int listStatements(IRList filter, int statusMask, int limit, boolean reverse, IREntryIteratorBuilder builder,
+			IRListener1<IRReteEntry> action) throws RException;
 
 	public void query(IRResultQueue result, IRList condList, int limit) throws RException;
 
@@ -100,7 +100,9 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IRRule removeRule(String ruleName) throws RException;
 
-	public List<? extends IRList> removeStatement(IRList stmt) throws RException;
+	public boolean removeStatement(IRList stmt) throws RException;
+
+//	public List<? extends IRList> removeStatements(IRList filter) throws RException;
 
 	public int save() throws RException;
 

@@ -3103,7 +3103,7 @@ Object create count:
         atom:         3499            0         3499
          int:            2            0            2
       string:          195            0          195
-        list:          901            1          900
+        list:          899            1          898
         expr:         1655          266         1389
          var:          652          595           57
     constant:           34            0           34

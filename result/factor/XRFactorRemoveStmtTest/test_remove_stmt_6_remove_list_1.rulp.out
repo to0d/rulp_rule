@@ -9,7 +9,7 @@
 ;=>'(n1:'(a '(b c)) n1:'(x '(y z)))
 
 (remove-stmt m n1:'(a '(b c)))
-;=>'(n1:'(a '(b c)))
+;=>true
 
 (list-stmt m)
 ;=>'(n1:'(x '(y z)))

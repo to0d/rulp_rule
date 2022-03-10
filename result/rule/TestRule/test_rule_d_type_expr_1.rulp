@@ -2,16 +2,16 @@
 ;;;
 
 (add-rule m if n1:'(?a p ?b) (type int on ?b) do (-> n2:'(?b)))
-;;;
+;=>
 
 (add-stmt m '(x p 0))
-;;;
+;=>
 
 (add-stmt m '(x p a))
-;;;
+;=>
 
 (add-stmt m '(x p 1))
-;;;
+;=>
 
 (start m)
 ;;;

@@ -161,8 +161,8 @@
 
 (defun remove_cst_constraint_type ((?m model) (?node string) ?index ?type)
     (init_cst_rule ?m)
-    (defvar ?drop-stmt-list (remove-stmt ?m $cst_type$:'(?node ?index ?type)))
-    (if (is-empty ?drop-stmt-list) (return '()))
+    (defvar ?drop-count (remove-stmt ?m $cst_type$:'(?node ?index ?type)))
+    (if (= ?drop-count 0) (return '()))
     (return (remove-constraint ?m (to-named-list ?node '(?...)) (type ?type on (to-atom (+ "?" ?index)))))
 )
 
@@ -177,8 +177,8 @@
 
 (defun remove_cst_constraint_max ((?m model) (?node string) ?index (?value int))
     (init_cst_rule ?m)        
-    (defvar ?drop-stmt-list (remove-stmt ?m $cst_max$:'(?node ?index ?value)))
-    (if (is-empty ?drop-stmt-list) (return '()))
+    (defvar ?drop-count (remove-stmt ?m $cst_max$:'(?node ?index ?value)))
+    (if (= ?drop-count 0) (return '()))
     (return (remove-constraint ?m (to-named-list ?node '(?...)) (max ?value on (to-atom (+ "?" ?index)))))
 )
 
@@ -193,8 +193,8 @@
 
 (defun remove_cst_constraint_min ((?m model) (?node string) ?index (?value int))
     (init_cst_rule ?m)        
-    (defvar ?drop-stmt-list (remove-stmt ?m $cst_min$:'(?node ?index ?value)))
-    (if (is-empty ?drop-stmt-list) (return '()))
+    (defvar ?drop-count (remove-stmt ?m $cst_min$:'(?node ?index ?value)))
+    (if (= ?drop-count 0) (return '()))
     (return (remove-constraint ?m (to-named-list ?node '(?...)) (min ?value on (to-atom (+ "?" ?index)))))
 )
 
@@ -209,8 +209,8 @@
 
 (defun remove_cst_constraint_one_of ((?m model) (?node string) ?index (?value list))
     (init_cst_rule ?m)        
-    (defvar ?drop-stmt-list (remove-stmt ?m $cst_one_of$:'(?node ?index ?value)))
-    (if (is-empty ?drop-stmt-list) (return '()))
+    (defvar ?drop-count (remove-stmt ?m $cst_one_of$:'(?node ?index ?value)))
+    (if (= ?drop-count 0) (return '()))
     (return (remove-constraint ?m (to-named-list ?node '(?...)) (one-of ?value on (to-atom (+ "?" ?index)))))
 )
 

@@ -10,7 +10,7 @@
 (list-stmt m)
 ;=>
 
-(query-stmt m '(?n ?v ?x) from '(?n p2 ?v) (> ?v 150) do (defvar ?x (size-of (remove-stmt '(?n ? ?v)))))
+(query-stmt m '(?n ?v ?x) from '(?n p2 ?v) (> ?v 150) do (defvar ?x (size-of (remove-stmt from '(?n ? ?v)))))
 ;=>
 
 (list-stmt m)

@@ -14,7 +14,7 @@
 ;=>'('(a p1 c) '(a p1 b) '(a p2 c))
 
 (remove-stmt m '(a p2 c))
-;=>'('(a p2 c))
+;=>true
 
 (list-stmt m)
 ;=>'('(a p1 c) '(a p1 b))

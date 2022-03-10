@@ -37,6 +37,9 @@ public enum RReteStatus {
 
 	public static final int RETE_STATUS_NUM = 7;
 
+	public static final int RETE_STATUS_MASK_NOT_DELETED = DEFINE.getMask() | REASON.getMask() | ASSUME.getMask()
+			| FIXED_.getMask() | TEMP__.getMask();
+
 	public static RReteStatus getRetetStatus(int ts) throws RException {
 
 		switch (ts) {
@@ -114,18 +117,18 @@ public enum RReteStatus {
 
 	private final String toString;
 
+	private RReteStatus(int index, int mask, String toString) {
+		this.index = index;
+		this.mask = mask;
+		this.toString = toString;
+	}
+
 	public int getIndex() {
 		return index;
 	}
 
 	public String toString() {
 		return toString;
-	}
-
-	private RReteStatus(int index, int mask, String toString) {
-		this.index = index;
-		this.mask = mask;
-		this.toString = toString;
 	}
 
 	public int getMask() {

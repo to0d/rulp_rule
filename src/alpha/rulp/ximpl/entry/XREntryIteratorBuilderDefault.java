@@ -32,4 +32,9 @@ public class XREntryIteratorBuilderDefault implements IREntryIteratorBuilder {
 		return new EntryQueueIterator(list);
 	}
 
+	@Override
+	public boolean rebuildOrder() {
+		return false;
+	}
+
 }

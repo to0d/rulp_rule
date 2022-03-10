@@ -8,7 +8,7 @@
 
 (remove-stmt m from name1:'(?x ?y) where (> ?y 1))
 ;err:
-Invalid parameters: (remove-stmt m from name1:'(?x ?y) where (> ?y 1))
+unsupport modifier: where
 at (remove-stmt m from name1:'(?x ?y) where (> ?y 1)) ; main-2
 ;eof
 

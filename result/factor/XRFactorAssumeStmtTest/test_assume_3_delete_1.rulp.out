@@ -5,7 +5,7 @@
 ;=>true
 
 (remove-stmt m n1:'(1))
-;=>'(n1:'(1))
+;=>true
 
 (list-stmt m from n1:'(?x))
 ;=>'()

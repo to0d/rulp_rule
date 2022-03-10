@@ -60,4 +60,9 @@ public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 
 		return new EntryQueueOrderByIterator(heapStack);
 	}
+
+	@Override
+	public boolean rebuildOrder() {
+		return true;
+	}
 }

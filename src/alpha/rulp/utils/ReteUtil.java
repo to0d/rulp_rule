@@ -1299,7 +1299,6 @@ public class ReteUtil {
 	}
 
 	public static boolean isIndexVarAtom(IRObject obj) {
-
 		return obj.getType() == RType.ATOM && isIndexVarName(obj.asString());
 	}
 

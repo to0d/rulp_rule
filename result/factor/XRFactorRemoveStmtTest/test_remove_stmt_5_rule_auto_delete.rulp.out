@@ -14,7 +14,7 @@
 ;=>'('(a p c) '(c p a))
 
 (remove-stmt m '(a p c))
-;=>'('(a p c))
+;=>true
 
 (list-stmt m)
 ;=>'()

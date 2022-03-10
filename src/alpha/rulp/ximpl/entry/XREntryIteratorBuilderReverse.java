@@ -31,4 +31,9 @@ public class XREntryIteratorBuilderReverse implements IREntryIteratorBuilder {
 	public Iterator<IRReteEntry> makeIterator(IREntryList list) {
 		return new EntryQueueReverseIterator(list);
 	}
+
+	@Override
+	public boolean rebuildOrder() {
+		return true;
+	}
 }

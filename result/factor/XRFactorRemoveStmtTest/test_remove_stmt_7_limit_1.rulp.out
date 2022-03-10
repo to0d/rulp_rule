@@ -8,8 +8,14 @@
 ;=>true true true true
 
 (remove-stmt m from '(a ?...) limit 1)
-;err:
-Invalid parameters: (remove-stmt m from '(a ?...) limit 1)
-at (remove-stmt m from '(a ?...) limit 1) ; main-2
-;eof
+;=>'('(a))
+
+(list-stmt m)
+;=>'('(a b) '(a b c1) '(a b c2))
+
+(remove-stmt m from '(a ?...) limit 3)
+;=>'('(a b) '(a b c1) '(a b c2))
+
+(list-stmt m)
+;=>'()
 

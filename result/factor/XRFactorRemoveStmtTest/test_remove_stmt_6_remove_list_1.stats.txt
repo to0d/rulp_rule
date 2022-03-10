@@ -169,7 +169,7 @@ Object create count:
         atom:         1769            0         1769
          int:            1            0            1
       string:           62            0           62
-        list:           67            4           63
+        list:           66            3           63
         expr:          752            0          752
          var:           22            0           22
     constant:           34            0           34

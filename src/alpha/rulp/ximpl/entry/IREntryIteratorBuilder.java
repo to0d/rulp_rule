@@ -6,4 +6,5 @@ public interface IREntryIteratorBuilder {
 
 	public Iterator<IRReteEntry> makeIterator(IREntryList list);
 
+	public boolean rebuildOrder();
 }

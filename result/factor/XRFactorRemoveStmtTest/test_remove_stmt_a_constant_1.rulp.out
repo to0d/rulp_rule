@@ -8,8 +8,8 @@
 ;=>true
 
 (remove-stmt m from n1:'(?x KEY ?y))
-;err:
-Invalid parameters: (remove-stmt m from n1:'(?x KEY ?y))
-at (remove-stmt m from n1:'(?x KEY ?y)) ; main-2
-;eof
+;=>'(n1:'("sub" "key" "value"))
+
+(list-stmt m)
+;=>'()
 
