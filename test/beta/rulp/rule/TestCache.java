@@ -286,4 +286,12 @@ public class TestCache extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_cache_node_5_remove_all() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
