@@ -1,0 +1,24 @@
+(new model m)
+(set-model-cache-path m "result/rule/TestCache/test_cache_node_5_remove_all")
+;=>
+
+(list-stmt m)
+;=>
+
+(remove-stmt m from n1:'(?...))
+;=>
+
+(add-stmt m from n1:'(1 x 1))
+(add-stmt m from n1:'(2 y 2))
+(add-stmt m from n1:'(2 y 3))
+;=>
+
+(save-model m)
+;=>
+
+(new model m2)
+(set-model-cache-path m2 "result/rule/TestCache/test_cache_node_5_remove_all")
+;=>
+
+(list-stmt m2)
+;=>
