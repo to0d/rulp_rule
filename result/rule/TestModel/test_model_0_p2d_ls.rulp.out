@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itool\irulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -52,6 +52,7 @@ mbr=constant, mbr-property='(public), mbr-attribute='(), obj=constant, obj-type=
 mbr=continue, mbr-property='(public), mbr-attribute='(), obj=continue, obj-type=factor, obj-attribute='(stable)
 mbr=date, mbr-property='(public), mbr-attribute='(), obj=date, obj-type=factor, obj-attribute='()
 mbr=day-number, mbr-property='(public), mbr-attribute='(), obj=day-number, obj-type=factor, obj-attribute='()
+mbr=day-of-week, mbr-property='(public), mbr-attribute='(), obj=day-of-week, obj-type=factor, obj-attribute='()
 mbr=default, mbr-property='(public), mbr-attribute='(), obj=default, obj-type=atom, obj-attribute='()
 mbr=defclass, mbr-property='(public), mbr-attribute='(), obj=defclass, obj-type=factor, obj-attribute='(stable)
 mbr=defconst, mbr-property='(public), mbr-attribute='(), obj=defconst, obj-type=factor, obj-attribute='(stable)
