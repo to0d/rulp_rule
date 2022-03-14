@@ -47,6 +47,9 @@
 (defconst RRUN_STATE_RUNNING   running)
 (defconst RRUN_STATE_PARTIAL   partial)
 
+; Rete statement
+(defconst RETE_MAX_STMT_LEN    1000)
+
 (defun set-model-gc-capacity ((?m model) (?capacity long))   ; GC memory gate (M)
     (setq ?m::?model-gc-capacity ?capacity)
 )

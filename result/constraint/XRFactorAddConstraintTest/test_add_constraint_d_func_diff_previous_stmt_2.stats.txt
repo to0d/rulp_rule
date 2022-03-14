@@ -157,7 +157,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      301
+           Interpreter call id:      302
     Interpreter call level/max:        0       14
                Frame max level:       10
                   Frame max id:       13
@@ -178,19 +178,19 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      642
+    factor:      643
       func:       88
 ==========================================================================================================================
 
-Callable stats info: callId=301, row=47, column=38(8), value-max=88, value-unit=2^x
+Callable stats info: callId=302, row=47, column=38(8), value-max=88, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444445X max=419, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444445X max=420, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
     root   factor     88    0 return                                                              8
-    root   factor     64    0 defun                                                 144444   13445 
+    root   factor     64    0 defun                                                 144444    4445 
     root   factor     38    0 defvar                                                4            16
-    root   factor     34    0 defconst                                                   34444     
+    root   factor     35    0 defconst                                                   34444     
     root   factor     22    0 get-of-list                                                         6
   system funcList     22    1 get                                                                 6
     root   factor     20    0 add-list-to-array                                                   6
@@ -209,7 +209,7 @@ Callable stats info: callId=301, row=47, column=38(8), value-max=88, value-unit=
     root   factor      8    0 add-array-to-list                                                   4
     root   factor      7    0 alias                          4                                1    
     root   factor      6    0 setq                                                                4
-    root   factor      6    0 defmacro                                                2       3  1 
+    root   factor      6    0 defmacro                                                2       21 1 
     root   factor      6    0 =                                                                   4
     root   factor      6    0 !=                                                                  4
     root   factor      5    0 make-list                                             4              
@@ -230,7 +230,7 @@ Callable stats info: callId=301, row=47, column=38(8), value-max=88, value-unit=
     root   factor      4    0 -                                                                   3
     root   factor      3    0 deftemplate                                              3           
     root   factor      2    0 load                                                               2 
-    root   factor      1    0 new                                                                1 
+    root   factor      1    0 new                                                                 1
     root   factor      1    0 lambda                                                              1
   system   factor      1    0 add-constraint                                                      1
 ==========================================================================================================================
@@ -239,14 +239,14 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1996            0         1996
-         int:            1            0            1
+        atom:         1998            0         1998
+         int:            2            0            2
       string:          102            0          102
         list:          121           15          106
-        expr:          944           88          856
+        expr:          945           88          857
        array:            8            4            4
          var:          261          238           23
-    constant:           34            0           34
+    constant:           35            0           35
         func:           80            0           80
     template:            1            0            1
        macro:            6            0            6
@@ -254,7 +254,7 @@ Object create count:
       member:           24            0           24
        frame:          149          148            1
  interpreter:            1            0
-  frameEntry:          607            0
+  frameEntry:          608            0
       lambda:            1            0
 ==========================================================================================================================
 

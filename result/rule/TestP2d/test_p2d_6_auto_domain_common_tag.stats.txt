@@ -2811,7 +2811,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      301
+           Interpreter call id:      302
     Interpreter call level/max:        0       14
                Frame max level:        9
                   Frame max id:       17
@@ -2832,18 +2832,18 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      798
+    factor:      799
       func:       68
      macro:        2
 ==========================================================================================================================
 
-Callable stats info: callId=301, row=46, column=38(8), value-max=68, value-unit=2^x
+Callable stats info: callId=302, row=46, column=38(8), value-max=68, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444448X max=488, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444454444444444448X max=489, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
     root   factor     68    0 return                                                              8
-    root   factor     63    0 defun                                                 144444   13445 
+    root   factor     63    0 defun                                                 144444    4445 
     root   factor     61    0 if                                                                  7
     root   factor     50    0 equal_def                                                           7
   system funcList     50    1 equal                                                               7
@@ -2851,7 +2851,7 @@ Callable stats info: callId=301, row=46, column=38(8), value-max=68, value-unit=
     root   factor     42    0 not                                                                 7
     root   factor     41    0 continue                                                            7
   system   factor     41    0 add-rule                                                           7 
-    root   factor     34    0 defconst                                                   34444     
+    root   factor     35    0 defconst                                                   34444     
   system   factor     28    0 fix-stmt                                                           6 
     root   factor     18    0 let                                                                 6
     root   factor     11    0 to-string                                                           5
@@ -2859,7 +2859,7 @@ Callable stats info: callId=301, row=46, column=38(8), value-max=68, value-unit=
   system   factor     10    0 has-stmt                                                            5
     root   factor      9    0 str-index-of                                                        5
     root   factor      8    0 defvar                                                4            3 
-    root   factor      8    0 defmacro                                                2       3  3 
+    root   factor      8    0 defmacro                                                2       21 3 
     root   factor      7    0 str-substr                                                          4
     root   factor      7    0 str-length                                                          4
   system funcList      7    1 length-of                                                           4
@@ -2870,7 +2870,7 @@ Callable stats info: callId=301, row=46, column=38(8), value-max=68, value-unit=
     root   factor      5    0 strcat                                                              4
     root   factor      5    0 str-match                                                           4
     root   factor      5    0 make-list                                             4              
-  system   factor      5    0 add-stmt                                                           13
+  system   factor      5    0 add-stmt                                                            4
     root   factor      3    0 deftemplate                                              3           
     root   factor      3    0 and                                                                 3
     root   factor      2    0 str-last-index-of                                                   2
@@ -2893,13 +2893,13 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3420            0         3420
-         int:            2            0            2
+        atom:         3422            0         3422
+         int:            3            0            3
       string:          161            0          161
         list:          758            3          755
-        expr:         1438           68         1370
+        expr:         1439           68         1371
          var:          248          203           45
-    constant:           34            0           34
+    constant:           35            0           35
         func:           76            0           76
     template:            1            0            1
        macro:            8            0            8
@@ -2907,7 +2907,7 @@ Object create count:
       member:           24            0           24
        frame:          148          138           10
  interpreter:            1            0
-  frameEntry:          594            0
+  frameEntry:          595            0
       lambda:            0            0
 ==========================================================================================================================
 
