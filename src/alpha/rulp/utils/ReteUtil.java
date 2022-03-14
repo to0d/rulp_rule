@@ -1559,7 +1559,7 @@ public class ReteUtil {
 	}
 
 	public static boolean isValidStmtLen(int len) throws RException {
-		return len >= STMT_MIN_LEN && len < STMT_MAX_LEN;
+		return len >= STMT_MIN_LEN && len <= STMT_MAX_LEN;
 	}
 
 	public static boolean isVarArg(IRObject obj) {

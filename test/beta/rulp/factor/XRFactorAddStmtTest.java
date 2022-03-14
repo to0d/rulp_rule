@@ -152,4 +152,13 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_add_stmt_c_max_stmt_len_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }

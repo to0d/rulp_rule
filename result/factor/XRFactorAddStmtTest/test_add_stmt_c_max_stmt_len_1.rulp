@@ -1,0 +1,48 @@
+(new model m)
+;=>
+
+(defun make_root_list ((?len int) (?pre string))
+
+    (defvar ?arr (make-array))
+    
+    (loop for ?i from 1 to ?len do
+        (add ?arr (to-atom (+ ?pre ?i)))
+    )
+
+    (return (to-list ?arr))
+)
+
+(defun make_named_list ((?len int) (?name string))
+
+    (defvar ?arr (make-array))
+    
+    (loop for ?i from 1 to ?len do
+        (add ?arr ?i)
+    )
+
+    (return (to-named-list ?name (to-list ?arr)))
+)
+;=>
+
+
+(add-stmt m $(make_root_list 3 "a"))
+;=>
+
+(add-stmt m $(make_named_list 3 "n1"))
+;=>
+
+(add-stmt m $(make_root_list RETE_MAX_STMT_LEN "a"))
+;=>
+
+(add-stmt m $(make_named_list RETE_MAX_STMT_LEN "n2"))
+;=>
+
+(add-stmt m $(make_root_list (+ RETE_MAX_STMT_LEN 1) "a"))
+;err
+
+(add-stmt m $(make_named_list (+ RETE_MAX_STMT_LEN 1) "n3"))
+;err
+
+(list-stmt m)
+;=>
+
