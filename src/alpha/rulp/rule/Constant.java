@@ -261,7 +261,7 @@ public interface Constant {
 
 	int RETE_PRIORITY_SYSTEM = 999;
 
-	int STMT_MAX_LEN = 99;
+	int STMT_MAX_LEN = 1000;
 
 	int STMT_MIN_LEN = 1;
 
