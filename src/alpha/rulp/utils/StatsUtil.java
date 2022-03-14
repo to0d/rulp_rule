@@ -686,7 +686,10 @@ public class StatsUtil {
 			sb.append(String.format("Length Array: min=%d, max=%d\n", minLen, entryMaxLen));
 			for (int i = minLen; i <= entryMaxLen; ++i) {
 
-				sb.append(String.format("Entry[%d]= %d", i, entryLenArray[i]));
+				StringBuffer sb2 = new StringBuffer();
+				int update = 0;
+
+				sb2.append(String.format("Entry[%04d]= %d", i, entryLenArray[i]));
 
 				Map<String, Integer> entryLenMap = entryLenMapArray[i];
 				if (entryLenMap != null) {
@@ -695,11 +698,16 @@ public class StatsUtil {
 					Collections.sort(namedList);
 
 					for (String namedName : namedList) {
-						sb.append(String.format(", %s(%d)", namedName, entryLenMap.get(namedName)));
+						sb2.append(String.format(", %s(%d)", namedName, entryLenMap.get(namedName)));
+						++update;
 					}
 				}
 
-				sb.append("\n");
+				if (entryLenArray[i] == 0 && update == 0) {
+					continue;
+				}
+
+				sb.append(sb2.toString() + "\n");
 			}
 
 			Map<Integer, RefArray> entryReteCountMap = new HashMap<>();
@@ -1292,7 +1300,7 @@ public class StatsUtil {
 		sb.append("\nnode info:\n");
 		sb.append(SEP_LINE1);
 		sb.append(String.format(
-				"%-9s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %5s %8s %11s\n",
+				"%-12s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %5s %8s %11s\n",
 				"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null", "Bind", "Match",
 				"Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "Use", "Stage", "PVisit"));
 		sb.append(SEP_LINE2);
@@ -1328,7 +1336,7 @@ public class StatsUtil {
 			}
 
 			sb.append(String.format(
-					"%-9s %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %5d %8s %11s",
+					"%-12s %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %5d %8s %11s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(FIXED_),
 					entryCounter.getEntryCount(DEFINE), entryCounter.getEntryCount(REASON),
 					entryCounter.getEntryCount(ASSUME), entryCounter.getEntryCount(null),
@@ -1349,11 +1357,8 @@ public class StatsUtil {
 
 	private static void _printNodeInfo2(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
 
-		sb.append("node info2:\n");
-		sb.append(SEP_LINE1);
-
 		List<List<String>> result = new ArrayList<>();
-		List<Integer> maxLen = toList(10, 14, 36, 30, 30, 30);
+		List<Integer> maxLen = toList(13, 14, 36, 30, 30, 30);
 
 		result.add(toList("NODE[n]", "Parent", "Child", "Rule", "Inherit", "Join"));
 
@@ -1363,24 +1368,30 @@ public class StatsUtil {
 			ArrayList<String> childNames = new ArrayList<>();
 			ArrayList<String> ruleNames = new ArrayList<>();
 
+			int count = 0;
+
 			for (IRRule rule : model.getNodeGraph().getRelatedRules(node)) {
 				ruleNames.add(rule.getRuleName());
+				++count;
 			}
 
 			if (node.getParentNodes() != null) {
 				for (IRReteNode pn : node.getParentNodes()) {
 					parentNames.add(pn.getNodeName());
+					++count;
 				}
 			}
 
 			for (IRReteNode cn : node.getChildNodes()) {
 				childNames.add(cn.getNodeName());
+				++count;
 			}
 
 			String inheritExpr = null;
 			InheritIndex[] inheritIndexs = node.getInheritIndex();
 			if (inheritIndexs != null) {
 				inheritExpr = toList(inheritIndexs).toString();
+				count += inheritIndexs.length;
 			}
 
 			String joinDes = null;
@@ -1392,17 +1403,28 @@ public class StatsUtil {
 						joinDes = "[]";
 					} else {
 						joinDes = OptimizeUtil.toString(joinIndex);
+						count++;
 					}
 				} else {
 					joinDes = "[]";
 				}
 			}
 
-			result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]",
-					parentNames.isEmpty() ? null : "" + parentNames, childNames.isEmpty() ? null : "" + childNames,
-					ruleNames.isEmpty() ? null : "" + ruleNames, inheritExpr, joinDes));
+			if (count > 0) {
+
+				result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]",
+						parentNames.isEmpty() ? null : "" + parentNames, childNames.isEmpty() ? null : "" + childNames,
+						ruleNames.isEmpty() ? null : "" + ruleNames, inheritExpr, joinDes));
+			}
 
 		}
+
+		if (result.size() == 1) {
+			return;
+		}
+
+		sb.append("node info2:\n");
+		sb.append(SEP_LINE1);
 
 		int index = 0;
 		for (String line : _formatTableResult(result, maxLen)) {
@@ -1422,11 +1444,11 @@ public class StatsUtil {
 		sb.append("node info3:\n");
 		sb.append(SEP_LINE1);
 
-		sb.append(String.format("%-9s %s\n", "NODE[n]", "UniqName"));
+		sb.append(String.format("%-12s %s\n", "NODE[n]", "UniqName"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : nodes) {
-			sb.append(String.format("%-9s %s", node.getNodeName() + "[" + node.getEntryLength() + "]",
+			sb.append(String.format("%-12s %s", node.getNodeName() + "[" + node.getEntryLength() + "]",
 					node.getUniqName()));
 			sb.append("\n");
 		}
@@ -1458,7 +1480,7 @@ public class StatsUtil {
 
 		sb.append("node info4: constraint\n");
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%-9s %5s %5s  %s\n", "NODE[n]", "Match", "Fail", "Constraint"));
+		sb.append(String.format("%-12s %5s %5s  %s\n", "NODE[n]", "Match", "Fail", "Constraint"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : constraintNodeList) {
@@ -1474,14 +1496,73 @@ public class StatsUtil {
 				consList.addAll(RuleUtil.asBetaNode(node).getConstraint2List());
 			}
 
-			sb.append(String.format("%-9s %5d %5d\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+			sb.append(String.format("%-12s %5d %5d\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
 					node.getNodeMatchCount(), node.getAddEntryFailCount()));
 
 			for (int i = 0; i < consList.size(); ++i) {
 				IRConstraint cons = consList.get(i);
-				sb.append(String.format("%8s  %5d %5d  %s\n", "", cons.getMatchCount(), cons.getFailCount(),
+				sb.append(String.format("%11s  %5d %5d  %s\n", "", cons.getMatchCount(), cons.getFailCount(),
 						cons.getConstraintKind() + ":" + cons));
 			}
+		}
+
+		sb.append(SEP_LINE1);
+		sb.append("\n");
+	}
+
+	private static void _printModelShareIndex(StringBuffer sb, IReteNodeMatrix modelNodeMatrix, long ruleSummary[][])
+			throws RException {
+
+		IRReteNodeCounter modelCounter = RuleFactory.createReteCounter(modelNodeMatrix);
+
+		boolean hasNode = false;
+		for (RReteType reteType : RReteType.ALL_RETE_TYPE) {
+
+			if (RReteType.isRootType(reteType) || modelCounter.getCount(reteType, RCountType.NodeCount) == 0) {
+				continue;
+			}
+
+			hasNode = true;
+			break;
+		}
+
+		if (!hasNode) {
+			return;
+		}
+
+		sb.append(String.format("Model<%s> share index:\n", "" + modelNodeMatrix.getModel().getModelName()));
+
+		sb.append(SEP_LINE1);
+		sb.append(String.format("%5s", "NODE"));
+		for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
+			sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", _getCountTypeName(countType)));
+		}
+		sb.append("\n");
+		sb.append(SEP_LINE2);
+
+		for (RReteType reteType : RReteType.ALL_RETE_TYPE) {
+
+			if (RReteType.isRootType(reteType) || modelCounter.getCount(reteType, RCountType.NodeCount) == 0) {
+				continue;
+			}
+
+			sb.append(String.format("%5s", "" + reteType));
+			for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
+
+				long summary = ruleSummary[reteType.getIndex()][countType.getIndex()];
+				if (summary == 0) {
+					sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", " "));
+
+				} else {
+
+					float modelValue = modelCounter.getCount(reteType, countType);
+					float rate = 1 - modelValue / summary;
+					int v = (int) (rate * 1000);
+					sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", "" + v));
+				}
+			}
+
+			sb.append("\n");
 		}
 
 		sb.append(SEP_LINE1);
@@ -1510,7 +1591,7 @@ public class StatsUtil {
 		sb.append(SEP_LINE1);
 
 		List<List<String>> result = new ArrayList<>();
-		List<Integer> maxLen = toList(8, 5, 5, 136);
+		List<Integer> maxLen = toList(12, 5, 5, 136);
 
 		result.add(toList("NODE[n]", "Index", "Type", "Action"));
 
@@ -1557,7 +1638,7 @@ public class StatsUtil {
 			}
 		}
 
-		sb.append(String.format("%-9s %-5s %-5s %-6s %-" + maxNameLen + "s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n",
+		sb.append(String.format("%-12s %-5s %-5s %-6s %-" + maxNameLen + "s %-6s %-5s %-4s %-4s %-4s %3s %3s %3s %s\n",
 				"NODE[n]", "Type", "Class", "Queue", "Named", "Parent", "Child", "Rule", "Inhe", "Join", "C1", "C2",
 				"Pri", "VarEntry"));
 		sb.append(SEP_LINE2);
@@ -1585,7 +1666,7 @@ public class StatsUtil {
 				className = className.substring(6);
 			}
 
-			sb.append(String.format("%-9s %-5s %-5s %-6s %-" + maxNameLen + "s %6d %5d %4d %4d %4d %3d %3d %3d %s",
+			sb.append(String.format("%-12s %-5s %-5s %-6s %-" + maxNameLen + "s %6d %5d %4d %4d %4d %3d %3d %3d %s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(), className,
 					"" + node.getEntryQueue().getQueueType(), node.getNamedName() == null ? "" : node.getNamedName(),
 					node.getParentCount(), node.getChildNodes().size(),
@@ -1594,6 +1675,75 @@ public class StatsUtil {
 					node.getConstraint1Count(), constraint2Count, node.getPriority(), varEntry));
 
 			sb.append("\n");
+		}
+
+		sb.append(SEP_LINE1);
+		sb.append("\n");
+	}
+
+	private static void _printNodeSource(StringBuffer sb, IReteNodeMatrix nodeMatrix, List<IRReteNode> nodes)
+			throws RException {
+
+		boolean hasSourceNode = false;
+		for (IRReteNode node : nodes) {
+
+			if (!nodeMatrix.getModel().getNodeGraph().listSourceNodes(node).isEmpty()) {
+				hasSourceNode = true;
+				break;
+			}
+
+			if (node.getParentCount() > 0) {
+				hasSourceNode = true;
+				break;
+			}
+		}
+
+		if (!hasSourceNode) {
+			return;
+		}
+
+		sb.append("node source info:\n");
+		sb.append(SEP_LINE1);
+		sb.append(String.format("%-13s   %-13s   %-6s %s\n", "NODE[n]", "Source", "Length", "Description"));
+		sb.append(SEP_LINE2);
+
+		for (IRReteNode node : nodes) {
+
+			String nodeName = String.format("%s(%s)", node.getNodeName(), node.getReteType());
+
+			if (node.getReteType() != RReteType.RULE) {
+				sb.append(String.format("%-13s : %14s  %-6d %s\n", nodeName, "", node.getEntryLength(),
+						node.getUniqName()));
+			} else {
+				sb.append(String.format("%-13s : %14s  %-6d %s ==> %s\n", nodeName, "", node.getEntryLength(),
+						RulpUtil.toString(((XRNodeRule0) node).getMatchStmtList()),
+						RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
+			}
+
+			List<IRReteNode> sourceNodes = new ArrayList<>(nodeMatrix.getModel().getNodeGraph().listSourceNodes(node));
+			Collections.sort(sourceNodes, (n1, n2) -> {
+				return n1.getNodeName().compareTo(n2.getNodeName());
+			});
+
+			if (node.getParentNodes() != null) {
+				for (IRReteNode pnode : node.getParentNodes()) {
+					sourceNodes.add(pnode);
+				}
+			}
+
+			int nodeIndex = 0;
+			for (IRReteNode sourceNode : sourceNodes) {
+
+				String srcName = String.format("%s(%s)", sourceNode.getNodeName(), sourceNode.getReteType());
+
+				if (sourceNode.getReteType() != RReteType.RULE) {
+					sb.append(String.format("%14d: %-14s  %-6d %s\n", nodeIndex++, srcName, node.getEntryLength(),
+							sourceNode.getUniqName()));
+				} else {
+					sb.append(String.format("%14d: %-14s  %-6d\n", nodeIndex++, srcName, node.getEntryLength()));
+				}
+
+			}
 		}
 
 		sb.append(SEP_LINE1);
@@ -1799,52 +1949,7 @@ public class StatsUtil {
 		// Output model node source info
 		/****************************************************/
 		if (!isRule) {
-
-			sb.append("node source info:\n");
-			sb.append(SEP_LINE1);
-			sb.append(" NODE         Source        Description\n");
-			sb.append(SEP_LINE2);
-
-			for (IRReteNode node : nodes) {
-
-				String nodeName = String.format("%s(%s)", node.getNodeName(), node.getReteType());
-
-				if (node.getReteType() != RReteType.RULE) {
-					sb.append(String.format("%-14s: %14s  %s\n", nodeName, "", node.getUniqName()));
-				} else {
-					sb.append(String.format("%-14s: %14s  %s ==> %s\n", nodeName, "",
-							RulpUtil.toString(((XRNodeRule0) node).getMatchStmtList()),
-							RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
-				}
-
-				List<IRReteNode> sourceNodes = new ArrayList<>(
-						nodeMatrix.getModel().getNodeGraph().listSourceNodes(node));
-				Collections.sort(sourceNodes, (n1, n2) -> {
-					return n1.getNodeName().compareTo(n2.getNodeName());
-				});
-
-				if (node.getParentNodes() != null) {
-					for (IRReteNode pnode : node.getParentNodes()) {
-						sourceNodes.add(pnode);
-					}
-				}
-
-				int nodeIndex = 0;
-				for (IRReteNode sourceNode : sourceNodes) {
-
-					String srcName = String.format("%s(%s)", sourceNode.getNodeName(), sourceNode.getReteType());
-
-					if (sourceNode.getReteType() != RReteType.RULE) {
-						sb.append(String.format("%14d: %-14s  %s\n", nodeIndex++, srcName, sourceNode.getUniqName()));
-					} else {
-						sb.append(String.format("%14d: %-14s\n", nodeIndex++, srcName));
-					}
-
-				}
-			}
-
-			sb.append(SEP_LINE1);
-			sb.append("\n");
+			_printNodeSource(sb, nodeMatrix, nodes);
 		}
 
 		/****************************************************/
@@ -1929,6 +2034,10 @@ public class StatsUtil {
 			}
 			counterList.add(node.getUpdateCounter());
 			nodeList.add(node);
+		}
+
+		if (nodeList.isEmpty()) {
+			return;
 		}
 
 		ArrayList<String> counterLines = TraceUtil.formatCounterTable(counterList, AbsReteNode.MAX_EXEC_COUNTER_SIZE);
@@ -2477,45 +2586,7 @@ public class StatsUtil {
 			/*********************************************************************/
 			// Model share index
 			/*********************************************************************/
-			IRReteNodeCounter modelCounter = RuleFactory.createReteCounter(modelNodeMatrix);
-
-			sb.append(String.format("Model<%s> share index:\n", "" + model.getModelName()));
-
-			sb.append(SEP_LINE1);
-			sb.append(String.format("%5s", "NODE"));
-			for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
-				sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", _getCountTypeName(countType)));
-			}
-			sb.append("\n");
-			sb.append(SEP_LINE2);
-
-			for (RReteType reteType : RReteType.ALL_RETE_TYPE) {
-
-				if (RReteType.isRootType(reteType) || modelCounter.getCount(reteType, RCountType.NodeCount) == 0) {
-					continue;
-				}
-
-				sb.append(String.format("%5s", "" + reteType));
-				for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
-
-					long summary = ruleSummary[reteType.getIndex()][countType.getIndex()];
-					if (summary == 0) {
-						sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", " "));
-
-					} else {
-
-						float modelValue = modelCounter.getCount(reteType, countType);
-						float rate = 1 - modelValue / summary;
-						int v = (int) (rate * 1000);
-						sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", "" + v));
-					}
-
-				}
-				sb.append("\n");
-			}
-
-			sb.append(SEP_LINE1);
-			sb.append("\n");
+			_printModelShareIndex(sb, modelNodeMatrix, ruleSummary);
 
 			/*********************************************************************/
 			// Beta Node state info

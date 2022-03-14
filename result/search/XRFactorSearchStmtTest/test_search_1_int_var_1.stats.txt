@@ -11,139 +11,135 @@ RULE         0      0      0      0     0     0     0     0      0      0     4 
 
 node info:
 =================================================================================================================================================================
-NODE[n]    Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
+NODE[n]       Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[1]      0      0      0      2      0      0     0     0   0/0      4      2      0    2    0           0   0   0   0     0 InActive            
-N00002[3]      0      1      0      0      0      0     0     0   0/0      0      1      0    4    3           0   0   0   0     4 InActive            
-N00007[3]      0      1      0      0      0      0     0     0   0/0      0      1      0    4    3           0   0   0   0     2 InActive            
-N00009[3]      0      1      0      0      0      0     0     0   0/0      0      1      0    4    3           0   0   0   0     2 InActive            
-N00011[1]      0      0      0      0      0      0     0     0   0/0      0      0      0    3    3      *    0   0   0   1     3 InActive            
-N00012[2]      0      0      3      0      0      0     0     0   0/0      0      3      0    0    0      *    0   0   0   3     0 InActive            
-N00019[1]      0      2      0      0      0      0     0     0   0/0      0      2      0    1    0           0   0   0   0     1 InActive            
-A00013[3]      0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0     1 InActive           1
-A00014[3]      0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   2   0   0     1 InActive           1
-A00015[3]      0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0     1 InActive           1
-A00016[3]      0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   2   0   0     1 InActive           1
-A00017[3]      0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0     1 InActive           1
-A00018[3]      0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   2   0   0     1 InActive           1
-E10004[4]      0      0      0      0      0      0     0     0   0/0      1      0      0    3    2      1    0   2   0   0     1 InActive           1
-B00003[4]      0      0      1      0      0      0     0     0   0/0      1      1      0    3    2           0   1   0   0     1 InActive         1/1
-CST01[4]       0      0      0      0      0      0     0     0   0/0      0      0      0    3    3      *    0   3   0   0     0 InActive           0
-CST02[3]       0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
-CST03[3]       0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
-CST04[3]       0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
+N00001[1]         0      0      0      2      0      0     0     0   0/0      4      2      0    2    0           0   0   0   0     0 InActive            
+N00002[3]         0      1      0      0      0      0     0     0   0/0      0      1      0    4    3           0   0   0   0     4 InActive            
+N00007[3]         0      1      0      0      0      0     0     0   0/0      0      1      0    4    3           0   0   0   0     2 InActive            
+N00009[3]         0      1      0      0      0      0     0     0   0/0      0      1      0    4    3           0   0   0   0     2 InActive            
+N00011[1]         0      0      0      0      0      0     0     0   0/0      0      0      0    3    3      *    0   0   0   1     3 InActive            
+N00012[2]         0      0      3      0      0      0     0     0   0/0      0      3      0    0    0      *    0   0   0   3     0 InActive            
+N00019[1]         0      2      0      0      0      0     0     0   0/0      0      2      0    1    0           0   0   0   0     1 InActive            
+A00013[3]         0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0     1 InActive           1
+A00014[3]         0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   2   0   0     1 InActive           1
+A00015[3]         0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0     1 InActive           1
+A00016[3]         0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   2   0   0     1 InActive           1
+A00017[3]         0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   1   0   0     1 InActive           1
+A00018[3]         0      1      0      0      0      0     0     0   0/0      1      1      0    1    0           0   2   0   0     1 InActive           1
+E10004[4]         0      0      0      0      0      0     0     0   0/0      1      0      0    3    2      1    0   2   0   0     1 InActive           1
+B00003[4]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    2           0   1   0   0     1 InActive         1/1
+CST01[4]          0      0      0      0      0      0     0     0   0/0      0      0      0    3    3      *    0   3   0   0     0 InActive           0
+CST02[3]          0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
+CST03[3]          0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
+CST04[3]          0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
 =================================================================================================================================================================
 
 node info2:
 =================================================================================================================================================================
-NODE[n]    Parent         Child                                Rule                           Inherit                        Join
+NODE[n]       Parent         Child                                Rule                           Inherit                        Join
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[1]
-N00002[3]                 [B00003, B00003, CST02, A00013]      [CST01, CST02]
-N00007[3]                 [CST03, A00015]                      [CST03]
-N00009[3]                 [CST04, A00017]                      [CST04]
-N00011[1]
-N00012[2]
-N00019[1]
-A00013[3]  [N00002]       [A00014]
-A00014[3]  [A00013]
-A00015[3]  [N00007]       [A00016]
-A00016[3]  [A00015]
-A00017[3]  [N00009]       [A00018]
-A00018[3]  [A00017]
-E10004[4]  [B00003]       [CST01]                              [CST01]
-B00003[4]  [N00002,       [E10004]                             [CST01]                        [0/0, 0/1, 0/2, 1/2]           [join(0/0),join(1/1)]
-            N00002]
-CST01[4]   [E10004]
-CST02[3]   [N00002]
-CST03[3]   [N00007]
-CST04[3]   [N00009]
+N00002[3]                    [B00003, B00003, CST02, A00013]      [CST01, CST02]
+N00007[3]                    [CST03, A00015]                      [CST03]
+N00009[3]                    [CST04, A00017]                      [CST04]
+A00013[3]     [N00002]       [A00014]
+A00014[3]     [A00013]
+A00015[3]     [N00007]       [A00016]
+A00016[3]     [A00015]
+A00017[3]     [N00009]       [A00018]
+A00018[3]     [A00017]
+E10004[4]     [B00003]       [CST01]                              [CST01]
+B00003[4]     [N00002,       [E10004]                             [CST01]                        [0/0, 0/1, 0/2, 1/2]           [join(0/0),join(1/1)]
+               N00002]
+CST01[4]      [E10004]
+CST02[3]      [N00002]
+CST03[3]      [N00007]
+CST04[3]      [N00009]
 =================================================================================================================================================================
 
 node info3:
 =================================================================================================================================================================
-NODE[n]   UniqName
+NODE[n]      UniqName
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[1] v1:'(?0)
-N00002[3] $cst_type$:'(?0 ?1 ?2)
-N00007[3] $cst_max$:'(?0 ?1 ?2)
-N00009[3] $cst_min$:'(?0 ?1 ?2)
-N00011[1] $invalid_constraint$:'(?0)
-N00012[2] $cst_node$:'(?0 ?1)
-N00019[1] v2:'(?0)
-A00013[3] $cst_type$:'("v1" ?0 ?1)
-A00014[3] $cst_type$:'("v1" 0 ?0)
-A00015[3] $cst_max$:'("v1" ?0 ?1)
-A00016[3] $cst_max$:'("v1" 0 ?0)
-A00017[3] $cst_min$:'("v1" ?0 ?1)
-A00018[3] $cst_min$:'("v1" 0 ?0)
-E10004[4] '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
-B00003[4] '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
-CST01[4]  CST01
-CST02[3]  CST02
-CST03[3]  CST03
-CST04[3]  CST04
+N00001[1]    v1:'(?0)
+N00002[3]    $cst_type$:'(?0 ?1 ?2)
+N00007[3]    $cst_max$:'(?0 ?1 ?2)
+N00009[3]    $cst_min$:'(?0 ?1 ?2)
+N00011[1]    $invalid_constraint$:'(?0)
+N00012[2]    $cst_node$:'(?0 ?1)
+N00019[1]    v2:'(?0)
+A00013[3]    $cst_type$:'("v1" ?0 ?1)
+A00014[3]    $cst_type$:'("v1" 0 ?0)
+A00015[3]    $cst_max$:'("v1" ?0 ?1)
+A00016[3]    $cst_max$:'("v1" 0 ?0)
+A00017[3]    $cst_min$:'("v1" ?0 ?1)
+A00018[3]    $cst_min$:'("v1" 0 ?0)
+E10004[4]    '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
+B00003[4]    '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
+CST01[4]     CST01
+CST02[3]     CST02
+CST03[3]     CST03
+CST04[3]     CST04
 =================================================================================================================================================================
 
 node info4: constraint
 =================================================================================================================================================================
-NODE[n]   Match  Fail  Constraint
+NODE[n]      Match  Fail  Constraint
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[1]     4     2
-              4     0  C1:(type int on ?0)
-              4     0  C1:(max 40 on ?0)
-              4     0  C1:(min 37 on ?0)
-              4     2  C1:(= (% ?0 2) 0)
-A00013[3]     1     0
-              1     0  C1:(cmp-entry-value = ?0 v1)
-A00014[3]     1     0
-              1     0  C1:(cmp-entry-value = ?1 0)
-A00015[3]     1     0
-              1     0  C1:(cmp-entry-value = ?0 v1)
-A00016[3]     1     0
-              1     0  C1:(cmp-entry-value = ?1 0)
-A00017[3]     1     0
-              1     0  C1:(cmp-entry-value = ?0 v1)
-A00018[3]     1     0
-              1     0  C1:(cmp-entry-value = ?1 0)
-E10004[4]     1     1
-              1     1  C1:(cmp-entry-index != ?2 ?3)
+N00001[1]        4     2
+                 4     0  C1:(type int on ?0)
+                 4     0  C1:(max 40 on ?0)
+                 4     0  C1:(min 37 on ?0)
+                 4     2  C1:(= (% ?0 2) 0)
+A00013[3]        1     0
+                 1     0  C1:(cmp-entry-value = ?0 v1)
+A00014[3]        1     0
+                 1     0  C1:(cmp-entry-value = ?1 0)
+A00015[3]        1     0
+                 1     0  C1:(cmp-entry-value = ?0 v1)
+A00016[3]        1     0
+                 1     0  C1:(cmp-entry-value = ?1 0)
+A00017[3]        1     0
+                 1     0  C1:(cmp-entry-value = ?0 v1)
+A00018[3]        1     0
+                 1     0  C1:(cmp-entry-value = ?1 0)
+E10004[4]        1     1
+                 1     1  C1:(cmp-entry-index != ?2 ?3)
 =================================================================================================================================================================
 
 node info5: action
 =================================================================================================================================================================
-NODE[n]  Index Type  Action
+NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CST01[4] 0     EXPR  (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
-         1     EXPR  (-> $invalid_constraint$:'(?msg))
-CST02[3] 0     ADD   (-> $cst_node$:'(?0, type))
-CST03[3] 0     ADD   (-> $cst_node$:'(?0, max))
-CST04[3] 0     ADD   (-> $cst_node$:'(?0, min))
+CST01[4]     0     EXPR  (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
+             1     EXPR  (-> $invalid_constraint$:'(?msg))
+CST02[3]     0     ADD   (-> $cst_node$:'(?0, type))
+CST03[3]     0     ADD   (-> $cst_node$:'(?0, max))
+CST04[3]     0     ADD   (-> $cst_node$:'(?0, min))
 =================================================================================================================================================================
 
 node info6:
 =================================================================================================================================================================
-NODE[n]   Type  Class Queue  Named                Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
+NODE[n]      Type  Class Queue  Named                Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[1] NAME0 Named UNIQ   v1                        0     0    0    0    0   4   0   0 [null]
-N00002[3] NAME0 Named UNIQ   $cst_type$                0     4    2    0    0   0   0   0 [null, null, null]
-N00007[3] NAME0 Named UNIQ   $cst_max$                 0     2    1    0    0   0   0   0 [null, null, null]
-N00009[3] NAME0 Named UNIQ   $cst_min$                 0     2    1    0    0   0   0   0 [null, null, null]
-N00011[1] NAME0 Named UNIQ   $invalid_constraint$      0     0    0    0    0   0   0   0 [null]
-N00012[2] NAME0 Named UNIQ   $cst_node$                0     0    0    0    0   0   0   0 [null, null]
-N00019[1] NAME0 Named UNIQ   v2                        0     0    0    0    0   0   0   0 [null]
-A00013[3] ALPH0 Rete1 MULTI  $cst_type$                1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
-A00014[3] ALPH0 Rete1 MULTI  $cst_type$                1     0    0    0    0   1   0   0 [null, null, ?value]
-A00015[3] ALPH0 Rete1 MULTI  $cst_max$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
-A00016[3] ALPH0 Rete1 MULTI  $cst_max$                 1     0    0    0    0   1   0   0 [null, null, ?value]
-A00017[3] ALPH0 Rete1 MULTI  $cst_min$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
-A00018[3] ALPH0 Rete1 MULTI  $cst_min$                 1     0    0    0    0   1   0   0 [null, null, ?value]
-E10004[4] EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0   0 [?node, ?index, ?type1, ?type2]
-B00003[4] BETA0 Beta0 MULTI                            2     1    1    4    2   0   0   0 [?node, ?index, ?type1, ?type2]
-CST01[4]  RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?type1, ?type2]
-CST02[3]  RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?type1]
-CST03[3]  RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?value]
-CST04[3]  RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?value]
+N00001[1]    NAME0 Named UNIQ   v1                        0     0    0    0    0   4   0   0 [null]
+N00002[3]    NAME0 Named UNIQ   $cst_type$                0     4    2    0    0   0   0   0 [null, null, null]
+N00007[3]    NAME0 Named UNIQ   $cst_max$                 0     2    1    0    0   0   0   0 [null, null, null]
+N00009[3]    NAME0 Named UNIQ   $cst_min$                 0     2    1    0    0   0   0   0 [null, null, null]
+N00011[1]    NAME0 Named UNIQ   $invalid_constraint$      0     0    0    0    0   0   0   0 [null]
+N00012[2]    NAME0 Named UNIQ   $cst_node$                0     0    0    0    0   0   0   0 [null, null]
+N00019[1]    NAME0 Named UNIQ   v2                        0     0    0    0    0   0   0   0 [null]
+A00013[3]    ALPH0 Rete1 MULTI  $cst_type$                1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
+A00014[3]    ALPH0 Rete1 MULTI  $cst_type$                1     0    0    0    0   1   0   0 [null, null, ?value]
+A00015[3]    ALPH0 Rete1 MULTI  $cst_max$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
+A00016[3]    ALPH0 Rete1 MULTI  $cst_max$                 1     0    0    0    0   1   0   0 [null, null, ?value]
+A00017[3]    ALPH0 Rete1 MULTI  $cst_min$                 1     1    0    0    0   1   0   0 [null, ?_tmp_0, ?value]
+A00018[3]    ALPH0 Rete1 MULTI  $cst_min$                 1     0    0    0    0   1   0   0 [null, null, ?value]
+E10004[4]    EXPR1 Rete1 MULTI                            1     1    1    0    0   1   0   0 [?node, ?index, ?type1, ?type2]
+B00003[4]    BETA0 Beta0 MULTI                            2     1    1    4    2   0   0   0 [?node, ?index, ?type1, ?type2]
+CST01[4]     RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?type1, ?type2]
+CST02[3]     RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?type1]
+CST03[3]     RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?value]
+CST04[3]     RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node, ?index, ?value]
 =================================================================================================================================================================
 
 priority info:
@@ -155,44 +151,44 @@ Priority        NAME0 ALPH0 EXPR1 BETA0  RULE
 
 node source info:
 =================================================================================================================================================================
- NODE         Source        Description
+NODE[n]         Source          Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001(NAME0) :                 v1:'(?0)
-N00002(NAME0) :                 $cst_type$:'(?0 ?1 ?2)
-N00007(NAME0) :                 $cst_max$:'(?0 ?1 ?2)
-N00009(NAME0) :                 $cst_min$:'(?0 ?1 ?2)
-N00011(NAME0) :                 $invalid_constraint$:'(?0)
-             0: CST01(RULE)   
-N00012(NAME0) :                 $cst_node$:'(?0 ?1)
-             0: CST02(RULE)   
-             1: CST03(RULE)   
-             2: CST04(RULE)   
-N00019(NAME0) :                 v2:'(?0)
-A00013(ALPH0) :                 $cst_type$:'("v1" ?0 ?1)
-             0: N00002(NAME0)   $cst_type$:'(?0 ?1 ?2)
-A00014(ALPH0) :                 $cst_type$:'("v1" 0 ?0)
-             0: A00013(ALPH0)   $cst_type$:'("v1" ?0 ?1)
-A00015(ALPH0) :                 $cst_max$:'("v1" ?0 ?1)
-             0: N00007(NAME0)   $cst_max$:'(?0 ?1 ?2)
-A00016(ALPH0) :                 $cst_max$:'("v1" 0 ?0)
-             0: A00015(ALPH0)   $cst_max$:'("v1" ?0 ?1)
-A00017(ALPH0) :                 $cst_min$:'("v1" ?0 ?1)
-             0: N00009(NAME0)   $cst_min$:'(?0 ?1 ?2)
-A00018(ALPH0) :                 $cst_min$:'("v1" 0 ?0)
-             0: A00017(ALPH0)   $cst_min$:'("v1" ?0 ?1)
-E10004(EXPR1) :                 '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
-             0: B00003(BETA0)   '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
-B00003(BETA0) :                 '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
-             0: N00002(NAME0)   $cst_type$:'(?0 ?1 ?2)
-             1: N00002(NAME0)   $cst_type$:'(?0 ?1 ?2)
-CST01(RULE)   :                 $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) ==> (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg))
-             0: E10004(EXPR1)   '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
-CST02(RULE)   :                 $cst_type$:'(?node ?index ?type1) ==> (-> $cst_node$:'(?node type))
-             0: N00002(NAME0)   $cst_type$:'(?0 ?1 ?2)
-CST03(RULE)   :                 $cst_max$:'(?node ?index ?value) ==> (-> $cst_node$:'(?node max))
-             0: N00007(NAME0)   $cst_max$:'(?0 ?1 ?2)
-CST04(RULE)   :                 $cst_min$:'(?node ?index ?value) ==> (-> $cst_node$:'(?node min))
-             0: N00009(NAME0)   $cst_min$:'(?0 ?1 ?2)
+N00001(NAME0) :                 1      v1:'(?0)
+N00002(NAME0) :                 3      $cst_type$:'(?0 ?1 ?2)
+N00007(NAME0) :                 3      $cst_max$:'(?0 ?1 ?2)
+N00009(NAME0) :                 3      $cst_min$:'(?0 ?1 ?2)
+N00011(NAME0) :                 1      $invalid_constraint$:'(?0)
+             0: CST01(RULE)     1     
+N00012(NAME0) :                 2      $cst_node$:'(?0 ?1)
+             0: CST02(RULE)     2     
+             1: CST03(RULE)     2     
+             2: CST04(RULE)     2     
+N00019(NAME0) :                 1      v2:'(?0)
+A00013(ALPH0) :                 3      $cst_type$:'("v1" ?0 ?1)
+             0: N00002(NAME0)   3      $cst_type$:'(?0 ?1 ?2)
+A00014(ALPH0) :                 3      $cst_type$:'("v1" 0 ?0)
+             0: A00013(ALPH0)   3      $cst_type$:'("v1" ?0 ?1)
+A00015(ALPH0) :                 3      $cst_max$:'("v1" ?0 ?1)
+             0: N00007(NAME0)   3      $cst_max$:'(?0 ?1 ?2)
+A00016(ALPH0) :                 3      $cst_max$:'("v1" 0 ?0)
+             0: A00015(ALPH0)   3      $cst_max$:'("v1" ?0 ?1)
+A00017(ALPH0) :                 3      $cst_min$:'("v1" ?0 ?1)
+             0: N00009(NAME0)   3      $cst_min$:'(?0 ?1 ?2)
+A00018(ALPH0) :                 3      $cst_min$:'("v1" 0 ?0)
+             0: A00017(ALPH0)   3      $cst_min$:'("v1" ?0 ?1)
+E10004(EXPR1) :                 4      '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
+             0: B00003(BETA0)   4      '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
+B00003(BETA0) :                 4      '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
+             0: N00002(NAME0)   4      $cst_type$:'(?0 ?1 ?2)
+             1: N00002(NAME0)   4      $cst_type$:'(?0 ?1 ?2)
+CST01(RULE)   :                 4      $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) ==> (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg))
+             0: E10004(EXPR1)   4      '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
+CST02(RULE)   :                 3      $cst_type$:'(?node ?index ?type1) ==> (-> $cst_node$:'(?node type))
+             0: N00002(NAME0)   3      $cst_type$:'(?0 ?1 ?2)
+CST03(RULE)   :                 3      $cst_max$:'(?node ?index ?value) ==> (-> $cst_node$:'(?node max))
+             0: N00007(NAME0)   3      $cst_max$:'(?0 ?1 ?2)
+CST04(RULE)   :                 3      $cst_min$:'(?node ?index ?value) ==> (-> $cst_node$:'(?node min))
+             0: N00009(NAME0)   3      $cst_min$:'(?0 ?1 ?2)
 =================================================================================================================================================================
 
 
@@ -221,11 +217,11 @@ RULE         0      0      0      0     0     0     0     0      0      0     1 
 
 node info:
 =================================================================================================================================================================
-NODE[n]    Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
+NODE[n]       Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-E10004[4]      0      0      0      0      0      0     0     0   0/0      1      0      0    3    2      1    0   2   0   0     1 InActive           1
-B00003[4]      0      0      1      0      0      0     0     0   0/0      1      1      0    3    2           0   1   0   0     1 InActive         1/1
-CST01[4]       0      0      0      0      0      0     0     0   0/0      0      0      0    3    3      *    0   3   0   0     0 InActive           0
+E10004[4]         0      0      0      0      0      0     0     0   0/0      1      0      0    3    2      1    0   2   0   0     1 InActive           1
+B00003[4]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    2           0   1   0   0     1 InActive         1/1
+CST01[4]          0      0      0      0      0      0     0     0   0/0      0      0      0    3    3      *    0   3   0   0     0 InActive           0
 =================================================================================================================================================================
 
 priority info:
@@ -244,9 +240,9 @@ RULE         0      0      0      0     0     0     0     0      0      0     1 
 
 node info:
 =================================================================================================================================================================
-NODE[n]    Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
+NODE[n]       Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CST02[3]       0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
+CST02[3]          0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
 =================================================================================================================================================================
 
 priority info:
@@ -265,9 +261,9 @@ RULE         0      0      0      0     0     0     0     0      0      0     1 
 
 node info:
 =================================================================================================================================================================
-NODE[n]    Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
+NODE[n]       Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CST03[3]       0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
+CST03[3]          0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
 =================================================================================================================================================================
 
 priority info:
@@ -286,9 +282,9 @@ RULE         0      0      0      0     0     0     0     0      0      0     1 
 
 node info:
 =================================================================================================================================================================
-NODE[n]    Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
+NODE[n]       Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CST04[3]       0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
+CST04[3]          0      0      0      0      0      0     0     0   0/0      0      1      0    3    2           0   1   0   0     0 InActive           1
 =================================================================================================================================================================
 
 priority info:
@@ -330,10 +326,10 @@ Entry Bit Map: total=11, max-id=11, create=13, removed=2, group-size=10, group-c
 .1 [11]
 =================================================================================================================================================================
 Length Array: min=1, max=4
-Entry[1]= 4, v1(2), v2(2)
-Entry[2]= 3, $cst_node$(3)
-Entry[3]= 3, $cst_max$(1), $cst_min$(1), $cst_type$(1)
-Entry[4]= 1
+Entry[0001]= 4, v1(2), v2(2)
+Entry[0002]= 3, $cst_node$(3)
+Entry[0003]= 3, $cst_max$(1), $cst_min$(1), $cst_type$(1)
+Entry[0004]= 1
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Length Array:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
