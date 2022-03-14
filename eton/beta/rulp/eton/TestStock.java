@@ -13,4 +13,11 @@ public class TestStock extends RuleTestBase {
 		_run_script();
 	}
 
+	@Test
+	void test_stock_1_mg01_cache() {
+
+		_setup();
+		_run_script();
+	}
+
 }

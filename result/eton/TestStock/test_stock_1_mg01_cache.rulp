@@ -1,0 +1,14 @@
+(new model g01)
+;=>
+
+(set-model-cache-path g01 "C:\data\eton\stock_mg01")
+;=>
+
+(get-named-rete-node g01 "life")
+;=>
+
+(add-constraint g01 life:'(?id ?...) (order by ?id)) 
+;=> 
+
+(size-of (query-stmt g01 ?id from life:'(?id ?...)))
+;=> 

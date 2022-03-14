@@ -2564,7 +2564,7 @@ Model<p2d> frame:id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 3246     4        10   instance   model@p2d           
+default_model        : 3273     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 node update info: model-exec-count=0, row=0, column=0(-1), value-max=-1, value-unit=0^x
@@ -2601,27 +2601,27 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    19211
-      func:     1540
+    factor:    19358
+      func:     1552
 ==========================================================================================================================
 
-Callable stats info: callId=299, row=29, column=38(8), value-max=3298, value-unit=3^x
+Callable stats info: callId=299, row=29, column=38(8), value-max=3346, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333334333333333333XX max=10919, unit=3^x
+   Frame    RType  Count  Ref Object                         333333333333333333333334333333333333XX max=11078, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   6164    0 value-of                                                           99
-    root   factor   2700    0 print                                                              88
-    root   factor   1914    0 if                                                                 88
-    root   factor   1532    0 return                                                             87
-    root   factor   1532    0 equal_def                                                          87
-  system funcList   1532    7 equal                                                              87
-    root   factor   1528    0 type-of                                                            87
-    root   factor    764    0 not                                                                77
-    root   factor    764    0 name-of                                                            77
-    root   factor    764    0 attribute-of                                                       77
-    root   factor    385    0 property-of                                                        66
-    root   factor    382    0 and                                                                66
-    root   factor    382    0 access                                                             66
+    root   factor   6212    0 value-of                                                           99
+    root   factor   2721    0 print                                                              88
+    root   factor   1929    0 if                                                                 88
+    root   factor   1544    0 return                                                             87
+    root   factor   1544    0 equal_def                                                          87
+  system funcList   1544    7 equal                                                              87
+    root   factor   1540    0 type-of                                                            87
+    root   factor    770    0 not                                                                77
+    root   factor    770    0 name-of                                                            77
+    root   factor    770    0 attribute-of                                                       77
+    root   factor    388    0 property-of                                                        66
+    root   factor    385    0 and                                                                66
+    root   factor    385    0 access                                                             66
     root   factor    179    0 add-attribute                  133333333333333333333332              
     root   factor     70    0 defun                                                 133333   133343
   system   factor     41    0 add-rule                                                            5
@@ -2646,19 +2646,19 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         3573            0         3573
          int:            1            0            1
-      string:          871            0          871
-        list:         1073            0         1073
-        expr:         6873         1540         5333
-         var:         3486         3462           24
+      string:          877            0          877
+        list:         1076            0         1076
+        expr:         6915         1552         5363
+         var:         3513         3489           24
     constant:           34            0           34
         func:           84            0           84
     template:            1            0            1
        macro:            8            0            8
     instance:            2            0            2
       member:           25            0           25
-       frame:         1927         1926            1
+       frame:         1942         1941            1
  interpreter:            1            0
-  frameEntry:         3836            0
+  frameEntry:         3866            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -2693,15 +2693,15 @@ to-valid-path        : 14       2        13   func       (to-valid-path string) 
 day-is-bigger-than   : 15       2        13   func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 16       2        13   func       (day-is-smaller-than string string) : frame=frame@main
 index-of             : 17       2        13   func       (index-of nil list) : frame=frame@main
-p2d                  : 3247     2        10   instance   model@p2d           
-#ns_tag              : 3248     2        9    var        nt: : type=string   
-#ns_domain           : 3249     2        9    var        nd: : type=string   
-get-uri-name         : 3250     2        8    func       (get-uri-name nil) : frame=frame@main
-get-suffix           : 3251     2        8    func       (get-suffix nil nil) : frame=frame@main
-get-field-name       : 3252     2        8    func       (get-field-name nil) : frame=frame@main
-get-new-ns           : 3253     2        8    macro      get-new-ns          
-get-version-number   : 3254     2        8    func       (get-version-number nil) : frame=frame@main
-hasGroupChild        : 3255     2        8    macro      hasGroupChild       
+p2d                  : 3274     2        10   instance   model@p2d           
+#ns_tag              : 3275     2        9    var        nt: : type=string   
+#ns_domain           : 3276     2        9    var        nd: : type=string   
+get-uri-name         : 3277     2        8    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 3278     2        8    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 3279     2        8    func       (get-field-name nil) : frame=frame@main
+get-new-ns           : 3280     2        8    macro      get-new-ns          
+get-version-number   : 3281     2        8    func       (get-version-number nil) : frame=frame@main
+hasGroupChild        : 3282     2        8    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2709,7 +2709,7 @@ id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 3246     4        10   instance   model@p2d           
+default_model        : 3273     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 Root var list: total=7

@@ -1,29 +1,29 @@
 (new model m)
-;;;
+;=>
 
 (defvar ?x 1)
-;;;
+;=>
 
 (add-rule m if '(?a p ?b) (= ?x 1) do (-> m '(?b p ?a)) )
-;;;
+;=>
 
 (add-stmt m '(x p y))
-;;;
+;=>
 
 (start m)
-;;;
+;=>
 
 (list-stmt m)
 ;=>
 
 (setq ?x 3)
-;;;
+;=>
 
 (add-stmt m '(a p b))
-;;;
+;=>
 
 (start m)
-;;;
+;=>
 
 (list-stmt m)
 ;=>

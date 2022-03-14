@@ -113,6 +113,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		this.nodeMatchCount++;
 		this.lastFailedConstraint1 = null;
 
+//		if (entry.toString().indexOf("life:'(10") != -1) {
+//			System.out.println();
+//		}
+
 		for (IRConstraint1 constraint : constraint1List) {
 			if (!constraint.addEntry(entry, this)) {
 				this.addEntryFailCount++;

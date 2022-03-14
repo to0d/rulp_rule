@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itool\irulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -134,6 +134,9 @@ mbr=private, mbr-property='(public), mbr-attribute='(), obj=private, obj-type=at
 mbr=property-of, mbr-property='(public), mbr-attribute='(), obj=property-of, obj-type=factor, obj-attribute='(stable)
 mbr=public, mbr-property='(public), mbr-attribute='(), obj=public, obj-type=atom, obj-attribute='()
 mbr=random, mbr-property='(public), mbr-attribute='(), obj=random, obj-type=factor, obj-attribute='()
+mbr=random-double, mbr-property='(public), mbr-attribute='(), obj=random-double, obj-type=factor, obj-attribute='()
+mbr=random-float, mbr-property='(public), mbr-attribute='(), obj=random-float, obj-type=factor, obj-attribute='()
+mbr=random-int, mbr-property='(public), mbr-attribute='(), obj=random-int, obj-type=factor, obj-attribute='()
 mbr=reduct, mbr-property='(public), mbr-attribute='(), obj=reduct, obj-type=factor, obj-attribute='()
 mbr=ref, mbr-property='(public), mbr-attribute='(), obj=ref, obj-type=factor, obj-attribute='(stable)
 mbr=remove, mbr-property='(public), mbr-attribute='(), obj=remove, obj-type=factor, obj-attribute='(stable)
