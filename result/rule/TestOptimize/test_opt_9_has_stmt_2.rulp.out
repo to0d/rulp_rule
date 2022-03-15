@@ -1,0 +1,23 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a p1 ?b) '(?c p2 ?d) (has-stmt '(?a ?b ?d)) do (-> '(?c p3 ?d)))
+;=>RU000
+
+(add-rule m if '(?a p1 ?b) '(?c p2 ?d) do (-> '(?c p4 ?d)))
+;=>RU001
+
+(add-stmt m '(a p1 b))
+(add-stmt m '(c p2 d))
+(add-stmt m '(a b d))
+;=>true true true
+
+(start m)
+;=>11
+
+(state-of m)
+;=>completed
+
+(list-stmt m)
+;=>'('(a p1 b) '(c p2 d) '(a b d) '(c p3 d) '(c p4 d))
+

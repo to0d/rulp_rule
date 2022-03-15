@@ -192,4 +192,13 @@ public class TestOptimize extends RuleTestBase {
 		_statsInfo("m");
 
 	}
+
+	@Test
+	void test_opt_9_has_stmt_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }
