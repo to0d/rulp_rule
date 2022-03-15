@@ -162,30 +162,6 @@ public class OptimizeUtil {
 		}
 	}
 
-	public static boolean isConstOperatorName(String name) {
-
-		switch (name) {
-		case F_O_BY:
-		case F_O_ADD:
-		case F_O_DIV:
-		case F_O_SUB:
-		case F_O_POWER:
-		case F_O_EQ:
-		case F_EQUAL:
-		case F_O_NE:
-		case F_NOT_EQUAL:
-		case F_O_GT:
-		case F_O_GE:
-		case F_O_LE:
-		case F_O_LT:
-//		case F_STR_LENGTH:
-			return true;
-
-		default:
-			return false;
-		}
-	}
-
 	protected static boolean _containConstExpr(IRExpr expr) throws RException {
 
 		int constCount = 0;
@@ -206,72 +182,6 @@ public class OptimizeUtil {
 
 		return constCount == (expr.size() - 1) && isConstOperatorName(expr.get(0).asString());
 	}
-
-//	private static IRObject _optimizeExpr(IRObject obj) throws RException {
-//
-//		if (obj.getType() != RType.EXPR) {
-//			return null;
-//		}
-//
-//		IRExpr expr = (IRExpr) obj;
-//		int size = expr.size();
-//		int update = 0;
-//
-//		/*******************************************************/
-//		// Optimize child
-//		/*******************************************************/
-//		{
-//
-//			ArrayList<IRObject> optiArray = null;
-//
-//			for (int i = 0; i < size; ++i) {
-//
-//				IRObject e = expr.get(i);
-//				IRObject optiE = null;
-//
-//				if ((optiE = _optimizeExpr(e)) != null) {
-//
-//					if (optiArray == null) {
-//						optiArray = new ArrayList<>();
-//
-//						// Copy previous elements
-//						for (int j = 0; j < i - 1; ++j) {
-//							optiArray.add(expr.get(j));
-//						}
-//					}
-//
-//					optiArray.add(optiE);
-//
-//				} else {
-//
-//					if (optiArray != null) {
-//						optiArray.add(e);
-//					}
-//				}
-//			}
-//
-//			if (optiArray != null) {
-//				expr = RulpFactory.createExpression(optiArray);
-//				++update;
-//			}
-//		}
-//
-//		// (not (equal a b)) ==> (not-equal a b)
-//		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
-//
-//			ArrayList<IRObject> optiArray = new ArrayList<>();
-//			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
-//			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
-//			while (childExprIter.hasNext()) {
-//				optiArray.add(childExprIter.next());
-//			}
-//
-//			expr = RulpFactory.createExpression(optiArray);
-//			++update;
-//		}
-//
-//		return update > 0 ? expr : null;
-//	}
 
 	private static Pair<IRList, IRList> _optimizeRule_1(Pair<IRList, IRList> rule, IRInterpreter interpreter,
 			IRFrame frame) throws RException {
@@ -352,34 +262,106 @@ public class OptimizeUtil {
 
 			// (if (has-stmt '(?x ?y ?z)) old-actions )
 
-			IRExpr newAction = null;
+			IRExpr newAction = createIfDoExpression(
+					RulpFactory.createExpression(RulpFactory.createAtom(F_HAS_STMT), testCond), actions);
 
-			if (actions.size() == 1) {
-
-				newAction = RulpFactory.createExpression(RulpFactory.createAtom(F_IF),
-						RulpFactory.createExpression(RulpFactory.createAtom(F_HAS_STMT), testCond), actions.get(0));
-
-			} else {
-
-				ArrayList<IRObject> doList = new ArrayList<>();
-				doList.add(RulpFactory.createAtom(A_DO));
-				doList.addAll(ReteUtil.toExprList(actions));
-
-				newAction = RulpFactory.createExpression(RulpFactory.createAtom(F_IF),
-						RulpFactory.createExpression(RulpFactory.createAtom(F_HAS_STMT), testCond),
-						RulpFactory.createExpression(doList));
-
-			}
-
-			IRList newConds = RulpFactory.createList(newCondList);
-			IRList newActions = RulpFactory.createList(newAction);
-
-			return new Pair<IRList, IRList>(newConds, newActions);
+			return new Pair<IRList, IRList>(RulpFactory.createList(newCondList), RulpFactory.createList(newAction));
 
 		}
 
 		return null;
 	}
+
+	static IRExpr createIfDoExpression(IRExpr condExpr, IRExpr... doExprs) throws RException {
+
+		ArrayList<IRObject> exprList = new ArrayList<>();
+		exprList.add(RulpFactory.createAtom(F_IF));
+		exprList.add(condExpr);
+		exprList.add(RulpFactory.createAtom(A_DO));
+
+		for (IRExpr doExpr : doExprs) {
+			exprList.add(doExpr);
+		}
+
+		return RulpFactory.createExpression(exprList);
+	}
+
+	static IRExpr createIfDoExpression(IRExpr condExpr, IRList doExprs) throws RException {
+
+		ArrayList<IRObject> exprList = new ArrayList<>();
+		exprList.add(RulpFactory.createAtom(F_IF));
+		exprList.add(condExpr);
+		exprList.add(RulpFactory.createAtom(A_DO));
+		exprList.addAll(ReteUtil.toExprList(doExprs));
+
+		return RulpFactory.createExpression(exprList);
+	}
+
+//	private static IRObject _optimizeExpr(IRObject obj) throws RException {
+//
+//		if (obj.getType() != RType.EXPR) {
+//			return null;
+//		}
+//
+//		IRExpr expr = (IRExpr) obj;
+//		int size = expr.size();
+//		int update = 0;
+//
+//		/*******************************************************/
+//		// Optimize child
+//		/*******************************************************/
+//		{
+//
+//			ArrayList<IRObject> optiArray = null;
+//
+//			for (int i = 0; i < size; ++i) {
+//
+//				IRObject e = expr.get(i);
+//				IRObject optiE = null;
+//
+//				if ((optiE = _optimizeExpr(e)) != null) {
+//
+//					if (optiArray == null) {
+//						optiArray = new ArrayList<>();
+//
+//						// Copy previous elements
+//						for (int j = 0; j < i - 1; ++j) {
+//							optiArray.add(expr.get(j));
+//						}
+//					}
+//
+//					optiArray.add(optiE);
+//
+//				} else {
+//
+//					if (optiArray != null) {
+//						optiArray.add(e);
+//					}
+//				}
+//			}
+//
+//			if (optiArray != null) {
+//				expr = RulpFactory.createExpression(optiArray);
+//				++update;
+//			}
+//		}
+//
+//		// (not (equal a b)) ==> (not-equal a b)
+//		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
+//
+//			ArrayList<IRObject> optiArray = new ArrayList<>();
+//			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
+//			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
+//			while (childExprIter.hasNext()) {
+//				optiArray.add(childExprIter.next());
+//			}
+//
+//			expr = RulpFactory.createExpression(optiArray);
+//			++update;
+//		}
+//
+//		return update > 0 ? expr : null;
+//	}
 
 	protected static IRObject _rebuildConstExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame)
 			throws RException {
@@ -462,6 +444,30 @@ public class OptimizeUtil {
 		case LONG:
 		case NIL:
 		case STRING:
+			return true;
+
+		default:
+			return false;
+		}
+	}
+
+	public static boolean isConstOperatorName(String name) {
+
+		switch (name) {
+		case F_O_BY:
+		case F_O_ADD:
+		case F_O_DIV:
+		case F_O_SUB:
+		case F_O_POWER:
+		case F_O_EQ:
+		case F_EQUAL:
+		case F_O_NE:
+		case F_NOT_EQUAL:
+		case F_O_GT:
+		case F_O_GE:
+		case F_O_LE:
+		case F_O_LT:
+//		case F_STR_LENGTH:
 			return true;
 
 		default:
@@ -583,6 +589,10 @@ public class OptimizeUtil {
 		Pair<IRList, IRList> rule = new Pair<>(condList, actionList);
 
 		do {
+
+			/***************************************************/
+			//
+			/***************************************************/
 
 			Pair<IRList, IRList> rst = _optimizeRule_1(rule, interpreter, frame);
 			if (rst != null) {
