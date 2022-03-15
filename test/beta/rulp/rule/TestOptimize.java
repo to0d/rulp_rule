@@ -174,4 +174,13 @@ public class TestOptimize extends RuleTestBase {
 		_statsInfo("p2d");
 		_dumpEntryTable("p2d");
 	}
+
+	@Test
+	void test_opt_8_unused_left_var() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }
