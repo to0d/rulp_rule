@@ -19,7 +19,6 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
-import alpha.rulp.ximpl.control.XRFactorIf;
 
 public class ActionUtil {
 

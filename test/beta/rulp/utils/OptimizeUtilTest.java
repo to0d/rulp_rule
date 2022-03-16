@@ -98,7 +98,12 @@ class OptimizeUtilTest extends RulpTestBase {
 		_setup();
 
 		_test_optimize_rule("'(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty)", "(-> '(?a nm:typeOf nm:tag))",
-				"'('(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty))", "'((-> '(?a nm:typeOf nm:tag)))");
+				"'('(?a ?p ?b))",
+				"'((if (has-stmt '(?p nm:propertyOf nm:tagProperty)) do (-> '(?a nm:typeOf nm:tag))))");
+
+		_test_optimize_rule("'(?a ?p ?b) (has-stmt (?b p c))", "(-> '(?a p2 d))", "'('(?a ?p ?b))",
+				"'((if (has-stmt (?b p c)) do (-> '(?a p2 d))))");
+
 	}
 
 }

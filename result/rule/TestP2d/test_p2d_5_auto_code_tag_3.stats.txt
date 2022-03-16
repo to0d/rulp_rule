@@ -6,11 +6,11 @@ ROOT0      157      8     29      0     0     2   157     0      0      0     1 
 VAR          0      0      0      0     0     0     1     0      0      0     1      0     5     0    0        0      6      0    0    0   99   99      0       5
 ALPH0      271     10     28      0     0     2   271     0      0      0    34    194   363    21    0     5415    311      0    1    2    0   99      0    3330
 ALPH1        0      0      0      0     1     0     0     0      0      0     1      0     5     0    0        5      2      0    1    1   99   99      0      18
-EXPR0      314     17     61      0     0     0   314     0      0      0     6      0    16     1    0      414    392      0    1    5    0   99      0     422
+EXPR0      314     17     62      0     0     0   314     0      0      0     7      0    17     1    0      415    393      0    1    5    0   99      0     424
 EXPR1      628     33    117      0     0     6   628     0      0      0     7      0    57     3    0      786    784      0    1    5   99   99      0     647
-BETA0       22      0     43      0     0     0    22     0      0      0    24      0   102    70    0      499     65      0    2    8    0   99      0      66
+BETA0       22      0     43      0     0     0    22     0      0      0    24      0   102    70    0      499     65      0    2    8    0   99      0      65
 BETA1        0      0     27      0     0     0     0     0      0      0     9      0    33    23    0       27     27      0    3    5   99   99      0      29
-BETA2       26     12     89      0     0     6    26     0      0      0    12      0   105    19    0     1371    133      0    3    4    0   99      0     201
+BETA2       26     12     89      0     0     6    26     0      0      0    12      0   106    20    0     1371    133      0    3    4    0   99      0     201
 RULE         0      0      0      0     0     0     0     0      0      0    41      0    71    17    0        0    190     99    2    6   99   99      0       0
 =================================================================================================================================================================
 
@@ -53,14 +53,15 @@ A00096[3]         0      0      1      0      0      0     0     0   0/0    196 
 A00099[3]         0      0      1      0      0      0     0     0   0/0    196      1      0   13    0           0   1  99   8     1 InActive         196
 A00109[3]         0      1      1      0      0      0     0     0   0/0    196      2      0   14    1           0   1  99   4     3 InActive         196
 A00114[3]         0      1      0      0      0      0     0     0   0/0    196      1      0   14    1           0   1  99   4     2 InActive         196
-A00127[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   2   0   5     1   Active           0
+A00128[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   2   0   5     1   Active           0
 A10006[3]         0      0      0      0      1      0     0     0   0/0      5      2      0    5    0           0   1  99   0     9 InActive           5
 E00004[3]         0      0      0      0      0      0     0     0   0/0      6      0      0    4    0      6    0   3  99   0     1 InActive           6
-E00119[3]         0      0      0      0      0      0     0     0   0/0      6      0      0    4    0      6    0   3  99   0     1 InActive           6
-E00122[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
-E00128[3]       157      8     28      0      0      0   157     0   0/0    194    193      0    1    0           0   1   0   0     1 InActive         196
-E00131[4]         0      0      6      0      0      0     0     0   0/0      8      6      0    2    1           0   5   0   0     1 InActive           8
-E00134[3]       157      8     27      0      0      0   157     0   0/0    194    192      0    1    0           0   1   0   0     1 InActive         196
+E00116[3]         0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   3  99   0     1 InActive           1
+E00120[3]         0      0      0      0      0      0     0     0   0/0      6      0      0    4    0      6    0   3  99   0     1 InActive           6
+E00123[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
+E00129[3]       157      8     28      0      0      0   157     0   0/0    194    193      0    1    0           0   1   0   0     1 InActive         196
+E00132[4]         0      0      6      0      0      0     0     0   0/0      8      6      0    2    1           0   5   0   0     1 InActive           8
+E00135[3]       157      8     27      0      0      0   157     0   0/0    194    192      0    1    0           0   1   0   0     1 InActive         196
 E10032[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     1 InActive           0
 E10040[3]       157      8     29      0      0      2   157     0   0/0    196    196      0   13    0           0   1  99   0     1 InActive         196
 E10051[3]       157      8     29      0      0      2   157     0   0/0    196    196      0   14    1           0   1  99   0     1 InActive         196
@@ -88,19 +89,19 @@ B00100[2]         0      0      0      0      0      0     0     0   0/0      1 
 B00103[3]         0      0      0      0      0      0     0     0   0/0      1      0      0    1    0      1    0   3  99   0     1 InActive         1/1
 B00110[3]         0      0      0      0      0      0     0     0   0/0      2      0      0    2    1      2    0   2  99   0     1 InActive         1/2
 B00115[3]         0      0      1      0      0      0     0     0   0/0      2      1      0    2    0           0   2  99   0     1 InActive         1/2
-B00130[4]         0      0      8      0      0      0     0     0   0/0     30      8      0    2    1           0   4   0   0     1 InActive        15/2
-B00132[5]         0      0      3      0      0      0     0     0   0/0      6      3      0    2    1           0   6   0   0     1 InActive         6/1
-B00133[6]         0      0      5      0      0      0     0     0   0/0     30      5      0    2    1           0   7   0   0     1 InActive        3/10
-B00136[7]         0      0      4      0      0      0     0     0   0/0     75      4      0    3    2           0   8   0   0     1 InActive        5/15
+B00131[4]         0      0      8      0      0      0     0     0   0/0     30      8      0    2    1           0   4   0   0     1 InActive        15/2
+B00133[5]         0      0      3      0      0      0     0     0   0/0      6      3      0    2    1           0   6   0   0     1 InActive         6/1
+B00134[6]         0      0      5      0      0      0     0     0   0/0     30      5      0    2    1           0   7   0   0     1 InActive        3/10
+B00137[7]         0      0      4      0      0      0     0     0   0/0     75      4      0    3    2           0   8   0   0     1 InActive        5/15
 B10007[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    2    2      *    0   4  99   0     1 InActive         0/0
 B10043[4]         0      0     18      0      0      0     0     0   0/0     18     18      0    9    7           0   4  99   0     1 InActive        18/2
 B10079[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    4    2           0   4  99   0     1 InActive         1/2
 B10105[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    2    2      *    0   5  99   0     1 InActive         0/0
 B10107[2]         0      0      6      0      0      0     0     0   0/0      6      6      0    6    4           0   3  99   0     1 InActive         6/2
 B10112[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    2    2      *    0   4  99   0     1 InActive         0/0
-B10117[4]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     1 InActive         1/2
-B10120[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    2    2      *    0   4  99   0     1 InActive         0/0
-B10123[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
+B10118[4]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   5  99   0     1 InActive         1/2
+B10121[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    2    2      *    0   4  99   0     1 InActive         0/0
+B10124[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
 B20027[3]         0      2     14      0      0      2     0     0   0/0    209     18      0   15    2           0   3  99   0     1 InActive      196/26
 B20030[3]         0      0      0      0      0      0     0     0   0/0     68      0      0   13    1     68    0   3  99   0     1 InActive       196/1
 B20035[3]        26      0      2      0      0      2    26     0   0/0    132     30      0   14    2           0   3  99   0     1 InActive       196/4
@@ -110,9 +111,9 @@ B20092[3]         0      2     14      0      0      0     0     0   0/0    313 
 B20094[3]         0      0      2      0      0      0     0     0   0/0     23      2      0    9    4           0   4  99   0     1 InActive        16/2
 B20104[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    1    1      *    0   4  99   0     1 InActive         0/0
 B20111[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    4    4      *    0   3  99   0     1 InActive         0/0
-B20116[3]         0      0      1      0      0      0     0     0   0/0      2      1      0    4    0           0   3  99   0     1 InActive         1/6
-B20129[3]         0      2     13      0      0      0     0     0   0/0     15     15      0    2    1           0   3   0   0     1 InActive      193/25
-B20135[3]         0      2     13      0      0      0     0     0   0/0     15     15      0    2    1           0   3   0   0     1 InActive      192/25
+B20117[3]         0      0      1      0      0      0     0     0   0/0      2      1      0    5    1           0   4  99   0     1 InActive         1/6
+B20130[3]         0      2     13      0      0      0     0     0   0/0     15     15      0    2    1           0   3   0   0     1 InActive      193/25
+B20136[3]         0      2     13      0      0      0     0     0   0/0     15     15      0    2    1           0   3   0   0     1 InActive      192/25
 TV1[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 TC1[3]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   2  99   0     0 InActive           1
 CC1[3]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     0 InActive           0
@@ -149,7 +150,7 @@ RR7[2]            0      0      0      0      0      0     0     0   0/0      0 
 AC1[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   6  99   0     0 InActive           0
 AC2[2]            0      0      0      0      0      0     0     0   0/0      0      6      0    2    0           0   4  99   0     0 InActive           6
 AC3[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
-AC4[4]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   5  99   0     0 InActive           1
+AC4[4]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   6  99   0     0 InActive           1
 AC5[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 AC6[2]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   5  99   0     0 InActive           1
 AC7[2]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   5  99   0     0 InActive           1
@@ -168,13 +169,13 @@ R00001[3]                    [A00002, A00009, A00011, A00012,
                               A00066, A00068, A00070, A00073,
                               A00082, A00085, A00088, E10091,
                               A00093, A00096, A00099, A00109,
-                              A00114, E00128, E00134]
+                              A00114, E00129, E00135]
 V00005[3]                    [A10006]                             [TV1, C7, DC1, AC1, AC2, AC3,
                                                                    AC4, AC5, AC6, AC7, AC8]
 A00002[3]     [R00001]       [A00003, B00038, A00063, A00077]     [TV1, C6, TA5, D5, DC1, AC2,
                                                                    AC3, AC4, AC5, AC6, AC7, AC8]
 A00003[3]     [A00002]       [E00004, D5, B10107, B20111,         [TV1, D5, AC2, AC3, AC4, AC5,
-                              B20116, E00119, E00122]              AC6, AC7, AC8]
+                              B20117, E00120, E00123]              AC6, AC7, AC8]
 A00009[3]     [R00001]       [TC1]                                [TC1]
 A00011[3]     [R00001]       [B00013]                             [CC1]
 A00012[3]     [R00001]       [B00013, TG1, RR1, E10102, B00110]   [CC1, TG1, RR1, AC1, AC3]
@@ -190,15 +191,15 @@ A00034[3]     [A00022]       [B20035]                             [C5]
 A00037[3]     [R00001]       [B00038]                             [C6]
 A00041[3]     [A00022]       [B20042]                             [C7]
 A00045[3]     [A00022]       [B20046, T4, B00058, B20092,         [C8, T4, T5, RR5]
-                              B20129, B20135]
+                              B20130, B20136]
 A00048[3]     [R00001]       [B00049, B00049, B00053, B00055]     [T1, T2, T3]
 A00060[3]     [R00001]       [T8]                                 [T8]
 A00062[3]     [R00001]       [B00064]                             [TA5]
 A00063[3]     [A00002]       [B00064]                             [TA5]
 A00066[3]     [R00001]       [D1]                                 [D1]
-A00068[3]     [R00001]       [D2, A00127]                         [D2]
+A00068[3]     [R00001]       [D2, A00128]                         [D2]
 A00070[3]     [R00001]       [B00071, B00071, B00074]             [D3, D4]
-A00073[3]     [R00001]       [B00074, B00133]                     [D4]
+A00073[3]     [R00001]       [B00074, B00134]                     [D4]
 A00077[3]     [A00002]       [E10078]                             [DC1]
 A00082[3]     [R00001]       [B00083, B00083, B00086, B00097,     [RR2, RR3, RR6, RR7]
                               B00100]
@@ -207,18 +208,19 @@ A00088[3]     [R00001]       [B00089]                             [RR4]
 A00093[3]     [R00001]       [B20094]                             [RR5]
 A00096[3]     [R00001]       [B00097]                             [RR6]
 A00099[3]     [R00001]       [B00100]                             [RR7]
-A00109[3]     [R00001]       [B00110, B00115, B00130]             [AC3, AC4]
-A00114[3]     [R00001]       [B00115, B00132]                     [AC4]
-A00127[3]     [A00068]
+A00109[3]     [R00001]       [B00110, B00115, B00131]             [AC3, AC4]
+A00114[3]     [R00001]       [B00115, B00133]                     [AC4]
+A00128[3]     [A00068]
 A10006[3]     [V00005]       [B10007, B10043, B10079, B10105,     [TV1, C7, DC1, AC1, AC2, AC3,
-                              B10107, B10112, B10117, B10120,      AC4, AC5, AC6, AC7, AC8]
-                              B10123]
+                              B10107, B10112, B10118, B10121,      AC4, AC5, AC6, AC7, AC8]
+                              B10124]
 E00004[3]     [A00003]       [B10007]                             [TV1]
-E00119[3]     [A00003]       [B10120]                             [AC5]
-E00122[3]     [A00003]       [B10123]                             [AC6, AC7, AC8]
-E00128[3]     [R00001]       [B20129]
-E00131[4]     [B00130]       [B00132]
-E00134[3]     [R00001]       [B20135]
+E00116[3]     [B00115]       [B20117]                             [AC4]
+E00120[3]     [A00003]       [B10121]                             [AC5]
+E00123[3]     [A00003]       [B10124]                             [AC6, AC7, AC8]
+E00129[3]     [R00001]       [B20130]
+E00132[4]     [B00131]       [B00133]
+E00135[3]     [R00001]       [B20136]
 E10032[4]     [B00031]       [C4]                                 [C4]
 E10040[3]     [R00001]       [B20042]                             [C7]
 E10051[3]     [R00001]       [E10052]                             [T2, T3]
@@ -264,16 +266,16 @@ B00103[3]     [E10102,       [B20104]                             [AC1]         
                E10102]
 B00110[3]     [A00012,       [B20111]                             [AC3]                          [0/0, 0/2, 1/2]                [join(0/0)]
                A00109]
-B00115[3]     [A00114,       [B20116]                             [AC4]                          [0/0, 0/2, 1/2]                [join(0/0)]
+B00115[3]     [A00114,       [E00116]                             [AC4]                          [0/0, 0/2, 1/2]                [join(0/0)]
                A00109]
-B00130[4]     [B20129,       [E00131]                                                            [0/0, 0/1, 0/2, 1/0]           [join(0/2)]
+B00131[4]     [B20130,       [E00132]                                                            [0/0, 0/1, 0/2, 1/0]           [join(0/2)]
                A00109]
-B00132[5]     [E00131,       [B00133]                                                            [0/0, 0/1, 0/2, 0/3, 1/2]      [join(3/0)]
+B00133[5]     [E00132,       [B00134]                                                            [0/0, 0/1, 0/2, 0/3, 1/2]      [join(3/0)]
                A00114]
-B00133[6]     [B00132,       [B00136]                                                            [0/0, 0/1, 0/2, 0/3, 0/4, 1/0] [join(2/2)]
+B00134[6]     [B00133,       [B00137]                                                            [0/0, 0/1, 0/2, 0/3, 0/4, 1/0] [join(2/2)]
                A00073]
-B00136[7]     [B00133,                                                                           [0/0, 0/1, 0/2, 0/3, 0/4,      [join(2/2),join(4/0)]
-               B20135]                                                                            0/5, 1/1]
+B00137[7]     [B00134,                                                                           [0/0, 0/1, 0/2, 0/3, 0/4,      [join(2/2),join(4/0)]
+               B20136]                                                                            0/5, 1/1]
 B10007[2]     [E00004,       [TV1]                                [TV1]                          [0/0, 1/0]                     []
                A10006]
 B10043[4]     [B20042,       [C7]                                 [C7]                           [0/0, 0/1, 0/2, 1/0]           []
@@ -286,11 +288,11 @@ B10107[2]     [A00003,       [AC2]                                [AC2]         
                A10006]
 B10112[4]     [B20111,       [AC3]                                [AC3]                          [0/0, 0/1, 0/2, 1/0]           []
                A10006]
-B10117[4]     [B20116,       [AC4]                                [AC4]                          [0/0, 0/1, 0/2, 1/0]           []
+B10118[4]     [B20117,       [AC4]                                [AC4]                          [0/0, 0/1, 0/2, 1/0]           []
                A10006]
-B10120[2]     [E00119,       [AC5]                                [AC5]                          [0/0, 1/0]                     []
+B10121[2]     [E00120,       [AC5]                                [AC5]                          [0/0, 1/0]                     []
                A10006]
-B10123[2]     [E00122,       [AC6, AC7, AC8]                      [AC6, AC7, AC8]                [0/0, 1/0]                     []
+B10124[2]     [E00123,       [AC6, AC7, AC8]                      [AC6, AC7, AC8]                [0/0, 1/0]                     []
                A10006]
 B20027[3]     [R00001,       [C3]                                 [C3]                           [0/0, 0/1, 0/2]                [join(1/0)]
                A00026]
@@ -310,11 +312,11 @@ B20104[3]     [B00103,       [B10105]                             [AC1]         
                E10102]
 B20111[3]     [B00110,       [B10112]                             [AC3]                          [0/0, 0/1, 0/2]                [join(0/0)]
                A00003]
-B20116[3]     [B00115,       [B10117]                             [AC4]                          [0/0, 0/1, 0/2]                [join(0/0)]
+B20117[3]     [E00116,       [B10118]                             [AC4]                          [0/0, 0/1, 0/2]                [join(0/0)]
                A00003]
-B20129[3]     [E00128,       [B00130]                                                            [0/0, 0/1, 0/2]                [join(1/0)]
+B20130[3]     [E00129,       [B00131]                                                            [0/0, 0/1, 0/2]                [join(1/0)]
                A00045]
-B20135[3]     [E00134,       [B00136]                                                            [0/0, 0/1, 0/2]                [join(1/0)]
+B20136[3]     [E00135,       [B00137]                                                            [0/0, 0/1, 0/2]                [join(1/0)]
                A00045]
 TV1[2]        [B10007]
 TC1[3]        [A00009]
@@ -352,11 +354,11 @@ RR7[2]        [B00100]
 AC1[4]        [B10105]
 AC2[2]        [B10107]
 AC3[4]        [B10112]
-AC4[4]        [B10117]
-AC5[2]        [B10120]
-AC6[2]        [B10123]
-AC7[2]        [B10123]
-AC8[2]        [B10123]
+AC4[4]        [B10118]
+AC5[2]        [B10121]
+AC6[2]        [B10124]
+AC7[2]        [B10124]
+AC8[2]        [B10124]
 =================================================================================================================================================================
 
 node info3:
@@ -398,14 +400,15 @@ A00096[3]    '(?0 nm:defineTag ?1)
 A00099[3]    '(?0 nm:beDefinedByTag ?1)
 A00109[3]    '(?0 nm:hasFieldTag ?1)
 A00114[3]    '(?0 nm:beClassTagOf ?1)
-A00127[3]    '(?0 nm:beParentDomainOf nd:XXX)
+A00128[3]    '(?0 nm:beParentDomainOf nd:XXX)
 A10006[3]    (var-changed ?model-state running completed)
 E00004[3]    '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
-E00119[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
-E00122[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
-E00128[3]    '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant)))
-E00131[4]    '('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3)))
-E00134[3]    '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP)))
+E00116[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
+E00120[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
+E00123[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
+E00129[3]    '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant)))
+E00132[4]    '('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3)))
+E00135[3]    '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP)))
 E10032[4]    '('('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3)) (not-equal ?3 ?2))
 E10040[3]    '('(?0 ?1 ?2) (!= ?0 ?2))
 E10051[3]    '('(?0 ?1 ?2) (!= ?1 nm:hasAliasTag))
@@ -433,19 +436,19 @@ B00100[2]    '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0))
 B00103[3]    '('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2)))
 B00110[3]    '('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2))
 B00115[3]    '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
-B00130[4]    '('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0))
-B00132[5]    '('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4))
-B00133[6]    '('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2))
-B00136[7]    '('('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2)) '('('(?4 ?6 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?6 nm:propertyOf nm:tagRelation)))
+B00131[4]    '('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0))
+B00133[5]    '('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4))
+B00134[6]    '('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2))
+B00137[7]    '('('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2)) '('('(?4 ?6 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?6 nm:propertyOf nm:tagRelation)))
 B10007[2]    '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
 B10043[4]    '('('('(?0 ?1 ?2) (!= ?0 ?2)) '(?1 nm:propertyOf nm:nonCircleProperty)) (var-changed ?model-state running completed))
 B10079[2]    '('('(?0 nm:typeOf nm:domain) (!= ?0 nd:Global)) (var-changed ?model-state running completed))
 B10105[4]    '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
 B10107[2]    '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
 B10112[4]    '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10117[4]    '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10120[2]    '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
-B10123[2]    '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+B10118[4]    '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+B10121[2]    '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
+B10124[2]    '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 B20027[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
 B20030[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery))
 B20035[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:symmetricProperty))
@@ -455,9 +458,9 @@ B20092[3]    '('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm
 B20094[3]    '('('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
 B20104[3]    '('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2)))
 B20111[3]    '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
-B20116[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
-B20129[3]    '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation))
-B20135[3]    '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?1 nm:propertyOf nm:tagRelation))
+B20117[3]    '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
+B20130[3]    '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation))
+B20136[3]    '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?1 nm:propertyOf nm:tagRelation))
 TV1[2]       TV1
 TC1[3]       TC1
 CC1[3]       CC1
@@ -571,22 +574,24 @@ A00109[3]      196   194
                196   194  C1:(cmp-entry-value = ?1 nm:hasFieldTag)
 A00114[3]      196   195
                196   195  C1:(cmp-entry-value = ?1 nm:beClassTagOf)
-A00127[3]        0     0
+A00128[3]        0     0
                  0     0  C1:(cmp-entry-value = ?2 nd:XXX)
 A10006[3]        5     3
                  5     3  C1:(cmp-entry-value = ?1 running)
                  2     0  C1:(cmp-entry-value = ?2 completed)
 E00004[3]        6     6
                  6     6  C1:(can-cast '(int float) (get-version-number ?0))
-E00119[3]        6     6
+E00116[3]        1     0
+                 1     0  C1:(has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))
+E00120[3]        6     6
                  6     6  C1:(str-end-with (get-uri-name ?0) "-Beginner")
-E00122[3]        6     5
+E00123[3]        6     5
                  6     5  C1:(> (str-index-of (get-uri-name ?0) "-") 0)
-E00128[3]      194     1
+E00129[3]      194     1
                194     1  C1:(not (equal ?1 nm:hasDescendant))
-E00131[4]        8     2
+E00132[4]        8     2
                  8     2  C1:(not (equal ?2 ?3))
-E00134[3]      194     2
+E00135[3]      194     2
                194     2  C1:(not (equal ?2 nt:$TGROUP))
 E10032[4]        0     0
                  0     0  C1:(cmp-entry-index != ?2 ?3)
@@ -669,9 +674,8 @@ AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref 
                           nm:hasAutoRelatedTag (to-atom ?t1)))))
 AC3[4]       0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (->
                           '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
-AC4[4]       0     EXPR  (if (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom
-                          (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name
-                          ))))))...
+AC4[4]       0     EXPR  (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+             1     EXPR  (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
 AC5[2]       0     ADD   (-> '(?0, nm:beChildTagOf, nt:$BEGINNER))
              1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TOPIC))
              2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (->
@@ -724,14 +728,15 @@ A00096[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?
 A00099[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?b, null, ?a]
 A00109[3]    ALPH0 Rete1 MULTI             1     3    2    0    0   1   0  99 [?a, null, ?f]
 A00114[3]    ALPH0 Rete1 MULTI             1     2    1    0    0   1   0  99 [?c, null, ?ins]
-A00127[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?x, null, null]
+A00128[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?x, null, null]
 A10006[3]    ALPH1 Rete1 SINGLE            1     9   11    0    0   2   0  99 [?model-state, null, null]
 E00004[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?tag, null, null]
-E00119[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?t, null, null]
-E00122[3]    EXPR0 Rete1 MULTI             1     1    3    0    0   1   0  99 [?t, null, null]
-E00128[3]    EXPR0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?t2, ?p2, ?t3]
-E00131[4]    EXPR0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?t2, ?p2, ?t3, ?tag]
-E00134[3]    EXPR0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?t1, ?p1, ?t3]
+E00116[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?c, ?ins, ?f]
+E00120[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?t, null, null]
+E00123[3]    EXPR0 Rete1 MULTI             1     1    3    0    0   1   0  99 [?t, null, null]
+E00129[3]    EXPR0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?t2, ?p2, ?t3]
+E00132[4]    EXPR0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?t2, ?p2, ?t3, ?tag]
+E00135[3]    EXPR0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?t1, ?p1, ?t3]
 E10032[4]    EXPR1 Rete1 MULTI             1     1    1    0    0   1   0  99 [?a, ?p, ?c, ?b]
 E10040[3]    EXPR1 Rete1 MULTI             1     1    1    0    0   1   0  99 [null, null, null]
 E10051[3]    EXPR1 Rete1 MULTI             1     1    2    0    0   1   0  99 [null, null, null]
@@ -759,19 +764,19 @@ B00100[2]    BETA0 Beta0 MULTI             2     1    1    2    2   0   0  99 [?
 B00103[3]    BETA0 Beta0 MULTI             2     1    1    3    1   0   0  99 [?a, ?b, ?c]
 B00110[3]    BETA0 Beta0 MULTI             2     1    1    3    1   0   0  99 [?a, ?c, ?f]
 B00115[3]    BETA0 Beta0 MULTI             2     1    1    3    1   0   0  99 [?c, ?ins, ?f]
-B00130[4]    BETA0 Beta0 MULTI             2     1    0    4    1   0   0   0 [?t2, ?p2, ?t3, ?tag]
-B00132[5]    BETA0 Beta0 MULTI             2     1    0    5    1   0   0   0 [?t2, ?p2, ?t3, ?tag, ?t1]
-B00133[6]    BETA0 Beta0 MULTI             2     1    0    6    1   0   0   0 [?t2, ?p2, ?t3, ?tag, ?t1, ?domain]
-B00136[7]    BETA0 Beta0 MULTI             2     0    0    7    2   0   0   0 [?t2, ?p2, ?t3, ?tag, ?t1, ?domain, ?p1]
+B00131[4]    BETA0 Beta0 MULTI             2     1    0    4    1   0   0   0 [?t2, ?p2, ?t3, ?tag]
+B00133[5]    BETA0 Beta0 MULTI             2     1    0    5    1   0   0   0 [?t2, ?p2, ?t3, ?tag, ?t1]
+B00134[6]    BETA0 Beta0 MULTI             2     1    0    6    1   0   0   0 [?t2, ?p2, ?t3, ?tag, ?t1, ?domain]
+B00137[7]    BETA0 Beta0 MULTI             2     0    0    7    2   0   0   0 [?t2, ?p2, ?t3, ?tag, ?t1, ?domain, ?p1]
 B10007[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?tag, ?model-state]
 B10043[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?a, ?p, ?b, ?model-state]
 B10079[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?d, ?model-state]
 B10105[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?a, ?b, ?c, ?model-state]
 B10107[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?t, ?model-state]
 B10112[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?a, ?c, ?f, ?model-state]
-B10117[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?c, ?ins, ?f, ?model-state]
-B10120[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?t, ?model-state]
-B10123[2]    BETA1 Beta1 MULTI             2     3    3    2    0   0   0  99 [?t, ?model-state]
+B10118[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?c, ?ins, ?f, ?model-state]
+B10121[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?t, ?model-state]
+B10124[2]    BETA1 Beta1 MULTI             2     3    3    2    0   0   0  99 [?t, ?model-state]
 B20027[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?p, ?b]
 B20030[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?p, ?c]
 B20035[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?p, ?b]
@@ -781,9 +786,9 @@ B20092[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?
 B20094[3]    BETA2 Beta2 MULTI             2     1    1    3    2   0   0  99 [?a, ?p, ?b]
 B20104[3]    BETA2 Beta2 MULTI             2     1    1    3    2   0   0  99 [?a, ?b, ?c]
 B20111[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?c, ?f]
-B20116[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?c, ?ins, ?f]
-B20129[3]    BETA2 Beta2 MULTI             2     1    0    3    1   0   0   0 [?t2, ?p2, ?t3]
-B20135[3]    BETA2 Beta2 MULTI             2     1    0    3    1   0   0   0 [?t1, ?p1, ?t3]
+B20117[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?c, ?ins, ?f]
+B20130[3]    BETA2 Beta2 MULTI             2     1    0    3    1   0   0   0 [?t2, ?p2, ?t3]
+B20136[3]    BETA2 Beta2 MULTI             2     1    0    3    1   0   0   0 [?t1, ?p1, ?t3]
 TV1[2]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?tag, ?model-state]
 TC1[3]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?ti, null, ?tc]
 CC1[3]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?a, ?b, ?c]
@@ -832,7 +837,7 @@ priority info:
 Priority        ROOT0   VAR ALPH0 ALPH1 EXPR0 EXPR1 BETA0 BETA1 BETA2  RULE
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 900(root)    :      1                                                      
-099(default) :            1    33     1     3     7    20     9    10    41
+099(default) :            1    33     1     4     7    20     9    10    41
 000(inactive):                  1           3           4           2      
 =================================================================================================================================================================
 
@@ -1127,7 +1132,7 @@ A00114(ALPH0) :                 3      '(?0 nm:beClassTagOf ?1)
              2: T2(RULE)        3     
              3: T3(RULE)        3     
              4: R00001(ROOT0)   3      '(?0 ?1 ?2)
-A00127(ALPH0) :                 3      '(?0 nm:beParentDomainOf nd:XXX)
+A00128(ALPH0) :                 3      '(?0 nm:beParentDomainOf nd:XXX)
              0: C1(RULE)        3     
              1: C5(RULE)        3     
              2: DC1(RULE)       3     
@@ -1138,15 +1143,17 @@ A10006(ALPH1) :                 3      (var-changed ?model-state running complet
              0: V00005(VAR)     3      (var-changed ?model-state ?model-state.old ?model-state.new)
 E00004(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
              0: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-E00119(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
+E00116(EXPR0) :                 3      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
+             0: B00115(BETA0)   3      '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
+E00120(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
              0: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-E00122(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
+E00123(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
              0: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-E00128(EXPR0) :                 3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant)))
+E00129(EXPR0) :                 3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant)))
              0: R00001(ROOT0)   3      '(?0 ?1 ?2)
-E00131(EXPR0) :                 4      '('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3)))
-             0: B00130(BETA0)   4      '('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0))
-E00134(EXPR0) :                 3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP)))
+E00132(EXPR0) :                 4      '('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3)))
+             0: B00131(BETA0)   4      '('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0))
+E00135(EXPR0) :                 3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP)))
              0: R00001(ROOT0)   3      '(?0 ?1 ?2)
 E10032(EXPR1) :                 4      '('('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3)) (not-equal ?3 ?2))
              0: B00031(BETA0)   4      '('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3))
@@ -1222,18 +1229,18 @@ B00110(BETA0) :                 3      '('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFi
 B00115(BETA0) :                 3      '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
              0: A00114(ALPH0)   3      '(?0 nm:beClassTagOf ?1)
              1: A00109(ALPH0)   3      '(?0 nm:hasFieldTag ?1)
-B00130(BETA0) :                 4      '('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0))
-             0: B20129(BETA2)   4      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation))
+B00131(BETA0) :                 4      '('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0))
+             0: B20130(BETA2)   4      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation))
              1: A00109(ALPH0)   4      '(?0 nm:hasFieldTag ?1)
-B00132(BETA0) :                 5      '('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4))
-             0: E00131(EXPR0)   5      '('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3)))
+B00133(BETA0) :                 5      '('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4))
+             0: E00132(EXPR0)   5      '('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3)))
              1: A00114(ALPH0)   5      '(?0 nm:beClassTagOf ?1)
-B00133(BETA0) :                 6      '('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2))
-             0: B00132(BETA0)   6      '('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4))
+B00134(BETA0) :                 6      '('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2))
+             0: B00133(BETA0)   6      '('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4))
              1: A00073(ALPH0)   6      '(?0 nm:hasTag ?1)
-B00136(BETA0) :                 7      '('('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2)) '('('(?4 ?6 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?6 nm:propertyOf nm:tagRelation)))
-             0: B00133(BETA0)   7      '('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2))
-             1: B20135(BETA2)   7      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?1 nm:propertyOf nm:tagRelation))
+B00137(BETA0) :                 7      '('('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2)) '('('(?4 ?6 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?6 nm:propertyOf nm:tagRelation)))
+             0: B00134(BETA0)   7      '('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2))
+             1: B20136(BETA2)   7      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?1 nm:propertyOf nm:tagRelation))
 B10007(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
              0: E00004(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
              1: A10006(ALPH1)   2      (var-changed ?model-state running completed)
@@ -1252,14 +1259,14 @@ B10107(BETA1) :                 2      '('(?0 nm:typeOf nm:tag) (var-changed ?mo
 B10112(BETA1) :                 4      '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
              0: B20111(BETA2)   4      '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
              1: A10006(ALPH1)   4      (var-changed ?model-state running completed)
-B10117(BETA1) :                 4      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-             0: B20116(BETA2)   4      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
+B10118(BETA1) :                 4      '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+             0: B20117(BETA2)   4      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
              1: A10006(ALPH1)   4      (var-changed ?model-state running completed)
-B10120(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
-             0: E00119(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
+B10121(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
+             0: E00120(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
              1: A10006(ALPH1)   2      (var-changed ?model-state running completed)
-B10123(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
-             0: E00122(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
+B10124(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: E00123(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
              1: A10006(ALPH1)   2      (var-changed ?model-state running completed)
 B20027(BETA2) :                 3      '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
              0: R00001(ROOT0)   3      '(?0 ?1 ?2)
@@ -1288,14 +1295,14 @@ B20104(BETA2) :                 3      '('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1
 B20111(BETA2) :                 3      '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
              0: B00110(BETA0)   3      '('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2))
              1: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-B20116(BETA2) :                 3      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
-             0: B00115(BETA0)   3      '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
+B20117(BETA2) :                 3      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
+             0: E00116(EXPR0)   3      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
              1: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-B20129(BETA2) :                 3      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation))
-             0: E00128(EXPR0)   3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant)))
+B20130(BETA2) :                 3      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation))
+             0: E00129(EXPR0)   3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant)))
              1: A00045(ALPH0)   3      '(?0 nm:propertyOf nm:tagRelation)
-B20135(BETA2) :                 3      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?1 nm:propertyOf nm:tagRelation))
-             0: E00134(EXPR0)   3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP)))
+B20136(BETA2) :                 3      '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?1 nm:propertyOf nm:tagRelation))
+             0: E00135(EXPR0)   3      '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP)))
              1: A00045(ALPH0)   3      '(?0 nm:propertyOf nm:tagRelation)
 TV1(RULE)     :                 2      (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) ==> (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion))))))
              0: B10007(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
@@ -1369,16 +1376,16 @@ AC2(RULE)     :                 2      (var-changed ?model-state running complet
              0: B10107(BETA1)   2      '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
 AC3(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:typeOf nm:tag) '(?a nm:hasFieldTag ?f) '(?a nm:beParentTagOf ?c) ==> (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
              0: B10112(BETA1)   4      '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-AC4(RULE)     :                 4      (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) ==> (if (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))))
-             0: B10117(BETA1)   4      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+AC4(RULE)     :                 4      (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) ==> (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+             0: B10118(BETA1)   4      '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
 AC5(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (get-uri-name ?t) "-Beginner") ==> (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
-             0: B10120(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
+             0: B10121(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
 AC6(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) ==> (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy)))))
-             0: B10123(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: B10124(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 AC7(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) ==> (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t)))
-             0: B10123(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: B10124(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 AC8(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) ==> (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t)))
-             0: B10123(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: B10124(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 =================================================================================================================================================================
 
 
@@ -2368,10 +2375,11 @@ NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node 
 VAR          0      0      0      0     0     0     1     0      0      0     1      0     5     0    0        0      6      0    0    0   99   99      0       5
 ALPH0        6      5     11      0     0     0     6     0      0      0     4     24    47     4    0      601     22      0    1    2   99   99      0     113
 ALPH1        0      0      0      0     1     0     0     0      0      0     1      0     5     0    0        5      2      0    1    1   99   99      0      18
-BETA0        0      0      1      0     0     0     0     0      0      0     1      0     2     0    0        2      1      0    2    2   99   99      0       2
-BETA1        0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    4    4   99   99      0       1
-BETA2        0      0      1      0     0     0     0     0      0      0     1      0     4     0    0        2      1      0    3    3   99   99      0       1
-RULE         0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    5    5   99   99      0       0
+EXPR0        0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    3    3   99   99      0       2
+BETA0        0      0      1      0     0     0     0     0      0      0     1      0     2     0    0        2      1      0    2    2   99   99      0       1
+BETA1        0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    5    5   99   99      0       1
+BETA2        0      0      1      0     0     0     0     0      0      0     1      0     5     1    0        2      1      0    4    4   99   99      0       1
+RULE         0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    6    6   99   99      0       0
 =================================================================================================================================================================
 
 node info:
@@ -2384,17 +2392,18 @@ A00003[3]         0      1      5      0      0      0     0     0   0/0     13 
 A00109[3]         0      1      1      0      0      0     0     0   0/0    196      2      0   14    1           0   1  99   4     3 InActive         196
 A00114[3]         0      1      0      0      0      0     0     0   0/0    196      1      0   14    1           0   1  99   4     2 InActive         196
 A10006[3]         0      0      0      0      1      0     0     0   0/0      5      2      0    5    0           0   1  99   0     9 InActive           5
+E00116[3]         0      0      1      0      0      0     0     0   0/0      1      1      0    1    0           0   3  99   0     1 InActive           1
 B00115[3]         0      0      1      0      0      0     0     0   0/0      2      1      0    2    0           0   2  99   0     1 InActive         1/2
-B10117[4]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     1 InActive         1/2
-B20116[3]         0      0      1      0      0      0     0     0   0/0      2      1      0    4    0           0   3  99   0     1 InActive         1/6
-AC4[4]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   5  99   0     0 InActive           1
+B10118[4]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   5  99   0     1 InActive         1/2
+B20117[3]         0      0      1      0      0      0     0     0   0/0      2      1      0    5    1           0   4  99   0     1 InActive         1/6
+AC4[4]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   6  99   0     0 InActive           1
 =================================================================================================================================================================
 
 priority info:
 =================================================================================================================================================================
-Priority          VAR ALPH0 ALPH1 BETA0 BETA1 BETA2  RULE
+Priority          VAR ALPH0 ALPH1 EXPR0 BETA0 BETA1 BETA2  RULE
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-099(default) :      1     4     1     1     1     1     1
+099(default) :      1     4     1     1     1     1     1     1
 =================================================================================================================================================================
 
 Rule<AC5> stats: priority=099, expr=(add-rule "AC5" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (get-uri-name ?t) "-Beginner") do (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn))))))
@@ -2417,8 +2426,8 @@ V00005[3]         0      0      0      0      0      0     1     0   0/0      0 
 A00002[3]         6      2      5      0      0      0     6     0   0/0    196     13      0   14    1           0   1  99   8     4 InActive         196
 A00003[3]         0      1      5      0      0      0     0     0   0/0     13      6      0    5    1           0   2  99   8     7 InActive          13
 A10006[3]         0      0      0      0      1      0     0     0   0/0      5      2      0    5    0           0   1  99   0     9 InActive           5
-E00119[3]         0      0      0      0      0      0     0     0   0/0      6      0      0    4    0      6    0   3  99   0     1 InActive           6
-B10120[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    2    2      *    0   4  99   0     1 InActive         0/0
+E00120[3]         0      0      0      0      0      0     0     0   0/0      6      0      0    4    0      6    0   3  99   0     1 InActive           6
+B10121[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    2    2      *    0   4  99   0     1 InActive         0/0
 AC5[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 =================================================================================================================================================================
 
@@ -2449,8 +2458,8 @@ V00005[3]         0      0      0      0      0      0     1     0   0/0      0 
 A00002[3]         6      2      5      0      0      0     6     0   0/0    196     13      0   14    1           0   1  99   8     4 InActive         196
 A00003[3]         0      1      5      0      0      0     0     0   0/0     13      6      0    5    1           0   2  99   8     7 InActive          13
 A10006[3]         0      0      0      0      1      0     0     0   0/0      5      2      0    5    0           0   1  99   0     9 InActive           5
-E00122[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
-B10123[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
+E00123[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
+B10124[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
 AC6[2]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   5  99   0     0 InActive           1
 =================================================================================================================================================================
 
@@ -2481,8 +2490,8 @@ V00005[3]         0      0      0      0      0      0     1     0   0/0      0 
 A00002[3]         6      2      5      0      0      0     6     0   0/0    196     13      0   14    1           0   1  99   8     4 InActive         196
 A00003[3]         0      1      5      0      0      0     0     0   0/0     13      6      0    5    1           0   2  99   8     7 InActive          13
 A10006[3]         0      0      0      0      1      0     0     0   0/0      5      2      0    5    0           0   1  99   0     9 InActive           5
-E00122[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
-B10123[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
+E00123[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
+B10124[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
 AC7[2]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   5  99   0     0 InActive           1
 =================================================================================================================================================================
 
@@ -2513,8 +2522,8 @@ V00005[3]         0      0      0      0      0      0     1     0   0/0      0 
 A00002[3]         6      2      5      0      0      0     6     0   0/0    196     13      0   14    1           0   1  99   8     4 InActive         196
 A00003[3]         0      1      5      0      0      0     0     0   0/0     13      6      0    5    1           0   2  99   8     7 InActive          13
 A10006[3]         0      0      0      0      1      0     0     0   0/0      5      2      0    5    0           0   1  99   0     9 InActive           5
-E00122[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
-B10123[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
+E00123[3]         0      1      0      0      0      0     0     0   0/0      6      1      0    4    0           0   3  99   0     1 InActive           6
+B10124[2]         0      0      1      0      0      0     0     0   0/0      1      1      0    3    1           0   4  99   0     3 InActive         1/2
 AC8[2]            0      0      0      0      0      0     0     0   0/0      0      1      0    1    0           0   5  99   0     0 InActive           1
 =================================================================================================================================================================
 
@@ -2579,11 +2588,11 @@ Model<p2d> share index:
   VAR                                          909                       909          909                        909                   909  909            909
 ALPH0   796    756    791                  0   796                       552    604   574   618           553    794         975  967 1000  975            746
 ALPH1                              909                                   909          909                 909    909         909  909  909  909            909
-EXPR0        -4666                                                      -200          199              -12800 -129666         933  666 1000  800        -139666
+EXPR0        -4666 -61000                                               -166          190              -12387 -97250         944  722 1000  833         -83800
 EXPR1   333    326    331                399   333                       222          329   399           332    333         928  687  857  857            232
-BETA0     0          -869                        0                      -200          -96   -76          -393   -444         958  833 1000  950           -434
-BETA1                  68                                                181          153    79            68     68         931  886  909  909            171
-BETA2     0   -500   -412                  0     0                      -200          -39  -117           -22   -291         892  862 1000  888           -810
+BETA0     0          -869                        0                      -200          -96   -76          -393   -444         958  833 1000  950           -444
+BETA1                  68                                                181          153    79            68     68         933  888  909  909            171
+BETA2     0   -500   -412                  0     0                      -200          -39  -111           -22   -291         896  866 1000  888           -810
  RULE                                                                      0            0     0                    0      0  986  960  975  975               
 =================================================================================================================================================================
 
@@ -2594,21 +2603,21 @@ B00019[4]          274
 B20042[3]          230
 B20027[3]          209
 B20035[3]          132
-B00136[7]           75
+B00137[7]           75
 B20030[3]           68
 B00058[2]           61
-B00130[4]           30
-B00133[6]           30
+B00131[4]           30
+B00134[6]           30
 B20094[3]           23
-B20129[3]           15
-B20135[3]           15
+B20130[3]           15
+B20136[3]           15
 B00074[3]           10
-B00132[5]            6
+B00133[5]            6
 B00086[2]            2
 B00089[2]            2
 B00110[3]            2
 B00115[3]            2
-B20116[3]            2
+B20117[3]            2
 B00071[3]            1
 B00083[3]            1
 B00097[2]            1
@@ -2719,7 +2728,7 @@ Child Count:
   total:      36       1      65      27     158
 =================================================================================================================================================================
 
-Model<p2d> frame:id=3, name=model, lvl=3, ref=15/16, entry=1, pid=2(main), subject=model
+Model<p2d> frame:id=3, name=model, lvl=3, ref=16/17, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2734,58 +2743,67 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 33       4        1    var        nt:$TGROUP : type=string
 ==========================================================================================================================
 
-Node<C7> frame:id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
+Node<C7> frame:id=11, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 144      10       11   instance   model@p2d           
-?a                   : 145      10       1    var        nd:XXX : type=atom  
-?p                   : 146      10       1    var        nm:beDescendantDomainOf : type=atom
-?b                   : 147      10       1    var        nd:Global : type=atom
-?model-state         : 148      10       1    var        ?model-state:"partial" : type=var
+default_model        : 154      11       11   instance   model@p2d           
+?a                   : 155      11       1    var        nd:XXX : type=atom  
+?p                   : 156      11       1    var        nm:beDescendantDomainOf : type=atom
+?b                   : 157      11       1    var        nd:Global : type=atom
+?model-state         : 158      11       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-Node<DC1> frame:id=6, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-DC1
+Node<DC1> frame:id=8, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-DC1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 149      6        11   instance   model@p2d           
-?d                   : 150      6        1    var        nd:XXX : type=atom  
-?model-state         : 151      6        1    var        ?model-state:"partial" : type=var
+default_model        : 159      8        11   instance   model@p2d           
+?d                   : 160      8        1    var        nd:XXX : type=atom  
+?model-state         : 161      8        1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-Node<RR5> frame:id=18, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
+Node<RR5> frame:id=19, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 232      18       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 233      18       11   instance   model@p2d           
-?a                   : 234      18       1    var        nt:SQL : type=atom  
-?p                   : 235      18       1    var        nm:hasFieldTag : type=atom
-?b                   : 236      18       1    var        nt:SQL-Code : type=atom
+?0                   : 234      19       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
+default_model        : 235      19       11   instance   model@p2d           
+?a                   : 236      19       1    var        nt:SQL : type=atom  
+?p                   : 237      19       1    var        nm:hasFieldTag : type=atom
+?b                   : 238      19       1    var        nt:SQL-Code : type=atom
 ==========================================================================================================================
 
-Node<AC2> frame:id=8, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
+Node<AC2> frame:id=6, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 152      8        11   instance   model@p2d           
-?t                   : 153      8        1    var        nt:$TGROUP : type=atom
-?model-state         : 154      8        1    var        ?model-state:"partial" : type=var
+default_model        : 162      6        11   instance   model@p2d           
+?t                   : 163      6        1    var        nt:$TGROUP : type=atom
+?model-state         : 164      6        1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-Node<AC4> frame:id=11, name=NF-AC4, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-AC4
+Node<E00116> frame:id=10, name=NF-E00116, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00116
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 165      11       11   instance   model@p2d           
-?c                   : 166      11       1    var        nt:ProgrammingLanguage : type=atom
-?ins                 : 167      11       1    var        nt:SQL : type=atom  
-?f                   : 168      11       1    var        nt:Code : type=atom 
-?model-state         : 169      11       1    var        ?model-state:"partial" : type=var
+?1                   : 52       10       1    var        nt:SQL : type=atom  
+?2                   : 53       10       1    var        nt:Code : type=atom 
+?rv                  : 61       10       1    var        Code : type=string  
 ==========================================================================================================================
 
-Node<E00119> frame:id=9, name=NF-E00119, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00119
+Node<AC4> frame:id=12, name=NF-AC4, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-AC4
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+default_model        : 175      12       11   instance   model@p2d           
+?c                   : 176      12       1    var        nt:ProgrammingLanguage : type=atom
+?ins                 : 177      12       1    var        nt:SQL : type=atom  
+?f                   : 178      12       1    var        nt:Code : type=atom 
+?model-state         : 179      12       1    var        ?model-state:"partial" : type=var
+==========================================================================================================================
+
+Node<E00120> frame:id=9, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2793,7 +2811,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 42       9        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
-Node<E00122> frame:id=5, name=NF-E00122, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00122
+Node<E00123> frame:id=5, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2801,93 +2819,93 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 51       5        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
-Node<AC6> frame:id=14, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC6
+Node<AC6> frame:id=13, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 193      14       11   instance   model@p2d           
-?t                   : 194      14       1    var        nt:SQL-Code : type=atom
-?model-state         : 195      14       1    var        ?model-state:"partial" : type=var
+default_model        : 195      13       11   instance   model@p2d           
+?t                   : 196      13       1    var        nt:SQL-Code : type=atom
+?model-state         : 197      13       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-Node<AC7> frame:id=7, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC7
+Node<AC7> frame:id=17, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 206      7        11   instance   model@p2d           
-?t                   : 207      7        1    var        nt:SQL-Code : type=atom
-?model-state         : 208      7        1    var        ?model-state:"partial" : type=var
+default_model        : 208      17       11   instance   model@p2d           
+?t                   : 209      17       1    var        nt:SQL-Code : type=atom
+?model-state         : 210      17       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-Node<AC8> frame:id=17, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC8
+Node<AC8> frame:id=18, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 219      17       11   instance   model@p2d           
-?t                   : 220      17       1    var        nt:SQL-Code : type=atom
-?model-state         : 221      17       1    var        ?model-state:"partial" : type=var
+default_model        : 221      18       11   instance   model@p2d           
+?t                   : 222      18       1    var        nt:SQL-Code : type=atom
+?model-state         : 223      18       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-Node<E00128> frame:id=15, name=NF-E00128, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00128
+Node<E00129> frame:id=7, name=NF-E00129, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00129
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?1                   : 660      15       1    var        nm:hasTag : type=atom
-?rv                  : 663      15       1    var        false : type=bool   
+?1                   : 662      7        1    var        nm:hasTag : type=atom
+?rv                  : 665      7        1    var        false : type=bool   
 ==========================================================================================================================
 
-Node<E00131> frame:id=16, name=NF-E00131, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00131
+Node<E00132> frame:id=16, name=NF-E00132, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00132
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?2                   : 1050     16       1    var        nt:$TGROUP : type=atom
-?3                   : 1051     16       1    var        nt:ProgrammingLanguage : type=atom
-?rv                  : 1054     16       1    var        false : type=bool   
+?2                   : 1052     16       1    var        nt:$TGROUP : type=atom
+?3                   : 1053     16       1    var        nt:ProgrammingLanguage : type=atom
+?rv                  : 1056     16       1    var        false : type=bool   
 ==========================================================================================================================
 
-Node<E00134> frame:id=13, name=NF-E00134, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00134
+Node<E00135> frame:id=14, name=NF-E00135, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00135
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?2                   : 270      13       1    var        nt:$TGROUP : type=atom
-?rv                  : 273      13       1    var        true : type=bool    
+?2                   : 272      14       1    var        nt:$TGROUP : type=atom
+?rv                  : 275      14       1    var        true : type=bool    
 ==========================================================================================================================
 
-node update info: model-exec-count=784, row=86, column=99(8), value-max=3, value-unit=2^x
+node update info: model-exec-count=786, row=87, column=99(8), value-max=3, value-unit=2^x
 =================================================================================================================================================================
-NODE[n]   Update Exec Idle 213244423132133331143323123331322242312142..22133433323441323242331143132.42232133..2113231...1..41 max=7, unit=2^x
+NODE[n]   Update Exec Idle 213244423132133322133423.2334.232142232143..2113444232344.333.43231244131133131134..1212331....1.33 max=8, unit=2^x
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]   25   27    2 1     21 1   1     111    1 1    11      1        1   131    1      1     2      1                 
-E10040[3]   13   13    0   1       1     1      1      1     1       1       1     1      1     1     1      1              
-E10051[3]   13   14    1   1        1     1     1       1     1      1       1      1     1     1     1      1              
-E10052[3]   13   14    1      1         1    1      1      1     1     1         1     1      1    1     1      1           
-E10091[3]   13   13    0    1        1     1     1       1     1      1       1      1      1    1     1       1            
-B20046[3]    9   15    2                    1   1      1     1               1     1      1     1     1                     
-B20092[3]    9   13    0                1           1      1     1               1      1     1     1     1                 
-C8[3]        9   10    1                      1     1      1     1               1     1      1    1     1                  
-B00019[4]    7   14    2                 1     1      1     1               1     1      1                                  
-B20027[3]    7   15    2                               1     1              1      1     1     1     1                      
-B20042[3]    7   13    1                1           1      1     1               1     1     1                              
-C1[4]        7    8    1                     1     1      1      1              1     1      1                              
-C3[3]        7    8    1                                   1     1              1      1     1     1     1                  
-B20035[3]    6   14    2         1    1                                     1      1            1    1                      
-C5[3]        6    7    1              1     1                                   1      1           1     1                  
+R00001[3]   25   27    2 1     21 1   1      21    1 1     2      1        1    32     1     1     2      1                 
+E10040[3]   13   13    0   1       1      1     1       1     1      1       1      1     1     1     1      1              
+E10051[3]   13   14    1   1        1     1     1       1     1      1       1      1      1    1     1       1             
+E10052[3]   13   14    1      1         1     1      1     1     1      1        1     1      1     1     1     1           
+E10091[3]   13   13    0    1        1     1      1      1     1       1      1      1      1     1     1      1            
+B20046[3]    9   15    2                    1   1       1     1              1      1     1     1     1                     
+B20092[3]    9   13    0                1            1      1     1              1      1     1     1     1                 
+C8[3]        9   10    1                      1     1      1     1               1     1      1     1     1                 
+B00019[4]    7   14    2                 1     1       1     1              1      1     1                                  
+B20027[3]    7   15    2                               1     1              1      1      1    1     1                      
+B20042[3]    7   13    1                1           1      1     1               1     1      1                             
+C1[4]        7    8    1                     1     1       1     1              1      1     1                              
+C3[3]        7    8    1                                   1     1              1      1      1    1     1                  
+B20035[3]    6   14    2         1     1                                     1     1            1     1                     
+C5[3]        6    7    1              1     1                                    1     1           1     1                  
 V00005[3]    5    5    0     1                                          1  1                                    1 1         
-A00073[3]    5   14    1    1       1                   1             1                                       1             
+A00073[3]    5   14    1    1       1                    1            1                                       1             
 A00002[3]    4   14    1 1                    1             1                                       1                       
-A00003[3]    4    5    1     1                    1             1                                       1                   
+A00003[3]    4    5    1     1                     1            1                                        1                  
 D5[3]        4    5    1        1                    1            1                                       1                 
 A00022[3]    3   14    1  1        1           1                                                                            
-A00026[3]    3    4    1      1        1           1                                                                        
+A00026[3]    3    4    1      1        1            1                                                                       
 A00018[3]    2   14    1           1     1                                                                                  
-A00045[3]    2    4    1      1        1                                                                                    
+A00045[3]    2    4    1      1         1                                                                                   
 A00085[3]    2   13    0                                                                         1     1                    
-A00093[3]    2   13    0                                                      1      1                                      
+A00093[3]    2   13    0                                                       1     1                                      
 A00109[3]    2   14    1     1                                                 1                                            
-A10006[3]    2    5    0                                                1                                       1           
-B10043[4]    2    9    7                                                1                                        1          
+A10006[3]    2    5    0                                                1                                        1          
+B10043[4]    2    9    7                                                 1                                       1          
 B10107[2]    2    6    4                                                 1                                       1          
-C7[4]        2    2    0                                                 1                                        1         
+C7[4]        2    2    0                                                  1                                       1         
 T4[3]        2    3    1         1          1                                                                               
 AC2[2]       2    2    0                                                  1                                       1         
 A00009[3]    1   13    0                      1                                                                             
@@ -2900,34 +2918,35 @@ A00041[3]    1    3    0               1
 A00060[3]    1   14    1   1                                                                                                
 A00063[3]    1    5    1     1                                                                                              
 A00066[3]    1   14    1   1                                                                                                
-A00068[3]    1   15    2                                                     1                                              
-A00070[3]    1   14    1                                                            1                                       
+A00068[3]    1   15    2                                                      1                                             
+A00070[3]    1   14    1                                                             1                                      
 A00077[3]    1    5    1     1                                                                                              
 A00082[3]    1   13    0                                                             1                                      
-A00088[3]    1   13    0                                                                   1                                
+A00088[3]    1   13    0                                                                    1                               
 A00096[3]    1   13    0                                       1                                                            
-A00099[3]    1   13    0                                 1                                                                  
+A00099[3]    1   13    0                                  1                                                                 
 A00114[3]    1   14    1     1                                                                                              
-E00122[3]    1    4    0         1                                                                                          
-E00128[3]    1    1    0                                                                                               1    
-E00131[4]    1    2    1                                                                                                  1 
-E00134[3]    1    1    0                                                                                           1        
+E00116[3]    1    1    0              1                                                                                     
+E00123[3]    1    4    0         1                                                                                          
+E00129[3]    1    1    0                                                                                                1   
+E00132[4]    1    2    1                                                                                                  1 
+E00135[3]    1    1    0                                                                                           1        
 E10078[3]    1    2    1         1                                                                                          
 E10102[3]    1    1    0                                                        1                                           
-B00058[2]    1    4    2                    1                                                                               
-B00074[3]    1    7    5                                                               1                                    
+B00058[2]    1    4    2                     1                                                                              
+B00074[3]    1    7    5                                                                1                                   
 B00115[3]    1    2    0       1                                                                                            
-B00130[4]    1    2    1                                                                                                  1 
-B00132[5]    1    2    1                                                                                                  1 
-B00133[6]    1    2    1                                                                                                  1 
-B00136[7]    1    3    2                                                                                                   1
-B10079[2]    1    4    2                                                1                                                   
-B10117[4]    1    3    1                                                 1                                                  
-B10123[2]    1    3    1                                                 1                                                  
+B00131[4]    1    2    1                                                                                                  1 
+B00133[5]    1    2    1                                                                                                   1
+B00134[6]    1    2    1                                                                                                   1
+B00137[7]    1    3    2                                                                                                   1
+B10079[2]    1    4    2                                                 1                                                  
+B10118[4]    1    3    1                                                 1                                                  
+B10124[2]    1    3    1                                                 1                                                  
 B20094[3]    1    9    4                                                                1                                   
-B20116[3]    1    4    0                             1                                                                      
-B20129[3]    1    2    1                                                                                                  1 
-B20135[3]    1    2    1                                                                                                  1 
+B20117[3]    1    5    1                             1                                                                      
+B20130[3]    1    2    1                                                                                                  1 
+B20136[3]    1    2    1                                                                                                  1 
 TC1[3]       1    1    0                           1                                                                        
 TG1[3]       1    1    0                                                       1                                            
 TG3[3]       1    1    0                                                                     1                              
@@ -2937,12 +2956,12 @@ D1[3]        1    2    1       1
 D2[3]        1    2    1                                                         1                                          
 D4[3]        1    2    1                                                                     1                              
 DC1[2]       1    2    1                                                  1                                                 
-RR1[3]       1    1    0                                                       1                                            
+RR1[3]       1    1    0                                                        1                                           
 RR5[3]       1    1    0                                                                     1                              
 AC4[4]       1    1    0                                                  1                                                 
 AC6[2]       1    1    0                                                  1                                                 
-AC7[2]       1    1    0                                                  1                                                 
-AC8[2]       1    1    0                                                  1                                                 
+AC7[2]       1    1    0                                                   1                                                
+AC8[2]       1    1    0                                                   1                                                
 =================================================================================================================================================================
 
 
@@ -2953,9 +2972,9 @@ Total runtime info:
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
            Interpreter call id:      306
-    Interpreter call level/max:        0       16
-               Frame max level:       10
-                  Frame max id:       20
+    Interpreter call level/max:        0       14
+               Frame max level:        9
+                  Frame max id:       21
            Frame free id count:        2
 ==========================================================================================================================
 
@@ -2973,13 +2992,13 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1989
+    factor:     1987
       func:      468
 ==========================================================================================================================
 
-Callable stats info: callId=306, row=44, column=39(8), value-max=468, value-unit=2^x
+Callable stats info: callId=306, row=43, column=39(8), value-max=468, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333334333333333333638 max=2069, unit=3^x
+   Frame    RType  Count  Ref Object                         333333333333333333333334333333333333638 max=2067, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    468    0 return                                                               X
     root   factor    420    0 equal_def                                                            X
@@ -2987,7 +3006,7 @@ Callable stats info: callId=306, row=44, column=39(8), value-max=468, value-unit
     root   factor    397    0 not                                                                  X
     root   factor    179    0 add-attribute                  144444444444444444444442               
     root   factor     63    0 defun                                                 144444    4445  
-    root   factor     54    0 if                                                                   7
+    root   factor     53    0 if                                                                   7
     root   factor     48    0 let                                                                  7
   system   factor     41    0 add-rule                                                           7  
     root   factor     35    0 defconst                                                   34444      
@@ -3024,32 +3043,31 @@ Callable stats info: callId=306, row=44, column=39(8), value-max=468, value-unit
   system   factor      1    0 start                                                                1
   system   factor      1    0 query-stmt                                                           1
     root   factor      1    0 new                                                                1  
-    root   factor      1    0 do                                                                   1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3527            0         3527
+        atom:         3538            0         3538
          int:            3            0            3
       string:          195            0          195
-        list:          889            1          888
-        expr:         1883          468         1415
-         var:         1061         1002           59
+        list:          896            1          895
+        expr:         1921          468         1453
+         var:         1063         1001           62
     constant:           35            0           35
         func:           76            0           76
     template:            1            0            1
        macro:            8            0            8
     instance:            2            0            2
       member:           24            0           24
-       frame:          564          549           15
+       frame:          564          548           16
  interpreter:            1            0
-  frameEntry:         1411            0
+  frameEntry:         1413            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=15
+Global frame list: total=16
 
 id=2, name=main, lvl=2, ref=2/2, entry=21, pid=1(system), subject=main
 ==========================================================================================================================
@@ -3084,7 +3102,7 @@ hasGroupChild        : 22       2        2    macro      hasGroupChild
 ==========================================================================================================================
 
 
-id=3, name=model, lvl=3, ref=15/16, entry=1, pid=2(main), subject=model
+id=3, name=model, lvl=3, ref=16/17, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -3099,7 +3117,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 33       4        1    var        nt:$TGROUP : type=string
 ==========================================================================================================================
 
-id=5, name=NF-E00122, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00122
+id=5, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -3107,34 +3125,33 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 51       5        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
-id=6, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-DC1
+id=6, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 149      6        11   instance   model@p2d           
-?d                   : 150      6        1    var        nd:XXX : type=atom  
-?model-state         : 151      6        1    var        ?model-state:"partial" : type=var
+default_model        : 162      6        11   instance   model@p2d           
+?t                   : 163      6        1    var        nt:$TGROUP : type=atom
+?model-state         : 164      6        1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-id=7, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC7
+id=7, name=NF-E00129, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00129
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 206      7        11   instance   model@p2d           
-?t                   : 207      7        1    var        nt:SQL-Code : type=atom
-?model-state         : 208      7        1    var        ?model-state:"partial" : type=var
+?1                   : 662      7        1    var        nm:hasTag : type=atom
+?rv                  : 665      7        1    var        false : type=bool   
 ==========================================================================================================================
 
-id=8, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
+id=8, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-DC1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 152      8        11   instance   model@p2d           
-?t                   : 153      8        1    var        nt:$TGROUP : type=atom
-?model-state         : 154      8        1    var        ?model-state:"partial" : type=var
+default_model        : 159      8        11   instance   model@p2d           
+?d                   : 160      8        1    var        nd:XXX : type=atom  
+?model-state         : 161      8        1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-id=9, name=NF-E00119, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00119
+id=9, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -3142,80 +3159,90 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 42       9        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
-id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
+id=10, name=NF-E00116, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00116
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 144      10       11   instance   model@p2d           
-?a                   : 145      10       1    var        nd:XXX : type=atom  
-?p                   : 146      10       1    var        nm:beDescendantDomainOf : type=atom
-?b                   : 147      10       1    var        nd:Global : type=atom
-?model-state         : 148      10       1    var        ?model-state:"partial" : type=var
+?1                   : 52       10       1    var        nt:SQL : type=atom  
+?2                   : 53       10       1    var        nt:Code : type=atom 
+?rv                  : 61       10       1    var        Code : type=string  
 ==========================================================================================================================
 
-id=11, name=NF-AC4, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-AC4
+id=11, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 165      11       11   instance   model@p2d           
-?c                   : 166      11       1    var        nt:ProgrammingLanguage : type=atom
-?ins                 : 167      11       1    var        nt:SQL : type=atom  
-?f                   : 168      11       1    var        nt:Code : type=atom 
-?model-state         : 169      11       1    var        ?model-state:"partial" : type=var
+default_model        : 154      11       11   instance   model@p2d           
+?a                   : 155      11       1    var        nd:XXX : type=atom  
+?p                   : 156      11       1    var        nm:beDescendantDomainOf : type=atom
+?b                   : 157      11       1    var        nd:Global : type=atom
+?model-state         : 158      11       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-id=13, name=NF-E00134, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00134
+id=12, name=NF-AC4, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-AC4
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?2                   : 270      13       1    var        nt:$TGROUP : type=atom
-?rv                  : 273      13       1    var        true : type=bool    
+default_model        : 175      12       11   instance   model@p2d           
+?c                   : 176      12       1    var        nt:ProgrammingLanguage : type=atom
+?ins                 : 177      12       1    var        nt:SQL : type=atom  
+?f                   : 178      12       1    var        nt:Code : type=atom 
+?model-state         : 179      12       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-id=14, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC6
+id=13, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 193      14       11   instance   model@p2d           
-?t                   : 194      14       1    var        nt:SQL-Code : type=atom
-?model-state         : 195      14       1    var        ?model-state:"partial" : type=var
+default_model        : 195      13       11   instance   model@p2d           
+?t                   : 196      13       1    var        nt:SQL-Code : type=atom
+?model-state         : 197      13       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-id=15, name=NF-E00128, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00128
+id=14, name=NF-E00135, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00135
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?1                   : 660      15       1    var        nm:hasTag : type=atom
-?rv                  : 663      15       1    var        false : type=bool   
+?2                   : 272      14       1    var        nt:$TGROUP : type=atom
+?rv                  : 275      14       1    var        true : type=bool    
 ==========================================================================================================================
 
-id=16, name=NF-E00131, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00131
+id=16, name=NF-E00132, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00132
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?2                   : 1050     16       1    var        nt:$TGROUP : type=atom
-?3                   : 1051     16       1    var        nt:ProgrammingLanguage : type=atom
-?rv                  : 1054     16       1    var        false : type=bool   
+?2                   : 1052     16       1    var        nt:$TGROUP : type=atom
+?3                   : 1053     16       1    var        nt:ProgrammingLanguage : type=atom
+?rv                  : 1056     16       1    var        false : type=bool   
 ==========================================================================================================================
 
-id=17, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC8
+id=17, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 219      17       11   instance   model@p2d           
-?t                   : 220      17       1    var        nt:SQL-Code : type=atom
-?model-state         : 221      17       1    var        ?model-state:"partial" : type=var
+default_model        : 208      17       11   instance   model@p2d           
+?t                   : 209      17       1    var        nt:SQL-Code : type=atom
+?model-state         : 210      17       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-id=18, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
+id=18, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 232      18       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 233      18       11   instance   model@p2d           
-?a                   : 234      18       1    var        nt:SQL : type=atom  
-?p                   : 235      18       1    var        nm:hasFieldTag : type=atom
-?b                   : 236      18       1    var        nt:SQL-Code : type=atom
+default_model        : 221      18       11   instance   model@p2d           
+?t                   : 222      18       1    var        nt:SQL-Code : type=atom
+?model-state         : 223      18       1    var        ?model-state:"partial" : type=var
+==========================================================================================================================
+
+id=19, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
+==========================================================================================================================
+Name(alias)          : EntryId  FrameId  Ref  Type       Value               
+--------------------------------------------------------------------------------------------------------------------------
+?0                   : 234      19       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
+default_model        : 235      19       11   instance   model@p2d           
+?a                   : 236      19       1    var        nt:SQL : type=atom  
+?p                   : 237      19       1    var        nm:hasFieldTag : type=atom
+?b                   : 238      19       1    var        nt:SQL-Code : type=atom
 ==========================================================================================================================
 
 Root var list: total=7
@@ -3238,19 +3265,20 @@ Global frame tree:
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(model): id=3, lvl=3, subject=model
                 ->FRAME(NF-E00004): id=4, lvl=4, subject=NF-E00004
-                ->FRAME(NF-E00122): id=5, lvl=4, subject=NF-E00122
-                ->FRAME(NF-DC1): id=6, lvl=4, subject=NF-DC1
-                ->FRAME(NF-AC7): id=7, lvl=4, subject=NF-AC7
-                ->FRAME(NF-AC2): id=8, lvl=4, subject=NF-AC2
-                ->FRAME(NF-E00119): id=9, lvl=4, subject=NF-E00119
-                ->FRAME(NF-C7): id=10, lvl=4, subject=NF-C7
-                ->FRAME(NF-AC4): id=11, lvl=4, subject=NF-AC4
-                ->FRAME(NF-E00134): id=13, lvl=4, subject=NF-E00134
-                ->FRAME(NF-AC6): id=14, lvl=4, subject=NF-AC6
-                ->FRAME(NF-E00128): id=15, lvl=4, subject=NF-E00128
-                ->FRAME(NF-E00131): id=16, lvl=4, subject=NF-E00131
-                ->FRAME(NF-AC8): id=17, lvl=4, subject=NF-AC8
-                ->FRAME(NF-RR5): id=18, lvl=4, subject=NF-RR5
+                ->FRAME(NF-E00123): id=5, lvl=4, subject=NF-E00123
+                ->FRAME(NF-AC2): id=6, lvl=4, subject=NF-AC2
+                ->FRAME(NF-E00129): id=7, lvl=4, subject=NF-E00129
+                ->FRAME(NF-DC1): id=8, lvl=4, subject=NF-DC1
+                ->FRAME(NF-E00120): id=9, lvl=4, subject=NF-E00120
+                ->FRAME(NF-E00116): id=10, lvl=4, subject=NF-E00116
+                ->FRAME(NF-C7): id=11, lvl=4, subject=NF-C7
+                ->FRAME(NF-AC4): id=12, lvl=4, subject=NF-AC4
+                ->FRAME(NF-AC6): id=13, lvl=4, subject=NF-AC6
+                ->FRAME(NF-E00135): id=14, lvl=4, subject=NF-E00135
+                ->FRAME(NF-E00132): id=16, lvl=4, subject=NF-E00132
+                ->FRAME(NF-AC7): id=17, lvl=4, subject=NF-AC7
+                ->FRAME(NF-AC8): id=18, lvl=4, subject=NF-AC8
+                ->FRAME(NF-RR5): id=19, lvl=4, subject=NF-RR5
 
 Global Subject list:
 

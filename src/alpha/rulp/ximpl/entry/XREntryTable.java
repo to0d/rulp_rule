@@ -15,7 +15,7 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
-import alpha.rulp.utils.*;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.lang.XRListNative;
 
