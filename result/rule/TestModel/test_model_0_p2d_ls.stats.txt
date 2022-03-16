@@ -6,7 +6,7 @@ ROOT0       28      0      0      0     0     0    28     0      0      0     1 
 VAR          0      0      0      0     0     0     0     1      0      0     1      0     0     0    0        0      0      0    0    0   99   99      0       0
 ALPH0        0      0      0      0     0     0     0     0      0      0    33    189     0     0    0        0      0      0    1    2   99   99      0       0
 ALPH1        0      0      0      0     0     0     0     1      0      0     1      0     0     0    0        0      0      0    1    1   99   99      0       0
-EXPR0        0      0      0      0     0     0     0     0      0      0     4      0     0     0    0        0      0      0    3    3   99   99      0       0
+EXPR0        0      0      0      0     0     0     0     0      0      0     3      0     0     0    0        0      0      0    3    3   99   99      0       0
 EXPR1        0      0      0      0     0     0     0     0      0      0     7      0     0     0    0        0      0      0    1    5   99   99      0       0
 BETA0        0      0      0      0     0     0     0     0      0      0    20      0     0     0    0        0      0      0    2    4   99   99      0       0
 BETA1        0      0      0      0     0     0     0     0      0      0     9      0     0     0    0        0      0      0    3    5   99   99      0       0
@@ -55,9 +55,8 @@ A00109[3]         0      0      0      0      0      0     0     0   0/0      0 
 A00114[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   4     1  InQueue           0
 A10006[3]         0      0      0      0      0      0     0     1   0/0      0      0      0    0    0      *    0   1  99   0     9 InActive           0
 E00004[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
-E00116[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
-E00120[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
-E00123[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
+E00119[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
+E00122[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
 E10032[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     1 InActive           0
 E10040[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   0     1  InQueue           0
 E10051[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   0     1  InQueue           0
@@ -91,9 +90,9 @@ B10079[2]         0      0      0      0      0      0     0     0   0/0      0 
 B10105[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     1 InActive         0/0
 B10107[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive         0/0
 B10112[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
-B10118[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     1 InActive         0/0
-B10121[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
-B10124[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
+B10117[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
+B10120[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
+B10123[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
 B20027[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1  InQueue         0/0
 B20030[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1  InQueue         0/0
 B20035[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1  InQueue         0/0
@@ -103,7 +102,7 @@ B20092[3]         0      0      0      0      0      0     0     0   0/0      0 
 B20094[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
 B20104[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
 B20111[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive         0/0
-B20117[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
+B20116[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive         0/0
 TV1[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 TC1[3]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2  99   0     0 InActive           0
 CC1[3]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     0 InActive           0
@@ -140,7 +139,7 @@ RR7[2]            0      0      0      0      0      0     0     0   0/0      0 
 AC1[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   6  99   0     0 InActive           0
 AC2[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     0 InActive           0
 AC3[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
-AC4[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   6  99   0     0 InActive           0
+AC4[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 AC5[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 AC6[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 AC7[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
@@ -165,7 +164,7 @@ V00005[3]                    [A10006]                             [TV1, C7, DC1,
 A00002[3]     [R00001]       [A00003, B00038, A00063, A00077]     [TV1, C6, TA5, D5, DC1, AC2,
                                                                    AC3, AC4, AC5, AC6, AC7, AC8]
 A00003[3]     [A00002]       [E00004, D5, B10107, B20111,         [TV1, D5, AC2, AC3, AC4, AC5,
-                              B20117, E00120, E00123]              AC6, AC7, AC8]
+                              B20116, E00119, E00122]              AC6, AC7, AC8]
 A00009[3]     [R00001]       [TC1]                                [TC1]
 A00011[3]     [R00001]       [B00013]                             [CC1]
 A00012[3]     [R00001]       [B00013, TG1, RR1, E10102, B00110]   [CC1, TG1, RR1, AC1, AC3]
@@ -200,12 +199,11 @@ A00099[3]     [R00001]       [B00100]                             [RR7]
 A00109[3]     [R00001]       [B00110, B00115]                     [AC3, AC4]
 A00114[3]     [R00001]       [B00115]                             [AC4]
 A10006[3]     [V00005]       [B10007, B10043, B10079, B10105,     [TV1, C7, DC1, AC1, AC2, AC3,
-                              B10107, B10112, B10118, B10121,      AC4, AC5, AC6, AC7, AC8]
-                              B10124]
+                              B10107, B10112, B10117, B10120,      AC4, AC5, AC6, AC7, AC8]
+                              B10123]
 E00004[3]     [A00003]       [B10007]                             [TV1]
-E00116[3]     [B00115]       [B20117]                             [AC4]
-E00120[3]     [A00003]       [B10121]                             [AC5]
-E00123[3]     [A00003]       [B10124]                             [AC6, AC7, AC8]
+E00119[3]     [A00003]       [B10120]                             [AC5]
+E00122[3]     [A00003]       [B10123]                             [AC6, AC7, AC8]
 E10032[4]     [B00031]       [C4]                                 [C4]
 E10040[3]     [R00001]       [B20042]                             [C7]
 E10051[3]     [R00001]       [E10052]                             [T2, T3]
@@ -251,7 +249,7 @@ B00103[3]     [E10102,       [B20104]                             [AC1]         
                E10102]
 B00110[3]     [A00012,       [B20111]                             [AC3]                          [0/0, 0/2, 1/2]                [join(0/0)]
                A00109]
-B00115[3]     [A00114,       [E00116]                             [AC4]                          [0/0, 0/2, 1/2]                [join(0/0)]
+B00115[3]     [A00114,       [B20116]                             [AC4]                          [0/0, 0/2, 1/2]                [join(0/0)]
                A00109]
 B10007[2]     [E00004,       [TV1]                                [TV1]                          [0/0, 1/0]                     []
                A10006]
@@ -265,11 +263,11 @@ B10107[2]     [A00003,       [AC2]                                [AC2]         
                A10006]
 B10112[4]     [B20111,       [AC3]                                [AC3]                          [0/0, 0/1, 0/2, 1/0]           []
                A10006]
-B10118[4]     [B20117,       [AC4]                                [AC4]                          [0/0, 0/1, 0/2, 1/0]           []
+B10117[4]     [B20116,       [AC4]                                [AC4]                          [0/0, 0/1, 0/2, 1/0]           []
                A10006]
-B10121[2]     [E00120,       [AC5]                                [AC5]                          [0/0, 1/0]                     []
+B10120[2]     [E00119,       [AC5]                                [AC5]                          [0/0, 1/0]                     []
                A10006]
-B10124[2]     [E00123,       [AC6, AC7, AC8]                      [AC6, AC7, AC8]                [0/0, 1/0]                     []
+B10123[2]     [E00122,       [AC6, AC7, AC8]                      [AC6, AC7, AC8]                [0/0, 1/0]                     []
                A10006]
 B20027[3]     [R00001,       [C3]                                 [C3]                           [0/0, 0/1, 0/2]                [join(1/0)]
                A00026]
@@ -289,7 +287,7 @@ B20104[3]     [B00103,       [B10105]                             [AC1]         
                E10102]
 B20111[3]     [B00110,       [B10112]                             [AC3]                          [0/0, 0/1, 0/2]                [join(0/0)]
                A00003]
-B20117[3]     [E00116,       [B10118]                             [AC4]                          [0/0, 0/1, 0/2]                [join(0/0)]
+B20116[3]     [B00115,       [B10117]                             [AC4]                          [0/0, 0/1, 0/2]                [join(0/0)]
                A00003]
 TV1[2]        [B10007]
 TC1[3]        [A00009]
@@ -327,11 +325,11 @@ RR7[2]        [B00100]
 AC1[4]        [B10105]
 AC2[2]        [B10107]
 AC3[4]        [B10112]
-AC4[4]        [B10118]
-AC5[2]        [B10121]
-AC6[2]        [B10124]
-AC7[2]        [B10124]
-AC8[2]        [B10124]
+AC4[4]        [B10117]
+AC5[2]        [B10120]
+AC6[2]        [B10123]
+AC7[2]        [B10123]
+AC8[2]        [B10123]
 =================================================================================================================================================================
 
 node info3:
@@ -375,9 +373,8 @@ A00109[3]    '(?0 nm:hasFieldTag ?1)
 A00114[3]    '(?0 nm:beClassTagOf ?1)
 A10006[3]    (var-changed ?model-state running completed)
 E00004[3]    '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
-E00116[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
-E00120[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
-E00123[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
+E00119[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
+E00122[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
 E10032[4]    '('('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3)) (not-equal ?3 ?2))
 E10040[3]    '('(?0 ?1 ?2) (!= ?0 ?2))
 E10051[3]    '('(?0 ?1 ?2) (!= ?1 nm:hasAliasTag))
@@ -411,9 +408,9 @@ B10079[2]    '('('(?0 nm:typeOf nm:domain) (!= ?0 nd:Global)) (var-changed ?mode
 B10105[4]    '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
 B10107[2]    '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
 B10112[4]    '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10118[4]    '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10121[2]    '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
-B10124[2]    '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+B10117[4]    '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+B10120[2]    '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
+B10123[2]    '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 B20027[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
 B20030[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery))
 B20035[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:symmetricProperty))
@@ -423,7 +420,7 @@ B20092[3]    '('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm
 B20094[3]    '('('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
 B20104[3]    '('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2)))
 B20111[3]    '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
-B20117[3]    '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
+B20116[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
 TV1[2]       TV1
 TC1[3]       TC1
 CC1[3]       CC1
@@ -542,11 +539,9 @@ A10006[3]        0     0
                  0     0  C1:(cmp-entry-value = ?2 completed)
 E00004[3]        0     0
                  0     0  C1:(can-cast '(int float) (get-version-number ?0))
-E00116[3]        0     0
-                 0     0  C1:(has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))
-E00120[3]        0     0
+E00119[3]        0     0
                  0     0  C1:(str-end-with (get-uri-name ?0) "-Beginner")
-E00123[3]        0     0
+E00122[3]        0     0
                  0     0  C1:(> (str-index-of (get-uri-name ?0) "-") 0)
 E10032[4]        0     0
                  0     0  C1:(cmp-entry-index != ?2 ?3)
@@ -629,8 +624,9 @@ AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref 
                           nm:hasAutoRelatedTag (to-atom ?t1)))))
 AC3[4]       0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (->
                           '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
-AC4[4]       0     EXPR  (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
-             1     EXPR  (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+AC4[4]       0     EXPR  (if (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom
+                          (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name
+                          ))))))...
 AC5[2]       0     ADD   (-> '(?0, nm:beChildTagOf, nt:$BEGINNER))
              1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TOPIC))
              2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (->
@@ -685,9 +681,8 @@ A00109[3]    ALPH0 Rete1 MULTI             1     2    2    0    0   1   0  99 [?
 A00114[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?c, null, ?ins]
 A10006[3]    ALPH1 Rete1 SINGLE            1     9   11    0    0   2   0  99 [?model-state, null, null]
 E00004[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?tag, null, null]
-E00116[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?c, ?ins, ?f]
-E00120[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?t, null, null]
-E00123[3]    EXPR0 Rete1 MULTI             1     1    3    0    0   1   0  99 [?t, null, null]
+E00119[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?t, null, null]
+E00122[3]    EXPR0 Rete1 MULTI             1     1    3    0    0   1   0  99 [?t, null, null]
 E10032[4]    EXPR1 Rete1 MULTI             1     1    1    0    0   1   0  99 [?a, ?p, ?c, ?b]
 E10040[3]    EXPR1 Rete1 MULTI             1     1    1    0    0   1   0  99 [null, null, null]
 E10051[3]    EXPR1 Rete1 MULTI             1     1    2    0    0   1   0  99 [null, null, null]
@@ -721,9 +716,9 @@ B10079[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?
 B10105[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?a, ?b, ?c, ?model-state]
 B10107[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?t, ?model-state]
 B10112[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?a, ?c, ?f, ?model-state]
-B10118[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?c, ?ins, ?f, ?model-state]
-B10121[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?t, ?model-state]
-B10124[2]    BETA1 Beta1 MULTI             2     3    3    2    0   0   0  99 [?t, ?model-state]
+B10117[4]    BETA1 Beta1 MULTI             2     1    1    4    0   0   0  99 [?c, ?ins, ?f, ?model-state]
+B10120[2]    BETA1 Beta1 MULTI             2     1    1    2    0   0   0  99 [?t, ?model-state]
+B10123[2]    BETA1 Beta1 MULTI             2     3    3    2    0   0   0  99 [?t, ?model-state]
 B20027[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?p, ?b]
 B20030[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?p, ?c]
 B20035[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?p, ?b]
@@ -733,7 +728,7 @@ B20092[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?
 B20094[3]    BETA2 Beta2 MULTI             2     1    1    3    2   0   0  99 [?a, ?p, ?b]
 B20104[3]    BETA2 Beta2 MULTI             2     1    1    3    2   0   0  99 [?a, ?b, ?c]
 B20111[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?a, ?c, ?f]
-B20117[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?c, ?ins, ?f]
+B20116[3]    BETA2 Beta2 MULTI             2     1    1    3    1   0   0  99 [?c, ?ins, ?f]
 TV1[2]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?tag, ?model-state]
 TC1[3]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?ti, null, ?tc]
 CC1[3]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?a, ?b, ?c]
@@ -782,7 +777,7 @@ priority info:
 Priority        ROOT0   VAR ALPH0 ALPH1 EXPR0 EXPR1 BETA0 BETA1 BETA2  RULE
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 900(root)    :      1                                                      
-099(default) :            1    33     1     4     7    20     9    10    41
+099(default) :            1    33     1     3     7    20     9    10    41
 =================================================================================================================================================================
 
 node source info:
@@ -1080,11 +1075,9 @@ A10006(ALPH1) :                 3      (var-changed ?model-state running complet
              0: V00005(VAR)     3      (var-changed ?model-state ?model-state.old ?model-state.new)
 E00004(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
              0: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-E00116(EXPR0) :                 3      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
-             0: B00115(BETA0)   3      '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
-E00120(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
+E00119(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
              0: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-E00123(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
+E00122(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
              0: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
 E10032(EXPR1) :                 4      '('('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3)) (not-equal ?3 ?2))
              0: B00031(BETA0)   4      '('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3))
@@ -1178,14 +1171,14 @@ B10107(BETA1) :                 2      '('(?0 nm:typeOf nm:tag) (var-changed ?mo
 B10112(BETA1) :                 4      '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
              0: B20111(BETA2)   4      '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
              1: A10006(ALPH1)   4      (var-changed ?model-state running completed)
-B10118(BETA1) :                 4      '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-             0: B20117(BETA2)   4      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
+B10117(BETA1) :                 4      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+             0: B20116(BETA2)   4      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
              1: A10006(ALPH1)   4      (var-changed ?model-state running completed)
-B10121(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
-             0: E00120(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
+B10120(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
+             0: E00119(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
              1: A10006(ALPH1)   2      (var-changed ?model-state running completed)
-B10124(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
-             0: E00123(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
+B10123(BETA1) :                 2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: E00122(EXPR0)   2      '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
              1: A10006(ALPH1)   2      (var-changed ?model-state running completed)
 B20027(BETA2) :                 3      '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
              0: R00001(ROOT0)   3      '(?0 ?1 ?2)
@@ -1214,8 +1207,8 @@ B20104(BETA2) :                 3      '('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1
 B20111(BETA2) :                 3      '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
              0: B00110(BETA0)   3      '('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2))
              1: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-B20117(BETA2) :                 3      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
-             0: E00116(EXPR0)   3      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
+B20116(BETA2) :                 3      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
+             0: B00115(BETA0)   3      '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
              1: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
 TV1(RULE)     :                 2      (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) ==> (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion))))))
              0: B10007(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
@@ -1289,16 +1282,16 @@ AC2(RULE)     :                 2      (var-changed ?model-state running complet
              0: B10107(BETA1)   2      '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
 AC3(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:typeOf nm:tag) '(?a nm:hasFieldTag ?f) '(?a nm:beParentTagOf ?c) ==> (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
              0: B10112(BETA1)   4      '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-AC4(RULE)     :                 4      (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) ==> (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
-             0: B10118(BETA1)   4      '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+AC4(RULE)     :                 4      (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) ==> (if (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))))
+             0: B10117(BETA1)   4      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
 AC5(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (get-uri-name ?t) "-Beginner") ==> (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
-             0: B10121(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
+             0: B10120(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
 AC6(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) ==> (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy)))))
-             0: B10124(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: B10123(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 AC7(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) ==> (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t)))
-             0: B10124(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: B10123(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 AC8(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) ==> (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t)))
-             0: B10124(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+             0: B10123(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
 =================================================================================================================================================================
 
 
@@ -2288,11 +2281,10 @@ NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node 
 VAR          0      0      0      0     0     0     0     1      0      0     1      0     0     0    0        0      0      0    0    0   99   99      0       0
 ALPH0        0      0      0      0     0     0     0     0      0      0     4     24     0     0    0        0      0      0    1    2   99   99      0       0
 ALPH1        0      0      0      0     0     0     0     1      0      0     1      0     0     0    0        0      0      0    1    1   99   99      0       0
-EXPR0        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
 BETA0        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    2    2   99   99      0       0
-BETA1        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
-BETA2        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
-RULE         0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    6    6   99   99      0       0
+BETA1        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
+BETA2        0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+RULE         0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
 =================================================================================================================================================================
 
 node info:
@@ -2305,18 +2297,17 @@ A00003[3]         0      0      0      0      0      0     0     0   0/0      0 
 A00109[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   4     2  InQueue           0
 A00114[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   4     1  InQueue           0
 A10006[3]         0      0      0      0      0      0     0     1   0/0      0      0      0    0    0      *    0   1  99   0     9 InActive           0
-E00116[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
 B00115[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2  99   0     1 InActive         0/0
-B10118[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     1 InActive         0/0
-B20117[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
-AC4[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   6  99   0     0 InActive           0
+B10117[4]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
+B20116[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive         0/0
+AC4[4]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 =================================================================================================================================================================
 
 priority info:
 =================================================================================================================================================================
-Priority          VAR ALPH0 ALPH1 EXPR0 BETA0 BETA1 BETA2  RULE
+Priority          VAR ALPH0 ALPH1 BETA0 BETA1 BETA2  RULE
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-099(default) :      1     4     1     1     1     1     1     1
+099(default) :      1     4     1     1     1     1     1
 =================================================================================================================================================================
 
 Rule<AC5> stats: priority=099, expr=(add-rule "AC5" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (get-uri-name ?t) "-Beginner") do (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn))))))
@@ -2339,8 +2330,8 @@ V00005[3]         0      0      0      0      0      0     0     1   0/0      0 
 A00002[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   8     4  InQueue           0
 A00003[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2  99   8     7 InActive           0
 A10006[3]         0      0      0      0      0      0     0     1   0/0      0      0      0    0    0      *    0   1  99   0     9 InActive           0
-E00120[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
-B10121[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
+E00119[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
+B10120[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     1 InActive         0/0
 AC5[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 =================================================================================================================================================================
 
@@ -2371,8 +2362,8 @@ V00005[3]         0      0      0      0      0      0     0     1   0/0      0 
 A00002[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   8     4  InQueue           0
 A00003[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2  99   8     7 InActive           0
 A10006[3]         0      0      0      0      0      0     0     1   0/0      0      0      0    0    0      *    0   1  99   0     9 InActive           0
-E00123[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
-B10124[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
+E00122[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
+B10123[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
 AC6[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 =================================================================================================================================================================
 
@@ -2403,8 +2394,8 @@ V00005[3]         0      0      0      0      0      0     0     1   0/0      0 
 A00002[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   8     4  InQueue           0
 A00003[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2  99   8     7 InActive           0
 A10006[3]         0      0      0      0      0      0     0     1   0/0      0      0      0    0    0      *    0   1  99   0     9 InActive           0
-E00123[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
-B10124[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
+E00122[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
+B10123[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
 AC7[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 =================================================================================================================================================================
 
@@ -2435,8 +2426,8 @@ V00005[3]         0      0      0      0      0      0     0     1   0/0      0 
 A00002[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   1  99   8     4  InQueue           0
 A00003[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   2  99   8     7 InActive           0
 A10006[3]         0      0      0      0      0      0     0     1   0/0      0      0      0    0    0      *    0   1  99   0     9 InActive           0
-E00123[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
-B10124[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
+E00122[3]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   3  99   0     1 InActive           0
+B10123[2]         0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   4  99   0     3 InActive         0/0
 AC8[2]            0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   5  99   0     0 InActive           0
 =================================================================================================================================================================
 
@@ -2501,11 +2492,11 @@ Model<p2d> share index:
   VAR                                                909                 909                                                           909  909               
 ALPH0                                                                    565    614                                          975  967  975  975               
 ALPH1                                                909                 909                                                 909  909  909  909               
-EXPR0                                                                    333                                                 833  833  833  833               
+EXPR0                                                                    399                                                 800  800  800  800               
 EXPR1                                                                    222                                                 928  687  857  857               
 BETA0                                                                      0                                                 958  916  950  950               
-BETA1                                                                    181                                                 933  888  909  909               
-BETA2                                                                      0                                                 896  866  888  888               
+BETA1                                                                    181                                                 931  886  909  909               
+BETA2                                                                      0                                                 892  862  888  888               
  RULE                                                                      0                                                 986  960  975  975               
 =================================================================================================================================================================
 
@@ -2539,7 +2530,7 @@ B20092[3]            0
 B20094[3]            0
 B20104[3]            0
 B20111[3]            0
-B20117[3]            0
+B20116[3]            0
 
 Entry Table:
 	    ETA: total-action=0, new-action=0, max-size=0, capacity=256, expend=0
@@ -2648,11 +2639,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3606            0         3606
+        atom:         3594            0         3594
          int:            2            0            2
       string:          878            0          878
-        list:         1084            0         1084
-        expr:         6937         1556         5381
+        list:         1077            0         1077
+        expr:         6898         1556         5342
          var:         3522         3498           24
     constant:           35            0           35
         func:           84            0           84
