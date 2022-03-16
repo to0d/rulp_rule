@@ -734,7 +734,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		if (leftNode.getEntryLength() == beteEntryLen && ReteUtil.getMainInheritIndex(inheritIndexs) == 0) {
 			return RNodeFactory.createBeta2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
 					entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
-
 		}
 
 		return RNodeFactory.createBeta0Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,

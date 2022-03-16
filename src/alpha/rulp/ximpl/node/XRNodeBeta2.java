@@ -18,15 +18,15 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeBeta2 extends XRNodeBeta0 {
 
-	public XRNodeBeta2(String instanceName) {
-		super(instanceName);
-	}
-
 	protected int leftBeginIndex = 0;
 
 	protected Set<Integer> leftUsedIndexSet = new HashSet<>();
 
 	private Boolean sameInherit = null;
+
+	public XRNodeBeta2(String instanceName) {
+		super(instanceName);
+	}
 
 	protected Map<String, List<Integer>> _buildPrimaryIndexMap(IREntryQueue entryQueue, int begin, int end,
 			int primayIndex, Set<String> supportKeys, List<String> keysList, boolean isLeft) throws RException {
