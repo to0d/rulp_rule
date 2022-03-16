@@ -93,7 +93,7 @@ public class OptimizeUtil {
 		IRRule rule;
 	}
 
-	public static boolean OPT_RULE = false;
+	public static boolean OPT_RULE = true;
 
 	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2, BETA3 };
 
