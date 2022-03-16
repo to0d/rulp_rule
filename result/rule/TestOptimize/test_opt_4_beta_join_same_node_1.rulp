@@ -1,14 +1,20 @@
 (new model m)
-;;;
+;=>
 
 (add-rule m if '(?a ?p ?b) '(?b ?p ?a) do (-> n1:'(?a ?b)))
-;;;
+;=>
+
+(foreach (?n (rete-node-of m)) (return (name-of $(value-of ?n))))
+;=>
+
+(list-source-node m (n1:'(?...)))
+;err
 
 (add-stmt m '(a p a))
-;;;
+;=>
 
 (add-stmt m '(b p b))
-;;;
+;=>
 
 (query-stmt m '(?a ?b) from n1:'(?a ?b))
 ;=>

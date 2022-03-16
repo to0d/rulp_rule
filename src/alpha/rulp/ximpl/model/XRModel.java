@@ -902,7 +902,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				IRObject obj = iter.next();
 
-				if (ReteUtil.isAnyVar(obj)) {
+				if (RulpUtil.isAnyVar(obj)) {
 
 					if (filterObjs == null) {
 						filterObjs = new ArrayList<>();

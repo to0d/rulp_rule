@@ -153,8 +153,6 @@ public interface Constant {
 
 	String F_MODEL_OF = "model-of";
 
-	String F_NOT_EQUAL = "not-equal";
-
 	String F_OPT_MODEL = "opt-model";
 
 	String F_PRINT_MODEL_STATUS = "print-model-status";

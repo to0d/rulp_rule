@@ -9,12 +9,11 @@ import static alpha.rulp.lang.Constant.F_O_EQ;
 import static alpha.rulp.lang.Constant.F_O_GE;
 import static alpha.rulp.lang.Constant.F_O_GT;
 import static alpha.rulp.lang.Constant.F_O_LE;
-import static alpha.rulp.lang.Constant.F_O_LT;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Uniq;
-import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
@@ -247,7 +246,7 @@ public class ReteUtil {
 
 				IRObject obj = iter.next();
 
-				if (ReteUtil.isAnyVar(obj)) {
+				if (RulpUtil.isAnyVar(obj)) {
 
 					if (filterObjs == null) {
 						filterObjs = new ArrayList<>();
@@ -1235,10 +1234,6 @@ public class ReteUtil {
 		return isValidStmtLen(matchTree.size()) && ReteUtil.isEntryValueType(matchTree.get(0).getType());
 	}
 
-	public static boolean isAnyVar(IRObject obj) {
-		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION);
-	}
-
 	public static boolean isBeta3Tree(IRList reteTree, int treeSize) throws RException {
 		return treeSize == 3 && reteTree.get(0).getType() == RType.LIST && reteTree.get(1).getType() == RType.LIST
 				&& reteTree.get(2).getType() == RType.EXPR;
@@ -1825,7 +1820,7 @@ public class ReteUtil {
 
 					IRObject obj = iter.next();
 
-					if (ReteUtil.isAnyVar(obj)) {
+					if (RulpUtil.isAnyVar(obj)) {
 
 						if (filterObjs == null) {
 							filterObjs = new ArrayList<>();
@@ -1878,48 +1873,8 @@ public class ReteUtil {
 		return matchStmtList;
 	}
 
-	public static ArrayList<IRExpr> toExprList(IRList list) throws RException {
-
-		ArrayList<IRExpr> array = new ArrayList<>();
-
-		IRIterator<? extends IRObject> iter = list.iterator();
-		while (iter.hasNext()) {
-			array.add(RulpUtil.asExpression(iter.next()));
-		}
-
-		return array;
-	}
-
 	public static IRReteNode[] toNodesArray(IRReteNode... nodes) {
 		return nodes;
-	}
-
-	public static RRelationalOperator toRelationalOperator(String name) {
-
-		switch (name) {
-		case F_EQUAL:
-		case F_O_EQ:
-			return RRelationalOperator.EQ;
-
-		case F_NOT_EQUAL:
-		case F_O_NE:
-			return RRelationalOperator.NE;
-
-		case F_O_GE:
-			return RRelationalOperator.GE;
-
-		case F_O_GT:
-			return RRelationalOperator.GT;
-
-		case F_O_LE:
-			return RRelationalOperator.LE;
-
-		case F_O_LT:
-			return RRelationalOperator.LT;
-
-		default:
-			return null;
-		}
 	}
 
 	public static boolean tryChangeNodeQueue(IRReteNode node, REntryQueueType fromType, REntryQueueType toType)

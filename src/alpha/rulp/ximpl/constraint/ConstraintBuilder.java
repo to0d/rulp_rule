@@ -367,7 +367,7 @@ public class ConstraintBuilder {
 		/**********************************************/
 		// Column type
 		/**********************************************/
-		if (cons.constraintName.equals(A_Type) && !ReteUtil.isAnyVar(cons.constraintValue)) {
+		if (cons.constraintName.equals(A_Type) && !RulpUtil.isAnyVar(cons.constraintValue)) {
 			columnType = RType.toType(RulpUtil.asAtom(cons.constraintValue).asString());
 			if (columnType == null || !ReteUtil.isEntryValueType(columnType)) {
 				throw new RException("Invalid column type: " + columnType);

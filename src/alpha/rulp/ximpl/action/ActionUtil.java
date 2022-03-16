@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.action;
 
 import static alpha.rulp.lang.Constant.A_DO;
+import static alpha.rulp.lang.Constant.F_IF;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
@@ -18,6 +19,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
+import alpha.rulp.ximpl.control.XRFactorIf;
 
 public class ActionUtil {
 
@@ -142,8 +144,13 @@ public class ActionUtil {
 		}
 	}
 
-	private static void _buildRelatedStmtUniqNames(IRExpr expr, List<String> uniqNames) throws RException {
+	private static void _buildRelatedStmtUniqNames(IRObject obj, List<String> uniqNames) throws RException {
 
+		if (obj.getType() != RType.EXPR) {
+			return;
+		}
+
+		IRExpr expr = (IRExpr) obj;
 		if (expr.isEmpty()) {
 			return;
 		}
@@ -177,22 +184,17 @@ public class ActionUtil {
 			}
 
 			uniqNames.add(ReteUtil.uniqName(stmt));
-
-			break;
+			return;
 
 		case A_DO:
+		case F_IF:
 
 			IRIterator<? extends IRObject> it = expr.listIterator(1);
 			while (it.hasNext()) {
-
-				IRObject ex = it.next();
-				if (ex.getType() == RType.EXPR) {
-					_buildRelatedStmtUniqNames((IRExpr) ex, uniqNames);
-				}
-
+				_buildRelatedStmtUniqNames(it.next(), uniqNames);
 			}
 
-			break;
+			return;
 
 		default:
 

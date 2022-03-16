@@ -590,21 +590,6 @@ public class RuleUtil {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <T> List<T> toList(T... objs) {
-
-		if (objs == null || objs.length == 0) {
-			return Collections.emptyList();
-		}
-
-		List<T> list = new ArrayList<T>();
-		for (T o : objs) {
-			list.add(o);
-		}
-
-		return list;
-	}
-
 	public static IRList toStmtFilter(String filter) throws RException {
 
 		List<IRObject> stmts = getParser().parse(filter);

@@ -215,7 +215,7 @@ public class MatchTree {
 			RRelationalOperator op = null;
 
 			if (n1.level == 0 && n1.tree.getType() == RType.LIST && n2.level == 0 && n2.tree.getType() == RType.EXPR
-					&& n2.tree.size() == 3 && (op = ReteUtil.toRelationalOperator(n2.tree.get(0).asString())) != null) {
+					&& n2.tree.size() == 3 && (op = RulpUtil.toRelationalOperator(n2.tree.get(0).asString())) != null) {
 
 				List<String> list1 = RulpUtil.toStringList(n1.tree);
 

@@ -15,7 +15,7 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
-import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.*;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.lang.XRListNative;
 
@@ -695,11 +695,11 @@ public class XREntryTable implements IREntryTable {
 
 		if (XREntryTable.TRACE) {
 			System.out
-					.println("==> addReference: " + entry + ", node=" + node + ", parents=" + RuleUtil.toList(parents));
+					.println("==> addReference: " + entry + ", node=" + node + ", parents=" + RulpUtil.toList(parents));
 		}
 
 		if (parents.length > 3) {
-			throw new RException("Not support parentIds: " + RuleUtil.toList(parents));
+			throw new RException("Not support parentIds: " + RulpUtil.toList(parents));
 		}
 
 		_addReference(_toEntry(entry), node, _toValidParentEntry(parents));

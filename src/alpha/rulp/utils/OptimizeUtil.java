@@ -1,9 +1,7 @@
 package alpha.rulp.utils;
 
-import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_B_NOT;
 import static alpha.rulp.lang.Constant.F_EQUAL;
-import static alpha.rulp.lang.Constant.F_IF;
 import static alpha.rulp.lang.Constant.F_O_ADD;
 import static alpha.rulp.lang.Constant.F_O_BY;
 import static alpha.rulp.lang.Constant.F_O_DIV;
@@ -16,9 +14,8 @@ import static alpha.rulp.lang.Constant.F_O_NE;
 import static alpha.rulp.lang.Constant.F_O_POWER;
 import static alpha.rulp.lang.Constant.F_O_SUB;
 import static alpha.rulp.lang.Constant.O_False;
-import static alpha.rulp.lang.Constant.O_True;
-import static alpha.rulp.rule.Constant.F_HAS_STMT;
-import static alpha.rulp.rule.Constant.F_NOT_EQUAL;
+import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
 import static alpha.rulp.ximpl.node.RReteType.ALPH1;
 import static alpha.rulp.ximpl.node.RReteType.BETA0;
@@ -229,21 +226,32 @@ public class OptimizeUtil {
 			}
 
 			ArrayList<IRList> newCondList = new ArrayList<>();
+			ArrayList<IRList> newListList = new ArrayList<>();
 			for (IRList cond : condList) {
 				if (cond != testCond) {
 					newCondList.add(cond);
+					if (cond.getType() == RType.LIST) {
+						newListList.add(cond);
+					}
 				}
 			}
 
-			HashSet<String> newCondVars = new HashSet<>(ReteUtil.varList(newCondList));
+			HashSet<String> newCondVars = new HashSet<>(ReteUtil.varList(newListList));
 
-			if (actionVars == null) {
-				actionVars = new HashSet<>(ReteUtil.varList(actions));
+			/*************************************************/
+			// All test vars should be found in other condition vars
+			/*************************************************/
+			HashSet<String> testCondVars = new HashSet<>(ReteUtil.varList(testCond));
+			if (!newCondVars.containsAll(testCondVars)) {
+				continue;
 			}
 
 			/*************************************************/
 			// All action vars can be found in condition vars
 			/*************************************************/
+			if (actionVars == null) {
+				actionVars = new HashSet<>(ReteUtil.varList(actions));
+			}
 			if (!newCondVars.containsAll(actionVars)) {
 				continue;
 			}
@@ -262,39 +270,14 @@ public class OptimizeUtil {
 
 			// (if (has-stmt '(?x ?y ?z)) old-actions )
 
-			IRExpr newAction = createIfDoExpression(
-					RulpFactory.createExpression(RulpFactory.createAtom(F_HAS_STMT), testCond), actions);
+			IRExpr newAction = RulpUtil
+					.toIfExpr(RulpFactory.createExpression(RulpFactory.createAtom(F_HAS_STMT), testCond), actions);
 
 			return new Pair<IRList, IRList>(RulpFactory.createList(newCondList), RulpFactory.createList(newAction));
 
 		}
 
 		return null;
-	}
-
-	static IRExpr createIfDoExpression(IRExpr condExpr, IRExpr... doExprs) throws RException {
-
-		ArrayList<IRObject> exprList = new ArrayList<>();
-		exprList.add(RulpFactory.createAtom(F_IF));
-		exprList.add(condExpr);
-		exprList.add(RulpFactory.createAtom(A_DO));
-
-		for (IRExpr doExpr : doExprs) {
-			exprList.add(doExpr);
-		}
-
-		return RulpFactory.createExpression(exprList);
-	}
-
-	static IRExpr createIfDoExpression(IRExpr condExpr, IRList doExprs) throws RException {
-
-		ArrayList<IRObject> exprList = new ArrayList<>();
-		exprList.add(RulpFactory.createAtom(F_IF));
-		exprList.add(condExpr);
-		exprList.add(RulpFactory.createAtom(A_DO));
-		exprList.addAll(ReteUtil.toExprList(doExprs));
-
-		return RulpFactory.createExpression(exprList);
 	}
 
 //	private static IRObject _optimizeExpr(IRObject obj) throws RException {
@@ -514,7 +497,7 @@ public class OptimizeUtil {
 			// (op ?a ?a)
 			RRelationalOperator op = null;
 			if (expr.size() == 3 && OptUtil.getExprLevel(expr) == 1
-					&& (op = ReteUtil.toRelationalOperator(expr.get(0).asString())) != null
+					&& (op = RulpUtil.toRelationalOperator(expr.get(0).asString())) != null
 					&& expr.get(1).asString().equals(expr.get(2).asString())) {
 
 				switch (op) {
