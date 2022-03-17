@@ -1,10 +1,10 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.lang.Constant.A_By;
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.A_By;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_On;
