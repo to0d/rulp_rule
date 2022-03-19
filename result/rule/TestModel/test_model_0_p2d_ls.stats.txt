@@ -2574,7 +2574,7 @@ Model<p2d> frame:id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 3282     4        10   instance   model@p2d           
+default_model        : 3309     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 
@@ -2584,7 +2584,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      300
+           Interpreter call id:      306
     Interpreter call level/max:        0       11
                Frame max level:        7
                   Frame max id:        9
@@ -2605,64 +2605,64 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    19408
-      func:     1556
+    factor:    19561
+      func:     1568
 ==========================================================================================================================
 
-Callable stats info: callId=300, row=29, column=38(8), value-max=6228, value-unit=3^x
+Callable stats info: callId=306, row=29, column=39(8), value-max=5570, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333343333333333334X max=20655, unit=3^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333343333333333333X9 max=18425, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   6228    0 value-of                                                            9
-    root   factor   2728    0 print                                                               9
-    root   factor   1934    0 if                                                                  8
-    root   factor   1548    0 return                                                              8
-    root   factor   1548    0 equal_def                                                           8
-  system funcList   1548    7 equal                                                               8
-    root   factor   1544    0 type-of                                                             8
-    root   factor    772    0 not                                                                 8
-    root   factor    772    0 name-of                                                             8
-    root   factor    772    0 attribute-of                                                        8
-    root   factor    389    0 property-of                                                         7
-    root   factor    386    0 and                                                                 7
-    root   factor    386    0 access                                                              7
-    root   factor    179    0 add-attribute                  133333333333333333333332              
-    root   factor     70    0 defun                                                 133333    33343
-  system   factor     41    0 add-rule                                                            5
-    root   factor     35    0 defconst                                                   23333     
-  system   factor     28    0 fix-stmt                                                            5
-    main funcList      8   13 print-list                                                          3
-    root   factor      8    0 defvar                                                3            12
-    root   factor      8    0 defmacro                                                2       21 12
-    root   factor      7    0 alias                          3                                1    
-    root   factor      5    0 make-list                                             3              
-    root   factor      5    0 class-of                                                            3
-    root   factor      4    0 loop                                                                3
-    root   factor      4    0 list-of                                                             3
-    root   factor      3    0 load                                                               21
-    root   factor      3    0 deftemplate                                              2           
-    root   factor      1    0 new                                                                 1
+    root   factor   6276    0 value-of                                                            97
+    root   factor   2749    0 print                                                               97
+    root   factor   1949    0 if                                                                  86
+    root   factor   1560    0 return                                                              86
+    root   factor   1560    0 equal_def                                                           86
+  system funcList   1560    7 equal                                                               86
+    root   factor   1556    0 type-of                                                             86
+    root   factor    778    0 not                                                                 76
+    root   factor    778    0 name-of                                                             76
+    root   factor    778    0 attribute-of                                                        76
+    root   factor    392    0 property-of                                                         75
+    root   factor    389    0 and                                                                 75
+    root   factor    389    0 access                                                              75
+    root   factor    179    0 add-attribute                  133333333333333333333332               
+    root   factor     74    0 defun                                                 1332332   233343
+  system   factor     41    0 add-rule                                                             5
+    root   factor     35    0 defconst                                                    33333     
+  system   factor     28    0 fix-stmt                                                             5
+    root   factor     10    0 defmacro                                                22       2  12
+    main funcList      8   13 print-list                                                          33
+    root   factor      8    0 defvar                                                3             12
+    root   factor      7    0 alias                          3                                 1    
+    root   factor      5    0 make-list                                             3               
+    root   factor      5    0 class-of                                                             3
+    root   factor      4    0 loop                                                                22
+    root   factor      4    0 list-of                                                             22
+    root   factor      3    0 load                                                                21
+    root   factor      3    0 deftemplate                                              2            
+    root   factor      1    0 new                                                                  1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3606            0         3606
+        atom:         3738            0         3738
          int:            2            0            2
-      string:          878            0          878
-        list:         1084            0         1084
-        expr:         6937         1556         5381
-         var:         3522         3498           24
+      string:          884            0          884
+        list:         1087            0         1087
+        expr:         7047         1568         5479
+         var:         3549         3525           24
     constant:           35            0           35
-        func:           84            0           84
+        func:           89            0           89
     template:            1            0            1
-       macro:            8            0            8
+       macro:           10            0           10
     instance:            2            0            2
       member:           25            0           25
-       frame:         1947         1946            1
+       frame:         1962         1961            1
  interpreter:            1            0
-  frameEntry:         3876            0
+  frameEntry:         3906            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -2697,15 +2697,15 @@ to-valid-path        : 14       2        13   func       (to-valid-path string) 
 day-is-bigger-than   : 15       2        13   func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 16       2        13   func       (day-is-smaller-than string string) : frame=frame@main
 index-of             : 17       2        13   func       (index-of nil list) : frame=frame@main
-p2d                  : 3283     2        10   instance   model@p2d           
-#ns_tag              : 3284     2        9    var        nt: : type=string   
-#ns_domain           : 3285     2        9    var        nd: : type=string   
-get-uri-name         : 3286     2        8    func       (get-uri-name nil) : frame=frame@main
-get-suffix           : 3287     2        8    func       (get-suffix nil nil) : frame=frame@main
-get-field-name       : 3288     2        8    func       (get-field-name nil) : frame=frame@main
-get-new-ns           : 3289     2        8    macro      get-new-ns          
-get-version-number   : 3290     2        8    func       (get-version-number nil) : frame=frame@main
-hasGroupChild        : 3291     2        8    macro      hasGroupChild       
+p2d                  : 3310     2        10   instance   model@p2d           
+#ns_tag              : 3311     2        9    var        nt: : type=string   
+#ns_domain           : 3312     2        9    var        nd: : type=string   
+get-uri-name         : 3313     2        8    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 3314     2        8    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 3315     2        8    func       (get-field-name nil) : frame=frame@main
+get-new-ns           : 3316     2        8    macro      get-new-ns          
+get-version-number   : 3317     2        8    func       (get-version-number nil) : frame=frame@main
+hasGroupChild        : 3318     2        8    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2713,7 +2713,7 @@ id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 3282     4        10   instance   model@p2d           
+default_model        : 3309     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 Root var list: total=7

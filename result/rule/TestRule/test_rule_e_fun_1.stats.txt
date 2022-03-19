@@ -208,7 +208,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      301
+           Interpreter call id:      307
     Interpreter call level/max:        0        6
                Frame max level:        5
                   Frame max id:        7
@@ -229,54 +229,54 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      332
+    factor:      338
       func:        4
 ==========================================================================================================================
 
-Callable stats info: callId=301, row=19, column=38(8), value-max=13, value-unit=2^x
+Callable stats info: callId=307, row=19, column=39(8), value-max=13, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444466 max=27, unit=2^x
+   Frame    RType  Count  Ref Object                         444444444444444444444445444444444444466 max=25, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    179    0 add-attribute                  144444444444444444444442              
-    root   factor     66    0 defun                                                 144444    4445 
-    root   factor     35    0 defconst                                                   34444     
-    root   factor      8    0 day-number                                                          4
-    root   factor      7    0 alias                          4                                1    
-    root   factor      6    0 defvar                                                4            1 
-    root   factor      6    0 defmacro                                                2       21 1 
-    root   factor      5    0 make-list                                             4              
-    root   factor      4    0 return                                                              3
-    main     func      4    1 (day-is-bigger-than string str                                      3
-    root   factor      4    0 >                                                                   3
-    root   factor      3    0 deftemplate                                              3           
-    root   factor      2    0 load                                                               2 
-  system   factor      2    0 add-stmt                                                            2
-  system   factor      1    0 start                                                               1
-  system   factor      1    0 remove-stmt                                                         1
-    root   factor      1    0 new                                                                 1
-  system   factor      1    0 list-stmt                                                           1
-  system   factor      1    0 add-rule                                                            1
+    root   factor    179    0 add-attribute                  144444444444444444444442               
+    root   factor     70    0 defun                                                 1443443   23445 
+    root   factor     35    0 defconst                                                    44444     
+    root   factor      8    0 defmacro                                                22       3  1 
+    root   factor      8    0 day-number                                                           4
+    root   factor      7    0 alias                          4                                 1    
+    root   factor      6    0 defvar                                                4             1 
+    root   factor      5    0 make-list                                             4               
+    root   factor      4    0 return                                                               3
+    main     func      4    1 (day-is-bigger-than string str                                       3
+    root   factor      4    0 >                                                                    3
+    root   factor      3    0 deftemplate                                              3            
+    root   factor      2    0 load                                                                2 
+  system   factor      2    0 add-stmt                                                             2
+  system   factor      1    0 start                                                                1
+  system   factor      1    0 remove-stmt                                                          1
+    root   factor      1    0 new                                                                 1 
+  system   factor      1    0 list-stmt                                                            1
+  system   factor      1    0 add-rule                                                            1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1974            0         1974
+        atom:         2106            0         2106
          int:           10            0           10
       string:           78            0           78
         list:           66            1           65
-        expr:          891            4          887
+        expr:          959            4          955
          var:           38            8           30
     constant:           35            0           35
-        func:           80            0           80
+        func:           85            0           85
     template:            1            0            1
-       macro:            6            0            6
+       macro:            8            0            8
     instance:            2            0            2
       member:           25            0           25
        frame:            8            5            3
  interpreter:            1            0
-  frameEntry:          379            0
+  frameEntry:          382            0
       lambda:            0            0
 ==========================================================================================================================
 
