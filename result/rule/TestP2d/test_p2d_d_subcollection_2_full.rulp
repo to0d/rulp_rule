@@ -1,5 +1,5 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(nt:ta1 nm:hasFieldTag nt:f1))
 (add-stmt p2d '(nt:ta1 nm:beParentTagOf nt:c1))
@@ -14,19 +14,19 @@
 (add-stmt p2d '(nt:ta4 nm:hasFieldTag nt:f4-xx))
 (add-stmt p2d '(nt:ta4 nm:beParentTagOf nt:c4))
 (add-stmt p2d '(nt:c4-xx nm:typeOf nm:tag))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:hasSubCollection ?y))
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:beFieldTagOf ?y))
-;;;
+;=>

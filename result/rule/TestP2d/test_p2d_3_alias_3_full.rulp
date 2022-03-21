@@ -1,17 +1,17 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(ta nm:beAliasTo tb))
-;;;
+;=>
 
 (add-stmt p2d '(ta nm:beAliasTo tc))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>

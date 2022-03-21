@@ -1,4 +1,4 @@
-(load "result/p2d.rulp")
+(load "note/p2d.rulp")
 ;=>nil
 
 (add-stmt p2d '(domain1 nm:typeOf nm:domain))
@@ -20,10 +20,7 @@
 ;=>completed
 
 (list-with-state (list-rule p2d) failed)
-;err:
-factor not found: (list-with-state (list-rule p2d) failed)
-at (list-with-state (list-rule p2d) failed) ; main-2
-;eof
+;=>'()
 
 (list-stmt p2d from '(?x nm:beParentDomainOf ?y))
 ;=>'('(domain1 nm:beParentDomainOf domain2) '(nd:Global nm:beParentDomainOf domain1) '(nd:Global nm:beParentDomainOf domainx))

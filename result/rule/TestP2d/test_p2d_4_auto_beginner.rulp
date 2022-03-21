@@ -1,26 +1,26 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(nt:ta nm:typeOf nm:tag))
-;;;
+;=>
 
 (add-stmt p2d '(nt:ta-Beginner nm:typeOf nm:tag))
-;;;
+;=>
 
 (add-stmt p2d '(nt:tb-Beginner nm:typeOf nm:tag))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:beChildTagOf nt:$BEGINNER))
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:beDefinedByTag ?y))
-;;;
+;=>

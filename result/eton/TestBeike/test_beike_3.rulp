@@ -1,7 +1,4 @@
-(load "eton.rulp")
-;=>
-
-(load "constraint-diff-stmt")
+(load "eton")
 ;=>
 
 (init_eton_model "")

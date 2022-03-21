@@ -218,11 +218,9 @@ mbr=~, mbr-property='(public), mbr-attribute='(), obj=~, obj-type=factor, obj-at
 (print-list system)
 ;=>nil
 ;out:
-mbr=++, mbr-property='(public), mbr-attribute='(), obj=++, obj-type=macro, obj-attribute='()
-mbr=--, mbr-property='(public), mbr-attribute='(), obj=--, obj-type=macro, obj-attribute='()
 mbr=?load-class, mbr-property='(public), mbr-attribute='(), obj=?load-class, obj-type=var, obj-attribute='(), var-value="'()"
 mbr=?load-jar, mbr-property='(public), mbr-attribute='(), obj=?load-jar, obj-type=var, obj-attribute='(), var-value="'()"
-mbr=?load-script, mbr-property='(public), mbr-attribute='(), obj=?load-script, obj-type=var, obj-attribute='(), var-value="'(C:\datasulp\string.rulp C:\datasulp\tool.rulp)"
+mbr=?load-script, mbr-property='(public), mbr-attribute='(), obj=?load-script, obj-type=var, obj-attribute='(), var-value="'(C:\datas\load\tool.rulp C:\datas\load\test/itest.rulp)"
 mbr=?model-trace, mbr-property='(public), mbr-attribute='(), obj=?model-trace, obj-type=var, obj-attribute='(), var-value="false"
 mbr=?path, mbr-property='(public), mbr-attribute='(), obj=?path, obj-type=var, obj-attribute='(), var-value="'()"
 mbr=?trace, mbr-property='(public), mbr-attribute='(), obj=?trace, obj-type=var, obj-attribute='(), var-value="false"
@@ -241,7 +239,6 @@ mbr=assume-stmt, mbr-property='(public), mbr-attribute='(), obj=assume-stmt, obj
 mbr=assumed, mbr-property='(public), mbr-attribute='(), obj=assumed, obj-type=atom, obj-attribute='()
 mbr=cmp, mbr-property='(public), mbr-attribute='(), obj=(cmp nil nil), obj-type=func, obj-attribute='()
 mbr=completed, mbr-property='(public), mbr-attribute='(), obj=completed, obj-type=atom, obj-attribute='()
-mbr=dec, mbr-property='(public), mbr-attribute='(), obj=dec, obj-type=macro, obj-attribute='()
 mbr=defined, mbr-property='(public), mbr-attribute='(), obj=defined, obj-type=atom, obj-attribute='()
 mbr=dump-status, mbr-property='(public), mbr-attribute='(), obj=dump-status, obj-type=factor, obj-attribute='()
 mbr=equal, mbr-property='(public), mbr-attribute='(), obj='((equal nil nil) (equal string string)), obj-type=func, obj-attribute='()
@@ -252,7 +249,6 @@ mbr=get, mbr-property='(public), mbr-attribute='(), obj='((get array int int) (g
 mbr=get-rete-entry, mbr-property='(public), mbr-attribute='(), obj=get-rete-entry, obj-type=factor, obj-attribute='()
 mbr=halting, mbr-property='(public), mbr-attribute='(), obj=halting, obj-type=atom, obj-attribute='()
 mbr=has-stmt, mbr-property='(public), mbr-attribute='(), obj=has-stmt, obj-type=factor, obj-attribute='()
-mbr=inc, mbr-property='(public), mbr-attribute='(), obj=inc, obj-type=macro, obj-attribute='()
 mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list), obj-type=func, obj-attribute='()
 mbr=init_cst_rule, mbr-property='(public), mbr-attribute='(), obj=(init_cst_rule type#model), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list)), obj-type=func, obj-attribute='()
@@ -312,15 +308,21 @@ mbr=where, mbr-property='(public), mbr-attribute='(), obj=where, obj-type=atom, 
 (print-list main)
 ;=>nil
 ;out:
+mbr=++, mbr-property='(public), mbr-attribute='(), obj=++, obj-type=macro, obj-attribute='()
+mbr=--, mbr-property='(public), mbr-attribute='(), obj=--, obj-type=macro, obj-attribute='()
 mbr=?script-path, mbr-property='(public), mbr-attribute='(), obj=?script-path, obj-type=var, obj-attribute='(), var-value="resultule\TestModel\test_model_0_p2d_ls.rulp"
 mbr=_ginfo, mbr-property='(public), mbr-attribute='(), obj='((_ginfo string) (_ginfo)), obj-type=func, obj-attribute='()
 mbr=day-is-bigger-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-bigger-than string string), obj-type=func, obj-attribute='()
 mbr=day-is-smaller-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-smaller-than string string), obj-type=func, obj-attribute='()
+mbr=dec, mbr-property='(public), mbr-attribute='(), obj=dec, obj-type=macro, obj-attribute='()
 mbr=file-prename, mbr-property='(public), mbr-attribute='(), obj=(file-prename string), obj-type=func, obj-attribute='()
 mbr=file-subffix, mbr-property='(public), mbr-attribute='(), obj=(file-subffix string), obj-type=func, obj-attribute='()
+mbr=inc, mbr-property='(public), mbr-attribute='(), obj=inc, obj-type=macro, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
+mbr=max, mbr-property='(public), mbr-attribute='(), obj='((max list) (max nil nil)), obj-type=func, obj-attribute='()
+mbr=min, mbr-property='(public), mbr-attribute='(), obj='((min list) (min nil nil)), obj-type=func, obj-attribute='()
 mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
@@ -330,7 +332,7 @@ mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path
 
 ;eof
 
-(load "result/p2d.rulp")
+(load "note/p2d.rulp")
 ;=>nil
 
 (print-list main)
@@ -338,25 +340,79 @@ mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path
 ;out:
 mbr=#ns_domain, mbr-property='(public), mbr-attribute='(), obj=#ns_domain, obj-type=var, obj-attribute='(), var-value="nd:"
 mbr=#ns_tag, mbr-property='(public), mbr-attribute='(), obj=#ns_tag, obj-type=var, obj-attribute='(), var-value="nt:"
+mbr=++, mbr-property='(public), mbr-attribute='(), obj=++, obj-type=macro, obj-attribute='()
+mbr=--, mbr-property='(public), mbr-attribute='(), obj=--, obj-type=macro, obj-attribute='()
 mbr=?script-path, mbr-property='(public), mbr-attribute='(), obj=?script-path, obj-type=var, obj-attribute='(), var-value="resultule\TestModel\test_model_0_p2d_ls.rulp"
+mbr=ATTR_ENTRY_LEN, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=ATTR_RETE_TYPE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RETE_MAX_STMT_LEN, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RETE_PRIORITY_DEFAULT, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RETE_PRIORITY_MAXIMUM, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRS_ALL_STATUS, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRS_ASSUME, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRS_DEFINE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRS_FIXED, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRS_REASON, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRS_REMOVE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRS_TEMP, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_ALPH0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_ALPH1, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_BETA0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_BETA1, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_BETA2, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_BETA3, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_CONST, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_EXPR0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_EXPR1, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_EXPR2, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_EXPR3, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_EXPR4, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_NAME, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_ROOT, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_RULE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_VAR, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_WORK, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRUN_STATE_COMPLETED, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRUN_STATE_FAILED, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRUN_STATE_HALTING, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRUN_STATE_PARTIAL, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRUN_STATE_RUNNABLE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRUN_STATE_RUNNING, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=_ginfo, mbr-property='(public), mbr-attribute='(), obj='((_ginfo string) (_ginfo)), obj-type=func, obj-attribute='()
 mbr=day-is-bigger-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-bigger-than string string), obj-type=func, obj-attribute='()
 mbr=day-is-smaller-than, mbr-property='(public), mbr-attribute='(), obj=(day-is-smaller-than string string), obj-type=func, obj-attribute='()
+mbr=dec, mbr-property='(public), mbr-attribute='(), obj=dec, obj-type=macro, obj-attribute='()
+mbr=entry-length-of, mbr-property='(public), mbr-attribute='(), obj=(entry-length-of nil), obj-type=func, obj-attribute='()
 mbr=file-prename, mbr-property='(public), mbr-attribute='(), obj=(file-prename string), obj-type=func, obj-attribute='()
 mbr=file-subffix, mbr-property='(public), mbr-attribute='(), obj=(file-subffix string), obj-type=func, obj-attribute='()
 mbr=get-field-name, mbr-property='(public), mbr-attribute='(), obj=(get-field-name nil), obj-type=func, obj-attribute='()
+mbr=get-named-rete-node, mbr-property='(public), mbr-attribute='(), obj=(get-named-rete-node type#model string), obj-type=func, obj-attribute='()
 mbr=get-new-ns, mbr-property='(public), mbr-attribute='(), obj=get-new-ns, obj-type=macro, obj-attribute='()
+mbr=get-root-rete-node, mbr-property='(public), mbr-attribute='(), obj=(get-root-rete-node type#model int), obj-type=func, obj-attribute='()
+mbr=get-rule, mbr-property='(public), mbr-attribute='(), obj=(get-rule type#model string), obj-type=func, obj-attribute='()
 mbr=get-suffix, mbr-property='(public), mbr-attribute='(), obj=(get-suffix nil nil), obj-type=func, obj-attribute='()
 mbr=get-uri-name, mbr-property='(public), mbr-attribute='(), obj=(get-uri-name nil), obj-type=func, obj-attribute='()
 mbr=get-version-number, mbr-property='(public), mbr-attribute='(), obj=(get-version-number nil), obj-type=func, obj-attribute='()
 mbr=hasGroupChild, mbr-property='(public), mbr-attribute='(), obj=hasGroupChild, obj-type=macro, obj-attribute='()
+mbr=inc, mbr-property='(public), mbr-attribute='(), obj=inc, obj-type=macro, obj-attribute='()
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
+mbr=list-rule, mbr-property='(public), mbr-attribute='(), obj=list-rule, obj-type=macro, obj-attribute='()
+mbr=list-with-state, mbr-property='(public), mbr-attribute='(), obj=list-with-state, obj-type=macro, obj-attribute='()
+mbr=list-without-state, mbr-property='(public), mbr-attribute='(), obj=list-without-state, obj-type=macro, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
+mbr=max, mbr-property='(public), mbr-attribute='(), obj='((max list) (max nil nil)), obj-type=func, obj-attribute='()
+mbr=min, mbr-property='(public), mbr-attribute='(), obj='((min list) (min nil nil)), obj-type=func, obj-attribute='()
 mbr=p2d, mbr-property='(public), mbr-attribute='(), obj=p2d, obj-type=instance, obj-attribute='(), instance-class=model
 mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
+mbr=rete-type-of, mbr-property='(public), mbr-attribute='(), obj=(rete-type-of nil), obj-type=func, obj-attribute='()
+mbr=rete-valid-entry-of, mbr-property='(public), mbr-attribute='(), obj=(rete-valid-entry-of nil), obj-type=func, obj-attribute='()
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
+mbr=set-model-gc-capacity, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-capacity type#model long), obj-type=func, obj-attribute='()
+mbr=set-model-gc-inactive-leaf, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-inactive-leaf type#model int), obj-type=func, obj-attribute='()
+mbr=set-model-gc-interval, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-interval type#model long), obj-type=func, obj-attribute='()
+mbr=set-model-gc-max-cache-node, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-max-cache-node type#model int), obj-type=func, obj-attribute='()
 mbr=sort, mbr-property='(public), mbr-attribute='(), obj='((sort array func) (sort array) (sort list func) (sort list)), obj-type=func, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
 mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path string), obj-type=func, obj-attribute='()

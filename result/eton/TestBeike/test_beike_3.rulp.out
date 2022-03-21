@@ -1,7 +1,4 @@
-(load "eton.rulp")
-;=>nil
-
-(load "constraint-diff-stmt")
+(load "eton")
 ;=>nil
 
 (init_eton_model "")

@@ -1,5 +1,5 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(nt:ProgrammingLanguage nm:beClassTagOf nt:SQL))
 (add-stmt p2d '(nt:ProgrammingLanguage nm:hasFieldTag nt:Code))
@@ -9,13 +9,13 @@
 (add-stmt p2d '(nd:XXX nm:hasTag nt:Code))
 (add-stmt p2d '(nd:XXX nm:hasTag nt:ProgrammingLanguage))
 (add-stmt p2d '(nd:XXX nm:hasTag nt:SQL-Code))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (uniq (query-stmt p2d '(?t1 ?t2 ?t3) from 
             '(nt:ProgrammingLanguage nm:beClassTagOf ?t1) 
@@ -26,4 +26,4 @@
             '(?p2 nm:propertyOf nm:tagRelation) 
             '(nd:XXX nm:hasTag ?t3) 
             (not (equal ?t3 nt:ProgrammingLanguage))))
-;;;
+;=>

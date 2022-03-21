@@ -10,7 +10,7 @@
 (print-list main)
 ;=>
 
-(load "result/p2d.rulp")
+(load "note/p2d.rulp")
 ;=>
 
 (print-list main)

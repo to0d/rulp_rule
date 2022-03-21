@@ -193,38 +193,6 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_add_constraint_d_func_diff_previous_stmt_1() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
-	void test_add_constraint_d_func_diff_previous_stmt_2() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
-	void test_add_constraint_d_func_diff_previous_stmt_3() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
-	void test_add_constraint_d_func_diff_previous_stmt_4() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
 	void test_add_constraint_e_order_by_1() {
 
 		_setup();
@@ -255,7 +223,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_add_constraint_e_order_by_5_when_has_child() {
 
@@ -263,7 +231,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_add_constraint_e_order_by_6_query_same_order() {
 

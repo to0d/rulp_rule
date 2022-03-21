@@ -162,7 +162,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 11       3        2    instance   model@m             
+default_model        : 22       3        2    instance   model@m             
 ==========================================================================================================================
 
 node update info: model-exec-count=4, row=2, column=5(1), value-max=1, value-unit=1^x
@@ -180,7 +180,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      252
+           Interpreter call id:      248
     Interpreter call level/max:        0        3
                Frame max level:        2
                   Frame max id:        4
@@ -201,70 +201,92 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      260
+    factor:      274
 ==========================================================================================================================
 
-Callable stats info: callId=252, row=14, column=64(4), value-max=6, value-unit=2^x
+Callable stats info: callId=248, row=14, column=63(4), value-max=20, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333334433333334331 max=8, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334433333336331 max=26, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                 
-    root   factor     50    0 defun                                                                        23331 33333 3342  
-    root   factor      7    0 alias                          33                                                       1      
-    root   factor      5    0 defvar                                                                            31       1   
-    root   factor      5    0 defmacro                                                                         31         1  
-    root   factor      4    0 make-list                                                                         31           
-    root   factor      3    0 deftemplate                                                                             3      
-  system   factor      1    0 state-of                                                                                     1 
-  system   factor      1    0 start                                                                                        1 
-    root   factor      1    0 new                                                                                         1  
-    root   factor      1    0 load                                                                                       1   
-  system   factor      1    0 list-stmt                                                                                     1
-  system   factor      1    0 add-stmt                                                                                     1 
-  system   factor      1    0 add-rule                                                                                     1 
+    root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                
+    root   factor     64    0 defun                                                                        2333133333 3362  
+    root   factor      7    0 alias                          33                                                      1      
+    root   factor      5    0 defvar                                                                           31       1   
+    root   factor      5    0 defmacro                                                                                  31  
+    root   factor      4    0 make-list                                                                        31           
+    root   factor      3    0 deftemplate                                                                            3      
+  system   factor      1    0 state-of                                                                                    1 
+  system   factor      1    0 start                                                                                       1 
+    root   factor      1    0 new                                                                                        1  
+    root   factor      1    0 load                                                                                      1   
+  system   factor      1    0 list-stmt                                                                                    1
+  system   factor      1    0 add-stmt                                                                                    1 
+  system   factor      1    0 add-rule                                                                                    1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1548            0         1548
-      string:           59            0           59
+        atom:         1935            0         1935
+      string:           73            0           73
         list:           62            1           61
-        expr:          633            0          633
+        expr:          854            0          854
          var:           20            0           20
-        func:           63            0           63
+        func:           81            0           81
     template:            1            0            1
        macro:            5            0            5
-      member:           17            0           17
+      member:           18            0           18
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          308            0
+  frameEntry:          315            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=11, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=22, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
 main                 : 3        2        2    frame      frame@main          
-is-empty             : 4        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+--                   : 4        2        2    macro      --                  
+++                   : 5        2        2    macro      ++                  
+inc                  : 6        2        2    macro      inc                 
+dec                  : 7        2        2    macro      dec                 
+max                  : 8        2        2    funcList   '((max list) (max nil nil)) : frame=null, type=list
+                                         2    func       (max nil nil) : frame=frame@main
+                                         1    func       (max list) : frame=frame@main
+min                  : 9        2        2    funcList   '((min list) (min nil nil)) : frame=null, type=list
+                                         2    func       (min nil nil) : frame=frame@main
+                                         1    func       (min list) : frame=frame@main
+is-empty             : 10       2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 5        2        2    func       (is-blank string) : frame=frame@main
-file-prename         : 6        2        2    func       (file-prename string) : frame=frame@main
-file-subffix         : 7        2        2    func       (file-subffix string) : frame=frame@main
-?script-path         : 8        2        2    var        result\rule\TestOptimize\test_opt_5_equal_4.rulp : type=string
-script_out           : 9        2        2    macro      script_out          
-_ginfo               : 10       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+is-blank             : 11       2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 12       2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 13       2        2    func       (file-subffix string) : frame=frame@main
+print-list           : 14       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+                                         2    func       (print-list list) : frame=frame@main
+                                         1    func       (print-list nil nil) : frame=frame@main
+                                         1    func       (print-list nil) : frame=frame@main
+sort                 : 15       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
+                                         2    func       (sort list) : frame=frame@main
+                                         1    func       (sort list func) : frame=frame@main
+                                         1    func       (sort array) : frame=frame@main
+                                         1    func       (sort array func) : frame=frame@main
+to-valid-path        : 16       2        2    func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 17       2        2    func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 18       2        2    func       (day-is-smaller-than string string) : frame=frame@main
+?script-path         : 19       2        2    var        result\rule\TestOptimize\test_opt_5_equal_4.rulp : type=string
+script_out           : 20       2        2    macro      script_out          
+_ginfo               : 21       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-m                    : 12       2        2    instance   model@m             
+m                    : 23       2        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -272,7 +294,7 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 11       3        2    instance   model@m             
+default_model        : 22       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=6
@@ -281,7 +303,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '("C:\\data\\rs\\rulp\\string.rulp")
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

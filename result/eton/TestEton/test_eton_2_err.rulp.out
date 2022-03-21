@@ -1,4 +1,4 @@
-(load "eton.rulp")
+(load "eton")
 ;=>nil
 
 (init_eton_model "")

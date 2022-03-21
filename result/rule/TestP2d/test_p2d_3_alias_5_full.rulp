@@ -1,44 +1,44 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(ta nm:beParentTagOf tb))
-;;;
+;=>
 
 (add-stmt p2d '(ta nm:hasRelatedTag tc))
-;;;
+;=>
 
 (add-stmt p2d '(tax nm:beAliasTo ta))
-;;;
+;=>
 
 (add-stmt p2d '(tax nm:beParentTagOf td))
-;;;
+;=>
 
 (add-stmt p2d '(tax nm:hasRelatedTag te))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:typeOf nm:tag))
-;;;
+;=>
 
 (list-stmt p2d from '(ta nm:beParentTagOf ?x))
-;;;
+;=>
 
 (list-stmt p2d from '(td nm:beChildTagOf ?x))
-;;;
+;=>
 
 (list-stmt p2d from '(ta nm:hasRelatedTag ?x))
-;;;
+;=>
 
 (list-stmt p2d from '(tc nm:hasRelatedTag ?x))
-;;;
+;=>
 
 (list-stmt p2d from '(te nm:hasRelatedTag ?x))
-;;;
+;=>

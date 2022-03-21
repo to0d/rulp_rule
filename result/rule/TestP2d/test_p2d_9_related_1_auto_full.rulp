@@ -1,20 +1,20 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(ta nm:typeOf nm:tag))
 (add-stmt p2d '(ta-xx nm:typeOf nm:tag))
 (add-stmt p2d '(ta-yy nm:typeOf nm:tag))
 (add-stmt p2d '(ta-zz nm:typeOf nm:tag))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:hasAutoRelatedTag ?y))
-;;;
+;=>

@@ -1,23 +1,23 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (get-field-name abc)
-;;;
+;=>
 
 (get-field-name nt:abc)
-;;;
+;=>
 
 (get-field-name mn:abc)
-;;;
+;=>
 
 (get-field-name nt:abc-xyz)
-;;;
+;=>
 
 (get-field-name nt:abc-xyz-123)
-;;;
+;=>
 
 (defvar ?c ta3)(defvar ?f f3)
-;;;
+;=>
 
 (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f)))
-;;;
+;=>

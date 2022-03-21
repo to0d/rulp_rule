@@ -1,4 +1,4 @@
-(load "result/p2d.rulp")
+(load "note/p2d.rulp")
 ;=>nil
 
 (add-stmt p2d '(ta nm:hasAliasTag tb))

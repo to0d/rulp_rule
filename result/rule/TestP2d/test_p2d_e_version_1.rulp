@@ -1,23 +1,23 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(MYSQL nm:typeOf nm:tag))
 (add-stmt p2d '(MYSQLv8 nm:typeOf nm:tag))
 (add-stmt p2d '(MYSQLv5.7 nm:typeOf nm:tag))
 
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:isVersionOf ?y))
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:beDefinedByTag ?y))
-;;;
+;=>

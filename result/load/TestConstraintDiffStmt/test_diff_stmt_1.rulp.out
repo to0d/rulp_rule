@@ -1,4 +1,4 @@
-(load "constraint-diff-stmt")
+(load "constraint/diff-stmt")
 ;=>nil
 
 (new model m)

@@ -1,18 +1,18 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(nt:List-OJ nm:typeOf nm:tag))
 (add-stmt p2d '(nt:OJ nm:hasTagAttr nm:groupTag))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>
 
 (list-stmt p2d from '(nt:OJ nm:hasGroupChild ?x))
-;;;
+;=>

@@ -1,4 +1,4 @@
-(load "result/p2d.rulp")
+(load "note/p2d.rulp")
 ;=>nil
 
 (add-stmt p2d '(nt:OS nm:hasFieldTag nt:Command))
@@ -15,10 +15,7 @@
 ;=>completed
 
 (list-with-state (list-rule p2d) failed)
-;err:
-factor not found: (list-with-state (list-rule p2d) failed)
-at (list-with-state (list-rule p2d) failed) ; main-2
-;eof
+;=>'()
 
 (list-stmt p2d from '(?x nm:hasSubCollection ?y))
 ;=>'('(nt:Command nm:hasSubCollection nt:AS400-Command) '(nt:AS400-Command nm:hasSubCollection nt:TES-Command))

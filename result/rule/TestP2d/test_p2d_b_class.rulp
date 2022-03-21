@@ -1,28 +1,28 @@
-(load "result/p2d.rulp")
-;;;
+(load "note/p2d.rulp")
+;=>
 
 (add-stmt p2d '(nt:tc nm:beClassTagOf nt:t1))
 (add-stmt p2d '(nt:tc nm:hasFieldTag nt:te))
 (add-stmt p2d '(nt:t1-te nm:typeOf nm:tag))
-;;;
+;=>
 
 (start p2d)
-;;;
+;=>
 
 (state-of p2d)
-;;;
+;=>
 
 (list-with-state (list-rule p2d) failed)
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:beClassTagOf ?y))
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:beInstanceTagOf ?y))
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:hasFieldTag ?y))
-;;;
+;=>
 
 (list-stmt p2d from '(?x nm:beFieldTagOf ?y))
-;;;
+;=>
