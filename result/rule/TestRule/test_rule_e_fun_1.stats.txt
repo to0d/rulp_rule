@@ -246,7 +246,7 @@ Callable stats info: callId=307, row=19, column=39(8), value-max=13, value-unit=
     root   factor      6    0 defvar                                                4             1 
     root   factor      5    0 make-list                                             4               
     root   factor      4    0 return                                                               3
-    main     func      4    1 (day-is-bigger-than string str                                       3
+    main     func      4    2 (day-is-bigger-than string str                                       3
     root   factor      4    0 >                                                                    3
     root   factor      3    0 deftemplate                                              3            
     root   factor      2    0 load                                                                2 
@@ -262,10 +262,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2106            0         2106
+        atom:         2104            0         2104
          int:           10            0           10
-      string:           78            0           78
-        list:           66            1           65
+      string:           80            0           80
+        list:           69            1           68
         expr:          959            4          955
          var:           38            8           30
     constant:           35            0           35
@@ -291,26 +291,26 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        2    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        1    var        result\rule\TestRule\test_rule_e_fun_1.rulp : type=string
-script_out           : 11       2        1    macro      script_out          
-_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
-                                         1    func       (_ginfo) : frame=frame@main
+is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        2    var        result\rule\TestRule\test_rule_e_fun_1.rulp : type=string
+script_out           : 11       2        2    macro      script_out          
+_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-print-list           : 13       2        1    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
-                                         1    func       (print-list list) : frame=frame@main
+print-list           : 13       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+                                         2    func       (print-list list) : frame=frame@main
                                          1    func       (print-list nil nil) : frame=frame@main
                                          1    func       (print-list nil) : frame=frame@main
-to-valid-path        : 14       2        1    func       (to-valid-path string) : frame=frame@main
-day-is-bigger-than   : 15       2        1    func       (day-is-bigger-than string string) : frame=frame@main
-day-is-smaller-than  : 16       2        1    func       (day-is-smaller-than string string) : frame=frame@main
-index-of             : 17       2        1    func       (index-of nil list) : frame=frame@main
+to-valid-path        : 14       2        2    func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 15       2        2    func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 16       2        2    func       (day-is-smaller-than string string) : frame=frame@main
+index-of             : 17       2        2    func       (index-of nil list) : frame=frame@main
 m                    : 19       2        3    instance   model@m             
 ==========================================================================================================================
 
@@ -349,8 +349,8 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '()
-?load-system         : '("rule" "string" "tool")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "C:\\data\\rs\\rulp\\tool.rulp")
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

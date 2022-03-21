@@ -2632,7 +2632,7 @@ Callable stats info: callId=306, row=29, column=39(8), value-max=5570, value-uni
     root   factor     35    0 defconst                                                    33333     
   system   factor     28    0 fix-stmt                                                             5
     root   factor     10    0 defmacro                                                22       2  12
-    main funcList      8   13 print-list                                                          33
+    main funcList      8   15 print-list                                                          33
     root   factor      8    0 defvar                                                3             12
     root   factor      7    0 alias                          3                                 1    
     root   factor      5    0 make-list                                             3               
@@ -2648,10 +2648,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3738            0         3738
+        atom:         3736            0         3736
          int:            2            0            2
-      string:          884            0          884
-        list:         1087            0         1087
+      string:          886            0          886
+        list:         1090            0         1090
         expr:         7047         1568         5479
          var:         3549         3525           24
     constant:           35            0           35
@@ -2677,26 +2677,26 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        14   frame      frame@main          
 rbs                  : 4        2        15   instance   namespace@rbs       
 mts                  : 5        2        15   instance   namespace@mts       
-is-empty             : 6        2        13   funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 6        2        14   funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        13   func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        13   func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        13   func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        15   var        result\rule\TestModel\test_model_0_p2d_ls.rulp : type=string
-script_out           : 11       2        13   macro      script_out          
-_ginfo               : 12       2        13   funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
-                                         1    func       (_ginfo) : frame=frame@main
+is-blank             : 7        2        14   func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        14   func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        14   func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        16   var        result\rule\TestModel\test_model_0_p2d_ls.rulp : type=string
+script_out           : 11       2        14   macro      script_out          
+_ginfo               : 12       2        14   funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-print-list           : 13       2        13   funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
-                                         1    func       (print-list list) : frame=frame@main
+print-list           : 13       2        15   funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+                                         2    func       (print-list list) : frame=frame@main
                                          1    func       (print-list nil nil) : frame=frame@main
                                          1    func       (print-list nil) : frame=frame@main
-to-valid-path        : 14       2        13   func       (to-valid-path string) : frame=frame@main
-day-is-bigger-than   : 15       2        13   func       (day-is-bigger-than string string) : frame=frame@main
-day-is-smaller-than  : 16       2        13   func       (day-is-smaller-than string string) : frame=frame@main
-index-of             : 17       2        13   func       (index-of nil list) : frame=frame@main
+to-valid-path        : 14       2        14   func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 15       2        14   func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 16       2        14   func       (day-is-smaller-than string string) : frame=frame@main
+index-of             : 17       2        14   func       (index-of nil list) : frame=frame@main
 p2d                  : 3310     2        10   instance   model@p2d           
 #ns_tag              : 3311     2        9    var        nt: : type=string   
 #ns_domain           : 3312     2        9    var        nd: : type=string   
@@ -2722,8 +2722,8 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '("result/p2d.rulp")
-?load-system         : '("rule" "string" "tool")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "C:\\data\\rs\\rulp\\tool.rulp" "result/p2d.rulp")
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

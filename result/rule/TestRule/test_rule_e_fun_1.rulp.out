@@ -1,4 +1,4 @@
-(load tool)
+(load "tool")
 ;=>nil
 
 (new model m)

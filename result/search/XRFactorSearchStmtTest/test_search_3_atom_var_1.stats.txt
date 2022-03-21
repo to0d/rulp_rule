@@ -452,10 +452,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1985            0         1985
+        atom:         1984            0         1984
          int:            2            0            2
-      string:           94            0           94
-        list:          165            6          159
+      string:           95            0           95
+        list:          167            6          161
         expr:          864            9          855
          var:           53           24           29
     constant:           35            0           35
@@ -481,17 +481,17 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        2    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        1    var        result\search\XRFactorSearchStmtTest\test_search_3_atom_var_1.rulp : type=string
-script_out           : 11       2        1    macro      script_out          
-_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
-                                         1    func       (_ginfo) : frame=frame@main
+is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        2    var        result\search\XRFactorSearchStmtTest\test_search_3_atom_var_1.rulp : type=string
+script_out           : 11       2        2    macro      script_out          
+_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
 m                    : 14       2        14   instance   model@m             
 ?s                   : 46       2        1    var        nil@un7 : type=instance
@@ -521,8 +521,8 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '()
-?load-system         : '("rule" "string")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp")
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

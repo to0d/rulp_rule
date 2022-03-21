@@ -2905,10 +2905,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3573            0         3573
+        atom:         3572            0         3572
          int:            3            0            3
-      string:          166            0          166
-        list:          797            3          794
+      string:          167            0          167
+        list:          799            3          796
         expr:         1522           77         1445
          var:          275          228           47
     constant:           35            0           35
@@ -2934,17 +2934,17 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        2    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        1    var        result\rule\TestP2d\test_p2d_8_auto_item_tag.rulp : type=string
-script_out           : 11       2        1    macro      script_out          
-_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
-                                         1    func       (_ginfo) : frame=frame@main
+is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        2    var        result\rule\TestP2d\test_p2d_8_auto_item_tag.rulp : type=string
+script_out           : 11       2        2    macro      script_out          
+_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
 p2d                  : 14       2        9    instance   model@p2d           
 #ns_tag              : 15       2        2    var        nt: : type=string   
@@ -3054,8 +3054,8 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '("result/p2d.rulp")
-?load-system         : '("rule" "string")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "result/p2d.rulp")
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

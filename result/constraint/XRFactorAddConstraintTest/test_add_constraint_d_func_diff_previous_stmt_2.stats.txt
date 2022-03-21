@@ -239,10 +239,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2130            0         2130
+        atom:         2129            0         2129
          int:            2            0            2
-      string:          102            0          102
-        list:          121           15          106
+      string:          103            0          103
+        list:          123           15          108
         expr:         1013           88          925
        array:            8            4            4
          var:          261          238           23
@@ -269,17 +269,17 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        3    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        1    var        result\constraint\XRFactorAddConstraintTest\test_add_constraint_d_func_diff_previous_stmt_2.rulp : type=string
-script_out           : 11       2        1    macro      script_out          
-_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
-                                         1    func       (_ginfo) : frame=frame@main
+is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        2    var        result\constraint\XRFactorAddConstraintTest\test_add_constraint_d_func_diff_previous_stmt_2.rulp : type=string
+script_out           : 11       2        2    macro      script_out          
+_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
 __sub_statement__    : 13       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
 __previous_statement__ : 14       2        2    func       (__previous_statement__ nil) : frame=frame@main
@@ -305,8 +305,8 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '("C:\\data\\rs\\load\\constraint-diff-stmt.rulp")
-?load-system         : '("rule" "string")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "C:\\data\\rs\\load\\constraint-diff-stmt.rulp")
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

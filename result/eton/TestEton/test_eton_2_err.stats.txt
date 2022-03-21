@@ -537,7 +537,7 @@ Callable stats info: callId=307, row=53, column=39(8), value-max=28, value-unit=
     root   factor      1    0 lambda                                                              1 
     main     func      1    2 (init_eton_model string)                                            1 
     main     func      1    2 (fun1 nil)                                                           1
-    main     func      1    1 (day-is-bigger-than string str                                       1
+    main     func      1    2 (day-is-bigger-than string str                                       1
     root   factor      1    0 date                                                                 1
     root   factor      1    0 and                                                                 1 
     main     func      1    2 (add_working_task string nil)                                        1
@@ -551,10 +551,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2589            0         2589
+        atom:         2587            0         2587
          int:           10            0           10
-      string:          125            0          125
-        list:          122            6          116
+      string:          127            0          127
+        list:          125            6          119
         expr:         1248           22         1226
          var:           89           58           31
     constant:           35            0           35
@@ -580,26 +580,26 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        3    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        1    var        result\eton\TestEton\test_eton_2_err.rulp : type=string
-script_out           : 11       2        1    macro      script_out          
-_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
-                                         1    func       (_ginfo) : frame=frame@main
+is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        2    var        result\eton\TestEton\test_eton_2_err.rulp : type=string
+script_out           : 11       2        2    macro      script_out          
+_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-print-list           : 13       2        1    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
-                                         1    func       (print-list list) : frame=frame@main
+print-list           : 13       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+                                         2    func       (print-list list) : frame=frame@main
                                          1    func       (print-list nil nil) : frame=frame@main
                                          1    func       (print-list nil) : frame=frame@main
-to-valid-path        : 14       2        1    func       (to-valid-path string) : frame=frame@main
-day-is-bigger-than   : 15       2        1    func       (day-is-bigger-than string string) : frame=frame@main
-day-is-smaller-than  : 16       2        1    func       (day-is-smaller-than string string) : frame=frame@main
-index-of             : 17       2        1    func       (index-of nil list) : frame=frame@main
+to-valid-path        : 14       2        2    func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 15       2        2    func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 16       2        2    func       (day-is-smaller-than string string) : frame=frame@main
+index-of             : 17       2        2    func       (index-of nil list) : frame=frame@main
 __sub_statement__    : 18       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
 __previous_statement__ : 19       2        2    func       (__previous_statement__ nil) : frame=frame@main
 __make_filter_array__ : 20       2        2    func       (__make_filter_array__ nil) : frame=frame@main
@@ -664,8 +664,8 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
 ?load-jar            : '("irulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\constraint-diff-stmt.rulp" "C:\\data\\eton\\load\\eton.rulp")
-?load-system         : '("rule" "string" "tool")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "C:\\data\\rs\\rulp\\tool.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\constraint-diff-stmt.rulp" "C:\\data\\eton\\load\\eton.rulp")
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

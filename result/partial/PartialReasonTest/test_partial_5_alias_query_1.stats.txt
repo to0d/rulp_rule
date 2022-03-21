@@ -2651,14 +2651,14 @@ default_model        : 13       3        3    instance   model@p2d
 
 node update info: model-exec-count=156, row=28, column=79(2), value-max=1, value-unit=1^x
 =================================================================================================================================================================
-NODE[n]   Update Exec Idle 11..1...1111...1.1......11.11....1...2.11....121.1....2..2.22..21121...22.2.221 max=2, unit=2^x
+NODE[n]   Update Exec Idle 11..1...1111...1.1....211........1...21.1....121.1....2..2.22..21121...22.2.221 max=2, unit=2^x
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    8    8    0 1                        1  1                         1  1  1           1    1 
+R00001[3]    8    8    0 1                     1 1                             1  1  1           1    1 
 A00022[3]    3    3    0     1                                         1                 1              
 E10051[3]    3    3    0          1                                       1                 1           
 E10052[3]    3    3    0                                      1                      1                1 
 A00018[3]    2    3    0                                              1                 1               
-A00026[3]    2    3    0                                         1                                 1    
+A00026[3]    2    3    0                                       1                                   1    
 A00045[3]    2    3    0                                  1                         1                   
 B00019[4]    2    3    1                                               1                1               
 B20035[3]    2    3    1                                                1                 1             
@@ -2670,7 +2670,7 @@ A00002[3]    1    3    0  1
 A00034[3]    1    3    0                                      1                                         
 A00048[3]    1    3    0                                                                   1            
 A00060[3]    1    3    0           1                                                                    
-A00063[3]    1    1    0                                        1                                       
+A00063[3]    1    1    0                                         1                                      
 A00066[3]    1    3    0            1                                                                   
 A00128[3]    1    3    0                                                                        1       
 A00129[3]    1    2    1                                                                               1
@@ -2679,8 +2679,8 @@ E10091[3]    1    1    0                1
 B00058[2]    1    3    1                                                                         1      
 B20046[3]    1    3    1                                                                   1            
 C8[3]        1    2    1                                                                             1  
-T8[3]        1    1    0                            1                                                   
-D1[3]        1    1    0                         1                                                      
+T8[3]        1    1    0                       1                                                        
+D1[3]        1    1    0                        1                                                       
 =================================================================================================================================================================
 
 
@@ -2738,10 +2738,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3561            0         3561
+        atom:         3560            0         3560
          int:            2            0            2
-      string:          130            0          130
-        list:          722            2          720
+      string:          131            0          131
+        list:          724            2          722
         expr:         1432            0         1432
          var:           25            1           24
     constant:           35            0           35
@@ -2767,17 +2767,17 @@ system               : 2        2        0    frame      frame@system
 main                 : 3        2        2    frame      frame@main          
 rbs                  : 4        2        1    instance   namespace@rbs       
 mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        1    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        1    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        1    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        1    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        1    var        result\partial\PartialReasonTest\test_partial_5_alias_query_1.rulp : type=string
-script_out           : 11       2        1    macro      script_out          
-_ginfo               : 12       2        1    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
-                                         1    func       (_ginfo) : frame=frame@main
+is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 10       2        2    var        result\partial\PartialReasonTest\test_partial_5_alias_query_1.rulp : type=string
+script_out           : 11       2        2    macro      script_out          
+_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+                                         2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
 p2d                  : 14       2        3    instance   model@p2d           
 #ns_tag              : 15       2        2    var        nt: : type=string   
@@ -2804,8 +2804,8 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '()
 ?load-jar            : '()
-?load-script         : '("result/p2d.rulp")
-?load-system         : '("rule" "string")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "result/p2d.rulp")
+?load-system         : '("rule")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
