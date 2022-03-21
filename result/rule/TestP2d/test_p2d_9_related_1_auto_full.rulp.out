@@ -14,7 +14,10 @@
 ;=>completed
 
 (list-with-state (list-rule p2d) failed)
-;=>'()
+;err:
+factor not found: (list-with-state (list-rule p2d) failed)
+at (list-with-state (list-rule p2d) failed) ; main-2
+;eof
 
 (list-stmt p2d from '(?x nm:hasAutoRelatedTag ?y))
 ;=>'('(ta-xx nm:hasAutoRelatedTag ta) '(ta-yy nm:hasAutoRelatedTag ta) '(ta-zz nm:hasAutoRelatedTag ta) '(ta nm:hasAutoRelatedTag ta-xx) '(ta nm:hasAutoRelatedTag ta-yy) '(ta nm:hasAutoRelatedTag ta-zz))

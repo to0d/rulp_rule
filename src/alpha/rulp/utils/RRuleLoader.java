@@ -176,9 +176,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorDumpStatus(F_DUMP_STATUS));
 
 		// Load rule library
-		LoadUtil.loadSystemRulp(interpreter, frame, "rule");
-
-		;
+		LoadUtil.loadRulpFromJar(interpreter, frame, "alpha/resource/rule.res", "utf-8");
 
 //		// Native Class Initialization
 //		SearchFactory.initScopeClass(frame);

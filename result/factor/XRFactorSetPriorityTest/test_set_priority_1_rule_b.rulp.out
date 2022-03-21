@@ -1,17 +1,23 @@
+(load "rule")
+;=>nil
+
 (new model ?m)
+;=>?m
 
 (defvar ?arr (make-array))
+;=>&?arr
 
 (add-rule "R1" ?m if n1:'(?x) do 
     (add ?arr (+ "A-" ?x))
     (if (< ?x 3)
         (add-stmt ?m n1:'((+ ?x 1))))
 )
+;=>R1
 
 (add-rule "R2" ?m if n1:'(?x) do 
     (add ?arr (+ "B-" ?x))
 )
-;=>?m &?arr R1 R2
+;=>R2
 
 (set-priority (get-rule ?m "R1") (+ RETE_PRIORITY_DEFAULT 1))
 ;=>nil

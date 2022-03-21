@@ -23,7 +23,10 @@
 ;=>completed
 
 (list-with-state (list-rule p2d) failed)
-;=>'()
+;err:
+factor not found: (list-with-state (list-rule p2d) failed)
+at (list-with-state (list-rule p2d) failed) ; main-2
+;eof
 
 (list-stmt p2d from '(?x nm:hasSubCollection ?y))
 ;=>'('(nt:f3 nm:hasSubCollection nt:c3-f3) '(nt:f4-xx nm:hasSubCollection nt:c4-xx))

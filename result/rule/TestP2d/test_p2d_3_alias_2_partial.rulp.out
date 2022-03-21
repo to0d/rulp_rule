@@ -17,7 +17,10 @@
 ;=>'('(ta) '(tb) '(tc))
 
 (list-with-state (list-rule p2d) failed)
-;=>'()
+;err:
+factor not found: (list-with-state (list-rule p2d) failed)
+at (list-with-state (list-rule p2d) failed) ; main-2
+;eof
 
 (size-of (list-stmt p2d))
 ;=>164

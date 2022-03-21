@@ -90,6 +90,7 @@ public class TestModel extends RuleTestBase {
 		ArrayList<IRObject> objs = new ArrayList<>();
 
 		_setup();
+		_test("(load \"rule\")");
 		_test("(new model m)");
 
 		try {

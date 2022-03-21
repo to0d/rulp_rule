@@ -154,6 +154,7 @@ public class TestOptimize extends RuleTestBase {
 
 		_setup();
 
+		_test("(load \"rule\")");
 		_test("(load \"result/p2d.rulp\")");
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tb))");
 		_test("(add-stmt p2d '(ta nm:hasAliasTag tc))");

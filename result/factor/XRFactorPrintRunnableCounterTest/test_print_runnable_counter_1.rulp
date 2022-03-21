@@ -1,14 +1,17 @@
+(load "rule")
+;=>
+
 (new model m)
-;;;
+;=>
 
 (add-stmt m '(a typeof node))
-;;;
+;=>
 
 (add-stmt m '(b typeof node))
-;;;
+;=>
 
 (add-rule "R1" m if '(?x typeof node) do (-> '(?x typeof2 node)))
-;;;
+;=>
 
 (start m)
 ;=>

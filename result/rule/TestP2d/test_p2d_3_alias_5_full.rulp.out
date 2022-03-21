@@ -23,7 +23,10 @@
 ;=>completed
 
 (list-with-state (list-rule p2d) failed)
-;=>'()
+;err:
+factor not found: (list-with-state (list-rule p2d) failed)
+at (list-with-state (list-rule p2d) failed) ; main-2
+;eof
 
 (list-stmt p2d from '(?x nm:typeOf nm:tag))
 ;=>'('(ta nm:typeOf nm:tag) '(tc nm:typeOf nm:tag) '(tax nm:typeOf nm:tag) '(te nm:typeOf nm:tag) '(tb nm:typeOf nm:tag) '(td nm:typeOf nm:tag) '(nt:$TGROUP nm:typeOf nm:tag))

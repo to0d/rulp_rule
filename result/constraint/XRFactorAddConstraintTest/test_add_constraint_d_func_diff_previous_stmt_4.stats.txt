@@ -137,7 +137,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 15       3        2    instance   model@m             
+default_model        : 63       3        2    instance   model@m             
 ==========================================================================================================================
 
 node update info: model-exec-count=30, row=3, column=22(1), value-max=1, value-unit=1^x
@@ -156,7 +156,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      307
+           Interpreter call id:      255
     Interpreter call level/max:        0       14
                Frame max level:       10
                   Frame max id:       13
@@ -177,88 +177,89 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      650
+    factor:      648
       func:       88
 ==========================================================================================================================
 
-Callable stats info: callId=307, row=47, column=39(8), value-max=58, value-unit=2^x
+Callable stats info: callId=255, row=48, column=64(4), value-max=58, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444459X max=266, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333333443333333479X max=266, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    179    0 add-attribute                  144444444444444444444442               
-    root   factor     88    0 return                                                              67
-    root   factor     68    0 defun                                                 1443443   23454 
-    root   factor     38    0 defvar                                                4            156
-    root   factor     35    0 defconst                                                    44444     
-    root   factor     22    0 get-of-list                                                         45
-  system funcList     22    1 get                                                                 45
-    root   factor     20    0 add-list-to-array                                                   45
-  system funcList     20    1 add                                                                 45
-    root   factor     16    0 to-atom                                                             44
-    root   factor     16    0 do                                                                  45
-    root   factor     16    0 +                                                                   44
-    root   factor     14    0 size-of-list                                                        35
-  system funcList     14    1 size-of                                                             35
-    root   factor     10    0 if                                                                  34
-    root   factor      8    0 value-of                                                            33
-  system funcList      8    1 to-list                                                             24
-    root   factor      8    0 seta                                                                33
-    root   factor      8    0 make-array                                                          24
-    root   factor      8    0 loop                                                                24
-    root   factor      8    0 defmacro                                                22       3  1 
-    root   factor      8    0 add-array-to-list                                                   24
-    root   factor      7    0 alias                          4                                 1    
-    root   factor      6    0 setq                                                                23
-  system   factor      6    0 list-stmt                                                           23
-    root   factor      6    0 =                                                                   23
-    root   factor      6    0 !=                                                                  23
-    root   factor      5    0 make-list                                             4               
-  system   factor      4    0 try-add-stmt                                                        22
-    root   factor      4    0 to-named-list                                                       22
-  system   factor      4    0 rete-node-of                                                        22
-    root   factor      4    0 name-of                                                             22
-  system   factor      4    0 model-of                                                            22
-  system     func      4    1 (get-named-rete-node type#mode                                      22
-    root   factor      4    0 get-attribute                                                       22
-    root   factor      4    0 foreach                                                             22
-  system     func      4    1 (entry-length-of nil)                                               22
-    main funcList      4    2 diff-stmt                                                           22
-    root   factor      4    0 case                                                                22
-    main     func      4    2 (__sub_statement__ nil nil)                                          3
-    main     func      4    2 (__make_filter_array__ nil)                                         22
-    root   factor      4    0 -                                                                    3
-    root   factor      3    0 deftemplate                                              3            
-    root   factor      2    0 load                                                               11 
-    root   factor      1    0 new                                                                 1 
-    root   factor      1    0 lambda                                                              1 
-  system   factor      1    0 add-constraint                                                      1 
+    root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                 
+    root   factor     88    0 return                                                                                       67
+    root   factor     65    0 defun                                                                        23331 33333 3346  
+    root   factor     37    0 defvar                                                                            31       1 56
+    root   factor     35    0 defconst                                                                                    7  
+    root   factor     22    0 get-of-list                                                                                  45
+  system funcList     22    1 get                                                                                          45
+    root   factor     20    0 add-list-to-array                                                                            45
+  system funcList     20    1 add                                                                                          45
+    root   factor     16    0 to-atom                                                                                      44
+    root   factor     16    0 do                                                                                           45
+    root   factor     16    0 +                                                                                            44
+    root   factor     14    0 size-of-list                                                                                 35
+  system funcList     14    1 size-of                                                                                      35
+    root   factor     10    0 if                                                                                           34
+    root   factor      8    0 value-of                                                                                     33
+  system funcList      8    1 to-list                                                                                      24
+    root   factor      8    0 seta                                                                                         33
+    root   factor      8    0 make-array                                                                                   24
+    root   factor      8    0 loop                                                                                         24
+    root   factor      8    0 defmacro                                                                         31         3  
+    root   factor      8    0 add-array-to-list                                                                            24
+    root   factor      7    0 alias                          33                                                       1      
+    root   factor      6    0 setq                                                                                         23
+  system   factor      6    0 list-stmt                                                                                    23
+    root   factor      6    0 =                                                                                            23
+    root   factor      6    0 !=                                                                                           23
+  system   factor      4    0 try-add-stmt                                                                                 22
+    root   factor      4    0 to-named-list                                                                                22
+  system   factor      4    0 rete-node-of                                                                                 22
+    root   factor      4    0 name-of                                                                                      22
+  system   factor      4    0 model-of                                                                                     22
+    root   factor      4    0 make-list                                                                         31           
+    root   factor      4    0 load                                                                                       13  
+    main     func      4    2 (get-named-rete-node type#mode                                                               22
+    root   factor      4    0 get-attribute                                                                                22
+    root   factor      4    0 foreach                                                                                      22
+    main     func      4    2 (entry-length-of nil)                                                                        22
+    main funcList      4    2 diff-stmt                                                                                    22
+    root   factor      4    0 case                                                                                         22
+    main     func      4    2 (__sub_statement__ nil nil)                                                                   3
+    main     func      4    2 (__make_filter_array__ nil)                                                                  22
+    root   factor      4    0 -                                                                                             3
+    root   factor      3    0 deftemplate                                                                             3      
+    root   factor      1    0 new                                                                                          1 
+    root   factor      1    0 load-class                                                                                  1  
+    root   factor      1    0 lambda                                                                                       1 
+  system   factor      1    0 add-constraint                                                                               1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2110            0         2110
+        atom:         2026            0         2026
          int:            2            0            2
-      string:          131            0          131
+      string:          136            0          136
         list:          124           16          108
-        expr:         1014           88          926
+        expr:          973           88          885
        array:            8            4            4
-         var:          260          238           22
+         var:          259          238           21
     constant:           35            0           35
-        func:           85            0           85
+        func:           81            0           81
     template:            1            0            1
        macro:            8            0            8
       member:           21            0           21
        frame:          149          148            1
  interpreter:            1            0
-  frameEntry:          608            0
+  frameEntry:          607            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=3/4, entry=16, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=64, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -277,14 +278,62 @@ script_out           : 9        2        2    macro      script_out
 _ginfo               : 10       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-__sub_statement__    : 11       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
-__previous_statement__ : 12       2        2    func       (__previous_statement__ nil) : frame=frame@main
-__make_filter_array__ : 13       2        2    func       (__make_filter_array__ nil) : frame=frame@main
-diff-stmt            : 14       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
+RRT_ROOT             : 11       2        2    constant   RRT_ROOT:"0"        
+RRT_NAME             : 12       2        2    constant   RRT_NAME:"1"        
+RRT_VAR              : 13       2        2    constant   RRT_VAR:"2"         
+RRT_CONST            : 14       2        2    constant   RRT_CONST:"3"       
+RRT_ALPH0            : 15       2        2    constant   RRT_ALPH0:"4"       
+RRT_ALPH1            : 16       2        2    constant   RRT_ALPH1:"5"       
+RRT_EXPR0            : 17       2        2    constant   RRT_EXPR0:"6"       
+RRT_EXPR1            : 18       2        2    constant   RRT_EXPR1:"7"       
+RRT_EXPR2            : 19       2        2    constant   RRT_EXPR2:"8"       
+RRT_EXPR3            : 20       2        2    constant   RRT_EXPR3:"9"       
+RRT_EXPR4            : 21       2        2    constant   RRT_EXPR4:"10"      
+RRT_BETA0            : 22       2        2    constant   RRT_BETA0:"11"      
+RRT_BETA1            : 23       2        2    constant   RRT_BETA1:"12"      
+RRT_BETA2            : 24       2        2    constant   RRT_BETA2:"13"      
+RRT_BETA3            : 25       2        2    constant   RRT_BETA3:"14"      
+RRT_RULE             : 26       2        2    constant   RRT_RULE:"15"       
+RRT_WORK             : 27       2        2    constant   RRT_WORK:"16"       
+ATTR_RETE_TYPE       : 28       2        2    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 29       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 30       2        2    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 31       2        2    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 32       2        2    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 33       2        2    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 34       2        2    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 35       2        2    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 36       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_PRIORITY_DEFAULT : 37       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 38       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 39       2        2    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 40       2        2    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 41       2        2    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 42       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 43       2        2    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 44       2        2    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 45       2        2    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 46       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 47       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 48       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 49       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 50       2        2    macro      list-with-state     
+list-without-state   : 51       2        2    macro      list-without-state  
+list-rule            : 52       2        2    macro      list-rule           
+get-rule             : 53       2        2    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 54       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 55       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 56       2        2    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 57       2        2    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 58       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
+__sub_statement__    : 59       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
+__previous_statement__ : 60       2        2    func       (__previous_statement__ nil) : frame=frame@main
+__make_filter_array__ : 61       2        2    func       (__make_filter_array__ nil) : frame=frame@main
+diff-stmt            : 62       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
                                          2    func       (diff-stmt nil list list) : frame=frame@main
                                          1    func       (diff-stmt nil list list list) : frame=frame@main
-m                    : 16       2        2    instance   model@m             
-?rv                  : 61       2        1    var        false : type=bool   
+m                    : 64       2        2    instance   model@m             
+?rv                  : 109      2        1    var        false : type=bool   
 ==========================================================================================================================
 
 
@@ -292,17 +341,16 @@ id=3, name=model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 15       3        2    instance   model@m             
+default_model        : 63       3        2    instance   model@m             
 ==========================================================================================================================
 
-Root var list: total=7
+Root var list: total=6
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
-?load-class          : '()
-?load-jar            : '()
-?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "C:\\data\\rs\\load\\constraint-diff-stmt.rulp")
-?load-system         : '("rule")
+?load-class          : '("alpha.rulp.utils.RRuleLoader")
+?load-jar            : '("irulp_rule_bin_0.0.1.jar")
+?load-script         : '("C:\\data\\rs\\rulp\\string.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\constraint-diff-stmt.rulp")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

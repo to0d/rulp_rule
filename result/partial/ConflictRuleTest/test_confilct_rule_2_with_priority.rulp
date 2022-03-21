@@ -1,3 +1,6 @@
+(load "rule")
+;=>
+
 (new model m)
 ;=>
 
@@ -8,7 +11,7 @@
 ;=>
 
 (set-priority (get-rule m "R2") 199)
-;;;
+;=>
 
 (priority-of (get-rule m "R1"))
 ;=>
