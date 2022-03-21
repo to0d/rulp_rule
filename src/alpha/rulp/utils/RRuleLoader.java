@@ -28,7 +28,6 @@ import static alpha.rulp.rule.Constant.F_REMOVE_STMT;
 import static alpha.rulp.rule.Constant.F_RETE_ENTRY_COUNT_OF;
 import static alpha.rulp.rule.Constant.F_RETE_NODE_OF;
 import static alpha.rulp.rule.Constant.F_SAVE_MODEL;
-import static alpha.rulp.rule.Constant.F_SEARCH;
 import static alpha.rulp.rule.Constant.F_SET_DEFAULT_MODEL;
 import static alpha.rulp.rule.Constant.F_SET_MODEL_CACHE_PATH;
 import static alpha.rulp.rule.Constant.F_SET_NODE_CACHE_PATH;
@@ -54,7 +53,6 @@ import static alpha.rulp.rule.Constant.O_Running;
 import static alpha.rulp.rule.Constant.O_State;
 import static alpha.rulp.rule.Constant.O_Type;
 import static alpha.rulp.rule.Constant.O_Where;
-import static alpha.rulp.ximpl.search.Constant.MTS_NS;
 
 import java.io.IOException;
 
@@ -99,8 +97,6 @@ import alpha.rulp.ximpl.factor.XRFactorStateOf;
 import alpha.rulp.ximpl.factor.XRFactorTraceRule;
 import alpha.rulp.ximpl.factor.XRFactorTryAddStmt;
 import alpha.rulp.ximpl.model.XRModelClass;
-import alpha.rulp.ximpl.search.SearchFactory;
-import alpha.rulp.ximpl.search.XRFactorSearch;
 
 public class RRuleLoader implements IRObjectLoader {
 
@@ -148,7 +144,6 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorTraceRule(F_TRACE_RULE));
 		RulpUtil.addFrameObject(frame, new XRFactorAddNode(F_ADD_NODE));
 		RulpUtil.addFrameObject(frame, new XRFactorFixStmt(F_FIX_STMT));
-		RulpUtil.addFrameObject(frame, new XRFactorSearch(F_SEARCH));
 		RulpUtil.addFrameObject(frame, new XRFactorLoadStmt(F_LOAD_STMT));
 		RulpUtil.addFrameObject(frame, new XRFactorHasStmt(F_HAS_STMT));
 		RulpUtil.addFrameObject(frame, new XRFactorGcModel(F_GC_MODEL));
@@ -183,10 +178,7 @@ public class RRuleLoader implements IRObjectLoader {
 		// Load rule library
 		LoadUtil.loadSystemRulp(interpreter, frame, "rule");
 
-		// MTS init
-		RulpUtil.registerNameSpaceLoader(interpreter, interpreter.getMainFrame(), MTS_NS, (inp, _frame) -> {
-			SearchFactory.init(inp, _frame);
-		});
+		;
 
 //		// Native Class Initialization
 //		SearchFactory.initScopeClass(frame);

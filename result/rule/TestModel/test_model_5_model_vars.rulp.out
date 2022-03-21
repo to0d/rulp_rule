@@ -4,10 +4,15 @@
 (value-of (value-of m::?model-state))
 ;=>completed
 
-(value-of (value-of m::?rbs-init))
-;err:
-member<m::?rbs-init> not found in model@m
-at (value-of m::?rbs-init) ; main-2
-at (value-of (value-of m::?rbs-init)) ; main-2
-;eof
+(value-of (value-of m::?cst-init))
+;=>false
+
+(defvar ?m m)
+;=>&?m
+
+(value-of (value-of m::?model-state))
+;=>completed
+
+(value-of (value-of m::?cst-init))
+;=>false
 

@@ -7,14 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.SystemUtil.OSType;
 import alpha.rulp.ximpl.entry.XREntryTable;
-import alpha.rulp.ximpl.search.IRASMachine;
 
 public class RuleTestBase extends RulpTestBase {
 
@@ -49,53 +46,9 @@ public class RuleTestBase extends RulpTestBase {
 //		System.out.println();
 //	}
 
-	protected IRASMachine _asm(String asmName) throws RException, IOException {
+	
 
-		try {
 
-			IRObject obj = _getInterpreter().getObject(asmName);
-			if (obj.getType() == RType.VAR) {
-				obj = RulpUtil.asVar(obj).getValue();
-			}
-
-			return RuleUtil.asASM(obj);
-
-		} catch (RException | IOException e) {
-			e.printStackTrace();
-			fail(e.toString());
-			return null;
-		}
-
-	}
-
-	protected void _asmInfo(String asmName) {
-		_asmInfo(asmName, getCachePath() + ".asm.txt");
-	}
-
-	protected void _asmInfo(String asmName, String expectFile) {
-
-		try {
-
-			String outoputInfo = StatsUtil.printASMInfo(_asm(asmName));
-
-			if (PRIME_MODE) {
-
-				ArrayList<String> lines = new ArrayList<>();
-				lines.add(outoputInfo);
-
-				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
-
-			} else {
-
-				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
-				assertEquals(expectInfo.trim(), outoputInfo.trim());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
-	}
 
 	protected void _clean_model_cache() {
 

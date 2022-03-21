@@ -42,7 +42,6 @@ import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
-import alpha.rulp.ximpl.search.IRASMachine;
 
 public class RuleUtil {
 
@@ -234,14 +233,6 @@ public class RuleUtil {
 		model.getNodeGraph().bindNode(fromNode, toNode);
 	}
 
-	public static IRASMachine asASM(IRObject obj) throws RException {
-
-		if (!(obj instanceof IRASMachine)) {
-			throw new RException("Can't convert to asm: " + obj);
-		}
-
-		return (IRASMachine) obj;
-	}
 
 	public static IRBetaNode asBetaNode(IRReteNode node) throws RException {
 

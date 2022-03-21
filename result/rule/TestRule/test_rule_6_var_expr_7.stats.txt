@@ -146,16 +146,16 @@ Model<m> frame:id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 12       3        3    instance   model@m             
+default_model        : 11       3        3    instance   model@m             
 ==========================================================================================================================
 
 Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 18       4        3    instance   model@m             
-?a                   : 19       4        1    var        (f2 nil) : type=func
-?b                   : 20       4        1    var        9 : type=int        
+default_model        : 17       4        3    instance   model@m             
+?a                   : 18       4        1    var        (f2 nil) : type=func
+?b                   : 19       4        1    var        9 : type=int        
 ==========================================================================================================================
 
 node update info: model-exec-count=2, row=2, column=3(1), value-max=1, value-unit=1^x
@@ -173,7 +173,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      311
+           Interpreter call id:      310
     Interpreter call level/max:        0        4
                Frame max level:        6
                   Frame max id:        7
@@ -198,14 +198,14 @@ Expression compute count:
       func:        2
 ==========================================================================================================================
 
-Callable stats info: callId=311, row=17, column=39(8), value-max=10, value-unit=2^x
+Callable stats info: callId=310, row=17, column=39(8), value-max=10, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         444444444444444444444445444444444444545 max=13, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442               
-    root   factor     65    0 defun                                                 1443443   234531
+    root   factor     65    0 defun                                                 1443443   23453 
     root   factor     35    0 defconst                                                    44444     
-    root   factor      8    0 defvar                                                4             3 
+    root   factor      8    0 defvar                                                4            12 
     root   factor      8    0 defmacro                                                22       3  1 
     root   factor      7    0 alias                          4                                 1    
     root   factor      5    0 make-list                                             4               
@@ -225,51 +225,49 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1913            0         1913
+        atom:         1911            0         1911
          int:            2            0            2
       string:           63            0           63
-        list:           65            1           64
+        list:           64            1           63
         expr:          832            2          830
          var:           27            2           25
     constant:           35            0           35
         func:           79            0           79
     template:            1            0            1
        macro:            8            0            8
-    instance:            1            0            1
-      member:           22            0           22
+      member:           21            0           21
        frame:            6            4            2
  interpreter:            1            0
-  frameEntry:          368            0
+  frameEntry:          366            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=2
 
-id=2, name=main, lvl=2, ref=2/2, entry=16, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=15, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
 main                 : 3        2        2    frame      frame@main          
-mts                  : 4        2        1    instance   namespace@mts       
-is-empty             : 5        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 4        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 6        2        2    func       (is-blank string) : frame=frame@main
-file-prename         : 7        2        2    func       (file-prename string) : frame=frame@main
-file-subffix         : 8        2        2    func       (file-subffix string) : frame=frame@main
-?script-path         : 9        2        2    var        result\rule\TestRule\test_rule_6_var_expr_7.rulp : type=string
-script_out           : 10       2        2    macro      script_out          
-_ginfo               : 11       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+is-blank             : 5        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 6        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 7        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 8        2        2    var        result\rule\TestRule\test_rule_6_var_expr_7.rulp : type=string
+script_out           : 9        2        2    macro      script_out          
+_ginfo               : 10       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-m                    : 13       2        3    instance   model@m             
-?x1                  : 14       2        1    var        1 : type=int        
-?x2                  : 15       2        1    var        9 : type=int        
-f1                   : 16       2        2    func       (f1 nil) : frame=frame@main
-f2                   : 17       2        3    func       (f2 nil) : frame=frame@main
+m                    : 12       2        3    instance   model@m             
+?x1                  : 13       2        1    var        1 : type=int        
+?x2                  : 14       2        1    var        9 : type=int        
+f1                   : 15       2        2    func       (f1 nil) : frame=frame@main
+f2                   : 16       2        3    func       (f2 nil) : frame=frame@main
 ==========================================================================================================================
 
 
@@ -277,16 +275,16 @@ id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 12       3        3    instance   model@m             
+default_model        : 11       3        3    instance   model@m             
 ==========================================================================================================================
 
 id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 18       4        3    instance   model@m             
-?a                   : 19       4        1    var        (f2 nil) : type=func
-?b                   : 20       4        1    var        9 : type=int        
+default_model        : 17       4        3    instance   model@m             
+?a                   : 18       4        1    var        (f2 nil) : type=func
+?b                   : 19       4        1    var        9 : type=int        
 ==========================================================================================================================
 
 Root var list: total=7
@@ -323,13 +321,6 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
 this                           : DEFAULT                      0    3    instance   model@m
-==========================================================================================================================
-
-name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-this                           : DEFAULT                      0    1    instance   namespace@mts
 ==========================================================================================================================
 
 

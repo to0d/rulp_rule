@@ -4,19 +4,13 @@
 (value-of (value-of m::?model-state))
 ;=>
 
-(value-of (value-of m::?rbs-init))
-;=>
-
 (value-of (value-of m::?cst-init))
 ;=>
 
 (defvar ?m m)
-;;;
-
-(value-of (value-of m::?model-state))
 ;=>
 
-(value-of (value-of m::?rbs-init))
+(value-of (value-of m::?model-state))
 ;=>
 
 (value-of (value-of m::?cst-init))

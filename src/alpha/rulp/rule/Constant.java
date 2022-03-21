@@ -173,8 +173,6 @@ public interface Constant {
 
 	String F_SAVE_MODEL = "save-model";
 
-	String F_SEARCH = "search";
-
 	String F_SET = "set";
 
 	String F_SET_DEFAULT_MODEL = "set-default-model";

@@ -332,7 +332,6 @@ mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, o
 mbr=runnable, mbr-property='(public), mbr-attribute='(), obj=runnable, obj-type=atom, obj-attribute='()
 mbr=running, mbr-property='(public), mbr-attribute='(), obj=running, obj-type=atom, obj-attribute='()
 mbr=save-model, mbr-property='(public), mbr-attribute='(), obj=save-model, obj-type=factor, obj-attribute='()
-mbr=search, mbr-property='(public), mbr-attribute='(), obj=search, obj-type=factor, obj-attribute='()
 mbr=set-default-model, mbr-property='(public), mbr-attribute='(), obj=set-default-model, obj-type=factor, obj-attribute='()
 mbr=set-model-cache-path, mbr-property='(public), mbr-attribute='(), obj=set-model-cache-path, obj-type=factor, obj-attribute='()
 mbr=set-model-gc-capacity, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-capacity type#model long), obj-type=func, obj-attribute='()
@@ -372,7 +371,6 @@ mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list)
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
-mbr=mts, mbr-property='(public), mbr-attribute='(), obj=mts, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
@@ -405,7 +403,6 @@ mbr=index-of, mbr-property='(public), mbr-attribute='(), obj=(index-of nil list)
 mbr=is-blank, mbr-property='(public), mbr-attribute='(), obj=(is-blank string), obj-type=func, obj-attribute='()
 mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) (is-empty list) (is-empty string)), obj-type=func, obj-attribute='()
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
-mbr=mts, mbr-property='(public), mbr-attribute='(), obj=mts, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=p2d, mbr-property='(public), mbr-attribute='(), obj=p2d, obj-type=instance, obj-attribute='(), instance-class=model
 mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
