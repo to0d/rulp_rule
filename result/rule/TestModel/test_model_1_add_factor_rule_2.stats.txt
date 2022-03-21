@@ -174,15 +174,15 @@ Model<m> frame:id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        3    instance   model@m             
+default_model        : 5        3        3    instance   model@m             
 ==========================================================================================================================
 
 Node<R01> frame:id=6, name=NF-R01, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-R01
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 16       6        3    instance   model@m             
-?n                   : 17       6        1    var        c : type=atom       
+default_model        : 15       6        3    instance   model@m             
+?n                   : 16       6        1    var        c : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=4, row=4, column=5(1), value-max=1, value-unit=1^x
@@ -202,7 +202,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      301
+           Interpreter call id:      300
     Interpreter call level/max:        0        9
                Frame max level:        5
                   Frame max id:        8
@@ -227,9 +227,9 @@ Expression compute count:
       func:        6
 ==========================================================================================================================
 
-Callable stats info: callId=301, row=21, column=38(8), value-max=8, value-unit=2^x
+Callable stats info: callId=300, row=21, column=38(8), value-max=8, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444446 max=30, unit=2^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444544444444444446 max=29, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442              
     root   factor     57    0 defun                                                 1443443   2344 
@@ -251,44 +251,43 @@ Callable stats info: callId=301, row=21, column=38(8), value-max=8, value-unit=2
     root   factor      2    0 case                                                                2
   system   factor      1    0 state-of                                                            1
   system   factor      1    0 start                                                               1
-    root   factor      1    0 new                                                                 1
+    root   factor      1    0 new                                                                1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1818            0         1818
+        atom:         1816            0         1816
          int:            2            0            2
       string:           57            0           57
-        list:           78            2           76
+        list:           77            2           75
         expr:          769            6          763
-         var:           37           14           23
+         var:           36           14           22
     constant:           35            0           35
         func:           69            0           69
     template:            1            0            1
        macro:            7            0            7
-    instance:            2            0            2
-      member:           24            0           24
+    instance:            1            0            1
+      member:           22            0           22
        frame:           13           11            2
  interpreter:            1            0
-  frameEntry:          370            0
+  frameEntry:          369            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=2
 
-id=2, name=main, lvl=2, ref=2/3, entry=7, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=6, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
 main                 : 3        2        2    frame      frame@main          
-rbs                  : 4        2        1    instance   namespace@rbs       
-mts                  : 5        2        1    instance   namespace@mts       
-m                    : 7        2        3    instance   model@m             
-?rv                  : 15       2        1    var        R01: R01 : type=instance
+mts                  : 4        2        1    instance   namespace@mts       
+m                    : 6        2        3    instance   model@m             
+?rv                  : 14       2        1    var        R01: R01 : type=instance
 ==========================================================================================================================
 
 
@@ -296,15 +295,15 @@ id=3, name=model, lvl=3, ref=2/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 6        3        3    instance   model@m             
+default_model        : 5        3        3    instance   model@m             
 ==========================================================================================================================
 
 id=6, name=NF-R01, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-R01
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 16       6        3    instance   model@m             
-?n                   : 17       6        1    var        c : type=atom       
+default_model        : 15       6        3    instance   model@m             
+?n                   : 16       6        1    var        c : type=atom       
 ==========================================================================================================================
 
 Root var list: total=7
@@ -330,7 +329,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=3/5, parent=model, final=false, mbrs=8, frame=null
+name=m, string=model@m, lvl=1, ref=3/5, parent=model, final=false, mbrs=7, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -340,7 +339,6 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
-?rbs-init                      : DEFAULT                      0    1    var        false : type=bool
 this                           : DEFAULT                      0    3    instance   model@m
 ==========================================================================================================================
 
@@ -349,13 +347,6 @@ name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, m
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 this                           : DEFAULT                      0    1    instance   namespace@mts
-==========================================================================================================================
-
-name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-this                           : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

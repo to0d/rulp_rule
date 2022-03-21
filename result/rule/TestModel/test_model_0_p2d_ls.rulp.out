@@ -374,7 +374,6 @@ mbr=is-empty, mbr-property='(public), mbr-attribute='(), obj='((is-empty array) 
 mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, obj-attribute='()
 mbr=mts, mbr-property='(public), mbr-attribute='(), obj=mts, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
-mbr=rbs, mbr-property='(public), mbr-attribute='(), obj=rbs, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
@@ -409,7 +408,6 @@ mbr=main, mbr-property='(public), mbr-attribute='(), obj=main, obj-type=frame, o
 mbr=mts, mbr-property='(public), mbr-attribute='(), obj=mts, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=p2d, mbr-property='(public), mbr-attribute='(), obj=p2d, obj-type=instance, obj-attribute='(), instance-class=model
 mbr=print-list, mbr-property='(public), mbr-attribute='(), obj='((print-list list) (print-list nil nil) (print-list nil)), obj-type=func, obj-attribute='()
-mbr=rbs, mbr-property='(public), mbr-attribute='(), obj=rbs, obj-type=instance, obj-attribute='(), instance-class=namespace
 mbr=root, mbr-property='(public), mbr-attribute='(), obj=root, obj-type=frame, obj-attribute='()
 mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-type=macro, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()

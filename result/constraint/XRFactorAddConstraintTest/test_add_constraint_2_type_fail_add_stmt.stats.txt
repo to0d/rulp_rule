@@ -311,8 +311,8 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/3, entry=2, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 13       3        4    instance   model@m             
-?rv                  : 25       3        1    var        true : type=bool    
+default_model        : 12       3        4    instance   model@m             
+?rv                  : 24       3        1    var        true : type=bool    
 ==========================================================================================================================
 
 node update info: model-exec-count=11, row=4, column=12(1), value-max=1, value-unit=1^x
@@ -332,7 +332,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      307
+           Interpreter call id:      306
     Interpreter call level/max:        0       10
                Frame max level:        8
                   Frame max id:        9
@@ -357,18 +357,18 @@ Expression compute count:
       func:        3
 ==========================================================================================================================
 
-Callable stats info: callId=307, row=27, column=39(8), value-max=8, value-unit=2^x
+Callable stats info: callId=306, row=27, column=39(8), value-max=10, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         444444444444444444444445444444444444463 max=32, unit=2^x
+   Frame    RType  Count  Ref Object                         444444444444444444444445444444444444563 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                  144444444444444444444442               
-    root   factor     63    0 defun                                                 1443443   23444 
+    root   factor     63    0 defun                                                 1443443   23452 
     root   factor     35    0 defconst                                                    44444     
     root   factor      8    0 defmacro                                                22       3  1 
     root   factor      7    0 alias                          4                                 1    
     root   factor      6    0 defvar                                                4             1 
     root   factor      5    0 make-list                                             4               
-  system   factor      4    0 add-stmt                                                            13
+  system   factor      4    0 add-stmt                                                            22
   system   factor      4    0 add-rule                                                            3 
     root   factor      3    0 deftemplate                                              3            
     root   factor      2    0 return                                                              2 
@@ -379,7 +379,7 @@ Callable stats info: callId=307, row=27, column=39(8), value-max=8, value-unit=2
     root   factor      1    0 setq                                                                1 
   system   factor      1    0 query-stmt                                                          1 
     root   factor      1    0 new                                                                 1 
-    root   factor      1    0 load                                                                1 
+    root   factor      1    0 load                                                               1  
   system   factor      1    0 list-stmt                                                            1
   system     func      1    1 (init_cst_rule type#model)                                          1 
     root   factor      1    0 if                                                                  1 
@@ -394,48 +394,47 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1929            0         1929
+        atom:         1927            0         1927
          int:            2            0            2
       string:           67            0           67
-        list:           99            6           93
+        list:           98            6           92
         expr:          838            3          835
-         var:           33            8           25
+         var:           32            8           24
     constant:           35            0           35
         func:           77            0           77
     template:            1            0            1
        macro:            8            0            8
-    instance:            2            0            2
-      member:           26            0           26
+    instance:            1            0            1
+      member:           24            0           24
        frame:            7            6            1
  interpreter:            1            0
-  frameEntry:          371            0
+  frameEntry:          370            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=13, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=12, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
 main                 : 3        2        2    frame      frame@main          
-rbs                  : 4        2        1    instance   namespace@rbs       
-mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+mts                  : 4        2        1    instance   namespace@mts       
+is-empty             : 5        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        2    var        result\constraint\XRFactorAddConstraintTest\test_add_constraint_2_type_fail_add_stmt.rulp : type=string
-script_out           : 11       2        2    macro      script_out          
-_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+is-blank             : 6        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 7        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 8        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 9        2        2    var        result\constraint\XRFactorAddConstraintTest\test_add_constraint_2_type_fail_add_stmt.rulp : type=string
+script_out           : 10       2        2    macro      script_out          
+_ginfo               : 11       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-m                    : 14       2        4    instance   model@m             
+m                    : 13       2        4    instance   model@m             
 ==========================================================================================================================
 
 
@@ -443,8 +442,8 @@ id=3, name=model, lvl=3, ref=1/3, entry=2, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 13       3        4    instance   model@m             
-?rv                  : 25       3        1    var        true : type=bool    
+default_model        : 12       3        4    instance   model@m             
+?rv                  : 24       3        1    var        true : type=bool    
 ==========================================================================================================================
 
 Root var list: total=7
@@ -469,7 +468,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=4/7, parent=model, final=false, mbrs=10, frame=null
+name=m, string=model@m, lvl=1, ref=4/7, parent=model, final=false, mbrs=9, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -481,7 +480,6 @@ $RG-names$                     : PRIVATE Y                    1    1    var     
 ?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
-?rbs-init                      : DEFAULT                      0    1    var        false : type=bool
 this                           : DEFAULT                      0    4    instance   model@m
 ==========================================================================================================================
 
@@ -490,13 +488,6 @@ name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, m
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 this                           : DEFAULT                      0    1    instance   namespace@mts
-==========================================================================================================================
-
-name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-this                           : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

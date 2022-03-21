@@ -96,7 +96,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 13       3        2    instance   model@m             
+default_model        : 12       3        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -106,7 +106,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      310
+           Interpreter call id:      309
     Interpreter call level/max:        0        8
                Frame max level:        7
                   Frame max id:        9
@@ -131,34 +131,34 @@ Expression compute count:
       func:     4020
 ==========================================================================================================================
 
-Callable stats info: callId=310, row=25, column=39(8), value-max=4020, value-unit=3^x
+Callable stats info: callId=309, row=25, column=39(8), value-max=4015, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333433333333333334X max=16098, unit=3^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333433333333333345X max=16073, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   4020    0 return                                                               9
-    root   factor   4008    0 add-list-to-array                                                    9
-  system funcList   4008    1 add                                                                  9
-    root   factor   2006    0 +                                                                    8
-    root   factor   2004    0 to-atom                                                              8
+    root   factor   4020    0 return                                                              39
+    root   factor   4008    0 add-list-to-array                                                   29
+  system funcList   4008    1 add                                                                 29
+    root   factor   2006    0 +                                                                   28
+    root   factor   2004    0 to-atom                                                             28
     root   factor    179    0 add-attribute                  133333333333333333333332               
-    root   factor     65    0 defun                                                 1332332   23333 
+    root   factor     65    0 defun                                                 1332332   23343 
     root   factor     35    0 defconst                                                    33333     
-    root   factor     12    0 defvar                                                3             13
+    root   factor     12    0 defvar                                                3             23
     root   factor      8    0 defmacro                                                22       2  1 
     root   factor      7    0 alias                          3                                 1    
-  system funcList      6    1 to-list                                                              3
-    root   factor      6    0 make-array                                                           3
-    root   factor      6    0 loop                                                                 3
-    root   factor      6    0 do                                                                   3
-  system   factor      6    0 add-stmt                                                             3
-    root   factor      6    0 add-array-to-list                                                    3
+  system funcList      6    1 to-list                                                             13
+    root   factor      6    0 make-array                                                          13
+    root   factor      6    0 loop                                                                13
+    root   factor      6    0 do                                                                  13
+  system   factor      6    0 add-stmt                                                            13
+    root   factor      6    0 add-array-to-list                                                   13
     root   factor      5    0 make-list                                             3               
     root   factor      3    0 to-named-list                                                        2
-    main     func      3    1 (make_root_list int string)                                          2
+    main     func      3    1 (make_root_list int string)                                         12
     main     func      3    1 (make_named_list int string)                                         2
     root   factor      3    0 deftemplate                                              2            
     root   factor      1    0 new                                                                 1 
-    root   factor      1    0 load                                                                1 
+    root   factor      1    0 load                                                               1  
   system   factor      1    0 list-stmt                                                            1
 ==========================================================================================================================
 
@@ -166,52 +166,51 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         5966            0         5966
+        atom:         5964            0         5964
          int:         3500            0         3500
       string:         4077            0         4077
-        list:         4080            4         4076
+        list:         4079            4         4075
         expr:         4881         4020          861
        array:            6            6            0
-         var:        12077        12054           23
+         var:        12076        12054           22
     constant:           35            0           35
         func:           79            0           79
     template:            1            0            1
        macro:            8            0            8
-    instance:            2            0            2
-      member:           24            0           24
+    instance:            1            0            1
+      member:           22            0           22
        frame:         8041         8040            1
  interpreter:            1            0
-  frameEntry:        12423            0
+  frameEntry:        12422            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/3, entry=16, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=15, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
 main                 : 3        2        2    frame      frame@main          
-rbs                  : 4        2        1    instance   namespace@rbs       
-mts                  : 5        2        1    instance   namespace@mts       
-is-empty             : 6        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+mts                  : 4        2        1    instance   namespace@mts       
+is-empty             : 5        2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
-is-blank             : 7        2        2    func       (is-blank string) : frame=frame@main
-file-prename         : 8        2        2    func       (file-prename string) : frame=frame@main
-file-subffix         : 9        2        2    func       (file-subffix string) : frame=frame@main
-?script-path         : 10       2        2    var        result\factor\XRFactorAddStmtTest\test_add_stmt_c_max_stmt_len_1.rulp : type=string
-script_out           : 11       2        2    macro      script_out          
-_ginfo               : 12       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+is-blank             : 6        2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 7        2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 8        2        2    func       (file-subffix string) : frame=frame@main
+?script-path         : 9        2        2    var        result\factor\XRFactorAddStmtTest\test_add_stmt_c_max_stmt_len_1.rulp : type=string
+script_out           : 10       2        2    macro      script_out          
+_ginfo               : 11       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-m                    : 14       2        2    instance   model@m             
-make_root_list       : 15       2        1    func       (make_root_list int string) : frame=frame@main
-make_named_list      : 16       2        1    func       (make_named_list int string) : frame=frame@main
-?rv                  : 32       2        1    var        n3:'(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  )... : type=list
+m                    : 13       2        2    instance   model@m             
+make_root_list       : 14       2        1    func       (make_root_list int string) : frame=frame@main
+make_named_list      : 15       2        1    func       (make_named_list int string) : frame=frame@main
+?rv                  : 31       2        1    var        n3:'(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  )... : type=list
 ==========================================================================================================================
 
 
@@ -219,7 +218,7 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 13       3        2    instance   model@m             
+default_model        : 12       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=7
@@ -244,7 +243,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=8, frame=null
+name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=7, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -254,7 +253,6 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
-?rbs-init                      : DEFAULT                      0    1    var        false : type=bool
 this                           : DEFAULT                      0    2    instance   model@m
 ==========================================================================================================================
 
@@ -263,13 +261,6 @@ name=mts, string=namespace@mts, lvl=1, ref=1/1, parent=namespace, final=false, m
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 this                           : DEFAULT                      0    1    instance   namespace@mts
-==========================================================================================================================
-
-name=rbs, string=namespace@rbs, lvl=1, ref=1/1, parent=namespace, final=false, mbrs=1, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-this                           : DEFAULT                      0    1    instance   namespace@rbs
 ==========================================================================================================================
 
 

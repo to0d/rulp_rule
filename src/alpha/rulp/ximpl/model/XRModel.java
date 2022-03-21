@@ -22,7 +22,6 @@ import static alpha.rulp.rule.RRunState.Halting;
 import static alpha.rulp.rule.RRunState.Partial;
 import static alpha.rulp.rule.RRunState.Runnable;
 import static alpha.rulp.rule.RRunState.Running;
-import static alpha.rulp.ximpl.rbs.Constant.V_M_RBS_INIT;
 
 import java.io.File;
 import java.io.IOException;
@@ -2055,7 +2054,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RuleUtil.setDefaultModel(modelFrame, this);
 
 		RuleUtil.createModelVar(this, V_M_STATE, RRunState.toObject(this.getRunState()));
-		RuleUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
+//		RuleUtil.createModelVar(this, V_M_RBS_INIT, RulpFactory.createBoolean(false));
 		RuleUtil.createModelVar(this, V_M_CST_INIT, RulpFactory.createBoolean(false));
 
 		this.gcLastGcTime = System.currentTimeMillis();
