@@ -34,6 +34,7 @@ public class XRFactorSetNodeQueueType extends AbsAtomFactorAdapter implements IR
 		IRReteNode node = RuleUtil.asNode(interpreter.compute(frame, args.get(1)));
 		REntryQueueType toType = REntryQueueType
 				.toEntryQueueType(RulpUtil.asInteger(interpreter.compute(frame, args.get(2))).asInteger());
+		
 		boolean rc = ReteUtil.tryChangeNodeQueue(node, node.getEntryQueue().getQueueType(), toType);
 		return RulpFactory.createBoolean(rc);
 	}

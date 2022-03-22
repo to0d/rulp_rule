@@ -420,6 +420,7 @@ mbr=set-model-gc-capacity, mbr-property='(public), mbr-attribute='(), obj=(set-m
 mbr=set-model-gc-inactive-leaf, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-inactive-leaf type#model int), obj-type=func, obj-attribute='()
 mbr=set-model-gc-interval, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-interval type#model long), obj-type=func, obj-attribute='()
 mbr=set-model-gc-max-cache-node, mbr-property='(public), mbr-attribute='(), obj=(set-model-gc-max-cache-node type#model int), obj-type=func, obj-attribute='()
+mbr=set-node-multi-queue, mbr-property='(public), mbr-attribute='(), obj=(set-node-multi-queue type#model list), obj-type=func, obj-attribute='()
 mbr=sort, mbr-property='(public), mbr-attribute='(), obj='((sort array func) (sort array) (sort list func) (sort list)), obj-type=func, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
 mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path string), obj-type=func, obj-attribute='()

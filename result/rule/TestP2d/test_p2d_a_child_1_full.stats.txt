@@ -2630,51 +2630,51 @@ Model<p2d> frame:id=3, name=model, lvl=3, ref=6/6, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 75       3        5    instance   model@p2d           
+default_model        : 76       3        5    instance   model@p2d           
 ==========================================================================================================================
 
 Node<E00004> frame:id=4, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 85       4        1    var        nt:$TGROUP : type=atom
-?rv                  : 95       4        1    var        nt:$TGROUP : type=string
+?0                   : 86       4        1    var        nt:$TGROUP : type=atom
+?rv                  : 96       4        1    var        nt:$TGROUP : type=string
 ==========================================================================================================================
 
 Node<C7> frame:id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 156      10       5    instance   model@p2d           
-?a                   : 157      10       1    var        tb : type=atom      
-?p                   : 158      10       1    var        nm:hasAncestors : type=atom
-?b                   : 159      10       1    var        ta : type=atom      
-?model-state         : 160      10       1    var        ?model-state:"completed" : type=var
+default_model        : 157      10       5    instance   model@p2d           
+?a                   : 158      10       1    var        tb : type=atom      
+?p                   : 159      10       1    var        nm:hasAncestors : type=atom
+?b                   : 160      10       1    var        ta : type=atom      
+?model-state         : 161      10       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC2> frame:id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 161      7        5    instance   model@p2d           
-?t                   : 162      7        1    var        nt:$TGROUP : type=atom
-?model-state         : 163      7        1    var        ?model-state:"completed" : type=var
+default_model        : 162      7        5    instance   model@p2d           
+?t                   : 163      7        1    var        nt:$TGROUP : type=atom
+?model-state         : 164      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<E00120> frame:id=5, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 105      5        1    var        nt:$TGROUP : type=atom
-?rv                  : 112      5        1    var        $TGROUP : type=string
+?0                   : 106      5        1    var        nt:$TGROUP : type=atom
+?rv                  : 113      5        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 Node<E00123> frame:id=6, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 119      6        1    var        nt:$TGROUP : type=atom
-?rv                  : 126      6        1    var        $TGROUP : type=string
+?0                   : 120      6        1    var        nt:$TGROUP : type=atom
+?rv                  : 127      6        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 node update info: model-exec-count=360, row=51, column=90(4), value-max=2, value-unit=2^x
@@ -2762,7 +2762,7 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      779
+    factor:      780
       func:       64
      macro:        2
 ==========================================================================================================================
@@ -2772,7 +2772,7 @@ Callable stats info: callId=250, row=44, column=63(4), value-max=64, value-unit=
    Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333344333333369X3 max=439, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                
-    root   factor     78    0 defun                                                                        2333133333 3365  
+    root   factor     79    0 defun                                                                        2333133333 3366  
     root   factor     64    0 return                                                                                      7 
     root   factor     59    0 if                                                                                          7 
     root   factor     50    0 equal_def                                                                                   7 
@@ -2821,26 +2821,26 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3875            0         3875
+        atom:         3950            0         3950
          int:            3            0            3
-      string:          164            0          164
+      string:          170            0          170
         list:          780            5          775
-        expr:         1695           64         1631
+        expr:         1734           64         1670
          var:          229          194           35
     constant:           40            0           40
-        func:           95            0           95
+        func:           96            0           96
     template:            1            0            1
        macro:           10            0           10
       member:           22            0           22
        frame:          139          133            6
  interpreter:            1            0
-  frameEntry:          587            0
+  frameEntry:          588            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=6
 
-id=2, name=main, lvl=2, ref=2/3, entry=84, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=85, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2934,16 +2934,17 @@ get-named-rete-node  : 71       2        2    func       (get-named-rete-node ty
 rete-type-of         : 72       2        2    func       (rete-type-of nil) : frame=frame@main
 entry-length-of      : 73       2        2    func       (entry-length-of nil) : frame=frame@main
 rete-valid-entry-of  : 74       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-p2d                  : 76       2        5    instance   model@p2d           
-#ns_tag              : 77       2        2    var        nt: : type=string   
-#ns_domain           : 78       2        2    var        nd: : type=string   
-get-uri-name         : 79       2        2    func       (get-uri-name nil) : frame=frame@main
-get-suffix           : 80       2        2    func       (get-suffix nil nil) : frame=frame@main
-get-field-name       : 81       2        2    func       (get-field-name nil) : frame=frame@main
-get-new-ns           : 82       2        2    macro      get-new-ns          
-get-version-number   : 83       2        2    func       (get-version-number nil) : frame=frame@main
-hasGroupChild        : 84       2        2    macro      hasGroupChild       
-?e                   : 170      2        1    var        AC8: AC8 : type=instance
+set-node-multi-queue : 75       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+p2d                  : 77       2        5    instance   model@p2d           
+#ns_tag              : 78       2        2    var        nt: : type=string   
+#ns_domain           : 79       2        2    var        nd: : type=string   
+get-uri-name         : 80       2        2    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 81       2        2    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 82       2        2    func       (get-field-name nil) : frame=frame@main
+get-new-ns           : 83       2        2    macro      get-new-ns          
+get-version-number   : 84       2        2    func       (get-version-number nil) : frame=frame@main
+hasGroupChild        : 85       2        2    macro      hasGroupChild       
+?e                   : 171      2        1    var        AC8: AC8 : type=instance
 ==========================================================================================================================
 
 
@@ -2951,51 +2952,51 @@ id=3, name=model, lvl=3, ref=6/6, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 75       3        5    instance   model@p2d           
+default_model        : 76       3        5    instance   model@p2d           
 ==========================================================================================================================
 
 id=4, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 85       4        1    var        nt:$TGROUP : type=atom
-?rv                  : 95       4        1    var        nt:$TGROUP : type=string
+?0                   : 86       4        1    var        nt:$TGROUP : type=atom
+?rv                  : 96       4        1    var        nt:$TGROUP : type=string
 ==========================================================================================================================
 
 id=5, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 105      5        1    var        nt:$TGROUP : type=atom
-?rv                  : 112      5        1    var        $TGROUP : type=string
+?0                   : 106      5        1    var        nt:$TGROUP : type=atom
+?rv                  : 113      5        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 id=6, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 119      6        1    var        nt:$TGROUP : type=atom
-?rv                  : 126      6        1    var        $TGROUP : type=string
+?0                   : 120      6        1    var        nt:$TGROUP : type=atom
+?rv                  : 127      6        1    var        $TGROUP : type=string
 ==========================================================================================================================
 
 id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 161      7        5    instance   model@p2d           
-?t                   : 162      7        1    var        nt:$TGROUP : type=atom
-?model-state         : 163      7        1    var        ?model-state:"completed" : type=var
+default_model        : 162      7        5    instance   model@p2d           
+?t                   : 163      7        1    var        nt:$TGROUP : type=atom
+?model-state         : 164      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 156      10       5    instance   model@p2d           
-?a                   : 157      10       1    var        tb : type=atom      
-?p                   : 158      10       1    var        nm:hasAncestors : type=atom
-?b                   : 159      10       1    var        ta : type=atom      
-?model-state         : 160      10       1    var        ?model-state:"completed" : type=var
+default_model        : 157      10       5    instance   model@p2d           
+?a                   : 158      10       1    var        tb : type=atom      
+?p                   : 159      10       1    var        nm:hasAncestors : type=atom
+?b                   : 160      10       1    var        ta : type=atom      
+?model-state         : 161      10       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Root var list: total=6

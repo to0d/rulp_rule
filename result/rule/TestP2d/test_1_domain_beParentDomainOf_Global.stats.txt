@@ -2647,27 +2647,27 @@ Model<p2d> frame:id=3, name=model, lvl=3, ref=3/3, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 75       3        5    instance   model@p2d           
+default_model        : 76       3        5    instance   model@p2d           
 ==========================================================================================================================
 
 Node<C7> frame:id=4, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 85       4        5    instance   model@p2d           
-?a                   : 86       4        1    var        domain2 : type=atom 
-?p                   : 87       4        1    var        nm:beDescendantDomainOf : type=atom
-?b                   : 88       4        1    var        nd:Global : type=atom
-?model-state         : 89       4        1    var        ?model-state:"completed" : type=var
+default_model        : 86       4        5    instance   model@p2d           
+?a                   : 87       4        1    var        domain2 : type=atom 
+?p                   : 88       4        1    var        nm:beDescendantDomainOf : type=atom
+?b                   : 89       4        1    var        nd:Global : type=atom
+?model-state         : 90       4        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<DC1> frame:id=5, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-DC1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 90       5        5    instance   model@p2d           
-?d                   : 91       5        1    var        domainx : type=atom 
-?model-state         : 92       5        1    var        ?model-state:"completed" : type=var
+default_model        : 91       5        5    instance   model@p2d           
+?d                   : 92       5        1    var        domainx : type=atom 
+?model-state         : 93       5        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 node update info: model-exec-count=458, row=41, column=115(4), value-max=2, value-unit=2^x
@@ -2745,7 +2745,7 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      697
+    factor:      698
       func:       41
      macro:        2
 ==========================================================================================================================
@@ -2755,7 +2755,7 @@ Callable stats info: callId=251, row=28, column=63(4), value-max=58, value-unit=
    Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333443333333693X max=333, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                
-    root   factor     78    0 defun                                                                        2333133333 3365  
+    root   factor     79    0 defun                                                                        2333133333 3366  
     root   factor     58    0 if                                                                                           7
     root   factor     44    0 not                                                                                          7
   system   factor     42    0 state-of                                                                                     7
@@ -2788,26 +2788,26 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3892            0         3892
+        atom:         3967            0         3967
          int:            3            0            3
-      string:          150            0          150
+      string:          156            0          156
         list:          773            3          770
-        expr:         1673           41         1632
+        expr:         1712           41         1671
          var:          152          123           29
     constant:           40            0           40
-        func:           95            0           95
+        func:           96            0           96
     template:            1            0            1
        macro:           10            0           10
       member:           22            0           22
        frame:          103          100            3
  interpreter:            1            0
-  frameEntry:          510            0
+  frameEntry:          511            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=3
 
-id=2, name=main, lvl=2, ref=2/3, entry=84, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=85, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2901,16 +2901,17 @@ get-named-rete-node  : 71       2        2    func       (get-named-rete-node ty
 rete-type-of         : 72       2        2    func       (rete-type-of nil) : frame=frame@main
 entry-length-of      : 73       2        2    func       (entry-length-of nil) : frame=frame@main
 rete-valid-entry-of  : 74       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-p2d                  : 76       2        5    instance   model@p2d           
-#ns_tag              : 77       2        2    var        nt: : type=string   
-#ns_domain           : 78       2        2    var        nd: : type=string   
-get-uri-name         : 79       2        2    func       (get-uri-name nil) : frame=frame@main
-get-suffix           : 80       2        2    func       (get-suffix nil nil) : frame=frame@main
-get-field-name       : 81       2        2    func       (get-field-name nil) : frame=frame@main
-get-new-ns           : 82       2        2    macro      get-new-ns          
-get-version-number   : 83       2        2    func       (get-version-number nil) : frame=frame@main
-hasGroupChild        : 84       2        2    macro      hasGroupChild       
-?e                   : 93       2        1    var        AC8: AC8 : type=instance
+set-node-multi-queue : 75       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+p2d                  : 77       2        5    instance   model@p2d           
+#ns_tag              : 78       2        2    var        nt: : type=string   
+#ns_domain           : 79       2        2    var        nd: : type=string   
+get-uri-name         : 80       2        2    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 81       2        2    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 82       2        2    func       (get-field-name nil) : frame=frame@main
+get-new-ns           : 83       2        2    macro      get-new-ns          
+get-version-number   : 84       2        2    func       (get-version-number nil) : frame=frame@main
+hasGroupChild        : 85       2        2    macro      hasGroupChild       
+?e                   : 94       2        1    var        AC8: AC8 : type=instance
 ==========================================================================================================================
 
 
@@ -2918,27 +2919,27 @@ id=3, name=model, lvl=3, ref=3/3, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 75       3        5    instance   model@p2d           
+default_model        : 76       3        5    instance   model@p2d           
 ==========================================================================================================================
 
 id=4, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 85       4        5    instance   model@p2d           
-?a                   : 86       4        1    var        domain2 : type=atom 
-?p                   : 87       4        1    var        nm:beDescendantDomainOf : type=atom
-?b                   : 88       4        1    var        nd:Global : type=atom
-?model-state         : 89       4        1    var        ?model-state:"completed" : type=var
+default_model        : 86       4        5    instance   model@p2d           
+?a                   : 87       4        1    var        domain2 : type=atom 
+?p                   : 88       4        1    var        nm:beDescendantDomainOf : type=atom
+?b                   : 89       4        1    var        nd:Global : type=atom
+?model-state         : 90       4        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=5, name=NF-DC1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-DC1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 90       5        5    instance   model@p2d           
-?d                   : 91       5        1    var        domainx : type=atom 
-?model-state         : 92       5        1    var        ?model-state:"completed" : type=var
+default_model        : 91       5        5    instance   model@p2d           
+?d                   : 92       5        1    var        domainx : type=atom 
+?model-state         : 93       5        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Root var list: total=6

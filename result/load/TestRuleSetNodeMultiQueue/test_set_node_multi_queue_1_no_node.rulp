@@ -1,0 +1,14 @@
+(load "rule")
+;=>
+
+(new model m)
+;=>
+
+(rete-queue-type-of (get-named-rete-node m "n1"))
+;err
+
+(set-node-multi-queue m n1:'(?x ?y))
+;=>
+
+(rete-queue-type-of (get-named-rete-node m "n1"))
+;=>

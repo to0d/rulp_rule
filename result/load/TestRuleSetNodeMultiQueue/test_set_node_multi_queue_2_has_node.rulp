@@ -1,0 +1,17 @@
+(load "rule")
+;=>
+
+(new model m)
+;=>
+
+(add-stmt m n1:'(1 1))
+;=>
+
+(rete-queue-type-of (get-named-rete-node m "n1"))
+;=>
+
+(set-node-multi-queue m n1:'(?x ?y))
+;=>
+
+(rete-queue-type-of (get-named-rete-node m "n1"))
+;=>

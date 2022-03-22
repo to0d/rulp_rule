@@ -1,0 +1,18 @@
+(load "rule")
+;=>nil
+
+(new model m)
+;=>m
+
+(rete-queue-type-of (get-named-rete-node m "n1"))
+;err:
+Can't convert to node: nil
+at (rete-queue-type-of (get-named-rete-node m "n1")) ; main-2
+;eof
+
+(set-node-multi-queue m n1:'(?x ?y))
+;=>true
+
+(rete-queue-type-of (get-named-rete-node m "n1"))
+;=>1
+

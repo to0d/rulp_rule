@@ -96,7 +96,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 75       3        2    instance   model@m             
+default_model        : 76       3        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -127,7 +127,7 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    12405
+    factor:    12406
       func:     4020
 ==========================================================================================================================
 
@@ -141,7 +141,7 @@ Callable stats info: callId=253, row=26, column=64(4), value-max=3012, value-uni
     root   factor   2006    0 +                                                                                           281
     root   factor   2004    0 to-atom                                                                                     28 
     root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                 
-    root   factor     76    0 defun                                                                        2333123333 33442  
+    root   factor     77    0 defun                                                                        2333123333 33442  
     root   factor     40    0 defconst                                                                                   5   
     root   factor     11    0 defvar                                                                           21       1 131
     root   factor      8    0 defmacro                                                                                  33   
@@ -167,27 +167,27 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6275            0         6275
+        atom:         6350            0         6350
          int:         3500            0         3500
-      string:         4096            0         4096
+      string:         4102            0         4102
         list:         4078            4         4074
-        expr:         5066         4020         1046
+        expr:         5105         4020         1085
        array:            6            6            0
          var:        12075        12054           21
     constant:           40            0           40
-        func:           93            0           93
+        func:           94            0           94
     template:            1            0            1
        macro:            8            0            8
       member:           22            0           22
        frame:         8041         8040            1
  interpreter:            1            0
-  frameEntry:        12433            0
+  frameEntry:        12434            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/3, entry=78, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=79, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -281,10 +281,11 @@ get-named-rete-node  : 71       2        2    func       (get-named-rete-node ty
 rete-type-of         : 72       2        2    func       (rete-type-of nil) : frame=frame@main
 entry-length-of      : 73       2        2    func       (entry-length-of nil) : frame=frame@main
 rete-valid-entry-of  : 74       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-m                    : 76       2        2    instance   model@m             
-make_root_list       : 77       2        1    func       (make_root_list int string) : frame=frame@main
-make_named_list      : 78       2        1    func       (make_named_list int string) : frame=frame@main
-?rv                  : 94       2        1    var        n3:'(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  )... : type=list
+set-node-multi-queue : 75       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+m                    : 77       2        2    instance   model@m             
+make_root_list       : 78       2        1    func       (make_root_list int string) : frame=frame@main
+make_named_list      : 79       2        1    func       (make_named_list int string) : frame=frame@main
+?rv                  : 95       2        1    var        n3:'(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  )... : type=list
 ==========================================================================================================================
 
 
@@ -292,7 +293,7 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 75       3        2    instance   model@m             
+default_model        : 76       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=6
