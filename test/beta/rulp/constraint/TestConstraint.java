@@ -7,7 +7,7 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestConstraint extends RuleTestBase {
 
 	@Test
-	public void test_constraint_1() {
+	void test_constraint_1() {
 
 		_setup();
 		_run_script();

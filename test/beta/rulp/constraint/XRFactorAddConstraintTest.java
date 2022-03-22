@@ -239,4 +239,5 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
 }
