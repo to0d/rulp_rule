@@ -2574,7 +2574,7 @@ Model<p2d> frame:id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 2911     4        10   instance   model@p2d           
+default_model        : 2934     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 
@@ -2605,31 +2605,31 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    19645
-      func:     1576
+    factor:    19993
+      func:     1604
 ==========================================================================================================================
 
-Callable stats info: callId=248, row=30, column=63(4), value-max=5042, value-unit=3^x
+Callable stats info: callId=248, row=30, column=63(4), value-max=5074, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         2333333333333333333333333333333333333333333333333333333333343X9 max=16797, unit=3^x
+   Frame    RType  Count  Ref Object                         2333333333333333333333333333333333333333333333333333333333343X9 max=16908, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   6298    0 value-of                                                                                    98
-    root   factor   2758    0 print                                                                                       97
-    root   factor   1959    0 if                                                                                          87
-    root   factor   1568    0 return                                                                                      87
-    root   factor   1568    0 equal_def                                                                                   87
-  system funcList   1568    7 equal                                                                                       87
-    root   factor   1564    0 type-of                                                                                     87
-    root   factor    782    0 not                                                                                         76
-    root   factor    782    0 name-of                                                                                     76
-    root   factor    782    0 attribute-of                                                                                76
-    root   factor    394    0 property-of                                                                                 75
-    root   factor    391    0 and                                                                                         75
-    root   factor    391    0 access                                                                                      75
+    root   factor   6410    0 value-of                                                                                    98
+    root   factor   2807    0 print                                                                                       97
+    root   factor   1994    0 if                                                                                          87
+    root   factor   1596    0 return                                                                                      87
+    root   factor   1596    0 equal_def                                                                                   87
+  system funcList   1596    7 equal                                                                                       87
+    root   factor   1592    0 type-of                                                                                     87
+    root   factor    796    0 not                                                                                         76
+    root   factor    796    0 name-of                                                                                     76
+    root   factor    796    0 attribute-of                                                                                76
+    root   factor    401    0 property-of                                                                                 76
+    root   factor    398    0 and                                                                                         76
+    root   factor    398    0 access                                                                                      76
     root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                
     root   factor     78    0 defun                                                                        2333123333 33424 
   system   factor     41    0 add-rule                                                                                    5 
-    root   factor     35    0 defconst                                                                                    5 
+    root   factor     40    0 defconst                                                                                    5 
   system   factor     28    0 fix-stmt                                                                                    5 
     root   factor     10    0 defmacro                                                                                  313 
     main funcList      8   15 print-list                                                                                  32
@@ -2649,26 +2649,26 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3836            0         3836
+        atom:         3846            0         3846
          int:            2            0            2
-      string:          895            0          895
-        list:         1089            0         1089
-        expr:         7121         1576         5545
-         var:         3565         3543           22
-    constant:           35            0           35
+      string:          904            0          904
+        list:         1096            0         1096
+        expr:         7224         1604         5620
+         var:         3628         3606           22
+    constant:           40            0           40
         func:           95            0           95
     template:            1            0            1
        macro:           10            0           10
       member:           22            0           22
-       frame:         1972         1971            1
+       frame:         2007         2006            1
  interpreter:            1            0
-  frameEntry:         3922            0
+  frameEntry:         3992            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=14/19, entry=78, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=14/19, entry=83, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2709,63 +2709,68 @@ script_out           : 20       2        14   macro      script_out
 _ginfo               : 21       2        14   funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-RRT_ROOT             : 2863     2        8    constant   RRT_ROOT:"0"        
-RRT_NAME             : 2864     2        8    constant   RRT_NAME:"1"        
-RRT_VAR              : 2865     2        8    constant   RRT_VAR:"2"         
-RRT_CONST            : 2866     2        8    constant   RRT_CONST:"3"       
-RRT_ALPH0            : 2867     2        8    constant   RRT_ALPH0:"4"       
-RRT_ALPH1            : 2868     2        8    constant   RRT_ALPH1:"5"       
-RRT_EXPR0            : 2869     2        8    constant   RRT_EXPR0:"6"       
-RRT_EXPR1            : 2870     2        8    constant   RRT_EXPR1:"7"       
-RRT_EXPR2            : 2871     2        8    constant   RRT_EXPR2:"8"       
-RRT_EXPR3            : 2872     2        8    constant   RRT_EXPR3:"9"       
-RRT_EXPR4            : 2873     2        8    constant   RRT_EXPR4:"10"      
-RRT_BETA0            : 2874     2        8    constant   RRT_BETA0:"11"      
-RRT_BETA1            : 2875     2        8    constant   RRT_BETA1:"12"      
-RRT_BETA2            : 2876     2        8    constant   RRT_BETA2:"13"      
-RRT_BETA3            : 2877     2        8    constant   RRT_BETA3:"14"      
-RRT_RULE             : 2878     2        8    constant   RRT_RULE:"15"       
-RRT_WORK             : 2879     2        8    constant   RRT_WORK:"16"       
-ATTR_RETE_TYPE       : 2880     2        8    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 2881     2        8    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 2882     2        8    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 2883     2        8    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 2884     2        8    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 2885     2        8    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 2886     2        8    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 2887     2        8    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 2888     2        8    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_PRIORITY_DEFAULT : 2889     2        8    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 2890     2        8    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 2891     2        8    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 2892     2        8    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 2893     2        8    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 2894     2        8    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 2895     2        8    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 2896     2        8    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 2897     2        8    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 2898     2        8    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 2899     2        8    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 2900     2        8    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 2901     2        8    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 2902     2        8    macro      list-with-state     
-list-without-state   : 2903     2        8    macro      list-without-state  
-list-rule            : 2904     2        8    macro      list-rule           
-get-rule             : 2905     2        8    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 2906     2        8    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 2907     2        8    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 2908     2        8    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 2909     2        8    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 2910     2        8    func       (rete-valid-entry-of nil) : frame=frame@main
-p2d                  : 2912     2        10   instance   model@p2d           
-#ns_tag              : 2913     2        9    var        nt: : type=string   
-#ns_domain           : 2914     2        9    var        nd: : type=string   
-get-uri-name         : 2915     2        8    func       (get-uri-name nil) : frame=frame@main
-get-suffix           : 2916     2        8    func       (get-suffix nil nil) : frame=frame@main
-get-field-name       : 2917     2        8    func       (get-field-name nil) : frame=frame@main
-get-new-ns           : 2918     2        8    macro      get-new-ns          
-get-version-number   : 2919     2        8    func       (get-version-number nil) : frame=frame@main
-hasGroupChild        : 2920     2        8    macro      hasGroupChild       
+RRT_ROOT             : 2881     2        8    constant   RRT_ROOT:"0"        
+RRT_NAME             : 2882     2        8    constant   RRT_NAME:"1"        
+RRT_VAR              : 2883     2        8    constant   RRT_VAR:"2"         
+RRT_CONST            : 2884     2        8    constant   RRT_CONST:"3"       
+RRT_ALPH0            : 2885     2        8    constant   RRT_ALPH0:"4"       
+RRT_ALPH1            : 2886     2        8    constant   RRT_ALPH1:"5"       
+RRT_EXPR0            : 2887     2        8    constant   RRT_EXPR0:"6"       
+RRT_EXPR1            : 2888     2        8    constant   RRT_EXPR1:"7"       
+RRT_EXPR2            : 2889     2        8    constant   RRT_EXPR2:"8"       
+RRT_EXPR3            : 2890     2        8    constant   RRT_EXPR3:"9"       
+RRT_EXPR4            : 2891     2        8    constant   RRT_EXPR4:"10"      
+RRT_BETA0            : 2892     2        8    constant   RRT_BETA0:"11"      
+RRT_BETA1            : 2893     2        8    constant   RRT_BETA1:"12"      
+RRT_BETA2            : 2894     2        8    constant   RRT_BETA2:"13"      
+RRT_BETA3            : 2895     2        8    constant   RRT_BETA3:"14"      
+RRT_RULE             : 2896     2        8    constant   RRT_RULE:"15"       
+RRT_WORK             : 2897     2        8    constant   RRT_WORK:"16"       
+ATTR_RETE_TYPE       : 2898     2        8    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 2899     2        8    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 2900     2        8    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 2901     2        8    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 2902     2        8    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 2903     2        8    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 2904     2        8    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 2905     2        8    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 2906     2        8    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 2907     2        8    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 2908     2        8    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 2909     2        8    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 2910     2        8    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 2911     2        8    constant   RETE_QUEUE_ACTION:"4"
+RETE_PRIORITY_DEFAULT : 2912     2        8    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 2913     2        8    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 2914     2        8    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 2915     2        8    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 2916     2        8    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 2917     2        8    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 2918     2        8    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 2919     2        8    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 2920     2        8    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 2921     2        8    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 2922     2        8    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 2923     2        8    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 2924     2        8    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 2925     2        8    macro      list-with-state     
+list-without-state   : 2926     2        8    macro      list-without-state  
+list-rule            : 2927     2        8    macro      list-rule           
+get-rule             : 2928     2        8    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 2929     2        8    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 2930     2        8    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 2931     2        8    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 2932     2        8    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 2933     2        8    func       (rete-valid-entry-of nil) : frame=frame@main
+p2d                  : 2935     2        10   instance   model@p2d           
+#ns_tag              : 2936     2        9    var        nt: : type=string   
+#ns_domain           : 2937     2        9    var        nd: : type=string   
+get-uri-name         : 2938     2        8    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 2939     2        8    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 2940     2        8    func       (get-field-name nil) : frame=frame@main
+get-new-ns           : 2941     2        8    macro      get-new-ns          
+get-version-number   : 2942     2        8    func       (get-version-number nil) : frame=frame@main
+hasGroupChild        : 2943     2        8    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2773,7 +2778,7 @@ id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 2911     4        10   instance   model@p2d           
+default_model        : 2934     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 Root var list: total=6

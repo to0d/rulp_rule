@@ -45,3 +45,6 @@
 
 (foreach (?n (rete-node-of m)) (return (rete-valid-entry-of ?n)))
 ;=>
+
+(foreach (?n (rete-node-of m)) (return (rete-queue-type-of ?n)))
+;=>

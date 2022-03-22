@@ -1,13 +1,13 @@
-package beta.rulp.basic;
+package beta.rulp.load;
 
 import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
-class TestRuleBase extends RuleTestBase {
+class TestRuleListRule extends RuleTestBase {
 
 	@Test
-	void test_rete_valid_entry_of_1() {
+	void test_list_rule_1_fail_rule() {
 
 		_setup();
 		_run_script();

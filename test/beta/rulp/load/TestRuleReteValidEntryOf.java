@@ -1,13 +1,13 @@
-package beta.rulp.factor;
+package beta.rulp.load;
 
 import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
-class XRFactorListRuleTest extends RuleTestBase {
+class TestRuleReteValidEntryOf extends RuleTestBase {
 
 	@Test
-	void test_list_rule_1_fail_rule() {
+	void test_rete_valid_entry_of_1() {
 
 		_setup();
 		_run_script();

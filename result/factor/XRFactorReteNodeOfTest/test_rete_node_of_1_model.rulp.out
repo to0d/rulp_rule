@@ -46,3 +46,6 @@
 (foreach (?n (rete-node-of m)) (return (rete-valid-entry-of ?n)))
 ;=>'(1 1 0 0)
 
+(foreach (?n (rete-node-of m)) (return (rete-queue-type-of ?n)))
+;=>'(3 3 1 4)
+

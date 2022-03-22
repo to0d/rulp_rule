@@ -27,10 +27,12 @@ import static alpha.rulp.rule.Constant.F_REMOVE_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_REMOVE_STMT;
 import static alpha.rulp.rule.Constant.F_RETE_ENTRY_COUNT_OF;
 import static alpha.rulp.rule.Constant.F_RETE_NODE_OF;
+import static alpha.rulp.rule.Constant.F_RETE_QUEUE_TYPE_OF;
 import static alpha.rulp.rule.Constant.F_SAVE_MODEL;
 import static alpha.rulp.rule.Constant.F_SET_DEFAULT_MODEL;
 import static alpha.rulp.rule.Constant.F_SET_MODEL_CACHE_PATH;
 import static alpha.rulp.rule.Constant.F_SET_NODE_CACHE_PATH;
+import static alpha.rulp.rule.Constant.F_SET_NODE_QUEUE_TYPE;
 import static alpha.rulp.rule.Constant.F_SET_PRIORITY;
 import static alpha.rulp.rule.Constant.F_SIZE_OF_MODEL;
 import static alpha.rulp.rule.Constant.F_START;
@@ -86,10 +88,12 @@ import alpha.rulp.ximpl.factor.XRFactorRemoveConstraint;
 import alpha.rulp.ximpl.factor.XRFactorRemoveStmt;
 import alpha.rulp.ximpl.factor.XRFactorReteEntryCountOf;
 import alpha.rulp.ximpl.factor.XRFactorReteNodeOf;
+import alpha.rulp.ximpl.factor.XRFactorReteQueueTypeOf;
 import alpha.rulp.ximpl.factor.XRFactorSaveModel;
 import alpha.rulp.ximpl.factor.XRFactorSetDefaultModel;
 import alpha.rulp.ximpl.factor.XRFactorSetModelCachePath;
 import alpha.rulp.ximpl.factor.XRFactorSetNodeCachePath;
+import alpha.rulp.ximpl.factor.XRFactorSetNodeQueueType;
 import alpha.rulp.ximpl.factor.XRFactorSetPriority;
 import alpha.rulp.ximpl.factor.XRFactorSizeOfModel;
 import alpha.rulp.ximpl.factor.XRFactorStart;
@@ -165,6 +169,8 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorGetReteEntry(F_GET_RETE_ENTRY));
 		RulpUtil.addFrameObject(frame, new XRFactorTryAddStmt(F_TRY_ADD_STMT));
 		RulpUtil.addFrameObject(frame, new XRFactorModelOf(F_MODEL_OF));
+		RulpUtil.addFrameObject(frame, new XRFactorReteQueueTypeOf(F_RETE_QUEUE_TYPE_OF));
+		RulpUtil.addFrameObject(frame, new XRFactorSetNodeQueueType(F_SET_NODE_QUEUE_TYPE));
 
 		// Constraint
 		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

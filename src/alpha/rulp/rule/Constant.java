@@ -103,6 +103,8 @@ public interface Constant {
 
 	long DEF_GC_CAPACITY = 2048;
 
+	int DEF_GC_INACTIVE_LEAF = 30;
+
 	String F_ADD_CONSTRAINT = "add-constraint";
 
 	String F_ADD_LAZY_STMT = "add-lazy-stmt";
@@ -166,10 +168,12 @@ public interface Constant {
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";
-
+	
 	String F_RETE_ENTRY_COUNT_OF = "rete-entry-count-of";
-
+	
 	String F_RETE_NODE_OF = "rete-node-of";
+
+	String F_RETE_QUEUE_TYPE_OF = "rete-queue-type-of";
 
 	String F_SAVE_MODEL = "save-model";
 
@@ -181,19 +185,21 @@ public interface Constant {
 
 	String F_SET_NODE_CACHE_PATH = "set-node-cache-path";
 
+	String F_SET_NODE_QUEUE_TYPE = "set-node-queue-type";
+
 	String F_SET_PRIORITY = "set-priority";
 
 	String F_SIZE_OF_MODEL = "size-of-model";
 
 	String F_START = "start";
 
-	String F_STATE_OF = "state-of";
-
 //	String F_UPDATE_STMT = "update-stmt";
 
-	String F_TRACE_RULE = "trace-rule";
+	String F_STATE_OF = "state-of";
 
 //	String F_TRY_ADD_STMT = "try-add-stmt";
+
+	String F_TRACE_RULE = "trace-rule";
 
 	String F_TRY_ADD_STMT = "try-add-stmt";
 
@@ -239,11 +245,11 @@ public interface Constant {
 
 	int RETE_PRIORITY_DISABLED = -9;
 
-	int RETE_PRIORITY_INACTIVE = 0;
-
 //	int RETE_PRIORITY_GROUP_MAX = 699;
 //
 //	int RETE_PRIORITY_GROUP_MIN = 600;
+
+	int RETE_PRIORITY_INACTIVE = 0;
 
 	int RETE_PRIORITY_MAXIMUM = 499; // maximum
 
@@ -263,13 +269,11 @@ public interface Constant {
 
 	String V_M_GC_CAPACITY = "?model-gc-capacity";
 
-	String V_M_GC_INTERVAL = "?model-gc-interval";
-
-	String V_M_STATE = "?model-state";
-
 	String V_M_GC_INACTIVE_LEAF = "?model-gc-inactive-leaf";
+
+	String V_M_GC_INTERVAL = "?model-gc-interval";
 
 	String V_M_GC_MAX_CACHE_NODE = "?model-gc-max-cache-node";
 
-	int DEF_GC_INACTIVE_LEAF = 30;
+	String V_M_STATE = "?model-state";
 }
