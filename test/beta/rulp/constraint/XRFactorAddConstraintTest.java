@@ -240,4 +240,11 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_add_constraint_e_order_by_7() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
