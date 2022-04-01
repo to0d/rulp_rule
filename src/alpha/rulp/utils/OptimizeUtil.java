@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import alpha.common.utils.Pair;
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;

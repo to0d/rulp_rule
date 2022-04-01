@@ -8,7 +8,7 @@
 ;=>nan
 
 (size-of (query-stmt m '(?a ?b ?c ?d) from eton_daily_data:'(?a ?b ?c ?d)))
-;=>3889
+;=>4159
 
 (add-constraint m n1:'(?day ?house ?prop ?value) (lambda (?s)(return (diff-stmt (get-named-rete-node m "n1") ?s '(1 2) '(3)))))
 ;=>true

@@ -10,8 +10,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/ichar_src.jar"/>
 	<classpathentry kind="lib" path="lib/irulp_lang_src.jar"/>
+	<classpathentry kind="lib" path="lib/alpha_com_src.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

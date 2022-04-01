@@ -246,12 +246,12 @@ default_model        : 22       3        2    instance   model@m
 
 node update info: model-exec-count=16, row=6, column=17(1), value-max=1, value-unit=1^x
 =================================================================================================================================================================
-NODE[n]   Update Exec Idle .11111.....1.11.1 max=1, unit=1^x
+NODE[n]   Update Exec Idle .11111......111.1 max=1, unit=1^x
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001[3]    3    4    1  1  1         1  
 A00006[3]    2    3    1      1          1
 A00002[3]    1    4    1   1              
-B00004[3]    1    1    0            1     
+B00004[3]    1    1    0             1    
 RU000[3]     1    2    1    1             
 RU001[3]     1    2    1              1   
 =================================================================================================================================================================
@@ -351,15 +351,15 @@ is-empty             : 10       2        2    funcList   '((is-empty array) (is-
 is-blank             : 11       2        2    func       (is-blank string) : frame=frame@main
 file-prename         : 12       2        2    func       (file-prename string) : frame=frame@main
 file-subffix         : 13       2        2    func       (file-subffix string) : frame=frame@main
-print-list           : 14       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
-                                         2    func       (print-list list) : frame=frame@main
-                                         1    func       (print-list nil nil) : frame=frame@main
-                                         1    func       (print-list nil) : frame=frame@main
-sort                 : 15       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
+sort                 : 14       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
                                          2    func       (sort list) : frame=frame@main
                                          1    func       (sort list func) : frame=frame@main
                                          1    func       (sort array) : frame=frame@main
                                          1    func       (sort array func) : frame=frame@main
+print-list           : 15       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+                                         2    func       (print-list list) : frame=frame@main
+                                         1    func       (print-list nil nil) : frame=frame@main
+                                         1    func       (print-list nil) : frame=frame@main
 to-valid-path        : 16       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 17       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 18       2        2    func       (day-is-smaller-than string string) : frame=frame@main

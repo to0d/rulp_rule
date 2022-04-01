@@ -7,10 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import alpha.common.file.FileUtil;
+import alpha.common.os.SystemUtil;
+import alpha.common.os.SystemUtil.OSType;
+import alpha.common.string.StringUtil;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.SystemUtil.OSType;
 import alpha.rulp.ximpl.entry.XREntryTable;
 
 public class RuleTestBase extends RulpTestBase {
@@ -45,10 +48,6 @@ public class RuleTestBase extends RulpTestBase {
 //		System.out.println(";=>");
 //		System.out.println();
 //	}
-
-	
-
-
 
 	protected void _clean_model_cache() {
 
@@ -132,7 +131,7 @@ public class RuleTestBase extends RulpTestBase {
 
 			} else {
 
-				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
+				String expectInfo = RulpUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
 				assertEquals(expectInfo.trim(), outoputInfo.trim());
 			}
 
@@ -161,7 +160,7 @@ public class RuleTestBase extends RulpTestBase {
 
 			} else {
 
-				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
+				String expectInfo = RulpUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
 				assertEquals(expectInfo.trim(), outoputInfo.trim());
 			}
 
@@ -209,7 +208,7 @@ public class RuleTestBase extends RulpTestBase {
 
 			} else {
 
-				String expectInfo = StringUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
+				String expectInfo = RulpUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
 				assertEquals(expectInfo.trim(), outoputInfo.trim());
 			}
 
