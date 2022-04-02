@@ -1,6 +1,6 @@
 TYPE:PROJECT
 NAME:RULP_RULE
-LIBP:irulp_rule
+LIBP:rulp_rule
 VERS:0.0.1
 # Projects
 DEPP:RULP_LANG
