@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import alpha.common.string.StringUtil;
+import alpha.common.utils.StringUtil;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;

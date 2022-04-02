@@ -34,9 +34,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import alpha.common.file.FileUtil;
-import alpha.common.string.StringUtil;
+import alpha.common.utils.FileUtil;
 import alpha.common.utils.Pair;
+import alpha.common.utils.StringUtil;
 import alpha.rulp.lang.IRClass;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;

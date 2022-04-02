@@ -5,7 +5,7 @@ import static alpha.rulp.lang.Constant.O_Nil;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import alpha.common.file.FileUtil;
+import alpha.common.utils.FileUtil;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;

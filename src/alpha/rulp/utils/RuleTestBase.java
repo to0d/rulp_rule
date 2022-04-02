@@ -7,10 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import alpha.common.file.FileUtil;
-import alpha.common.os.SystemUtil;
-import alpha.common.os.SystemUtil.OSType;
-import alpha.common.string.StringUtil;
+import alpha.common.utils.FileUtil;
+import alpha.common.utils.StringUtil;
+import alpha.common.utils.SystemUtil;
+import alpha.common.utils.SystemUtil.OSType;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
