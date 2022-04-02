@@ -3129,7 +3129,7 @@ Root var list: total=6
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
-?load-jar            : '("irulp_rule_bin_0.0.1.jar")
+?load-jar            : '("rulp_rule_bin_0.0.1.jar")
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\note/p2d.rulp")
 ?model-trace         : false
 ?path                : '()
