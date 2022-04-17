@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import alpha.common.utils.ListUtil;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
@@ -15,7 +16,6 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
-import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
 import alpha.rulp.ximpl.lang.XRListNative;
 
@@ -695,11 +695,11 @@ public class XREntryTable implements IREntryTable {
 
 		if (XREntryTable.TRACE) {
 			System.out
-					.println("==> addReference: " + entry + ", node=" + node + ", parents=" + RulpUtil.toList(parents));
+					.println("==> addReference: " + entry + ", node=" + node + ", parents=" + ListUtil.toList(parents));
 		}
 
 		if (parents.length > 3) {
-			throw new RException("Not support parentIds: " + RulpUtil.toList(parents));
+			throw new RException("Not support parentIds: " + ListUtil.toList(parents));
 		}
 
 		_addReference(_toEntry(entry), node, _toValidParentEntry(parents));
