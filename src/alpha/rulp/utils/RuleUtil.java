@@ -233,7 +233,6 @@ public class RuleUtil {
 		model.getNodeGraph().bindNode(fromNode, toNode);
 	}
 
-
 	public static IRBetaNode asBetaNode(IRReteNode node) throws RException {
 
 		if (!RReteType.isBetaType(node.getReteType())) {

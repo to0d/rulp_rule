@@ -9,6 +9,8 @@ import alpha.rulp.ximpl.model.XRModel;
 import alpha.rulp.ximpl.model.XRReteCounter;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 
+import static alpha.rulp.rule.Constant.*;
+
 public class RuleFactory {
 
 	static {
@@ -18,6 +20,10 @@ public class RuleFactory {
 
 	public static IRModel createModel(String name, IRClass rclass, IRFrame frame) throws RException {
 		return new XRModel(name, rclass, frame);
+	}
+
+	public static IRModel createModel(String name, IRFrame frame) throws RException {
+		return new XRModel(name, RulpUtil.asClass(RuntimeUtil.lookupFrameEntry(frame, A_MODEL).getValue()), frame);
 	}
 
 	public static IRReteNodeCounter createReteCounter(IReteNodeMatrix reteNodeMatrix) {
