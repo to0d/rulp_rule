@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -215,6 +216,18 @@ public class RuleUtil {
 	}
 
 	public static int addStatements(IRModel model, IRIterator<? extends IRList> stmtIterator) throws RException {
+
+		int updateCount = 0;
+		while (stmtIterator.hasNext()) {
+			if (model.addStatement(stmtIterator.next())) {
+				updateCount++;
+			}
+		}
+
+		return updateCount;
+	}
+
+	public static int addStatements(IRModel model, Iterator<? extends IRList> stmtIterator) throws RException {
 
 		int updateCount = 0;
 		while (stmtIterator.hasNext()) {

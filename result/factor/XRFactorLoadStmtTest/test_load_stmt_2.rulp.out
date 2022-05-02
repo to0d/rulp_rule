@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(load-stmt m "result\\factor\\XRFactorLoadStmtTest\\test_load_stmt_2.txt")
+;err:
+Can't convert to list: 一一列举
+at (load-stmt m "result\\factor\\XRFactorLoadStmtTest\\test_load_stmt_2.txt") ; main-2
+;eof
+

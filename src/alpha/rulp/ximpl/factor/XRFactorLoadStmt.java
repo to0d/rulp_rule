@@ -4,10 +4,12 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.LoadUtil;
+import alpha.rulp.utils.RuleIOUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -35,9 +37,7 @@ public class XRFactorLoadStmt extends AbsAtomFactorAdapter implements IRFactor, 
 			throw new RException("file not exist: " + path);
 		}
 
-		IRList stmtList = LoadUtil.loadRulp(interpreter, absPath, "utf-8");
-		int count = RuleUtil.addStatements(model, RuleUtil.toStmtList(stmtList));
-
+		int count = RuleUtil.addStatements(model, RuleIOUtil.loadStmt(absPath, interpreter).iterator());
 		return RulpFactory.createInteger(count);
 	}
 }

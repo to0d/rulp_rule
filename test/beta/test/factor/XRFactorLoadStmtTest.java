@@ -12,5 +12,11 @@ class XRFactorLoadStmtTest extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
+	
+	@Test
+	void test_load_stmt_2() {
 
+		_setup();
+		_run_script();
+	}
 }
