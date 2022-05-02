@@ -107,10 +107,6 @@ public class RRuleLoader implements IRObjectLoader {
 	@Override
 	public void load(IRInterpreter interpreter, IRFrame frame) throws RException, IOException {
 
-		if (RuntimeUtil.lookupFrameEntry(frame, F_ADD_STMT) != null) {
-			return;
-		}
-
 		// RunStatus
 		RulpUtil.addFrameObject(frame, O_Completed);
 		RulpUtil.addFrameObject(frame, O_Runnable);
