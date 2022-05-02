@@ -38,7 +38,7 @@ public class XRFactorSetNodeCachePath extends AbsAtomFactorAdapter implements IR
 
 		IRReteNode node = model.findNode(RuleUtil.toCondList(filter));
 
-		XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(cachePath, model.getInterpreter());
+		XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(cachePath, node);
 		model.setNodeLoader(node, cacher);
 		model.setNodeSaver(node, cacher);
 

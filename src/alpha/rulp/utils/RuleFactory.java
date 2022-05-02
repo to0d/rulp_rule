@@ -1,5 +1,7 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.rule.Constant.A_MODEL;
+
 import alpha.rulp.lang.IRClass;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.RException;
@@ -8,8 +10,6 @@ import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRModel;
 import alpha.rulp.ximpl.model.XRReteCounter;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
-
-import static alpha.rulp.rule.Constant.*;
 
 public class RuleFactory {
 

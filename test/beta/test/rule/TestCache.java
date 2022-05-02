@@ -232,7 +232,7 @@ public class TestCache extends RuleTestBase {
 				}
 
 				@Override
-				public void load(IRReteNode node, IRListener1<IRList> stmtListener) throws RException, IOException {
+				public void load(IRListener1<IRList> stmtListener) throws RException, IOException {
 					IRIterator<? extends IRList> it = RuleUtil.toStmtList("'(n1:'(a) n1:'(b))");
 					while (it.hasNext()) {
 						stmtListener.doAction(it.next());

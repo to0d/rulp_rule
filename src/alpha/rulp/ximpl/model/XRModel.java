@@ -252,7 +252,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			try {
 
-				loader.load(node, (stmt) -> {
+				loader.load((stmt) -> {
 
 					if (!ReteUtil.isValidNodeStmt(node, stmt)) {
 						throw new RException(String.format("Invalid stmt for node<%s>: %s", "" + node, "" + stmt));
@@ -298,7 +298,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			_fireSaveNodeAction(node);
 
-			int saveLineCount = saver.save(node, entries);
+			int saveLineCount = saver.save(entries);
 			this.cacheLastEntryId = lastEntryId;
 			this.cacheCacheStmtCount = queue.size();
 			this.saveCount++;
@@ -803,8 +803,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return null;
 			}
 
-			XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(modelCachePath, this.getInterpreter());
-
+			XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(modelCachePath, node);
 			cache = _setNodeCache(node, cacher, cacher);
 		}
 

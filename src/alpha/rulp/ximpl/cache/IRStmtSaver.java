@@ -5,11 +5,10 @@ import java.util.List;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRReteNode;
 
 public interface IRStmtSaver {
 
-	public int save(IRReteNode node, List<? extends IRList> stmtList) throws RException, IOException;
+	public int save(List<? extends IRList> stmtList) throws RException, IOException;
 
 	public boolean needSave();
 }
