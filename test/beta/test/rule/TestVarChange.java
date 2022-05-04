@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
-public class VarChangeTest extends RuleTestBase {
+public class TestVarChange extends RuleTestBase {
 
 	@Test
 	void test_var_changed_1_expr_tree_1() {
