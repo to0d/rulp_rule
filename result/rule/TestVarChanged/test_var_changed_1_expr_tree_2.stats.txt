@@ -57,9 +57,9 @@ node info6:
 NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00004[3]    ROOT0 Rete0 UNIQ              0     0    0    0    0   0   0 900 [null, null, null]
-V00001[3]    VAR   Rete0 SINGLE            0     1    1    0    0   0   0  99 [?x, ?x.old, ?val]
-E00002[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?x, ?x.old, ?val]
-RU000[3]     RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?x, ?x.old, ?val]
+V00001[3]    VAR   Rete0 SINGLE            0     1    1    0    0   0   0  99 [?x, ?from, ?to]
+E00002[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?x, ?from, ?to]
+RU000[3]     RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?x, ?from, ?to]
 =================================================================================================================================================================
 
 priority info:
@@ -79,7 +79,7 @@ R00004(ROOT0) :                 3      '(?0 ?1 ?2)
 V00001(VAR)   :                 3      (var-changed ?x ?x.old ?x.new)
 E00002(EXPR0) :                 3      ((var-changed ?x ?x.old ?x.new) (> ?x.new 1))
              0: V00001(VAR)     3      (var-changed ?x ?x.old ?x.new)
-RU000(RULE)   :                 3      (var-changed ?x ?val) (> ?val 1) ==> (-> m '(a b ?val))
+RU000(RULE)   :                 3      (var-changed ?x ?from ?to) (> ?to 1) ==> (-> m '(a b ?to))
              0: E00002(EXPR0)   3      ((var-changed ?x ?x.old ?x.new) (> ?x.new 1))
 =================================================================================================================================================================
 
@@ -98,7 +98,7 @@ graph-gc-cache                        0
 =================================================================================================================================================================
 
 
-Rule<RU000> stats: priority=099, expr=(add-rule m if (var-changed ?x ?val) (> ?val 1) do (-> m '(a b ?val)))
+Rule<RU000> stats: priority=099, expr=(add-rule m if (var-changed ?x ?from ?to) (> ?to 1) do (-> m '(a b ?to)))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -244,7 +244,7 @@ Object create count:
         atom:         1937            0         1937
       string:           74            0           74
         list:           59            1           58
-        expr:          859            0          859
+        expr:          858            0          858
          var:           21            0           21
         func:           81            0           81
     template:            1            0            1
@@ -294,7 +294,7 @@ print-list           : 15       2        3    funcList   '((print-list list) (pr
 to-valid-path        : 16       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 17       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 18       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 19       2        2    var        result\rule\TestVarChange\test_var_changed_1_expr_tree_4.rulp : type=string
+?script-path         : 19       2        2    var        result\rule\TestVarChanged\test_var_changed_1_expr_tree_2.rulp : type=string
 script_out           : 20       2        2    macro      script_out          
 _ginfo               : 21       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main

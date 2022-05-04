@@ -33,7 +33,7 @@ NODE[n]      UniqName
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00004[3]    '(?0 ?1 ?2)
 V00001[3]    (var-changed ?x ?x.old ?x.new)
-A10002[3]    (var-changed ?x ?x.old d)
+A10002[3]    (var-changed ?x c ?x.new)
 RU000[3]     RU000
 =================================================================================================================================================================
 
@@ -42,14 +42,14 @@ node info4: constraint
 NODE[n]      Match  Fail  Constraint
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 A10002[3]        1     0
-                 1     0  C1:(cmp-entry-value = ?2 d)
+                 1     0  C1:(cmp-entry-value = ?1 c)
 =================================================================================================================================================================
 
 node info5: action
 =================================================================================================================================================================
 NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-RU000[3]     0     ADD   (-> '(a, b, ?1))
+RU000[3]     0     ADD   (-> '(a, b, ?2))
 =================================================================================================================================================================
 
 node info6:
@@ -57,9 +57,9 @@ node info6:
 NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00004[3]    ROOT0 Rete0 UNIQ              0     0    0    0    0   0   0 900 [null, null, null]
-V00001[3]    VAR   Rete0 SINGLE            0     1    1    0    0   0   0  99 [?x, ?from, ?_tmp_0]
-A10002[3]    ALPH1 Rete1 SINGLE            1     1    1    0    0   1   0  99 [?x, ?from, null]
-RU000[3]     RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?x, ?from, null]
+V00001[3]    VAR   Rete0 SINGLE            0     1    1    0    0   0   0  99 [?x, ?_tmp_0, ?to]
+A10002[3]    ALPH1 Rete1 SINGLE            1     1    1    0    0   1   0  99 [?x, null, ?to]
+RU000[3]     RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?x, null, ?to]
 =================================================================================================================================================================
 
 priority info:
@@ -77,10 +77,10 @@ NODE[n]         Source          Length Description
 R00004(ROOT0) :                 3      '(?0 ?1 ?2)
              0: RU000(RULE)     3     
 V00001(VAR)   :                 3      (var-changed ?x ?x.old ?x.new)
-A10002(ALPH1) :                 3      (var-changed ?x ?x.old d)
+A10002(ALPH1) :                 3      (var-changed ?x c ?x.new)
              0: V00001(VAR)     3      (var-changed ?x ?x.old ?x.new)
-RU000(RULE)   :                 3      (var-changed ?x ?from d) ==> (-> m '(a b ?from))
-             0: A10002(ALPH1)   3      (var-changed ?x ?x.old d)
+RU000(RULE)   :                 3      (var-changed ?x c ?to) ==> (-> m '(a b ?to))
+             0: A10002(ALPH1)   3      (var-changed ?x c ?x.new)
 =================================================================================================================================================================
 
 
@@ -98,7 +98,7 @@ graph-gc-cache                        0
 =================================================================================================================================================================
 
 
-Rule<RU000> stats: priority=099, expr=(add-rule m if (var-changed ?x ?from d) do (-> m '(a b ?from)))
+Rule<RU000> stats: priority=099, expr=(add-rule m if (var-changed ?x c ?to) do (-> m '(a b ?to)))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -294,7 +294,7 @@ print-list           : 15       2        3    funcList   '((print-list list) (pr
 to-valid-path        : 16       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 17       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 18       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 19       2        2    var        result\rule\TestVarChange\test_var_changed_1_expr_tree_6.rulp : type=string
+?script-path         : 19       2        2    var        result\rule\TestVarChanged\test_var_changed_1_expr_tree_7.rulp : type=string
 script_out           : 20       2        2    macro      script_out          
 _ginfo               : 21       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
