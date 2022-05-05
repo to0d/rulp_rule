@@ -155,4 +155,5 @@ class MatchTreeTest extends RuleTestBase {
 		_setup();
 		_test_buildMatchTree();
 	}
+
 }

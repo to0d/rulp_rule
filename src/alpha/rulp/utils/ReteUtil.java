@@ -1593,30 +1593,6 @@ public class ReteUtil {
 
 				return true;
 
-			// (when ?varName new-value)
-			case F_WHEN:
-
-				if (expr.size() != 3) {
-					return false;
-				}
-
-				// The second object should be a variable
-				if (expr.get(1).getType() != RType.ATOM) {
-					return false;
-				}
-
-				// the e1 must be a var name format
-				if (!RulpUtil.isVarName(RulpUtil.asAtom(expr.get(1)).getName())) {
-					throw new RException("the 2nd element must be a var name format: " + expr);
-				}
-
-				// The next two object can be a variable or a value
-				if (!ReteUtil.isEntryValueType(expr.get(2).getType())) {
-					return false;
-				}
-
-				return true;
-
 			default:
 				return false;
 			}
