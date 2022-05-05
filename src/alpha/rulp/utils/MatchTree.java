@@ -586,8 +586,10 @@ public class MatchTree {
 
 		if (t1.getType() == RType.LIST) {
 			return LIST_LIST;
+
 		} else if (ReteUtil.isVarChangeExpr(t1)) {
 			return LIST_VAR;
+
 		} else {
 			return LIST_EXPR;
 		}

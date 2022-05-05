@@ -1,0 +1,20 @@
+(new model m)
+;=>
+
+(defvar m::?xmode false)
+;=>
+
+(add-rule m if (when ?xmode true) name1:'(?a) do (-> name2:'(?a)))
+;=>
+
+(add-stmt m name1:'(a))
+;=>
+
+(query-stmt m ?x from name2:'(?x))
+;=>
+
+(setq m::?xmode true)
+;=>
+
+(query-stmt m ?x from name2:'(?x))
+;=>

@@ -1,7 +1,7 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.A_NIL;
-import static alpha.rulp.lang.Constant.A_QUESTION;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.A_QUESTION_C;
 import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
@@ -1587,7 +1587,31 @@ public class ReteUtil {
 
 				// The next two object can be a variable or a value
 				if (!ReteUtil.isEntryValueType(expr.get(2).getType())
-						|| !ReteUtil.isEntryValueType(expr.get(2).getType())) {
+						|| (expr.size() == 4 && !ReteUtil.isEntryValueType(expr.get(3).getType()))) {
+					return false;
+				}
+
+				return true;
+
+			// (when ?varName new-value)
+			case F_WHEN:
+
+				if (expr.size() != 3) {
+					return false;
+				}
+
+				// The second object should be a variable
+				if (expr.get(1).getType() != RType.ATOM) {
+					return false;
+				}
+
+				// the e1 must be a var name format
+				if (!RulpUtil.isVarName(RulpUtil.asAtom(expr.get(1)).getName())) {
+					throw new RException("the 2nd element must be a var name format: " + expr);
+				}
+
+				// The next two object can be a variable or a value
+				if (!ReteUtil.isEntryValueType(expr.get(2).getType())) {
 					return false;
 				}
 
