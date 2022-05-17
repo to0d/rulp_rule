@@ -1,7 +1,7 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.A_NIL;
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_QUESTION;
 import static alpha.rulp.lang.Constant.A_QUESTION_C;
 import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
@@ -1260,7 +1260,7 @@ public class ReteUtil {
 
 			IRObject cond = condIter.next();
 
-			if (ReteUtil.isReteStmt(cond) || ReteUtil.isReteTree(cond) || RulpUtil.isExpression(cond)) {
+			if (ReteUtil.isReteStmt(cond) || ReteUtil.isReteTree(cond) || RulpUtil.isExpr(cond)) {
 				continue;
 			}
 
@@ -1850,7 +1850,7 @@ public class ReteUtil {
 
 				matchStmtList.add((IRList) builder.build(stmt));
 
-			} else if (RulpUtil.isExpression(cond)) {
+			} else if (RulpUtil.isExpr(cond)) {
 
 				matchStmtList.add((IRExpr) builder.build(cond));
 
