@@ -11,7 +11,7 @@ class XRFactorHasStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-
+		_statsInfo("m");
 	}
 
 	@Test
@@ -30,7 +30,7 @@ class XRFactorHasStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-
+		_statsInfo("m");
 	}
 
 	@Test
@@ -38,7 +38,7 @@ class XRFactorHasStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-
+		_statsInfo("m");
 	}
 
 	@Test
@@ -46,6 +46,7 @@ class XRFactorHasStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 
@@ -54,6 +55,7 @@ class XRFactorHasStmtTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
+		_statsInfo("m");
 
 	}
 }
