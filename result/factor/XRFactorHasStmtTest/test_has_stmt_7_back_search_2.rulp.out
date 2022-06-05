@@ -1,0 +1,8 @@
+(new model m)
+(add-rule m if '(?x p1 ?y) do (-> m '(?x p2 ?y)))
+(add-stmt m '(a p1 b))
+;=>m RU000 true
+
+(has-stmt m '(a p2 b) back-search)
+;=>false
+

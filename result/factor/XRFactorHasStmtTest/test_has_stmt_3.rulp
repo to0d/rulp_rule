@@ -1,14 +1,14 @@
 (new model m)
-;;;
+;=>
 
 (add-rule m if '(?x p1 ?y) do (if (has-stmt '(?y p1 ?x)) (-> m '(?x p2 ?y)) ))
-;;;
+;=>
 
 (add-stmt m '(a p1 b))
-;;;
+;=>
 
 (add-stmt m '(b p1 a))
-;;;
+;=>
 
 (start m)
 ;=>

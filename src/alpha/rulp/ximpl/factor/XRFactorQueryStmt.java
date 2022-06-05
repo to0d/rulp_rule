@@ -60,14 +60,13 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = null;
-		String ruleGroupName = null;
-
-		int argIndex = 1;
-
 		/**************************************************/
 		// Check model object
 		/**************************************************/
+		int argIndex = 1;
+		IRModel model = null;
+		String ruleGroupName = null;
+
 		{
 			IRObject argObj = args.get(argIndex);
 

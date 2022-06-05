@@ -1,14 +1,12 @@
 (new model m)
-;;;
-
 (add-stmt m '(a1 p1 b))
-;;;
+;=>
 
 (has-stmt m '(?x p1 b))
 ;=>
 
 (add-stmt m '(a2 p1 b))
-;;;
+;=>
 
 (has-stmt m '(?x p1 b))
 ;=>

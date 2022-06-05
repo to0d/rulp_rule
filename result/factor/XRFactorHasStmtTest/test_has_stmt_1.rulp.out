@@ -1,11 +1,7 @@
 (new model m)
-;=>m
-
 (add-stmt m '(a p1 b))
-;=>true
-
 (add-stmt m '(a p1 b))
-;=>false
+;=>m true false
 
 (has-stmt m '(a p1 b))
 ;=>true

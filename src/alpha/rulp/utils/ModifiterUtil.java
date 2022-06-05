@@ -11,7 +11,7 @@ import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_Order;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Priority;
-import static alpha.rulp.rule.Constant.A_Reverse;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_State;
 import static alpha.rulp.rule.Constant.A_Type;
 import static alpha.rulp.rule.Constant.A_Where;
@@ -291,6 +291,7 @@ public class ModifiterUtil {
 		modifierMap.put(A_State, new XModifierState(A_State));
 		modifierMap.put(A_Order, new XModifierOrderBy());
 		modifierMap.put(A_Reverse, new XModifier0(A_Reverse));
+		modifierMap.put(A_BackSearch, new XModifier0(A_BackSearch));
 	}
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {

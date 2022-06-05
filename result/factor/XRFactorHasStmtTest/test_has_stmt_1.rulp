@@ -1,11 +1,7 @@
 (new model m)
-;;;
-
 (add-stmt m '(a p1 b))
-;;;
-
 (add-stmt m '(a p1 b))
-;;;
+;=>
 
 (has-stmt m '(a p1 b))
 ;=>

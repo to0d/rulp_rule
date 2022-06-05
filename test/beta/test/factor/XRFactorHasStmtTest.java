@@ -58,4 +58,20 @@ class XRFactorHasStmtTest extends RuleTestBase {
 		_statsInfo("m");
 
 	}
+
+	@Test
+	void test_has_stmt_7_back_search_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_has_stmt_7_back_search_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

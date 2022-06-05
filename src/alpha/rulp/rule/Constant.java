@@ -9,6 +9,8 @@ public interface Constant {
 
 	String A_Assumed = "assumed";
 
+	String A_BackSearch = "back-search";
+
 	String A_CMP_ENTRY_INDEX = "cmp-entry-index";
 
 	String A_CMP_ENTRY_VALUE = "cmp-entry-value";
