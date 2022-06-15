@@ -31,6 +31,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Expr;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -40,10 +41,6 @@ import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRNodeOrderedUpdater;
 
 public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
-
-	public XRNodeRule0(String instanceName) {
-		super(instanceName);
-	}
 
 	static class RuleNodeMatrix implements IReteNodeMatrix {
 
@@ -95,7 +92,9 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 
 	}
 
-	protected LinkedList<IRExpr> actionStmtList = new LinkedList<>();
+	protected LinkedList<IAction> actionList = new LinkedList<>();
+
+	protected LinkedList<IRExpr> actionStmtList = null;
 
 	protected List<IRReteNode> allReteNodes = new LinkedList<>();
 
@@ -121,6 +120,10 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 
 	protected IRVar[] ruleVars = null;
 
+	public XRNodeRule0(String instanceName) {
+		super(instanceName);
+	}
+
 	@Override
 	protected IRFrame _createNodeFrame() throws RException {
 
@@ -131,7 +134,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		/***********************************************************/
 		// Check ?1 ?2 variables in action list
 		/***********************************************************/
-		for (IRExpr expr : actionStmtList) {
+		for (IRExpr expr : this.getActionStmtList()) {
 			for (IRObject varObj : ReteUtil.buildVarList(expr)) {
 				String varName = RulpUtil.asAtom(varObj).getName();
 				if (ReteUtil.isIndexVarName(varName)) {
@@ -226,7 +229,21 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 	}
 
 	@Override
-	public LinkedList<IRExpr> getActionStmtList() {
+	public List<IAction> getActionList() {
+		return actionList;
+	}
+
+	@Override
+	public List<IRExpr> getActionStmtList() {
+
+		if (actionStmtList == null) {
+			actionStmtList = new LinkedList<>();
+
+			for (IAction action : actionList) {
+				actionStmtList.add(action.getExpr());
+			}
+		}
+
 		return actionStmtList;
 	}
 
@@ -413,8 +430,8 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		}
 	}
 
-	public void setActionStmtList(List<IRExpr> actionStmtList) {
-		this.actionStmtList.addAll(actionStmtList);
+	public void setActionStmtList(List<IAction> actionList) {
+		this.actionList.addAll(actionList);
 	}
 
 	public void setMatchStmtList(List<IRList> matchStmtList) {

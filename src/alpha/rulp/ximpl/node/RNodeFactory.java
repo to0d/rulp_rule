@@ -17,6 +17,8 @@ import alpha.rulp.rule.IRReteNode.JoinIndex;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.ximpl.action.ActionUtil;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.REntryFactory;
@@ -628,10 +630,11 @@ public class RNodeFactory {
 		node.setVarEntry(varEntry);
 
 		// Actions
-		node.setActionStmtList(actionStmtList);
+		List<IAction> actionList = ActionUtil.buildActions2(model, varEntry, actionStmtList);
+		node.setActionStmtList(actionList);
 
 		// Build action nodes
-		node.setEntryQueue(REntryFactory.createActionQueue(node, actionStmtList));
+		node.setEntryQueue(REntryFactory.createActionQueue(node, actionList));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));

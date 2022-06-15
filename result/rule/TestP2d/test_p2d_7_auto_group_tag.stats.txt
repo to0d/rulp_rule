@@ -578,27 +578,43 @@ node info5: action
 =================================================================================================================================================================
 NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-TV1[2]       0     EXPR  (defvar ?tagName)
-             1     EXPR  (defvar ?mainTag)
-             2     EXPR  (defvar ?mainTagVersion)
-             3     EXPR  (defvar ?pos)
-             4     EXPR  (setq ?tagName (to-string ?tag))
-             5     EXPR  (setq ?pos (str-last-index-of ?tagName "v"))
-             6     EXPR  (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string
-                          ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag  ))))))...
+TV1[2]       0     EXPR  (do
+                             (defvar ?tagName)
+                             (defvar ?mainTag)
+                             (defvar ?mainTagVersion)
+                             (defvar ?pos)
+                             (setq ?tagName (to-string ?tag))
+                             (setq ?pos (str-last-index-of ?tagName "v"))
+                             (if (not (equal ?pos -1))
+                                 (do
+                                     (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos)))
+                                     (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version")))
+                                     (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag))
+                                         (do
+                                             (-> '(?tag nm:isVersionOf ?mainTag))
+                                             (-> '(?tag nm:beDefinedByTag ?mainTagVersion))
+                                         )
+                                     )
+                                 )
+                             )
+                         )
 TC1[3]       0     ADD   (-> '(?2, nm:beDefinedByTag, nt:$TClass))
 CC1[3]       0     ADD   (-> '(?0, nm:beParentTagOf, ?2))
              1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TCollection))
 TG1[3]       0     ADD   (-> '(?0, nm:hasGroupChild, ?2))
 TG3[3]       0     ADD   (-> '(nt:$TGROUP, nm:hasRelatedTag, ?2))
 C1[4]        0     ADD   (-> '(?2, ?3, ?0))
-C2[2]        0     EXPR  (println "a=" ?a ", p=" ?p)
-             1     EXPR  (throw p2d-conflict ?0)
+C2[2]        0     EXPR  (do
+                             (println "a=" ?a ", p=" ?p)
+                             (throw p2d-conflict ?0)
+                         )
 C3[3]        0     ADD   (-> '(?0, nm:typeOf, nm:tag))
 C4[4]        0     EXPR  (throw p2d-conflict '(?0 ?1))
 C5[3]        0     ADD   (-> '(?2, ?1, ?0))
 C6[3]        0     ADD   (-> '(?0, nm:typeOf, ?2))
-C7[4]        0     EXPR  (if (has-stmt p2d '(?b ?p ?a)) (throw '("Circle found" '(?a ?p ?b) '(?b ?p ?a))))
+C7[4]        0     EXPR  (if (has-stmt p2d '(?b ?p ?a))
+                             (throw '("Circle found" '(?a ?p ?b) '(?b ?p ?a)))
+                         )
 C8[3]        0     ADD   (-> '(?0, nm:typeOf, nm:tag))
              1     ADD   (-> '(?2, nm:typeOf, nm:tag))
 T1[3]        0     EXPR  (throw p2d-conflict '("Can't alias to alias tag" ?0 1))
@@ -625,7 +641,9 @@ D2[3]        0     ADD   (-> '(?0, nm:beAncestorDomainOf, ?2))
 D3[3]        0     ADD   (-> '(?0, nm:beAncestorDomainOf, ?2))
 D4[3]        0     ADD   (-> '(?0, nm:hasTag, ?2))
 D5[3]        0     ADD   (-> '(nd:Global, nm:hasTag, ?0))
-DC1[2]       0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d))) (-> p2d '(nd:Global nm:beParentDomainOf ?d)))
+DC1[2]       0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d)))
+                             (-> p2d '(nd:Global nm:beParentDomainOf ?d))
+                         )
 RR1[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
 RR2[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
 RR3[2]       0     EXPR  (remove-stmt ?0)
@@ -633,25 +651,60 @@ RR4[2]       0     EXPR  (remove-stmt ?0)
 RR5[3]       0     EXPR  (remove-stmt ?0)
 RR6[2]       0     EXPR  (remove-stmt ?1)
 RR7[2]       0     EXPR  (remove-stmt ?1)
-AC1[4]       0     EXPR  (remove-stmt '(?a nm:beParentTagOf ?c))
-             1     EXPR  (remove-stmt '(?c nm:beChildTagOf ?a))
-AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2))) (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag)) (-> p2d '(?t
-                          nm:hasAutoRelatedTag (to-atom ?t1)))))
-AC3[4]       0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (->
-                          '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
-AC4[4]       0     EXPR  (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
-             1     EXPR  (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+AC1[4]       0     EXPR  (do
+                             (remove-stmt '(?a nm:beParentTagOf ?c))
+                             (remove-stmt '(?c nm:beChildTagOf ?a))
+                         )
+AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2)))
+                             (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag))
+                                 (-> p2d '(?t nm:hasAutoRelatedTag (to-atom ?t1)))
+                             )
+                         )
+AC3[4]       0     EXPR  (let
+                             (?cf
+                                 (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))
+                             )
+                             (if (has-stmt p2d '(?cf nm:typeOf nm:tag))
+                                 (do
+                                     (-> '(?f nm:hasSubCollection ?cf))
+                                     (-> '(?cf nm:beFieldTagOf ?c))
+                                 )
+                             )
+                         )
+AC4[4]       0     EXPR  (do
+                             (->
+                                 '(?ins
+                                     nm:hasFieldTag
+                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
+                                 )
+                             )
+                             (->
+                                 '(?f
+                                     nm:beParentTagOf
+                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
+                                 )
+                             )
+                         )
 AC5[2]       0     ADD   (-> '(?0, nm:beChildTagOf, nt:$BEGINNER))
              1     ADD   (-> '(?0, nm:beDefinedByTag, nt:$TOPIC))
-             2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (->
-                          '(?t nm:beDefinedByTag ?dn)))))
-AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr
-                          nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom ( 
-                          )))))...
-AC7[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr
-                          nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t)))
-AC8[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr
-                          nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t)))
+             2     EXPR  (let
+                             (?tn (to-string ?t))
+                             (let
+                                 (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9))))
+                                 (if (has-stmt p2d '(?dn nm:typeOf nm:tag))
+                                     (-> '(?t nm:beDefinedByTag ?dn))
+                                 )
+                             )
+                         )
+AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain)))
+                             (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))
+                         )
+AC7[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag)))
+                             (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t))
+                         )
+AC8[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag)))
+                             (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t))
+                         )
 =================================================================================================================================================================
 
 node info6:
@@ -1261,7 +1314,7 @@ B20111(BETA2) :                 3      '('('(?0 nm:beParentTagOf ?1) '(?0 nm:has
 B20117(BETA2) :                 3      '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
              0: E00116(EXPR0)   3      '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
              1: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-TV1(RULE)     :                 2      (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) ==> (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion))))))
+TV1(RULE)     :                 2      (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) ==> (do (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion)))))))
              0: B10007(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
 TC1(RULE)     :                 3      '(?ti nm:beInstanceTagOf ?tc) ==> (-> '(?tc nm:beDefinedByTag nt:$TClass))
              0: A00009(ALPH0)   3      '(?0 nm:beInstanceTagOf ?1)
@@ -1273,7 +1326,7 @@ TG3(RULE)     :                 3      '(?x nm:hasGroupParent ?p) ==> (-> '(nt:$
              0: A00016(ALPH0)   3      '(?0 nm:hasGroupParent ?1)
 C1(RULE)      :                 4      '(?p1 nm:inverseProperty ?p2) '(?t1 ?p1 ?t2) ==> (-> '(?t2 ?p2 ?t1))
              0: B00019(BETA0)   4      '('(?0 ?1 ?2) '(?1 nm:inverseProperty ?3))
-C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (println "a=" ?a ", p=" ?p) (throw p2d-conflict ?0)
+C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (do (println "a=" ?a ", p=" ?p) (throw p2d-conflict ?0))
              0: B00024(BETA0)   2      '('(?0 ?1 ?0) '(?1 nm:propertyOf nm:nonSelfDefine))
 C3(RULE)      :                 3      '(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty) ==> (-> '(?a nm:typeOf nm:tag))
              0: B20027(BETA2)   3      '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
@@ -1327,13 +1380,13 @@ RR6(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?a nm:defineT
              0: B00097(BETA0)   2      '('(?0 nm:defineTag ?1) '(?0 nm:hasDescendant ?1))
 RR7(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) ==> (remove-stmt ?1)
              0: B00100(BETA0)   2      '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0))
-AC1(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:beParentTagOf ?b) '(?b nm:beParentTagOf ?c) '(?a nm:beParentTagOf ?c) (not (equal ?a ?b)) (not (equal ?b ?c)) (not (equal ?a ?c)) ==> (remove-stmt '(?a nm:beParentTagOf ?c)) (remove-stmt '(?c nm:beChildTagOf ?a))
+AC1(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:beParentTagOf ?b) '(?b nm:beParentTagOf ?c) '(?a nm:beParentTagOf ?c) (not (equal ?a ?b)) (not (equal ?b ?c)) (not (equal ?a ?c)) ==> (do (remove-stmt '(?a nm:beParentTagOf ?c)) (remove-stmt '(?c nm:beChildTagOf ?a)))
              0: B10105(BETA1)   4      '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
 AC2(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) ==> (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2))) (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag)) (-> p2d '(?t nm:hasAutoRelatedTag (to-atom ?t1)))))
              0: B10107(BETA1)   2      '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
 AC3(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:typeOf nm:tag) '(?a nm:hasFieldTag ?f) '(?a nm:beParentTagOf ?c) ==> (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
              0: B10112(BETA1)   4      '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-AC4(RULE)     :                 4      (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) ==> (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+AC4(RULE)     :                 4      (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) ==> (do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))))
              0: B10118(BETA1)   4      '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
 AC5(RULE)     :                 2      (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (get-uri-name ?t) "-Beginner") ==> (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
              0: B10121(BETA1)   2      '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
@@ -2883,11 +2936,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3955            0         3955
+        atom:         3968            0         3968
          int:            3            0            3
       string:          192            0          192
         list:          762            3          759
-        expr:         1746           77         1669
+        expr:         1759           77         1682
          var:          269          228           41
     constant:           40            0           40
         func:           96            0           96

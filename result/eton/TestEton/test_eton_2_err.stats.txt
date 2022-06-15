@@ -110,12 +110,22 @@ node info5: action
 NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R1[2]        0     EXPR  (add_working_task ?task ?arg0)
-R2[4]        0     EXPR  (trace "R2:remove-stmt: " ?1)
-             1     EXPR  (remove-stmt ?1)
-R3[4]        0     EXPR  (trace "R3:remove-stmt: " ?0)
-             1     EXPR  (remove-stmt ?0)
-R4[3]        0     EXPR  (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2))
-R5[3]        0     EXPR  (throw bad-rule (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1))
+R2[4]        0     EXPR  (do
+                             (trace "R2:remove-stmt: " ?1)
+                             (remove-stmt ?1)
+                         )
+R3[4]        0     EXPR  (do
+                             (trace "R3:remove-stmt: " ?0)
+                             (remove-stmt ?0)
+                         )
+R4[3]        0     EXPR  (throw
+                             bad-rule
+                             (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2)
+                         )
+R5[3]        0     EXPR  (throw
+                             bad-rule
+                             (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1)
+                         )
 =================================================================================================================================================================
 
 node info6:
@@ -189,9 +199,9 @@ B00019(BETA0) :                 4      '(eton_working_task1:'(?0 ?1 ?2) task_fun
              1: N00011(NAME0)   4      task_func:'(?0 ?1)
 R1(RULE)      :                 2      eton_daily_task1:'(?task ?arg0) ==> (add_working_task ?task ?arg0)
              0: N00001(NAME0)   2      eton_daily_task1:'(?0 ?1)
-R2(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) ==> (trace "R2:remove-stmt: " ?1) (remove-stmt ?1)
+R2(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) ==> (do (trace "R2:remove-stmt: " ?1) (remove-stmt ?1))
              0: E00005(EXPR0)   4      '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
-R3(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) ==> (trace "R3:remove-stmt: " ?0) (remove-stmt ?0)
+R3(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) ==> (do (trace "R3:remove-stmt: " ?0) (remove-stmt ?0))
              0: E00009(EXPR0)   4      '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
 R4(RULE)      :                 3      task_func:'(?t1 ?f1) task_func:'(?t1 ?f2) (!= ?f1 ?f2) ==> (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2))
              0: E10013(EXPR1)   3      '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
@@ -551,11 +561,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2770            0         2770
+        atom:         2774            0         2774
          int:           10            0           10
       string:          133            0          133
         list:          121            6          115
-        expr:         1341           22         1319
+        expr:         1345           22         1323
          var:           87           58           29
     constant:           40            0           40
         func:          110            0          110

@@ -64,6 +64,7 @@ import alpha.rulp.utils.OptimizeUtil.OutputType;
 import alpha.rulp.utils.OptimizeUtil.RefArray;
 import alpha.rulp.utils.OptimizeUtil.RuleCounter;
 import alpha.rulp.ximpl.action.IAction;
+import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.IRConstraint;
@@ -1472,32 +1473,54 @@ public class StatsUtil {
 		sb.append("node info5: action\n");
 		sb.append(SEP_LINE1);
 
-		List<List<String>> result = new ArrayList<>();
-		List<Integer> maxLen = toList(12, 5, 5, 136);
-
-		result.add(toList("NODE[n]", "Index", "Type", "Action"));
+		sb.append(String.format("%-12s %-5s %-5s %-6s\n", "NODE[n]", "Index", "Type", "Action"));
+		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : ruleNodes) {
 
 			XREntryQueueAction entryQueue = (XREntryQueueAction) node.getEntryQueue();
 			LinkedList<IAction> actions = entryQueue.getActionStmtList();
 
-			result.add(toList(node.getNodeName() + "[" + node.getEntryLength() + "]", "0",
-					actions.size() > 0 ? "" + actions.get(0).getActionType() : "",
-					actions.size() > 0 ? actions.get(0).toString() : ""));
+			if (actions.size() == 0) {
+
+				sb.append(String.format("%-12s %-5d %-5s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+						0, "", ""));
+
+				continue;
+			}
+
+			ArrayList<String> outLines = new ArrayList<>();
+			IAction action = actions.get(0);
+			if (action.getActionType() == RActionType.ADD) {
+				outLines.add(action.toString());
+			} else {
+				FormatUtil.format(action.getExpr(), outLines, 0);
+			}
+
+			sb.append(String.format("%-12s %-5d %-5s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]", 0,
+					actions.size() > 0 ? "" + action.getActionType() : "", outLines.size() > 0 ? outLines.get(0) : ""));
+
+			for (int j = 1; j < outLines.size(); ++j) {
+				sb.append(String.format("%24s %s\n", "", outLines.get(j)));
+			}
 
 			for (int i = 1; i < actions.size(); ++i) {
-				result.add(toList("", "" + i, "" + actions.get(i).getActionType(), actions.get(i).toString()));
-			}
-		}
 
-		int index = 0;
-		for (String line : _formatTableResult(result, maxLen)) {
-			if (index++ == 1) {
-				sb.append(SEP_LINE2);
+				outLines = new ArrayList<>();
+				action = actions.get(i);
+				if (action.getActionType() == RActionType.ADD) {
+					outLines.add(action.toString());
+				} else {
+					FormatUtil.format(action.getExpr(), outLines, 0);
+				}
+
+				sb.append(String.format("%12s %-5d %-5s %s\n", "", i, action.getActionType(),
+						outLines.size() > 0 ? outLines.get(0) : ""));
+
+				for (int j = 1; j < outLines.size(); ++j) {
+					sb.append(String.format("%24s %s\n", "", outLines.get(j)));
+				}
 			}
-			sb.append(line);
-			sb.append("\n");
 		}
 
 		sb.append(SEP_LINE1);

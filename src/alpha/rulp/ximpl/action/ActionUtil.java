@@ -7,6 +7,7 @@ import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
@@ -38,6 +39,142 @@ public class ActionUtil {
 			return false;
 		}
 
+	}
+
+	private static IRExpr _rebuildActionExpr(IRModel model, IRExpr expr, IRObject[] varEntry, List<IAction> actionList)
+			throws RException {
+
+		if (expr.isEmpty()) {
+			return null;
+		}
+
+		IRObject e0 = expr.get(0);
+		if (e0.getType() != RType.ATOM) {
+			return expr;
+		}
+
+		switch (RulpUtil.asAtom(e0).getName()) {
+		case F_ADD_STMT:
+		case F_DEFS_S:
+
+			int index = 0;
+
+			IRIterator<? extends IRObject> it1 = expr.listIterator(1);
+			NEXT: while (it1.hasNext()) {
+
+				IRObject ex = it1.next();
+				index++;
+
+				if (!ReteUtil.isReteStmt(ex)) {
+
+					// (-> m '(stmt))
+					if (index == 1 && ex.getType() == RType.ATOM
+							&& RulpUtil.asAtom(ex).asString().equals(model.getModelName())) {
+						continue NEXT;
+					}
+
+					return expr;
+				}
+
+				IRList varStmt = (IRList) ex;
+
+				int stmtSize = varStmt.size();
+				int inheritIndexs[] = new int[stmtSize];
+				IRObject stmtObjs[] = new IRObject[stmtSize];
+				int inheritCount = 0;
+
+				for (int i = 0; i < stmtSize; ++i) {
+
+					IRObject obj = varStmt.get(i);
+
+					if (!RulpUtil.isVarAtom(obj)) {
+						stmtObjs[i] = obj;
+						inheritIndexs[i] = -1;
+						continue;
+					}
+
+					int inheritIndex = -1;
+
+					for (int j = 0; j < varEntry.length; ++j) {
+
+						IRObject varObj = varEntry[j];
+						if (varObj == null) {
+							continue;
+						}
+
+						if (RulpUtil.equal(obj, varObj)) {
+							inheritIndex = j;
+							break;
+						}
+					}
+
+					if (inheritIndex == -1) {
+						return expr;
+					}
+
+					inheritIndexs[i] = inheritIndex;
+					stmtObjs[i] = null;
+					inheritCount++;
+				}
+
+				if (inheritCount == 0) {
+					throw new RException("not var found: " + varStmt);
+				}
+
+				XActionAddStmt action = new XActionAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize,
+						varStmt.getNamedName());
+				action.setExpr(expr);
+
+				actionList.add(action);
+			}
+
+			return null;
+
+		case A_DO:
+
+			int pos = 1;
+			int size = expr.size();
+			IRExpr newExpr = null;
+
+			for (; pos < size; ++pos) {
+
+				IRObject obj = expr.get(pos);
+				if (obj.getType() != RType.EXPR) {
+					break;
+				}
+
+				IRExpr ex = (IRExpr) obj;
+				IRExpr ey = _rebuildActionExpr(model, ex, varEntry, actionList);
+				if (ex == ey || ey != null) {
+					newExpr = ey;
+					break;
+				}
+			}
+
+			if (pos == 0) {
+				return expr;
+			}
+
+			if (pos == size || newExpr == null) {
+				return null;
+			}
+
+			if (pos == (size - 1)) {
+				return newExpr;
+			}
+
+			ArrayList<IRObject> newArray = new ArrayList<>();
+			newArray.add(newExpr);
+
+			for (int j = pos + 1; j < size; ++j) {
+				newArray.add(expr.get(j));
+			}
+
+			return RulpUtil.toDoExpr(newArray);
+
+		default:
+			return expr;
+		}
 	}
 
 	private static boolean _buildActionNodes(IRModel model, String factorName, IRExpr expr, IRObject[] varEntry,
@@ -139,6 +276,7 @@ public class ActionUtil {
 			return true;
 
 		default:
+
 			return false;
 		}
 	}
@@ -206,6 +344,36 @@ public class ActionUtil {
 		_buildRelatedStmtUniqNames(expr, uniqNames);
 		return uniqNames;
 	}
+
+	public static List<IAction> buildActions2(IRModel model, IRObject[] varEntry, List<IRExpr> exprList)
+			throws RException {
+
+		List<IAction> actionList = new ArrayList<>();
+		IRExpr newExpr = _rebuildActionExpr(model, RulpUtil.toDoExpr(exprList), varEntry, actionList);
+		if (newExpr != null) {
+			actionList.add(new XActionExecExpr(newExpr));
+		}
+
+//		Collections.sort(actionList, (a1, a2) -> {
+//			return _getIndex(a1.getActionType()) - _getIndex(a2.getActionType());
+//
+//		});
+
+		return actionList;
+	}
+
+//	static int _getIndex(RActionType t) {
+//		switch (t) {
+//		case ADD:
+//			return 1;
+//
+//		case EXPR:
+//			return 0;
+//
+//		default:
+//			return -1;
+//		}
+//	}
 
 	public static List<IAction> buildActions(IRModel model, IRObject[] varEntry, IRExpr expr) throws RException {
 

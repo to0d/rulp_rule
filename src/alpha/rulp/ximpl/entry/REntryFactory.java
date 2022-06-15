@@ -10,20 +10,15 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.action.ActionUtil;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class REntryFactory {
 
-	public static IREntryQueue createActionQueue(IRRule node, List<IRExpr> actionList) throws RException {
-
-		IRModel model = node.getModel();
-		IRObject[] varEntry = node.getVarEntry();
+	public static IREntryQueue createActionQueue(IRRule node, List<IAction> actionList) throws RException {
 
 		XREntryQueueAction queue = new XREntryQueueAction(node);
-
-		for (IRExpr actionStmt : actionList) {
-			queue.addActions(ActionUtil.buildActions(model, varEntry, actionStmt));
-		}
+		queue.addActions(actionList);
 
 		return queue;
 	}

@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.action;
 
 import java.util.ArrayList;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
@@ -11,6 +12,8 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 public class XActionAddStmt implements IAction {
 
 	protected String _toString;
+
+	private IRExpr expr;
 
 	protected int inheritCount;
 
@@ -63,6 +66,15 @@ public class XActionAddStmt implements IAction {
 	@Override
 	public RActionType getActionType() {
 		return RActionType.ADD;
+	}
+
+	@Override
+	public IRExpr getExpr() {
+		return expr;
+	}
+
+	public void setExpr(IRExpr expr) {
+		this.expr = expr;
 	}
 
 	public String toString() {
