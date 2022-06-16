@@ -79,7 +79,6 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.action.ActionUtil;
-import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;

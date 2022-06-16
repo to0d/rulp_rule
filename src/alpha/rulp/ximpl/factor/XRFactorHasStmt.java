@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_BackSearch;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -10,12 +10,11 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.StmtUtil;
-import alpha.rulp.utils.ModifiterUtil.Modifier;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {

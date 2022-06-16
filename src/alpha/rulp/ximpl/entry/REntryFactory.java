@@ -2,14 +2,10 @@ package alpha.rulp.ximpl.entry;
 
 import java.util.List;
 
-import alpha.rulp.lang.IRExpr;
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
-import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.RReteType;
 

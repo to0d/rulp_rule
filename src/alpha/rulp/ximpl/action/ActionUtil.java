@@ -7,7 +7,6 @@ import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
