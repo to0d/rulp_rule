@@ -1,0 +1,17 @@
+(new model m)
+;=>
+
+(add-rule "R1" m if '(?x p ?y) '(?y p ?z) do (remove-stmt ?0) )
+;=>
+
+(add-stmt m '(a p b))
+;=>
+
+(add-stmt m '(b p c))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>
