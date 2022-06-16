@@ -46,11 +46,12 @@ class OptimizeUtilTest extends RulpTestBase {
 		_test_optimize(inputExpr, inputExpr);
 	}
 
-	void _test_optimize_rule(String condExpr, String actionExpr) {
-		_test_optimize_rule(condExpr, actionExpr, condExpr, actionExpr);
+	void _test_optimize_rule_has_stmt(String condExpr, String actionExpr) {
+		_test_optimize_rule_has_stmt(condExpr, actionExpr, condExpr, actionExpr);
 	}
 
-	void _test_optimize_rule(String condExpr, String actionExpr, String expectCondExpr, String expectActionExpr) {
+	void _test_optimize_rule_has_stmt(String condExpr, String actionExpr, String expectCondExpr,
+			String expectActionExpr) {
 
 		try {
 
@@ -66,7 +67,7 @@ class OptimizeUtilTest extends RulpTestBase {
 				actionList.add(obj);
 			}
 
-			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRule(RulpFactory.createList(condList),
+			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRuleHasStmt(RulpFactory.createList(condList),
 					RulpFactory.createList(actionList), interpreter, interpreter.getMainFrame());
 
 			assertEquals(expectCondExpr, RulpUtil.toString(rst.getKey()));
@@ -93,15 +94,15 @@ class OptimizeUtilTest extends RulpTestBase {
 	}
 
 	@Test
-	void test_optimize_rule() {
+	void _test_optimize_rule_has_stmt() {
 
 		_setup();
 
-		_test_optimize_rule("'(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty)", "(-> '(?a nm:typeOf nm:tag))",
+		_test_optimize_rule_has_stmt("'(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty)", "(-> '(?a nm:typeOf nm:tag))",
 				"'('(?a ?p ?b))",
 				"'((if (has-stmt '(?p nm:propertyOf nm:tagProperty)) do (-> '(?a nm:typeOf nm:tag))))");
 
-		_test_optimize_rule("'(?a ?p ?b) (has-stmt (?b p c))", "(-> '(?a p2 d))", "'('(?a ?p ?b))",
+		_test_optimize_rule_has_stmt("'(?a ?p ?b) (has-stmt (?b p c))", "(-> '(?a p2 d))", "'('(?a ?p ?b))",
 				"'((if (has-stmt (?b p c)) do (-> '(?a p2 d))))");
 
 	}

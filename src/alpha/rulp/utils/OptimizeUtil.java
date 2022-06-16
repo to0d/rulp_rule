@@ -96,7 +96,7 @@ public class OptimizeUtil {
 		IRRule rule;
 	}
 
-	public static boolean OPT_RULE = false;
+	public static boolean OPT_RULE_HAS_STMT = false;
 
 	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2, BETA3 };
 
@@ -616,7 +616,7 @@ public class OptimizeUtil {
 		return (IRList) _buildOptimizeMatchTree(matchTree);
 	}
 
-	public static Pair<IRList, IRList> optimizeRule(IRList condList, IRList actionList, IRInterpreter interpreter,
+	public static Pair<IRList, IRList> optimizeRuleHasStmt(IRList condList, IRList actionList, IRInterpreter interpreter,
 			IRFrame frame) throws RException {
 
 		Pair<IRList, IRList> rule = new Pair<>(condList, actionList);

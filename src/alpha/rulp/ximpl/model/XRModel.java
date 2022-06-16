@@ -1554,8 +1554,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// update
 		condList = _rebuild(condList);
 
-		if (OptimizeUtil.OPT_RULE) {
-			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRule(condList, actionList, this.getInterpreter(),
+		if (OptimizeUtil.OPT_RULE_HAS_STMT) {
+			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRuleHasStmt(condList, actionList, this.getInterpreter(),
 					this.getFrame());
 			condList = rst.getKey();
 			actionList = rst.getValue();
