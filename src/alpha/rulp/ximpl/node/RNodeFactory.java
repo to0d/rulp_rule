@@ -630,7 +630,7 @@ public class RNodeFactory {
 		node.setVarEntry(varEntry);
 
 		// Actions
-		List<IAction> actionList = ActionUtil.buildActions2(model, varEntry, actionStmtList);
+		List<IAction> actionList = ActionUtil.buildActions(model, varEntry, actionStmtList);
 		node.setActionStmtList(actionList);
 
 		// Build action nodes
