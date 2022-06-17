@@ -183,7 +183,7 @@ public class OptimizeUtil {
 		return constCount == (expr.size() - 1) && isConstOperatorName(expr.get(0).asString());
 	}
 
-	private static Pair<IRList, IRList> _optimizeRule_1(Pair<IRList, IRList> rule, IRInterpreter interpreter,
+	private static Pair<IRList, IRList> _optRuleHasStmt_1(Pair<IRList, IRList> rule, IRInterpreter interpreter,
 			IRFrame frame) throws RException {
 
 		IRList conds = rule.getKey();
@@ -283,7 +283,7 @@ public class OptimizeUtil {
 		return null;
 	}
 
-	private static Pair<IRList, IRList> _optimizeRule_2(Pair<IRList, IRList> rule, IRInterpreter interpreter,
+	private static Pair<IRList, IRList> _optRuleHasStmt_2(Pair<IRList, IRList> rule, IRInterpreter interpreter,
 			IRFrame frame) throws RException {
 
 		IRList conds = rule.getKey();
@@ -395,6 +395,68 @@ public class OptimizeUtil {
 //
 //		return update > 0 ? expr : null;
 //	}
+
+	private static IRObject _rebuildActionIndexVar(IRList condList, IRObject obj) throws RException {
+
+		if (obj == null) {
+			return null;
+		}
+
+		switch (obj.getType()) {
+		case ATOM:
+			String name = RulpUtil.asAtom(obj).getName();
+			if (!ReteUtil.isIndexVarName(name)) {
+				return obj;
+			}
+
+			int index = Integer.valueOf(name.substring(1));
+			if (index < 0 || index >= condList.size()) {
+				throw new RException("Invalid index var found: " + name);
+			}
+
+			IRObject cond = condList.get(index);
+			if (!ReteUtil.isReteStmt(cond)) {
+				throw new RException(String.format("Invalid rete stmt found at index %s: ", name, cond));
+			}
+
+			return cond;
+
+		case EXPR:
+
+			IRExpr expr = RulpUtil.asExpression(obj);
+			ArrayList<IRObject> newArr = null;
+			int size = expr.size();
+
+			for (int pos = 0; pos < size; ++pos) {
+
+				IRObject ex = expr.get(pos);
+				IRObject ey = _rebuildActionIndexVar(condList, ex);
+				if (ex != ey) {
+					if (newArr == null) {
+						newArr = new ArrayList<>();
+						for (int i = 0; i < pos; ++i) {
+							newArr.add(expr.get(i));
+						}
+					}
+				}
+
+				if (newArr != null) {
+					newArr.add(ey);
+				}
+			}
+
+			if (newArr == null) {
+				return obj;
+			}
+
+			return RulpFactory.createExpression(newArr);
+
+		default:
+
+			return obj;
+		}
+
+	}
 
 	protected static IRObject _rebuildConstExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame)
 			throws RException {
@@ -525,6 +587,17 @@ public class OptimizeUtil {
 
 	}
 
+//	public static IRObject optimizeExpr(IRObject obj) throws RException {
+//
+//		IRObject optiObj = null;
+//
+//		while ((optiObj = _optimizeExpr(obj)) != null) {
+//			obj = optiObj;
+//		}
+//
+//		return obj;
+//	}
+
 	public static IRObject optimizeExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		OPT: while (true) {
@@ -596,17 +669,6 @@ public class OptimizeUtil {
 		return expr;
 	}
 
-//	public static IRObject optimizeExpr(IRObject obj) throws RException {
-//
-//		IRObject optiObj = null;
-//
-//		while ((optiObj = _optimizeExpr(obj)) != null) {
-//			obj = optiObj;
-//		}
-//
-//		return obj;
-//	}
-
 	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
 
 		if (!_canOptimizeMatchTree(matchTree)) {
@@ -616,8 +678,45 @@ public class OptimizeUtil {
 		return (IRList) _buildOptimizeMatchTree(matchTree);
 	}
 
-	public static Pair<IRList, IRList> optimizeRuleHasStmt(IRList condList, IRList actionList, IRInterpreter interpreter,
-			IRFrame frame) throws RException {
+	public static IRList optimizeRuleActionIndexVar(IRList condList, IRList actionList) throws RException {
+
+		ArrayList<IRObject> newList = null;
+
+		int size = actionList.size();
+
+		for (int pos = 0; pos < size; ++pos) {
+
+			IRObject ex = actionList.get(pos);
+
+			/***************************************************/
+			// before: if '(?x p ?y) '(?y p ?z) do (remove-stmt ?0)
+			// after : if '(?x p ?y) '(?y p ?z) do (remove-stmt '(?x p ?y))
+			/***************************************************/
+			IRObject ey = _rebuildActionIndexVar(condList, ex);
+			if (ex != ey) {
+				if (newList == null) {
+					newList = new ArrayList<>();
+					for (int i = 0; i < pos; ++i) {
+						newList.add(actionList.get(i));
+					}
+				}
+			}
+
+			if (newList != null) {
+				newList.add(ey);
+			}
+		}
+
+		if (newList == null) {
+			return actionList;
+		}
+
+		return RulpFactory.createList(newList);
+
+	}
+
+	public static Pair<IRList, IRList> optimizeRuleHasStmt(IRList condList, IRList actionList,
+			IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		Pair<IRList, IRList> rule = new Pair<>(condList, actionList);
 
@@ -629,7 +728,7 @@ public class OptimizeUtil {
 			//
 			// '(yyy) does not have any new var
 			/***************************************************/
-			Pair<IRList, IRList> rst = _optimizeRule_1(rule, interpreter, frame);
+			Pair<IRList, IRList> rst = _optRuleHasStmt_1(rule, interpreter, frame);
 			if (rst != null) {
 				rule = rst;
 				continue;
@@ -639,7 +738,7 @@ public class OptimizeUtil {
 			// before: if xxx (has-stmt yyy) do zzz
 			// after : if xxx do (if (has-stmt yyy)) zzz)
 			/***************************************************/
-			rst = _optimizeRule_2(rule, interpreter, frame);
+			rst = _optRuleHasStmt_2(rule, interpreter, frame);
 			if (rst != null) {
 				rule = rst;
 				continue;

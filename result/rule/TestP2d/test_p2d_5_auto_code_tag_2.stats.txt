@@ -657,7 +657,7 @@ TG3[3]       0     ADD   (-> '(nt:$TGROUP, nm:hasRelatedTag, ?2))
 C1[4]        0     ADD   (-> '(?2, ?3, ?0))
 C2[2]        0     EXPR  (do
                              (println "a=" ?a ", p=" ?p)
-                             (throw p2d-conflict ?0)
+                             (throw p2d-conflict '(?a ?p ?a))
                          )
 C3[3]        0     ADD   (-> '(?0, nm:typeOf, nm:tag))
 C4[4]        0     EXPR  (throw p2d-conflict '(?0 ?1))
@@ -697,11 +697,11 @@ DC1[2]       0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d)))
                          )
 RR1[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
 RR2[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
-RR3[2]       0     EXPR  (remove-stmt ?0)
-RR4[2]       0     EXPR  (remove-stmt ?0)
-RR5[3]       0     EXPR  (remove-stmt ?0)
-RR6[2]       0     EXPR  (remove-stmt ?1)
-RR7[2]       0     EXPR  (remove-stmt ?1)
+RR3[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
+RR4[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
+RR5[3]       0     EXPR  (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
+RR6[2]       0     EXPR  (remove-stmt '(?a nm:defineTag ?b))
+RR7[2]       0     EXPR  (remove-stmt '(?b nm:beDefinedByTag ?a))
 AC1[4]       0     EXPR  (do
                              (remove-stmt '(?a nm:beParentTagOf ?c))
                              (remove-stmt '(?c nm:beChildTagOf ?a))
@@ -1451,7 +1451,7 @@ TG3(RULE)     :                 3      '(?x nm:hasGroupParent ?p) ==> (-> '(nt:$
              0: A00016(ALPH0)   3      '(?0 nm:hasGroupParent ?1)
 C1(RULE)      :                 4      '(?p1 nm:inverseProperty ?p2) '(?t1 ?p1 ?t2) ==> (-> '(?t2 ?p2 ?t1))
              0: B00019(BETA0)   4      '('(?0 ?1 ?2) '(?1 nm:inverseProperty ?3))
-C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (do (println "a=" ?a ", p=" ?p) (throw p2d-conflict ?0))
+C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (do (println "a=" ?a ", p=" ?p) (throw p2d-conflict '(?a ?p ?a)))
              0: B00024(BETA0)   2      '('(?0 ?1 ?0) '(?1 nm:propertyOf nm:nonSelfDefine))
 C3(RULE)      :                 3      '(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty) ==> (-> '(?a nm:typeOf nm:tag))
              0: B20027(BETA2)   3      '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
@@ -1495,15 +1495,15 @@ RR1(RULE)     :                 3      '(?a nm:beParentTagOf ?b) ==> (-> '(?a nm
              0: A00012(ALPH0)   3      '(?0 nm:beParentTagOf ?1)
 RR2(RULE)     :                 3      '(?a nm:hasDescendant ?b) '(?b nm:hasDescendant ?c) ==> (-> '(?a nm:hasDescendant ?c))
              0: B00083(BETA0)   3      '('(?0 nm:hasDescendant ?1) '(?1 nm:hasDescendant ?2))
-RR3(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasDescendant ?b) ==> (remove-stmt ?0)
+RR3(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasDescendant ?b) ==> (remove-stmt '(?a nm:hasRelatedTag ?b))
              0: B00086(BETA0)   2      '('(?0 nm:hasDescendant ?1) '(?0 nm:hasRelatedTag ?1))
-RR4(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasAncestors ?b) ==> (remove-stmt ?0)
+RR4(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasAncestors ?b) ==> (remove-stmt '(?a nm:hasRelatedTag ?b))
              0: B00089(BETA0)   2      '('(?0 nm:hasAncestors ?1) '(?0 nm:hasRelatedTag ?1))
-RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) ==> (remove-stmt ?0)
+RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) ==> (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
              0: B20094(BETA2)   3      '('('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
-RR6(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?a nm:defineTag ?b) ==> (remove-stmt ?1)
+RR6(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?a nm:defineTag ?b) ==> (remove-stmt '(?a nm:defineTag ?b))
              0: B00097(BETA0)   2      '('(?0 nm:defineTag ?1) '(?0 nm:hasDescendant ?1))
-RR7(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) ==> (remove-stmt ?1)
+RR7(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) ==> (remove-stmt '(?b nm:beDefinedByTag ?a))
              0: B00100(BETA0)   2      '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0))
 AC1(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:beParentTagOf ?b) '(?b nm:beParentTagOf ?c) '(?a nm:beParentTagOf ?c) (not (equal ?a ?b)) (not (equal ?b ?c)) (not (equal ?a ?c)) ==> (do (remove-stmt '(?a nm:beParentTagOf ?c)) (remove-stmt '(?c nm:beChildTagOf ?a)))
              0: B10105(BETA1)   4      '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
@@ -2894,15 +2894,14 @@ default_model        : 222      8        11   instance   model@p2d
 ?model-state         : 224      8        1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-Node<RR5> frame:id=19, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
+Node<RR5> frame:id=19, name=NF-RR5, lvl=4, ref=1/2, entry=4, pid=3(model), subject=NF-RR5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 297      19       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 298      19       11   instance   model@p2d           
-?a                   : 299      19       1    var        nt:SQL : type=atom  
-?p                   : 300      19       1    var        nm:hasFieldTag : type=atom
-?b                   : 301      19       1    var        nt:SQL-Code : type=atom
+default_model        : 297      19       11   instance   model@p2d           
+?a                   : 298      19       1    var        nt:SQL : type=atom  
+?p                   : 299      19       1    var        nm:hasFieldTag : type=atom
+?b                   : 300      19       1    var        nt:SQL-Code : type=atom
 ==========================================================================================================================
 
 Node<AC2> frame:id=6, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
@@ -2981,8 +2980,8 @@ Node<E00136> frame:id=15, name=NF-E00136, lvl=4, ref=1/2, entry=2, pid=3(model),
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?2                   : 333      15       1    var        nt:$TGROUP : type=atom
-?rv                  : 336      15       1    var        false : type=bool   
+?2                   : 332      15       1    var        nt:$TGROUP : type=atom
+?rv                  : 335      15       1    var        false : type=bool   
 ==========================================================================================================================
 
 node update info: model-exec-count=808, row=90, column=102(8), value-max=3, value-unit=2^x
@@ -3171,9 +3170,9 @@ Object create count:
         atom:         4060            0         4060
          int:            3            0            3
       string:          221            0          221
-        list:          906            1          905
-        expr:         1968          266         1702
-         var:          650          595           55
+        list:          914            1          913
+        expr:         1974          266         1708
+         var:          649          595           54
     constant:           40            0           40
         func:           96            0           96
     template:            1            0            1
@@ -3181,7 +3180,7 @@ Object create count:
       member:           22            0           22
        frame:          361          347           14
  interpreter:            1            0
-  frameEntry:         1020            0
+  frameEntry:         1019            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -3396,8 +3395,8 @@ id=15, name=NF-E00136, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00136
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?2                   : 333      15       1    var        nt:$TGROUP : type=atom
-?rv                  : 336      15       1    var        false : type=bool   
+?2                   : 332      15       1    var        nt:$TGROUP : type=atom
+?rv                  : 335      15       1    var        false : type=bool   
 ==========================================================================================================================
 
 id=18, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC8
@@ -3409,15 +3408,14 @@ default_model        : 284      18       11   instance   model@p2d
 ?model-state         : 286      18       1    var        ?model-state:"partial" : type=var
 ==========================================================================================================================
 
-id=19, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
+id=19, name=NF-RR5, lvl=4, ref=1/2, entry=4, pid=3(model), subject=NF-RR5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 297      19       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 298      19       11   instance   model@p2d           
-?a                   : 299      19       1    var        nt:SQL : type=atom  
-?p                   : 300      19       1    var        nm:hasFieldTag : type=atom
-?b                   : 301      19       1    var        nt:SQL-Code : type=atom
+default_model        : 297      19       11   instance   model@p2d           
+?a                   : 298      19       1    var        nt:SQL : type=atom  
+?p                   : 299      19       1    var        nm:hasFieldTag : type=atom
+?b                   : 300      19       1    var        nt:SQL-Code : type=atom
 ==========================================================================================================================
 
 Root var list: total=6

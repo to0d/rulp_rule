@@ -65,8 +65,8 @@ node info5: action
 NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 RU000[2]     0     EXPR  (do
-                             (remove-stmt ?0)
-                             (remove-stmt ?1)
+                             (remove-stmt '(?x p1 ?y))
+                             (remove-stmt '(?y p1 ?x))
                          )
 RU001[3]     0     ADD   (-> '(?0, p1, ?2))
 =================================================================================================================================================================
@@ -109,7 +109,7 @@ B00004(BETA0) :                 2      '('('(?0 p1 ?1) (!= ?0 ?1)) '(?1 p1 ?0))
 B00006(BETA0) :                 3      '('(?0 p1 ?1) '(?1 p1 ?2))
              0: A00002(ALPH0)   3      '(?0 p1 ?1)
              1: A00002(ALPH0)   3      '(?0 p1 ?1)
-RU000(RULE)   :                 2      '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) ==> (do (remove-stmt ?0) (remove-stmt ?1))
+RU000(RULE)   :                 2      '(?x p1 ?y) '(?y p1 ?x) (not (equal ?x ?y)) ==> (do (remove-stmt '(?x p1 ?y)) (remove-stmt '(?y p1 ?x)))
              0: B00004(BETA0)   2      '('('(?0 p1 ?1) (!= ?0 ?1)) '(?1 p1 ?0))
 RU001(RULE)   :                 3      '(?x p1 ?y) '(?y p1 ?z) ==> (add-stmt m '(?x p1 ?z))
              0: B00006(BETA0)   3      '('(?0 p1 ?1) '(?1 p1 ?2))
@@ -255,15 +255,13 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 22       3        3    instance   model@m             
 ==========================================================================================================================
 
-Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RU000
+Node<RU000> frame:id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 24       4        1    var        '(?x p1 ?y) : type=list
-?1                   : 25       4        1    var        '(?y p1 ?x) : type=list
-default_model        : 26       4        3    instance   model@m             
-?y                   : 27       4        1    var        a : type=atom       
-?x                   : 28       4        1    var        c : type=atom       
+default_model        : 24       4        3    instance   model@m             
+?y                   : 25       4        1    var        a : type=atom       
+?x                   : 26       4        1    var        c : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=13, row=7, column=13(1), value-max=1, value-unit=1^x
@@ -339,16 +337,16 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1986            0         1986
       string:           74            0           74
-        list:           81            2           79
-        expr:          872            0          872
-         var:           24            0           24
+        list:           84            2           82
+        expr:          874            0          874
+         var:           22            0           22
         func:           81            0           81
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
        frame:            4            2            2
  interpreter:            1            0
-  frameEntry:          326            0
+  frameEntry:          324            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -406,15 +404,13 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 22       3        3    instance   model@m             
 ==========================================================================================================================
 
-id=4, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RU000
+id=4, name=NF-RU000, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 24       4        1    var        '(?x p1 ?y) : type=list
-?1                   : 25       4        1    var        '(?y p1 ?x) : type=list
-default_model        : 26       4        3    instance   model@m             
-?y                   : 27       4        1    var        a : type=atom       
-?x                   : 28       4        1    var        c : type=atom       
+default_model        : 24       4        3    instance   model@m             
+?y                   : 25       4        1    var        a : type=atom       
+?x                   : 26       4        1    var        c : type=atom       
 ==========================================================================================================================
 
 Root var list: total=6

@@ -80,7 +80,7 @@ node info5: action
 NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 T7[3]        0     ADD   (-> '(?0, nm:hasRelation, ?2))
-RR5[3]       0     EXPR  (remove-stmt ?0)
+RR5[3]       0     EXPR  (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
 =================================================================================================================================================================
 
 node info6:
@@ -131,7 +131,7 @@ B20009(BETA2) :                 3      '('('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)
              1: A00008(ALPH0)   3      '(?0 nm:hasAutoRelatedTag ?1)
 T7(RULE)      :                 3      '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (equal nm:hasAutoRelatedTag ?p) (equal nm:hasRelation ?p) ==> (-> '(?a nm:hasRelation ?b))
              0: B20006(BETA2)   3      '('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation))
-RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (equal nm:hasAutoRelatedTag ?p) (equal nm:hasRelation ?p) ==> (remove-stmt ?0)
+RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (equal nm:hasAutoRelatedTag ?p) (equal nm:hasRelation ?p) ==> (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
              0: B20009(BETA2)   3      '('('('('(?0 ?1 ?2) (= ?1 nm:hasRelation)) (equal nm:hasAutoRelatedTag ?1)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
 =================================================================================================================================================================
 
@@ -320,8 +320,8 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         1992            0         1992
       string:           76            0           76
-        list:           83            0           83
-        expr:          879            0          879
+        list:           84            0           84
+        expr:          880            0          880
          var:           20            0           20
         func:           81            0           81
     template:            1            0            1

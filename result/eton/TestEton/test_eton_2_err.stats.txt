@@ -111,12 +111,12 @@ NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R1[2]        0     EXPR  (add_working_task ?task ?arg0)
 R2[4]        0     EXPR  (do
-                             (trace "R2:remove-stmt: " ?1)
-                             (remove-stmt ?1)
+                             (trace "R2:remove-stmt: " eton_working_task1:'(?day2 ?task ?arg0))
+                             (remove-stmt eton_working_task1:'(?day2 ?task ?arg0))
                          )
 R3[4]        0     EXPR  (do
-                             (trace "R3:remove-stmt: " ?0)
-                             (remove-stmt ?0)
+                             (trace "R3:remove-stmt: " eton_working_task1:'(?day1 ?task ?arg0))
+                             (remove-stmt eton_working_task1:'(?day1 ?task ?arg0))
                          )
 R4[3]        0     EXPR  (throw
                              bad-rule
@@ -199,9 +199,9 @@ B00019(BETA0) :                 4      '(eton_working_task1:'(?0 ?1 ?2) task_fun
              1: N00011(NAME0)   4      task_func:'(?0 ?1)
 R1(RULE)      :                 2      eton_daily_task1:'(?task ?arg0) ==> (add_working_task ?task ?arg0)
              0: N00001(NAME0)   2      eton_daily_task1:'(?0 ?1)
-R2(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) ==> (do (trace "R2:remove-stmt: " ?1) (remove-stmt ?1))
+R2(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) ==> (do (trace "R2:remove-stmt: " eton_working_task1:'(?day2 ?task ?arg0)) (remove-stmt eton_working_task1:'(?day2 ?task ?arg0)))
              0: E00005(EXPR0)   4      '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
-R3(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) ==> (do (trace "R3:remove-stmt: " ?0) (remove-stmt ?0))
+R3(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) ==> (do (trace "R3:remove-stmt: " eton_working_task1:'(?day1 ?task ?arg0)) (remove-stmt eton_working_task1:'(?day1 ?task ?arg0)))
              0: E00009(EXPR0)   4      '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
 R4(RULE)      :                 3      task_func:'(?t1 ?f1) task_func:'(?t1 ?f2) (!= ?f1 ?f2) ==> (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2))
              0: E10013(EXPR1)   3      '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
@@ -408,7 +408,7 @@ Ref Bit Map: total=7, max-id=7, create=7, removed=0, group-size=10, group-count=
 Child Count:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
        5: entry=task_func:'("task1" fun1), status=define
-       3: entry=eton_working_task1:'("2022-06-16" "task1" "value0"), status=reason
+       3: entry=eton_working_task1:'("2022-06-17" "task1" "value0"), status=reason
        1: entry=eton_daily_task1:'("task1" "value0"), status=define
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
            Entry[2]  Entry[3]  Entry[4]
@@ -446,8 +446,8 @@ Node<E00005> frame:id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model),
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      13       1    var        2022-06-16 : type=string
-?3                   : 152      13       1    var        2022-06-16 : type=string
+?0                   : 151      13       1    var        2022-06-17 : type=string
+?3                   : 152      13       1    var        2022-06-17 : type=string
 ?rv                  : 155      13       1    var        false : type=bool   
 ==========================================================================================================================
 
@@ -564,8 +564,8 @@ Object create count:
         atom:         2774            0         2774
          int:           10            0           10
       string:          133            0          133
-        list:          121            6          115
-        expr:         1345           22         1323
+        list:          123            6          117
+        expr:         1349           22         1327
          var:           87           58           29
     constant:           40            0           40
         func:          110            0          110
@@ -728,8 +728,8 @@ id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      13       1    var        2022-06-16 : type=string
-?3                   : 152      13       1    var        2022-06-16 : type=string
+?0                   : 151      13       1    var        2022-06-17 : type=string
+?3                   : 152      13       1    var        2022-06-17 : type=string
 ?rv                  : 155      13       1    var        false : type=bool   
 ==========================================================================================================================
 

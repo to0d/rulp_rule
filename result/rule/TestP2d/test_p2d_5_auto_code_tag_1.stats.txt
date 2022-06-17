@@ -606,7 +606,7 @@ TG3[3]       0     ADD   (-> '(nt:$TGROUP, nm:hasRelatedTag, ?2))
 C1[4]        0     ADD   (-> '(?2, ?3, ?0))
 C2[2]        0     EXPR  (do
                              (println "a=" ?a ", p=" ?p)
-                             (throw p2d-conflict ?0)
+                             (throw p2d-conflict '(?a ?p ?a))
                          )
 C3[3]        0     ADD   (-> '(?0, nm:typeOf, nm:tag))
 C4[4]        0     EXPR  (throw p2d-conflict '(?0 ?1))
@@ -646,11 +646,11 @@ DC1[2]       0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d)))
                          )
 RR1[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
 RR2[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
-RR3[2]       0     EXPR  (remove-stmt ?0)
-RR4[2]       0     EXPR  (remove-stmt ?0)
-RR5[3]       0     EXPR  (remove-stmt ?0)
-RR6[2]       0     EXPR  (remove-stmt ?1)
-RR7[2]       0     EXPR  (remove-stmt ?1)
+RR3[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
+RR4[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
+RR5[3]       0     EXPR  (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
+RR6[2]       0     EXPR  (remove-stmt '(?a nm:defineTag ?b))
+RR7[2]       0     EXPR  (remove-stmt '(?b nm:beDefinedByTag ?a))
 AC1[4]       0     EXPR  (do
                              (remove-stmt '(?a nm:beParentTagOf ?c))
                              (remove-stmt '(?c nm:beChildTagOf ?a))
@@ -1326,7 +1326,7 @@ TG3(RULE)     :                 3      '(?x nm:hasGroupParent ?p) ==> (-> '(nt:$
              0: A00016(ALPH0)   3      '(?0 nm:hasGroupParent ?1)
 C1(RULE)      :                 4      '(?p1 nm:inverseProperty ?p2) '(?t1 ?p1 ?t2) ==> (-> '(?t2 ?p2 ?t1))
              0: B00019(BETA0)   4      '('(?0 ?1 ?2) '(?1 nm:inverseProperty ?3))
-C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (do (println "a=" ?a ", p=" ?p) (throw p2d-conflict ?0))
+C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (do (println "a=" ?a ", p=" ?p) (throw p2d-conflict '(?a ?p ?a)))
              0: B00024(BETA0)   2      '('(?0 ?1 ?0) '(?1 nm:propertyOf nm:nonSelfDefine))
 C3(RULE)      :                 3      '(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty) ==> (-> '(?a nm:typeOf nm:tag))
              0: B20027(BETA2)   3      '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
@@ -1370,15 +1370,15 @@ RR1(RULE)     :                 3      '(?a nm:beParentTagOf ?b) ==> (-> '(?a nm
              0: A00012(ALPH0)   3      '(?0 nm:beParentTagOf ?1)
 RR2(RULE)     :                 3      '(?a nm:hasDescendant ?b) '(?b nm:hasDescendant ?c) ==> (-> '(?a nm:hasDescendant ?c))
              0: B00083(BETA0)   3      '('(?0 nm:hasDescendant ?1) '(?1 nm:hasDescendant ?2))
-RR3(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasDescendant ?b) ==> (remove-stmt ?0)
+RR3(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasDescendant ?b) ==> (remove-stmt '(?a nm:hasRelatedTag ?b))
              0: B00086(BETA0)   2      '('(?0 nm:hasDescendant ?1) '(?0 nm:hasRelatedTag ?1))
-RR4(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasAncestors ?b) ==> (remove-stmt ?0)
+RR4(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasAncestors ?b) ==> (remove-stmt '(?a nm:hasRelatedTag ?b))
              0: B00089(BETA0)   2      '('(?0 nm:hasAncestors ?1) '(?0 nm:hasRelatedTag ?1))
-RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) ==> (remove-stmt ?0)
+RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) ==> (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
              0: B20094(BETA2)   3      '('('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
-RR6(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?a nm:defineTag ?b) ==> (remove-stmt ?1)
+RR6(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?a nm:defineTag ?b) ==> (remove-stmt '(?a nm:defineTag ?b))
              0: B00097(BETA0)   2      '('(?0 nm:defineTag ?1) '(?0 nm:hasDescendant ?1))
-RR7(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) ==> (remove-stmt ?1)
+RR7(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) ==> (remove-stmt '(?b nm:beDefinedByTag ?a))
              0: B00100(BETA0)   2      '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0))
 AC1(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:beParentTagOf ?b) '(?b nm:beParentTagOf ?c) '(?a nm:beParentTagOf ?c) (not (equal ?a ?b)) (not (equal ?b ?c)) (not (equal ?a ?c)) ==> (do (remove-stmt '(?a nm:beParentTagOf ?c)) (remove-stmt '(?c nm:beChildTagOf ?a)))
              0: B10105(BETA1)   4      '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
@@ -2739,15 +2739,14 @@ default_model        : 217      11       10   instance   model@p2d
 ?model-state         : 221      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-Node<RR5> frame:id=18, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
+Node<RR5> frame:id=18, name=NF-RR5, lvl=4, ref=1/2, entry=4, pid=3(model), subject=NF-RR5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 294      18       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 295      18       10   instance   model@p2d           
-?a                   : 296      18       1    var        nt:SQL : type=atom  
-?p                   : 297      18       1    var        nm:hasFieldTag : type=atom
-?b                   : 298      18       1    var        nt:SQL-Code : type=atom
+default_model        : 294      18       10   instance   model@p2d           
+?a                   : 295      18       1    var        nt:SQL : type=atom  
+?p                   : 296      18       1    var        nm:hasFieldTag : type=atom
+?b                   : 297      18       1    var        nt:SQL-Code : type=atom
 ==========================================================================================================================
 
 Node<AC2> frame:id=8, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
@@ -2994,9 +2993,9 @@ Object create count:
         atom:         3976            0         3976
          int:            3            0            3
       string:          221            0          221
-        list:          844            3          841
-        expr:         1796          113         1683
-         var:          377          325           52
+        list:          852            3          849
+        expr:         1802          113         1689
+         var:          376          325           51
     constant:           40            0           40
         func:           96            0           96
     template:            1            0            1
@@ -3004,7 +3003,7 @@ Object create count:
       member:           22            0           22
        frame:          242          230           12
  interpreter:            1            0
-  frameEntry:          745            0
+  frameEntry:          744            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -3114,7 +3113,7 @@ get-field-name       : 82       2        2    func       (get-field-name nil) : 
 get-new-ns           : 83       2        2    macro      get-new-ns          
 get-version-number   : 84       2        2    func       (get-version-number nil) : frame=frame@main
 hasGroupChild        : 85       2        2    macro      hasGroupChild       
-?e                   : 324      2        1    var        AC8: AC8 : type=instance
+?e                   : 323      2        1    var        AC8: AC8 : type=instance
 ==========================================================================================================================
 
 
@@ -3216,15 +3215,14 @@ default_model        : 281      17       10   instance   model@p2d
 ?model-state         : 283      17       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-id=18, name=NF-RR5, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RR5
+id=18, name=NF-RR5, lvl=4, ref=1/2, entry=4, pid=3(model), subject=NF-RR5
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 294      18       1    var        '(?a nm:hasAutoRelatedTag ?b) : type=list
-default_model        : 295      18       10   instance   model@p2d           
-?a                   : 296      18       1    var        nt:SQL : type=atom  
-?p                   : 297      18       1    var        nm:hasFieldTag : type=atom
-?b                   : 298      18       1    var        nt:SQL-Code : type=atom
+default_model        : 294      18       10   instance   model@p2d           
+?a                   : 295      18       1    var        nt:SQL : type=atom  
+?p                   : 296      18       1    var        nm:hasFieldTag : type=atom
+?b                   : 297      18       1    var        nt:SQL-Code : type=atom
 ==========================================================================================================================
 
 Root var list: total=6

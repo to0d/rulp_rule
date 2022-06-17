@@ -1551,9 +1551,19 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println(String.format("==> addRule: %s, %s, %s", ruleName, condList, actionList));
 		}
 
-		// update
+		/******************************************************/
+		// update condition list
+		/******************************************************/
 		condList = _rebuild(condList);
 
+		/******************************************************/
+		// optimize action expression list
+		/******************************************************/
+		actionList = OptimizeUtil.optimizeRuleActionIndexVar(condList, actionList);
+
+		/******************************************************/
+		// optimize rule
+		/******************************************************/
 		if (OptimizeUtil.OPT_RULE_HAS_STMT) {
 			Pair<IRList, IRList> rst = OptimizeUtil.optimizeRuleHasStmt(condList, actionList, this.getInterpreter(),
 					this.getFrame());

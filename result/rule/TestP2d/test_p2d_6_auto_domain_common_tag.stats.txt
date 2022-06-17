@@ -611,7 +611,7 @@ TG3[3]       0     ADD   (-> '(nt:$TGROUP, nm:hasRelatedTag, ?2))
 C1[4]        0     ADD   (-> '(?2, ?3, ?0))
 C2[2]        0     EXPR  (do
                              (println "a=" ?a ", p=" ?p)
-                             (throw p2d-conflict ?0)
+                             (throw p2d-conflict '(?a ?p ?a))
                          )
 C3[3]        0     ADD   (-> '(?0, nm:typeOf, nm:tag))
 C4[4]        0     EXPR  (throw p2d-conflict '(?0 ?1))
@@ -651,11 +651,11 @@ DC1[2]       0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d)))
                          )
 RR1[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
 RR2[3]       0     ADD   (-> '(?0, nm:hasDescendant, ?2))
-RR3[2]       0     EXPR  (remove-stmt ?0)
-RR4[2]       0     EXPR  (remove-stmt ?0)
-RR5[3]       0     EXPR  (remove-stmt ?0)
-RR6[2]       0     EXPR  (remove-stmt ?1)
-RR7[2]       0     EXPR  (remove-stmt ?1)
+RR3[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
+RR4[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
+RR5[3]       0     EXPR  (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
+RR6[2]       0     EXPR  (remove-stmt '(?a nm:defineTag ?b))
+RR7[2]       0     EXPR  (remove-stmt '(?b nm:beDefinedByTag ?a))
 AC1[4]       0     EXPR  (do
                              (remove-stmt '(?a nm:beParentTagOf ?c))
                              (remove-stmt '(?c nm:beChildTagOf ?a))
@@ -1338,7 +1338,7 @@ TG3(RULE)     :                 3      '(?x nm:hasGroupParent ?p) ==> (-> '(nt:$
              0: A00016(ALPH0)   3      '(?0 nm:hasGroupParent ?1)
 C1(RULE)      :                 4      '(?p1 nm:inverseProperty ?p2) '(?t1 ?p1 ?t2) ==> (-> '(?t2 ?p2 ?t1))
              0: B00019(BETA0)   4      '('(?0 ?1 ?2) '(?1 nm:inverseProperty ?3))
-C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (do (println "a=" ?a ", p=" ?p) (throw p2d-conflict ?0))
+C2(RULE)      :                 2      '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) ==> (do (println "a=" ?a ", p=" ?p) (throw p2d-conflict '(?a ?p ?a)))
              0: B00024(BETA0)   2      '('(?0 ?1 ?0) '(?1 nm:propertyOf nm:nonSelfDefine))
 C3(RULE)      :                 3      '(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty) ==> (-> '(?a nm:typeOf nm:tag))
              0: B20027(BETA2)   3      '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
@@ -1382,15 +1382,15 @@ RR1(RULE)     :                 3      '(?a nm:beParentTagOf ?b) ==> (-> '(?a nm
              0: A00012(ALPH0)   3      '(?0 nm:beParentTagOf ?1)
 RR2(RULE)     :                 3      '(?a nm:hasDescendant ?b) '(?b nm:hasDescendant ?c) ==> (-> '(?a nm:hasDescendant ?c))
              0: B00083(BETA0)   3      '('(?0 nm:hasDescendant ?1) '(?1 nm:hasDescendant ?2))
-RR3(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasDescendant ?b) ==> (remove-stmt ?0)
+RR3(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasDescendant ?b) ==> (remove-stmt '(?a nm:hasRelatedTag ?b))
              0: B00086(BETA0)   2      '('(?0 nm:hasDescendant ?1) '(?0 nm:hasRelatedTag ?1))
-RR4(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasAncestors ?b) ==> (remove-stmt ?0)
+RR4(RULE)     :                 2      '(?a nm:hasRelatedTag ?b) '(?a nm:hasAncestors ?b) ==> (remove-stmt '(?a nm:hasRelatedTag ?b))
              0: B00089(BETA0)   2      '('(?0 nm:hasAncestors ?1) '(?0 nm:hasRelatedTag ?1))
-RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) ==> (remove-stmt ?0)
+RR5(RULE)     :                 3      '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) ==> (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
              0: B20094(BETA2)   3      '('('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
-RR6(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?a nm:defineTag ?b) ==> (remove-stmt ?1)
+RR6(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?a nm:defineTag ?b) ==> (remove-stmt '(?a nm:defineTag ?b))
              0: B00097(BETA0)   2      '('(?0 nm:defineTag ?1) '(?0 nm:hasDescendant ?1))
-RR7(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) ==> (remove-stmt ?1)
+RR7(RULE)     :                 2      '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) ==> (remove-stmt '(?b nm:beDefinedByTag ?a))
              0: B00100(BETA0)   2      '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0))
 AC1(RULE)     :                 4      (var-changed ?model-state running completed) '(?a nm:beParentTagOf ?b) '(?b nm:beParentTagOf ?c) '(?a nm:beParentTagOf ?c) (not (equal ?a ?b)) (not (equal ?b ?c)) (not (equal ?a ?c)) ==> (do (remove-stmt '(?a nm:beParentTagOf ?c)) (remove-stmt '(?c nm:beChildTagOf ?a)))
              0: B10105(BETA1)   4      '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
@@ -2962,8 +2962,8 @@ Object create count:
         atom:         3981            0         3981
          int:            3            0            3
       string:          187            0          187
-        list:          765            3          762
-        expr:         1751           68         1683
+        list:          771            3          768
+        expr:         1757           68         1689
          var:          246          203           43
     constant:           40            0           40
         func:           96            0           96
