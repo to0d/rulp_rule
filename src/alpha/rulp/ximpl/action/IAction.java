@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.action;
 
+import java.util.List;
+
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
@@ -14,6 +16,8 @@ public interface IAction {
 	public IRExpr getExpr();
 
 	public int getIndex();
+
+	public List<IRExpr> getStmtExprList() throws RException;
 
 	public void setIndex(int index);
 }

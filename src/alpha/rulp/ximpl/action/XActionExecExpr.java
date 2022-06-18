@@ -1,5 +1,8 @@
 package alpha.rulp.ximpl.action;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
@@ -39,6 +42,16 @@ public class XActionExecExpr implements IAction {
 	@Override
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	protected List<IRExpr> stmtExprList = null;
+
+	@Override
+	public List<IRExpr> getStmtExprList() throws RException {
+		if (stmtExprList == null) {
+			stmtExprList = ActionUtil.buildRelatedStmtExprList(expr);
+		}
+		return stmtExprList;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package alpha.rulp.ximpl.action;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRObject;
@@ -13,9 +15,9 @@ public class XActionAddStmt implements IAction {
 
 	protected String _toString;
 
-	private IRExpr expr;
+	protected IRExpr expr;
 
-	private int index = -1;
+	protected int index = -1;
 
 	protected int inheritCount;
 
@@ -89,13 +91,12 @@ public class XActionAddStmt implements IAction {
 		this.index = index;
 	}
 
+	@Override
 	public String toString() {
 
 		if (_toString == null) {
 
 			StringBuffer sb = new StringBuffer();
-
-			sb.append("(-> ");
 
 			if (stmtName != null) {
 				sb.append(String.format("%s:", stmtName));
@@ -118,11 +119,24 @@ public class XActionAddStmt implements IAction {
 
 			}
 
-			sb.append("))");
+			sb.append(")");
 
 			_toString = sb.toString();
 		}
 
 		return _toString;
+
 	}
+
+	protected List<IRExpr> stmtExprList = null;
+
+	@Override
+	public List<IRExpr> getStmtExprList() {
+		if (stmtExprList == null) {
+			stmtExprList = new LinkedList<>();
+			stmtExprList.add(expr);
+		}
+		return stmtExprList;
+	}
+
 }

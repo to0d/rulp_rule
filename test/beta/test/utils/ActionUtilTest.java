@@ -50,7 +50,8 @@ class ActionUtilTest extends RuleTestBase {
 			assertEquals(objs.size(), 1);
 
 			IRExpr expr = RulpUtil.asExpression(objs.get(0));
-			assertEquals(expectNames, "" + ActionUtil.buildRelatedStmtUniqNames(expr));
+			assertEquals(expectNames,
+					"" + ActionUtil.buildRelatedStmtUniqNames(ActionUtil.buildRelatedStmtExprList(expr)));
 
 		} catch (RException e) {
 			e.printStackTrace();

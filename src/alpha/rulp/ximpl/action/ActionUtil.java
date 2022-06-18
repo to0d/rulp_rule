@@ -93,7 +93,7 @@ public class ActionUtil {
 		}
 	}
 
-	private static void _buildRelatedStmtUniqNames(IRObject obj, List<String> uniqNames) throws RException {
+	private static void _buildRelatedStmtExprList(IRObject obj, List<IRExpr> exprList) throws RException {
 
 		if (obj.getType() != RType.EXPR) {
 			return;
@@ -107,11 +107,11 @@ public class ActionUtil {
 		IRObject e0 = expr.get(0);
 		switch (e0.getType()) {
 		case ATOM:
-			_buildRelatedStmtUniqNames(RulpUtil.asAtom(e0).getName(), expr, uniqNames);
+			_buildRelatedStmtExprList(RulpUtil.asAtom(e0).getName(), expr, exprList);
 			break;
 
 		case FACTOR:
-			_buildRelatedStmtUniqNames(RulpUtil.asFactor(e0).getName(), expr, uniqNames);
+			_buildRelatedStmtExprList(RulpUtil.asFactor(e0).getName(), expr, exprList);
 			break;
 
 		default:
@@ -120,7 +120,7 @@ public class ActionUtil {
 
 	}
 
-	private static void _buildRelatedStmtUniqNames(String factorName, IRExpr expr, List<String> uniqNames)
+	private static void _buildRelatedStmtExprList(String factorName, IRExpr expr, List<IRExpr> exprList)
 			throws RException {
 
 		switch (factorName) {
@@ -132,7 +132,8 @@ public class ActionUtil {
 				throw new RException("Invalid stmt found: " + stmt);
 			}
 
-			uniqNames.add(ReteUtil.uniqName(stmt));
+			exprList.add(expr);
+
 			return;
 
 		case A_DO:
@@ -140,7 +141,7 @@ public class ActionUtil {
 
 			IRIterator<? extends IRObject> it = expr.listIterator(1);
 			while (it.hasNext()) {
-				_buildRelatedStmtUniqNames(it.next(), uniqNames);
+				_buildRelatedStmtExprList(it.next(), exprList);
 			}
 
 			return;
@@ -239,11 +240,59 @@ public class ActionUtil {
 		return actionList;
 	}
 
-	public static List<String> buildRelatedStmtUniqNames(IRExpr expr) throws RException {
+	public static List<String> buildRelatedStmtUniqNames(List<IRExpr> stmtExprList) throws RException {
 
-		ArrayList<String> uniqNames = new ArrayList<>();
-		_buildRelatedStmtUniqNames(expr, uniqNames);
-		return uniqNames;
+		ArrayList<String> uniqNameList = new ArrayList<>();
+		NEXT: for (IRExpr expr : stmtExprList) {
+
+			if (expr.isEmpty()) {
+				continue NEXT;
+			}
+
+			IRObject e0 = expr.get(0);
+
+			e0.asString();
+
+			String factorName = null;
+			switch (e0.getType()) {
+			case ATOM:
+			case FACTOR:
+				factorName = e0.asString();
+				break;
+
+			default:
+				continue NEXT;
+			}
+
+			switch (factorName) {
+			case F_ADD_STMT:
+			case F_DEFS_S:
+			case F_ASSUME_STMT:
+				IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
+				if (!ReteUtil.isActionEntry(stmt)) {
+					throw new RException("Invalid stmt found: " + stmt);
+				}
+
+				String uniqName = ReteUtil.uniqName(stmt);
+				if (!uniqNameList.contains(uniqName)) {
+					uniqNameList.add(uniqName);
+				}
+				break;
+
+			default:
+				break;
+			}
+
+		}
+
+		return uniqNameList;
+	}
+
+	public static List<IRExpr> buildRelatedStmtExprList(IRExpr expr) throws RException {
+
+		ArrayList<IRExpr> exprList = new ArrayList<>();
+		_buildRelatedStmtExprList(expr, exprList);
+		return exprList;
 	}
 
 }

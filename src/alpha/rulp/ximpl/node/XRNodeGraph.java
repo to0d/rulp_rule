@@ -177,7 +177,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			List<IRList> actionUniqStmtList = actionUniqStmtListMap.get(action);
 			if (actionUniqStmtList == null) {
 
-				List<String> uniqNames = ActionUtil.buildRelatedStmtUniqNames(action.getExpr());
+				List<String> uniqNames = ActionUtil.buildRelatedStmtUniqNames(action.getStmtExprList());
 				if (uniqNames.isEmpty()) {
 					actionUniqStmtList = Collections.emptyList();
 				} else {
@@ -192,24 +192,6 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			return actionUniqStmtList;
 		}
-
-//		public List<IRList> getRuleActionUniqStmtList(XRNodeGraph graph) throws RException {
-//
-//			if (ruleActionUniqStmtList == null) {
-//
-//				Set<String> actionUniqStmtNames = new HashSet<>();
-//				for (IAction action : ((IRRule) node).getActionList()) {
-//					actionUniqStmtNames.addAll(ActionUtil.buildRelatedStmtUniqNames(action.getExpr()));
-//				}
-//
-//				ruleActionUniqStmtList = new ArrayList<>();
-//				for (String uniqName : actionUniqStmtNames) {
-//					ruleActionUniqStmtList.add(graph._getUniqStmt(uniqName));
-//				}
-//			}
-//
-//			return ruleActionUniqStmtList;
-//		}
 
 		public int getUseCount() {
 			return this.useCount;
