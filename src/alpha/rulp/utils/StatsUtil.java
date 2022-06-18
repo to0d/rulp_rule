@@ -1646,7 +1646,7 @@ public class StatsUtil {
 			int nodeIndex = 0;
 			for (SourceNode sn : sourceNodeList) {
 
-				String actionStr = String.format("A(%d)=[", sn.actionList.size());
+				String actionStr = String.format("A(%d/%d)=[", sn.actionList.size(), sn.rule.getActionList().size());
 				int index = 0;
 				for (IAction action : sn.actionList) {
 					if (index++ != 0) {
@@ -2422,7 +2422,6 @@ public class StatsUtil {
 			/*********************************************************************/
 			sb.append(String.format("Model<%s> stats info:\n", "" + model.getModelName()));
 			_printReteCounter(sb, modelNodeMatrix, false);
-			
 
 			/****************************************************/
 			// Output count info
