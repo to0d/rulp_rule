@@ -1,0 +1,9 @@
+(new model m)
+(add-rule "R1" m if '(?x ?y ?z) do (-> '(?z ?y ?x 1)) )
+;=>
+
+(list-source-node m ('(?a ?b ?c ?d)))
+;=>
+
+(list-source-node m ('(?a ?b ?c)))
+;=>

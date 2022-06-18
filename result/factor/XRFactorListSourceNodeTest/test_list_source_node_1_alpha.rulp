@@ -1,0 +1,16 @@
+(new model m)
+(add-rule "R1" m if '(?x typeof c1) do (-> m '(?x typeof c2)))
+(add-rule "R2" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)))
+;=>
+
+(list-source-node m ('(?x typeof c1)))
+;=>
+
+(list-source-node m ('(?x typeof c2)))
+;=>
+
+(list-source-node m ('(?x typeof ?y)))
+;=>
+
+(list-source-node m ('(?a ?b ?c)))
+;=>

@@ -74,7 +74,7 @@ import alpha.rulp.ximpl.factor.XRFactorGcModel;
 import alpha.rulp.ximpl.factor.XRFactorGetReteEntry;
 import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.factor.XRFactorListConstraint;
-import alpha.rulp.ximpl.factor.XRFactorListSourceNodes;
+import alpha.rulp.ximpl.factor.XRFactorListSourceNode;
 import alpha.rulp.ximpl.factor.XRFactorListStmt;
 import alpha.rulp.ximpl.factor.XRFactorLoadStmt;
 import alpha.rulp.ximpl.factor.XRFactorModelOf;
@@ -155,7 +155,7 @@ public class RRuleLoader implements IRObjectLoader {
 //		RulpUtil.addFrameObject(frame, new XRFactorGetRule(F_GET_RULE));
 		RulpUtil.addFrameObject(frame, new XRFactorPriorityOf(F_PRIORITY_OF));
 		RulpUtil.addFrameObject(frame, new XRFactorSetPriority(F_SET_PRIORITY));
-		RulpUtil.addFrameObject(frame, new XRFactorListSourceNodes(F_LIST_SOURCE_NODE));
+		RulpUtil.addFrameObject(frame, new XRFactorListSourceNode(F_LIST_SOURCE_NODE));
 		RulpUtil.addFrameObject(frame, new XRFactorSetModelCachePath(F_SET_MODEL_CACHE_PATH));
 		RulpUtil.addFrameObject(frame, new XRFactorSetNodeCachePath(F_SET_NODE_CACHE_PATH));
 		RulpUtil.addFrameObject(frame, new XRFactorSaveModel(F_SAVE_MODEL));
