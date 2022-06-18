@@ -430,8 +430,9 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		}
 	}
 
-	public void setActionStmtList(List<IAction> actionList) {
-		this.actionList.addAll(actionList);
+	public void addAction(IAction action) {
+		action.setIndex(this.actionList.size());
+		this.actionList.add(action);
 	}
 
 	public void setMatchStmtList(List<IRList> matchStmtList) {

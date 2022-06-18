@@ -86,7 +86,7 @@ public interface IRNodeGraph {
 
 	public List<? extends IRReteNode> listNodes(RReteType reteType);
 
-	public Collection<? extends IRReteNode> listSourceNodes(IRReteNode node) throws RException;
+	public Collection<SourceNode> listSourceNodes(IRReteNode node) throws RException;
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 

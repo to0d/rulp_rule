@@ -6,17 +6,12 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
-import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class REntryFactory {
 
-	public static IREntryQueue createActionQueue(IRRule node, List<IAction> actionList) throws RException {
-
-		XREntryQueueAction queue = new XREntryQueueAction(node);
-		queue.addActions(actionList);
-
-		return queue;
+	public static IREntryQueue createActionQueue(IRRule node) throws RException {
+		return new XREntryQueueAction(node);
 	}
 
 	public static IREntryQueue createQueue(REntryQueueType type, IRReteNode node) throws RException {

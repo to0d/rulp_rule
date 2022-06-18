@@ -630,11 +630,12 @@ public class RNodeFactory {
 		node.setVarEntry(varEntry);
 
 		// Actions
-		List<IAction> actionList = ActionUtil.buildActions(model, varEntry, actionStmtList);
-		node.setActionStmtList(actionList);
+		for (IAction action : ActionUtil.buildActions(model, varEntry, actionStmtList)) {
+			node.addAction(action);
+		}
 
 		// Build action nodes
-		node.setEntryQueue(REntryFactory.createActionQueue(node, actionList));
+		node.setEntryQueue(REntryFactory.createActionQueue(node));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));

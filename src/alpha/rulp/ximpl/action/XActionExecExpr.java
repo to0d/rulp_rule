@@ -9,6 +9,8 @@ public class XActionExecExpr implements IAction {
 
 	private IRExpr expr;
 
+	private int index = -1;
+
 	public XActionExecExpr(IRExpr expr) {
 		super();
 		this.expr = expr;
@@ -27,6 +29,16 @@ public class XActionExecExpr implements IAction {
 	@Override
 	public IRExpr getExpr() {
 		return expr;
+	}
+
+	@Override
+	public int getIndex() {
+		return index;
+	}
+
+	@Override
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	@Override

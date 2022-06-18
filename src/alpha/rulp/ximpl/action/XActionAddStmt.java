@@ -15,6 +15,8 @@ public class XActionAddStmt implements IAction {
 
 	private IRExpr expr;
 
+	private int index = -1;
+
 	protected int inheritCount;
 
 	protected int inheritIndexs[];
@@ -73,8 +75,18 @@ public class XActionAddStmt implements IAction {
 		return expr;
 	}
 
+	@Override
+	public int getIndex() {
+		return index;
+	}
+
 	public void setExpr(IRExpr expr) {
 		this.expr = expr;
+	}
+
+	@Override
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	public String toString() {

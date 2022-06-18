@@ -83,6 +83,7 @@ import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
+import alpha.rulp.ximpl.node.SourceNode;
 import alpha.rulp.ximpl.node.XRNodeGraph;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
@@ -1179,8 +1180,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		if (isCacheEnable()) {
 
-			for (IRReteNode node : getNodeGraph().listSourceNodes(queryNode)) {
-				_checkCache(node);
+			for (SourceNode sn : getNodeGraph().listSourceNodes(queryNode)) {
+				_checkCache(sn.node);
 			}
 
 			_checkCache(queryNode);

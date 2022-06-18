@@ -1,7 +1,6 @@
 package alpha.rulp.ximpl.entry;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRVar;
@@ -36,17 +35,11 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 	public XREntryQueueAction(IRRule node) {
 		super();
 		this.node = node;
-	}
-
-	public void addActions(List<IAction> actions) {
-
-		this.actionStmtList.addAll(actions);
-		if (!needVar) {
-			for (IAction action : actions) {
-				if (action.getActionType() == RActionType.EXPR) {
-					needVar = true;
-					break;
-				}
+		this.actionStmtList.addAll(node.getActionList());
+		for (IAction action : node.getActionList()) {
+			if (action.getActionType() == RActionType.EXPR) {
+				needVar = true;
+				break;
 			}
 		}
 	}

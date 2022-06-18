@@ -13,4 +13,7 @@ public interface IAction {
 
 	public IRExpr getExpr();
 
+	public int getIndex();
+
+	public void setIndex(int index);
 }

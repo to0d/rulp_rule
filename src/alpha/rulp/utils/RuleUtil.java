@@ -42,6 +42,7 @@ import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
+import alpha.rulp.ximpl.node.SourceNode;
 import alpha.rulp.ximpl.runtime.XRInterpreter;
 
 public class RuleUtil {
@@ -491,7 +492,17 @@ public class RuleUtil {
 	}
 
 	public static Collection<? extends IRReteNode> listSourceNodes(IRModel model, IRList condList) throws RException {
-		return model.getNodeGraph().listSourceNodes(model.findNode(condList));
+		return listSourceNodes(model, model.findNode(condList));
+	}
+
+	public static Collection<? extends IRReteNode> listSourceNodes(IRModel model, IRReteNode node) throws RException {
+
+		Set<IRReteNode> nodes = new HashSet<>();
+		for (SourceNode sn : model.getNodeGraph().listSourceNodes(node)) {
+			nodes.add(sn.node);
+		}
+
+		return nodes;
 	}
 
 	public static List<? extends IRList> listStatements(IRModel model) throws RException {

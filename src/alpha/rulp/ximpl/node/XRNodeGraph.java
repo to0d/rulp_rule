@@ -108,6 +108,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		public Set<IRReteNode> actionNodes = null;
 
+		public Map<IAction, List<IRList>> actionUniqStmtListMap = null;
+
 		public IRList alphaUniqStmt = null;
 
 		public List<IRReteNode> bindFromNodeList = null;
@@ -118,13 +120,13 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		public int partialRecoveryPriority = -1;
 
-		public List<IRRule> relatedRules = null;
+//		public List<IRList> ruleActionUniqStmtList = null;
 
-		public List<IRList> ruleActionUniqStmtList = null;
+		public List<IRRule> relatedRules = null;
 
 		public int sourceNodeLastRuleIndex = -1;
 
-		public Set<IRReteNode> sourceNodes = null;
+		public Set<SourceNode> sourceNodes = null;
 
 		public int useCount = 0;
 
@@ -166,23 +168,48 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 		}
 
-		public List<IRList> getRuleActionUniqStmtList(XRNodeGraph graph) throws RException {
+		public List<IRList> getRuleActionUniqStmt(IAction action, XRNodeGraph graph) throws RException {
 
-			if (ruleActionUniqStmtList == null) {
-
-				Set<String> actionUniqStmtNames = new HashSet<>();
-				for (IAction action : ((IRRule) node).getActionList()) {
-					actionUniqStmtNames.addAll(ActionUtil.buildRelatedStmtUniqNames(action.getExpr()));
-				}
-
-				ruleActionUniqStmtList = new ArrayList<>();
-				for (String uniqName : actionUniqStmtNames) {
-					ruleActionUniqStmtList.add(graph._getUniqStmt(uniqName));
-				}
+			if (actionUniqStmtListMap == null) {
+				actionUniqStmtListMap = new HashMap<>();
 			}
 
-			return ruleActionUniqStmtList;
+			List<IRList> actionUniqStmtList = actionUniqStmtListMap.get(action);
+			if (actionUniqStmtList == null) {
+
+				List<String> uniqNames = ActionUtil.buildRelatedStmtUniqNames(action.getExpr());
+				if (uniqNames.isEmpty()) {
+					actionUniqStmtList = Collections.emptyList();
+				} else {
+					actionUniqStmtList = new ArrayList<>();
+					for (String uniqName : uniqNames) {
+						actionUniqStmtList.add(graph._getUniqStmt(uniqName));
+					}
+				}
+
+				actionUniqStmtListMap.put(action, actionUniqStmtList);
+			}
+
+			return actionUniqStmtList;
 		}
+
+//		public List<IRList> getRuleActionUniqStmtList(XRNodeGraph graph) throws RException {
+//
+//			if (ruleActionUniqStmtList == null) {
+//
+//				Set<String> actionUniqStmtNames = new HashSet<>();
+//				for (IAction action : ((IRRule) node).getActionList()) {
+//					actionUniqStmtNames.addAll(ActionUtil.buildRelatedStmtUniqNames(action.getExpr()));
+//				}
+//
+//				ruleActionUniqStmtList = new ArrayList<>();
+//				for (String uniqName : actionUniqStmtNames) {
+//					ruleActionUniqStmtList.add(graph._getUniqStmt(uniqName));
+//				}
+//			}
+//
+//			return ruleActionUniqStmtList;
+//		}
 
 		public int getUseCount() {
 			return this.useCount;
@@ -1128,8 +1155,8 @@ public class XRNodeGraph implements IRNodeGraph {
 				visitStack.add(newSrcNode);
 			}
 
-			for (IRReteNode newSrcNode : listSourceNodes(sourceNode)) {
-				visitStack.add(newSrcNode);
+			for (SourceNode newSrcNode : listSourceNodes(sourceNode)) {
+				visitStack.add(newSrcNode.node);
 			}
 		}
 
@@ -1401,7 +1428,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		_constraintCheckSubGraphMap = null;
 	}
 
-	protected Set<IRReteNode> _listSourceNodesForAlphaNode(IRReteNode node) throws RException {
+	protected Set<SourceNode> _listSourceNodesForAlphaNode(IRReteNode node) throws RException {
 
 		XGraphInfo info = (XGraphInfo) node.getGraphInfo();
 
@@ -1423,7 +1450,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		if (info.sourceNodeLastRuleIndex < maxRuleId) {
 
-			NEXT_RULE: for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
+			for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
 
 				// the rule has been processed
 				if (ruleNode.getNodeId() <= info.sourceNodeLastRuleIndex) {
@@ -1433,20 +1460,38 @@ public class XRNodeGraph implements IRNodeGraph {
 				info.sourceNodeLastRuleIndex = ruleNode.getNodeId();
 
 				XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
+				IRRule rule = (IRRule) ruleNode;
+				SourceNode sourceNode = null;
 
-				for (IRList ruleActionUniqStmt : ruleNodeInfo.getRuleActionUniqStmtList(this)) {
-					if (ReteUtil.matchUniqStmt(ruleActionUniqStmt, info.alphaUniqStmt)) {
-						info.sourceNodes.add(ruleNode);
-						continue NEXT_RULE;
+				NEXT_ACTION: for (IAction action : rule.getActionList()) {
+
+					for (IRList actionUniqStmt : ruleNodeInfo.getRuleActionUniqStmt(action, this)) {
+
+						if (ReteUtil.matchUniqStmt(actionUniqStmt, info.alphaUniqStmt)) {
+							if (sourceNode == null) {
+								sourceNode = new SourceNode();
+								sourceNode.node = ruleNode;
+								sourceNode.uniqStmt = info.alphaUniqStmt.toString();
+							}
+
+							sourceNode.actionList.add(action);
+							continue NEXT_ACTION;
+						}
 					}
+
 				}
+
+				if (sourceNode != null) {
+					info.sourceNodes.add(sourceNode);
+				}
+
 			}
 		}
 
 		return info.sourceNodes;
 	}
 
-	protected Set<IRReteNode> _listSourceNodesForRootNode(IRReteNode node) throws RException {
+	protected Set<SourceNode> _listSourceNodesForRootNode(IRReteNode node) throws RException {
 
 		XGraphInfo info = (XGraphInfo) node.getGraphInfo();
 
@@ -1472,7 +1517,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		if (info.sourceNodeLastRuleIndex < maxRuleId) {
 
-			NEXT_RULE: for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
+			for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
 
 				// the rule has been processed
 				if (ruleNode.getNodeId() <= info.sourceNodeLastRuleIndex) {
@@ -1482,14 +1527,30 @@ public class XRNodeGraph implements IRNodeGraph {
 				info.sourceNodeLastRuleIndex = ruleNode.getNodeId();
 
 				XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
+				IRRule rule = (IRRule) ruleNode;
+				SourceNode sourceNode = null;
 
-				for (IRList ruleActionUniqStmt : ruleNodeInfo.getRuleActionUniqStmtList(this)) {
-					if (ruleActionUniqStmt.size() == node.getEntryLength()
-							&& RuleUtil.equal(namedName, ruleActionUniqStmt.getNamedName())) {
-						info.sourceNodes.add(ruleNode);
-						continue NEXT_RULE;
+				NEXT_ACTION: for (IAction action : rule.getActionList()) {
+
+					for (IRList actionUniqStmt : ruleNodeInfo.getRuleActionUniqStmt(action, this)) {
+
+						if (actionUniqStmt.size() == node.getEntryLength()
+								&& RuleUtil.equal(namedName, actionUniqStmt.getNamedName())) {
+							if (sourceNode == null) {
+								sourceNode = new SourceNode();
+								sourceNode.node = ruleNode;
+								sourceNode.uniqStmt = node.getUniqName();
+							}
+							sourceNode.actionList.add(action);
+							continue NEXT_ACTION;
+						}
 					}
 				}
+
+				if (sourceNode != null) {
+					info.sourceNodes.add(sourceNode);
+				}
+
 			}
 		}
 
@@ -1525,14 +1586,14 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 
 				// Build rule -> named map
-				for (IRReteNode sourceNode : _listSourceNodesForRootNode(node)) {
+				for (SourceNode sourceNode : _listSourceNodesForRootNode(node)) {
 
-					if (sourceNode.getReteType() == RReteType.RULE) {
+					if (sourceNode.node.getReteType() == RReteType.RULE) {
 
 						List<IRReteNode> affectList = _affectNodeMap.get(sourceNode);
 						if (affectList == null) {
 							affectList = new LinkedList<>();
-							_affectNodeMap.put(sourceNode, affectList);
+							_affectNodeMap.put(sourceNode.node, affectList);
 						}
 
 						if (!affectList.contains(node)) {
@@ -1981,6 +2042,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			gcCacheCount++;
 
 			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
+
 				@Override
 				public int compare(AbsReteNode n1, AbsReteNode n2) {
 					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
@@ -1988,7 +2050,11 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 			});
 
-			for (AbsReteNode node : listNodes(RReteType.NAME0)) {
+			for (
+
+			AbsReteNode node :
+
+			listNodes(RReteType.NAME0)) {
 
 				if (!node.getChildNodes().isEmpty()) {
 					continue;
@@ -2021,6 +2087,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 			}
 		}
+
 	}
 
 	@Override
@@ -2185,7 +2252,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public Collection<IRReteNode> listSourceNodes(IRReteNode node) throws RException {
+	public Collection<SourceNode> listSourceNodes(IRReteNode node) throws RException {
 
 		switch (node.getReteType()) {
 		case ALPH0:

@@ -1625,7 +1625,7 @@ public class StatsUtil {
 						RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
 			}
 
-			List<IRReteNode> sourceNodes = new ArrayList<>(nodeMatrix.getModel().getNodeGraph().listSourceNodes(node));
+			List<IRReteNode> sourceNodes = new ArrayList<>(RuleUtil.listSourceNodes(nodeMatrix.getModel(), node));
 			Collections.sort(sourceNodes, (n1, n2) -> {
 				return n1.getNodeName().compareTo(n2.getNodeName());
 			});
