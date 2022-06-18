@@ -1608,16 +1608,23 @@ public class StatsUtil {
 			return;
 		}
 
-		sb.append("node source info:\n");
-		sb.append(SEP_LINE1);
-		sb.append(String.format("%-13s   %-13s   %-6s %s\n", "NODE[n]", "Rule", "Length", "Description"));
-		sb.append(SEP_LINE2);
+		boolean outputHead = false;
 
 		for (IRReteNode node : nodes) {
 
 			Collection<SourceNode> sourceNodes = nodeMatrix.getModel().getNodeGraph().listSourceNodes(node);
 			if (sourceNodes.isEmpty()) {
 				continue;
+			}
+
+			if (!outputHead) {
+
+				sb.append("node source info:\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format("%-13s   %-13s   %-6s %s\n", "NODE[n]", "Rule", "Length", "Description"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
 			}
 
 			String nodeName = String.format("%s(%s)", node.getNodeName(), node.getReteType());
@@ -1656,8 +1663,11 @@ public class StatsUtil {
 			}
 		}
 
-		sb.append(SEP_LINE1);
-		sb.append("\n");
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
 	}
 
 	private static void _printNodeStats2(StringBuffer sb, IReteNodeMatrix nodeMatrix, RReteType... reteTypes)
