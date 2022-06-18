@@ -81,6 +81,7 @@ CST01[4]     0     EXPR  (do
                              )
                              (-> $invalid_constraint$:'(?msg))
                          )
+                         0: ADD $invalid_constraint$:'(?0)
 CST02[3]     0     ADD   $cst_node$:'(?0, type)
 CST03[3]     0     ADD   $cst_node$:'(?0, max)
 CST04[3]     0     ADD   $cst_node$:'(?0, min)

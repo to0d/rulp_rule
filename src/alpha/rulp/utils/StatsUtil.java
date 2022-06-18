@@ -47,6 +47,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import alpha.common.utils.Pair;
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -63,6 +64,7 @@ import alpha.rulp.utils.OptimizeUtil.NodeCount;
 import alpha.rulp.utils.OptimizeUtil.OutputType;
 import alpha.rulp.utils.OptimizeUtil.RefArray;
 import alpha.rulp.utils.OptimizeUtil.RuleCounter;
+import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.action.XActionAddStmt;
@@ -1482,46 +1484,41 @@ public class StatsUtil {
 
 			XREntryQueueAction entryQueue = (XREntryQueueAction) node.getEntryQueue();
 			LinkedList<IAction> actions = entryQueue.getActionStmtList();
+			String line0 = node.getNodeName() + "[" + node.getEntryLength() + "]";
 
 			if (actions.size() == 0) {
 
-				sb.append(String.format("%-12s %-5d %-5s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
-						0, "", ""));
+				sb.append(String.format("%-12s %-5d %-5s %s\n", line0, 0, "", ""));
 
 				continue;
 			}
 
-			ArrayList<String> outLines = new ArrayList<>();
-			IAction action = actions.get(0);
-			if (action.getActionType() == RActionType.ADD) {
-				outLines.add(action.toString());
-			} else {
-				FormatUtil.format(action.getExpr(), outLines, 0);
-			}
+			for (int i = 0; i < actions.size(); ++i) {
 
-			sb.append(String.format("%-12s %-5d %-5s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]", 0,
-					actions.size() > 0 ? "" + action.getActionType() : "", outLines.size() > 0 ? outLines.get(0) : ""));
-
-			for (int j = 1; j < outLines.size(); ++j) {
-				sb.append(String.format("%24s %s\n", "", outLines.get(j)));
-			}
-
-			for (int i = 1; i < actions.size(); ++i) {
-
-				outLines = new ArrayList<>();
-				action = actions.get(i);
-				if (action.getActionType() == RActionType.ADD) {
+				ArrayList<String> outLines = new ArrayList<>();
+				IAction action = actions.get(i);
+				if (action.getActionType() != RActionType.EXPR) {
 					outLines.add(action.toString());
 				} else {
 					FormatUtil.format(action.getExpr(), outLines, 0);
 				}
 
-				sb.append(String.format("%12s %-5d %-5s %s\n", "", i, action.getActionType(),
+				sb.append(String.format("%-12s %-5d %-5s %s\n", i == 0 ? line0 : "", i, action.getActionType(),
 						outLines.size() > 0 ? outLines.get(0) : ""));
 
 				for (int j = 1; j < outLines.size(); ++j) {
 					sb.append(String.format("%24s %s\n", "", outLines.get(j)));
 				}
+
+				if (action.getActionType() == RActionType.EXPR) {
+					int k = 0;
+					for (IRExpr stmtExpr : action.getStmtExprList()) {
+						sb.append(String.format("%-24s %d: %s %s\n", "", k++, "" + ActionUtil.getActionType(stmtExpr),
+								ActionUtil.getRelatedUniqName(ActionUtil.getRelatedStmt(stmtExpr))));
+
+					}
+				}
+
 			}
 		}
 
