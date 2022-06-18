@@ -1156,7 +1156,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			for (SourceNode newSrcNode : listSourceNodes(sourceNode)) {
-				visitStack.add(newSrcNode.node);
+				visitStack.add(newSrcNode.rule);
 			}
 		}
 
@@ -1470,7 +1470,7 @@ public class XRNodeGraph implements IRNodeGraph {
 						if (ReteUtil.matchUniqStmt(actionUniqStmt, info.alphaUniqStmt)) {
 							if (sourceNode == null) {
 								sourceNode = new SourceNode();
-								sourceNode.node = ruleNode;
+								sourceNode.rule = rule;
 								sourceNode.uniqStmt = info.alphaUniqStmt.toString();
 							}
 
@@ -1538,7 +1538,7 @@ public class XRNodeGraph implements IRNodeGraph {
 								&& RuleUtil.equal(namedName, actionUniqStmt.getNamedName())) {
 							if (sourceNode == null) {
 								sourceNode = new SourceNode();
-								sourceNode.node = ruleNode;
+								sourceNode.rule = rule;
 								sourceNode.uniqStmt = node.getUniqName();
 							}
 							sourceNode.actionList.add(action);
@@ -1588,12 +1588,12 @@ public class XRNodeGraph implements IRNodeGraph {
 				// Build rule -> named map
 				for (SourceNode sourceNode : _listSourceNodesForRootNode(node)) {
 
-					if (sourceNode.node.getReteType() == RReteType.RULE) {
+					if (sourceNode.rule.getReteType() == RReteType.RULE) {
 
 						List<IRReteNode> affectList = _affectNodeMap.get(sourceNode);
 						if (affectList == null) {
 							affectList = new LinkedList<>();
-							_affectNodeMap.put(sourceNode.node, affectList);
+							_affectNodeMap.put(sourceNode.rule, affectList);
 						}
 
 						if (!affectList.contains(node)) {

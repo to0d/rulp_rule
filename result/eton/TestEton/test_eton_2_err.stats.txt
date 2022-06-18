@@ -167,46 +167,8 @@ Priority        NAME0 EXPR0 EXPR1 BETA0  RULE
 
 node source info:
 =================================================================================================================================================================
-NODE[n]         Source          Length Description
+NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001(NAME0) :                 2      eton_daily_task1:'(?0 ?1)
-N00003(NAME0) :                 3      eton_working_task1:'(?0 ?1 ?2)
-N00007(NAME0) :                 3      eton_completed_task1:'(?0 ?1 ?2)
-N00011(NAME0) :                 2      task_func:'(?0 ?1)
-N00018(NAME0) :                 4      eton_daily_data:'(?0 ?1 ?2 ?3)
-E00005(EXPR0) :                 4      '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
-             0: B00004(BETA0)   4      '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-E00009(EXPR0) :                 4      '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
-             0: B00008(BETA0)   4      '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-E10013(EXPR1) :                 3      '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
-             0: B00012(BETA0)   3      '(task_func:'(?0 ?1) task_func:'(?0 ?2))
-E10016(EXPR1) :                 3      '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
-             0: B00015(BETA0)   3      '(task_func:'(?0 ?1) task_func:'(?2 ?1))
-B00004(BETA0) :                 4      '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-             0: N00003(NAME0)   4      eton_working_task1:'(?0 ?1 ?2)
-             1: N00003(NAME0)   4      eton_working_task1:'(?0 ?1 ?2)
-B00008(BETA0) :                 4      '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-             0: N00007(NAME0)   4      eton_completed_task1:'(?0 ?1 ?2)
-             1: N00003(NAME0)   4      eton_working_task1:'(?0 ?1 ?2)
-B00012(BETA0) :                 3      '(task_func:'(?0 ?1) task_func:'(?0 ?2))
-             0: N00011(NAME0)   3      task_func:'(?0 ?1)
-             1: N00011(NAME0)   3      task_func:'(?0 ?1)
-B00015(BETA0) :                 3      '(task_func:'(?0 ?1) task_func:'(?2 ?1))
-             0: N00011(NAME0)   3      task_func:'(?0 ?1)
-             1: N00011(NAME0)   3      task_func:'(?0 ?1)
-B00019(BETA0) :                 4      '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
-             0: N00003(NAME0)   4      eton_working_task1:'(?0 ?1 ?2)
-             1: N00011(NAME0)   4      task_func:'(?0 ?1)
-R1(RULE)      :                 2      eton_daily_task1:'(?task ?arg0) ==> (add_working_task ?task ?arg0)
-             0: N00001(NAME0)   2      eton_daily_task1:'(?0 ?1)
-R2(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) ==> (do (trace "R2:remove-stmt: " eton_working_task1:'(?day2 ?task ?arg0)) (remove-stmt eton_working_task1:'(?day2 ?task ?arg0)))
-             0: E00005(EXPR0)   4      '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
-R3(RULE)      :                 4      eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) ==> (do (trace "R3:remove-stmt: " eton_working_task1:'(?day1 ?task ?arg0)) (remove-stmt eton_working_task1:'(?day1 ?task ?arg0)))
-             0: E00009(EXPR0)   4      '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
-R4(RULE)      :                 3      task_func:'(?t1 ?f1) task_func:'(?t1 ?f2) (!= ?f1 ?f2) ==> (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2))
-             0: E10013(EXPR1)   3      '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
-R5(RULE)      :                 3      task_func:'(?t1 ?f1) task_func:'(?t2 ?f1) (!= ?t1 ?t2) ==> (throw bad-rule (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1))
-             0: E10016(EXPR1)   3      '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
 =================================================================================================================================================================
 
 

@@ -82,19 +82,10 @@ Priority        NAME0   VAR ALPH1 BETA1  RULE
 
 node source info:
 =================================================================================================================================================================
-NODE[n]         Source          Length Description
+NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001(NAME0) :                 1      name1:'(?0)
 N00006(NAME0) :                 1      name2:'(?0)
-             0: RU000(RULE)     1     
-V00002(VAR)   :                 3      (var-changed ?xmode ?xmode.old ?xmode.new)
-A10003(ALPH1) :                 3      (var-changed ?xmode ?xmode.old true)
-             0: V00002(VAR)     3      (var-changed ?xmode ?xmode.old ?xmode.new)
-B10004(BETA1) :                 3      '(name1:'(?0) (var-changed ?xmode ?xmode.old true))
-             0: N00001(NAME0)   3      name1:'(?0)
-             1: A10003(ALPH1)   3      (var-changed ?xmode ?xmode.old true)
-RU000(RULE)   :                 3      (var-changed ?xmode ?v true) name1:'(?a) ==> (-> name2:'(?a))
-             0: B10004(BETA1)   3      '(name1:'(?0) (var-changed ?xmode ?xmode.old true))
+             0: RU000           1      A(1)=[0]
 =================================================================================================================================================================
 
 

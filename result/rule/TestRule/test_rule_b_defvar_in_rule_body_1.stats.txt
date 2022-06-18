@@ -103,21 +103,12 @@ Priority        ROOT0 ALPH0 EXPR0  RULE
 
 node source info:
 =================================================================================================================================================================
-NODE[n]         Source          Length Description
+NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001(ROOT0) :                 3      '(?0 ?1 ?2)
-             0: RU000(RULE)     3     
-A00002(ALPH0) :                 3      '(?0 nm:typeOf ?1)
-             0: R00001(ROOT0)   3      '(?0 ?1 ?2)
-A00003(ALPH0) :                 3      '(?0 nm:typeOf nm:tag)
-             0: A00002(ALPH0)   3      '(?0 nm:typeOf ?1)
+             0: RU000           3      A(1)=[0]
 A00006(ALPH0) :                 3      '(?0 nm:isVersionOf ?1)
-             0: RU000(RULE)     3     
-             1: R00001(ROOT0)   3      '(?0 ?1 ?2)
-E00004(EXPR0) :                 3      '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
-             0: A00003(ALPH0)   3      '(?0 nm:typeOf nm:tag)
-RU000(RULE)   :                 3      '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) ==> (do (defvar ?tagName (to-string ?tag)) (defvar ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (defvar ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (defvar ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt m '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion)))))))
-             0: E00004(EXPR0)   3      '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
+             0: RU000           3      A(1)=[0]
 =================================================================================================================================================================
 
 

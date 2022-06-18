@@ -125,35 +125,16 @@ Priority        NAME0 EXPR1 BETA0  RULE
 
 node source info:
 =================================================================================================================================================================
-NODE[n]         Source          Length Description
+NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001(NAME0) :                 1      n1:'(?0)
-N00002(NAME0) :                 3      $cst_type$:'(?0 ?1 ?2)
-N00007(NAME0) :                 3      $cst_max$:'(?0 ?1 ?2)
-N00009(NAME0) :                 3      $cst_min$:'(?0 ?1 ?2)
 N00011(NAME0) :                 1      $invalid_constraint$:'(?0)
-             0: CST01(RULE)     1     
+             0: CST01           1      A(1)=[0]
 N00012(NAME0) :                 2      $cst_node$:'(?0 ?1)
-             0: CST02(RULE)     2     
-             1: CST03(RULE)     2     
-             2: CST04(RULE)     2     
+             0: CST02           2      A(1)=[0]
+             1: CST03           2      A(1)=[0]
+             2: CST04           2      A(1)=[0]
 N00013(NAME0) :                 1      n2:'(?0)
-             0: RU000(RULE)     1     
-E10004(EXPR1) :                 4      '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
-             0: B00003(BETA0)   4      '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
-B00003(BETA0) :                 4      '($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3))
-             0: N00002(NAME0)   4      $cst_type$:'(?0 ?1 ?2)
-             1: N00002(NAME0)   4      $cst_type$:'(?0 ?1 ?2)
-CST01(RULE)   :                 4      $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) ==> (do (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg)))
-             0: E10004(EXPR1)   4      '('($cst_type$:'(?0 ?1 ?2) $cst_type$:'(?0 ?1 ?3)) (not-equal ?2 ?3))
-CST02(RULE)   :                 3      $cst_type$:'(?node ?index ?type1) ==> (-> $cst_node$:'(?node type))
-             0: N00002(NAME0)   3      $cst_type$:'(?0 ?1 ?2)
-CST03(RULE)   :                 3      $cst_max$:'(?node ?index ?value) ==> (-> $cst_node$:'(?node max))
-             0: N00007(NAME0)   3      $cst_max$:'(?0 ?1 ?2)
-CST04(RULE)   :                 3      $cst_min$:'(?node ?index ?value) ==> (-> $cst_node$:'(?node min))
-             0: N00009(NAME0)   3      $cst_min$:'(?0 ?1 ?2)
-RU000(RULE)   :                 1      n1:'(?x) ==> (-> m n2:'(?x))
-             0: N00001(NAME0)   1      n1:'(?0)
+             0: RU000           1      A(1)=[0]
 =================================================================================================================================================================
 
 

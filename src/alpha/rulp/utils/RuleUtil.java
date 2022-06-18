@@ -491,15 +491,15 @@ public class RuleUtil {
 		return nodes;
 	}
 
-	public static Collection<? extends IRReteNode> listSourceNodes(IRModel model, IRList condList) throws RException {
+	public static Collection<IRRule> listSourceNodes(IRModel model, IRList condList) throws RException {
 		return listSourceNodes(model, model.findNode(condList));
 	}
 
-	public static Collection<? extends IRReteNode> listSourceNodes(IRModel model, IRReteNode node) throws RException {
+	public static Collection<IRRule> listSourceNodes(IRModel model, IRReteNode node) throws RException {
 
-		Set<IRReteNode> nodes = new HashSet<>();
+		Set<IRRule> nodes = new HashSet<>();
 		for (SourceNode sn : model.getNodeGraph().listSourceNodes(node)) {
-			nodes.add(sn.node);
+			nodes.add(sn.rule);
 		}
 
 		return nodes;

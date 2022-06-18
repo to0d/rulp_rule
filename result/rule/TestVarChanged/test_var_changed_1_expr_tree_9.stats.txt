@@ -83,19 +83,10 @@ Priority        ROOT0 NAME0   VAR EXPR2 BETA0  RULE
 
 node source info:
 =================================================================================================================================================================
-NODE[n]         Source          Length Description
+NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00006(ROOT0) :                 4      '(?0 ?1 ?2 ?3)
-             0: RU000(RULE)     4     
-N00001(NAME0) :                 2      url-entry:'(?0 ?1)
-V00002(VAR)   :                 3      (var-changed ?x ?x.old ?x.new)
-E20003(EXPR2) :                 3      ((var-changed ?x ?x.old ?x.new) (str-start-with ?x.new ?xurl))
-             0: V00002(VAR)     3      (var-changed ?x ?x.old ?x.new)
-B00004(BETA0) :                 4      '(url-entry:'(?0 ?1) ((var-changed ?x ?x.old ?x.new) (str-start-with ?1 ?xurl)))
-             0: N00001(NAME0)   4      url-entry:'(?0 ?1)
-             1: E20003(EXPR2)   4      ((var-changed ?x ?x.old ?x.new) (str-start-with ?x.new ?xurl))
-RU000(RULE)   :                 4      (var-changed ?x ?url) (str-start-with ?url ?xurl) url-entry:'(?url-name ?url) ==> (-> m '(a b ?url ?url-name))
-             0: B00004(BETA0)   4      '(url-entry:'(?0 ?1) ((var-changed ?x ?x.old ?x.new) (str-start-with ?1 ?xurl)))
+             0: RU000           4      A(1)=[0]
 =================================================================================================================================================================
 
 

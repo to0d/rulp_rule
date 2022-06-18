@@ -135,46 +135,24 @@ Priority        ROOT0 ALPH0 BETA0 BETA2 BETA3  RULE
 
 node source info:
 =================================================================================================================================================================
-NODE[n]         Source          Length Description
+NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001(ROOT0) :                 3      '(?0 ?1 ?2)
-             0: RU001(RULE)     3     
+             0: RU001           3      A(1)=[0]
 R00010(ROOT0) :                 4      '(?0 ?1 ?2 ?3)
-             0: RU000(RULE)     4     
+             0: RU000           4      A(1)=[0]
 A00002(ALPH0) :                 3      '(?0 has-sex ?1)
-             0: RU001(RULE)     3     
-             1: R00001(ROOT0)   3      '(?0 ?1 ?2)
+             0: RU001           3      A(1)=[0]
 A00003(ALPH0) :                 3      '(?0 typeof ?1)
-             0: RU001(RULE)     3     
-             1: R00001(ROOT0)   3      '(?0 ?1 ?2)
+             0: RU001           3      A(1)=[0]
 A00004(ALPH0) :                 3      '(?0 typeof guess)
-             0: RU001(RULE)     3     
-             1: A00003(ALPH0)   3      '(?0 typeof ?1)
+             0: RU001           3      A(1)=[0]
 A00008(ALPH0) :                 3      '(?0 has-hobby ?1)
-             0: RU001(RULE)     3     
-             1: R00001(ROOT0)   3      '(?0 ?1 ?2)
+             0: RU001           3      A(1)=[0]
 A00011(ALPH0) :                 4      '(canBeCouple ?0 ?1 ?2)
-             0: RU000(RULE)     4     
-             1: R00010(ROOT0)   4      '(?0 ?1 ?2 ?3)
+             0: RU000           4      A(1)=[0]
 A00012(ALPH0) :                 4      '(canBeCouple ?0 ?1 true)
-             0: RU000(RULE)     4     
-             1: A00011(ALPH0)   4      '(canBeCouple ?0 ?1 ?2)
-B00005(BETA0) :                 2      '('(?0 has-sex ?1) '(?0 typeof guess))
-             0: A00002(ALPH0)   2      '(?0 has-sex ?1)
-             1: A00004(ALPH0)   2      '(?0 typeof guess)
-B00009(BETA0) :                 3      '('(?0 has-hobby ?1) '(?2 has-hobby ?1))
-             0: A00008(ALPH0)   3      '(?0 has-hobby ?1)
-             1: A00008(ALPH0)   3      '(?0 has-hobby ?1)
-B20013(BETA2) :                 3      '('('(?0 has-hobby ?1) '(?2 has-hobby ?1)) '(canBeCouple ?0 ?2 true))
-             0: B00009(BETA0)   3      '('(?0 has-hobby ?1) '(?2 has-hobby ?1))
-             1: A00012(ALPH0)   3      '(canBeCouple ?0 ?1 true)
-B30006(BETA3) :                 4      '('('(?0 has-sex ?1) '(?0 typeof guess)) '('(?2 has-sex ?3) '(?2 typeof guess)) (not-equal ?0 ?2))
-             0: B00005(BETA0)   4      '('(?0 has-sex ?1) '(?0 typeof guess))
-             1: B00005(BETA0)   4      '('(?0 has-sex ?1) '(?0 typeof guess))
-RU000(RULE)   :                 4      '(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) ==> (if (equal ?s1 ?s2) (-> '(canBeCouple ?g1 ?g2 false)) (-> '(canBeCouple ?g1 ?g2 true)))
-             0: B30006(BETA3)   4      '('('(?0 has-sex ?1) '(?0 typeof guess)) '('(?2 has-sex ?3) '(?2 typeof guess)) (not-equal ?0 ?2))
-RU001(RULE)   :                 3      '(canBeCouple ?g1 ?g2 true) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h) ==> (-> '(canSitTogether ?g1 ?g2))
-             0: B20013(BETA2)   3      '('('(?0 has-hobby ?1) '(?2 has-hobby ?1)) '(canBeCouple ?0 ?2 true))
+             0: RU000           4      A(1)=[0]
 =================================================================================================================================================================
 
 

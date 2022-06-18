@@ -82,6 +82,7 @@ import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
+import alpha.rulp.ximpl.node.SourceNode;
 import alpha.rulp.ximpl.node.XRNodeRule0;
 
 public class StatsUtil {
@@ -1609,10 +1610,15 @@ public class StatsUtil {
 
 		sb.append("node source info:\n");
 		sb.append(SEP_LINE1);
-		sb.append(String.format("%-13s   %-13s   %-6s %s\n", "NODE[n]", "Source", "Length", "Description"));
+		sb.append(String.format("%-13s   %-13s   %-6s %s\n", "NODE[n]", "Rule", "Length", "Description"));
 		sb.append(SEP_LINE2);
 
 		for (IRReteNode node : nodes) {
+
+			Collection<SourceNode> sourceNodes = nodeMatrix.getModel().getNodeGraph().listSourceNodes(node);
+			if (sourceNodes.isEmpty()) {
+				continue;
+			}
 
 			String nodeName = String.format("%s(%s)", node.getNodeName(), node.getReteType());
 
@@ -1625,28 +1631,27 @@ public class StatsUtil {
 						RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
 			}
 
-			List<IRReteNode> sourceNodes = new ArrayList<>(RuleUtil.listSourceNodes(nodeMatrix.getModel(), node));
-			Collections.sort(sourceNodes, (n1, n2) -> {
-				return n1.getNodeName().compareTo(n2.getNodeName());
+			List<SourceNode> sourceNodeList = new ArrayList<>(sourceNodes);
+			Collections.sort(sourceNodeList, (n1, n2) -> {
+				return n1.rule.getNodeName().compareTo(n2.rule.getNodeName());
 			});
 
-			if (node.getParentNodes() != null) {
-				for (IRReteNode pnode : node.getParentNodes()) {
-					sourceNodes.add(pnode);
-				}
-			}
-
 			int nodeIndex = 0;
-			for (IRReteNode sourceNode : sourceNodes) {
+			for (SourceNode sn : sourceNodeList) {
 
-				String srcName = String.format("%s(%s)", sourceNode.getNodeName(), sourceNode.getReteType());
-
-				if (sourceNode.getReteType() != RReteType.RULE) {
-					sb.append(String.format("%14d: %-14s  %-6d %s\n", nodeIndex++, srcName, node.getEntryLength(),
-							sourceNode.getUniqName()));
-				} else {
-					sb.append(String.format("%14d: %-14s  %-6d\n", nodeIndex++, srcName, node.getEntryLength()));
+				String actionStr = String.format("A(%d)=[", sn.actionList.size());
+				int index = 0;
+				for (IAction action : sn.actionList) {
+					if (index++ != 0) {
+						actionStr += ", ";
+					}
+					actionStr += action.getIndex();
 				}
+
+				actionStr += "]";
+
+				sb.append(String.format("%14d: %-14s  %-6d %s\n", nodeIndex++, sn.rule.getNodeName(),
+						node.getEntryLength(), actionStr));
 
 			}
 		}
