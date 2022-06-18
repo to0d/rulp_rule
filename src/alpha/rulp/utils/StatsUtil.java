@@ -2422,7 +2422,7 @@ public class StatsUtil {
 			/*********************************************************************/
 			sb.append(String.format("Model<%s> stats info:\n", "" + model.getModelName()));
 			_printReteCounter(sb, modelNodeMatrix, false);
-			sb.append("\n");
+			
 
 			/****************************************************/
 			// Output count info
