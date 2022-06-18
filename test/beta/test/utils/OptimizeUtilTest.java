@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -79,6 +80,31 @@ class OptimizeUtilTest extends RulpTestBase {
 		}
 	}
 
+	void _test_optimize_rule_action_index_var(String condExpr, String actionExpr, String expectActionExpr) {
+
+		try {
+
+			LinkedList<IRObject> condList = new LinkedList<>();
+			for (IRObject obj : RulpFactory.createParser().parse(condExpr)) {
+				condList.add(obj);
+			}
+
+			List<IRObject> actionList = new LinkedList<>();
+			for (IRObject obj : RulpFactory.createParser().parse(actionExpr)) {
+				actionList.add(obj);
+			}
+
+			IRList optAtionList = OptimizeUtil.optimizeRuleActionIndexVar(RulpFactory.createList(condList),
+					RulpFactory.createList(actionList));
+
+			assertEquals(expectActionExpr, RulpUtil.toString(optAtionList));
+
+		} catch (RException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+
 	@Test
 	void test_optimize_expr() {
 
@@ -94,7 +120,7 @@ class OptimizeUtilTest extends RulpTestBase {
 	}
 
 	@Test
-	void _test_optimize_rule_has_stmt() {
+	void test_optimize_rule_has_stmt() {
 
 		_setup();
 
@@ -104,6 +130,19 @@ class OptimizeUtilTest extends RulpTestBase {
 
 		_test_optimize_rule_has_stmt("'(?a ?p ?b) (has-stmt (?b p c))", "(-> '(?a p2 d))", "'('(?a ?p ?b))",
 				"'((if (has-stmt (?b p c)) do (-> '(?a p2 d))))");
+
+	}
+
+	@Test
+	void test_optimize_rule_action_index_var() {
+
+		_setup();
+
+		_test_optimize_rule_action_index_var("'(?x p ?y) '(?y p ?z)", "(remove-stmt ?0)",
+				"'((remove-stmt '(?x p ?y)))");
+
+		_test_optimize_rule_action_index_var("'(?x p ?y) '(?y p ?z)", "(remove-stmt '(?x p ?y))",
+				"'((remove-stmt '(?x p ?y)))");
 
 	}
 

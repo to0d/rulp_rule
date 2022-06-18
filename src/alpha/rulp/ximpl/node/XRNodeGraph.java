@@ -79,6 +79,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.action.ActionUtil;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;
@@ -170,9 +171,8 @@ public class XRNodeGraph implements IRNodeGraph {
 			if (ruleActionUniqStmtList == null) {
 
 				Set<String> actionUniqStmtNames = new HashSet<>();
-
-				for (IRExpr expr : ((IRRule) node).getActionStmtList()) {
-					actionUniqStmtNames.addAll(ActionUtil.buildRelatedStmtUniqNames(expr));
+				for (IAction action : ((IRRule) node).getActionList()) {
+					actionUniqStmtNames.addAll(ActionUtil.buildRelatedStmtUniqNames(action.getExpr()));
 				}
 
 				ruleActionUniqStmtList = new ArrayList<>();
