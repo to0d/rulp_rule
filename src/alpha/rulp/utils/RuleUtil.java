@@ -492,17 +492,42 @@ public class RuleUtil {
 	}
 
 	public static Collection<IRRule> listSourceNodes(IRModel model, IRList condList) throws RException {
-		return listSourceNodes(model, model.findNode(condList));
+
+		Set<IRRule> nodes = new HashSet<>();
+		for (SourceNode sn : model.getNodeGraph().listSourceNodes(condList)) {
+			nodes.add(sn.rule);
+		}
+
+		return nodes;
 	}
 
 	public static Collection<IRRule> listSourceNodes(IRModel model, IRReteNode node) throws RException {
 
 		Set<IRRule> nodes = new HashSet<>();
-		for (SourceNode sn : model.getNodeGraph().listSourceNodes(node)) {
+		for (SourceNode sn : listSource(model, node)) {
 			nodes.add(sn.rule);
 		}
 
 		return nodes;
+	}
+
+	public static Collection<SourceNode> listSource(IRModel model, IRReteNode node) throws RException {
+
+		switch (node.getReteType()) {
+		case ALPH0:
+		case ROOT0:
+		case NAME0:
+
+			List<IRObject> objs = model.getInterpreter().getParser().parse(node.getUniqName());
+			if (objs.size() != 1) {
+				throw new RException("invalid uniqName: " + node.getUniqName());
+			}
+
+			return model.getNodeGraph().listSourceNodes(RulpUtil.asList(objs.get(0)));
+
+		default:
+			return Collections.emptySet();
+		}
 	}
 
 	public static List<? extends IRList> listStatements(IRModel model) throws RException {

@@ -1179,11 +1179,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Update cache
 		/******************************************************/
 		if (isCacheEnable()) {
-
-			for (SourceNode sn : getNodeGraph().listSourceNodes(queryNode)) {
+			for (SourceNode sn : RuleUtil.listSource(this, queryNode)) {
 				_checkCache(sn.rule);
 			}
-
 			_checkCache(queryNode);
 		}
 

@@ -15,6 +15,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RCountType;
+import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 
@@ -123,7 +124,7 @@ public class XRReteCounter implements IRReteNodeCounter {
 
 			case SourceCount:
 				for (IRReteNode node : nodeList) {
-					value += reteNodeMatrix.getModel().getNodeGraph().listSourceNodes(node).size();
+					value += RuleUtil.listSource(reteNodeMatrix.getModel(), node).size();
 				}
 
 				break;

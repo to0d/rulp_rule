@@ -1290,7 +1290,7 @@ public class StatsUtil {
 					"" + graph.getBindFromNodes(node).size() + "/" + graph.getBindToNodes(node).size(),
 					node.getNodeMatchCount(), entryQueue.getUpdateCount(), entryQueue.getRedundantCount(),
 					node.getNodeExecCount(), node.getNodeIdleCount(), waste, node.getNodeFailedCount(),
-					node.getReteLevel(), node.getPriority(), graph.listSourceNodes(node).size(),
+					node.getReteLevel(), node.getPriority(), RuleUtil.listSource(model, node).size(),
 					graph.getUseCount(node), "" + node.getReteStage(), parentVisitIndex));
 
 			sb.append("\n");
@@ -1537,7 +1537,7 @@ public class StatsUtil {
 		boolean hasSourceNode = false;
 		for (IRReteNode node : nodes) {
 
-			if (!nodeMatrix.getModel().getNodeGraph().listSourceNodes(node).isEmpty()) {
+			if (!RuleUtil.listSource(nodeMatrix.getModel(), node).isEmpty()) {
 				hasSourceNode = true;
 				break;
 			}
@@ -1556,7 +1556,7 @@ public class StatsUtil {
 
 		for (IRReteNode node : nodes) {
 
-			Collection<SourceNode> sourceNodes = nodeMatrix.getModel().getNodeGraph().listSourceNodes(node);
+			Collection<SourceNode> sourceNodes = RuleUtil.listSource(nodeMatrix.getModel(), node);
 			if (sourceNodes.isEmpty()) {
 				continue;
 			}
