@@ -1,0 +1,16 @@
+(new model m)
+(add-rule "R1" m if '(?x p1 c1) do (remove-stmt ?0))
+(add-rule "R2" m if '(?x p2 ?y) do (remove-stmt '(?x p2 ?y)))
+;=>
+
+(list-source-node m ('(?a ?b ?c)))
+;=>
+
+(list-source-node m ('(?a p1 ?c)))
+;=>
+
+(list-source-node m ('(?a p2 ?c)))
+;=>
+
+(list-source-node m ('(?a p2 cc)))
+;=>

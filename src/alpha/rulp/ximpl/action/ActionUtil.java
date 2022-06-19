@@ -1,11 +1,12 @@
 package alpha.rulp.ximpl.action;
 
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_IF;
 import static alpha.rulp.lang.Constant.F_LET;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
-import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
+import static alpha.rulp.rule.Constant.F_FIX_STMT;
+import static alpha.rulp.rule.Constant.F_REMOVE_STMT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class ActionUtil {
 		case F_ADD_STMT:
 		case F_DEFS_S:
 		case F_REMOVE_STMT:
+		case F_FIX_STMT:
 
 			IAction action = _buildSimpleAction(expr, model, varEntry);
 			if (action == null) {
@@ -128,8 +130,8 @@ public class ActionUtil {
 		switch (factorName) {
 		case F_ADD_STMT:
 		case F_DEFS_S:
-		case F_ASSUME_STMT:
 		case F_REMOVE_STMT:
+		case F_FIX_STMT:
 			IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
@@ -233,6 +235,10 @@ public class ActionUtil {
 			action = new XActionAddStmt();
 			break;
 
+		case F_FIX_STMT:
+			action = new XActionFixStmt();
+			break;
+
 		case F_REMOVE_STMT:
 			action = new XActionRemoveStmt();
 			break;
@@ -311,7 +317,7 @@ public class ActionUtil {
 		switch (factorName) {
 		case F_ADD_STMT:
 		case F_DEFS_S:
-		case F_ASSUME_STMT:
+		case F_FIX_STMT:
 			return RActionType.ADD;
 
 		case F_REMOVE_STMT:
@@ -348,8 +354,8 @@ public class ActionUtil {
 		switch (factorName) {
 		case F_ADD_STMT:
 		case F_DEFS_S:
-		case F_ASSUME_STMT:
 		case F_REMOVE_STMT:
+		case F_FIX_STMT:
 			IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
