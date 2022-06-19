@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.action;
 
 import static alpha.rulp.lang.Constant.A_DO;
-import static alpha.rulp.lang.Constant.F_IF;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
@@ -138,6 +138,7 @@ public class ActionUtil {
 
 		case A_DO:
 		case F_IF:
+		case F_LET:
 
 			IRIterator<? extends IRObject> it = expr.listIterator(1);
 			while (it.hasNext()) {
@@ -240,6 +241,13 @@ public class ActionUtil {
 		return actionList;
 	}
 
+	public static List<IRExpr> buildRelatedStmtExprList(IRExpr expr) throws RException {
+
+		ArrayList<IRExpr> exprList = new ArrayList<>();
+		_buildRelatedStmtExprList(expr, exprList);
+		return exprList;
+	}
+
 	public static List<String> buildRelatedStmtUniqNames(List<IRExpr> stmtExprList) throws RException {
 
 		ArrayList<String> uniqNameList = new ArrayList<>();
@@ -258,10 +266,6 @@ public class ActionUtil {
 		}
 
 		return uniqNameList;
-	}
-
-	public static String getRelatedUniqName(IRList stmt) throws RException {
-		return ReteUtil.uniqName(stmt);
 	}
 
 	public static RActionType getActionType(IRExpr expr) throws RException {
@@ -337,11 +341,8 @@ public class ActionUtil {
 		return null;
 	}
 
-	public static List<IRExpr> buildRelatedStmtExprList(IRExpr expr) throws RException {
-
-		ArrayList<IRExpr> exprList = new ArrayList<>();
-		_buildRelatedStmtExprList(expr, exprList);
-		return exprList;
+	public static String getRelatedUniqName(IRList stmt) throws RException {
+		return ReteUtil.uniqName(stmt);
 	}
 
 }

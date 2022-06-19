@@ -1466,7 +1466,6 @@ public class XRNodeGraph implements IRNodeGraph {
 				if (sourceNode != null) {
 					info.sourceNodes.add(sourceNode);
 				}
-
 			}
 		}
 
