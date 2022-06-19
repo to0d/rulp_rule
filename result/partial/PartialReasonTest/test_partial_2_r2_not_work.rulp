@@ -19,7 +19,7 @@
 (list-stmt m from '(?x typeof c2))
 ;=>
 
-(list-source-node m ('(?n typeof c2)))
+(list-source-node m '(?n typeof c2))
 ;=>
 
 (query-stmt m '(?n) from '(?n typeof c2))

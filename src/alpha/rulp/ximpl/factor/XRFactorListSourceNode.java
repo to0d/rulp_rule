@@ -35,9 +35,9 @@ public class XRFactorListSourceNode extends AbsAtomFactorAdapter implements IRFa
 		}
 
 		IRModel model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
-		IRList condList = RulpUtil.asExpression(args.get(2));
+		IRList cond = RulpUtil.asList(args.get(2));
 
-		List<IRReteNode> sourceNodes = new ArrayList<>(RuleUtil.listSourceNodes(model, condList));
+		List<IRReteNode> sourceNodes = new ArrayList<>(RuleUtil.listSourceNodes(model, cond));
 		Collections.sort(sourceNodes, (n1, n2) -> {
 			return n1.getNodeName().compareTo(n2.getNodeName());
 		});

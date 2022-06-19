@@ -3,15 +3,15 @@
 (add-rule "R2" m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p ?z)))
 ;=>m R1 R2
 
-(list-source-node m ('(?x typeof c1)))
+(list-source-node m '(?x typeof c1))
 ;=>'()
 
-(list-source-node m ('(?x typeof c2)))
+(list-source-node m '(?x typeof c2))
 ;=>'(R1)
 
-(list-source-node m ('(?x typeof ?y)))
+(list-source-node m '(?x typeof ?y))
 ;=>'(R1)
 
-(list-source-node m ('(?a ?b ?c)))
+(list-source-node m '(?a ?b ?c))
 ;=>'(R1 R2)
 

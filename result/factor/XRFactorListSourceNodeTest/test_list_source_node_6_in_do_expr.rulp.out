@@ -8,12 +8,12 @@
 )
 ;=>m R1
 
-(list-source-node m ('(?a ?b ?c)))
+(list-source-node m '(?a ?b ?c))
 ;=>'(R1)
 
-(list-source-node m ('(?a p2 ?c)))
+(list-source-node m '(?a p2 ?c))
 ;=>'(R1)
 
-(list-source-node m ('(?a p3 ?c)))
+(list-source-node m '(?a p3 ?c))
 ;=>'(R1)
 

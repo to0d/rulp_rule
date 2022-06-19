@@ -4,18 +4,18 @@
 (add-rule "R3" m if '(?x p3 ?x) do (remove-stmt ?0))
 ;=>m R1 R2 R3
 
-(list-source-node m ('(?a p1 ?a)))
+(list-source-node m '(?a p1 ?a))
 ;=>'(R1)
 
-(list-source-node m ('(?a p1 cc)))
+(list-source-node m '(?a p1 cc))
 ;=>'()
 
-(list-source-node m ('(?a p2 ?a)))
+(list-source-node m '(?a p2 ?a))
 ;=>'(R2)
 
-(list-source-node m ('(?a p3 ?a)))
+(list-source-node m '(?a p3 ?a))
 ;=>'(R3)
 
-(list-source-node m ('(?a p3 ?b)))
+(list-source-node m '(?a p3 ?b))
 ;=>'(R3)
 

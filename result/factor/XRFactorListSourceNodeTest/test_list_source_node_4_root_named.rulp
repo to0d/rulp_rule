@@ -2,8 +2,8 @@
 (add-rule "R1" m if name1:'(?x ?y ?z) do (-> name1:'(?z ?y ?x)) )
 ;=>
 
-(list-source-node m ('(?a ?b ?c)))
+(list-source-node m '(?a ?b ?c))
 ;=>
 
-(list-source-node m (name1:'(?a ?b ?c)))
+(list-source-node m name1:'(?a ?b ?c))
 ;=>

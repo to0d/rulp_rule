@@ -2,5 +2,5 @@
 (add-rule "R1" m if '(?x p1 c1) do (fix-stmt '(?x p1 c2)))
 ;=>
 
-(list-source-node m ('(?a ?b ?c)))
+(list-source-node m '(?a ?b ?c))
 ;=>

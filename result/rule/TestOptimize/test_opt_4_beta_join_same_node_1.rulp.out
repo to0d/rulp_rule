@@ -7,11 +7,8 @@
 (foreach (?n (rete-node-of m)) (return (name-of $(value-of ?n))))
 ;=>'("root3" "B20002" "RU000")
 
-(list-source-node m (n1:'(?...)))
-;err:
-namedNode not found: n1
-at (list-source-node m (n1:'(?...))) ; main-2
-;eof
+(list-source-node m n1:'(?...))
+;=>'()
 
 (add-stmt m '(a p a))
 ;=>true

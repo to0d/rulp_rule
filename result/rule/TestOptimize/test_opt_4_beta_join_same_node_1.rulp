@@ -7,8 +7,8 @@
 (foreach (?n (rete-node-of m)) (return (name-of $(value-of ?n))))
 ;=>
 
-(list-source-node m (n1:'(?...)))
-;err
+(list-source-node m n1:'(?...))
+;=>
 
 (add-stmt m '(a p a))
 ;=>
