@@ -19,8 +19,10 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
+import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ActionUtil {
 
@@ -371,6 +373,47 @@ public class ActionUtil {
 	}
 
 	public static String getRelatedUniqName(IRList stmt) throws RException {
+
+		int size = stmt.size();
+		int pos = 0;
+
+		XTempVarBuilder tmpVarBuilder = null;
+
+		ArrayList<IRObject> newArr = null;
+
+		for (; pos < size; ++pos) {
+
+			IRObject obj = stmt.get(pos);
+
+			if (obj.getType() == RType.EXPR) {
+
+				if (newArr == null) {
+					newArr = new ArrayList<>();
+					for (int i = 0; i < pos; ++i) {
+						newArr.add(stmt.get(i));
+					}
+				}
+
+				if (tmpVarBuilder == null) {
+					tmpVarBuilder = new XTempVarBuilder("?_ag_");
+				}
+
+				obj = tmpVarBuilder.next();
+			}
+
+			if (newArr != null) {
+				newArr.add(obj);
+			}
+		}
+
+		if (newArr != null) {
+			if (stmt.getNamedName() == null) {
+				stmt = RulpFactory.createList(newArr);
+			} else {
+				stmt = RulpFactory.createNamedList(newArr, stmt.getNamedName());
+			}
+		}
+
 		return ReteUtil.uniqName(stmt);
 	}
 
