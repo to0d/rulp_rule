@@ -129,6 +129,7 @@ public class ActionUtil {
 		case F_ADD_STMT:
 		case F_DEFS_S:
 		case F_ASSUME_STMT:
+		case F_REMOVE_STMT:
 			IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
@@ -313,6 +314,9 @@ public class ActionUtil {
 		case F_ASSUME_STMT:
 			return RActionType.ADD;
 
+		case F_REMOVE_STMT:
+			return RActionType.RMV;
+
 		default:
 			break;
 		}
@@ -345,6 +349,7 @@ public class ActionUtil {
 		case F_ADD_STMT:
 		case F_DEFS_S:
 		case F_ASSUME_STMT:
+		case F_REMOVE_STMT:
 			IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
