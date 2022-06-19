@@ -1,9 +1,10 @@
 package alpha.rulp.ximpl.action;
 
-import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.F_IF;
+import static alpha.rulp.lang.Constant.F_LET;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
-import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class ActionUtil {
 		switch (RulpUtil.asAtom(e0).getName()) {
 		case F_ADD_STMT:
 		case F_DEFS_S:
+		case F_REMOVE_STMT:
 
 			IAction action = _buildSimpleAction(expr, model, varEntry);
 			if (action == null) {
@@ -222,8 +224,24 @@ public class ActionUtil {
 			throw new RException("not var found: " + varStmt);
 		}
 
-		XActionAddStmt action = new XActionAddStmt(inheritIndexs, inheritCount, stmtObjs, stmtSize,
-				varStmt.getNamedName());
+		AbsActionSimpleStmt action = null;
+
+		switch (RulpUtil.asAtom(expr.get(0)).getName()) {
+		case F_ADD_STMT:
+		case F_DEFS_S:
+			action = new XActionAddStmt();
+			break;
+
+		case F_REMOVE_STMT:
+			action = new XActionRemoveStmt();
+			break;
+
+		default:
+			throw new RException("unknown factor: " + expr.get(0));
+		}
+
+		action.setInheritIndexs(inheritIndexs, stmtObjs);
+		action.setStmtName(varStmt.getNamedName());
 		action.setExpr(expr);
 
 		return action;

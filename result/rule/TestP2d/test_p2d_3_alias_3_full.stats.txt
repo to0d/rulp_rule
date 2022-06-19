@@ -639,15 +639,13 @@ DC1[2]       0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d)))
                          0: ADD '(nd:Global nm:beParentDomainOf ?0)
 RR1[3]       0     ADD   '(?0, nm:hasDescendant, ?2)
 RR2[3]       0     ADD   '(?0, nm:hasDescendant, ?2)
-RR3[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
-RR4[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
-RR5[3]       0     EXPR  (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
-RR6[2]       0     EXPR  (remove-stmt '(?a nm:defineTag ?b))
-RR7[2]       0     EXPR  (remove-stmt '(?b nm:beDefinedByTag ?a))
-AC1[4]       0     EXPR  (do
-                             (remove-stmt '(?a nm:beParentTagOf ?c))
-                             (remove-stmt '(?c nm:beChildTagOf ?a))
-                         )
+RR3[2]       0     RMV   '(?0, nm:hasRelatedTag, ?1)
+RR4[2]       0     RMV   '(?0, nm:hasRelatedTag, ?1)
+RR5[3]       0     RMV   '(?0, nm:hasAutoRelatedTag, ?2)
+RR6[2]       0     RMV   '(?0, nm:defineTag, ?1)
+RR7[2]       0     RMV   '(?1, nm:beDefinedByTag, ?0)
+AC1[4]       0     RMV   '(?0, nm:beParentTagOf, ?2)
+             1     RMV   '(?2, nm:beChildTagOf, ?0)
 AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2)))
                              (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag))
                                  (-> p2d '(?t nm:hasAutoRelatedTag (to-atom ?t1)))
@@ -2622,11 +2620,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3973            0         3973
+        atom:         3972            0         3972
          int:            3            0            3
       string:          168            0          168
         list:          769            2          767
-        expr:         1749           62         1687
+        expr:         1748           62         1686
          var:          234          193           41
     constant:           40            0           40
         func:           96            0           96

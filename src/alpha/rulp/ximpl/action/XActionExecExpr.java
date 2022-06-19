@@ -1,6 +1,5 @@
 package alpha.rulp.ximpl.action;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import alpha.rulp.lang.IRExpr;

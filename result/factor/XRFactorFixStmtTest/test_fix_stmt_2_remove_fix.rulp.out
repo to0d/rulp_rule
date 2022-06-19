@@ -13,7 +13,6 @@
 (start m)
 ;err:
 Can't remove fix entry: '(c p1 d)
-at (remove-stmt '(?a p1 ?b)) ; qf-RU000-5
 at (start m) ; main-2
 ;eof
 

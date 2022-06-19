@@ -67,7 +67,6 @@ import alpha.rulp.utils.OptimizeUtil.RuleCounter;
 import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.RActionType;
-import alpha.rulp.ximpl.action.XActionAddStmt;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.IRConstraint;

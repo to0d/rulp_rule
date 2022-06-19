@@ -649,15 +649,13 @@ DC1[2]       0     EXPR  (if (not (has-stmt p2d '(?x nm:beParentDomainOf ?d)))
                          0: ADD '(nd:Global nm:beParentDomainOf ?0)
 RR1[3]       0     ADD   '(?0, nm:hasDescendant, ?2)
 RR2[3]       0     ADD   '(?0, nm:hasDescendant, ?2)
-RR3[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
-RR4[2]       0     EXPR  (remove-stmt '(?a nm:hasRelatedTag ?b))
-RR5[3]       0     EXPR  (remove-stmt '(?a nm:hasAutoRelatedTag ?b))
-RR6[2]       0     EXPR  (remove-stmt '(?a nm:defineTag ?b))
-RR7[2]       0     EXPR  (remove-stmt '(?b nm:beDefinedByTag ?a))
-AC1[4]       0     EXPR  (do
-                             (remove-stmt '(?a nm:beParentTagOf ?c))
-                             (remove-stmt '(?c nm:beChildTagOf ?a))
-                         )
+RR3[2]       0     RMV   '(?0, nm:hasRelatedTag, ?1)
+RR4[2]       0     RMV   '(?0, nm:hasRelatedTag, ?1)
+RR5[3]       0     RMV   '(?0, nm:hasAutoRelatedTag, ?2)
+RR6[2]       0     RMV   '(?0, nm:defineTag, ?1)
+RR7[2]       0     RMV   '(?1, nm:beDefinedByTag, ?0)
+AC1[4]       0     RMV   '(?0, nm:beParentTagOf, ?2)
+             1     RMV   '(?2, nm:beChildTagOf, ?0)
 AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2)))
                              (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag))
                                  (-> p2d '(?t nm:hasAutoRelatedTag (to-atom ?t1)))
@@ -2483,16 +2481,16 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 
 node update info: model-exec-count=232, row=38, column=117(2), value-max=1, value-unit=1^x
 =================================================================================================================================================================
-NODE[n]   Update Exec Idle 11..1...1111...1.1....11......11..1...21..1....121.1....11.11121.12112....22.2.222..1..1....2.1.11.2.2......1..1.2111 max=2, unit=2^x
+NODE[n]   Update Exec Idle 11..1...1111...1.1.......11.2....1....211......121.1....11.11121.12112....22.2.222..1..1....2.1.11.2.2......1..1.2111 max=2, unit=2^x
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    9    9    0 1                      1       1                         1  1 1            1    1                  1                 
+R00001[3]    9    9    0 1                         1 1                            1  1 1            1    1                  1                 
 E10051[3]    5    5    0          1                                         1                 1                 1                    1        
 E10052[3]    5    5    0                                       1                        1                1                1                1  
 A00022[3]    4    5    0     1                                           1                 1                 1                                
-A00026[3]    3    4    0                                           1                                  1                  1                    
+A00026[3]    3    4    0                                         1                                    1                  1                    
 A00002[3]    2    5    0  1                                                                               1                                   
 A00018[3]    2    5    0                                                1                 1                                                   
-A00045[3]    2    4    0                                   1                          1                                                       
+A00045[3]    2    4    0                                  1                           1                                                       
 A00128[3]    2    5    0                                                                           1                 1                        
 B00019[4]    2    5    1                                                 1                 1                                                  
 B20035[3]    2    5    1                                                  1                 1                                                 
@@ -2520,8 +2518,8 @@ C8[3]        1    2    1                                                        
 T2[4]        1    2    1                                                                                                                  1   
 T3[4]        1    2    1                                                                                                                     1
 T5[2]        1    2    1                                                                                             1                        
-T8[3]        1    1    0                               1                                                                                      
-D1[3]        1    1    0                       1                                                                                              
+T8[3]        1    1    0                          1                                                                                           
+D1[3]        1    1    0                             1                                                                                        
 D5[3]        1    2    1                                                                                                    1                 
 =================================================================================================================================================================
 
@@ -2595,11 +2593,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3986            0         3986
+        atom:         3985            0         3985
          int:            2            0            2
       string:          164            0          164
         list:          776            2          774
-        expr:         1695           20         1675
+        expr:         1694           20         1674
          var:           87           61           26
     constant:           40            0           40
         func:           96            0           96
