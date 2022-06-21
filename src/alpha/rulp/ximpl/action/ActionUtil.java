@@ -23,8 +23,11 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
+import alpha.rulp.ximpl.optimize.EROUtil;
 
 public class ActionUtil {
+
+	static boolean OPT_ERO = false;
 
 	private static IRExpr _buildActionExpr(IRModel model, IRExpr expr, IRObject[] varEntry, List<IAction> actionList)
 			throws RException {
@@ -260,9 +263,10 @@ public class ActionUtil {
 			throws RException {
 
 		List<IAction> actionList = new ArrayList<>();
-		IRExpr newExpr = _buildActionExpr(model, RulpUtil.toDoExpr(exprList), varEntry, actionList);
-		if (newExpr != null) {
-			actionList.add(new XActionExecExpr(newExpr));
+		IRExpr expr = _buildActionExpr(model, RulpUtil.toDoExpr(exprList), varEntry, actionList);
+		if (expr != null) {
+			expr = optimizeActionExpr(expr, model);
+			actionList.add(new XActionExecExpr(expr));
 		}
 
 		return actionList;
@@ -415,6 +419,15 @@ public class ActionUtil {
 		}
 
 		return ReteUtil.uniqName(stmt);
+	}
+
+	public static IRExpr optimizeActionExpr(IRExpr expr, IRModel model) throws RException {
+
+		if (OPT_ERO) {
+			expr = RulpUtil.asExpression(EROUtil.rebuild(expr, model.getInterpreter(), model.getFrame()));
+		}
+
+		return expr;
 	}
 
 }
