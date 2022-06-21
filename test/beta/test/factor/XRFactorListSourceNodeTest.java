@@ -85,4 +85,12 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_list_source_node_b_constant() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

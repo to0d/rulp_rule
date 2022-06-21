@@ -130,10 +130,8 @@ public class XRNodeGraph implements IRNodeGraph {
 				return actionUniqStmt.size() == stmtSize && RuleUtil.equal(actionUniqStmt.getNamedName(), stmtName);
 
 			case ALPH0:
-				return ReteUtil.matchUniqStmt(actionUniqStmt, uniqStmt);
-
 			case CONST:
-				return actionUniqStmt.equals(uniqName);
+				return ReteUtil.matchUniqStmt(actionUniqStmt, uniqStmt);
 
 			default:
 				return false;
@@ -1462,21 +1460,61 @@ public class XRNodeGraph implements IRNodeGraph {
 		return nodeInfoArray.get(nodeId);
 	}
 
-	protected IRList _toList(String list) throws RException {
-
-		List<IRObject> objs = model.getInterpreter().getParser().parse(list);
-		if (objs.size() != 1) {
-			throw new RException("invalid list: " + list);
-		}
-
-		return RulpUtil.asList(objs.get(0));
-	}
-
 	protected void _graphChanged() {
 		_sourceSubGraphMap = null;
 		_ruleGroupSubGraphMap = null;
 		_affectNodeMap = null;
 		_constraintCheckSubGraphMap = null;
+	}
+
+	protected Map<IRReteNode, List<IRReteNode>> _openAffectNodeMap(IRReteNode rootNode) throws RException {
+
+		if (_affectNodeMap == null) {
+			_affectNodeMap = new HashMap<>();
+
+			for (IRReteNode node : listNodes(RReteType.NAME0)) {
+
+				if (node.getConstraint1Count() == 0) {
+					continue;
+				}
+
+				// Build named -> rule map
+				List<IRRule> relatedRules = ((XGraphInfo) node.getGraphInfo()).relatedRules;
+				if (relatedRules != null) {
+
+					List<IRReteNode> affectList = _affectNodeMap.get(node);
+					if (affectList == null) {
+						affectList = new LinkedList<>();
+						_affectNodeMap.put(node, affectList);
+					}
+
+					for (IRRule rn : relatedRules) {
+						if (!affectList.contains(rn)) {
+							affectList.add(rn);
+						}
+					}
+				}
+
+				// Build rule -> named map
+				for (SourceNode sourceNode : RuleUtil.listSource(model, node)) {
+
+					if (sourceNode.rule.getReteType() == RReteType.RULE) {
+
+						List<IRReteNode> affectList = _affectNodeMap.get(sourceNode.rule);
+						if (affectList == null) {
+							affectList = new LinkedList<>();
+							_affectNodeMap.put(sourceNode.rule, affectList);
+						}
+
+						if (!affectList.contains(node)) {
+							affectList.add(node);
+						}
+					}
+				}
+			}
+		}
+
+		return _affectNodeMap;
 	}
 
 //	protected Set<SourceNode> _listSourceNodesForAlphaNode(IRReteNode node) throws RException {
@@ -1607,56 +1645,6 @@ public class XRNodeGraph implements IRNodeGraph {
 //		return info.sourceNodes;
 //	}
 
-	protected Map<IRReteNode, List<IRReteNode>> _openAffectNodeMap(IRReteNode rootNode) throws RException {
-
-		if (_affectNodeMap == null) {
-			_affectNodeMap = new HashMap<>();
-
-			for (IRReteNode node : listNodes(RReteType.NAME0)) {
-
-				if (node.getConstraint1Count() == 0) {
-					continue;
-				}
-
-				// Build named -> rule map
-				List<IRRule> relatedRules = ((XGraphInfo) node.getGraphInfo()).relatedRules;
-				if (relatedRules != null) {
-
-					List<IRReteNode> affectList = _affectNodeMap.get(node);
-					if (affectList == null) {
-						affectList = new LinkedList<>();
-						_affectNodeMap.put(node, affectList);
-					}
-
-					for (IRRule rn : relatedRules) {
-						if (!affectList.contains(rn)) {
-							affectList.add(rn);
-						}
-					}
-				}
-
-				// Build rule -> named map
-				for (SourceNode sourceNode : RuleUtil.listSource(model, node)) {
-
-					if (sourceNode.rule.getReteType() == RReteType.RULE) {
-
-						List<IRReteNode> affectList = _affectNodeMap.get(sourceNode.rule);
-						if (affectList == null) {
-							affectList = new LinkedList<>();
-							_affectNodeMap.put(sourceNode.rule, affectList);
-						}
-
-						if (!affectList.contains(node)) {
-							affectList.add(node);
-						}
-					}
-				}
-			}
-		}
-
-		return _affectNodeMap;
-	}
-
 	protected AbsReteNode _processNodeModifier(AbsReteNode node, String modifier) throws RException {
 
 		switch (modifier) {
@@ -1739,6 +1727,16 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		_graphChanged();
 
+	}
+
+	protected IRList _toList(String list) throws RException {
+
+		List<IRObject> objs = model.getInterpreter().getParser().parse(list);
+		if (objs.size() != 1) {
+			throw new RException("invalid list: " + list);
+		}
+
+		return RulpUtil.asList(objs.get(0));
 	}
 
 	@Override
