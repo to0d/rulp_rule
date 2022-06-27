@@ -13,7 +13,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_2_root() {
 
@@ -21,7 +21,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_3_entry_len() {
 
@@ -29,7 +29,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_4_root_named() {
 
@@ -37,7 +37,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_5_alpha_named() {
 
@@ -45,7 +45,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_6_in_do_expr() {
 
@@ -53,7 +53,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_7_remove_stmt() {
 
@@ -61,7 +61,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_8_special_expr_1() {
 
@@ -69,7 +69,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_9_fix_stmt() {
 
@@ -77,7 +77,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_a_assume_stmt() {
 
@@ -85,12 +85,20 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_list_source_node_b_constant() {
 
 		_setup();
 		_run_script();
 		_statsInfo("m");
+	}
+
+	@Test
+	void test_list_source_node_c_p2d() {
+
+		_setup();
+		_run_script();
+		_statsInfo("p2d");
 	}
 }

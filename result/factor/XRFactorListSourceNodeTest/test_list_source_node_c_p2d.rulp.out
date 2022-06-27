@@ -1,0 +1,6 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(list-source-node p2d '(?x nm:isVersionOf ?y))
+;=>'(C1 C5 T2 T3 TV1)
+
