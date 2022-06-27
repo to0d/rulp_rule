@@ -80,6 +80,7 @@ mbr=file-mkdirs, mbr-property='(public), mbr-attribute='(), obj=file-mkdirs, obj
 mbr=final, mbr-property='(public), mbr-attribute='(), obj=final, obj-type=atom, obj-attribute='()
 mbr=float, mbr-property='(public), mbr-attribute='(), obj=float, obj-type=atom, obj-attribute='()
 mbr=foreach, mbr-property='(public), mbr-attribute='(), obj=foreach, obj-type=factor, obj-attribute='(stable)
+mbr=format, mbr-property='(public), mbr-attribute='(), obj=format, obj-type=factor, obj-attribute='()
 mbr=frame, mbr-property='(public), mbr-attribute='(), obj=frame, obj-type=atom, obj-attribute='()
 mbr=frame-of, mbr-property='(public), mbr-attribute='(), obj=frame-of, obj-type=factor, obj-attribute='()
 mbr=from, mbr-property='(public), mbr-attribute='(), obj=from, obj-type=atom, obj-attribute='()

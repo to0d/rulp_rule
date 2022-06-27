@@ -49,9 +49,7 @@
 '(?p1 p2 c) (not-equal ?p1 a) (var-changed ?s1 v11 v12) (var-changed ?s2 v21 v22) ; input
 '('('('(?p1 p2 c) (!= ?p1 a)) (var-changed ?s1 v11 v12)) (var-changed ?s2 v21 v22)) ; output
 ;expr: 
-'('('('(?p1 p2 c) (!= ?p1 a)) (var-changed ?s1 v11 v12))
-    (var-changed ?s2 v21 v22)
-)
+'('('('(?p1 p2 c) (!= ?p1 a)) (var-changed ?s1 v11 v12)) (var-changed ?s2 v21 v22))
 
 
 
@@ -67,9 +65,7 @@
 '(?p1 p2 ?v1) (not-equal ?p1 a) (var-changed ?s1 v11 ?v1) (var-changed ?s2 v21 ?v2) ; input
 '('('('(?p1 p2 ?v1) (var-changed ?s1 v11 ?v1)) (not-equal ?p1 a)) (var-changed ?s2 v21 ?v2)) ; output
 ;expr: 
-'('('('(?p1 p2 ?v1) (var-changed ?s1 v11 ?v1)) (not-equal ?p1 a))
-    (var-changed ?s2 v21 ?v2)
-)
+'('('('(?p1 p2 ?v1) (var-changed ?s1 v11 ?v1)) (not-equal ?p1 a)) (var-changed ?s2 v21 ?v2))
 
 
 
@@ -109,11 +105,7 @@
 (var-changed ?parse-url ?url) (str-start-with ?url ?beike_home_url_head) url-entry:'(?url-name ?url) ; input
 '(url-entry:'(?url-name ?url) ((var-changed ?parse-url ?parse-url.old ?url) (str-start-with ?url ?beike_home_url_head))) ; output
 ;expr: 
-'(url-entry:'(?url-name ?url)
-    ((var-changed ?parse-url ?parse-url.old ?url)
-        (str-start-with ?url ?beike_home_url_head)
-    )
-)
+'(url-entry:'(?url-name ?url) ((var-changed ?parse-url ?parse-url.old ?url) (str-start-with ?url ?beike_home_url_head)))
 
 
 
@@ -129,21 +121,7 @@
 (var-changed ?state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasRelatedTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f)))) nm:typeOf nm:tag)) ; input
 '('('('('(?c nm:beClassTagOf ?ins) '(?c nm:hasRelatedTag ?f)) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f)))) nm:typeOf nm:tag))) '(?c nm:typeOf nm:tag)) (var-changed ?state running completed)) ; output
 ;expr: 
-'(
-    '(
-        '('('(?c nm:beClassTagOf ?ins) '(?c nm:hasRelatedTag ?f))
-            (has-stmt
-                p2d
-                '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f))))
-                    nm:typeOf
-                    nm:tag
-                )
-            )
-        )
-        '(?c nm:typeOf nm:tag)
-    )
-    (var-changed ?state running completed)
-)
+'('('('('(?c nm:beClassTagOf ?ins) '(?c nm:hasRelatedTag ?f)) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-tag-name (to-string ?f)))) nm:typeOf nm:tag))) '(?c nm:typeOf nm:tag)) (var-changed ?state running completed))
 
 
 

@@ -75,10 +75,7 @@ node info5: action
 NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 CST01[4]     0     EXPR  (do
-                             (defvar
-                                 ?msg
-                                 (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")
-                             )
+                             (defvar ?msg (strcat "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
                              (-> $invalid_constraint$:'(?msg))
                          )
                          0: ADD $invalid_constraint$:'(?0)
@@ -138,7 +135,7 @@ graph-gc-cache                        0
 =================================================================================================================================================================
 
 
-Rule<CST01> stats: priority=000, expr=(add-rule "CST01" ?m::$cst$ if $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg)))
+Rule<CST01> stats: priority=000, expr=(add-rule "CST01" ?m::$cst$ if $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (defvar ?msg (strcat "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg)))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -358,7 +355,7 @@ Expression compute count:
       func:        9
 ==========================================================================================================================
 
-Callable stats info: callId=248, row=28, column=63(4), value-max=20, value-unit=2^x
+Callable stats info: callId=248, row=29, column=63(4), value-max=20, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334433333336371 max=62, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
@@ -371,9 +368,9 @@ Callable stats info: callId=248, row=28, column=63(4), value-max=20, value-unit=
     root   factor      5    0 defmacro                                                                                  31  
   system   factor      5    0 add-stmt                                                                                    4 
   system   factor      5    0 add-constraint                                                                              4 
-    root   factor      5    0 +                                                                                           4 
     root   factor      4    0 make-list                                                                        31           
   system   factor      4    0 add-rule                                                                                    3 
+    root   factor      3    0 strcat                                                                                      3 
   system   factor      3    0 query-stmt                                                                                  3 
   system     func      3    1 (init_cst_rule type#model)                                                                  3 
     root   factor      3    0 if                                                                                          3 
@@ -383,6 +380,7 @@ Callable stats info: callId=248, row=28, column=63(4), value-max=20, value-unit=
   system     func      3    1 (add_cst_constraint_type type#                                                              3 
     root   factor      2    0 to-named-list                                                                               2 
     root   factor      2    0 to-atom                                                                                     2 
+    root   factor      2    0 +                                                                                           2 
     root   factor      1    0 throw                                                                                       1 
     root   factor      1    0 setq                                                                                        1 
   system   factor      1    0 remove-stmt                                                                                 1 
@@ -407,7 +405,7 @@ Object create count:
       member:           20            0           20
        frame:           24           22            2
  interpreter:            1            0
-  frameEntry:          359            0
+  frameEntry:          360            0
       lambda:            0            0
 ==========================================================================================================================
 

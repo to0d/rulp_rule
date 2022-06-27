@@ -13,7 +13,7 @@
 (add-constraint m name1:'(? ? ?x) (type float on ?x))
 ;err:
 error: add-constraint-fail, type-constraint:'(name1 2 float), conflict-type-constraint:'(name1 2 float int)
-at (throw add-constraint-fail (+ "type-constraint:'(" "name1" " " 2 " " float ")... ; query-stmt-7
+at (throw add-constraint-fail (strcat "type-constraint:'(" "name1" " " 2 " " flo... ; query-stmt-7
 at (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) do (remove-stmt ?... ; do-8
 at (do (init_cst_rule ?m) (add-stmt ?m $cst_type$:'(?node ?index ?type)) (query-... ; _$fun$_add_cst_constraint_type-5
 at (add_cst_constraint_type m "name1" 2 float) ; model-3

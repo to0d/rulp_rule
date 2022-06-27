@@ -652,46 +652,18 @@ AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref 
                              )
                          )
                          0: ADD '(?0 nm:hasAutoRelatedTag ?1)
-AC3[4]       0     EXPR  (let
-                             (?cf
-                                 (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))
-                             )
-                             (if (has-stmt p2d '(?cf nm:typeOf nm:tag))
-                                 (do
-                                     (-> '(?f nm:hasSubCollection ?cf))
-                                     (-> '(?cf nm:beFieldTagOf ?c))
-                                 )
-                             )
-                         )
+AC3[4]       0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
                          0: ADD '(?0 nm:hasSubCollection ?1)
                          1: ADD '(?0 nm:beFieldTagOf ?1)
 AC4[4]       0     EXPR  (do
-                             (->
-                                 '(?ins
-                                     nm:hasFieldTag
-                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
-                                 )
-                             )
-                             (->
-                                 '(?f
-                                     nm:beParentTagOf
-                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
-                                 )
-                             )
+                             (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+                             (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
                          )
                          0: ADD '(?0 nm:hasFieldTag ?1)
                          1: ADD '(?0 nm:beParentTagOf ?1)
 AC5[2]       0     ADD   '(?0, nm:beChildTagOf, nt:$BEGINNER)
              1     ADD   '(?0, nm:beDefinedByTag, nt:$TOPIC)
-             2     EXPR  (let
-                             (?tn (to-string ?t))
-                             (let
-                                 (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9))))
-                                 (if (has-stmt p2d '(?dn nm:typeOf nm:tag))
-                                     (-> '(?t nm:beDefinedByTag ?dn))
-                                 )
-                             )
-                         )
+             2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
                          0: ADD '(?0 nm:beDefinedByTag ?1)
 AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain)))
                              (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))
@@ -2410,7 +2382,7 @@ Model<p2d> frame:id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 2971     4        10   instance   model@p2d           
+default_model        : 2980     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 
@@ -2441,27 +2413,27 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    20239
-      func:     1624
+    factor:    20288
+      func:     1628
 ==========================================================================================================================
 
-Callable stats info: callId=248, row=30, column=63(4), value-max=5138, value-unit=3^x
+Callable stats info: callId=248, row=30, column=63(4), value-max=5154, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         2333333333333333333333333333333333333333333333333333333333343X9 max=17121, unit=3^x
+   Frame    RType  Count  Ref Object                         2333333333333333333333333333333333333333333333333333333333343X9 max=17174, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   6490    0 value-of                                                                                    98
-    root   factor   2842    0 print                                                                                       97
-    root   factor   2019    0 if                                                                                          87
-    root   factor   1616    0 return                                                                                      87
-    root   factor   1616    0 equal_def                                                                                   87
-  system funcList   1616    7 equal                                                                                       87
-    root   factor   1612    0 type-of                                                                                     87
-    root   factor    806    0 not                                                                                         76
-    root   factor    806    0 name-of                                                                                     76
-    root   factor    806    0 attribute-of                                                                                76
-    root   factor    406    0 property-of                                                                                 76
-    root   factor    403    0 and                                                                                         76
-    root   factor    403    0 access                                                                                      76
+    root   factor   6506    0 value-of                                                                                    98
+    root   factor   2849    0 print                                                                                       97
+    root   factor   2024    0 if                                                                                          87
+    root   factor   1620    0 return                                                                                      87
+    root   factor   1620    0 equal_def                                                                                   87
+  system funcList   1620    7 equal                                                                                       87
+    root   factor   1616    0 type-of                                                                                     87
+    root   factor    808    0 not                                                                                         76
+    root   factor    808    0 name-of                                                                                     76
+    root   factor    808    0 attribute-of                                                                                76
+    root   factor    407    0 property-of                                                                                 76
+    root   factor    404    0 and                                                                                         76
+    root   factor    404    0 access                                                                                      76
     root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                
     root   factor     79    0 defun                                                                        2333123333 33424 
   system   factor     41    0 add-rule                                                                                    5 
@@ -2487,18 +2459,18 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         6061            0         6061
          int:            2            0            2
-      string:          918            0          918
-        list:         1831            0         1831
-        expr:         7336         1624         5712
-         var:         3673         3651           22
+      string:          920            0          920
+        list:         1832            0         1832
+        expr:         7350         1628         5722
+         var:         3682         3660           22
     constant:           40            0           40
         func:           96            0           96
     template:            1            0            1
        macro:           10            0           10
       member:           22            0           22
-       frame:         2032         2031            1
+       frame:         2037         2036            1
  interpreter:            1            0
-  frameEntry:         4042            0
+  frameEntry:         4052            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -2545,69 +2517,69 @@ script_out           : 20       2        14   macro      script_out
 _ginfo               : 21       2        14   funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-RRT_ROOT             : 2917     2        8    constant   RRT_ROOT:"0"        
-RRT_NAME             : 2918     2        8    constant   RRT_NAME:"1"        
-RRT_VAR              : 2919     2        8    constant   RRT_VAR:"2"         
-RRT_CONST            : 2920     2        8    constant   RRT_CONST:"3"       
-RRT_ALPH0            : 2921     2        8    constant   RRT_ALPH0:"4"       
-RRT_ALPH1            : 2922     2        8    constant   RRT_ALPH1:"5"       
-RRT_EXPR0            : 2923     2        8    constant   RRT_EXPR0:"6"       
-RRT_EXPR1            : 2924     2        8    constant   RRT_EXPR1:"7"       
-RRT_EXPR2            : 2925     2        8    constant   RRT_EXPR2:"8"       
-RRT_EXPR3            : 2926     2        8    constant   RRT_EXPR3:"9"       
-RRT_EXPR4            : 2927     2        8    constant   RRT_EXPR4:"10"      
-RRT_BETA0            : 2928     2        8    constant   RRT_BETA0:"11"      
-RRT_BETA1            : 2929     2        8    constant   RRT_BETA1:"12"      
-RRT_BETA2            : 2930     2        8    constant   RRT_BETA2:"13"      
-RRT_BETA3            : 2931     2        8    constant   RRT_BETA3:"14"      
-RRT_RULE             : 2932     2        8    constant   RRT_RULE:"15"       
-RRT_WORK             : 2933     2        8    constant   RRT_WORK:"16"       
-ATTR_RETE_TYPE       : 2934     2        8    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 2935     2        8    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 2936     2        8    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 2937     2        8    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 2938     2        8    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 2939     2        8    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 2940     2        8    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 2941     2        8    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 2942     2        8    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 2943     2        8    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 2944     2        8    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 2945     2        8    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 2946     2        8    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 2947     2        8    constant   RETE_QUEUE_ACTION:"4"
-RETE_PRIORITY_DEFAULT : 2948     2        8    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 2949     2        8    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 2950     2        8    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 2951     2        8    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 2952     2        8    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 2953     2        8    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 2954     2        8    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 2955     2        8    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 2956     2        8    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 2957     2        8    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 2958     2        8    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 2959     2        8    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 2960     2        8    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 2961     2        8    macro      list-with-state     
-list-without-state   : 2962     2        8    macro      list-without-state  
-list-rule            : 2963     2        8    macro      list-rule           
-get-rule             : 2964     2        8    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 2965     2        8    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 2966     2        8    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 2967     2        8    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 2968     2        8    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 2969     2        8    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 2970     2        8    func       (set-node-multi-queue type#model list) : frame=frame@main
-p2d                  : 2972     2        10   instance   model@p2d           
-#ns_tag              : 2973     2        9    var        nt: : type=string   
-#ns_domain           : 2974     2        9    var        nd: : type=string   
-get-uri-name         : 2975     2        8    func       (get-uri-name nil) : frame=frame@main
-get-suffix           : 2976     2        8    func       (get-suffix nil nil) : frame=frame@main
-get-field-name       : 2977     2        8    func       (get-field-name nil) : frame=frame@main
-get-new-ns           : 2978     2        8    macro      get-new-ns          
-get-version-number   : 2979     2        8    func       (get-version-number nil) : frame=frame@main
-hasGroupChild        : 2980     2        8    macro      hasGroupChild       
+RRT_ROOT             : 2926     2        8    constant   RRT_ROOT:"0"        
+RRT_NAME             : 2927     2        8    constant   RRT_NAME:"1"        
+RRT_VAR              : 2928     2        8    constant   RRT_VAR:"2"         
+RRT_CONST            : 2929     2        8    constant   RRT_CONST:"3"       
+RRT_ALPH0            : 2930     2        8    constant   RRT_ALPH0:"4"       
+RRT_ALPH1            : 2931     2        8    constant   RRT_ALPH1:"5"       
+RRT_EXPR0            : 2932     2        8    constant   RRT_EXPR0:"6"       
+RRT_EXPR1            : 2933     2        8    constant   RRT_EXPR1:"7"       
+RRT_EXPR2            : 2934     2        8    constant   RRT_EXPR2:"8"       
+RRT_EXPR3            : 2935     2        8    constant   RRT_EXPR3:"9"       
+RRT_EXPR4            : 2936     2        8    constant   RRT_EXPR4:"10"      
+RRT_BETA0            : 2937     2        8    constant   RRT_BETA0:"11"      
+RRT_BETA1            : 2938     2        8    constant   RRT_BETA1:"12"      
+RRT_BETA2            : 2939     2        8    constant   RRT_BETA2:"13"      
+RRT_BETA3            : 2940     2        8    constant   RRT_BETA3:"14"      
+RRT_RULE             : 2941     2        8    constant   RRT_RULE:"15"       
+RRT_WORK             : 2942     2        8    constant   RRT_WORK:"16"       
+ATTR_RETE_TYPE       : 2943     2        8    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 2944     2        8    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 2945     2        8    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 2946     2        8    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 2947     2        8    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 2948     2        8    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 2949     2        8    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 2950     2        8    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 2951     2        8    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 2952     2        8    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 2953     2        8    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 2954     2        8    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 2955     2        8    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 2956     2        8    constant   RETE_QUEUE_ACTION:"4"
+RETE_PRIORITY_DEFAULT : 2957     2        8    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 2958     2        8    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 2959     2        8    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 2960     2        8    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 2961     2        8    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 2962     2        8    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 2963     2        8    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 2964     2        8    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 2965     2        8    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 2966     2        8    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 2967     2        8    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 2968     2        8    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 2969     2        8    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 2970     2        8    macro      list-with-state     
+list-without-state   : 2971     2        8    macro      list-without-state  
+list-rule            : 2972     2        8    macro      list-rule           
+get-rule             : 2973     2        8    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 2974     2        8    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 2975     2        8    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 2976     2        8    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 2977     2        8    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 2978     2        8    func       (rete-valid-entry-of nil) : frame=frame@main
+set-node-multi-queue : 2979     2        8    func       (set-node-multi-queue type#model list) : frame=frame@main
+p2d                  : 2981     2        10   instance   model@p2d           
+#ns_tag              : 2982     2        9    var        nt: : type=string   
+#ns_domain           : 2983     2        9    var        nd: : type=string   
+get-uri-name         : 2984     2        8    func       (get-uri-name nil) : frame=frame@main
+get-suffix           : 2985     2        8    func       (get-suffix nil nil) : frame=frame@main
+get-field-name       : 2986     2        8    func       (get-field-name nil) : frame=frame@main
+get-new-ns           : 2987     2        8    macro      get-new-ns          
+get-version-number   : 2988     2        8    func       (get-version-number nil) : frame=frame@main
+hasGroupChild        : 2989     2        8    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2615,7 +2587,7 @@ id=4, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 2971     4        10   instance   model@p2d           
+default_model        : 2980     4        10   instance   model@p2d           
 ==========================================================================================================================
 
 Root var list: total=6

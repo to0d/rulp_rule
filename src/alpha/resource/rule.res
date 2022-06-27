@@ -18,7 +18,7 @@
     (add-rule "CST01" ?m::$cst$ 
         if  $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) 
         do 
-            (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
+            (defvar ?msg (strcat "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
             (-> $invalid_constraint$:'(?msg))
     )
     
@@ -34,7 +34,7 @@
     (add-stmt ?m $cst_type$:'(?node ?index ?type))
     (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_type$:'(?node ?index ?type)) 
-               (throw add-constraint-fail (+ "type-constraint:'(" ?node " " ?index " " ?type "), " ?c))  limit 1)
+               (throw add-constraint-fail (strcat "type-constraint:'(" ?node " " ?index " " ?type "), " ?c))  limit 1)
     (return (add-constraint ?m (to-named-list ?node '(?...)) (type ?type on (to-atom (+ "?" ?index)))))
 )
 
@@ -50,7 +50,7 @@
     (add-stmt ?m $cst_max$:'(?node ?index ?value))
     (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_max$:'(?node ?index ?value)) 
-               (throw add-constraint-fail (+ "max-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
+               (throw add-constraint-fail (strcat "max-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
     (return (add-constraint ?m (to-named-list ?node '(?...)) (max ?value on (to-atom (+ "?" ?index)))))
 )
 
@@ -66,7 +66,7 @@
     (add-stmt ?m $cst_min$:'(?node ?index ?value))
     (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_min$:'(?node ?index ?value)) 
-               (throw add-constraint-fail (+ "min-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
+               (throw add-constraint-fail (strcat "min-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
     (return (add-constraint ?m (to-named-list ?node '(?...)) (min ?value on (to-atom (+ "?" ?index)))))
 )
 
@@ -82,7 +82,7 @@
     (add-stmt ?m $cst_one_of$:'(?node ?index ?value))
     (query-stmt ?m::$cst$ '(?c) from $invalid_constraint$:'(?c) 
             do (remove-stmt ?m $cst_one_of$:'(?node ?index ?value)) 
-               (throw add-constraint-fail (+ "one-of-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
+               (throw add-constraint-fail (strcat "one-of-constraint:'(" ?node " " ?index " " ?value "), " ?c))  limit 1)
     (return (add-constraint ?m (to-named-list ?node '(?...)) (one-of ?value on (to-atom (+ "?" ?index)))))
 )
 

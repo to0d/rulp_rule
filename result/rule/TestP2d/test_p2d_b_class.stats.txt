@@ -657,46 +657,18 @@ AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref 
                              )
                          )
                          0: ADD '(?0 nm:hasAutoRelatedTag ?1)
-AC3[4]       0     EXPR  (let
-                             (?cf
-                                 (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))
-                             )
-                             (if (has-stmt p2d '(?cf nm:typeOf nm:tag))
-                                 (do
-                                     (-> '(?f nm:hasSubCollection ?cf))
-                                     (-> '(?cf nm:beFieldTagOf ?c))
-                                 )
-                             )
-                         )
+AC3[4]       0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
                          0: ADD '(?0 nm:hasSubCollection ?1)
                          1: ADD '(?0 nm:beFieldTagOf ?1)
 AC4[4]       0     EXPR  (do
-                             (->
-                                 '(?ins
-                                     nm:hasFieldTag
-                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
-                                 )
-                             )
-                             (->
-                                 '(?f
-                                     nm:beParentTagOf
-                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
-                                 )
-                             )
+                             (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+                             (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
                          )
                          0: ADD '(?0 nm:hasFieldTag ?1)
                          1: ADD '(?0 nm:beParentTagOf ?1)
 AC5[2]       0     ADD   '(?0, nm:beChildTagOf, nt:$BEGINNER)
              1     ADD   '(?0, nm:beDefinedByTag, nt:$TOPIC)
-             2     EXPR  (let
-                             (?tn (to-string ?t))
-                             (let
-                                 (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9))))
-                                 (if (has-stmt p2d '(?dn nm:typeOf nm:tag))
-                                     (-> '(?t nm:beDefinedByTag ?dn))
-                                 )
-                             )
-                         )
+             2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
                          0: ADD '(?0 nm:beDefinedByTag ?1)
 AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain)))
                              (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))
@@ -2743,7 +2715,7 @@ Object create count:
       member:           22            0           22
        frame:          239          228           11
  interpreter:            1            0
-  frameEntry:          740            0
+  frameEntry:          741            0
       lambda:            0            0
 ==========================================================================================================================
 

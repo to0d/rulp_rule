@@ -662,46 +662,18 @@ AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref 
                              )
                          )
                          0: ADD '(?0 nm:hasAutoRelatedTag ?1)
-AC3[4]       0     EXPR  (let
-                             (?cf
-                                 (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))
-                             )
-                             (if (has-stmt p2d '(?cf nm:typeOf nm:tag))
-                                 (do
-                                     (-> '(?f nm:hasSubCollection ?cf))
-                                     (-> '(?cf nm:beFieldTagOf ?c))
-                                 )
-                             )
-                         )
+AC3[4]       0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
                          0: ADD '(?0 nm:hasSubCollection ?1)
                          1: ADD '(?0 nm:beFieldTagOf ?1)
 AC4[4]       0     EXPR  (do
-                             (->
-                                 '(?ins
-                                     nm:hasFieldTag
-                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
-                                 )
-                             )
-                             (->
-                                 '(?f
-                                     nm:beParentTagOf
-                                     (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))
-                                 )
-                             )
+                             (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+                             (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
                          )
                          0: ADD '(?0 nm:hasFieldTag ?1)
                          1: ADD '(?0 nm:beParentTagOf ?1)
 AC5[2]       0     ADD   '(?0, nm:beChildTagOf, nt:$BEGINNER)
              1     ADD   '(?0, nm:beDefinedByTag, nt:$TOPIC)
-             2     EXPR  (let
-                             (?tn (to-string ?t))
-                             (let
-                                 (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9))))
-                                 (if (has-stmt p2d '(?dn nm:typeOf nm:tag))
-                                     (-> '(?t nm:beDefinedByTag ?dn))
-                                 )
-                             )
-                         )
+             2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
                          0: ADD '(?0 nm:beDefinedByTag ?1)
 AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain)))
                              (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))
@@ -2498,15 +2470,15 @@ default_model        : 76       3        3    instance   model@p2d
 
 node update info: model-exec-count=210, row=29, column=106(2), value-max=1, value-unit=1^x
 =================================================================================================================================================================
-NODE[n]   Update Exec Idle 11..1...1111...1.1................121..........121..1.........121.1....1...2..2.221..21121....1..22.111221 max=2, unit=2^x
+NODE[n]   Update Exec Idle 11..1...1111...1.1............2....2...........1211...........121.1....1...2..2.221..21121....1..22.111221 max=2, unit=2^x
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    8    8    0 1                                  11                                      1  1  1                1    1  
+R00001[3]    8    8    0 1                             1    1                                       1  1  1                1    1  
 A00022[3]    3    3    0     1                                                          1                      1                   
 E10051[3]    3    3    0          1                                                        1                      1                
 E10052[3]    3    3    0                                                 1                                1                      1 
 E10091[3]    3    3    0                1                                                       1                      1           
 A00018[3]    2    3    0                                                               1                      1                    
-A00026[3]    2    3    0                                                     1                                                1    
+A00026[3]    2    3    0                                                  1                                                   1    
 A00045[3]    2    3    0                                                1                                1                         
 B00019[4]    2    3    1                                                                1                     1                    
 B20035[3]    2    3    1                                                                 1                      1                  
@@ -2519,7 +2491,7 @@ A00002[3]    1    3    0  1
 A00034[3]    1    3    0                                                 1                                                         
 A00048[3]    1    3    0                                                                                         1                 
 A00060[3]    1    3    0           1                                                                                               
-A00063[3]    1    1    0                                                  1                                                        
+A00063[3]    1    1    0                                                   1                                                       
 A00066[3]    1    3    0            1                                                                                              
 A00128[3]    1    3    0                                                                                                  1        
 A00129[3]    1    2    1                                                                                                          1
@@ -2528,7 +2500,7 @@ B00058[2]    1    3    1                                                        
 B20046[3]    1    3    1                                                                                         1                 
 C8[3]        1    2    1                                                                                                        1  
 T8[3]        1    1    0                                    1                                                                      
-D1[3]        1    1    0                                   1                                                                       
+D1[3]        1    1    0                               1                                                                           
 =================================================================================================================================================================
 
 
@@ -2600,7 +2572,7 @@ Object create count:
       member:           22            0           22
        frame:            2            1            1
  interpreter:            1            0
-  frameEntry:          385            0
+  frameEntry:          386            0
       lambda:            0            0
 ==========================================================================================================================
 

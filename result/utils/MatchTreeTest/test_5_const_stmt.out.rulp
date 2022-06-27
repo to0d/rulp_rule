@@ -18,12 +18,6 @@
 '(guess-1 typeof guess) '(guess-2 typeof guess) '(guess-1 has-sex ?s1) '(guess-2 has-sex ?s2) (not (equal guess-1 guess-2)) (not (equal ?s1 ?s2)) ; input
 '('('('(guess-1 has-sex ?s1) '(guess-1 typeof guess)) '('(guess-2 has-sex ?s2) '(guess-2 typeof guess)) (not-equal ?s1 ?s2)) (not-equal guess-1 guess-2)) ; output
 ;expr: 
-'(
-    '('('(guess-1 has-sex ?s1) '(guess-1 typeof guess))
-        '('(guess-2 has-sex ?s2) '(guess-2 typeof guess))
-        (not-equal ?s1 ?s2)
-    )
-    (not-equal guess-1 guess-2)
-)
+'('('('(guess-1 has-sex ?s1) '(guess-1 typeof guess)) '('(guess-2 has-sex ?s2) '(guess-2 typeof guess)) (not-equal ?s1 ?s2)) (not-equal guess-1 guess-2))
 
 

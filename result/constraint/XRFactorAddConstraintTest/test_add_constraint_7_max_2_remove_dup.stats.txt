@@ -73,10 +73,7 @@ node info5: action
 NODE[n]      Index Type  Action
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 CST01[4]     0     EXPR  (do
-                             (defvar
-                                 ?msg
-                                 (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")
-                             )
+                             (defvar ?msg (strcat "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")"))
                              (-> $invalid_constraint$:'(?msg))
                          )
                          0: ADD $invalid_constraint$:'(?0)
@@ -136,7 +133,7 @@ graph-gc-cache                        0
 =================================================================================================================================================================
 
 
-Rule<CST01> stats: priority=000, expr=(add-rule "CST01" ?m::$cst$ if $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (defvar ?msg (+ "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg)))
+Rule<CST01> stats: priority=000, expr=(add-rule "CST01" ?m::$cst$ if $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (defvar ?msg (strcat "conflict-type-constraint:'(" ?node " " ?index " " ?type1 " " ?type2 ")")) (-> $invalid_constraint$:'(?msg)))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -374,7 +371,7 @@ Object create count:
       member:           20            0           20
        frame:           23           22            1
  interpreter:            1            0
-  frameEntry:          360            0
+  frameEntry:          361            0
       lambda:            0            0
 ==========================================================================================================================
 
