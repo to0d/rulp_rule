@@ -2320,15 +2320,12 @@ public class XRNodeGraph implements IRNodeGraph {
 			info.varCount = ReteUtil.varList(cond).size();
 
 			if (info.varCount == info.stmtSize) {
-
 				info.sourceType = info.stmtName == null ? RReteType.ROOT0 : RReteType.NAME0;
 
 			} else if (info.varCount > 0) {
-
 				info.sourceType = RReteType.ALPH0;
 
 			} else {
-
 				info.sourceType = RReteType.CONST;
 			}
 

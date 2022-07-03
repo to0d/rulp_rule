@@ -35,6 +35,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener3;
 import alpha.rulp.runtime.IRParser;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.error.RIException;
@@ -509,6 +510,19 @@ public class RuleUtil {
 		}
 
 		return nodes;
+	}
+
+	public static Collection<SourceNode> listMatchCondition(IRList stmt, IRRule rule) throws RException {
+
+		if (!ReteUtil.isReteStmtNoVar(stmt)) {
+			throw new RException("unsupport var: " + stmt);
+		}
+
+		for (IAction action : rule.getActionList()) {
+
+		}
+		return null;
+
 	}
 
 	public static Collection<SourceNode> listSource(IRModel model, IRReteNode node) throws RException {

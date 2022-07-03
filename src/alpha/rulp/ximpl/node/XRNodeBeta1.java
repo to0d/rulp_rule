@@ -7,11 +7,11 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeBeta1 extends XRNodeBeta0 {
 
+	private boolean rightConstNodeIsRun = false;
+
 	public XRNodeBeta1(String instanceName) {
 		super(instanceName);
 	}
-
-	private boolean rightConstNodeIsRun = false;
 
 	@Override
 	public int update() throws RException {
