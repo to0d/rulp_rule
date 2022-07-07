@@ -38,30 +38,13 @@ public class XRFactorProveStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 		static class ProveEntry {
 
-			public List<IRReteEntry> factEntryList = null;
-
-			public IRReteNode node = null;
-
 			public String _str = null;
+
+			public List<IRReteEntry> factEntryList = null;
 
 			public Boolean isInvalid = null;
 
-			public boolean isInvalid() {
-
-				if (isInvalid == null) {
-
-					isInvalid = true;
-					if (factEntryList != null) {
-						for (IRReteEntry fact : factEntryList) {
-							if (fact.isDroped()) {
-								isInvalid = false;
-							}
-						}
-					}
-				}
-
-				return isInvalid;
-			}
+			public IRReteNode node = null;
 
 			public String getRefPathString() {
 
@@ -82,28 +65,26 @@ public class XRFactorProveStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 				return _str;
 			}
+
+			public boolean isInvalid() {
+
+				if (isInvalid == null) {
+
+					isInvalid = true;
+					if (factEntryList != null) {
+						for (IRReteEntry fact : factEntryList) {
+							if (fact.isDroped()) {
+								isInvalid = false;
+							}
+						}
+					}
+				}
+
+				return isInvalid;
+			}
 		}
 
 		static class ProveNode {
-
-			public final IRReteEntry stmtEntry;
-
-			public DLRVisitNode<IRReteEntry> vistTree = null;
-
-			public List<ProveEntry> proveEntryList = null;
-
-			public boolean isVisitCompleted = false;
-
-			public boolean isDefinedStmt = false;
-
-			public ProveNode(IRReteEntry stmtEntry) {
-				super();
-				this.stmtEntry = stmtEntry;
-			}
-
-			public int getProveEntryCount() {
-				return proveEntryList == null ? 0 : proveEntryList.size();
-			}
 
 			public static ProveEntry toProveEntry(DLRVisitNode<IRReteEntry> vistTree) throws RException {
 
@@ -121,6 +102,21 @@ public class XRFactorProveStmt extends AbsAtomFactorAdapter implements IRFactor,
 				return proveEntry;
 			}
 
+			public boolean isDefinedStmt = false;
+
+			public boolean isVisitCompleted = false;
+
+			public List<ProveEntry> proveEntryList = null;
+
+			public final IRReteEntry stmtEntry;
+
+			public DLRVisitNode<IRReteEntry> vistTree = null;
+
+			public ProveNode(IRReteEntry stmtEntry) {
+				super();
+				this.stmtEntry = stmtEntry;
+			}
+
 			public ProveEntry getFirstProve() throws RException {
 
 				if (proveEntryList == null) {
@@ -135,11 +131,15 @@ public class XRFactorProveStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 				return proveEntryList.get(0);
 			}
+
+			public int getProveEntryCount() {
+				return proveEntryList == null ? 0 : proveEntryList.size();
+			}
 		}
 
-		private Map<String, ProveNode> proveMap = new HashMap<>();
-
 		private IRModel model;
+
+		private Map<String, ProveNode> proveMap = new HashMap<>();
 
 		public StmtProveUtil(IRModel model) {
 			super();
@@ -254,17 +254,17 @@ public class XRFactorProveStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 	static class XEntryAOTreeNode implements IAOTreeNode<IRReteEntry> {
 
+		private ArrayList<IAOTreeNode<IRReteEntry>> childs = null;
+
 		private IRReteEntry entry;
+
+		private boolean root;
 
 		public XEntryAOTreeNode(IRReteEntry entry, boolean root) {
 			super();
 			this.entry = entry;
 			this.root = root;
 		}
-
-		private ArrayList<IAOTreeNode<IRReteEntry>> childs = null;
-
-		private boolean root;
 
 		@Override
 		public IAOTreeNode<IRReteEntry> getChild(int index) throws RException {
@@ -314,9 +314,9 @@ public class XRFactorProveStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 	static class XRefAOTreeNode implements IAOTreeNode<IRReteEntry> {
 
-		private IRReference ref;
-
 		private ArrayList<IAOTreeNode<IRReteEntry>> childs = null;
+
+		private IRReference ref;
 
 		public XRefAOTreeNode(IRReference ref) {
 			super();
