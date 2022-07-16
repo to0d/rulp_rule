@@ -8,13 +8,13 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import alpha.common.utils.FileUtil;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
+import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;

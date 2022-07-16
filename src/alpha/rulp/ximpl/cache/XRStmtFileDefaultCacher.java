@@ -7,12 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
-import alpha.common.utils.FileUtil;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRListener1;
+import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.node.RReteType;

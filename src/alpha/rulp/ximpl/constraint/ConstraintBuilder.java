@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import alpha.common.utils.StringUtil;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -39,6 +38,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.StringUtil;
 
 public class ConstraintBuilder {
 

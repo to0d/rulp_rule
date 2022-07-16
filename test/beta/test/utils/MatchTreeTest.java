@@ -8,11 +8,11 @@ import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
-import alpha.common.utils.FileUtil;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.FormatUtil;
 import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.ReteUtil;

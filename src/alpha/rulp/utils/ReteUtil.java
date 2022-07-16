@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import alpha.common.utils.StringUtil;
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRBoolean;
 import alpha.rulp.lang.IRDouble;

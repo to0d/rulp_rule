@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import alpha.common.utils.FileUtil;
-import alpha.common.utils.StringUtil;
+import alpha.rulp.utils.FileUtil;
+import alpha.rulp.utils.StringUtil;
 
 public class MannerUtil {
 
