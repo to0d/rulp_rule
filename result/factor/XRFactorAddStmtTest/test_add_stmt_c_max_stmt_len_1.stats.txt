@@ -95,7 +95,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 76       3        2    instance   model@m             
+default_model        : 77       3        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -105,7 +105,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      253
+           Interpreter call id:      252
     Interpreter call level/max:        0        8
                Frame max level:        7
                   Frame max id:        9
@@ -130,34 +130,34 @@ Expression compute count:
       func:     4020
 ==========================================================================================================================
 
-Callable stats info: callId=253, row=26, column=64(4), value-max=3012, value-unit=3^x
+Callable stats info: callId=252, row=26, column=64(4), value-max=4010, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         23333333333333333333333333333333333333333333333333333333333455X9 max=13057, unit=3^x
+   Frame    RType  Count  Ref Object                         23333333333333333333333333333333333333333333333333333333333455X1 max=16052, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   4020    0 return                                                                                      398
-    root   factor   4008    0 add-list-to-array                                                                           298
-  system funcList   4008    1 add                                                                                         298
-    root   factor   2006    0 +                                                                                           281
+    root   factor   4020    0 return                                                                                      49 
+    root   factor   4008    0 add-list-to-array                                                                           39 
+  system funcList   4008    1 add                                                                                         39 
+    root   factor   2006    0 +                                                                                           28 
     root   factor   2004    0 to-atom                                                                                     28 
-    root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                 
-    root   factor     77    0 defun                                                                        2333123333 33442  
+    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
+    root   factor     78    0 defun                                                                        2333 33332133442  
     root   factor     40    0 defconst                                                                                   5   
-    root   factor     11    0 defvar                                                                           21       1 131
-    root   factor      8    0 defmacro                                                                                  33   
+    root   factor     11    0 defvar                                                                           3        1 23 
+    root   factor      8    0 defmacro                                                                                  32   
     root   factor      7    0 alias                          22                                                      1       
-  system funcList      6    1 to-list                                                                                     131
-    root   factor      6    0 make-array                                                                                  131
-    root   factor      6    0 loop                                                                                        131
-    root   factor      6    0 do                                                                                          131
-  system   factor      6    0 add-stmt                                                                                    131
-    root   factor      6    0 add-array-to-list                                                                           131
-    root   factor      4    0 make-list                                                                        21            
-    root   factor      3    0 to-named-list                                                                                21
+  system funcList      6    1 to-list                                                                                     23 
+    root   factor      6    0 make-array                                                                                  23 
+    root   factor      6    0 loop                                                                                        23 
+    root   factor      6    0 do                                                                                          23 
+  system   factor      6    0 add-stmt                                                                                    23 
+    root   factor      6    0 add-array-to-list                                                                           23 
+    root   factor      4    0 make-list                                                                        3             
+    root   factor      3    0 to-named-list                                                                               12 
     main     func      3    1 (make_root_list int string)                                                                 12 
-    main     func      3    1 (make_named_list int string)                                                                 21
+    main     func      3    1 (make_named_list int string)                                                                12 
     root   factor      3    0 load                                                                                      12   
-    root   factor      3    0 deftemplate                                                                            2       
-    root   factor      1    0 new                                                                                         1  
+    root   factor      3    0 deftemplate                                                                           12       
+    root   factor      1    0 new                                                                                        1   
     root   factor      1    0 load-class                                                                                 1   
   system   factor      1    0 list-stmt                                                                                     1
 ==========================================================================================================================
@@ -166,15 +166,15 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:        18386            0        18386
+        atom:        18430            0        18430
          int:         3500            0         3500
-      string:         4102            0         4102
+      string:         4103            0         4103
         list:         4102            4         4098
-        expr:         5105         4020         1085
+        expr:         5130         4020         1110
        array:            6            6            0
          var:        12075        12054           21
     constant:           40            0           40
-        func:           94            0           94
+        func:           95            0           95
     template:            1            0            1
        macro:            8            0            8
       member:           22            0           22
@@ -186,7 +186,7 @@ Object create count:
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/3, entry=79, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=80, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -210,81 +210,82 @@ is-empty             : 10       2        2    funcList   '((is-empty array) (is-
 is-blank             : 11       2        2    func       (is-blank string) : frame=frame@main
 file-prename         : 12       2        2    func       (file-prename string) : frame=frame@main
 file-subffix         : 13       2        2    func       (file-subffix string) : frame=frame@main
-sort                 : 14       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
+str-split-line       : 14       2        2    func       (str-split-line string) : frame=frame@main
+sort                 : 15       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
                                          2    func       (sort list) : frame=frame@main
                                          1    func       (sort list func) : frame=frame@main
                                          1    func       (sort array) : frame=frame@main
                                          1    func       (sort array func) : frame=frame@main
-print-list           : 15       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+print-list           : 16       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
                                          2    func       (print-list list) : frame=frame@main
                                          1    func       (print-list nil nil) : frame=frame@main
                                          1    func       (print-list nil) : frame=frame@main
-to-valid-path        : 16       2        2    func       (to-valid-path string) : frame=frame@main
-day-is-bigger-than   : 17       2        2    func       (day-is-bigger-than string string) : frame=frame@main
-day-is-smaller-than  : 18       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 19       2        2    var        result\factor\XRFactorAddStmtTest\test_add_stmt_c_max_stmt_len_1.rulp : type=string
-script_out           : 20       2        2    macro      script_out          
-_ginfo               : 21       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+to-valid-path        : 17       2        2    func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 18       2        2    func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 19       2        2    func       (day-is-smaller-than string string) : frame=frame@main
+?script-path         : 20       2        2    var        result\factor\XRFactorAddStmtTest\test_add_stmt_c_max_stmt_len_1.rulp : type=string
+script_out           : 21       2        2    macro      script_out          
+_ginfo               : 22       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-RRT_ROOT             : 22       2        2    constant   RRT_ROOT:"0"        
-RRT_NAME             : 23       2        2    constant   RRT_NAME:"1"        
-RRT_VAR              : 24       2        2    constant   RRT_VAR:"2"         
-RRT_CONST            : 25       2        2    constant   RRT_CONST:"3"       
-RRT_ALPH0            : 26       2        2    constant   RRT_ALPH0:"4"       
-RRT_ALPH1            : 27       2        2    constant   RRT_ALPH1:"5"       
-RRT_EXPR0            : 28       2        2    constant   RRT_EXPR0:"6"       
-RRT_EXPR1            : 29       2        2    constant   RRT_EXPR1:"7"       
-RRT_EXPR2            : 30       2        2    constant   RRT_EXPR2:"8"       
-RRT_EXPR3            : 31       2        2    constant   RRT_EXPR3:"9"       
-RRT_EXPR4            : 32       2        2    constant   RRT_EXPR4:"10"      
-RRT_BETA0            : 33       2        2    constant   RRT_BETA0:"11"      
-RRT_BETA1            : 34       2        2    constant   RRT_BETA1:"12"      
-RRT_BETA2            : 35       2        2    constant   RRT_BETA2:"13"      
-RRT_BETA3            : 36       2        2    constant   RRT_BETA3:"14"      
-RRT_RULE             : 37       2        2    constant   RRT_RULE:"15"       
-RRT_WORK             : 38       2        2    constant   RRT_WORK:"16"       
-ATTR_RETE_TYPE       : 39       2        2    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 40       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 41       2        2    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 42       2        2    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 43       2        2    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 44       2        2    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 45       2        2    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 46       2        2    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 47       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 48       2        2    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 49       2        2    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 50       2        2    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 51       2        2    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 52       2        2    constant   RETE_QUEUE_ACTION:"4"
-RETE_PRIORITY_DEFAULT : 53       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 54       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 55       2        2    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 56       2        2    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 57       2        2    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 58       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 59       2        2    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 60       2        2    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 61       2        2    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 62       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 63       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 64       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 65       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 66       2        2    macro      list-with-state     
-list-without-state   : 67       2        2    macro      list-without-state  
-list-rule            : 68       2        2    macro      list-rule           
-get-rule             : 69       2        2    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 70       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 71       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 72       2        2    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 73       2        2    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 74       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 75       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-m                    : 77       2        2    instance   model@m             
-make_root_list       : 78       2        1    func       (make_root_list int string) : frame=frame@main
-make_named_list      : 79       2        1    func       (make_named_list int string) : frame=frame@main
-?rv                  : 95       2        1    var        n3:'(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  )... : type=list
+RRT_ROOT             : 23       2        2    constant   RRT_ROOT:"0"        
+RRT_NAME             : 24       2        2    constant   RRT_NAME:"1"        
+RRT_VAR              : 25       2        2    constant   RRT_VAR:"2"         
+RRT_CONST            : 26       2        2    constant   RRT_CONST:"3"       
+RRT_ALPH0            : 27       2        2    constant   RRT_ALPH0:"4"       
+RRT_ALPH1            : 28       2        2    constant   RRT_ALPH1:"5"       
+RRT_EXPR0            : 29       2        2    constant   RRT_EXPR0:"6"       
+RRT_EXPR1            : 30       2        2    constant   RRT_EXPR1:"7"       
+RRT_EXPR2            : 31       2        2    constant   RRT_EXPR2:"8"       
+RRT_EXPR3            : 32       2        2    constant   RRT_EXPR3:"9"       
+RRT_EXPR4            : 33       2        2    constant   RRT_EXPR4:"10"      
+RRT_BETA0            : 34       2        2    constant   RRT_BETA0:"11"      
+RRT_BETA1            : 35       2        2    constant   RRT_BETA1:"12"      
+RRT_BETA2            : 36       2        2    constant   RRT_BETA2:"13"      
+RRT_BETA3            : 37       2        2    constant   RRT_BETA3:"14"      
+RRT_RULE             : 38       2        2    constant   RRT_RULE:"15"       
+RRT_WORK             : 39       2        2    constant   RRT_WORK:"16"       
+ATTR_RETE_TYPE       : 40       2        2    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 41       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 42       2        2    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 43       2        2    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 44       2        2    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 45       2        2    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 46       2        2    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 47       2        2    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 48       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 49       2        2    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 50       2        2    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 51       2        2    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 52       2        2    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 53       2        2    constant   RETE_QUEUE_ACTION:"4"
+RETE_PRIORITY_DEFAULT : 54       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 55       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 56       2        2    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 57       2        2    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 58       2        2    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 59       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 60       2        2    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 61       2        2    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 62       2        2    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 63       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 64       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 65       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 66       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 67       2        2    macro      list-with-state     
+list-without-state   : 68       2        2    macro      list-without-state  
+list-rule            : 69       2        2    macro      list-rule           
+get-rule             : 70       2        2    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 71       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 72       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 73       2        2    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 74       2        2    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 75       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
+set-node-multi-queue : 76       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+m                    : 78       2        2    instance   model@m             
+make_root_list       : 79       2        1    func       (make_root_list int string) : frame=frame@main
+make_named_list      : 80       2        1    func       (make_named_list int string) : frame=frame@main
+?rv                  : 96       2        1    var        n3:'(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  )... : type=list
 ==========================================================================================================================
 
 
@@ -292,7 +293,7 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 76       3        2    instance   model@m             
+default_model        : 77       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=6

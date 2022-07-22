@@ -368,7 +368,7 @@ Ref Bit Map: total=7, max-id=7, create=7, removed=0, group-size=10, group-count=
 Child Count:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
        5: entry=task_func:'("task1" fun1), status=define
-       3: entry=eton_working_task1:'("2022-07-16" "task1" "value0"), status=reason
+       3: entry=eton_working_task1:'("2022-07-22" "task1" "value0"), status=reason
        1: entry=eton_daily_task1:'("task1" "value0"), status=define
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
            Entry[2]  Entry[3]  Entry[4]
@@ -390,25 +390,25 @@ Model<em> frame:id=3, name=model, lvl=3, ref=3/4, entry=1, pid=2(main), subject=
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 81       3        5    instance   model@em            
+default_model        : 82       3        5    instance   model@em            
 ==========================================================================================================================
 
 Node<R1> frame:id=10, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 146      10       5    instance   model@em            
-?task                : 147      10       1    var        task1 : type=string 
-?arg0                : 148      10       1    var        value0 : type=string
+default_model        : 147      10       5    instance   model@em            
+?task                : 148      10       1    var        task1 : type=string 
+?arg0                : 149      10       1    var        value0 : type=string
 ==========================================================================================================================
 
 Node<E00005> frame:id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      13       1    var        2022-07-16 : type=string
-?3                   : 152      13       1    var        2022-07-16 : type=string
-?rv                  : 155      13       1    var        false : type=bool   
+?0                   : 152      13       1    var        2022-07-22 : type=string
+?3                   : 153      13       1    var        2022-07-22 : type=string
+?rv                  : 156      13       1    var        false : type=bool   
 ==========================================================================================================================
 
 node update info: model-exec-count=14, row=8, column=15(1), value-max=1, value-unit=1^x
@@ -432,7 +432,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      249
+           Interpreter call id:      248
     Interpreter call level/max:        0       13
                Frame max level:        8
                   Frame max id:       14
@@ -458,61 +458,61 @@ Expression compute count:
      macro:       10
 ==========================================================================================================================
 
-Callable stats info: callId=249, row=53, column=63(4), value-max=40, value-unit=2^x
+Callable stats info: callId=248, row=53, column=63(4), value-max=40, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334433333336886 max=117, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333336956 max=186, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    179    0 add-attribute                   1333333333333333333333333333333333333333333332                
-    root   factor     90    0 defun                                                                        2333133333 33661 
+    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
+    root   factor     91    0 defun                                                                        3333 33333133661 
     root   factor     40    0 defconst                                                                                   7  
-    root   factor     18    0 return                                                                                      52
-    root   factor     16    0 defvar                                                                           31       1243
-    root   factor     15    0 do                                                                                          52
-    root   factor      9    0 defmacro                                                                                  331 
+    root   factor     18    0 return                                                                                     521
+    root   factor     16    0 defvar                                                                           3        14 3
+    root   factor     15    0 do                                                                                         522
+    root   factor      9    0 defmacro                                                                                  43  
     root   factor      7    0 load                                                                                      14  
     root   factor      7    0 alias                          33                                                      1      
-    root   factor      5    0 size-of-list                                                                                4 
-  system funcList      5    1 size-of                                                                                     4 
-    root   factor      5    0 setq                                                                                        4 
-  system   factor      5    0 set-priority                                                                                4 
-  system   factor      5    0 rete-node-of                                                                                4 
-    main     func      5    2 (get-rule type#model string)                                                                4 
-    root   factor      5    0 get-of-list                                                                                 4 
-  system funcList      5    1 get                                                                                         4 
-    root   factor      5    0 case                                                                                        4 
-  system   factor      5    0 add-rule                                                                                    4 
-    main    macro      5    1 _eton_priority_                                                                             4 
-    main    macro      5    2 --                                                                                          4 
-    root   factor      5    0 -                                                                                           4 
+    root   factor      5    0 size-of-list                                                                               4  
+  system funcList      5    1 size-of                                                                                    4  
+    root   factor      5    0 setq                                                                                       4  
+  system   factor      5    0 set-priority                                                                               4  
+  system   factor      5    0 rete-node-of                                                                               4  
+    main     func      5    2 (get-rule type#model string)                                                               4  
+    root   factor      5    0 get-of-list                                                                                4  
+  system funcList      5    1 get                                                                                        4  
+    root   factor      5    0 case                                                                                       4  
+  system   factor      5    0 add-rule                                                                                   4  
+    main    macro      5    1 _eton_priority_                                                                            4  
+    main    macro      5    2 --                                                                                         4  
+    root   factor      5    0 -                                                                                          4  
     root   factor      4    0 trace                                                                                       22
-    root   factor      4    0 make-list                                                                        31           
-    root   factor      3    0 if                                                                                          12
-    root   factor      3    0 deftemplate                                                                            3      
+    root   factor      4    0 make-list                                                                        3            
+    root   factor      3    0 if                                                                                         1 2
+    root   factor      3    0 deftemplate                                                                           12      
   system   factor      3    0 add-stmt                                                                                    21
-    main     func      2    2 (eton_model)                                                                                11
+    main     func      2    2 (eton_model)                                                                                2 
     root   factor      2    0 day-number                                                                                   2
-    root   factor      2    0 +                                                                                           11
-    root   factor      2    0 !=                                                                                          11
+    root   factor      2    0 +                                                                                          1 1
+    root   factor      2    0 !=                                                                                         1 1
     root   factor      1    0 throw                                                                                        1
   system   factor      1    0 state-of                                                                                     1
   system   factor      1    0 start                                                                                        1
-  system   factor      1    0 set-default-model                                                                           1 
+  system   factor      1    0 set-default-model                                                                          1  
     main     func      1    2 (register_task_function type#m                                                              1 
   system   factor      1    0 query-stmt                                                                                   1
     main     func      1    2 (process-eton)                                                                               1
     root   factor      1    0 new                                                                                        1  
     root   factor      1    0 loop                                                                                         1
     root   factor      1    0 load-class                                                                                 1  
-  system   factor      1    0 list-stmt                                                                                    1
-    root   factor      1    0 lambda                                                                                      1 
-    main     func      1    2 (init_eton_model string)                                                                    1 
+  system   factor      1    0 list-stmt                                                                                   1 
+    root   factor      1    0 lambda                                                                                     1  
+    main     func      1    2 (init_eton_model string)                                                                   1  
     main     func      1    2 (fun1 nil)                                                                                   1
     main     func      1    2 (day-is-bigger-than string str                                                               1
     root   factor      1    0 date                                                                                         1
-    root   factor      1    0 and                                                                                         1 
+    root   factor      1    0 and                                                                                        1  
     main     func      1    2 (add_working_task string nil)                                                                1
     main     func      1    2 (add_daily_task string nil)                                                                 1 
-  system   factor      1    0 add-constraint                                                                              1 
+  system   factor      1    0 add-constraint                                                                             1  
     root   factor      1    0 >                                                                                            1
     root   factor      1    0 =                                                                                            1
 ==========================================================================================================================
@@ -521,14 +521,14 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2904            0         2904
+        atom:         2948            0         2948
          int:           10            0           10
-      string:          133            0          133
+      string:          134            0          134
         list:          171            6          165
-        expr:         1349           22         1327
+        expr:         1374           22         1352
          var:           87           58           29
     constant:           40            0           40
-        func:          110            0          110
+        func:          111            0          111
     template:            1            0            1
        macro:            9            0            9
       member:           22            0           22
@@ -540,7 +540,7 @@ Object create count:
 
 Global frame list: total=5
 
-id=2, name=main, lvl=2, ref=3/4, entry=94, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=95, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -564,98 +564,99 @@ is-empty             : 10       2        2    funcList   '((is-empty array) (is-
 is-blank             : 11       2        2    func       (is-blank string) : frame=frame@main
 file-prename         : 12       2        2    func       (file-prename string) : frame=frame@main
 file-subffix         : 13       2        2    func       (file-subffix string) : frame=frame@main
-sort                 : 14       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
+str-split-line       : 14       2        2    func       (str-split-line string) : frame=frame@main
+sort                 : 15       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
                                          2    func       (sort list) : frame=frame@main
                                          1    func       (sort list func) : frame=frame@main
                                          1    func       (sort array) : frame=frame@main
                                          1    func       (sort array func) : frame=frame@main
-print-list           : 15       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+print-list           : 16       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
                                          2    func       (print-list list) : frame=frame@main
                                          1    func       (print-list nil nil) : frame=frame@main
                                          1    func       (print-list nil) : frame=frame@main
-to-valid-path        : 16       2        2    func       (to-valid-path string) : frame=frame@main
-day-is-bigger-than   : 17       2        2    func       (day-is-bigger-than string string) : frame=frame@main
-day-is-smaller-than  : 18       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 19       2        2    var        result\eton\TestEton\test_eton_2_err.rulp : type=string
-script_out           : 20       2        2    macro      script_out          
-_ginfo               : 21       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+to-valid-path        : 17       2        2    func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 18       2        2    func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 19       2        2    func       (day-is-smaller-than string string) : frame=frame@main
+?script-path         : 20       2        2    var        result\eton\TestEton\test_eton_2_err.rulp : type=string
+script_out           : 21       2        2    macro      script_out          
+_ginfo               : 22       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-RRT_ROOT             : 22       2        2    constant   RRT_ROOT:"0"        
-RRT_NAME             : 23       2        2    constant   RRT_NAME:"1"        
-RRT_VAR              : 24       2        2    constant   RRT_VAR:"2"         
-RRT_CONST            : 25       2        2    constant   RRT_CONST:"3"       
-RRT_ALPH0            : 26       2        2    constant   RRT_ALPH0:"4"       
-RRT_ALPH1            : 27       2        2    constant   RRT_ALPH1:"5"       
-RRT_EXPR0            : 28       2        2    constant   RRT_EXPR0:"6"       
-RRT_EXPR1            : 29       2        2    constant   RRT_EXPR1:"7"       
-RRT_EXPR2            : 30       2        2    constant   RRT_EXPR2:"8"       
-RRT_EXPR3            : 31       2        2    constant   RRT_EXPR3:"9"       
-RRT_EXPR4            : 32       2        2    constant   RRT_EXPR4:"10"      
-RRT_BETA0            : 33       2        2    constant   RRT_BETA0:"11"      
-RRT_BETA1            : 34       2        2    constant   RRT_BETA1:"12"      
-RRT_BETA2            : 35       2        2    constant   RRT_BETA2:"13"      
-RRT_BETA3            : 36       2        2    constant   RRT_BETA3:"14"      
-RRT_RULE             : 37       2        2    constant   RRT_RULE:"15"       
-RRT_WORK             : 38       2        2    constant   RRT_WORK:"16"       
-ATTR_RETE_TYPE       : 39       2        2    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 40       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 41       2        2    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 42       2        2    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 43       2        2    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 44       2        2    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 45       2        2    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 46       2        2    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 47       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 48       2        2    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 49       2        2    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 50       2        2    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 51       2        2    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 52       2        2    constant   RETE_QUEUE_ACTION:"4"
-RETE_PRIORITY_DEFAULT : 53       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 54       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 55       2        2    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 56       2        2    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 57       2        2    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 58       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 59       2        2    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 60       2        2    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 61       2        2    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 62       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 63       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 64       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 65       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 66       2        2    macro      list-with-state     
-list-without-state   : 67       2        2    macro      list-without-state  
-list-rule            : 68       2        2    macro      list-rule           
-get-rule             : 69       2        2    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 70       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 71       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 72       2        2    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 73       2        2    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 74       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 75       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-__sub_statement__    : 76       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
-__previous_statement__ : 77       2        2    func       (__previous_statement__ nil) : frame=frame@main
-__make_filter_array__ : 78       2        2    func       (__make_filter_array__ nil) : frame=frame@main
-diff-stmt            : 79       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
+RRT_ROOT             : 23       2        2    constant   RRT_ROOT:"0"        
+RRT_NAME             : 24       2        2    constant   RRT_NAME:"1"        
+RRT_VAR              : 25       2        2    constant   RRT_VAR:"2"         
+RRT_CONST            : 26       2        2    constant   RRT_CONST:"3"       
+RRT_ALPH0            : 27       2        2    constant   RRT_ALPH0:"4"       
+RRT_ALPH1            : 28       2        2    constant   RRT_ALPH1:"5"       
+RRT_EXPR0            : 29       2        2    constant   RRT_EXPR0:"6"       
+RRT_EXPR1            : 30       2        2    constant   RRT_EXPR1:"7"       
+RRT_EXPR2            : 31       2        2    constant   RRT_EXPR2:"8"       
+RRT_EXPR3            : 32       2        2    constant   RRT_EXPR3:"9"       
+RRT_EXPR4            : 33       2        2    constant   RRT_EXPR4:"10"      
+RRT_BETA0            : 34       2        2    constant   RRT_BETA0:"11"      
+RRT_BETA1            : 35       2        2    constant   RRT_BETA1:"12"      
+RRT_BETA2            : 36       2        2    constant   RRT_BETA2:"13"      
+RRT_BETA3            : 37       2        2    constant   RRT_BETA3:"14"      
+RRT_RULE             : 38       2        2    constant   RRT_RULE:"15"       
+RRT_WORK             : 39       2        2    constant   RRT_WORK:"16"       
+ATTR_RETE_TYPE       : 40       2        2    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 41       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 42       2        2    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 43       2        2    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 44       2        2    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 45       2        2    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 46       2        2    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 47       2        2    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 48       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 49       2        2    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 50       2        2    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 51       2        2    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 52       2        2    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 53       2        2    constant   RETE_QUEUE_ACTION:"4"
+RETE_PRIORITY_DEFAULT : 54       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 55       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 56       2        2    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 57       2        2    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 58       2        2    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 59       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 60       2        2    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 61       2        2    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 62       2        2    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 63       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 64       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 65       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 66       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 67       2        2    macro      list-with-state     
+list-without-state   : 68       2        2    macro      list-without-state  
+list-rule            : 69       2        2    macro      list-rule           
+get-rule             : 70       2        2    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 71       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 72       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 73       2        2    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 74       2        2    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 75       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
+set-node-multi-queue : 76       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+__sub_statement__    : 77       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
+__previous_statement__ : 78       2        2    func       (__previous_statement__ nil) : frame=frame@main
+__make_filter_array__ : 79       2        2    func       (__make_filter_array__ nil) : frame=frame@main
+diff-stmt            : 80       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
                                          2    func       (diff-stmt nil list list) : frame=frame@main
                                          1    func       (diff-stmt nil list list list) : frame=frame@main
-?eton_model          : 80       2        2    var        model@em : type=instance
-em                   : 82       2        5    instance   model@em            
-?process_count       : 83       2        2    var        0 : type=int        
-__inc_process_count__ : 84       2        3    func       (__inc_process_count__) : frame=frame@main
-eton_model           : 85       2        2    func       (eton_model) : frame=frame@main
-init_eton_model      : 86       2        2    func       (init_eton_model string) : frame=frame@main
-add_daily_task       : 87       2        2    func       (add_daily_task string nil) : frame=frame@main
-add_working_task     : 88       2        2    func       (add_working_task string nil) : frame=frame@main
-register_task_function : 89       2        2    func       (register_task_function type#model string func) : frame=frame@main
-update_eton          : 90       2        2    func       (update_eton atom nil nil) : frame=frame@main
-has_subject_property : 91       2        2    func       (has_subject_property atom nil nil) : frame=frame@main
-process-eton         : 92       2        2    func       (process-eton) : frame=frame@main
-_eton_priority_      : 95       2        1    macro      _eton_priority_     
-fun1                 : 137      2        2    func       (fun1 nil) : frame=frame@main
-?rv                  : 138      2        1    var        model@em : type=instance
+?eton_model          : 81       2        2    var        model@em : type=instance
+em                   : 83       2        5    instance   model@em            
+?process_count       : 84       2        2    var        0 : type=int        
+__inc_process_count__ : 85       2        3    func       (__inc_process_count__) : frame=frame@main
+eton_model           : 86       2        2    func       (eton_model) : frame=frame@main
+init_eton_model      : 87       2        2    func       (init_eton_model string) : frame=frame@main
+add_daily_task       : 88       2        2    func       (add_daily_task string nil) : frame=frame@main
+add_working_task     : 89       2        2    func       (add_working_task string nil) : frame=frame@main
+register_task_function : 90       2        2    func       (register_task_function type#model string func) : frame=frame@main
+update_eton          : 91       2        2    func       (update_eton atom nil nil) : frame=frame@main
+has_subject_property : 92       2        2    func       (has_subject_property atom nil nil) : frame=frame@main
+process-eton         : 93       2        2    func       (process-eton) : frame=frame@main
+_eton_priority_      : 96       2        1    macro      _eton_priority_     
+fun1                 : 138      2        2    func       (fun1 nil) : frame=frame@main
+?rv                  : 139      2        1    var        model@em : type=instance
 ==========================================================================================================================
 
 
@@ -663,14 +664,14 @@ id=3, name=model, lvl=3, ref=3/4, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 81       3        5    instance   model@em            
+default_model        : 82       3        5    instance   model@em            
 ==========================================================================================================================
 
 id=4, name=_$fun$_init_eton_model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=_$fun$_init_eton_model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?path                : 93       4        1    var         : type=string      
+?path                : 94       4        1    var         : type=string      
 ==========================================================================================================================
 
 id=5, name=do, lvl=4, ref=1/2, entry=0, pid=4(_$fun$_init_eton_model), subject=do
@@ -679,18 +680,18 @@ id=10, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 146      10       5    instance   model@em            
-?task                : 147      10       1    var        task1 : type=string 
-?arg0                : 148      10       1    var        value0 : type=string
+default_model        : 147      10       5    instance   model@em            
+?task                : 148      10       1    var        task1 : type=string 
+?arg0                : 149      10       1    var        value0 : type=string
 ==========================================================================================================================
 
 id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      13       1    var        2022-07-16 : type=string
-?3                   : 152      13       1    var        2022-07-16 : type=string
-?rv                  : 155      13       1    var        false : type=bool   
+?0                   : 152      13       1    var        2022-07-22 : type=string
+?3                   : 153      13       1    var        2022-07-22 : type=string
+?rv                  : 156      13       1    var        false : type=bool   
 ==========================================================================================================================
 
 Root var list: total=6
