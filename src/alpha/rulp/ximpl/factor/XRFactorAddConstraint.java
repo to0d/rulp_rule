@@ -25,10 +25,6 @@ import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorAddConstraint extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
-	public XRFactorAddConstraint(String factorName) {
-		super(factorName);
-	}
-
 	static IRObject _addFuncConstraint(IRFunction func, String funcName, IRModel model, IRReteNode node)
 			throws RException {
 
@@ -44,6 +40,10 @@ public class XRFactorAddConstraint extends AbsAtomFactorAdapter implements IRFac
 
 		IRConstraint1 cons = ConstraintFactory.func(func, funcName);
 		return RulpFactory.createBoolean(model.addConstraint(node, cons));
+	}
+
+	public XRFactorAddConstraint(String factorName) {
+		super(factorName);
 	}
 
 	@Override

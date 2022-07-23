@@ -3,13 +3,11 @@
 ; Common utilies
 ;****************************************************
 (alias add-stmt ->)
-
 (defun size-of ((?m model)) (return (size-of-model ?m)))
 
 ;****************************************************
 ; Constraint utilies
 ;****************************************************
-
 (defun init_cst_rule ((?m model))
 
     (if (equal ?m::?cst-init true)
