@@ -380,7 +380,7 @@ A00114[3]    '(?0 nm:beClassTagOf ?1)
 A00128[3]    '(tb ?0 ?1)
 A00129[3]    '(tb nm:beAliasTo ?0)
 A10006[3]    (var-changed ?model-state running completed)
-E00004[3]    '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0)))
+E00004[3]    '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?0)))
 E00116[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
 E00120[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
 E00123[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
@@ -411,7 +411,7 @@ B00100[2]    '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0))
 B00103[3]    '('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2)))
 B00110[3]    '('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2))
 B00115[3]    '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
-B10007[2]    '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?0))) (var-changed ?model-state running completed))
+B10007[2]    '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?0))) (var-changed ?model-state running completed))
 B10043[4]    '('('('(?0 ?1 ?2) (!= ?0 ?2)) '(?1 nm:propertyOf nm:nonCircleProperty)) (var-changed ?model-state running completed))
 B10079[2]    '('('(?0 nm:typeOf nm:domain) (!= ?0 nd:Global)) (var-changed ?model-state running completed))
 B10105[4]    '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
@@ -551,7 +551,7 @@ A10006[3]        1     1
                  1     1  C1:(cmp-entry-value = ?1 running)
                  0     0  C1:(cmp-entry-value = ?2 completed)
 E00004[3]        0     0
-                 0     0  C1:(can-cast '(int float) (get-version-number ?0))
+                 0     0  C1:(can-cast '(int float) (p2d_get_version_number ?0))
 E00116[3]        0     0
                  0     0  C1:(has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))
 E00120[3]        0     0
@@ -1177,7 +1177,7 @@ graph-gc-cache                        0
 =================================================================================================================================================================
 
 
-Rule<TV1> stats: priority=099, expr=(add-rule "TV1" p2d if (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (get-version-number ?tag)) do (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion)))))))
+Rule<TV1> stats: priority=099, expr=(add-rule "TV1" p2d if (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?tag)) do (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion)))))))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2470,16 +2470,16 @@ default_model        : 77       3        3    instance   model@p2d
 
 node update info: model-exec-count=210, row=29, column=106(2), value-max=1, value-unit=1^x
 =================================================================================================================================================================
-NODE[n]   Update Exec Idle 11..1...1111...1.1........11.11...........1.....2...11........121.1....1...2..2.221..21121....1..22.111221 max=2, unit=2^x
+NODE[n]   Update Exec Idle 11..1...1111...1.1.......11.2...............1...2...11........121.1....1...2..2.221..21121....1..22.111221 max=2, unit=2^x
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    8    8    0 1                          1  1                                            1  1  1                1    1  
+R00001[3]    8    8    0 1                         1 1                                              1  1  1                1    1  
 A00022[3]    3    3    0     1                                                          1                      1                   
 E10051[3]    3    3    0          1                                                        1                      1                
 E10052[3]    3    3    0                                                 1                                1                      1 
 E10091[3]    3    3    0                1                                                       1                      1           
 A00018[3]    2    3    0                                                               1                      1                    
-A00026[3]    2    3    0                                                     1                                                1    
-A00045[3]    2    3    0                                           1                                     1                         
+A00026[3]    2    3    0                                                      1                                               1    
+A00045[3]    2    3    0                                             1                                   1                         
 B00019[4]    2    3    1                                                                1                     1                    
 B20035[3]    2    3    1                                                                 1                      1                  
 B20092[3]    2    3    0                                                                                   1                     1 
@@ -2491,7 +2491,7 @@ A00002[3]    1    3    0  1
 A00034[3]    1    3    0                                                 1                                                         
 A00048[3]    1    3    0                                                                                         1                 
 A00060[3]    1    3    0           1                                                                                               
-A00063[3]    1    1    0                                                      1                                                    
+A00063[3]    1    1    0                                                     1                                                     
 A00066[3]    1    3    0            1                                                                                              
 A00128[3]    1    3    0                                                                                                  1        
 A00129[3]    1    2    1                                                                                                          1
@@ -2499,8 +2499,8 @@ E10040[3]    1    1    0         1
 B00058[2]    1    3    1                                                                                                   1       
 B20046[3]    1    3    1                                                                                         1                 
 C8[3]        1    2    1                                                                                                        1  
-T8[3]        1    1    0                              1                                                                            
-D1[3]        1    1    0                           1                                                                               
+T8[3]        1    1    0                             1                                                                             
+D1[3]        1    1    0                          1                                                                                
 =================================================================================================================================================================
 
 
@@ -2678,10 +2678,10 @@ p2d                  : 78       2        3    instance   model@p2d
 #ns_tag              : 79       2        2    var        nt: : type=string   
 #ns_domain           : 80       2        2    var        nd: : type=string   
 get-uri-name         : 81       2        2    func       (get-uri-name nil) : frame=frame@main
-get-suffix           : 82       2        2    func       (get-suffix nil nil) : frame=frame@main
+p2d_get_suffix       : 82       2        2    func       (p2d_get_suffix nil nil) : frame=frame@main
 get-field-name       : 83       2        2    func       (get-field-name nil) : frame=frame@main
 get-new-ns           : 84       2        2    macro      get-new-ns          
-get-version-number   : 85       2        2    func       (get-version-number nil) : frame=frame@main
+p2d_get_version_number : 85       2        2    func       (p2d_get_version_number nil) : frame=frame@main
 hasGroupChild        : 86       2        2    macro      hasGroupChild       
 ==========================================================================================================================
 
