@@ -1,24 +1,24 @@
 (load "note/p2d.rulp")
 ;=>nil
 
-(get-field-name abc)
+(p2d_get_field_name abc)
 ;=>"abc"
 
-(get-field-name nt:abc)
+(p2d_get_field_name nt:abc)
 ;=>"nt:abc"
 
-(get-field-name mn:abc)
+(p2d_get_field_name mn:abc)
 ;=>"mn:abc"
 
-(get-field-name nt:abc-xyz)
+(p2d_get_field_name nt:abc-xyz)
 ;=>"xyz"
 
-(get-field-name nt:abc-xyz-123)
+(p2d_get_field_name nt:abc-xyz-123)
 ;=>"123"
 
 (defvar ?c ta3)(defvar ?f f3)
 ;=>&?c &?f
 
-(strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f)))
+(strcat (to-string ?c) "-" (p2d_get_field_name (p2d_get_uri_name ?f)))
 ;=>"ta3-f3"
 

@@ -375,9 +375,9 @@ A00109[3]    '(?0 nm:hasFieldTag ?1)
 A00114[3]    '(?0 nm:beClassTagOf ?1)
 A10006[3]    (var-changed ?model-state running completed)
 E00004[3]    '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?0)))
-E00116[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag)))
-E00120[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner"))
-E00123[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0))
+E00116[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (p2d_get_uri_name ?2))) nm:typeOf nm:tag)))
+E00120[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?0) "-Beginner"))
+E00123[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?0) "-") 0))
 E10032[4]    '('('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3)) (not-equal ?3 ?2))
 E10040[3]    '('(?0 ?1 ?2) (!= ?0 ?2))
 E10051[3]    '('(?0 ?1 ?2) (!= ?1 nm:hasAliasTag))
@@ -411,9 +411,9 @@ B10079[2]    '('('(?0 nm:typeOf nm:domain) (!= ?0 nd:Global)) (var-changed ?mode
 B10105[4]    '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
 B10107[2]    '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
 B10112[4]    '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10118[4]    '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10121[2]    '('('(?0 nm:typeOf nm:tag) (str-end-with (get-uri-name ?0) "-Beginner")) (var-changed ?model-state running completed))
-B10124[2]    '('('(?0 nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?0) "-") 0)) (var-changed ?model-state running completed))
+B10118[4]    '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (p2d_get_uri_name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+B10121[2]    '('('(?0 nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?0) "-Beginner")) (var-changed ?model-state running completed))
+B10124[2]    '('('(?0 nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?0) "-") 0)) (var-changed ?model-state running completed))
 B20027[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
 B20030[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery))
 B20035[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:symmetricProperty))
@@ -423,7 +423,7 @@ B20092[3]    '('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm
 B20094[3]    '('('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
 B20104[3]    '('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2)))
 B20111[3]    '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
-B20117[3]    '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
+B20117[3]    '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (p2d_get_uri_name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
 TV1[2]       TV1
 TC1[3]       TC1
 CC1[3]       CC1
@@ -543,11 +543,11 @@ A10006[3]        0     0
 E00004[3]        0     0
                  0     0  C1:(can-cast '(int float) (p2d_get_version_number ?0))
 E00116[3]        0     0
-                 0     0  C1:(has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (get-uri-name ?2))) nm:typeOf nm:tag))
+                 0     0  C1:(has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (p2d_get_uri_name ?2))) nm:typeOf nm:tag))
 E00120[3]        0     0
-                 0     0  C1:(str-end-with (get-uri-name ?0) "-Beginner")
+                 0     0  C1:(str-end-with (p2d_get_uri_name ?0) "-Beginner")
 E00123[3]        0     0
-                 0     0  C1:(> (str-index-of (get-uri-name ?0) "-") 0)
+                 0     0  C1:(> (str-index-of (p2d_get_uri_name ?0) "-") 0)
 E10032[4]        0     0
                  0     0  C1:(cmp-entry-index != ?2 ?3)
 E10040[3]        0     0
@@ -652,12 +652,12 @@ AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref 
                              )
                          )
                          0: ADD '(?0 nm:hasAutoRelatedTag ?1)
-AC3[4]       0     EXPR  (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
+AC3[4]       0     EXPR  (let (?cf (to-atom (+ (to-string ?c) "-" (p2d_get_field_name (p2d_get_uri_name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
                          0: ADD '(?0 nm:hasSubCollection ?1)
                          1: ADD '(?0 nm:beFieldTagOf ?1)
 AC4[4]       0     EXPR  (do
-                             (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
-                             (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f)))))
+                             (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f)))))
+                             (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f)))))
                          )
                          0: ADD '(?0 nm:hasFieldTag ?1)
                          1: ADD '(?0 nm:beParentTagOf ?1)
@@ -665,15 +665,15 @@ AC5[2]       0     ADD   '(?0, nm:beChildTagOf, nt:$BEGINNER)
              1     ADD   '(?0, nm:beDefinedByTag, nt:$TOPIC)
              2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
                          0: ADD '(?0 nm:beDefinedByTag ?1)
-AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain)))
+AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain)))
                              (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))
                          )
                          0: ADD '(?0 nm:hasRelatedTag ?1)
-AC7[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag)))
+AC7[2]       0     EXPR  (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag)))
                              (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t))
                          )
                          0: ADD '(?0 nm:hasGroupChild ?1)
-AC8[2]       0     EXPR  (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag)))
+AC8[2]       0     EXPR  (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag)))
                              (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t))
                          )
                          0: ADD '(?0 nm:beParentTagOf ?1)
@@ -2053,7 +2053,7 @@ Priority          VAR ALPH0 ALPH1 BETA1  RULE
 099(default) :      1     2     1     1     1
 =================================================================================================================================================================
 
-Rule<AC3> stats: priority=099, expr=(add-rule "AC3" p2d if (var-changed ?model-state running completed) '(?a nm:typeOf nm:tag) '(?a nm:hasFieldTag ?f) '(?a nm:beParentTagOf ?c) do (let (?cf (to-atom (strcat (to-string ?c) "-" (get-field-name (get-uri-name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c))))))
+Rule<AC3> stats: priority=099, expr=(add-rule "AC3" p2d if (var-changed ?model-state running completed) '(?a nm:typeOf nm:tag) '(?a nm:hasFieldTag ?f) '(?a nm:beParentTagOf ?c) do (let (?cf (to-atom (+ (to-string ?c) "-" (p2d_get_field_name (p2d_get_uri_name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c))))))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2089,7 +2089,7 @@ Priority          VAR ALPH0 ALPH1 BETA0 BETA1 BETA2  RULE
 099(default) :      1     4     1     1     1     1     1
 =================================================================================================================================================================
 
-Rule<AC4> stats: priority=099, expr=(add-rule "AC4" p2d if (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (get-uri-name ?f))))))
+Rule<AC4> stats: priority=099, expr=(add-rule "AC4" p2d if (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f))))))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2127,7 +2127,7 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA0 BETA1 BETA2  RULE
 099(default) :      1     4     1     1     1     1     1     1
 =================================================================================================================================================================
 
-Rule<AC5> stats: priority=099, expr=(add-rule "AC5" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (get-uri-name ?t) "-Beginner") do (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn))))))
+Rule<AC5> stats: priority=099, expr=(add-rule "AC5" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?t) "-Beginner") do (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn))))))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2159,7 +2159,7 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA1  RULE
 099(default) :      1     2     1     1     1     1
 =================================================================================================================================================================
 
-Rule<AC6> stats: priority=099, expr=(add-rule "AC6" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) do (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))))
+Rule<AC6> stats: priority=099, expr=(add-rule "AC6" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?t) "-") 0) do (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2191,7 +2191,7 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA1  RULE
 099(default) :      1     2     1     1     1     1
 =================================================================================================================================================================
 
-Rule<AC7> stats: priority=099, expr=(add-rule "AC7" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) do (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t))))
+Rule<AC7> stats: priority=099, expr=(add-rule "AC7" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?t) "-") 0) do (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t))))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2223,7 +2223,7 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA1  RULE
 099(default) :      1     2     1     1     1     1
 =================================================================================================================================================================
 
-Rule<AC8> stats: priority=099, expr=(add-rule "AC8" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (get-uri-name ?t) "-") 0) do (if (and (str-match "%?-%?" (get-uri-name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t))))
+Rule<AC8> stats: priority=099, expr=(add-rule "AC8" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?t) "-") 0) do (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t))))
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2413,33 +2413,33 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    20337
-      func:     1632
+    factor:    20287
+      func:     1628
 ==========================================================================================================================
 
 Callable stats info: callId=247, row=30, column=62(4), value-max=3410, value-unit=3^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         233333333333333333333333333333333333333333333333333333333334XX max=11276, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   6522    0 value-of                                                                                   99
-    root   factor   2856    0 print                                                                                      88
-    root   factor   2029    0 if                                                                                         88
-    root   factor   1624    0 return                                                                                     88
-    root   factor   1624    0 equal_def                                                                                  88
-  system funcList   1624    7 equal                                                                                      88
-    root   factor   1620    0 type-of                                                                                    88
-    root   factor    810    0 not                                                                                        77
-    root   factor    810    0 name-of                                                                                    77
-    root   factor    810    0 attribute-of                                                                               77
-    root   factor    408    0 property-of                                                                                66
-    root   factor    405    0 and                                                                                        66
-    root   factor    405    0 access                                                                                     66
+    root   factor   6506    0 value-of                                                                                   99
+    root   factor   2849    0 print                                                                                      88
+    root   factor   2024    0 if                                                                                         88
+    root   factor   1620    0 return                                                                                     88
+    root   factor   1620    0 equal_def                                                                                  88
+  system funcList   1620    7 equal                                                                                      88
+    root   factor   1616    0 type-of                                                                                    88
+    root   factor    808    0 not                                                                                        77
+    root   factor    808    0 name-of                                                                                    77
+    root   factor    808    0 attribute-of                                                                               77
+    root   factor    407    0 property-of                                                                                66
+    root   factor    404    0 and                                                                                        66
+    root   factor    404    0 access                                                                                     66
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
     root   factor     80    0 defun                                                                        2333 33332133424
   system   factor     41    0 add-rule                                                                                    5
     root   factor     40    0 defconst                                                                                    5
   system   factor     28    0 fix-stmt                                                                                    5
-    root   factor     10    0 defmacro                                                                                  3 3
+    root   factor      9    0 defmacro                                                                                  3 3
     main funcList      8   15 print-list                                                                                 23
     root   factor      7    0 defvar                                                                           3        1 2
     root   factor      7    0 alias                          22                                                      1     
@@ -2457,26 +2457,26 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6105            0         6105
+        atom:         6104            0         6104
          int:            2            0            2
-      string:          923            0          923
-        list:         1831            0         1831
-        expr:         7389         1632         5757
-         var:         3691         3669           22
+      string:          921            0          921
+        list:         1830            0         1830
+        expr:         7372         1628         5744
+         var:         3682         3660           22
     constant:           40            0           40
         func:           97            0           97
     template:            1            0            1
-       macro:           10            0           10
+       macro:            9            0            9
       member:           22            0           22
-       frame:         2042         2041            1
+       frame:         2037         2036            1
  interpreter:            1            0
-  frameEntry:         4061            0
+  frameEntry:         4051            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=14/19, entry=85, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=14/19, entry=84, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2575,12 +2575,11 @@ set-node-multi-queue : 2980     2        8    func       (set-node-multi-queue t
 p2d                  : 2982     2        10   instance   model@p2d           
 #ns_tag              : 2983     2        9    var        nt: : type=string   
 #ns_domain           : 2984     2        9    var        nd: : type=string   
-get-uri-name         : 2985     2        8    func       (get-uri-name nil) : frame=frame@main
-p2d_get_suffix       : 2986     2        8    func       (p2d_get_suffix nil nil) : frame=frame@main
-get-field-name       : 2987     2        8    func       (get-field-name nil) : frame=frame@main
-get-new-ns           : 2988     2        8    macro      get-new-ns          
-p2d_get_version_number : 2989     2        8    func       (p2d_get_version_number nil) : frame=frame@main
-hasGroupChild        : 2990     2        8    macro      hasGroupChild       
+p2d_get_uri_name     : 2985     2        8    func       (p2d_get_uri_name nil) : frame=frame@main
+p2d_get_suffix       : 2986     2        8    func       (p2d_get_suffix nil string) : frame=frame@main
+p2d_get_field_name   : 2987     2        8    func       (p2d_get_field_name nil) : frame=frame@main
+p2d_get_version_number : 2988     2        8    func       (p2d_get_version_number nil) : frame=frame@main
+hasGroupChild        : 2989     2        8    macro      hasGroupChild       
 ==========================================================================================================================
 
 

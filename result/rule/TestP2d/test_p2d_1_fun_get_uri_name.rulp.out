@@ -1,12 +1,12 @@
 (load "note/p2d.rulp")
 ;=>nil
 
-(get-uri-name abc)
+(p2d_get_uri_name abc)
 ;=>"abc"
 
-(get-uri-name nt:abc)
+(p2d_get_uri_name nt:abc)
 ;=>"abc"
 
-(get-uri-name mn:abc)
+(p2d_get_uri_name mn:abc)
 ;=>"abc"
 

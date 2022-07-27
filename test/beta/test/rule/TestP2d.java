@@ -1,19 +1,10 @@
 package beta.test.rule;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
 public class TestP2d extends RuleTestBase {
-
-	@Test
-	void test_1_domain_beParentDomainOf_Global() {
-
-		_setup();
-		_run_script();
-		_statsInfo("p2d");
-		_dumpEntryTable("p2d");
-	}
 
 	@Test
 	void test_p2d_1_fun_get_field_name() {
@@ -150,6 +141,15 @@ public class TestP2d extends RuleTestBase {
 	}
 
 	@Test
+	void test_p2d_9_related_2_full() {
+
+		_setup();
+		_run_script();
+		_statsInfo("p2d");
+		_dumpEntryTable("p2d");
+	}
+
+	@Test
 	void test_p2d_a_child_1_full() {
 
 		_setup();
@@ -160,15 +160,6 @@ public class TestP2d extends RuleTestBase {
 
 	@Test
 	void test_p2d_b_class() {
-
-		_setup();
-		_run_script();
-		_statsInfo("p2d");
-		_dumpEntryTable("p2d");
-	}
-
-	@Test
-	void test_p2d_9_related_2_full() {
 
 		_setup();
 		_run_script();
@@ -214,6 +205,15 @@ public class TestP2d extends RuleTestBase {
 
 	@Test
 	void test_p2d_e_version_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("p2d");
+		_dumpEntryTable("p2d");
+	}
+
+	@Test
+	void test_p2d_f_domain_beParentDomainOf_Global() {
 
 		_setup();
 		_run_script();

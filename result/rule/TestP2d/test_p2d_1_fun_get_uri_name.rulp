@@ -1,11 +1,11 @@
 (load "note/p2d.rulp")
 ;=>
 
-(get-uri-name abc)
+(p2d_get_uri_name abc)
 ;=>
 
-(get-uri-name nt:abc)
+(p2d_get_uri_name nt:abc)
 ;=>
 
-(get-uri-name mn:abc)
+(p2d_get_uri_name mn:abc)
 ;=>
