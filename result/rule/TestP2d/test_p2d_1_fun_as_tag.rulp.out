@@ -1,0 +1,9 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(p2d_as_tag abc)
+;=>nt:abc
+
+(p2d_as_tag "abc")
+;=>nt:abc
+

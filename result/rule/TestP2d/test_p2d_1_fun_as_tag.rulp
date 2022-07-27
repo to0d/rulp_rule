@@ -1,0 +1,9 @@
+(load "note/p2d.rulp")
+;=>
+
+(p2d_as_tag abc)
+;=>
+
+(p2d_as_tag "abc")
+;=>
+

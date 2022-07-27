@@ -1,0 +1,21 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(add-stmt p2d '(nt:vs_a_b nm:typeOf nm:tag))
+(add-stmt p2d '(nt:vs_b_a nm:typeOf nm:tag))
+(add-stmt p2d '(nt:a nm:typeOf nm:tag))
+(add-stmt p2d '(nt:b nm:typeOf nm:tag))
+(add-stmt p2d '(nt:VS_X_Y nm:typeOf nm:tag))
+(add-stmt p2d '(nt:vs_x_y nm:typeOf nm:tag))
+(add-stmt p2d '(nt:x nm:typeOf nm:tag))
+;=>true true true true true true true
+
+(p2d_build_vs_tag)
+;=>nil
+
+(query-stmt p2d '(?t) from '(?t nm:hasRelatedTag nt:$VS))
+;=>'('(nt:vs_a_b) '(nt:vs_x_y))
+
+(query-stmt p2d '(?t1 ?t2) from '(?t1 nm:hasRelatedTag nt:$VS) '(?t1 nm:hasAliasTag ?t2))
+;=>'('(nt:vs_a_b nt:vs_b_a))
+

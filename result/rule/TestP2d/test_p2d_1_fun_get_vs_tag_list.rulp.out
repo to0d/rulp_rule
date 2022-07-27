@@ -1,0 +1,9 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(p2d_get_vs_tag_list "vs_a_b")
+;=>'("a" "b")
+
+(p2d_get_vs_tag_list "vs_a_b_c")
+;=>'("a" "b" "c")
+

@@ -1,0 +1,6 @@
+(load "note/p2d.rulp")
+;=>
+
+(p2d_get_version_number IPv6)
+;=>
+

@@ -7,6 +7,36 @@ import alpha.rulp.utils.RuleTestBase;
 public class TestP2d extends RuleTestBase {
 
 	@Test
+	void test_p2d_0_list_of() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
+	void test_p2d_1_fun_as_prop() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
+	void test_p2d_1_fun_as_tag() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
+	void test_p2d_1_fun_build_vs_tag() {
+
+		_setup();
+		_run_script();
+		_statsInfo("p2d");
+		_dumpEntryTable("p2d");
+	}
+
+	@Test
 	void test_p2d_1_fun_get_field_name() {
 
 		_setup();
@@ -14,7 +44,42 @@ public class TestP2d extends RuleTestBase {
 	}
 
 	@Test
+	void test_p2d_1_fun_get_suffix() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
 	void test_p2d_1_fun_get_uri_name() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
+	void test_p2d_1_fun_get_version_number() {
+
+		_setup();
+		_run_script();
+	}
+	
+	@Test
+	void test_p2d_1_fun_get_vs_tag_key() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
+	void test_p2d_1_fun_get_vs_tag_list() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
+	void test_p2d_1_fun_is_vs_tag() {
 
 		_setup();
 		_run_script();

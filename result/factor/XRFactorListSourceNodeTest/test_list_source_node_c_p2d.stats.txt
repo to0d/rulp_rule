@@ -2382,7 +2382,7 @@ Model<p2d> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 77       3        3    instance   model@p2d           
+default_model        : 84       3        3    instance   model@p2d           
 ==========================================================================================================================
 
 
@@ -2393,10 +2393,10 @@ Total runtime info:
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
            Interpreter call id:      243
-    Interpreter call level/max:        0        4
-               Frame max level:        2
-                  Frame max id:        4
-           Frame free id count:        0
+    Interpreter call level/max:        0        6
+               Frame max level:        3
+                  Frame max id:        5
+           Frame free id count:        1
 ==========================================================================================================================
 
 Optimize info:
@@ -2413,59 +2413,65 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      404
+    factor:      432
+      func:        1
 ==========================================================================================================================
 
-Callable stats info: callId=243, row=14, column=61(4), value-max=41, value-unit=2^x
+Callable stats info: callId=243, row=18, column=61(4), value-max=43, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333369 max=138, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333369 max=167, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331              
-    root   factor     80    0 defun                                                                        3333 3333313366
+    root   factor     94    0 defun                                                                        3333 3333313366
+    root   factor     43    0 defconst                                                                                   7
   system   factor     41    0 add-rule                                                                                   7
-    root   factor     40    0 defconst                                                                                   7
   system   factor     28    0 fix-stmt                                                                                   6
     root   factor      9    0 defmacro                                                                                  43
-    root   factor      7    0 defvar                                                                           3        12
+    root   factor      8    0 defvar                                                                           3        13
+    root   factor      7    0 load                                                                                      14
     root   factor      7    0 alias                          33                                                      1    
     root   factor      4    0 make-list                                                                        3          
-    root   factor      4    0 load                                                                                      13
+    root   factor      3    0 load-class                                                                                 3
     root   factor      3    0 deftemplate                                                                           12    
+    root   factor      3    0 defclass                                                                                   3
+    root   factor      1    0 str-length                                                                                 1
+    root   factor      1    0 return                                                                                     1
     root   factor      1    0 new                                                                                        1
-    root   factor      1    0 load-class                                                                                 1
   system   factor      1    0 list-source-node                                                                           1
+  system funcList      1    1 length-of                                                                                  1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6103            0         6103
+        atom:         6541            0         6541
          int:            2            0            2
-      string:          155            0          155
-        list:         1287            1         1286
-        expr:         1679            0         1679
-         var:           22            0           22
-    constant:           40            0           40
-        func:           97            0           97
+      string:          170            0          170
+        list:         1293            1         1292
+        expr:         1906            1         1905
+         var:           30            1           29
+    constant:           43            0           43
+        func:          132            0          132
     template:            1            0            1
        macro:            9            0            9
-      member:           22            0           22
-       frame:            1            0            1
+       class:            3            0            3
+      member:           86            0           86
+       frame:            2            1            1
  interpreter:            1            0
-  frameEntry:          383            0
-      lambda:            0            0
+  frameEntry:          405            0
+      lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=84, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/3, entry=105, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
-main                 : 3        2        2    frame      frame@main          
+main                 : 3        2        3    frame      frame@main          
 --                   : 4        2        2    macro      --                  
 ++                   : 5        2        2    macro      ++                  
 inc                  : 6        2        2    macro      inc                 
@@ -2476,10 +2482,12 @@ max                  : 8        2        2    funcList   '((max list) (max nil n
 min                  : 9        2        2    funcList   '((min list) (min nil nil)) : frame=null, type=list
                                          2    func       (min nil nil) : frame=frame@main
                                          1    func       (min list) : frame=frame@main
-is-empty             : 10       2        2    funcList   '((is-empty array) (is-empty list) (is-empty string)) : frame=null, type=list
+is-empty             : 10       2        4    funcList   '((is-empty array) (is-empty list) (is-empty string) (is-empty type#map) (is-empty type#set)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty string) : frame=frame@main
+                                         1    func       (is-empty type#map) : frame=frame@main
+                                         1    func       (is-empty type#set) : frame=frame@main
 is-blank             : 11       2        2    func       (is-blank string) : frame=frame@main
 file-prename         : 12       2        2    func       (file-prename string) : frame=frame@main
 file-subffix         : 13       2        2    func       (file-subffix string) : frame=frame@main
@@ -2555,14 +2563,46 @@ rete-type-of         : 73       2        2    func       (rete-type-of nil) : fr
 entry-length-of      : 74       2        2    func       (entry-length-of nil) : frame=frame@main
 rete-valid-entry-of  : 75       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
 set-node-multi-queue : 76       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-p2d                  : 78       2        3    instance   model@p2d           
-#ns_tag              : 79       2        2    var        nt: : type=string   
-#ns_domain           : 80       2        2    var        nd: : type=string   
-p2d_get_uri_name     : 81       2        2    func       (p2d_get_uri_name nil) : frame=frame@main
-p2d_get_suffix       : 82       2        2    func       (p2d_get_suffix nil string) : frame=frame@main
-p2d_get_field_name   : 83       2        2    func       (p2d_get_field_name nil) : frame=frame@main
-p2d_get_version_number : 84       2        2    func       (p2d_get_version_number nil) : frame=frame@main
-hasGroupChild        : 85       2        2    macro      hasGroupChild       
+map                  : 77       2        2    class      map                 
+type#map             : 78       2        0    atom       type#map            
+size-of              : 79       2        3    funcList   '((size-of array int) (size-of array) (size-of list) (size-of type#map) (size-of type#model) (size-of type#set)) : frame=null, type=list
+                                         2    func       (size-of list) : frame=frame@system
+                                         2    func       (size-of array) : frame=frame@system
+                                         2    func       (size-of array int) : frame=frame@system
+                                         2    func       (size-of type#model) : frame=frame@system
+                                         1    func       (size-of type#map) : frame=frame@main
+                                         1    func       (size-of type#set) : frame=frame@main
+clear                : 80       2        2    funcList   '((clear type#map) (clear type#set)) : frame=null, type=list
+                                         2    func       (clear type#map) : frame=frame@main
+                                         1    func       (clear type#set) : frame=frame@main
+set                  : 81       2        2    class      set                 
+type#set             : 82       2        0    atom       type#set            
+to-list              : 83       2        2    funcList   '((to-list array) (to-list list) (to-list type#set)) : frame=null, type=list
+                                         2    func       (to-list list) : frame=frame@system
+                                         2    func       (to-list array) : frame=frame@system
+                                         1    func       (to-list type#set) : frame=frame@main
+p2d                  : 85       2        3    instance   model@p2d           
+#ns_tag              : 86       2        2    var        nt: : type=string   
+#ns_domain           : 87       2        2    var        nd: : type=string   
+#ns_base             : 88       2        2    var        nm: : type=string   
+p2d_get_uri_name     : 89       2        2    func       (p2d_get_uri_name nil) : frame=frame@main
+p2d_get_suffix       : 90       2        2    func       (p2d_get_suffix nil string) : frame=frame@main
+p2d_get_field_name   : 91       2        2    func       (p2d_get_field_name nil) : frame=frame@main
+p2d_as_tag           : 92       2        2    func       (p2d_as_tag nil) : frame=frame@main
+p2d_as_prop          : 93       2        2    func       (p2d_as_prop nil) : frame=frame@main
+p2d_get_new_ns       : 94       2        2    func       (p2d_get_new_ns nil nil) : frame=frame@main
+TAG_NAME_$VS         : 95       2        2    constant   TAG_NAME_$VS:"$VS"  
+VS_PRE               : 96       2        2    constant   VS_PRE:"vs_"        
+?rv                  : 98       2        1    var        3 : type=int        
+VS_PRE_LEN           : 99       2        2    constant   VS_PRE_LEN:"3"      
+p2d_is_vs_tag        : 100      2        2    func       (p2d_is_vs_tag string) : frame=frame@main
+p2d_get_vs_tag_list  : 101      2        2    func       (p2d_get_vs_tag_list string) : frame=frame@main
+p2d_get_vs_tag_key   : 102      2        2    func       (p2d_get_vs_tag_key list) : frame=frame@main
+vs_group             : 103      2        2    class      vs_group            
+type#vs_group        : 104      2        0    atom       type#vs_group       
+p2d_build_vs_tag     : 105      2        2    func       (p2d_build_vs_tag) : frame=frame@main
+p2d_get_version_number : 106      2        2    func       (p2d_get_version_number nil) : frame=frame@main
+hasGroupChild        : 107      2        2    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2570,16 +2610,16 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 77       3        3    instance   model@p2d           
+default_model        : 84       3        3    instance   model@p2d           
 ==========================================================================================================================
 
 Root var list: total=6
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
-?load-class          : '("alpha.rulp.utils.RRuleLoader")
+?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\note/p2d.rulp")
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d.rulp")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -2594,6 +2634,29 @@ Global frame tree:
 
 Global Subject list:
 
+name=map, string=map, lvl=0, ref=2/3, parent=null, final=true, mbrs=17, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?impl                          : PRIVATE                      0    1    var        nil
+_key_list                      : PRIVATE                      0    0    factor     _key_list
+_map_clear                     : PRIVATE                      0    0    factor     _map_clear
+_map_get                       : PRIVATE                      0    0    factor     _map_get
+_map_init                      : PRIVATE                      0    0    factor     _map_init
+_map_is_empty                  : PRIVATE                      0    0    factor     _map_is_empty
+_map_put                       : PRIVATE                      0    0    factor     _map_put
+_map_size_of                   : PRIVATE                      0    0    factor     _map_size_of
+_value_list                    : PRIVATE                      0    0    factor     _value_list
+clear                          : DEFAULT Y                    1    1    func       (clear) : frame=frame@main
+get                            : DEFAULT Y                    1    1    func       (get nil) : frame=frame@main
+init                           : DEFAULT Y                    1    1    func       (init) : frame=frame@main
+is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
+key-list                       : DEFAULT Y                    1    1    func       (key-list) : frame=frame@main
+put                            : DEFAULT Y                    1    1    func       (put nil nil) : frame=frame@main
+size-of                        : DEFAULT Y                    1    1    func       (size-of) : frame=frame@main
+value-list                     : DEFAULT Y                    1    1    func       (value-list) : frame=frame@main
+==========================================================================================================================
+
 name=p2d, string=model@p2d, lvl=1, ref=3/4, parent=model, final=false, mbrs=7, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
@@ -2605,6 +2668,37 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
 this                           : DEFAULT                      0    3    instance   model@p2d
+==========================================================================================================================
+
+name=set, string=set, lvl=0, ref=2/3, parent=null, final=true, mbrs=15, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?impl                          : PRIVATE                      0    1    var        nil
+_set_add                       : PRIVATE                      0    0    factor     _set_add
+_set_clear                     : PRIVATE                      0    0    factor     _set_clear
+_set_has                       : PRIVATE                      0    0    factor     _set_has
+_set_init                      : PRIVATE                      0    0    factor     _set_init
+_set_is_empty                  : PRIVATE                      0    0    factor     _set_is_empty
+_set_size_of                   : PRIVATE                      0    0    factor     _set_size_of
+_set_to_list                   : PRIVATE                      0    0    factor     _set_to_list
+add                            : DEFAULT Y                    1    1    func       (add nil) : frame=frame@main
+clear                          : DEFAULT Y                    1    1    func       (clear) : frame=frame@main
+has                            : DEFAULT Y                    1    1    func       (has nil) : frame=frame@main
+init                           : DEFAULT Y                    1    1    func       (init) : frame=frame@main
+is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
+size-of                        : DEFAULT Y                    1    1    func       (size-of) : frame=frame@main
+to-list                        : DEFAULT Y                    1    1    func       (to-list) : frame=frame@main
+==========================================================================================================================
+
+name=vs_group, string=vs_group, lvl=0, ref=2/3, parent=null, final=false, mbrs=4, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?vs_key                        : PUBLIC                       0    1    var        nil
+?vs_main_tags                  : PUBLIC                       0    1    var        (lambda) : type=expr
+?vs_sub_tags                   : PUBLIC                       0    1    var        nil
+add_main_tag                   : DEFAULT                      0    1    func       (add_main_tag nil) : frame=frame@main
 ==========================================================================================================================
 
 

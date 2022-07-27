@@ -1,0 +1,11 @@
+(load "note/p2d.rulp")
+;=>
+
+(p2d_get_vs_tag_key '("a" "b"))
+;=>
+
+(p2d_get_vs_tag_key '("b" "a" "c"))
+;=>
+
+(p2d_get_vs_tag_key '("b" "a" "b"))
+;=>

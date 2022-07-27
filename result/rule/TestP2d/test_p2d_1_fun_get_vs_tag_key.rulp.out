@@ -1,0 +1,12 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(p2d_get_vs_tag_key '("a" "b"))
+;=>"vs_a_b"
+
+(p2d_get_vs_tag_key '("b" "a" "c"))
+;=>"vs_a_b_c"
+
+(p2d_get_vs_tag_key '("b" "a" "b"))
+;=>"vs_a_b"
+

@@ -1,0 +1,6 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(p2d_get_suffix abc__d "__")
+;=>"d"
+

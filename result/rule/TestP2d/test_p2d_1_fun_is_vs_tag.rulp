@@ -1,0 +1,11 @@
+(load "note/p2d.rulp")
+;=>
+
+(p2d_is_vs_tag "vs_")
+;=>
+
+(p2d_is_vs_tag "vs")
+;=>
+
+(p2d_is_vs_tag "vs_a_b")
+;=>

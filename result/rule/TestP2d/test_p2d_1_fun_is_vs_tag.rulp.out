@@ -1,0 +1,12 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(p2d_is_vs_tag "vs_")
+;=>false
+
+(p2d_is_vs_tag "vs")
+;=>false
+
+(p2d_is_vs_tag "vs_a_b")
+;=>true
+
