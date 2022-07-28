@@ -63,7 +63,7 @@ public class TestP2d extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
-	
+
 	@Test
 	void test_p2d_1_fun_get_vs_tag_key() {
 

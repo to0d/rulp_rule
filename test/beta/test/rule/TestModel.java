@@ -36,14 +36,6 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
-	void test_model_0_p2d_ls() {
-
-		_setup();
-		_run_script();
-		_statsInfo("p2d");
-	}
-
-	@Test
 	void test_model_1_add_factor_rule_1() {
 
 		ArrayList<IRObject> objs = new ArrayList<>();

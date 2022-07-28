@@ -1,7 +1,17 @@
-(load "note/p2d.rulp")
 (load "tool")
+;=>
+
+(print-list root)
+;=>
+
+(print-list system)
 ;=>
 
 (print-list main)
 ;=>
 
+(load "note/p2d.rulp")
+;=>
+
+(print-list main)
+;=>
