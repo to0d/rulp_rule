@@ -1,0 +1,12 @@
+(load "note/p2d_tag_table")
+;=>nil
+
+(p2d_get_tag_names_in_expr "%tb%Porting%PLMP%Cxx")
+;=>'("Porting" "PLMP" "Cxx")
+
+(p2d_get_tag_names_in_expr "abc")
+;=>'()
+
+(p2d_get_tag_names_in_expr "")
+;=>'()
+

@@ -1,0 +1,11 @@
+(load "note/p2d_tag_table")
+;=>
+
+(p2d_is_tag_expr_table "%tb%Porting%PLMP%Cxx")
+;=>
+
+(p2d_is_tag_expr_table "abc")
+;=>
+
+(p2d_is_tag_expr_table "")
+;=>

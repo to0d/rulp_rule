@@ -35,6 +35,15 @@ public class TestP2d extends RuleTestBase {
 		_statsInfo("p2d");
 		_dumpEntryTable("p2d");
 	}
+	
+	@Test
+	void test_p2d_1_fun_build_table_tag() {
+
+		_setup();
+		_run_script();
+		_statsInfo("p2d");
+		_dumpEntryTable("p2d");
+	}
 
 	@Test
 	void test_p2d_1_fun_get_field_name() {
@@ -80,6 +89,20 @@ public class TestP2d extends RuleTestBase {
 
 	@Test
 	void test_p2d_1_fun_is_vs_tag() {
+
+		_setup();
+		_run_script();
+	}
+
+	@Test
+	void test_p2d_1_fun_is_tag_expr_table() {
+
+		_setup();
+		_run_script();
+	}
+	
+	@Test
+	void test_p2d_1_fun_get_tag_names_in_expr() {
 
 		_setup();
 		_run_script();

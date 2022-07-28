@@ -2429,55 +2429,55 @@ Node<E00004> frame:id=5, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), 
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 113      5        1    var        tc : type=atom      
-?rv                  : 123      5        1    var        tc : type=string    
+?0                   : 121      5        1    var        tc : type=atom      
+?rv                  : 131      5        1    var        tc : type=string    
 ==========================================================================================================================
 
 Node<C7> frame:id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 182      10       6    instance   model@p2d           
-?a                   : 183      10       1    var        tc : type=atom      
-?p                   : 184      10       1    var        nm:hasAliasTag : type=atom
-?b                   : 185      10       1    var        tb : type=atom      
-?model-state         : 186      10       1    var        ?model-state:"completed" : type=var
+default_model        : 190      10       6    instance   model@p2d           
+?a                   : 191      10       1    var        tc : type=atom      
+?p                   : 192      10       1    var        nm:hasAliasTag : type=atom
+?b                   : 193      10       1    var        tb : type=atom      
+?model-state         : 194      10       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<T1> frame:id=4, name=NF-T1, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-T1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 108      4        1    var        '(?a nm:beAliasTo ?b) : type=list
-default_model        : 109      4        6    instance   model@p2d           
-?a                   : 110      4        1    var        ta : type=atom      
-?b                   : 111      4        1    var        tb : type=atom      
-?c                   : 112      4        1    var        tc : type=atom      
+?0                   : 116      4        1    var        '(?a nm:beAliasTo ?b) : type=list
+default_model        : 117      4        6    instance   model@p2d           
+?a                   : 118      4        1    var        ta : type=atom      
+?b                   : 119      4        1    var        tb : type=atom      
+?c                   : 120      4        1    var        tc : type=atom      
 ==========================================================================================================================
 
 Node<AC2> frame:id=8, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 187      8        6    instance   model@p2d           
-?t                   : 188      8        1    var        tc : type=atom      
-?model-state         : 189      8        1    var        ?model-state:"completed" : type=var
+default_model        : 195      8        6    instance   model@p2d           
+?t                   : 196      8        1    var        tc : type=atom      
+?model-state         : 197      8        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<E00120> frame:id=9, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 142      9        1    var        tc : type=atom      
-?rv                  : 149      9        1    var        tc : type=string    
+?0                   : 150      9        1    var        tc : type=atom      
+?rv                  : 157      9        1    var        tc : type=string    
 ==========================================================================================================================
 
 Node<E00123> frame:id=6, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 162      6        1    var        tc : type=atom      
-?rv                  : 169      6        1    var        tc : type=string    
+?0                   : 170      6        1    var        tc : type=atom      
+?rv                  : 177      6        1    var        tc : type=string    
 ==========================================================================================================================
 
 node update info: model-exec-count=278, row=49, column=70(4), value-max=2, value-unit=2^x
@@ -2563,8 +2563,8 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      816
-      func:       63
+    factor:      829
+      func:       64
      macro:        2
 ==========================================================================================================================
 
@@ -2573,19 +2573,19 @@ Callable stats info: callId=247, row=43, column=62(4), value-max=63, value-unit=
    Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333369X max=435, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
-    root   factor     94    0 defun                                                                        3333 3333313366 
-    root   factor     64    0 return                                                                                     17
+    root   factor     97    0 defun                                                                        3333 3333313367 
+    root   factor     65    0 return                                                                                     27
     root   factor     57    0 if                                                                                          7
     root   factor     50    0 equal_def                                                                                   7
   system funcList     50    1 equal                                                                                       7
-    root   factor     46    0 defconst                                                                                   7 
+    root   factor     50    0 defconst                                                                                   7 
   system   factor     42    0 state-of                                                                                    7
     root   factor     41    0 not                                                                                         7
   system   factor     41    0 add-rule                                                                                   7 
     root   factor     40    0 continue                                                                                    7
   system   factor     28    0 fix-stmt                                                                                   6 
+    root   factor     24    0 load                                                                                      16 
     root   factor     23    0 defvar                                                                           3        1 6
-    root   factor     20    0 load                                                                                      16 
     root   factor     12    0 to-string                                                                                   5
     root   factor      9    0 str-index-of                                                                                5
     root   factor      9    0 do                                                                                          5
@@ -2605,15 +2605,15 @@ Callable stats info: callId=247, row=43, column=62(4), value-max=63, value-unit=
     root   factor      3    0 defclass                                                                                   3 
     root   factor      3    0 can-cast                                                                                    3
     root   factor      3    0 >                                                                                           3
+    root   factor      2    0 str-length                                                                                 2 
+  system funcList      2    1 length-of                                                                                  2 
   system   factor      2    0 add-stmt                                                                                   11
     root   factor      1    0 throw                                                                                       1
-    root   factor      1    0 str-length                                                                                 1 
   system   factor      1    0 start                                                                                       1
   system   factor      1    0 rete-node-of                                                                                1
     root   factor      1    0 new                                                                                        1 
     main    macro      1    2 list-with-state                                                                             1
     main    macro      1    2 list-rule                                                                                   1
-  system funcList      1    1 length-of                                                                                  1 
     root   factor      1    0 foreach                                                                                     1
 ==========================================================================================================================
 
@@ -2621,27 +2621,27 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6564            0         6564
+        atom:         6658            0         6658
          int:            3            0            3
-      string:          208            0          208
-        list:         1502            2         1500
-        expr:         1995           63         1932
-         var:          237          194           43
-    constant:           46            0           46
-        func:          132            0          132
+      string:          216            0          216
+        list:         1508            2         1506
+        expr:         2049           64         1985
+         var:          238          195           43
+    constant:           50            0           50
+        func:          135            0          135
     template:            1            0            1
        macro:            9            0            9
        class:            3            0            3
       member:           86            0           86
-       frame:          129          122            7
+       frame:          130          123            7
  interpreter:            1            0
-  frameEntry:          618            0
+  frameEntry:          626            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=7
 
-id=2, name=main, lvl=2, ref=3/4, entry=106, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=113, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2774,12 +2774,19 @@ VS_PRE_LEN           : 99       2        2    constant   VS_PRE_LEN:"3"
 p2d_is_vs_tag        : 100      2        2    func       (p2d_is_vs_tag string) : frame=frame@main
 p2d_get_vs_tag_list  : 101      2        2    func       (p2d_get_vs_tag_list string) : frame=frame@main
 p2d_get_vs_tag_key   : 102      2        2    func       (p2d_get_vs_tag_key list) : frame=frame@main
-vs_group             : 103      2        2    class      vs_group            
-type#vs_group        : 104      2        0    atom       type#vs_group       
+p2d_vs_group         : 103      2        2    class      p2d_vs_group        
+type#p2d_vs_group    : 104      2        0    atom       type#p2d_vs_group   
 p2d_build_vs_tag     : 105      2        2    func       (p2d_build_vs_tag) : frame=frame@main
-p2d_get_version_number : 106      2        2    func       (p2d_get_version_number nil) : frame=frame@main
-hasGroupChild        : 107      2        2    macro      hasGroupChild       
-?e                   : 196      2        1    var        AC8: AC8 : type=instance
+TAG_NAME_$TAG_TABLE  : 106      2        2    constant   TAG_NAME_$TAG_TABLE:"$TAG_TABLE"
+TAG_EXPR_SEP         : 107      2        2    constant   TAG_EXPR_SEP:"%"    
+TAG_EXPR_TABLE_PRE   : 108      2        2    constant   TAG_EXPR_TABLE_PRE:"%tb"
+TAG_EXPR_TABLE_PRE_LEN : 110      2        2    constant   TAG_EXPR_TABLE_PRE_LEN:"3"
+p2d_is_tag_expr_table : 111      2        2    func       (p2d_is_tag_expr_table string) : frame=frame@main
+p2d_get_tag_names_in_expr : 112      2        2    func       (p2d_get_tag_names_in_expr string) : frame=frame@main
+p2d_build_table_tag  : 113      2        2    func       (p2d_build_table_tag) : frame=frame@main
+p2d_get_version_number : 114      2        2    func       (p2d_get_version_number nil) : frame=frame@main
+hasGroupChild        : 115      2        2    macro      hasGroupChild       
+?e                   : 204      2        1    var        AC8: AC8 : type=instance
 ==========================================================================================================================
 
 
@@ -2794,55 +2801,55 @@ id=4, name=NF-T1, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-T1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 108      4        1    var        '(?a nm:beAliasTo ?b) : type=list
-default_model        : 109      4        6    instance   model@p2d           
-?a                   : 110      4        1    var        ta : type=atom      
-?b                   : 111      4        1    var        tb : type=atom      
-?c                   : 112      4        1    var        tc : type=atom      
+?0                   : 116      4        1    var        '(?a nm:beAliasTo ?b) : type=list
+default_model        : 117      4        6    instance   model@p2d           
+?a                   : 118      4        1    var        ta : type=atom      
+?b                   : 119      4        1    var        tb : type=atom      
+?c                   : 120      4        1    var        tc : type=atom      
 ==========================================================================================================================
 
 id=5, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 113      5        1    var        tc : type=atom      
-?rv                  : 123      5        1    var        tc : type=string    
+?0                   : 121      5        1    var        tc : type=atom      
+?rv                  : 131      5        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=6, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 162      6        1    var        tc : type=atom      
-?rv                  : 169      6        1    var        tc : type=string    
+?0                   : 170      6        1    var        tc : type=atom      
+?rv                  : 177      6        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=8, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 187      8        6    instance   model@p2d           
-?t                   : 188      8        1    var        tc : type=atom      
-?model-state         : 189      8        1    var        ?model-state:"completed" : type=var
+default_model        : 195      8        6    instance   model@p2d           
+?t                   : 196      8        1    var        tc : type=atom      
+?model-state         : 197      8        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=9, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 142      9        1    var        tc : type=atom      
-?rv                  : 149      9        1    var        tc : type=string    
+?0                   : 150      9        1    var        tc : type=atom      
+?rv                  : 157      9        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=10, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 182      10       6    instance   model@p2d           
-?a                   : 183      10       1    var        tc : type=atom      
-?p                   : 184      10       1    var        nm:hasAliasTag : type=atom
-?b                   : 185      10       1    var        tb : type=atom      
-?model-state         : 186      10       1    var        ?model-state:"completed" : type=var
+default_model        : 190      10       6    instance   model@p2d           
+?a                   : 191      10       1    var        tc : type=atom      
+?p                   : 192      10       1    var        nm:hasAliasTag : type=atom
+?b                   : 193      10       1    var        tb : type=atom      
+?model-state         : 194      10       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Root var list: total=6
@@ -2851,7 +2858,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"           )...
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"            )...
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -2908,6 +2915,16 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 this                           : DEFAULT                      0    6    instance   model@p2d
 ==========================================================================================================================
 
+name=p2d_vs_group, string=p2d_vs_group, lvl=0, ref=2/3, parent=null, final=false, mbrs=4, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?vs_key                        : PUBLIC                       0    1    var        nil
+?vs_main_tags                  : PUBLIC                       0    1    var        (lambda) : type=expr
+?vs_sub_tags                   : PUBLIC                       0    1    var        nil
+add_main_tag                   : DEFAULT                      0    1    func       (add_main_tag nil) : frame=frame@main
+==========================================================================================================================
+
 name=set, string=set, lvl=0, ref=2/3, parent=null, final=true, mbrs=15, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
@@ -2927,16 +2944,6 @@ init                           : DEFAULT Y                    1    1    func    
 is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
 size-of                        : DEFAULT Y                    1    1    func       (size-of) : frame=frame@main
 to-list                        : DEFAULT Y                    1    1    func       (to-list) : frame=frame@main
-==========================================================================================================================
-
-name=vs_group, string=vs_group, lvl=0, ref=2/3, parent=null, final=false, mbrs=4, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-?vs_key                        : PUBLIC                       0    1    var        nil
-?vs_main_tags                  : PUBLIC                       0    1    var        (lambda) : type=expr
-?vs_sub_tags                   : PUBLIC                       0    1    var        nil
-add_main_tag                   : DEFAULT                      0    1    func       (add_main_tag nil) : frame=frame@main
 ==========================================================================================================================
 
 

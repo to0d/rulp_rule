@@ -1,4 +1,4 @@
-(load "note/p2d.rulp")
+(load "note/p2d_tag_vs")
 ;=>
 
 (p2d_get_vs_tag_list "vs_a_b")

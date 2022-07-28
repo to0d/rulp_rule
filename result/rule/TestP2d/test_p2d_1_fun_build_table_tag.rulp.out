@@ -1,0 +1,37 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(add-stmt p2d '(nt:abc nm:typeOf nm:tag))
+(add-stmt p2d '(nt:%tb%Porting%PLMP%Cxx nm:typeOf nm:tag))
+(add-stmt p2d '(nt:%tb%SQL-Support%SQL-DROP-TABLE-IF-EXISTS%DB2 nm:typeOf nm:tag))
+;=>true true true
+
+(p2d_build_table_tag)
+;=>nil
+
+(print-list (query-stmt p2d '(?t1 ?t2) from '(?t1 nm:hasRelatedTag nt:$TAG_TABLE) '(?t1 nm:bePartTagOf ?t2)))
+;=>nil
+;out:
+'(nt:Porting nt:%tb%Porting%PLMP%Cxx)
+'(nt:SQL-Support nt:%tb%SQL-Support%SQL-DROP-TABLE-IF-EXISTS%DB2)
+
+;eof
+
+(print-list (query-stmt p2d '(?t1 ?t2) from '(?t1 nm:hasRelatedTag ?t2)))
+;=>nil
+;out:
+'(nt:Porting nt:$TAG_TABLE)
+'(nt:PLMP nt:%tb%Porting%PLMP%Cxx)
+'(nt:Cxx nt:%tb%Porting%PLMP%Cxx)
+'(nt:SQL-Support nt:$TAG_TABLE)
+'(nt:SQL-DROP-TABLE-IF-EXISTS nt:%tb%SQL-Support%SQL-DROP-TABLE-IF-EXISTS%DB2)
+'(nt:DB2 nt:%tb%SQL-Support%SQL-DROP-TABLE-IF-EXISTS%DB2)
+'(nt:$TAG_TABLE nt:Porting)
+'(nt:%tb%Porting%PLMP%Cxx nt:PLMP)
+'(nt:%tb%Porting%PLMP%Cxx nt:Cxx)
+'(nt:$TAG_TABLE nt:SQL-Support)
+'(nt:%tb%SQL-Support%SQL-DROP-TABLE-IF-EXISTS%DB2 nt:SQL-DROP-TABLE-IF-EXISTS)
+'(nt:%tb%SQL-Support%SQL-DROP-TABLE-IF-EXISTS%DB2 nt:DB2)
+
+;eof
+

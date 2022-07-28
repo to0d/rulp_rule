@@ -1,4 +1,4 @@
-(load "note/p2d.rulp")
+(load "note/p2d_utils")
 ;=>
 
 (p2d_get_field_name abc)

@@ -1,0 +1,16 @@
+(load "note/p2d.rulp")
+;=>
+
+(add-stmt p2d '(nt:abc nm:typeOf nm:tag))
+(add-stmt p2d '(nt:%tb%Porting%PLMP%Cxx nm:typeOf nm:tag))
+(add-stmt p2d '(nt:%tb%SQL-Support%SQL-DROP-TABLE-IF-EXISTS%DB2 nm:typeOf nm:tag))
+;=>
+
+(p2d_build_table_tag)
+;=>
+
+(print-list (query-stmt p2d '(?t1 ?t2) from '(?t1 nm:hasRelatedTag nt:$TAG_TABLE) '(?t1 nm:bePartTagOf ?t2)))
+;=>
+
+(print-list (query-stmt p2d '(?t1 ?t2) from '(?t1 nm:hasRelatedTag ?t2)))
+;=>

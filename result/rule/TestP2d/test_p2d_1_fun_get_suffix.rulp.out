@@ -1,4 +1,4 @@
-(load "note/p2d.rulp")
+(load "note/p2d_utils")
 ;=>nil
 
 (p2d_get_suffix abc__d "__")

@@ -2413,20 +2413,20 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      445
-      func:        1
+    factor:      458
+      func:        2
 ==========================================================================================================================
 
-Callable stats info: callId=243, row=18, column=61(4), value-max=46, value-unit=2^x
+Callable stats info: callId=243, row=18, column=61(4), value-max=50, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333369 max=180, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333369 max=194, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331              
-    root   factor     94    0 defun                                                                        3333 3333313366
-    root   factor     46    0 defconst                                                                                   7
+    root   factor     97    0 defun                                                                        3333 3333313367
+    root   factor     50    0 defconst                                                                                   7
   system   factor     41    0 add-rule                                                                                   7
   system   factor     28    0 fix-stmt                                                                                   6
-    root   factor     20    0 load                                                                                      16
+    root   factor     24    0 load                                                                                      16
     root   factor      9    0 defmacro                                                                                  43
     root   factor      7    0 alias                          33                                                      1    
     root   factor      5    0 defvar                                                                           3        1 
@@ -2434,38 +2434,38 @@ Callable stats info: callId=243, row=18, column=61(4), value-max=46, value-unit=
     root   factor      3    0 load-class                                                                                 3
     root   factor      3    0 deftemplate                                                                           12    
     root   factor      3    0 defclass                                                                                   3
-    root   factor      1    0 str-length                                                                                 1
-    root   factor      1    0 return                                                                                     1
+    root   factor      2    0 str-length                                                                                 2
+    root   factor      2    0 return                                                                                     2
+  system funcList      2    1 length-of                                                                                  2
     root   factor      1    0 new                                                                                        1
   system   factor      1    0 list-source-node                                                                           1
-  system funcList      1    1 length-of                                                                                  1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6554            0         6554
+        atom:         6648            0         6648
          int:            2            0            2
-      string:          196            0          196
-        list:         1306            1         1305
-        expr:         1919            1         1918
-         var:           27            1           26
-    constant:           46            0           46
-        func:          132            0          132
+      string:          204            0          204
+        list:         1312            1         1311
+        expr:         1973            2         1971
+         var:           28            2           26
+    constant:           50            0           50
+        func:          135            0          135
     template:            1            0            1
        macro:            9            0            9
        class:            3            0            3
       member:           86            0           86
-       frame:            2            1            1
+       frame:            3            2            1
  interpreter:            1            0
-  frameEntry:          405            0
+  frameEntry:          413            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=3/3, entry=105, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=112, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2598,11 +2598,18 @@ VS_PRE_LEN           : 99       2        2    constant   VS_PRE_LEN:"3"
 p2d_is_vs_tag        : 100      2        2    func       (p2d_is_vs_tag string) : frame=frame@main
 p2d_get_vs_tag_list  : 101      2        2    func       (p2d_get_vs_tag_list string) : frame=frame@main
 p2d_get_vs_tag_key   : 102      2        2    func       (p2d_get_vs_tag_key list) : frame=frame@main
-vs_group             : 103      2        2    class      vs_group            
-type#vs_group        : 104      2        0    atom       type#vs_group       
+p2d_vs_group         : 103      2        2    class      p2d_vs_group        
+type#p2d_vs_group    : 104      2        0    atom       type#p2d_vs_group   
 p2d_build_vs_tag     : 105      2        2    func       (p2d_build_vs_tag) : frame=frame@main
-p2d_get_version_number : 106      2        2    func       (p2d_get_version_number nil) : frame=frame@main
-hasGroupChild        : 107      2        2    macro      hasGroupChild       
+TAG_NAME_$TAG_TABLE  : 106      2        2    constant   TAG_NAME_$TAG_TABLE:"$TAG_TABLE"
+TAG_EXPR_SEP         : 107      2        2    constant   TAG_EXPR_SEP:"%"    
+TAG_EXPR_TABLE_PRE   : 108      2        2    constant   TAG_EXPR_TABLE_PRE:"%tb"
+TAG_EXPR_TABLE_PRE_LEN : 110      2        2    constant   TAG_EXPR_TABLE_PRE_LEN:"3"
+p2d_is_tag_expr_table : 111      2        2    func       (p2d_is_tag_expr_table string) : frame=frame@main
+p2d_get_tag_names_in_expr : 112      2        2    func       (p2d_get_tag_names_in_expr string) : frame=frame@main
+p2d_build_table_tag  : 113      2        2    func       (p2d_build_table_tag) : frame=frame@main
+p2d_get_version_number : 114      2        2    func       (p2d_get_version_number nil) : frame=frame@main
+hasGroupChild        : 115      2        2    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2619,7 +2626,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"           )...
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"            )...
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -2670,6 +2677,16 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 this                           : DEFAULT                      0    3    instance   model@p2d
 ==========================================================================================================================
 
+name=p2d_vs_group, string=p2d_vs_group, lvl=0, ref=2/3, parent=null, final=false, mbrs=4, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?vs_key                        : PUBLIC                       0    1    var        nil
+?vs_main_tags                  : PUBLIC                       0    1    var        (lambda) : type=expr
+?vs_sub_tags                   : PUBLIC                       0    1    var        nil
+add_main_tag                   : DEFAULT                      0    1    func       (add_main_tag nil) : frame=frame@main
+==========================================================================================================================
+
 name=set, string=set, lvl=0, ref=2/3, parent=null, final=true, mbrs=15, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
@@ -2689,16 +2706,6 @@ init                           : DEFAULT Y                    1    1    func    
 is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
 size-of                        : DEFAULT Y                    1    1    func       (size-of) : frame=frame@main
 to-list                        : DEFAULT Y                    1    1    func       (to-list) : frame=frame@main
-==========================================================================================================================
-
-name=vs_group, string=vs_group, lvl=0, ref=2/3, parent=null, final=false, mbrs=4, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-?vs_key                        : PUBLIC                       0    1    var        nil
-?vs_main_tags                  : PUBLIC                       0    1    var        (lambda) : type=expr
-?vs_sub_tags                   : PUBLIC                       0    1    var        nil
-add_main_tag                   : DEFAULT                      0    1    func       (add_main_tag nil) : frame=frame@main
 ==========================================================================================================================
 
 

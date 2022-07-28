@@ -1,4 +1,4 @@
-(load "note/p2d.rulp")
+(load "note/p2d_tag_vs")
 ;=>nil
 
 (p2d_is_vs_tag "vs_")

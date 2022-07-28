@@ -2479,39 +2479,39 @@ Node<E00004> frame:id=5, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), 
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 110      5        1    var        tc : type=atom      
-?rv                  : 120      5        1    var        tc : type=string    
+?0                   : 118      5        1    var        tc : type=atom      
+?rv                  : 128      5        1    var        tc : type=string    
 ==========================================================================================================================
 
 Node<E00120> frame:id=6, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 148      6        1    var        tc : type=atom      
-?rv                  : 155      6        1    var        tc : type=string    
+?0                   : 156      6        1    var        tc : type=atom      
+?rv                  : 163      6        1    var        tc : type=string    
 ==========================================================================================================================
 
 Node<E00123> frame:id=7, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 174      7        1    var        tc : type=atom      
-?rv                  : 181      7        1    var        tc : type=string    
+?0                   : 182      7        1    var        tc : type=atom      
+?rv                  : 189      7        1    var        tc : type=string    
 ==========================================================================================================================
 
 node update info: model-exec-count=302, row=39, column=76(4), value-max=1, value-unit=1^x
 =================================================================================================================================================================
-NODE[n]   Update Exec Idle 2.1.22.11..211.......1..2.2....311.1.2.231223..122233.1.1.1.2111211..1.11122 max=4, unit=2^x
+NODE[n]   Update Exec Idle 2.1.22.11...2..2......1.211....311.1.2.231223..122233.1.1.1.2111211..1.11122 max=4, unit=2^x
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    9    9    0 1          1 1                       1 11        1 1            1           
+R00001[3]    9    9    0 1           1  1                     1 11        1 1            1           
 E10051[3]    5    5    0     1                            1          1           1            1      
 E10052[3]    5    5    0                         1               1           1          1          1 
 E10091[3]    5    5    0        1                           1           1          1             1   
 A00022[3]    4    5    0   1                            1           1          1                     
-A00026[3]    3    4    0                           1                       1           1             
+A00026[3]    3    4    0                          1                        1           1             
 A00002[3]    2    5    0 1                                                   1                       
 A00018[3]    2    5    0                                1          1                                 
-A00045[3]    2    4    0                      1                  1                                   
+A00045[3]    2    4    0                       1                 1                                   
 A00128[3]    2    5    0                                                 1           1               
 B00019[4]    2    5    1                                1          1                                 
 B20035[3]    2    5    1                                 1          1                                
@@ -2539,8 +2539,8 @@ C8[3]        1    2    1                                                    1
 T2[4]        1    2    1                                                                           1 
 T3[4]        1    2    1                                                                            1
 T5[2]        1    2    1                                                             1               
-T8[3]        1    1    0             1                                                               
-D1[3]        1    1    0            1                                                                
+T8[3]        1    1    0                1                                                            
+D1[3]        1    1    0             1                                                               
 D5[3]        1    2    1                                                                 1           
 =================================================================================================================================================================
 
@@ -2572,22 +2572,22 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      575
-      func:       29
+    factor:      588
+      func:       30
 ==========================================================================================================================
 
-Callable stats info: callId=245, row=32, column=62(4), value-max=46, value-unit=2^x
+Callable stats info: callId=245, row=32, column=62(4), value-max=50, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333699 max=180, unit=2^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333699 max=194, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
-    root   factor     94    0 defun                                                                        3333 3333313366 
-    root   factor     46    0 defconst                                                                                   7 
+    root   factor     97    0 defun                                                                        3333 3333313367 
+    root   factor     50    0 defconst                                                                                   7 
   system   factor     41    0 add-rule                                                                                   7 
-    root   factor     29    0 return                                                                                     16
+    root   factor     30    0 return                                                                                     26
     root   factor     29    0 defvar                                                                           3        1 6
   system   factor     28    0 fix-stmt                                                                                   6 
-    root   factor     20    0 load                                                                                      16 
+    root   factor     24    0 load                                                                                      16 
     root   factor     12    0 to-string                                                                                   5
     root   factor     12    0 str-index-of                                                                                5
     root   factor     12    0 if                                                                                          5
@@ -2607,38 +2607,38 @@ Callable stats info: callId=245, row=32, column=62(4), value-max=46, value-unit=
     root   factor      3    0 load-class                                                                                 3 
     root   factor      3    0 deftemplate                                                                           12     
     root   factor      3    0 defclass                                                                                   3 
+    root   factor      2    0 str-length                                                                                 2 
+  system funcList      2    1 length-of                                                                                  2 
   system   factor      2    0 add-stmt                                                                                   11
-    root   factor      1    0 str-length                                                                                 1 
   system   factor      1    0 query-stmt                                                                                  1
     root   factor      1    0 new                                                                                        1 
-  system funcList      1    1 length-of                                                                                  1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6805            0         6805
+        atom:         6899            0         6899
          int:            2            0            2
-      string:          208            0          208
-        list:         1585            2         1583
-        expr:         1949           29         1920
-         var:          118           86           32
-    constant:           46            0           46
-        func:          132            0          132
+      string:          216            0          216
+        list:         1591            2         1589
+        expr:         2003           30         1973
+         var:          119           87           32
+    constant:           50            0           50
+        func:          135            0          135
     template:            1            0            1
        macro:            9            0            9
        class:            3            0            3
       member:           86            0           86
-       frame:           46           42            4
+       frame:           47           43            4
  interpreter:            1            0
-  frameEntry:          497            0
+  frameEntry:          505            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=4
 
-id=2, name=main, lvl=2, ref=3/3, entry=105, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=112, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2771,11 +2771,18 @@ VS_PRE_LEN           : 99       2        2    constant   VS_PRE_LEN:"3"
 p2d_is_vs_tag        : 100      2        2    func       (p2d_is_vs_tag string) : frame=frame@main
 p2d_get_vs_tag_list  : 101      2        2    func       (p2d_get_vs_tag_list string) : frame=frame@main
 p2d_get_vs_tag_key   : 102      2        2    func       (p2d_get_vs_tag_key list) : frame=frame@main
-vs_group             : 103      2        2    class      vs_group            
-type#vs_group        : 104      2        0    atom       type#vs_group       
+p2d_vs_group         : 103      2        2    class      p2d_vs_group        
+type#p2d_vs_group    : 104      2        0    atom       type#p2d_vs_group   
 p2d_build_vs_tag     : 105      2        2    func       (p2d_build_vs_tag) : frame=frame@main
-p2d_get_version_number : 106      2        2    func       (p2d_get_version_number nil) : frame=frame@main
-hasGroupChild        : 107      2        2    macro      hasGroupChild       
+TAG_NAME_$TAG_TABLE  : 106      2        2    constant   TAG_NAME_$TAG_TABLE:"$TAG_TABLE"
+TAG_EXPR_SEP         : 107      2        2    constant   TAG_EXPR_SEP:"%"    
+TAG_EXPR_TABLE_PRE   : 108      2        2    constant   TAG_EXPR_TABLE_PRE:"%tb"
+TAG_EXPR_TABLE_PRE_LEN : 110      2        2    constant   TAG_EXPR_TABLE_PRE_LEN:"3"
+p2d_is_tag_expr_table : 111      2        2    func       (p2d_is_tag_expr_table string) : frame=frame@main
+p2d_get_tag_names_in_expr : 112      2        2    func       (p2d_get_tag_names_in_expr string) : frame=frame@main
+p2d_build_table_tag  : 113      2        2    func       (p2d_build_table_tag) : frame=frame@main
+p2d_get_version_number : 114      2        2    func       (p2d_get_version_number nil) : frame=frame@main
+hasGroupChild        : 115      2        2    macro      hasGroupChild       
 ==========================================================================================================================
 
 
@@ -2790,24 +2797,24 @@ id=5, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 110      5        1    var        tc : type=atom      
-?rv                  : 120      5        1    var        tc : type=string    
+?0                   : 118      5        1    var        tc : type=atom      
+?rv                  : 128      5        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=6, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 148      6        1    var        tc : type=atom      
-?rv                  : 155      6        1    var        tc : type=string    
+?0                   : 156      6        1    var        tc : type=atom      
+?rv                  : 163      6        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=7, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 174      7        1    var        tc : type=atom      
-?rv                  : 181      7        1    var        tc : type=string    
+?0                   : 182      7        1    var        tc : type=atom      
+?rv                  : 189      7        1    var        tc : type=string    
 ==========================================================================================================================
 
 Root var list: total=6
@@ -2816,7 +2823,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"           )...
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"            )...
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -2870,6 +2877,16 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 this                           : DEFAULT                      0    3    instance   model@p2d
 ==========================================================================================================================
 
+name=p2d_vs_group, string=p2d_vs_group, lvl=0, ref=2/3, parent=null, final=false, mbrs=4, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?vs_key                        : PUBLIC                       0    1    var        nil
+?vs_main_tags                  : PUBLIC                       0    1    var        (lambda) : type=expr
+?vs_sub_tags                   : PUBLIC                       0    1    var        nil
+add_main_tag                   : DEFAULT                      0    1    func       (add_main_tag nil) : frame=frame@main
+==========================================================================================================================
+
 name=set, string=set, lvl=0, ref=2/3, parent=null, final=true, mbrs=15, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
@@ -2889,16 +2906,6 @@ init                           : DEFAULT Y                    1    1    func    
 is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
 size-of                        : DEFAULT Y                    1    1    func       (size-of) : frame=frame@main
 to-list                        : DEFAULT Y                    1    1    func       (to-list) : frame=frame@main
-==========================================================================================================================
-
-name=vs_group, string=vs_group, lvl=0, ref=2/3, parent=null, final=false, mbrs=4, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-?vs_key                        : PUBLIC                       0    1    var        nil
-?vs_main_tags                  : PUBLIC                       0    1    var        (lambda) : type=expr
-?vs_sub_tags                   : PUBLIC                       0    1    var        nil
-add_main_tag                   : DEFAULT                      0    1    func       (add_main_tag nil) : frame=frame@main
 ==========================================================================================================================
 
 
