@@ -2565,7 +2565,7 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      801
+    factor:      814
       func:       63
      macro:        2
 ==========================================================================================================================
@@ -2580,13 +2580,14 @@ Callable stats info: callId=246, row=44, column=62(4), value-max=62, value-unit=
     root   factor     57    0 if                                                                                         7 
     root   factor     50    0 equal_def                                                                                  7 
   system funcList     50    1 equal                                                                                      7 
-    root   factor     43    0 defconst                                                                                  7  
+    root   factor     46    0 defconst                                                                                  7  
   system   factor     42    0 state-of                                                                                   7 
     root   factor     41    0 not                                                                                        7 
     root   factor     41    0 continue                                                                                   7 
   system   factor     41    0 add-rule                                                                                  7  
   system   factor     28    0 fix-stmt                                                                                  6  
-    root   factor     25    0 defvar                                                                           3        36 
+    root   factor     22    0 defvar                                                                           3         6 
+    root   factor     19    0 load                                                                                      6  
     root   factor     12    0 to-string                                                                                  5 
     root   factor      9    0 str-index-of                                                                               5 
     root   factor      9    0 do                                                                                         5 
@@ -2594,7 +2595,6 @@ Callable stats info: callId=246, row=44, column=62(4), value-max=62, value-unit=
     root   factor      7    0 alias                          33                                                      1     
     root   factor      6    0 ref                                                                                        4 
     main     func      6    2 (p2d_get_uri_name nil)                                                                     4 
-    root   factor      6    0 load                                                                                      4  
     root   factor      4    0 make-list                                                                        3           
   system   factor      4    0 has-stmt                                                                                   3 
     root   factor      3    0 str-match                                                                                  3 
@@ -2624,13 +2624,13 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6970            0         6970
+        atom:         6983            0         6983
          int:            3            0            3
-      string:          176            0          176
-        list:         1642            5         1637
-        expr:         1964           63         1901
-         var:          234          193           41
-    constant:           43            0           43
+      string:          202            0          202
+        list:         1655            5         1650
+        expr:         1977           63         1914
+         var:          231          193           38
+    constant:           46            0           46
         func:          129            0          129
     template:            1            0            1
        macro:            8            0            8
@@ -2756,9 +2756,9 @@ to-valid-path        : 78       2        2    func       (to-valid-path string) 
 day-is-bigger-than   : 79       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 80       2        2    func       (day-is-smaller-than string string) : frame=frame@main
 p2d                  : 82       2        5    instance   model@p2d           
-#ns_tag              : 83       2        2    var        nt: : type=string   
-#ns_domain           : 84       2        2    var        nd: : type=string   
-#ns_base             : 85       2        2    var        nm: : type=string   
+#ns_tag              : 83       2        2    constant   #ns_tag:"nt:"       
+#ns_domain           : 84       2        2    constant   #ns_domain:"nd:"    
+#ns_base             : 85       2        2    constant   #ns_base:"nm:"      
 p2d_get_uri_name     : 86       2        2    func       (p2d_get_uri_name nil) : frame=frame@main
 p2d_get_suffix       : 87       2        2    func       (p2d_get_suffix nil string) : frame=frame@main
 p2d_get_field_name   : 88       2        2    func       (p2d_get_field_name nil) : frame=frame@main
@@ -2838,7 +2838,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\note/p2d.rulp")
+?load-script         : '("C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"           )...
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

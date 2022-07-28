@@ -2572,21 +2572,22 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      562
+    factor:      575
       func:       29
 ==========================================================================================================================
 
-Callable stats info: callId=245, row=32, column=62(4), value-max=43, value-unit=2^x
+Callable stats info: callId=245, row=32, column=62(4), value-max=46, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333699 max=167, unit=2^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333699 max=180, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
     root   factor     94    0 defun                                                                        3333 3333313366 
-    root   factor     43    0 defconst                                                                                   7 
+    root   factor     46    0 defconst                                                                                   7 
   system   factor     41    0 add-rule                                                                                   7 
-    root   factor     32    0 defvar                                                                           3        136
     root   factor     29    0 return                                                                                     16
+    root   factor     29    0 defvar                                                                           3        1 6
   system   factor     28    0 fix-stmt                                                                                   6 
+    root   factor     20    0 load                                                                                      16 
     root   factor     12    0 to-string                                                                                   5
     root   factor     12    0 str-index-of                                                                                5
     root   factor     12    0 if                                                                                          5
@@ -2595,7 +2596,6 @@ Callable stats info: callId=245, row=32, column=62(4), value-max=43, value-unit=
     root   factor     12    0 do                                                                                          5
     root   factor      9    0 defmacro                                                                                  43 
     main     func      8    2 (p2d_get_uri_name nil)                                                                      4
-    root   factor      7    0 load                                                                                      14 
     root   factor      7    0 alias                          33                                                      1     
     root   factor      4    0 str-last-index-of                                                                           3
     root   factor      4    0 str-end-with                                                                                3
@@ -2618,13 +2618,13 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6792            0         6792
+        atom:         6805            0         6805
          int:            2            0            2
-      string:          182            0          182
-        list:         1572            2         1570
-        expr:         1936           29         1907
-         var:          121           86           35
-    constant:           43            0           43
+      string:          208            0          208
+        list:         1585            2         1583
+        expr:         1949           29         1920
+         var:          118           86           32
+    constant:           46            0           46
         func:          132            0          132
     template:            1            0            1
        macro:            9            0            9
@@ -2755,9 +2755,9 @@ to-list              : 83       2        2    funcList   '((to-list array) (to-l
                                          2    func       (to-list array) : frame=frame@system
                                          1    func       (to-list type#set) : frame=frame@main
 p2d                  : 85       2        3    instance   model@p2d           
-#ns_tag              : 86       2        2    var        nt: : type=string   
-#ns_domain           : 87       2        2    var        nd: : type=string   
-#ns_base             : 88       2        2    var        nm: : type=string   
+#ns_tag              : 86       2        2    constant   #ns_tag:"nt:"       
+#ns_domain           : 87       2        2    constant   #ns_domain:"nd:"    
+#ns_base             : 88       2        2    constant   #ns_base:"nm:"      
 p2d_get_uri_name     : 89       2        2    func       (p2d_get_uri_name nil) : frame=frame@main
 p2d_get_suffix       : 90       2        2    func       (p2d_get_suffix nil string) : frame=frame@main
 p2d_get_field_name   : 91       2        2    func       (p2d_get_field_name nil) : frame=frame@main
@@ -2816,7 +2816,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d.rulp")
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"           )...
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

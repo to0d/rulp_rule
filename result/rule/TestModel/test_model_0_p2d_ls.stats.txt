@@ -2413,16 +2413,16 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    21362
+    factor:    21366
       func:     1713
 ==========================================================================================================================
 
-Callable stats info: callId=247, row=33, column=62(4), value-max=3442, value-unit=3^x
+Callable stats info: callId=247, row=33, column=62(4), value-max=3436, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         233333333333333333333333333333333333333333333333333333333334XX max=11533, unit=3^x
+   Frame    RType  Count  Ref Object                         233333333333333333333333333333333333333333333333333333333334XX max=11537, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   6852    0 value-of                                                                                   99
-    root   factor   3001    0 print                                                                                      88
+    root   factor   6846    0 value-of                                                                                   99
+    root   factor   2998    0 print                                                                                      88
     root   factor   2129    0 if                                                                                         88
     root   factor   1705    0 return                                                                                     88
     root   factor   1704    0 equal_def                                                                                  88
@@ -2436,14 +2436,14 @@ Callable stats info: callId=247, row=33, column=62(4), value-max=3442, value-uni
     root   factor    425    0 access                                                                                     66
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
     root   factor     94    0 defun                                                                        2333 33332133425
-    root   factor     43    0 defconst                                                                                    5
+    root   factor     46    0 defconst                                                                                    5
   system   factor     41    0 add-rule                                                                                    5
   system   factor     28    0 fix-stmt                                                                                    5
+    root   factor     21    0 load                                                                                      114
     root   factor      9    0 defmacro                                                                                  3 3
     main funcList      8   15 print-list                                                                                 23
-    root   factor      8    0 load                                                                                      113
-    root   factor      8    0 defvar                                                                           3        1 2
     root   factor      7    0 alias                          22                                                      1     
+    root   factor      5    0 defvar                                                                           3        1  
     root   factor      4    0 make-list                                                                        3           
     root   factor      4    0 loop                                                                                       12
     root   factor      4    0 list-of                                                                                    12
@@ -2460,13 +2460,13 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6542            0         6542
+        atom:         6555            0         6555
          int:            2            0            2
-      string:          975            0          975
-        list:         1861            0         1861
-        expr:         7898         1713         6185
-         var:         3879         3850           29
-    constant:           43            0           43
+      string:          998            0          998
+        list:         1874            0         1874
+        expr:         7908         1713         6195
+         var:         3876         3850           26
+    constant:           46            0           46
         func:          132            0          132
     template:            1            0            1
        macro:            9            0            9
@@ -2597,9 +2597,9 @@ to-list              : 2987     2        8    funcList   '((to-list array) (to-l
                                          2    func       (to-list array) : frame=frame@system
                                          1    func       (to-list type#set) : frame=frame@main
 p2d                  : 2989     2        10   instance   model@p2d           
-#ns_tag              : 2990     2        9    var        nt: : type=string   
-#ns_domain           : 2991     2        9    var        nd: : type=string   
-#ns_base             : 2992     2        9    var        nm: : type=string   
+#ns_tag              : 2990     2        8    constant   #ns_tag:"nt:"       
+#ns_domain           : 2991     2        8    constant   #ns_domain:"nd:"    
+#ns_base             : 2992     2        8    constant   #ns_base:"nm:"      
 p2d_get_uri_name     : 2993     2        8    func       (p2d_get_uri_name nil) : frame=frame@main
 p2d_get_suffix       : 2994     2        8    func       (p2d_get_suffix nil string) : frame=frame@main
 p2d_get_field_name   : 2995     2        8    func       (p2d_get_field_name nil) : frame=frame@main
@@ -2634,7 +2634,7 @@ Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d.rulp")
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"           )...
 ?model-trace         : false
 ?path                : '()
 ?trace               : false

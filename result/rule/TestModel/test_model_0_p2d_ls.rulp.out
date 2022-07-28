@@ -345,9 +345,9 @@ mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path
 (print-list main)
 ;=>nil
 ;out:
-mbr=#ns_base, mbr-property='(public), mbr-attribute='(), obj=#ns_base, obj-type=var, obj-attribute='(), var-value="nm:"
-mbr=#ns_domain, mbr-property='(public), mbr-attribute='(), obj=#ns_domain, obj-type=var, obj-attribute='(), var-value="nd:"
-mbr=#ns_tag, mbr-property='(public), mbr-attribute='(), obj=#ns_tag, obj-type=var, obj-attribute='(), var-value="nt:"
+mbr=#ns_base, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=#ns_domain, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=#ns_tag, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=++, mbr-property='(public), mbr-attribute='(), obj=++, obj-type=macro, obj-attribute='()
 mbr=--, mbr-property='(public), mbr-attribute='(), obj=--, obj-type=macro, obj-attribute='()
 mbr=?rv, mbr-property='(public), mbr-attribute='(), obj=?rv, obj-type=var, obj-attribute='(), var-value="3"
