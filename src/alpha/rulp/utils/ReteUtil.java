@@ -1112,6 +1112,9 @@ public class ReteUtil {
 		case CONST:
 			return String.format("C%05d", nodeId);
 
+		case INDEX:
+			return String.format("I%05d", nodeId);
+
 		default:
 			return String.format("X%05d", nodeId);
 		}

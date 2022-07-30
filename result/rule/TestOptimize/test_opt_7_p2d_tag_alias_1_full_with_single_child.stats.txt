@@ -2435,51 +2435,51 @@ Model<p2d> frame:id=3, name=model, lvl=3, ref=6/6, entry=1, pid=2(main), subject
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 82       3        5    instance   model@p2d           
+default_model        : 83       3        5    instance   model@p2d           
 ==========================================================================================================================
 
 Node<E00004> frame:id=4, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 115      4        1    var        tc : type=atom      
-?rv                  : 125      4        1    var        tc : type=string    
+?0                   : 116      4        1    var        tc : type=atom      
+?rv                  : 126      4        1    var        tc : type=string    
 ==========================================================================================================================
 
 Node<C7> frame:id=9, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 184      9        5    instance   model@p2d           
-?a                   : 185      9        1    var        tc : type=atom      
-?p                   : 186      9        1    var        nm:beAliasTo : type=atom
-?b                   : 187      9        1    var        ta : type=atom      
-?model-state         : 188      9        1    var        ?model-state:"completed" : type=var
+default_model        : 185      9        5    instance   model@p2d           
+?a                   : 186      9        1    var        tc : type=atom      
+?p                   : 187      9        1    var        nm:beAliasTo : type=atom
+?b                   : 188      9        1    var        ta : type=atom      
+?model-state         : 189      9        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC2> frame:id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 189      7        5    instance   model@p2d           
-?t                   : 190      7        1    var        tc : type=atom      
-?model-state         : 191      7        1    var        ?model-state:"completed" : type=var
+default_model        : 190      7        5    instance   model@p2d           
+?t                   : 191      7        1    var        tc : type=atom      
+?model-state         : 192      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<E00120> frame:id=8, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 144      8        1    var        tc : type=atom      
-?rv                  : 151      8        1    var        tc : type=string    
+?0                   : 145      8        1    var        tc : type=atom      
+?rv                  : 152      8        1    var        tc : type=string    
 ==========================================================================================================================
 
 Node<E00123> frame:id=5, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 164      5        1    var        tc : type=atom      
-?rv                  : 171      5        1    var        tc : type=string    
+?0                   : 165      5        1    var        tc : type=atom      
+?rv                  : 172      5        1    var        tc : type=string    
 ==========================================================================================================================
 
 node update info: model-exec-count=280, row=49, column=69(4), value-max=2, value-unit=2^x
@@ -2565,7 +2565,7 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      829
+    factor:      830
       func:       64
      macro:        2
 ==========================================================================================================================
@@ -2578,9 +2578,9 @@ Callable stats info: callId=246, row=44, column=62(4), value-max=62, value-unit=
     root   factor     97    0 defun                                                                        3333 333331337  
     root   factor     64    0 return                                                                                    27 
     root   factor     57    0 if                                                                                         7 
+    root   factor     51    0 defconst                                                                                  7  
     root   factor     50    0 equal_def                                                                                  7 
   system funcList     50    1 equal                                                                                      7 
-    root   factor     50    0 defconst                                                                                  7  
   system   factor     42    0 state-of                                                                                   7 
     root   factor     41    0 not                                                                                        7 
     root   factor     41    0 continue                                                                                   7 
@@ -2624,13 +2624,13 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         7105            0         7105
+        atom:         7107            0         7107
          int:            3            0            3
       string:          212            0          212
         list:         1661            5         1656
-        expr:         2046           64         1982
+        expr:         2047           64         1983
          var:          232          194           38
-    constant:           50            0           50
+    constant:           51            0           51
         func:          134            0          134
     template:            1            0            1
        macro:            8            0            8
@@ -2638,13 +2638,13 @@ Object create count:
       member:           86            0           86
        frame:          128          122            6
  interpreter:            1            0
-  frameEntry:          619            0
+  frameEntry:          620            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=6
 
-id=2, name=main, lvl=2, ref=3/4, entry=112, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=113, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2668,125 +2668,126 @@ RRT_BETA2            : 17       2        2    constant   RRT_BETA2:"13"
 RRT_BETA3            : 18       2        2    constant   RRT_BETA3:"14"      
 RRT_RULE             : 19       2        2    constant   RRT_RULE:"15"       
 RRT_WORK             : 20       2        2    constant   RRT_WORK:"16"       
-ATTR_RETE_TYPE       : 21       2        2    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 22       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 23       2        2    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 24       2        2    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 25       2        2    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 26       2        2    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 27       2        2    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 28       2        2    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 29       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 30       2        2    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 31       2        2    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 32       2        2    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 33       2        2    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 34       2        2    constant   RETE_QUEUE_ACTION:"4"
-RETE_PRIORITY_DEFAULT : 35       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 36       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 37       2        2    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 38       2        2    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 39       2        2    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 40       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 41       2        2    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 42       2        2    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 43       2        2    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 44       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 45       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 46       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 47       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 48       2        2    macro      list-with-state     
-list-without-state   : 49       2        2    macro      list-without-state  
-list-rule            : 50       2        2    macro      list-rule           
-get-rule             : 51       2        2    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 52       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 53       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 54       2        2    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 55       2        2    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 56       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 57       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-map                  : 58       2        2    class      map                 
-type#map             : 59       2        0    atom       type#map            
-size-of              : 60       2        3    funcList   '((size-of array int) (size-of array) (size-of list) (size-of type#map) (size-of type#model) (size-of type#set)) : frame=null, type=list
+RRT_INDEX            : 21       2        2    constant   RRT_INDEX:"17"      
+ATTR_RETE_TYPE       : 22       2        2    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 23       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 24       2        2    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 25       2        2    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 26       2        2    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 27       2        2    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 28       2        2    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 29       2        2    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 30       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 31       2        2    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 32       2        2    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 33       2        2    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 34       2        2    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 35       2        2    constant   RETE_QUEUE_ACTION:"4"
+RETE_PRIORITY_DEFAULT : 36       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 37       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 38       2        2    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 39       2        2    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 40       2        2    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 41       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 42       2        2    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 43       2        2    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 44       2        2    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 45       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 46       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 47       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 48       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 49       2        2    macro      list-with-state     
+list-without-state   : 50       2        2    macro      list-without-state  
+list-rule            : 51       2        2    macro      list-rule           
+get-rule             : 52       2        2    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 53       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 54       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 55       2        2    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 56       2        2    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 57       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
+set-node-multi-queue : 58       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+map                  : 59       2        2    class      map                 
+type#map             : 60       2        0    atom       type#map            
+size-of              : 61       2        3    funcList   '((size-of array int) (size-of array) (size-of list) (size-of type#map) (size-of type#model) (size-of type#set)) : frame=null, type=list
                                          2    func       (size-of list) : frame=frame@system
                                          2    func       (size-of array) : frame=frame@system
                                          2    func       (size-of array int) : frame=frame@system
                                          2    func       (size-of type#model) : frame=frame@system
                                          1    func       (size-of type#map) : frame=frame@main
                                          1    func       (size-of type#set) : frame=frame@main
-is-empty             : 61       2        4    funcList   '((is-empty array) (is-empty list) (is-empty string) (is-empty type#map) (is-empty type#set)) : frame=null, type=list
+is-empty             : 62       2        4    funcList   '((is-empty array) (is-empty list) (is-empty string) (is-empty type#map) (is-empty type#set)) : frame=null, type=list
                                          2    func       (is-empty list) : frame=frame@system
                                          2    func       (is-empty array) : frame=frame@system
                                          1    func       (is-empty type#map) : frame=frame@main
                                          1    func       (is-empty type#set) : frame=frame@main
                                          1    func       (is-empty string) : frame=frame@main
-clear                : 62       2        2    funcList   '((clear type#map) (clear type#set)) : frame=null, type=list
+clear                : 63       2        2    funcList   '((clear type#map) (clear type#set)) : frame=null, type=list
                                          2    func       (clear type#map) : frame=frame@main
                                          1    func       (clear type#set) : frame=frame@main
-set                  : 63       2        2    class      set                 
-type#set             : 64       2        0    atom       type#set            
-to-list              : 65       2        2    funcList   '((to-list array) (to-list list) (to-list type#set)) : frame=null, type=list
+set                  : 64       2        2    class      set                 
+type#set             : 65       2        0    atom       type#set            
+to-list              : 66       2        2    funcList   '((to-list array) (to-list list) (to-list type#set)) : frame=null, type=list
                                          2    func       (to-list list) : frame=frame@system
                                          2    func       (to-list array) : frame=frame@system
                                          1    func       (to-list type#set) : frame=frame@main
---                   : 66       2        2    macro      --                  
-++                   : 67       2        2    macro      ++                  
-inc                  : 68       2        2    macro      inc                 
-dec                  : 69       2        2    macro      dec                 
-max                  : 70       2        2    funcList   '((max list) (max nil nil)) : frame=null, type=list
+--                   : 67       2        2    macro      --                  
+++                   : 68       2        2    macro      ++                  
+inc                  : 69       2        2    macro      inc                 
+dec                  : 70       2        2    macro      dec                 
+max                  : 71       2        2    funcList   '((max list) (max nil nil)) : frame=null, type=list
                                          2    func       (max nil nil) : frame=frame@main
                                          1    func       (max list) : frame=frame@main
-min                  : 71       2        2    funcList   '((min list) (min nil nil)) : frame=null, type=list
+min                  : 72       2        2    funcList   '((min list) (min nil nil)) : frame=null, type=list
                                          2    func       (min nil nil) : frame=frame@main
                                          1    func       (min list) : frame=frame@main
-is-blank             : 72       2        2    func       (is-blank string) : frame=frame@main
-file-prename         : 73       2        2    func       (file-prename string) : frame=frame@main
-file-subffix         : 74       2        2    func       (file-subffix string) : frame=frame@main
-str-split-line       : 75       2        2    func       (str-split-line string) : frame=frame@main
-to-one-line          : 76       2        2    func       (to-one-line list) : frame=frame@main
-sort                 : 77       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
+is-blank             : 73       2        2    func       (is-blank string) : frame=frame@main
+file-prename         : 74       2        2    func       (file-prename string) : frame=frame@main
+file-subffix         : 75       2        2    func       (file-subffix string) : frame=frame@main
+str-split-line       : 76       2        2    func       (str-split-line string) : frame=frame@main
+to-one-line          : 77       2        2    func       (to-one-line list) : frame=frame@main
+sort                 : 78       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
                                          2    func       (sort list) : frame=frame@main
                                          1    func       (sort list func) : frame=frame@main
                                          1    func       (sort array) : frame=frame@main
                                          1    func       (sort array func) : frame=frame@main
-print-list           : 78       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+print-list           : 79       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
                                          2    func       (print-list list) : frame=frame@main
                                          1    func       (print-list nil nil) : frame=frame@main
                                          1    func       (print-list nil) : frame=frame@main
-to-valid-path        : 79       2        2    func       (to-valid-path string) : frame=frame@main
-day-is-bigger-than   : 80       2        2    func       (day-is-bigger-than string string) : frame=frame@main
-day-is-smaller-than  : 81       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-p2d                  : 83       2        5    instance   model@p2d           
-#ns_tag              : 84       2        2    constant   #ns_tag:"nt:"       
-#ns_domain           : 85       2        2    constant   #ns_domain:"nd:"    
-#ns_base             : 86       2        2    constant   #ns_base:"nm:"      
-p2d_get_uri_name     : 87       2        2    func       (p2d_get_uri_name nil) : frame=frame@main
-p2d_get_suffix       : 88       2        2    func       (p2d_get_suffix nil string) : frame=frame@main
-p2d_get_field_name   : 89       2        2    func       (p2d_get_field_name nil) : frame=frame@main
-p2d_as_tag           : 90       2        2    func       (p2d_as_tag nil) : frame=frame@main
-p2d_as_prop          : 91       2        2    func       (p2d_as_prop nil) : frame=frame@main
-p2d_get_new_ns       : 92       2        2    func       (p2d_get_new_ns nil nil) : frame=frame@main
-TAG_NAME_$VS         : 93       2        2    constant   TAG_NAME_$VS:"$VS"  
-VS_PRE               : 94       2        2    constant   VS_PRE:"vs_"        
-?rv                  : 96       2        1    var        3 : type=int        
-VS_PRE_LEN           : 97       2        2    constant   VS_PRE_LEN:"3"      
-p2d_is_vs_tag        : 98       2        2    func       (p2d_is_vs_tag string) : frame=frame@main
-p2d_get_vs_tag_list  : 99       2        2    func       (p2d_get_vs_tag_list string) : frame=frame@main
-p2d_get_vs_tag_key   : 100      2        2    func       (p2d_get_vs_tag_key list) : frame=frame@main
-p2d_vs_group         : 101      2        2    class      p2d_vs_group        
-type#p2d_vs_group    : 102      2        0    atom       type#p2d_vs_group   
-p2d_build_vs_tag     : 103      2        2    func       (p2d_build_vs_tag) : frame=frame@main
-TAG_NAME_$TAG_TABLE  : 104      2        2    constant   TAG_NAME_$TAG_TABLE:"$TAG_TABLE"
-TAG_EXPR_SEP         : 105      2        2    constant   TAG_EXPR_SEP:"%"    
-TAG_EXPR_TABLE_PRE   : 106      2        2    constant   TAG_EXPR_TABLE_PRE:"%tb"
-TAG_EXPR_TABLE_PRE_LEN : 108      2        2    constant   TAG_EXPR_TABLE_PRE_LEN:"3"
-p2d_is_tag_expr_table : 109      2        2    func       (p2d_is_tag_expr_table string) : frame=frame@main
-p2d_get_tag_names_in_expr : 110      2        2    func       (p2d_get_tag_names_in_expr string) : frame=frame@main
-p2d_build_table_tag  : 111      2        2    func       (p2d_build_table_tag) : frame=frame@main
-p2d_get_version_number : 112      2        2    func       (p2d_get_version_number nil) : frame=frame@main
-hasGroupChild        : 113      2        2    macro      hasGroupChild       
-build_p2d_model      : 114      2        2    func       (build_p2d_model) : frame=frame@main
-?e                   : 198      2        1    var        AC8: AC8 : type=instance
+to-valid-path        : 80       2        2    func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 81       2        2    func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 82       2        2    func       (day-is-smaller-than string string) : frame=frame@main
+p2d                  : 84       2        5    instance   model@p2d           
+#ns_tag              : 85       2        2    constant   #ns_tag:"nt:"       
+#ns_domain           : 86       2        2    constant   #ns_domain:"nd:"    
+#ns_base             : 87       2        2    constant   #ns_base:"nm:"      
+p2d_get_uri_name     : 88       2        2    func       (p2d_get_uri_name nil) : frame=frame@main
+p2d_get_suffix       : 89       2        2    func       (p2d_get_suffix nil string) : frame=frame@main
+p2d_get_field_name   : 90       2        2    func       (p2d_get_field_name nil) : frame=frame@main
+p2d_as_tag           : 91       2        2    func       (p2d_as_tag nil) : frame=frame@main
+p2d_as_prop          : 92       2        2    func       (p2d_as_prop nil) : frame=frame@main
+p2d_get_new_ns       : 93       2        2    func       (p2d_get_new_ns nil nil) : frame=frame@main
+TAG_NAME_$VS         : 94       2        2    constant   TAG_NAME_$VS:"$VS"  
+VS_PRE               : 95       2        2    constant   VS_PRE:"vs_"        
+?rv                  : 97       2        1    var        3 : type=int        
+VS_PRE_LEN           : 98       2        2    constant   VS_PRE_LEN:"3"      
+p2d_is_vs_tag        : 99       2        2    func       (p2d_is_vs_tag string) : frame=frame@main
+p2d_get_vs_tag_list  : 100      2        2    func       (p2d_get_vs_tag_list string) : frame=frame@main
+p2d_get_vs_tag_key   : 101      2        2    func       (p2d_get_vs_tag_key list) : frame=frame@main
+p2d_vs_group         : 102      2        2    class      p2d_vs_group        
+type#p2d_vs_group    : 103      2        0    atom       type#p2d_vs_group   
+p2d_build_vs_tag     : 104      2        2    func       (p2d_build_vs_tag) : frame=frame@main
+TAG_NAME_$TAG_TABLE  : 105      2        2    constant   TAG_NAME_$TAG_TABLE:"$TAG_TABLE"
+TAG_EXPR_SEP         : 106      2        2    constant   TAG_EXPR_SEP:"%"    
+TAG_EXPR_TABLE_PRE   : 107      2        2    constant   TAG_EXPR_TABLE_PRE:"%tb"
+TAG_EXPR_TABLE_PRE_LEN : 109      2        2    constant   TAG_EXPR_TABLE_PRE_LEN:"3"
+p2d_is_tag_expr_table : 110      2        2    func       (p2d_is_tag_expr_table string) : frame=frame@main
+p2d_get_tag_names_in_expr : 111      2        2    func       (p2d_get_tag_names_in_expr string) : frame=frame@main
+p2d_build_table_tag  : 112      2        2    func       (p2d_build_table_tag) : frame=frame@main
+p2d_get_version_number : 113      2        2    func       (p2d_get_version_number nil) : frame=frame@main
+hasGroupChild        : 114      2        2    macro      hasGroupChild       
+build_p2d_model      : 115      2        2    func       (build_p2d_model) : frame=frame@main
+?e                   : 199      2        1    var        AC8: AC8 : type=instance
 ==========================================================================================================================
 
 
@@ -2794,51 +2795,51 @@ id=3, name=model, lvl=3, ref=6/6, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 82       3        5    instance   model@p2d           
+default_model        : 83       3        5    instance   model@p2d           
 ==========================================================================================================================
 
 id=4, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 115      4        1    var        tc : type=atom      
-?rv                  : 125      4        1    var        tc : type=string    
+?0                   : 116      4        1    var        tc : type=atom      
+?rv                  : 126      4        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=5, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 164      5        1    var        tc : type=atom      
-?rv                  : 171      5        1    var        tc : type=string    
+?0                   : 165      5        1    var        tc : type=atom      
+?rv                  : 172      5        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=7, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 189      7        5    instance   model@p2d           
-?t                   : 190      7        1    var        tc : type=atom      
-?model-state         : 191      7        1    var        ?model-state:"completed" : type=var
+default_model        : 190      7        5    instance   model@p2d           
+?t                   : 191      7        1    var        tc : type=atom      
+?model-state         : 192      7        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=8, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 144      8        1    var        tc : type=atom      
-?rv                  : 151      8        1    var        tc : type=string    
+?0                   : 145      8        1    var        tc : type=atom      
+?rv                  : 152      8        1    var        tc : type=string    
 ==========================================================================================================================
 
 id=9, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 184      9        5    instance   model@p2d           
-?a                   : 185      9        1    var        tc : type=atom      
-?p                   : 186      9        1    var        nm:beAliasTo : type=atom
-?b                   : 187      9        1    var        ta : type=atom      
-?model-state         : 188      9        1    var        ?model-state:"completed" : type=var
+default_model        : 185      9        5    instance   model@p2d           
+?a                   : 186      9        1    var        tc : type=atom      
+?p                   : 187      9        1    var        nm:beAliasTo : type=atom
+?b                   : 188      9        1    var        ta : type=atom      
+?model-state         : 189      9        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Root var list: total=6

@@ -30,6 +30,7 @@ import static alpha.rulp.ximpl.node.RReteType.EXPR0;
 import static alpha.rulp.ximpl.node.RReteType.EXPR1;
 import static alpha.rulp.ximpl.node.RReteType.EXPR2;
 import static alpha.rulp.ximpl.node.RReteType.EXPR3;
+import static alpha.rulp.ximpl.node.RReteType.INDEX;
 import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_NUM;
 import static alpha.rulp.ximpl.node.RReteType.RULE;
 import static alpha.rulp.ximpl.node.RReteType.WORK;
@@ -99,7 +100,7 @@ public class StatsUtil {
 			new OutputType(RReteType.RULE, RCountType.UpdateCount) };
 
 	static final RReteType DETAIL_RETE_TYPES[] = { ALPH0, ALPH1, BETA0, BETA1, BETA2, BETA3, EXPR0, EXPR1, EXPR2, EXPR3,
-			RULE, WORK, CONST };
+			RULE, WORK, CONST, INDEX };
 
 	static final String SEP_LINE1 = "=========================================================================="
 			+ "=======================================================================================\n";
@@ -425,6 +426,9 @@ public class StatsUtil {
 
 		case CONST:
 			return "c0";
+
+		case INDEX:
+			return "i0";
 
 		default:
 			return "un";

@@ -79,7 +79,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 78       3        2    instance   model@m             
+default_model        : 79       3        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -110,17 +110,17 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      398
+    factor:      399
       func:       15
 ==========================================================================================================================
 
-Callable stats info: callId=246, row=33, column=62(4), value-max=40, value-unit=2^x
+Callable stats info: callId=246, row=33, column=62(4), value-max=41, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333678 max=86, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
     root   factor     77    0 defun                                                                        3333 3333313365 
-    root   factor     40    0 defconst                                                                                   7 
+    root   factor     41    0 defconst                                                                                   7 
     root   factor     15    0 return                                                                                      5
     root   factor     13    0 defvar                                                                           3        1 4
     root   factor      8    0 defmacro                                                                                  43 
@@ -157,26 +157,26 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2353            0         2353
+        atom:         2355            0         2355
          int:            2            0            2
       string:           95            0           95
         list:           66            2           64
-        expr:         1099           15         1084
+        expr:         1100           15         1085
          var:           59           38           21
-    constant:           40            0           40
+    constant:           41            0           41
         func:           94            0           94
     template:            1            0            1
        macro:            8            0            8
       member:           22            0           22
        frame:           23           22            1
  interpreter:            1            0
-  frameEntry:          416            0
+  frameEntry:          417            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/3, entry=79, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=80, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -236,45 +236,46 @@ RRT_BETA2            : 37       2        2    constant   RRT_BETA2:"13"
 RRT_BETA3            : 38       2        2    constant   RRT_BETA3:"14"      
 RRT_RULE             : 39       2        2    constant   RRT_RULE:"15"       
 RRT_WORK             : 40       2        2    constant   RRT_WORK:"16"       
-ATTR_RETE_TYPE       : 41       2        2    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 42       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 43       2        2    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 44       2        2    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 45       2        2    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 46       2        2    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 47       2        2    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 48       2        2    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 49       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 50       2        2    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 51       2        2    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 52       2        2    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 53       2        2    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 54       2        2    constant   RETE_QUEUE_ACTION:"4"
-RETE_PRIORITY_DEFAULT : 55       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 56       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 57       2        2    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 58       2        2    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 59       2        2    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 60       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 61       2        2    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 62       2        2    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 63       2        2    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 64       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 65       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 66       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 67       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 68       2        2    macro      list-with-state     
-list-without-state   : 69       2        2    macro      list-without-state  
-list-rule            : 70       2        2    macro      list-rule           
-get-rule             : 71       2        2    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 72       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 73       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 74       2        2    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 75       2        2    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 76       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 77       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-m                    : 79       2        2    instance   model@m             
-?rv                  : 85       2        1    var        N00001: n1:'(?0 ?1) : type=instance
+RRT_INDEX            : 41       2        2    constant   RRT_INDEX:"17"      
+ATTR_RETE_TYPE       : 42       2        2    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 43       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 44       2        2    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 45       2        2    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 46       2        2    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 47       2        2    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 48       2        2    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 49       2        2    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 50       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 51       2        2    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 52       2        2    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 53       2        2    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 54       2        2    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 55       2        2    constant   RETE_QUEUE_ACTION:"4"
+RETE_PRIORITY_DEFAULT : 56       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 57       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 58       2        2    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 59       2        2    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 60       2        2    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 61       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 62       2        2    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 63       2        2    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 64       2        2    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 65       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 66       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 67       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 68       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 69       2        2    macro      list-with-state     
+list-without-state   : 70       2        2    macro      list-without-state  
+list-rule            : 71       2        2    macro      list-rule           
+get-rule             : 72       2        2    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 73       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 74       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 75       2        2    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 76       2        2    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 77       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
+set-node-multi-queue : 78       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+m                    : 80       2        2    instance   model@m             
+?rv                  : 86       2        1    var        N00001: n1:'(?0 ?1) : type=instance
 ==========================================================================================================================
 
 
@@ -282,7 +283,7 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 78       3        2    instance   model@m             
+default_model        : 79       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=6

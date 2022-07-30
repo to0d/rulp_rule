@@ -1,20 +1,20 @@
 (new model m)
-;;;
+;=>
 
 (add-node m n1:'(?x ?y ?z))
-;;;
+;=>
 
 (add-node m n1:'(?x ?y ?z))
-;;;
+;=>
 
 (add-node m n1:'(?x ?y))
-;;;
+;err
 
 (add-node m '(?x ?y))
-;;;
+;err
 
 (add-node m n2:'(? ? ?))
-;;;
+;=>
 
 (add-node m n3:'(3))
-;;;
+;=>
