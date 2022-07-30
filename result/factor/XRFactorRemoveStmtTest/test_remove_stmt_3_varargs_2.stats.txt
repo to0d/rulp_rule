@@ -87,7 +87,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 23       3        2    instance   model@m             
+default_model        : 24       3        2    instance   model@m             
 ==========================================================================================================================
 
 node update info: model-exec-count=1, row=1, column=2(1), value-max=1, value-unit=1^x
@@ -125,15 +125,15 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      272
+    factor:      273
 ==========================================================================================================================
 
-Callable stats info: callId=245, row=11, column=62(4), value-max=20, value-unit=2^x
+Callable stats info: callId=245, row=11, column=62(4), value-max=21, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333632 max=27, unit=2^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333632 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
-    root   factor     65    0 defun                                                                        3333 3333313362 
+    root   factor     66    0 defun                                                                        3333 3333313362 
     root   factor      7    0 alias                          33                                                      1     
     root   factor      5    0 defvar                                                                           3        1  
     root   factor      5    0 defmacro                                                                                  4  
@@ -149,24 +149,24 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2011            0         2011
-      string:           75            0           75
+        atom:         2032            0         2032
+      string:           77            0           77
         list:           73            1           72
-        expr:          873            0          873
+        expr:          883            0          883
          var:           20            0           20
-        func:           82            0           82
+        func:           83            0           83
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          322            0
+  frameEntry:          323            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=23, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=24, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -191,24 +191,25 @@ is-blank             : 11       2        2    func       (is-blank string) : fra
 file-prename         : 12       2        2    func       (file-prename string) : frame=frame@main
 file-subffix         : 13       2        2    func       (file-subffix string) : frame=frame@main
 str-split-line       : 14       2        2    func       (str-split-line string) : frame=frame@main
-sort                 : 15       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
+to-one-line          : 15       2        2    func       (to-one-line list) : frame=frame@main
+sort                 : 16       2        4    funcList   '((sort array func) (sort array) (sort list func) (sort list)) : frame=null, type=list
                                          2    func       (sort list) : frame=frame@main
                                          1    func       (sort list func) : frame=frame@main
                                          1    func       (sort array) : frame=frame@main
                                          1    func       (sort array func) : frame=frame@main
-print-list           : 16       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
+print-list           : 17       2        3    funcList   '((print-list list) (print-list nil nil) (print-list nil)) : frame=null, type=list
                                          2    func       (print-list list) : frame=frame@main
                                          1    func       (print-list nil nil) : frame=frame@main
                                          1    func       (print-list nil) : frame=frame@main
-to-valid-path        : 17       2        2    func       (to-valid-path string) : frame=frame@main
-day-is-bigger-than   : 18       2        2    func       (day-is-bigger-than string string) : frame=frame@main
-day-is-smaller-than  : 19       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 20       2        2    var        result\factor\XRFactorRemoveStmtTest\test_remove_stmt_3_varargs_2.rulp : type=string
-script_out           : 21       2        2    macro      script_out          
-_ginfo               : 22       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
+to-valid-path        : 18       2        2    func       (to-valid-path string) : frame=frame@main
+day-is-bigger-than   : 19       2        2    func       (day-is-bigger-than string string) : frame=frame@main
+day-is-smaller-than  : 20       2        2    func       (day-is-smaller-than string string) : frame=frame@main
+?script-path         : 21       2        2    var        result\factor\XRFactorRemoveStmtTest\test_remove_stmt_3_varargs_2.rulp : type=string
+script_out           : 22       2        2    macro      script_out          
+_ginfo               : 23       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-m                    : 24       2        2    instance   model@m             
+m                    : 25       2        2    instance   model@m             
 ==========================================================================================================================
 
 
@@ -216,7 +217,7 @@ id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 23       3        2    instance   model@m             
+default_model        : 24       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=6

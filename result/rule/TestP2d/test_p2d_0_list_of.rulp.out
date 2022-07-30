@@ -335,6 +335,7 @@ mbr=script_out, mbr-property='(public), mbr-attribute='(), obj=script_out, obj-t
 mbr=sort, mbr-property='(public), mbr-attribute='(), obj='((sort array func) (sort array) (sort list func) (sort list)), obj-type=func, obj-attribute='()
 mbr=str-split-line, mbr-property='(public), mbr-attribute='(), obj=(str-split-line string), obj-type=func, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
+mbr=to-one-line, mbr-property='(public), mbr-attribute='(), obj=(to-one-line list), obj-type=func, obj-attribute='()
 mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path string), obj-type=func, obj-attribute='()
 
 ;eof
@@ -454,6 +455,7 @@ mbr=sort, mbr-property='(public), mbr-attribute='(), obj='((sort array func) (so
 mbr=str-split-line, mbr-property='(public), mbr-attribute='(), obj=(str-split-line string), obj-type=func, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
 mbr=to-list, mbr-property='(public), mbr-attribute='(), obj='((to-list array) (to-list list) (to-list type#set)), obj-type=func, obj-attribute='()
+mbr=to-one-line, mbr-property='(public), mbr-attribute='(), obj=(to-one-line list), obj-type=func, obj-attribute='()
 mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path string), obj-type=func, obj-attribute='()
 mbr=type#map, mbr-property='(public), mbr-attribute='(), obj=type#map, obj-type=atom, obj-attribute='()
 mbr=type#p2d_vs_group, mbr-property='(public), mbr-attribute='(), obj=type#p2d_vs_group, obj-type=atom, obj-attribute='()
