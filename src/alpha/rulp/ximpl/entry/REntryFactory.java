@@ -5,7 +5,7 @@ import java.util.List;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
-import alpha.rulp.utils.ReteUtil.OrderEntry;
+import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.ximpl.node.IRIndexNode;
 import alpha.rulp.ximpl.node.RReteType;
 

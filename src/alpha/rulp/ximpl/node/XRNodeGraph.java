@@ -74,8 +74,8 @@ import alpha.rulp.utils.AttrUtil;
 import alpha.rulp.utils.HeapStack;
 import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.OptimizeUtil;
+import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -1930,7 +1930,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			throw new RException(String.format("Can't add index to node: %s", node.getUniqName()));
 		}
 
-		String uniqName = node.getUniqName() + " " + ReteUtil.toString(orderList);
+		String uniqName = node.getUniqName() + " " + OrderEntry.toString(orderList);
 
 		for (IRReteNode childNode : node.getChildNodes()) {
 			if (childNode.getReteType() == RReteType.INDEX && childNode.getUniqName().equals(uniqName)) {

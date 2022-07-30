@@ -4,8 +4,6 @@ import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.lang.Constant.A_QUESTION;
 import static alpha.rulp.lang.Constant.A_QUESTION_C;
 import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
-import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -60,11 +58,6 @@ import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
-
-	public static class OrderEntry {
-		public boolean asc;
-		public int index;
-	}
 
 	static class ReplaceMap implements Map<String, IRObject> {
 
@@ -320,10 +313,6 @@ public class ReteUtil {
 		}
 
 		return;
-	}
-
-	static String _toString(OrderEntry orderEntry) {
-		return String.format("%s ?%d %s", A_Order_by, orderEntry.index, orderEntry.asc ? A_Asc : A_Desc);
 	}
 
 	private static String _toUniq(IRObject obj, Map<String, String> varMap, boolean create) throws RException {
@@ -797,7 +786,7 @@ public class ReteUtil {
 		return varList;
 	}
 
-	public static int compareEntry(IRReteEntry e1, IRReteEntry e2, List<OrderEntry> orderEntries) throws RException {
+	public static int compareEntry(IRList e1, IRList e2, List<OrderEntry> orderEntries) throws RException {
 
 		int d = 0;
 
@@ -1278,6 +1267,27 @@ public class ReteUtil {
 		default:
 			return false;
 		}
+	}
+
+	public static boolean isIndexStmt(IRList stmt) throws RException {
+
+		if (!ReteUtil.isAlphaMatchTree(stmt)) {
+			return false;
+		}
+
+		ArrayList<String> nodeVarList = new ArrayList<>();
+		ReteUtil.fillVarList(stmt, nodeVarList);
+
+		if (nodeVarList.isEmpty()) {
+			return false;
+		}
+
+		HashSet<String> nodeVarSet = new HashSet<>(nodeVarList);
+		if (nodeVarSet.size() != nodeVarList.size()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public static boolean isIndexVarAtom(IRObject obj) {
@@ -1862,30 +1872,6 @@ public class ReteUtil {
 
 	public static IRReteNode[] toNodesArray(IRReteNode... nodes) {
 		return nodes;
-	}
-
-	public static String toString(List<OrderEntry> orderList) {
-
-		if (orderList.size() == 1) {
-			return "(" + _toString(orderList.get(0)) + ")";
-
-		} else {
-
-			StringBuffer sb = new StringBuffer();
-			sb.append("(");
-
-			int index = 0;
-			for (OrderEntry orderEntry : orderList) {
-				if (index++ != 0) {
-					sb.append(" ");
-				}
-				sb.append(_toString(orderEntry));
-			}
-
-			sb.append(")");
-
-			return sb.toString();
-		}
 	}
 
 	public static boolean tryChangeNodeQueue(IRReteNode node, REntryQueueType fromType, REntryQueueType toType)

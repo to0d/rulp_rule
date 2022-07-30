@@ -9,8 +9,8 @@ import java.util.Map;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.rule.IRReteNode;
+import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstraint1OrderBy {
@@ -103,7 +103,7 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = ReteUtil.toString(orderList);
+			_constraintExpression = OrderEntry.toString(orderList);
 		}
 
 		return _constraintExpression;

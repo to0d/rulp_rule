@@ -5,8 +5,8 @@ import java.util.List;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.HeapStack;
+import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.ReteUtil.OrderEntry;
 
 public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 

@@ -10,7 +10,7 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.rule.RCountType;
-import alpha.rulp.utils.ReteUtil.OrderEntry;
+import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 

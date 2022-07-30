@@ -203,7 +203,7 @@ public class ModifiterUtil {
 			while (list.fromIndex < list.list.size()) {
 
 				IRObject obj = list.list.get(list.fromIndex);
-				if (obj.getType() != RType.LIST && !RulpUtil.isVarAtom(obj)) {
+				if (obj.getType() != RType.INT && obj.getType() != RType.LIST && !RulpUtil.isVarAtom(obj)) {
 					break;
 				}
 

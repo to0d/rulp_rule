@@ -2,9 +2,6 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.rule.Constant.A_Order_by;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -46,23 +43,23 @@ public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, 
 		IRList nodeExpr = RulpUtil.asList(interpreter.compute(frame, args.get(2)));
 
 		/********************************************/
-		// Check node expression
+		// Check index expression
 		/********************************************/
-		if (!ReteUtil.isAlphaMatchTree(nodeExpr)) {
-			throw new RException(String.format("Invalid node expr: %s", nodeExpr));
+		if (!ReteUtil.isIndexStmt(nodeExpr)) {
+			throw new RException(String.format("Invalid index expr: %s", nodeExpr));
 		}
 
-		ArrayList<String> nodeVarList = new ArrayList<>();
-		ReteUtil.fillVarList(nodeExpr, nodeVarList);
-
-		if (nodeVarList.isEmpty()) {
-			throw new RException(String.format("no var in node expr: %s", nodeExpr));
-		}
-
-		HashSet<String> nodeVarSet = new HashSet<>(nodeVarList);
-		if (nodeVarSet.size() != nodeVarList.size()) {
-			throw new RException(String.format("Duplicated var found in node expr: %s", nodeExpr));
-		}
+//		ArrayList<String> nodeVarList = new ArrayList<>();
+//		ReteUtil.fillVarList(nodeExpr, nodeVarList);
+//
+//		if (nodeVarList.isEmpty()) {
+//			throw new RException(String.format("no var in node expr: %s", nodeExpr));
+//		}
+//
+//		HashSet<String> nodeVarSet = new HashSet<>(nodeVarList);
+//		if (nodeVarSet.size() != nodeVarList.size()) {
+//			throw new RException(String.format("Duplicated var found in node expr: %s", nodeExpr));
+//		}
 
 		/********************************************/
 		// Check order expression

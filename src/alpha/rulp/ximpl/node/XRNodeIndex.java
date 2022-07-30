@@ -2,7 +2,9 @@ package alpha.rulp.ximpl.node;
 
 import java.util.List;
 
-import alpha.rulp.utils.ReteUtil.OrderEntry;
+import alpha.rulp.lang.RException;
+import alpha.rulp.utils.OrderEntry;
+import alpha.rulp.ximpl.entry.XREntryQueueOrder;
 
 public class XRNodeIndex extends XRNodeRete1 implements IRIndexNode {
 
@@ -18,7 +20,19 @@ public class XRNodeIndex extends XRNodeRete1 implements IRIndexNode {
 	}
 
 	public void setOrderList(List<OrderEntry> orderList) {
+
 		this.orderList = orderList;
+	}
+
+	@Override
+	public int update() throws RException {
+
+		int update = super.update();
+		if (update > 0) {
+			((XREntryQueueOrder) getEntryQueue()).rebuildOrder();
+		}
+
+		return update;
 	}
 
 }

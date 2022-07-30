@@ -12,13 +12,13 @@
 
 (add-index m '(?a ?a c) (order by ?a))
 ;err:
-Duplicated var found in node expr: '(?a ?a c)
+Invalid index expr: '(?a ?a c)
 at (add-index m '(?a ?a c) (order by ?a)) ; main-2
 ;eof
 
 (add-index m '(a b c) (order by ?a))
 ;err:
-no var in node expr: '(a b c)
+Invalid index expr: '(a b c)
 at (add-index m '(a b c) (order by ?a)) ; main-2
 ;eof
 

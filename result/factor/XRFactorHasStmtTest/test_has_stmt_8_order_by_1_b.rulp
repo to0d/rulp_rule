@@ -1,0 +1,24 @@
+(new model m)
+;=>
+
+(add-stmt m n1:'(a1 b c1))
+(add-stmt m n1:'(a2 b c2))
+(add-stmt m n1:'(x y z))
+(add-stmt m n1:'(a3 b c3))
+(add-stmt m n1:'(a2 b c4))
+(add-stmt m n1:'(a1 b c5))
+(add-stmt m n1:'(a1 b c7))
+(add-stmt m n1:'(a1 b c6))
+;=>
+
+(has-stmt m n1:'(a1 b ?c) order by 0)
+;=>
+
+(has-stmt m n1:'(a2 b ?c) order by 0)
+;=>
+
+(has-stmt m n1:'(a3 b ?c) order by 0)
+;=>
+
+(has-stmt m n1:'(a4 b ?c) order by 0)
+;=>
