@@ -174,39 +174,6 @@ public class ReteUtil {
 			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__, CLEAN }, // CLEAN
 	};
 
-	static void _fillVarList(IRList stmt, Set<String> varSet) throws RException {
-
-//		if (stmt.getType() == RType.EXPR) {
-
-		IRIterator<? extends IRObject> iter = ((IRList) stmt).iterator();
-		while (iter.hasNext()) {
-
-			IRObject obj = iter.next();
-
-			if (RulpUtil.isVarAtom(obj)) {
-				varSet.add(RulpUtil.asAtom(obj).getName().trim());
-				continue;
-			}
-
-			if (obj.getType() == RType.LIST || obj.getType() == RType.EXPR) {
-				_fillVarList((IRList) obj, varSet);
-			}
-		}
-
-//		}
-//		// Must be List
-//		else {
-//
-//			IRIterator<? extends IRObject> iter = ((IRList) stmt).iterator();
-//			while (iter.hasNext()) {
-//				IRObject obj = iter.next();
-//				if (RulpUtil.isVarAtom(obj)) {
-//					varSet.add(RulpUtil.asAtom(obj).getName().trim());
-//				}
-//			}
-//		}
-	}
-
 	static int _getVarUniqIndex(int stmtLen, IRObject var) throws RException {
 
 		String varName = var.asString().substring(1);
@@ -845,6 +812,24 @@ public class ReteUtil {
 		}
 
 		return d;
+	}
+
+	public static void fillVarList(IRList stmt, Collection<String> varList) throws RException {
+
+		IRIterator<? extends IRObject> iter = ((IRList) stmt).iterator();
+		while (iter.hasNext()) {
+
+			IRObject obj = iter.next();
+
+			if (RulpUtil.isVarAtom(obj)) {
+				varList.add(RulpUtil.asAtom(obj).getName().trim());
+				continue;
+			}
+
+			if (obj.getType() == RType.LIST || obj.getType() == RType.EXPR) {
+				fillVarList((IRList) obj, varList);
+			}
+		}
 	}
 
 	public static IRReteNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
@@ -1953,7 +1938,7 @@ public class ReteUtil {
 	public static List<String> varList(IRList stmt) throws RException {
 
 		HashSet<String> varList = new HashSet<>();
-		_fillVarList(stmt, varList);
+		fillVarList(stmt, varList);
 
 		List<String> c = new LinkedList<>(varList);
 		Collections.sort(c);
@@ -1964,7 +1949,7 @@ public class ReteUtil {
 
 		HashSet<String> varList = new HashSet<>();
 		for (IRList stmt : stmtList) {
-			_fillVarList(stmt, varList);
+			fillVarList(stmt, varList);
 		}
 		List<String> c = new LinkedList<>(varList);
 		Collections.sort(c);

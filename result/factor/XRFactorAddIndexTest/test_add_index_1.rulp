@@ -1,0 +1,17 @@
+(new model m)
+;=>
+
+(add-index m n1:'(?a ?b c) (order by ?a))
+;=>
+
+(add-index m n1:'(?a ?b c) (order by '(?b ?a)))
+;=>
+
+(add-index m '(?a b c) (order by ?a))
+;=>
+
+(add-index m '(?a ?a c) (order by ?a))
+;err
+
+(add-index m '(a b c) (order by ?a))
+;err

@@ -32,6 +32,8 @@ public interface IRNodeGraph {
 
 	public IRReteNode addWorker(String name, IRWorker worker) throws RException;
 
+//	public IRReteNode addIndex(IRReteNode node, IRWorker worker) throws RException;
+
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
 
 	public IRNodeSubGraph buildConstraintCheckSubGraph(IRReteNode rootNode) throws RException;
@@ -43,6 +45,8 @@ public interface IRNodeGraph {
 	public int doOptimize() throws RException;
 
 	public IRReteNode findNamedNode(String name) throws RException;
+
+	public IRReteNode findNodeByUniqName(String uniqName) throws RException;
 
 	public IRReteNode findRootNode(int stmtLen) throws RException;
 

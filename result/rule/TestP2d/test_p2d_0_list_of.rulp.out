@@ -231,6 +231,7 @@ mbr=?trace, mbr-property='(public), mbr-attribute='(), obj=?trace, obj-type=var,
 mbr=add, mbr-property='(public), mbr-attribute='(), obj='((add array nil nil nil) (add array nil nil) (add array nil) (add list nil nil nil) (add list nil nil) (add list nil)), obj-type=func, obj-attribute='()
 mbr=add-all, mbr-property='(public), mbr-attribute='(), obj=(add-all list list), obj-type=func, obj-attribute='()
 mbr=add-constraint, mbr-property='(public), mbr-attribute='(), obj=add-constraint, obj-type=factor, obj-attribute='()
+mbr=add-index, mbr-property='(public), mbr-attribute='(), obj=add-index, obj-type=factor, obj-attribute='()
 mbr=add-lazy-stmt, mbr-property='(public), mbr-attribute='(), obj=add-lazy-stmt, obj-type=factor, obj-attribute='()
 mbr=add-node, mbr-property='(public), mbr-attribute='(), obj=add-node, obj-type=factor, obj-attribute='()
 mbr=add-rule, mbr-property='(public), mbr-attribute='(), obj=add-rule, obj-type=factor, obj-attribute='()

@@ -1,9 +1,0 @@
-(new model m)
-;=>m
-
-(add-node m n1:'(?a ?b c))
-;err:
-Invalid obj<c> in filter: n1:'(?a ?b c)
-at (add-node m n1:'(?a ?b c)) ; main-2
-;eof
-

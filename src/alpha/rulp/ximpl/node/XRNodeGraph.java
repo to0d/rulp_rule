@@ -2036,6 +2036,11 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
+	public IRReteNode findNodeByUniqName(String uniqName) throws RException {
+		return nodeUniqNameMap.get(uniqName);
+	}
+
+	@Override
 	public IRReteNode findRootNode(int stmtLen) throws RException {
 		return rootNodeArray[stmtLen];
 	}
@@ -2142,15 +2147,12 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	@Override
 	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException {
-
 		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
-
 		return nodeInfo.bindFromNodeList == null ? Collections.emptyList() : nodeInfo.bindFromNodeList;
 	}
 
 	@Override
 	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException {
-
 		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
 		return nodeInfo.bindToNodeList == null ? Collections.emptyList() : nodeInfo.bindToNodeList;
 	}

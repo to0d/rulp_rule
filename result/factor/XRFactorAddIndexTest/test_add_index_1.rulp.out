@@ -1,0 +1,24 @@
+(new model m)
+;=>m
+
+(add-index m n1:'(?a ?b c) (order by ?a))
+;=>true
+
+(add-index m n1:'(?a ?b c) (order by '(?b ?a)))
+;=>true
+
+(add-index m '(?a b c) (order by ?a))
+;=>true
+
+(add-index m '(?a ?a c) (order by ?a))
+;err:
+Duplicated var found in node expr: '(?a ?a c)
+at (add-index m '(?a ?a c) (order by ?a)) ; main-2
+;eof
+
+(add-index m '(a b c) (order by ?a))
+;err:
+no var in node expr: '(a b c)
+at (add-index m '(a b c) (order by ?a)) ; main-2
+;eof
+
