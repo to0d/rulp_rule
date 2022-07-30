@@ -2443,80 +2443,80 @@ Node<E00004> frame:id=4, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), 
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 116      4        1    var        MYSQL-version : type=atom
-?rv                  : 126      4        1    var        ersion : type=string
+?0                   : 117      4        1    var        MYSQL-version : type=atom
+?rv                  : 127      4        1    var        ersion : type=string
 ==========================================================================================================================
 
 Node<TV1> frame:id=9, name=NF-TV1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-TV1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 191      9        9    instance   model@p2d           
-?tag                 : 192      9        1    var        MYSQLv5.7 : type=atom
-?model-state         : 193      9        1    var        ?model-state:"completed" : type=var
+default_model        : 192      9        9    instance   model@p2d           
+?tag                 : 193      9        1    var        MYSQLv5.7 : type=atom
+?model-state         : 194      9        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<C7> frame:id=12, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 241      12       9    instance   model@p2d           
-?a                   : 242      12       1    var        MYSQL-version : type=atom
-?p                   : 243      12       1    var        nm:defineTag : type=atom
-?b                   : 244      12       1    var        MYSQLv5.7 : type=atom
-?model-state         : 245      12       1    var        ?model-state:"completed" : type=var
+default_model        : 242      12       9    instance   model@p2d           
+?a                   : 243      12       1    var        MYSQL-version : type=atom
+?p                   : 244      12       1    var        nm:defineTag : type=atom
+?b                   : 245      12       1    var        MYSQLv5.7 : type=atom
+?model-state         : 246      12       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC2> frame:id=6, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 208      6        9    instance   model@p2d           
-?t                   : 209      6        1    var        MYSQL-version : type=atom
-?model-state         : 210      6        1    var        ?model-state:"completed" : type=var
+default_model        : 209      6        9    instance   model@p2d           
+?t                   : 210      6        1    var        MYSQL-version : type=atom
+?model-state         : 211      6        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<E00120> frame:id=8, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      8        1    var        MYSQL-version : type=atom
-?rv                  : 158      8        1    var        MYSQL-version : type=string
+?0                   : 152      8        1    var        MYSQL-version : type=atom
+?rv                  : 159      8        1    var        MYSQL-version : type=string
 ==========================================================================================================================
 
 Node<E00123> frame:id=5, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 171      5        1    var        MYSQL-version : type=atom
-?rv                  : 178      5        1    var        MYSQL-version : type=string
+?0                   : 172      5        1    var        MYSQL-version : type=atom
+?rv                  : 179      5        1    var        MYSQL-version : type=string
 ==========================================================================================================================
 
 Node<AC6> frame:id=11, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 248      11       9    instance   model@p2d           
-?t                   : 249      11       1    var        MYSQL-version : type=atom
-?model-state         : 250      11       1    var        ?model-state:"completed" : type=var
+default_model        : 249      11       9    instance   model@p2d           
+?t                   : 250      11       1    var        MYSQL-version : type=atom
+?model-state         : 251      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC7> frame:id=14, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 260      14       9    instance   model@p2d           
-?t                   : 261      14       1    var        MYSQL-version : type=atom
-?model-state         : 262      14       1    var        ?model-state:"completed" : type=var
+default_model        : 261      14       9    instance   model@p2d           
+?t                   : 262      14       1    var        MYSQL-version : type=atom
+?model-state         : 263      14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Node<AC8> frame:id=15, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 272      15       9    instance   model@p2d           
-?t                   : 273      15       1    var        MYSQL-version : type=atom
-?model-state         : 274      15       1    var        ?model-state:"completed" : type=var
+default_model        : 273      15       9    instance   model@p2d           
+?t                   : 274      15       1    var        MYSQL-version : type=atom
+?model-state         : 275      15       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 node update info: model-exec-count=482, row=53, column=121(4), value-max=2, value-unit=2^x
@@ -2606,7 +2606,7 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1005
+    factor:     1006
       func:       85
      macro:        2
 ==========================================================================================================================
@@ -2616,7 +2616,7 @@ Callable stats info: callId=250, row=49, column=63(4), value-max=50, value-unit=
    Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333369XX max=339, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
-    root   factor     97    0 defun                                                                        3333 3333313367  
+    root   factor     98    0 defun                                                                        3333 3333313367  
     root   factor     85    0 return                                                                                     277
     root   factor     76    0 if                                                                                          77
     root   factor     58    0 equal_def                                                                                   67
@@ -2670,27 +2670,27 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6712            0         6712
+        atom:         6719            0         6719
          int:            3            0            3
       string:          245            0          245
         list:         1561            4         1557
-        expr:         2073           85         1988
+        expr:         2078           85         1993
          var:          314          267           47
     constant:           50            0           50
-        func:          135            0          135
+        func:          136            0          136
     template:            1            0            1
        macro:            9            0            9
        class:            3            0            3
       member:           86            0           86
        frame:          175          165           10
  interpreter:            1            0
-  frameEntry:          705            0
+  frameEntry:          706            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=10
 
-id=2, name=main, lvl=2, ref=3/4, entry=113, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=114, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -2835,7 +2835,8 @@ p2d_get_tag_names_in_expr : 112      2        2    func       (p2d_get_tag_names
 p2d_build_table_tag  : 113      2        2    func       (p2d_build_table_tag) : frame=frame@main
 p2d_get_version_number : 114      2        2    func       (p2d_get_version_number nil) : frame=frame@main
 hasGroupChild        : 115      2        2    macro      hasGroupChild       
-?e                   : 284      2        1    var        AC8: AC8 : type=instance
+build_p2d_model      : 116      2        2    func       (build_p2d_model) : frame=frame@main
+?e                   : 285      2        1    var        AC8: AC8 : type=instance
 ==========================================================================================================================
 
 
@@ -2850,80 +2851,80 @@ id=4, name=NF-E00004, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00004
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 116      4        1    var        MYSQL-version : type=atom
-?rv                  : 126      4        1    var        ersion : type=string
+?0                   : 117      4        1    var        MYSQL-version : type=atom
+?rv                  : 127      4        1    var        ersion : type=string
 ==========================================================================================================================
 
 id=5, name=NF-E00123, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00123
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 171      5        1    var        MYSQL-version : type=atom
-?rv                  : 178      5        1    var        MYSQL-version : type=string
+?0                   : 172      5        1    var        MYSQL-version : type=atom
+?rv                  : 179      5        1    var        MYSQL-version : type=string
 ==========================================================================================================================
 
 id=6, name=NF-AC2, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC2
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 208      6        9    instance   model@p2d           
-?t                   : 209      6        1    var        MYSQL-version : type=atom
-?model-state         : 210      6        1    var        ?model-state:"completed" : type=var
+default_model        : 209      6        9    instance   model@p2d           
+?t                   : 210      6        1    var        MYSQL-version : type=atom
+?model-state         : 211      6        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=8, name=NF-E00120, lvl=4, ref=1/2, entry=2, pid=3(model), subject=NF-E00120
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 151      8        1    var        MYSQL-version : type=atom
-?rv                  : 158      8        1    var        MYSQL-version : type=string
+?0                   : 152      8        1    var        MYSQL-version : type=atom
+?rv                  : 159      8        1    var        MYSQL-version : type=string
 ==========================================================================================================================
 
 id=9, name=NF-TV1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-TV1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 191      9        9    instance   model@p2d           
-?tag                 : 192      9        1    var        MYSQLv5.7 : type=atom
-?model-state         : 193      9        1    var        ?model-state:"completed" : type=var
+default_model        : 192      9        9    instance   model@p2d           
+?tag                 : 193      9        1    var        MYSQLv5.7 : type=atom
+?model-state         : 194      9        1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=11, name=NF-AC6, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC6
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 248      11       9    instance   model@p2d           
-?t                   : 249      11       1    var        MYSQL-version : type=atom
-?model-state         : 250      11       1    var        ?model-state:"completed" : type=var
+default_model        : 249      11       9    instance   model@p2d           
+?t                   : 250      11       1    var        MYSQL-version : type=atom
+?model-state         : 251      11       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=12, name=NF-C7, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-C7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 241      12       9    instance   model@p2d           
-?a                   : 242      12       1    var        MYSQL-version : type=atom
-?p                   : 243      12       1    var        nm:defineTag : type=atom
-?b                   : 244      12       1    var        MYSQLv5.7 : type=atom
-?model-state         : 245      12       1    var        ?model-state:"completed" : type=var
+default_model        : 242      12       9    instance   model@p2d           
+?a                   : 243      12       1    var        MYSQL-version : type=atom
+?p                   : 244      12       1    var        nm:defineTag : type=atom
+?b                   : 245      12       1    var        MYSQLv5.7 : type=atom
+?model-state         : 246      12       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=14, name=NF-AC7, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC7
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 260      14       9    instance   model@p2d           
-?t                   : 261      14       1    var        MYSQL-version : type=atom
-?model-state         : 262      14       1    var        ?model-state:"completed" : type=var
+default_model        : 261      14       9    instance   model@p2d           
+?t                   : 262      14       1    var        MYSQL-version : type=atom
+?model-state         : 263      14       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 id=15, name=NF-AC8, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-AC8
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 272      15       9    instance   model@p2d           
-?t                   : 273      15       1    var        MYSQL-version : type=atom
-?model-state         : 274      15       1    var        ?model-state:"completed" : type=var
+default_model        : 273      15       9    instance   model@p2d           
+?t                   : 274      15       1    var        MYSQL-version : type=atom
+?model-state         : 275      15       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
 Root var list: total=6
