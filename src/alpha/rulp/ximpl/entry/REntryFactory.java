@@ -42,6 +42,9 @@ public class REntryFactory {
 		case ACTION:
 			throw new RException("Unsupport type: " + type);
 
+		case ORDER:
+			return new XREntryQueueOrder(node.getEntryLength());
+
 		default:
 			throw new RException("Unknown type: " + type);
 		}

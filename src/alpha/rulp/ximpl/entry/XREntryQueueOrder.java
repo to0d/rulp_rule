@@ -1,25 +1,27 @@
-package alpha.rulp.ximpl.node;
+package alpha.rulp.ximpl.entry;
 
 import java.util.List;
 
-import alpha.rulp.lang.IRExpr;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
 
-public class XRIndexNode extends XRNodeRete1 implements IRIndexNode {
+public class XREntryQueueOrder extends XREntryQueueMulit {
 
 	private List<OrderEntry> orderList;
 
-	public XRIndexNode(String instanceName) {
-		super(instanceName);
+	public XREntryQueueOrder(int entryLength) {
+		super(entryLength);
+	}
+
+	public List<OrderEntry> getOrderList() {
+		return orderList;
 	}
 
 	@Override
-	public List<OrderEntry> getOrderList() {
-		return orderList;
+	public REntryQueueType getQueueType() {
+		return REntryQueueType.ORDER;
 	}
 
 	public void setOrderList(List<OrderEntry> orderList) {
 		this.orderList = orderList;
 	}
-
 }

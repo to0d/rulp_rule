@@ -15,7 +15,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstraint1 {
+public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstraint1OrderBy {
 
 	static String _toString(OrderEntry orderEntry) {
 		return String.format("%s ?%d %s", A_Order_by, orderEntry.index, orderEntry.asc ? A_Asc : A_Desc);
@@ -141,6 +141,10 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 	@Override
 	public String getConstraintName() {
 		return A_Order_by;
+	}
+
+	public List<OrderEntry> getOrderList() {
+		return orderList;
 	}
 
 	public int[] getUniqColumnIndexs() {

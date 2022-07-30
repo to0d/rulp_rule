@@ -17,6 +17,7 @@ import alpha.rulp.rule.IRReteNode.JoinIndex;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
@@ -61,9 +62,9 @@ public class RNodeFactory {
 	}
 
 	public static AbsReteNode createIndexNode(IRModel model, int nodeId, String uniqName, int entryLength,
-			IRReteNode parentNode, IRObject[] varEntry, IRExpr orderExpr) throws RException {
+			IRReteNode parentNode, IRObject[] varEntry, List<OrderEntry> orderList) throws RException {
 
-		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.INDEX, nodeId));
+		XRIndexNode node = new XRIndexNode(ReteUtil.getNodeName(RReteType.INDEX, nodeId));
 
 		// Model
 		node.setModel(model);

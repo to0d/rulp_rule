@@ -158,7 +158,7 @@ public class ConstraintBuilder {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Order_by;
-			cons.onObject = interpreter.compute(frame, expr.get(2));
+			cons.onObject = expr.get(2);
 			cons.constraintValue = O_True;
 
 			return cons;
@@ -169,7 +169,7 @@ public class ConstraintBuilder {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Order_by;
-			cons.onObject = interpreter.compute(frame, expr.get(2));
+			cons.onObject = expr.get(2);
 			cons.constraintValue = O_True;
 
 			return cons;
@@ -180,7 +180,7 @@ public class ConstraintBuilder {
 
 			RConstraint cons = new RConstraint();
 			cons.constraintName = A_Order_by;
-			cons.onObject = interpreter.compute(frame, expr.get(2));
+			cons.onObject = expr.get(2);
 			cons.constraintValue = O_False;
 
 			return cons;

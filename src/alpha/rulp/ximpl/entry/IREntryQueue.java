@@ -15,6 +15,8 @@ public interface IREntryQueue extends IREntryList, IREntryAction {
 		public int getEntryTotalCount();
 	}
 
+	public void cleanCache();
+
 	public int doGC();
 
 	public IREntryCounter getEntryCounter();
@@ -34,7 +36,5 @@ public interface IREntryQueue extends IREntryList, IREntryAction {
 	public void incEntryRedundant();
 
 	public void incNodeUpdateCount();
-
-	public void cleanCache();
 
 }

@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.node;
 import java.util.Collection;
 import java.util.List;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -10,7 +11,9 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.rule.RCountType;
+import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1OrderBy;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 
 public interface IRNodeGraph {
@@ -28,11 +31,11 @@ public interface IRNodeGraph {
 
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
+	public boolean addIndex(IRReteNode node, List<OrderEntry> orderList) throws RException;
+
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException;
 
 	public IRReteNode addWorker(String name, IRWorker worker) throws RException;
-
-//	public IRReteNode addIndex(IRReteNode node, IRWorker worker) throws RException;
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
 

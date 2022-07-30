@@ -4,7 +4,7 @@ import alpha.rulp.lang.RException;
 
 public enum REntryQueueType {
 
-	EMPTY(0), MULTI(1), SINGLE(2), UNIQ(3), ACTION(4);
+	EMPTY(0), MULTI(1), SINGLE(2), UNIQ(3), ACTION(4), ORDER(5);
 
 	public final static int RETE_QUEUE_EMPTY = 0;
 
@@ -15,6 +15,8 @@ public enum REntryQueueType {
 	public final static int RETE_QUEUE_UNIQ = 3;
 
 	public final static int RETE_QUEUE_ACTION = 4;
+
+	public final static int RETE_QUEUE_ORDER = 5;
 
 	private int index;
 
@@ -43,6 +45,9 @@ public enum REntryQueueType {
 
 		case RETE_QUEUE_ACTION:
 			return ACTION;
+
+		case RETE_QUEUE_ORDER:
+			return ORDER;
 
 		default:
 			throw new RException("unknown queue type: " + tv);

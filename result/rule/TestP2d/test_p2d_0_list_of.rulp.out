@@ -362,6 +362,7 @@ mbr=RETE_PRIORITY_MAXIMUM, mbr-property='(public), mbr-attribute='(), obj=nil, o
 mbr=RETE_QUEUE_ACTION, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RETE_QUEUE_EMPTY, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RETE_QUEUE_MULTI, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RETE_QUEUE_ORDER, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RETE_QUEUE_SINGLE, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RETE_QUEUE_UNIQ, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRS_ALL_STATUS, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()

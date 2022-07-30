@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.O_False;
 import static alpha.rulp.lang.Constant.O_True;
+import static alpha.rulp.rule.Constant.A_Order_by;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,8 +18,12 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
+import alpha.rulp.ximpl.constraint.ConstraintBuilder;
+import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1OrderBy;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 
@@ -67,17 +72,16 @@ public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, 
 		// Check order expression
 		/********************************************/
 		IRExpr orderExpr = RulpUtil.asExpression(args.get(3));
-		
-		
+
+		IRConstraint1 cons = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(nodeExpr)))
+				.build(orderExpr, interpreter, frame);
+
+		if (cons == null || !cons.getConstraintName().equals(A_Order_by)) {
+			throw new RException(String.format("Invalid order expr: %s", orderExpr));
+		}
 
 		IRNodeGraph graph = model.getNodeGraph();
 		IRReteNode node = graph.getNodeByTree(nodeExpr);
-
-//		node = graph.findNodeByUniqName(ReteUtil.uniqName(nodeExpr));
-//		if (node == null) {
-//			// throw new RException(String.format("node not found: %s", nodeList));
-//		}
-
 		switch (node.getReteType()) {
 		case ROOT0:
 		case NAME0:
@@ -88,6 +92,6 @@ public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, 
 			throw new RException(String.format("Can't add index to node: %s", nodeExpr));
 		}
 
-		return O_True;
+		return RulpFactory.createBoolean(graph.addIndex(node, ((IRConstraint1OrderBy) cons).getOrderList()));
 	}
 }
