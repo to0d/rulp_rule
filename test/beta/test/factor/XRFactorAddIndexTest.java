@@ -1,7 +1,5 @@
 package beta.test.factor;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;

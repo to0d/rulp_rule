@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.constraint;
 
-import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Order_by;
 
 import java.util.HashMap;
@@ -16,10 +14,6 @@ import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstraint1OrderBy {
-
-	static String _toString(OrderEntry orderEntry) {
-		return String.format("%s ?%d %s", A_Order_by, orderEntry.index, orderEntry.asc ? A_Asc : A_Desc);
-	}
 
 	private String _constraintExpression = null;
 
@@ -109,25 +103,7 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-
-			if (orderList.size() == 1) {
-				_constraintExpression = "(" + _toString(orderList.get(0)) + ")";
-
-			} else {
-
-				_constraintExpression = "(";
-
-				int index = 0;
-				for (OrderEntry orderEntry : orderList) {
-					if (index++ != 0) {
-						_constraintExpression += " ";
-					}
-					_constraintExpression += _toString(orderEntry);
-				}
-
-				_constraintExpression += ")";
-			}
-
+			_constraintExpression = ReteUtil.toString(orderList);
 		}
 
 		return _constraintExpression;

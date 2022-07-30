@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.lang.Constant.O_False;
-import static alpha.rulp.lang.Constant.O_True;
 import static alpha.rulp.rule.Constant.A_Order_by;
 
 import java.util.ArrayList;
@@ -18,9 +16,7 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1OrderBy;
@@ -92,6 +88,6 @@ public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, 
 			throw new RException(String.format("Can't add index to node: %s", nodeExpr));
 		}
 
-		return RulpFactory.createBoolean(graph.addIndex(node, ((IRConstraint1OrderBy) cons).getOrderList()));
+		return graph.buildIndex(node, ((IRConstraint1OrderBy) cons).getOrderList());
 	}
 }

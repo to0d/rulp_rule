@@ -75,17 +75,16 @@ import alpha.rulp.utils.HeapStack;
 import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
-import alpha.rulp.ximpl.constraint.IRConstraint1OrderBy;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
@@ -1767,9 +1766,22 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public boolean addIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
+	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
 
-		return false;
+		String uniqName = node.getUniqName() + " " + ReteUtil.toString(orderList);
+
+		for (IRReteNode childNode : node.getChildNodes()) {
+			if (childNode.getReteType() == RReteType.INDEX && childNode.getUniqName().equals(uniqName)) {
+				return childNode;
+			}
+		}
+
+		AbsReteNode indexNode = RNodeFactory.createIndexNode(model, _getNextNodeId(), uniqName, node.getEntryLength(),
+				node, node.getVarEntry(), orderList);
+		
+		_addNode(indexNode);
+
+		return indexNode;
 	}
 
 	@Override

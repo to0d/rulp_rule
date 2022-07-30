@@ -6,6 +6,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
+import alpha.rulp.ximpl.node.IRIndexNode;
 import alpha.rulp.ximpl.node.RReteType;
 
 public class REntryFactory {
@@ -25,16 +26,15 @@ public class REntryFactory {
 			return new XREntryQueueMulit(node.getEntryLength());
 
 		case SINGLE:
-
-			XREntryQueueSingle queue = new XREntryQueueSingle(node.getEntryLength());
+			XREntryQueueSingle singleQueue = new XREntryQueueSingle(node.getEntryLength());
 
 			// Should not bind alpha node
 			if (!RReteType.isAlphaType(node.getReteType())) {
-				queue.setBindNode(node);
-				queue.setEntryTable(node.getModel().getEntryTable());
+				singleQueue.setBindNode(node);
+				singleQueue.setEntryTable(node.getModel().getEntryTable());
 			}
 
-			return queue;
+			return singleQueue;
 
 		case UNIQ:
 			return new XREntryQueueUniq(node.getEntryLength());
@@ -43,7 +43,9 @@ public class REntryFactory {
 			throw new RException("Unsupport type: " + type);
 
 		case ORDER:
-			return new XREntryQueueOrder(node.getEntryLength());
+			XREntryQueueOrder orderQueue = new XREntryQueueOrder(node.getEntryLength());
+			orderQueue.setOrderList(((IRIndexNode) node).getOrderList());
+			return orderQueue;
 
 		default:
 			throw new RException("Unknown type: " + type);

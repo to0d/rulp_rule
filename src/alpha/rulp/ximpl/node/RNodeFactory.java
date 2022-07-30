@@ -16,8 +16,8 @@ import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.rule.IRReteNode.JoinIndex;
 import alpha.rulp.rule.IRWorker;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.ReteUtil.OrderEntry;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
@@ -64,7 +64,7 @@ public class RNodeFactory {
 	public static AbsReteNode createIndexNode(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry, List<OrderEntry> orderList) throws RException {
 
-		XRIndexNode node = new XRIndexNode(ReteUtil.getNodeName(RReteType.INDEX, nodeId));
+		XRNodeIndex node = new XRNodeIndex(ReteUtil.getNodeName(RReteType.INDEX, nodeId));
 
 		// Model
 		node.setModel(model);
@@ -81,8 +81,11 @@ public class RNodeFactory {
 		// Entry length
 		node.setEntryLength(entryLength);
 
+		// Order list
+		node.setOrderList(orderList);
+
 		// Entry queue
-		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.ORDER, node));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
