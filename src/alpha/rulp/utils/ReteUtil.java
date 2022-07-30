@@ -992,6 +992,7 @@ public class ReteUtil {
 				case A_QUESTION:
 				case A_QUESTION_LIST:
 					break;
+
 				default:
 					if (varSet.contains(varName)) {
 						throw new RException(String.format("duplicate name<%s> in filter: %s", varName, filter));

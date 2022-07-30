@@ -14,4 +14,12 @@ class XRFactorAddNodeTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_add_node_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
 }

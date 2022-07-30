@@ -60,6 +60,39 @@ public class RNodeFactory {
 		return node;
 	}
 
+	public static AbsReteNode createIndexNode(IRModel model, int nodeId, String uniqName, int entryLength,
+			IRReteNode parentNode, IRObject[] varEntry, IRExpr orderExpr) throws RException {
+
+		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.INDEX, nodeId));
+
+		// Model
+		node.setModel(model);
+
+		// Node id
+		node.setNodeId(nodeId);
+
+		// Node type
+		node.setReteType(RReteType.INDEX);
+
+		// Uniq name
+		node.setUniqName(uniqName);
+
+		// Entry length
+		node.setEntryLength(entryLength);
+
+		// Entry queue
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
+
+		// Parent node
+		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
+		parentNode.addChildNode(node);
+
+		// var entry
+		node.setVarEntry(varEntry);
+
+		return node;
+	}
+
 	public static AbsReteNode createAlpha1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 

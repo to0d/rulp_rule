@@ -1,0 +1,15 @@
+(new model m)
+;=>
+
+(add-node m n1:'(?a ?b c))
+;=>
+
+(add-node m n1:'(?a ?b c) (order by ?a))
+;=>
+
+(add-node m n1:'(?a ?b c) (order by '(?b ?a)))
+;=>
+
+(add-node m '(?a b c) (order by ?a))
+;=>
+

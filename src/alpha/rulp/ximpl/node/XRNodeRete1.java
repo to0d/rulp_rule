@@ -7,11 +7,11 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeRete1 extends AbsReteNode {
 
+	protected int lastParentVisitIndex = 0;
+
 	public XRNodeRete1(String instanceName) {
 		super(instanceName);
 	}
-
-	protected int lastParentVisitIndex = 0;
 
 	@Override
 	public int getParentVisitIndex(int index) {
