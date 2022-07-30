@@ -1,17 +1,7 @@
 package alpha.rulp.ximpl.model;
 
-import static alpha.rulp.lang.Constant.O_Nil;
-import static alpha.rulp.rule.Constant.A_MODEL;
-import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
-import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.V_M_CST_INIT;
-import static alpha.rulp.rule.Constant.V_M_GC_CAPACITY;
-import static alpha.rulp.rule.Constant.V_M_GC_INACTIVE_LEAF;
-import static alpha.rulp.rule.Constant.V_M_GC_INTERVAL;
-import static alpha.rulp.rule.Constant.V_M_GC_MAX_CACHE_NODE;
-import static alpha.rulp.rule.Constant.V_M_STATE;
+import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.RReteStatus.CLEAN;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
@@ -28,13 +18,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRClass;
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
@@ -58,6 +51,7 @@ import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.ReteUtil.OrderEntry;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -68,7 +62,9 @@ import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
+import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1OrderBy;
 import alpha.rulp.ximpl.constraint.RConstraintConflict;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -78,6 +74,7 @@ import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
+import alpha.rulp.ximpl.entry.XREntryQueueOrder;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
@@ -771,6 +768,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.gcCount++;
 		this.nodeGraph.gc();
 		this.entryTable.doGC();
+		this.hasEntryCacheMap.clear();
 
 		long curTime = System.currentTimeMillis();
 		if (curTime < (gcLastGcTime + gcInterval)) {
@@ -2043,10 +2041,84 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 
+//		/********************************************/
+//		// Build index for opti
+//		/********************************************/
+//		if (ReteUtil.isAlphaMatchTree(filter)) {
+//
+//			return _findOneStatement(filter, (entry) -> {
+//				hasEntryCacheMap.put(uniqName, entry);
+//				return true;
+//			});
+//		}
+
 		return _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), (entry) -> {
 			hasEntryCacheMap.put(uniqName, entry);
 			return true;
 		}) > 0;
+	}
+
+	protected boolean _findOneStatement(IRList filter, IREntryAction action) throws RException {
+
+		ArrayList<String> varList = new ArrayList<>();
+		ReteUtil.fillVarList(filter, varList);
+
+		if (varList.isEmpty()) {
+
+			IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
+			_checkCache(rootNode);
+
+			String uniqName = ReteUtil.uniqName(filter);
+			IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(uniqName);
+			if (oldEntry == null || !ReteUtil.matchReteStatus(oldEntry, 0)) {
+				return false;
+			}
+
+			action.addEntry(oldEntry);
+			return true;
+		}
+
+		HashSet<String> nodeVarSet = new HashSet<>(varList);
+
+		// '(?a ?a b)
+		if (nodeVarSet.size() != nodeVarSet.size()) {
+			return _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), action) > 0;
+		}
+
+		List<OrderEntry> orderList = new ArrayList<>();
+
+		IRAtom orderAtom = RulpFactory.createAtom(A_Order);
+		IRAtom byAtom = RulpFactory.createAtom(A_By);
+
+		// '(?a ?b c) (order by ?a asc) (order by ?b asc)
+		for (String var : varList) {
+
+			IRExpr orderExpr = RulpFactory.createExpression(orderAtom, byAtom, RulpFactory.createAtom(var));
+			IRConstraint1 cons = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(filter)))
+					.build(orderExpr, interpreter, interpreter.getMainFrame());
+
+			if (cons == null || !cons.getConstraintName().equals(A_Order_by)) {
+				throw new RException(String.format("Invalid order expr: %s", orderExpr));
+			}
+
+			orderList.add(((IRConstraint1OrderBy) cons).getOrderList().get(0));
+		}
+
+		IRReteNode indexNode = nodeGraph.buildIndex(nodeGraph.getNodeByTree(filter), orderList);
+		XREntryQueueOrder orderQueue = (XREntryQueueOrder) indexNode.getEntryQueue();
+
+		RuleUtil.travelReteParentNodeByPostorder(indexNode, (node) -> {
+
+			int update = execute(node);
+			if (update > 0) {
+				modelCounter.incQueryMatchCount();
+			}
+
+			return false;
+		});
+
+		return cacheEnable;
+
 	}
 
 	@Override

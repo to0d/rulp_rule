@@ -1766,25 +1766,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
-
-		String uniqName = node.getUniqName() + " " + ReteUtil.toString(orderList);
-
-		for (IRReteNode childNode : node.getChildNodes()) {
-			if (childNode.getReteType() == RReteType.INDEX && childNode.getUniqName().equals(uniqName)) {
-				return childNode;
-			}
-		}
-
-		AbsReteNode indexNode = RNodeFactory.createIndexNode(model, _getNextNodeId(), uniqName, node.getEntryLength(),
-				node, node.getVarEntry(), orderList);
-		
-		_addNode(indexNode);
-
-		return indexNode;
-	}
-
-	@Override
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException {
 
 		if (ruleName == null) {
@@ -1934,6 +1915,35 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		return subGraph;
+	}
+
+	@Override
+	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
+
+		switch (node.getReteType()) {
+		case ROOT0:
+		case NAME0:
+		case ALPH0:
+			break;
+
+		default:
+			throw new RException(String.format("Can't add index to node: %s", node.getUniqName()));
+		}
+
+		String uniqName = node.getUniqName() + " " + ReteUtil.toString(orderList);
+
+		for (IRReteNode childNode : node.getChildNodes()) {
+			if (childNode.getReteType() == RReteType.INDEX && childNode.getUniqName().equals(uniqName)) {
+				return childNode;
+			}
+		}
+
+		AbsReteNode indexNode = RNodeFactory.createIndexNode(model, _getNextNodeId(), uniqName, node.getEntryLength(),
+				node, node.getVarEntry(), orderList);
+
+		_addNode(indexNode);
+
+		return indexNode;
 	}
 
 	@Override
