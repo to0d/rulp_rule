@@ -45,6 +45,9 @@ name                              count
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-gc-trigger                      0
 model-gc-count                        0
+model-has-stmt-cache                  0
+model-has-stmt-find                   0
+model-has-stmt-hit                    0
 graph-gc-count                        0
 graph-gc-node-remove                  0
 graph-gc-node-clean                   0

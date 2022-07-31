@@ -119,6 +119,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
+	static class XCount {
+		public int count = 0;
+	}
+
+//	public static boolean RuleUtility.isModelTrace() = false;
+
 	class XRCacheWorker implements IRCacheWorker {
 
 		private int cacheCacheStmtCount = 0;
@@ -329,8 +335,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-//	public static boolean RuleUtility.isModelTrace() = false;
-
 	class XRModelTransaction implements IRTransaction {
 
 		public XRModelTransaction(XRModel model) {
@@ -442,6 +446,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.nodeGraph = new XRNodeGraph(this, entryTable);
 		this.modelCounter = new XRRModelCounter(this);
 		this.constraintUtil = new ModelConstraintUtil(this);
+	}
+
+	protected void _addCacheStatement(IRReteEntry entry) throws RException {
+		hasEntryCacheMap.put(ReteUtil.uniqName(entry), entry);
 	}
 
 	protected RUpdateResult _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
@@ -674,6 +682,118 @@ public class XRModel extends AbsRInstance implements IRModel {
 		super._delete();
 	}
 
+	protected IRReteEntry _findIndexStatement(IRList stmt, List<OrderEntry> orderList) throws RException {
+
+		List<IRObject> newStmtArr = RulpUtil.toArray(stmt);
+		XTempVarBuilder varBuilder = new XTempVarBuilder();
+
+		for (OrderEntry order : orderList) {
+
+			int index = order.index;
+			IRObject oldObj = newStmtArr.get(index);
+
+			if (RulpUtil.isVarAtom(oldObj)) {
+				throw new RException("invalid index index: " + index + ", stmt=" + stmt);
+			}
+
+			newStmtArr.set(index, varBuilder.next());
+		}
+
+		IRList newStmt = null;
+		if (stmt.getNamedName() == null) {
+			newStmt = RulpFactory.createList(newStmtArr);
+		} else {
+			newStmt = RulpFactory.createNamedList(newStmtArr, stmt.getNamedName());
+		}
+
+		IRNodeGraph graph = getNodeGraph();
+		IRReteNode indexNode = graph.buildIndex(graph.getNodeByTree(newStmt), orderList);
+
+		// '(?a b ?c) ==> (a b ?c)
+		XREntryQueueOrder orderQueue = (XREntryQueueOrder) indexNode.getEntryQueue();
+		IRReteEntry entry = orderQueue.find(stmt);
+		if (entry == null) {
+
+			XCount xcount = new XCount();
+
+			RuleUtil.travelReteParentNodeByPostorder(indexNode, (node) -> {
+				if (execute(node) > 0) {
+					xcount.count++;
+				}
+				return false;
+			});
+
+			if (xcount.count > 0) {
+				entry = orderQueue.find(stmt);
+			}
+		}
+
+		return entry;
+	}
+
+	protected boolean _findOneStatement(IRList filter, IREntryAction action) throws RException {
+
+		ArrayList<String> varList = new ArrayList<>();
+		ReteUtil.fillVarList(filter, varList);
+
+		if (varList.isEmpty()) {
+
+			IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
+			_checkCache(rootNode);
+
+			String uniqName = ReteUtil.uniqName(filter);
+			IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(uniqName);
+			if (oldEntry == null || !ReteUtil.matchReteStatus(oldEntry, 0)) {
+				return false;
+			}
+
+			action.addEntry(oldEntry);
+			return true;
+		}
+
+		HashSet<String> nodeVarSet = new HashSet<>(varList);
+
+		// '(?a ?a b)
+		if (nodeVarSet.size() != nodeVarSet.size()) {
+			return _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), action) > 0;
+		}
+
+		List<OrderEntry> orderList = new ArrayList<>();
+
+		IRAtom orderAtom = RulpFactory.createAtom(A_Order);
+		IRAtom byAtom = RulpFactory.createAtom(A_By);
+
+		// '(?a ?b c) (order by ?a asc) (order by ?b asc)
+		for (String var : varList) {
+
+			IRExpr orderExpr = RulpFactory.createExpression(orderAtom, byAtom, RulpFactory.createAtom(var));
+			IRConstraint1 cons = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(filter)))
+					.build(orderExpr, interpreter, interpreter.getMainFrame());
+
+			if (cons == null || !cons.getConstraintName().equals(A_Order_by)) {
+				throw new RException(String.format("Invalid order expr: %s", orderExpr));
+			}
+
+			orderList.add(((IRConstraint1OrderBy) cons).getOrderList().get(0));
+		}
+
+		IRReteNode indexNode = nodeGraph.buildIndex(nodeGraph.getNodeByTree(filter), orderList);
+		XREntryQueueOrder orderQueue = (XREntryQueueOrder) indexNode.getEntryQueue();
+
+		RuleUtil.travelReteParentNodeByPostorder(indexNode, (node) -> {
+
+			int update = execute(node);
+			if (update > 0) {
+				modelCounter.incQueryMatchCount();
+			}
+
+			return false;
+		});
+
+		return cacheEnable;
+
+	}
+
 	protected IRReteNode _findRootNode(String namedName, int stmtLen) throws RException {
 		if (namedName == null) {
 			return nodeGraph.getRootNode(stmtLen);
@@ -829,6 +949,37 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return ReteUtil.getChildStatus(nodeContext.currentEntry);
+	}
+
+	protected boolean _hasAnyStatement() throws RException {
+
+		for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
+			_checkCache(rootNode);
+			IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
+			int totalCount = rootEntryCounter.getEntryTotalCount();
+			int nullCount = rootEntryCounter.getEntryNullCount();
+			int dropCount = rootEntryCounter.getEntryCount(REMOVE);
+			if (totalCount > nullCount - dropCount) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	protected boolean _hasCacheStatement(IRList filter) throws RException {
+
+		String uniqName = ReteUtil.uniqName(filter);
+		IRReteEntry cacheEntry = hasEntryCacheMap.get(uniqName);
+		if (cacheEntry != null) {
+			if (cacheEntry.isDroped()) {
+				hasEntryCacheMap.remove(uniqName);
+			} else {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected boolean _hasUpdateNode() throws RException {
@@ -2027,111 +2178,54 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> hasStatement: " + filter);
 		}
 
+		++hasStmtFindCount;
+
 		// Has any stmt
 		if (filter == null) {
-
-			for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
-				_checkCache(rootNode);
-				IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
-				int totalCount = rootEntryCounter.getEntryTotalCount();
-				int nullCount = rootEntryCounter.getEntryNullCount();
-				int dropCount = rootEntryCounter.getEntryCount(REMOVE);
-				if (totalCount > nullCount - dropCount) {
-					return true;
-				}
-			}
-
-			return false;
+			return _hasAnyStatement();
 		}
 
-		String uniqName = ReteUtil.uniqName(filter);
-		IRReteEntry cacheEntry = hasEntryCacheMap.get(uniqName);
-		if (cacheEntry != null) {
-			if (cacheEntry.isDroped()) {
-				hasEntryCacheMap.remove(uniqName);
-			} else {
-				return true;
-			}
+		if (_hasCacheStatement(filter)) {
+			++hasStmtHitCount;
+			return true;
 		}
-
-//		/********************************************/
-//		// Build index for opti
-//		/********************************************/
-//		if (ReteUtil.isAlphaMatchTree(filter)) {
-//
-//			return _findOneStatement(filter, (entry) -> {
-//				hasEntryCacheMap.put(uniqName, entry);
-//				return true;
-//			});
-//		}
 
 		return _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), (entry) -> {
-			hasEntryCacheMap.put(uniqName, entry);
+			_addCacheStatement(entry);
 			return true;
 		}) > 0;
 	}
 
-	protected boolean _findOneStatement(IRList filter, IREntryAction action) throws RException {
+	@Override
+	public boolean hasStatement(IRList filter, List<OrderEntry> orderList) throws RException {
 
-		ArrayList<String> varList = new ArrayList<>();
-		ReteUtil.fillVarList(filter, varList);
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> hasStatement: " + filter + ", order=" + orderList);
+		}
 
-		if (varList.isEmpty()) {
+		if (orderList == null || orderList.isEmpty()) {
+			return hasStatement(filter);
+		}
 
-			IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
-			_checkCache(rootNode);
+		++hasStmtFindCount;
 
-			String uniqName = ReteUtil.uniqName(filter);
-			IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(uniqName);
-			if (oldEntry == null || !ReteUtil.matchReteStatus(oldEntry, 0)) {
-				return false;
-			}
+		// Has any stmt
+		if (filter == null) {
+			return _hasAnyStatement();
+		}
 
-			action.addEntry(oldEntry);
+		if (_hasCacheStatement(filter)) {
+			++hasStmtHitCount;
 			return true;
 		}
 
-		HashSet<String> nodeVarSet = new HashSet<>(varList);
-
-		// '(?a ?a b)
-		if (nodeVarSet.size() != nodeVarSet.size()) {
-			return _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), action) > 0;
-		}
-
-		List<OrderEntry> orderList = new ArrayList<>();
-
-		IRAtom orderAtom = RulpFactory.createAtom(A_Order);
-		IRAtom byAtom = RulpFactory.createAtom(A_By);
-
-		// '(?a ?b c) (order by ?a asc) (order by ?b asc)
-		for (String var : varList) {
-
-			IRExpr orderExpr = RulpFactory.createExpression(orderAtom, byAtom, RulpFactory.createAtom(var));
-			IRConstraint1 cons = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(filter)))
-					.build(orderExpr, interpreter, interpreter.getMainFrame());
-
-			if (cons == null || !cons.getConstraintName().equals(A_Order_by)) {
-				throw new RException(String.format("Invalid order expr: %s", orderExpr));
-			}
-
-			orderList.add(((IRConstraint1OrderBy) cons).getOrderList().get(0));
-		}
-
-		IRReteNode indexNode = nodeGraph.buildIndex(nodeGraph.getNodeByTree(filter), orderList);
-		XREntryQueueOrder orderQueue = (XREntryQueueOrder) indexNode.getEntryQueue();
-
-		RuleUtil.travelReteParentNodeByPostorder(indexNode, (node) -> {
-
-			int update = execute(node);
-			if (update > 0) {
-				modelCounter.incQueryMatchCount();
-			}
-
+		IRReteEntry entry = _findIndexStatement(filter, orderList);
+		if (entry == null) {
 			return false;
-		});
+		}
 
-		return cacheEnable;
-
+		_addCacheStatement(entry);
+		return true;
 	}
 
 	@Override
@@ -2487,5 +2581,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return false;
+	}
+
+	protected int hasStmtFindCount = 0;
+
+	protected int hasStmtHitCount = 0;
+
+	@Override
+	public int getHasStmtCacheCount() {
+		return hasEntryCacheMap.size();
+	}
+
+	@Override
+	public int getHasStmtFindCount() {
+		return hasStmtFindCount;
+	}
+
+	@Override
+	public int getHasStmtHitCount() {
+		return hasStmtHitCount;
 	}
 }

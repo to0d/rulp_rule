@@ -14,7 +14,6 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
@@ -24,11 +23,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.entry.XREntryQueueOrder;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -147,65 +142,10 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		// create index and query
 		/********************************************/
 		if (orderList != null && ReteUtil.isIndexStmt(stmt)) {
-			return RulpFactory.createBoolean(hasStatementInIndex(model, stmt, orderList));
+			return RulpFactory.createBoolean(model.hasStatement(stmt, orderList));
 		}
 
 		return RulpFactory.createBoolean(model.hasStatement(stmt));
-	}
-
-	static class XCount {
-		public int count = 0;
-	}
-
-	static boolean hasStatementInIndex(IRModel model, IRList stmt, List<OrderEntry> orderList) throws RException {
-
-		List<IRObject> newStmtArr = RulpUtil.toArray(stmt);
-		XTempVarBuilder varBuilder = new XTempVarBuilder();
-
-		for (OrderEntry order : orderList) {
-
-			int index = order.index;
-			IRObject oldObj = newStmtArr.get(index);
-
-			if (RulpUtil.isVarAtom(oldObj)) {
-				throw new RException("invalid index index: " + index + ", stmt=" + stmt);
-			}
-
-			newStmtArr.set(index, varBuilder.next());
-		}
-
-		IRList newStmt = null;
-		if (stmt.getNamedName() == null) {
-			newStmt = RulpFactory.createList(newStmtArr);
-		} else {
-			newStmt = RulpFactory.createNamedList(newStmtArr, stmt.getNamedName());
-		}
-
-		IRNodeGraph graph = model.getNodeGraph();
-		IRReteNode indexNode = graph.buildIndex(graph.getNodeByTree(newStmt), orderList);
-
-		// '(?a b ?c) ==> (a b ?c)
-		XREntryQueueOrder orderQueue = (XREntryQueueOrder) indexNode.getEntryQueue();
-		IRReteEntry entry = orderQueue.find(stmt);
-		if (entry != null) {
-			return true;
-		}
-
-		XCount xcount = new XCount();
-
-		RuleUtil.travelReteParentNodeByPostorder(indexNode, (node) -> {
-			if (model.execute(node) > 0) {
-				xcount.count++;
-			}
-			return false;
-		});
-
-		if (xcount.count == 0) {
-			return false;
-		}
-
-		entry = orderQueue.find(stmt);
-		return entry != null;
 	}
 
 }

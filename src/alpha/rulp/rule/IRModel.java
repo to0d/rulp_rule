@@ -9,6 +9,7 @@ import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
+import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
@@ -77,6 +78,12 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public long getGcTrigger();
 
+	public int getHasStmtCacheCount();
+
+	public int getHasStmtFindCount();
+
+	public int getHasStmtHitCount();
+
 	public String getModelName();
 
 	public IRNodeGraph getNodeGraph();
@@ -86,6 +93,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public IRVar getVar(String name) throws RException;
 
 	public boolean hasStatement(IRList filter) throws RException;
+
+	public boolean hasStatement(IRList filter, List<OrderEntry> orderList) throws RException;
 
 	public boolean isCacheEnable();
 
