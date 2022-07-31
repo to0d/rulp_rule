@@ -1,0 +1,15 @@
+(new model m)
+;=>
+
+(add-stmt m '(a typeof tag))
+(add-stmt m '(b typeof tag))
+(add-stmt m '(c typeof tag))
+(add-stmt m '(a hasChild a1))
+(add-stmt m '(a hasChild a2))
+(add-stmt m '(b hasChild b1))
+(add-stmt m '(b hasChild b2))
+(add-stmt m '(b hasChild b3))
+;=>
+
+(query-stmt m ?x from '(?x typeof tag) (not (has-stmt '(?x hasChild ?p))))
+;=>

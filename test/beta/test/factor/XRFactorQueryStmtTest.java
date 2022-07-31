@@ -185,11 +185,18 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_query_stmt_c_opt_1_has_stmt() {
+	void test_query_stmt_c_opt_1_has_stmt_1() {
 
 		_setup();
 		_run_script();
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_query_stmt_c_opt_1_has_stmt_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
