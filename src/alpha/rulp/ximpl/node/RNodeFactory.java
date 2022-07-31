@@ -61,42 +61,6 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static AbsReteNode createIndexNode(IRModel model, int nodeId, String uniqName, int entryLength,
-			IRReteNode parentNode, IRObject[] varEntry, List<OrderEntry> orderList) throws RException {
-
-		XRNodeIndex node = new XRNodeIndex(ReteUtil.getNodeName(RReteType.INDEX, nodeId));
-
-		// Model
-		node.setModel(model);
-
-		// Node id
-		node.setNodeId(nodeId);
-
-		// Node type
-		node.setReteType(RReteType.INDEX);
-
-		// Uniq name
-		node.setUniqName(uniqName);
-
-		// Entry length
-		node.setEntryLength(entryLength);
-
-		// Order list
-		node.setOrderList(orderList);
-
-		// Entry queue
-		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.ORDER, node));
-
-		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
-
-		// var entry
-		node.setVarEntry(varEntry);
-
-		return node;
-	}
-
 	public static AbsReteNode createAlpha1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
@@ -132,49 +96,6 @@ public class RNodeFactory {
 
 		return node;
 	}
-
-//	public static AbsReteNode createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
-//			IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
-//			throws RException {
-//
-//		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingle)) {
-//			throw new RException("Invalid parent queue: " + parentNode);
-//		}
-//
-//		XRNodeAlph2 node = new XRNodeAlph2();
-//
-//		// Model
-//		node.setModel(model);
-//
-//		// Node id
-//		node.setNodeId(nodeId);
-//
-//		// Node type
-//		node.setReteType(RReteType.ALPH2);
-//
-//		// Uniq name
-//		node.setUniqName(uniqName);
-//
-//		// Entry length
-//		node.setEntryLength(entryLength);
-//
-//		// Entry table
-//		node.setEntryTable(entryTable);
-//
-//		// Entry queue
-//		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.SINGLE, entryLength));
-//
-//		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-//		parentNode.addChildNode(node);
-//
-//		// var entry
-//		node.setVarEntry(varEntry);
-//
-//		// Inherit Index
-//		node.setInheritIndexs(inheritIndexs);
-//
-//		return node;
-//	}
 
 	public static AbsReteNode createBeta0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
@@ -221,6 +142,49 @@ public class RNodeFactory {
 
 		return node;
 	}
+
+//	public static AbsReteNode createAlpha2Node(IRModel model, int nodeId, String uniqName, int entryLength,
+//			IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
+//			throws RException {
+//
+//		if (!(parentNode.getEntryQueue() instanceof XREntryQueueSingle)) {
+//			throw new RException("Invalid parent queue: " + parentNode);
+//		}
+//
+//		XRNodeAlph2 node = new XRNodeAlph2();
+//
+//		// Model
+//		node.setModel(model);
+//
+//		// Node id
+//		node.setNodeId(nodeId);
+//
+//		// Node type
+//		node.setReteType(RReteType.ALPH2);
+//
+//		// Uniq name
+//		node.setUniqName(uniqName);
+//
+//		// Entry length
+//		node.setEntryLength(entryLength);
+//
+//		// Entry table
+//		node.setEntryTable(entryTable);
+//
+//		// Entry queue
+//		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.SINGLE, entryLength));
+//
+//		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
+//		parentNode.addChildNode(node);
+//
+//		// var entry
+//		node.setVarEntry(varEntry);
+//
+//		// Inherit Index
+//		node.setInheritIndexs(inheritIndexs);
+//
+//		return node;
+//	}
 
 	public static AbsReteNode createBeta1Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
@@ -566,6 +530,42 @@ public class RNodeFactory {
 
 //		// constant
 //		ModelUtil.addConstraint(model, node, matchNode);
+
+		// var entry
+		node.setVarEntry(varEntry);
+
+		return node;
+	}
+
+	public static AbsReteNode createIndexNode(IRModel model, int nodeId, String uniqName, int entryLength,
+			IRReteNode parentNode, IRObject[] varEntry, List<OrderEntry> orderList) throws RException {
+
+		XRNodeIndex node = new XRNodeIndex(ReteUtil.getNodeName(RReteType.INDEX, nodeId));
+
+		// Model
+		node.setModel(model);
+
+		// Node id
+		node.setNodeId(nodeId);
+
+		// Node type
+		node.setReteType(RReteType.INDEX);
+
+		// Uniq name
+		node.setUniqName(uniqName);
+
+		// Entry length
+		node.setEntryLength(entryLength);
+
+		// Order list
+		node.setOrderList(orderList);
+
+		// Entry queue
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.ORDER, node));
+
+		// Parent node
+		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
+		parentNode.addChildNode(node);
 
 		// var entry
 		node.setVarEntry(varEntry);
