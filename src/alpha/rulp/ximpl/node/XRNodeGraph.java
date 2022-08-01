@@ -1,15 +1,12 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.lang.Constant.A_By;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.A_Order;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_RETE_TYPE;
 import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
-import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
@@ -867,10 +864,14 @@ public class XRNodeGraph implements IRNodeGraph {
 				IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree));
 				int entryLen = leftNode.getEntryLength();
 
+				IRExpr newRightExpr = OptimizeUtil.optimizeHasStmtExpr(rightExpr, leftVarList);
+				if (newRightExpr != rightExpr) {
+					reteTree = RulpFactory.createList(leftTree, newRightExpr);
+					rightExpr = newRightExpr;
+				}
+
 				AbsReteNode node = RNodeFactory.createExpr2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 						entryLen, leftNode, varEntry);
-
-				rightExpr = OptimizeUtil.optimizeHasStmtExpr(rightExpr, leftVarList);
 
 				addConstraint(node, ConstraintFactory.expr0(rightExpr,
 						ReteUtil._varEntry(ReteUtil.buildTreeVarList(leftTree)), this.model.getFrame()));

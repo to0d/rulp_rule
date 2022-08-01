@@ -682,6 +682,51 @@ public class OptimizeUtil {
 
 	public static IRExpr optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
 
+		int size = expr.size();
+		if (size <= 1) {
+			return expr;
+		}
+
+		if (RulpUtil.isFactor(expr.get(0), F_HAS_STMT)) {
+			return _optimizeHasStmtExpr(expr, leftVarList);
+		}
+
+		ArrayList<IRObject> newList = null;
+
+		for (int i = 1; i < size; ++i) {
+
+			IRObject ex = expr.get(i);
+			if (ex != null && ex.getType() != RType.EXPR) {
+				if (newList != null) {
+					newList.add(ex);
+				}
+				continue;
+			}
+
+			IRExpr oldExpr = (IRExpr) ex;
+			IRExpr newExpr = optimizeHasStmtExpr(oldExpr, leftVarList);
+			if (newExpr == oldExpr) {
+				continue;
+			}
+
+			if (newList == null) {
+				newList = new ArrayList<>();
+				for (int j = 0; j < i; ++j) {
+					newList.add(expr.get(j));
+				}
+			}
+			newList.add(newExpr);
+		}
+
+		if (newList != null) {
+			expr = RulpFactory.createExpression(newList);
+		}
+
+		return expr;
+	}
+
+	protected static IRExpr _optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
+
 		if (!RulpUtil.isFactor(expr.get(0), F_HAS_STMT)) {
 			return expr;
 		}
