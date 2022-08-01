@@ -49,6 +49,7 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.rule.RCountType;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
@@ -727,7 +728,7 @@ public class OptimizeUtil {
 
 	protected static IRExpr _optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
 
-		if (!RulpUtil.isFactor(expr.get(0), F_HAS_STMT)) {
+		if (!XRFactorHasStmt.isSimpleHasStmtExpr(expr)) {
 			return expr;
 		}
 
@@ -754,20 +755,37 @@ public class OptimizeUtil {
 		// before: '(?a ?b c) '(has-stmt '(?a x ?y))
 		// after : '(?a ?b c) '(has-stmt '(?a x ?y) order by 0)
 		/*********************************************************/
-		List<IRObject> newExpr = null;
+		List<IRObject> oldElements = null;
+		List<IRObject> newList = null;
+
 		int indexCount = 0;
 		for (IRObject var : thisVarList) {
 
-			int idx = leftVarList.indexOf(var);
-			if (idx != -1) {
+			if (!leftVarList.contains(var)) {
+				continue;
+			}
 
-				if (newExpr == null) {
-					newExpr = RulpUtil.toArray(expr);
+			if (oldElements == null) {
+
+				// (has-stmt '(a b c))
+				if (expr.size() == 2) {
+					oldElements = RulpUtil.toArray((IRList) expr.get(1));
+				} else {
+					oldElements = RulpUtil.toArray((IRList) expr.get(2));
 				}
 
-				newExpr.add(RulpFactory.createAtom(A_Order));
-				newExpr.add(RulpFactory.createAtom(A_By));
-				newExpr.add(RulpFactory.createInteger(idx));
+			}
+
+			int idx = oldElements.indexOf(var);
+			if (idx != -1) {
+
+				if (newList == null) {
+					newList = RulpUtil.toArray(expr);
+				}
+
+				newList.add(RulpFactory.createAtom(A_Order));
+				newList.add(RulpFactory.createAtom(A_By));
+				newList.add(RulpFactory.createInteger(idx));
 				indexCount++;
 			}
 		}
@@ -788,7 +806,7 @@ public class OptimizeUtil {
 			return expr;
 		}
 
-		return RulpFactory.createExpression(newExpr);
+		return RulpFactory.createExpression(newList);
 	}
 
 	public static IRList optimizeRuleActionIndexVar(IRList condList, IRList actionList) throws RException {

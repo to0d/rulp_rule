@@ -5,14 +5,17 @@ import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_BackSearch;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Order_by;
+import static alpha.rulp.rule.Constant.F_HAS_STMT;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
@@ -26,6 +29,25 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
+
+	public static boolean isSimpleHasStmtExpr(IRExpr expr) throws RException {
+
+		int size = expr.size();
+		if (!RulpUtil.isFactor(expr.get(0), F_HAS_STMT)) {
+			return false;
+		}
+
+		// (has-stmt '(?a ?b ?c))
+		if (size == 2) {
+			return expr.get(1).getType() == RType.LIST;
+		}
+
+		if (size == 2) {
+			return expr.get(2).getType() == RType.LIST;
+		}
+
+		return false;
+	}
 
 	public XRFactorHasStmt(String factorName) {
 		super(factorName);
