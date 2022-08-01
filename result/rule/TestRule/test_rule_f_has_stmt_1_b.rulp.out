@@ -1,0 +1,26 @@
+(load "tool")
+;=>nil
+
+(new model m)
+;=>m
+
+(add-rule "DC1" m
+    if
+        (var-changed ?model-state running completed)
+        '(?d nm:typeOf nm:domain)
+        (not (equal ?d nd:Global))
+        (not (has-stmt '(?x nm:beParentDomainOf ?d)))
+    do
+        (-> '(nd:Global nm:beParentDomainOf ?d))
+)
+;=>DC1
+
+(-> m '(abc nm:typeOf nm:domain))
+;=>true
+
+(start m)
+;err:
+invalid entry: '(abc nm:typeOf nm:domain)
+at (start m) ; main-2
+;eof
+

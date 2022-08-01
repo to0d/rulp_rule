@@ -1,0 +1,26 @@
+(load "tool")
+;=>
+
+(new model m)
+;=>
+
+(add-rule "DC1" m
+    if
+        (var-changed ?model-state running completed)
+        '(?d nm:typeOf nm:domain)
+        (not (equal ?d nd:Global))
+    do
+        (if (not (has-stmt '(?x nm:beParentDomainOf ?d)))
+            (-> '(nd:Global nm:beParentDomainOf ?d))
+        )
+)
+;=>
+
+(-> m '(abc nm:typeOf nm:domain))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>

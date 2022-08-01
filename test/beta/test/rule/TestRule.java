@@ -360,4 +360,20 @@ public class TestRule extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_rule_f_has_stmt_1_a() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_rule_f_has_stmt_1_b() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
