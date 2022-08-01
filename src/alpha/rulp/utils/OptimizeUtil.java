@@ -1,5 +1,6 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.lang.Constant.A_By;
 import static alpha.rulp.lang.Constant.F_B_NOT;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.lang.Constant.F_NOT_EQUAL;
@@ -17,6 +18,7 @@ import static alpha.rulp.lang.Constant.F_O_SUB;
 import static alpha.rulp.lang.Constant.O_B_AND;
 import static alpha.rulp.lang.Constant.O_False;
 import static alpha.rulp.lang.Constant.O_True;
+import static alpha.rulp.rule.Constant.A_Order;
 import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.ximpl.node.RReteType.ALPH0;
 import static alpha.rulp.ximpl.node.RReteType.ALPH1;
@@ -50,6 +52,7 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
+import alpha.rulp.ximpl.optimize.EROUtil;
 import alpha.rulp.ximpl.optimize.OptUtil;
 
 public class OptimizeUtil {
@@ -94,6 +97,8 @@ public class OptimizeUtil {
 		IRReteNodeCounter counter;
 		IRRule rule;
 	}
+
+	static boolean OPT_ERO = false;
 
 	public static boolean OPT_RULE_HAS_STMT = false;
 
@@ -282,53 +287,6 @@ public class OptimizeUtil {
 		return null;
 	}
 
-	private static Pair<IRList, IRList> _optRuleHasStmt_2(Pair<IRList, IRList> rule, IRInterpreter interpreter,
-			IRFrame frame) throws RException {
-
-		IRList conds = rule.getKey();
-		IRList actions = rule.getValue();
-
-		ArrayList<IRList> condList = new ArrayList<>();
-		ArrayList<IRExpr> exprList = new ArrayList<>();
-
-		/*************************************/
-		// Get Cond list
-		/*************************************/
-		IRIterator<? extends IRObject> iter = conds.iterator();
-		NEXT: while (iter.hasNext()) {
-
-			IRObject cond = iter.next();
-			if (cond.getType() == RType.EXPR) {
-
-				IRExpr expr = (IRExpr) cond;
-				if (expr.size() > 0) {
-					switch (expr.get(0).asString()) {
-					case F_HAS_STMT:
-						exprList.add(expr);
-						continue NEXT;
-
-					default:
-						break;
-					}
-				}
-			}
-
-			condList.add((IRList) cond);
-		}
-
-		if (exprList.size() == 1) {
-			return new Pair<IRList, IRList>(RulpFactory.createList(condList),
-					RulpFactory.createList(RulpUtil.toIfExpr(exprList.get(0), actions)));
-		}
-
-		if (exprList.size() > 1) {
-			return new Pair<IRList, IRList>(RulpFactory.createList(condList),
-					RulpFactory.createList(RulpUtil.toIfExpr(RulpUtil.toExpr(O_B_AND, exprList), actions)));
-		}
-
-		return null;
-	}
-
 //	private static IRObject _optimizeExpr(IRObject obj) throws RException {
 //
 //		if (obj.getType() != RType.EXPR) {
@@ -394,6 +352,53 @@ public class OptimizeUtil {
 //
 //		return update > 0 ? expr : null;
 //	}
+
+	private static Pair<IRList, IRList> _optRuleHasStmt_2(Pair<IRList, IRList> rule, IRInterpreter interpreter,
+			IRFrame frame) throws RException {
+
+		IRList conds = rule.getKey();
+		IRList actions = rule.getValue();
+
+		ArrayList<IRList> condList = new ArrayList<>();
+		ArrayList<IRExpr> exprList = new ArrayList<>();
+
+		/*************************************/
+		// Get Cond list
+		/*************************************/
+		IRIterator<? extends IRObject> iter = conds.iterator();
+		NEXT: while (iter.hasNext()) {
+
+			IRObject cond = iter.next();
+			if (cond.getType() == RType.EXPR) {
+
+				IRExpr expr = (IRExpr) cond;
+				if (expr.size() > 0) {
+					switch (expr.get(0).asString()) {
+					case F_HAS_STMT:
+						exprList.add(expr);
+						continue NEXT;
+
+					default:
+						break;
+					}
+				}
+			}
+
+			condList.add((IRList) cond);
+		}
+
+		if (exprList.size() == 1) {
+			return new Pair<IRList, IRList>(RulpFactory.createList(condList),
+					RulpFactory.createList(RulpUtil.toIfExpr(exprList.get(0), actions)));
+		}
+
+		if (exprList.size() > 1) {
+			return new Pair<IRList, IRList>(RulpFactory.createList(condList),
+					RulpFactory.createList(RulpUtil.toIfExpr(RulpUtil.toExpr(O_B_AND, exprList), actions)));
+		}
+
+		return null;
+	}
 
 	private static IRObject _rebuildActionIndexVar(IRList condList, IRObject obj) throws RException {
 
@@ -586,16 +591,14 @@ public class OptimizeUtil {
 
 	}
 
-//	public static IRObject optimizeExpr(IRObject obj) throws RException {
-//
-//		IRObject optiObj = null;
-//
-//		while ((optiObj = _optimizeExpr(obj)) != null) {
-//			obj = optiObj;
-//		}
-//
-//		return obj;
-//	}
+	public static IRExpr optimizeActionExpr(IRExpr expr, IRModel model) throws RException {
+
+		if (OPT_ERO) {
+			expr = RulpUtil.asExpression(EROUtil.rebuild(expr, model.getInterpreter(), model.getFrame()));
+		}
+
+		return expr;
+	}
 
 	public static IRObject optimizeExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
@@ -677,6 +680,72 @@ public class OptimizeUtil {
 		return (IRList) _buildOptimizeMatchTree(matchTree);
 	}
 
+	public static IRExpr optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
+
+		if (!RulpUtil.isFactor(expr.get(0), F_HAS_STMT)) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// no external var
+		// - (has-stmt '(?a ?b ?c)), ?a ?b ?c are all external vars
+		// - (has-stmt '(a b c))
+		/*********************************************************/
+		if (leftVarList.isEmpty()) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// no var
+		// - (has-stmt '(a b c))
+		/*********************************************************/
+		ArrayList<IRObject> thisVarList = ReteUtil.buildVarList(expr);
+		if (thisVarList.isEmpty()) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// Optimization: create index
+		// before: '(?a ?b c) '(has-stmt '(?a x ?y))
+		// after : '(?a ?b c) '(has-stmt '(?a x ?y) order by 0)
+		/*********************************************************/
+		List<IRObject> newExpr = null;
+		int indexCount = 0;
+		for (IRObject var : thisVarList) {
+
+			int idx = leftVarList.indexOf(var);
+			if (idx != -1) {
+
+				if (newExpr == null) {
+					newExpr = RulpUtil.toArray(expr);
+				}
+
+				newExpr.add(RulpFactory.createAtom(A_Order));
+				newExpr.add(RulpFactory.createAtom(A_By));
+				newExpr.add(RulpFactory.createInteger(idx));
+				indexCount++;
+			}
+		}
+
+		/*********************************************************/
+		// all var are left vars
+		// - (?a ?b ?c) (has-stmt '(?a ?b ?c))
+		/*********************************************************/
+		if (indexCount == thisVarList.size()) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// all var are external vars
+		// - (has-stmt '(?a ?b ?c))
+		/*********************************************************/
+		if (indexCount == 0) {
+			return expr;
+		}
+
+		return RulpFactory.createExpression(newExpr);
+	}
+
 	public static IRList optimizeRuleActionIndexVar(IRList condList, IRList actionList) throws RException {
 
 		ArrayList<IRObject> newList = null;
@@ -711,7 +780,6 @@ public class OptimizeUtil {
 		}
 
 		return RulpFactory.createList(newList);
-
 	}
 
 	public static Pair<IRList, IRList> optimizeRuleHasStmt(IRList condList, IRList actionList,

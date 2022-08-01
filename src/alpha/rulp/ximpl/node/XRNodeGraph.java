@@ -1,18 +1,21 @@
 package alpha.rulp.ximpl.node;
 
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_By;
+import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
+import static alpha.rulp.rule.Constant.A_Order;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_RETE_TYPE;
 import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
+import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RCountType.AssumeCount;
 import static alpha.rulp.rule.RCountType.BindFromCount;
 import static alpha.rulp.rule.RCountType.BindToCount;
@@ -867,29 +870,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				AbsReteNode node = RNodeFactory.createExpr2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
 						entryLen, leftNode, varEntry);
 
-				/*********************************************************/
-				// Optimization: create index
-				// before: '(?a ?b c) '(has-stmt '(?a x ?y))
-				// after : '(?a ?b c) '(has-stmt '(?a x ?y) order by 0)
-				/*********************************************************/
-				if (RulpUtil.isFactor(rightExpr.get(0), F_HAS_STMT)) {
-
-					List<IRObject> newExpr = RulpUtil.toArray(rightExpr);
-					int add = 0;
-					for (IRObject var : rightVarList) {
-						int idx = leftVarList.indexOf(var);
-						if (idx != -1) {
-							newExpr.add(RulpFactory.createAtom(A_Order));
-							newExpr.add(RulpFactory.createAtom(A_By));
-							newExpr.add(RulpFactory.createInteger(idx));
-							add++;
-						}
-					}
-
-					if (add > 0) {
-						rightExpr = RulpFactory.createExpression(newExpr);
-					}
-				}
+				rightExpr = OptimizeUtil.optimizeHasStmtExpr(rightExpr, leftVarList);
 
 				addConstraint(node, ConstraintFactory.expr0(rightExpr,
 						ReteUtil._varEntry(ReteUtil.buildTreeVarList(leftTree)), this.model.getFrame()));

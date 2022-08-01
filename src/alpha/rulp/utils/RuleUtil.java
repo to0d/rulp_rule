@@ -481,37 +481,6 @@ public class RuleUtil {
 		return varTraceModel.getBoolValue();
 	}
 
-	public static List<IRReteNode> listNodes(IRNodeGraph graph, RReteType... types) {
-
-		ArrayList<IRReteNode> nodes = new ArrayList<>();
-
-		for (RReteType type : types) {
-			nodes.addAll(graph.listNodes(type));
-		}
-
-		return nodes;
-	}
-
-	public static Collection<IRRule> listSourceNodes(IRModel model, IRList condList) throws RException {
-
-		Set<IRRule> nodes = new HashSet<>();
-		for (SourceNode sn : model.getNodeGraph().listSourceNodes(condList)) {
-			nodes.add(sn.rule);
-		}
-
-		return nodes;
-	}
-
-	public static Collection<IRRule> listSourceNodes(IRModel model, IRReteNode node) throws RException {
-
-		Set<IRRule> nodes = new HashSet<>();
-		for (SourceNode sn : listSource(model, node)) {
-			nodes.add(sn.rule);
-		}
-
-		return nodes;
-	}
-
 	public static Collection<SourceNode> listMatchCondition(IRList stmt, IRRule rule) throws RException {
 
 		if (!ReteUtil.isReteStmtNoVar(stmt)) {
@@ -523,6 +492,17 @@ public class RuleUtil {
 		}
 		return null;
 
+	}
+
+	public static List<IRReteNode> listNodes(IRNodeGraph graph, RReteType... types) {
+
+		ArrayList<IRReteNode> nodes = new ArrayList<>();
+
+		for (RReteType type : types) {
+			nodes.addAll(graph.listNodes(type));
+		}
+
+		return nodes;
 	}
 
 	public static Collection<SourceNode> listSource(IRModel model, IRReteNode node) throws RException {
@@ -542,6 +522,30 @@ public class RuleUtil {
 		default:
 			return Collections.emptySet();
 		}
+	}
+
+	public static Collection<IRRule> listSourceNodes(IRModel model, IRList condList) throws RException {
+
+		Set<IRRule> nodes = new HashSet<>();
+		for (SourceNode sn : model.getNodeGraph().listSourceNodes(condList)) {
+			nodes.add(sn.rule);
+		}
+
+		return nodes;
+	}
+
+//	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
+//
+//	}
+
+	public static Collection<IRRule> listSourceNodes(IRModel model, IRReteNode node) throws RException {
+
+		Set<IRRule> nodes = new HashSet<>();
+		for (SourceNode sn : listSource(model, node)) {
+			nodes.add(sn.rule);
+		}
+
+		return nodes;
 	}
 
 	public static List<? extends IRList> listStatements(IRModel model) throws RException {
