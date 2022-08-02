@@ -76,7 +76,7 @@ NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri Va
 R00002[3]    ROOT0 Rete0 UNIQ              0     3    0    0    0   0   0 900 [null, null, null]
 A00003[3]    ALPH0 Rete1 MULTI             1     2    1    0    0   1   0  99 [?x, null, ?y]
 A00005[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?x, null, ?y]
-A00008[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?x, null, ?_ag_0]
+A00008[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?x, null, ?_tmp_?_ag__0]
 B00006[3]    BETA0 Beta0 MULTI             2     1    1    3    1   0   0  99 [?a, ?b, ?c]
 RU000[3]     RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?a, ?b, ?c]
 W00001[0]    WORK  Work  EMPTY             0     0    0    0    0   0   0 -99 []

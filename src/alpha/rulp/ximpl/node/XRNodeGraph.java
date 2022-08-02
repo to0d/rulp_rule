@@ -928,7 +928,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		}
 		// expr 1
-		else if (leftNode.getReteType() == RReteType.EXPR1) {
+		else if (leftNode.getReteType() == RReteType.EXPR1 || leftNode.getReteType() == RReteType.EXPR2) {
 
 			// Find left last alpha node
 			IRReteNode leftAlphaNode = leftNode.getParentNodes()[0];
@@ -1451,7 +1451,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IRReteNode _findReteNode(List<IRList> matchStmtList) throws RException {
 		return _findReteNode(MatchTree.build(matchStmtList, this.model.getInterpreter(), this.model.getFrame()),
-				new XTempVarBuilder());
+				new XTempVarBuilder("rete"));
 	}
 
 	protected int _getNextNodeId() {
@@ -1824,7 +1824,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		IRList matchTree = MatchTree.build(actualMatchStmtList, this.model.getInterpreter(), this.model.getFrame());
 //		matchTree = OptimizeUtil.optimizeMatchTree(matchTree);
 
-		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder());
+		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder("rule"));
 
 		XRNodeRule0 ruleNode = RNodeFactory.createRuleNode(model, _getNextNodeId(), ruleName,
 				parentNode.getEntryLength(), parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree)),

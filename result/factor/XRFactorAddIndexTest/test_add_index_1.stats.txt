@@ -69,7 +69,7 @@ NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri Va
 R00005[3]    ROOT0 Rete0 UNIQ              0     1    0    0    0   0   0 900 [null, null, null]
 N00001[3]    NAME0 Named UNIQ   n1         0     1    0    0    0   0   0   0 [null, null, null]
 A00002[3]    ALPH0 Rete1 MULTI  n1         1     2    0    0    0   1   0   0 [?a, ?b, null]
-A00006[3]    ALPH0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?a, null, ?_tmp_0]
+A00006[3]    ALPH0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?a, null, ?_tmp_rete_0]
 A00007[3]    ALPH0 Rete1 MULTI             1     1    0    0    0   1   0   0 [?a, null, null]
 I00003[3]    INDEX Index ORDER             1     0    0    0    0   0   0   0 [?a, ?b, null]
 I00004[3]    INDEX Index ORDER             1     0    0    0    0   0   0   0 [?a, ?b, null]

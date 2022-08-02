@@ -87,7 +87,7 @@ node info6:
 NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001[3]    ROOT0 Rete0 UNIQ              0     2    0    0    0   0   0 900 [null, null, null]
-A00002[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?tag, null, ?_tmp_0]
+A00002[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?tag, null, ?_tmp_rule_0]
 A00003[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?tag, null, null]
 A00006[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?x, null, ?y]
 E00004[3]    EXPR0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?tag, null, null]

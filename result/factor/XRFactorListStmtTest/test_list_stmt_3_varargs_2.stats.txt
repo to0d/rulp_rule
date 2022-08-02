@@ -63,10 +63,10 @@ NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri Va
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001[3]    ROOT0 Rete0 UNIQ              0     2    0    0    0   0   0 900 [null, null, null]
 N00002[3]    NAME0 Named UNIQ   n1         0     2    0    0    0   0   0   0 [null, null, null]
-A00003[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?_ag_0, ?_ag_1, null]
-A00004[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [null, ?_ag_0, ?_ag_1]
-A00005[3]    ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [?_ag_0, ?_ag_1, null]
-A00006[3]    ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [null, ?_ag_0, ?_ag_1]
+A00003[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?_tmp_?_ag__0, ?_tmp_?_ag__1, null]
+A00004[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [null, ?_tmp_?_ag__0, ?_tmp_?_ag__1]
+A00005[3]    ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [?_tmp_?_ag__0, ?_tmp_?_ag__1, null]
+A00006[3]    ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [null, ?_tmp_?_ag__0, ?_tmp_?_ag__1]
 =================================================================================================================================================================
 
 priority info:

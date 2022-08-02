@@ -690,8 +690,8 @@ node info6:
 NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001[3]    ROOT0 Rete0 UNIQ              0    35    0    0    0   0   0 900 [null, null, null]
-V00005[3]    VAR   Rete0 SINGLE            0     1   11    0    0   0   0  99 [?model-state, ?_tmp_2, ?_tmp_3]
-A00002[3]    ALPH0 Rete1 MULTI             1     4   12    0    0   1   0  99 [?tag, null, ?_tmp_0]
+V00005[3]    VAR   Rete0 SINGLE            0     1   11    0    0   0   0  99 [?model-state, ?_tmp_rule_2, ?_tmp_rule_3]
+A00002[3]    ALPH0 Rete1 MULTI             1     4   12    0    0   1   0  99 [?tag, null, ?_tmp_rule_0]
 A00003[3]    ALPH0 Rete1 MULTI             1     7    9    0    0   1   0  99 [?tag, null, null]
 A00009[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?ti, null, ?tc]
 A00011[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?a, null, ?b]
@@ -699,7 +699,7 @@ A00012[3]    ALPH0 Rete1 MULTI             1     5    5    0    0   1   0  99 [?
 A00016[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?x, null, ?p]
 A00018[3]    ALPH0 Rete1 MULTI             1     2    2    0    0   1   0  99 [?p1, null, ?p2]
 A00021[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [null, null, null]
-A00022[3]    ALPH0 Rete1 MULTI             1     6    9    0    0   1   0  99 [?p, null, ?_tmp_1]
+A00022[3]    ALPH0 Rete1 MULTI             1     6    9    0    0   1   0  99 [?p, null, ?_tmp_rule_1]
 A00023[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?p, null, null]
 A00026[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?p, null, null]
 A00029[3]    ALPH0 Rete1 MULTI             1     1    1    0    0   1   0  99 [?p, null, null]

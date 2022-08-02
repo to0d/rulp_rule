@@ -7,25 +7,23 @@ import alpha.rulp.utils.RulpFactory;
 
 public class XTempVarBuilder {
 
-	private String tempNamePre = "?_tmp_";
+	static final String TEMP_PRE = "?_tmp_";
+
+	private String tempName;
 
 	private int tempVarIndex = 0;
 
 	private ArrayList<IRAtom> tempVarList = new ArrayList<>();
 
-	public XTempVarBuilder() {
+	public XTempVarBuilder(String tempName) {
 		super();
-	}
-
-	public XTempVarBuilder(String tempNamePre) {
-		super();
-		this.tempNamePre = tempNamePre;
+		this.tempName = TEMP_PRE + tempName.toLowerCase() + "_";
 	}
 
 	public IRAtom next() {
 
 		while (tempVarIndex >= tempVarList.size()) {
-			tempVarList.add(RulpFactory.createAtom(tempNamePre + tempVarList.size()));
+			tempVarList.add(RulpFactory.createAtom(tempName + tempVarList.size()));
 		}
 
 		return tempVarList.get(tempVarIndex++);

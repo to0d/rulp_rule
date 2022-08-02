@@ -19,8 +19,8 @@
 ;=>true
 
 (start m)
-;err:
-invalid entry: '(abc nm:typeOf nm:domain)
-at (start m) ; main-2
-;eof
+;=>19
+
+(list-stmt m)
+;=>'('(abc nm:typeOf nm:domain) '(nd:Global nm:beParentDomainOf abc))
 

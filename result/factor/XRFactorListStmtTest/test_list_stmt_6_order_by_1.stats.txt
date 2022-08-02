@@ -59,8 +59,8 @@ R00001[1]    ROOT0 Rete0 UNIQ              0     0    0    0    0   0   0 900 [n
 R00002[2]    ROOT0 Rete0 UNIQ              0     0    0    0    0   0   0 900 [null, null]
 R00003[3]    ROOT0 Rete0 UNIQ              0     1    0    0    0   0   0 900 [null, null, null]
 N00004[3]    NAME0 Named UNIQ   n1         0     1    0    0    0   0   0   0 [null, null, null]
-A00005[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [null, ?_ag_0, ?x]
-A00006[3]    ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [?_ag_0, null, ?x]
+A00005[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [null, ?_tmp_?_ag__0, ?x]
+A00006[3]    ALPH0 Rete1 MULTI  n1         1     0    0    0    0   1   0   0 [?_tmp_?_ag__0, null, ?x]
 =================================================================================================================================================================
 
 priority info:

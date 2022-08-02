@@ -685,7 +685,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected IRReteEntry _findIndexStatement(IRList stmt, List<OrderEntry> orderList) throws RException {
 
 		List<IRObject> newStmtArr = RulpUtil.toArray(stmt);
-		XTempVarBuilder varBuilder = new XTempVarBuilder();
+		XTempVarBuilder varBuilder = new XTempVarBuilder("index");
 
 		for (OrderEntry order : orderList) {
 
