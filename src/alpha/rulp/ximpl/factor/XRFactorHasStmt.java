@@ -42,7 +42,7 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 			return expr.get(1).getType() == RType.LIST;
 		}
 
-		if (size == 2) {
+		if (size == 3) {
 			return expr.get(2).getType() == RType.LIST;
 		}
 
