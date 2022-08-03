@@ -352,15 +352,67 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
+	static final String CK_ADD_CONSTRAINT = "model-addConstraint";
+
+	static final String CK_ADD_LOAD_NODE_LIS = "model-addLoadNodeListener";
+
+	static final String CK_ADD_RULE = "model-addRule";
+
+	static final String CK_ADD_RULE_EXEC_LIS = "model-addRuleExecutedListener";
+
+	static final String CK_ADD_RULE_FAIL_LIS = "model-addRuleFailedListener";
+
+	static final String CK_ADD_SAVE_NODE_LIS = "model-addSaveNodeListener";
+
+	static final String CK_ADD_STMT = "model-addStatement";
+
+	static final String CK_ADD_STMT_LIS = "model-addStatementListener";
+
+	static final String CK_ADD_UPDATE_NODE = "model-addUpdateNode";
+
+	static final String CK_ASSUME_STMT = "model-assumeStatement";
+
+	static final String CK_DO_GC = "model-doGC";
+
+	static final String CK_EXEC = "model-execute";
+
+	static final String CK_FIX_STMT = "model-fixStatement";
+
 	static final String CK_GC_COUNT = "model-gc-count";
 
 	static final String CK_GC_TRIGGER = "model-gc-trigger";
 
+	static final String CK_GET_VAR = "model-getVar";
+
+	static final String CK_HALT = "model-halt";
+
+	static final String CK_HAS_STMT_1 = "model-hasStatement-1";
+
+	static final String CK_HAS_STMT_2 = "model-hasStatement-2";
+
 	static final String CK_HAS_STMT_CACHE = "model-has-stmt-cache";
 
-	static final String CK_HAS_STMT_FIND = "model-has-stmt-find";
-
 	static final String CK_HAS_STMT_HIT = "model-has-stmt-hit";
+
+	static final String CK_LIST_STMT = "model-listStatements";
+
+	static final String CK_QUERY = "model-query";
+
+	static final String CK_RMV_CONSTRAINT = "model-removeConstraint";
+
+	static final String CK_RMV_STMT = "model-removeStatement";
+
+	static final String CK_SAVE = "model-save";
+
+	static final String CK_SET_CACHE_PATH = "model-setModelCachePath";
+
+	static final String CK_SET_NODE_LOADER = "model-setNodeLoader";
+
+	static final String CK_SET_NODE_SAVER = "model-setNodeSaver";
+
+	static final String CK_START = "model-start";
+
+	static final String CK_TRY_ADD_STMT = "model-tryAddStatement";
 
 	static List<IRReteNode> EMPTY_NODES = Collections.emptyList();
 
@@ -385,8 +437,33 @@ public class XRModel extends AbsRInstance implements IRModel {
 		modelCountKeyList.add(CK_GC_TRIGGER);
 		modelCountKeyList.add(CK_GC_COUNT);
 		modelCountKeyList.add(CK_HAS_STMT_CACHE);
-		modelCountKeyList.add(CK_HAS_STMT_FIND);
 		modelCountKeyList.add(CK_HAS_STMT_HIT);
+		modelCountKeyList.add(CK_ADD_CONSTRAINT);
+		modelCountKeyList.add(CK_ADD_LOAD_NODE_LIS);
+		modelCountKeyList.add(CK_ADD_RULE);
+		modelCountKeyList.add(CK_ADD_RULE_EXEC_LIS);
+		modelCountKeyList.add(CK_ADD_RULE_FAIL_LIS);
+		modelCountKeyList.add(CK_ADD_SAVE_NODE_LIS);
+		modelCountKeyList.add(CK_ADD_STMT);
+		modelCountKeyList.add(CK_ADD_STMT_LIS);
+		modelCountKeyList.add(CK_ADD_UPDATE_NODE);
+		modelCountKeyList.add(CK_ASSUME_STMT);
+		modelCountKeyList.add(CK_DO_GC);
+		modelCountKeyList.add(CK_EXEC);
+		modelCountKeyList.add(CK_GET_VAR);
+		modelCountKeyList.add(CK_HALT);
+		modelCountKeyList.add(CK_HAS_STMT_1);
+		modelCountKeyList.add(CK_HAS_STMT_2);
+		modelCountKeyList.add(CK_LIST_STMT);
+		modelCountKeyList.add(CK_QUERY);
+		modelCountKeyList.add(CK_RMV_CONSTRAINT);
+		modelCountKeyList.add(CK_RMV_STMT);
+		modelCountKeyList.add(CK_SAVE);
+		modelCountKeyList.add(CK_SET_CACHE_PATH);
+		modelCountKeyList.add(CK_SET_NODE_LOADER);
+		modelCountKeyList.add(CK_SET_NODE_SAVER);
+		modelCountKeyList.add(CK_START);
+		modelCountKeyList.add(CK_TRY_ADD_STMT);
 
 		modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
 	}
@@ -419,13 +496,65 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
 
-	protected int hasStmtFindCount = 0;
-
 	protected int hasStmtHitCount = 0;
 
 	protected IRInterpreter interpreter;
 
 	protected XRRListener1Adapter<IRReteNode> loadNodeListener = null;
+
+	protected long mcAddConstraint = 0;
+
+	protected long mcAddLoadNodeListener = 0;
+
+	protected long mcAddRule = 0;
+
+	protected long mcAddRuleExecutedListener = 0;
+
+	protected long mcAddRuleFailedListener = 0;
+
+	protected long mcAddSaveNodeListener = 0;
+
+	protected long mcAddStatement = 0;
+
+	protected long mcAddStatementListener = 0;
+
+	protected long mcAddUpdateNode = 0;
+
+	protected long mcAssumeStatement = 0;
+
+	protected long mcDoGC = 0;
+
+	protected long mcExecute = 0;
+
+	protected long mcFixStatement = 0;
+
+	protected long mcGetVar = 0;
+
+	protected long mcHalt = 0;
+
+	protected long mcHasStatement1 = 0;
+
+	protected long mcHasStatement2 = 0;
+
+	protected long mcListStatements = 0;
+
+	protected long mcQuery = 0;
+
+	protected long mcRemoveConstraint = 0;
+
+	protected long mcRemoveStatement = 0;
+
+	protected long mcSave = 0;
+
+	protected long mcSetModelCachePath = 0;
+
+	protected long mcSetNodeLoader = 0;
+
+	protected long mcSetNodeSaver = 0;
+
+	protected long mcStart = 0;
+
+	protected long mcTryAddStatement = 0;
 
 	protected String modelCachePath = null;
 
@@ -1709,6 +1838,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
+		mcAddConstraint++;
+
 		if (this.tryAddConstraintLevel > 0) {
 			return this.nodeGraph.addConstraint(node, constraint);
 		}
@@ -1724,6 +1855,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public void addLoadNodeListener(IRListener1<IRReteNode> listener) {
 
+		mcAddLoadNodeListener++;
+
 		if (loadNodeListener == null) {
 			loadNodeListener = new XRRListener1Adapter<>();
 		}
@@ -1737,6 +1870,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (RuleUtil.isModelTrace()) {
 			System.out.println(String.format("==> addRule: %s, %s, %s", ruleName, condList, actionList));
 		}
+
+		mcAddRule++;
 
 		/******************************************************/
 		// update condition list
@@ -1803,16 +1938,20 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public void addRuleExecutedListener(IRListener1<IRRule> listener) {
+		mcAddRuleExecutedListener++;
 		modelRuleExecutedListenerDispatcher.addListener(listener);
 	}
 
 	@Override
 	public void addRuleFailedListener(IRListener1<IRRule> listener) {
+		mcAddRuleFailedListener++;
 		modelRuleFailedListenerDispatcher.addListener(listener);
 	}
 
 	@Override
 	public void addSaveNodeListener(IRListener1<IRReteNode> listener) {
+
+		mcAddSaveNodeListener++;
 
 		if (saveNodeListener == null) {
 			saveNodeListener = new XRRListener1Adapter<>();
@@ -1827,6 +1966,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> addStatement: " + stmt);
 		}
+
+		mcAddStatement++;
 
 		RReteStatus status = _getNewStmtStatus();
 
@@ -1848,11 +1989,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> addStmtListener: " + condList);
 		}
 
+		mcAddStatementListener++;
+
 		stmtListenUpdater.addStatementListener(this.findNode(condList), listener);
 	}
 
 	@Override
 	public void addUpdateNode(IRReteNode node) throws RException {
+
+		mcAddUpdateNode++;
 
 		if (node.getReteType() == RReteType.VAR) {
 
@@ -1879,6 +2024,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> tryAddStatement: " + stmt);
 		}
+
+		mcAssumeStatement++;
 
 		if (stmt.getNamedName() == null) {
 			throw new RException("Invalid stmt: " + stmt);
@@ -1968,6 +2115,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> doGC: ");
 		}
 
+		mcDoGC++;
+
 		return _gc(true);
 	}
 
@@ -1977,6 +2126,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> " + node.toString());
 		}
+
+		mcExecute++;
 
 		_checkCache(node);
 
@@ -2065,6 +2216,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> fixStatement: " + stmt);
 		}
 
+		mcFixStatement++;
+
 		RUpdateResult rst = _addReteEntry(stmt, RReteStatus.FIXED_);
 
 		// stmt updated, active the listener
@@ -2112,11 +2265,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public int getHasStmtFindCount() {
-		return hasStmtFindCount;
-	}
-
-	@Override
 	public int getHasStmtHitCount() {
 		return hasStmtHitCount;
 	}
@@ -2149,11 +2297,61 @@ public class XRModel extends AbsRInstance implements IRModel {
 		case CK_HAS_STMT_CACHE:
 			return getHasStmtCacheCount();
 
-		case CK_HAS_STMT_FIND:
-			return getHasStmtFindCount();
-
 		case CK_HAS_STMT_HIT:
 			return getHasStmtHitCount();
+
+		case CK_ADD_CONSTRAINT:
+			return mcAddConstraint;
+		case CK_ADD_LOAD_NODE_LIS:
+			return mcAddLoadNodeListener;
+		case CK_ADD_RULE:
+			return mcAddRule;
+		case CK_ADD_RULE_EXEC_LIS:
+			return mcAddRuleExecutedListener;
+		case CK_ADD_RULE_FAIL_LIS:
+			return mcAddRuleFailedListener;
+		case CK_ADD_SAVE_NODE_LIS:
+			return mcAddSaveNodeListener;
+		case CK_ADD_STMT:
+			return mcAddStatement;
+		case CK_ADD_STMT_LIS:
+			return mcAddStatementListener;
+		case CK_ADD_UPDATE_NODE:
+			return mcAddUpdateNode;
+		case CK_ASSUME_STMT:
+			return mcAssumeStatement;
+		case CK_DO_GC:
+			return mcDoGC;
+		case CK_EXEC:
+			return mcExecute;
+		case CK_GET_VAR:
+			return mcGetVar;
+		case CK_HALT:
+			return mcHalt;
+		case CK_HAS_STMT_1:
+			return mcHasStatement1;
+		case CK_HAS_STMT_2:
+			return mcHasStatement2;
+		case CK_LIST_STMT:
+			return mcListStatements;
+		case CK_QUERY:
+			return mcQuery;
+		case CK_RMV_CONSTRAINT:
+			return mcRemoveConstraint;
+		case CK_RMV_STMT:
+			return mcRemoveStatement;
+		case CK_SAVE:
+			return mcSave;
+		case CK_SET_CACHE_PATH:
+			return mcSetModelCachePath;
+		case CK_SET_NODE_LOADER:
+			return mcSetNodeLoader;
+		case CK_SET_NODE_SAVER:
+			return mcSetNodeSaver;
+		case CK_START:
+			return mcStart;
+		case CK_TRY_ADD_STMT:
+			return mcTryAddStatement;
 		}
 
 		return 0;
@@ -2189,6 +2387,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRVar getVar(String varName) throws RException {
 
+		mcGetVar++;
+
 		switch (varName) {
 		case V_M_STATE:
 
@@ -2220,6 +2420,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public RRunState halt() throws RException {
 
+		mcHalt++;
+
 		RRunState _state = getRunState();
 		switch (_state) {
 		case Completed:
@@ -2247,7 +2449,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> hasStatement: " + filter);
 		}
 
-		++hasStmtFindCount;
+		mcHasStatement1++;
 
 		// Has any stmt
 		if (filter == null) {
@@ -2276,7 +2478,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return hasStatement(filter);
 		}
 
-		++hasStmtFindCount;
+		mcHasStatement2++;
 
 		// Has any stmt
 		if (filter == null) {
@@ -2355,6 +2557,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> listStatements: " + filter + ", " + statusMask + ", " + limit + ", " + reverse);
 		}
 
+		mcListStatements++;
+
 		if (builder == null) {
 			builder = REntryFactory.defaultBuilder();
 		}
@@ -2373,6 +2577,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> query: cond=" + condList + ", limit=" + limit);
 		}
 
+		mcQuery++;
+
 		/*****************************************************/
 		// Does not support query when running
 		/*****************************************************/
@@ -2385,6 +2591,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
+
+		mcRemoveConstraint++;
 
 		if (this.tryRemoveConstraintLevel > 0) {
 			return this.nodeGraph.removeConstraint(node, constraint);
@@ -2414,6 +2622,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> removeStatement: " + stmt);
 		}
 
+		mcRemoveStatement++;
+
 		if (ReteUtil.getStmtVarCount(stmt) != 0) {
 			throw new RException("Invalid stmt: " + stmt);
 		}
@@ -2430,9 +2640,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		entryTable.removeEntry(entry);
 		return true;
 	}
-	
+
 	@Override
 	public int save() throws RException {
+
+		mcSave++;
 
 		int totalSaveLines = 0;
 
@@ -2479,13 +2691,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 	}
-	
+
 	@Override
 	public void setModelCachePath(String cachePath) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> setModelCachePath: " + cachePath);
 		}
+
+		mcSetModelCachePath++;
 
 		if (this.modelCachePath != null && !this.modelCachePath.equals(cachePath)) {
 			throw new RException(
@@ -2543,18 +2757,20 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 	}
-	
+
 	@Override
 	public void setNodeContext(RNodeContext nodeContext) {
 		this.nodeContext = nodeContext;
 	}
-	
+
 	@Override
 	public void setNodeLoader(IRReteNode node, IRStmtLoader loader) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> setNodeLoader: node=" + node);
 		}
+
+		mcSetNodeLoader++;
 
 		if (node.getReteType() != RReteType.NAME0) {
 			throw new RException("invalid node type: " + node);
@@ -2570,18 +2786,23 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> setNodeSaver: node=" + node);
 		}
 
+		mcSetNodeSaver++;
+
 		if (node.getReteType() != RReteType.NAME0) {
 			throw new RException("invalid node type: " + node);
 		}
 
 		_setNodeCache(node, null, saver);
 	}
+
 	@Override
 	public int start(int priority, final int maxStep) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("starting: " + this + ", priority=" + priority);
 		}
+
+		mcStart++;
 
 		if (priority > RETE_PRIORITY_MAXIMUM) {
 			throw new RException("Invalid priority: " + priority);
@@ -2629,6 +2850,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> tryAddStatement: " + stmt);
 		}
+
+		mcTryAddStatement++;
 
 		RReteStatus status = _getNewStmtStatus();
 

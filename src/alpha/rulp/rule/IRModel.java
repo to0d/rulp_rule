@@ -84,8 +84,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public int getHasStmtCacheCount();
 
-	public int getHasStmtFindCount();
-
 	public int getHasStmtHitCount();
 
 	public String getModelName();
