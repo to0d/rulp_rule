@@ -1095,10 +1095,10 @@ public class ReteUtil {
 			return String.format("C%05d", nodeId);
 
 		case INDEX:
-			return String.format("I%05d", nodeId);
+			return String.format("I0%04d", nodeId);
 
-		case CUT:
-			return String.format("C1%04d", nodeId);
+		case INHER:
+			return String.format("I1%04d", nodeId);
 
 		case OR0:
 			return String.format("O0%04d", nodeId);

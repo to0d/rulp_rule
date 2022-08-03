@@ -430,8 +430,8 @@ public class StatsUtil {
 		case INDEX:
 			return "i0";
 
-		case CUT:
-			return "c1";
+		case INHER:
+			return "i1";
 
 		case OR0:
 			return "o0";
