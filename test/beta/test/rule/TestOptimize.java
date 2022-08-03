@@ -201,9 +201,18 @@ public class TestOptimize extends RuleTestBase {
 		_statsInfo("m");
 
 	}
-	
+
 	@Test
 	void test_opt_a_has_stmt_in_rule_lhs_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_b_remove_unused_var_action_1() {
 
 		_setup();
 		_run_script();
