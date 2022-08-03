@@ -212,7 +212,25 @@ public class TestOptimize extends RuleTestBase {
 	}
 
 	@Test
-	void test_opt_b_remove_unused_var_action_1() {
+	void test_opt_b_unused_var_in_action_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_b_unused_var_in_action_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+	
+	@Test
+	void test_opt_b_unused_var_in_action_3() {
 
 		_setup();
 		_run_script();

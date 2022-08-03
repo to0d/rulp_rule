@@ -1,0 +1,16 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a p ?b) '(?a p ?c) do (-> m '(?a typeof x)))
+(add-stmt m '(a p b1))
+(add-stmt m '(a p b2))
+(add-stmt m '(a p b3))
+(add-stmt m '(a p c))
+;=>RU000 true true true true
+
+(start m)
+;=>6
+
+(list-stmt m)
+;=>'('(a p b1) '(a p b2) '(a p b3) '(a p c) '(a typeof x))
+
