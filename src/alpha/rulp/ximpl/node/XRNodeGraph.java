@@ -452,6 +452,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected final Map<String, IRReteNode> varNodeMap = new HashMap<>();
 
+	static boolean USE_INHERIT = false;
+
 	public XRNodeGraph(IRModel model, IREntryTable entryTable) {
 
 		this.model = model;
@@ -1829,52 +1831,52 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Create inherit node if possible
 		/******************************************************/
-//		{
-//
-//			IRObject[] varEntry = parentNode.getVarEntry();
-//			int entryLen = varEntry.length;
-//			int matchVarCount = 0;
-//			for (int i = 0; i < entryLen; ++i) {
-//				if (varEntry[i] != null) {
-//					matchVarCount++;
-//				}
-//			}
-//
-//			ArrayList<Integer> foundIndexList = new ArrayList<>();
-//
-//			for (IRObject actionVar : new HashSet<>(ReteUtil.buildVarList(actionStmtList))) {
-//
-//				int foundIndex = -1;
-//				for (int i = 0; i < entryLen; ++i) {
-//					IRObject matchVar = varEntry[i];
-//					if (matchVar != null) {
-//						if (RulpUtil.equal(matchVar, actionVar)) {
-//							foundIndex = i;
-//							break;
-//						}
-//					}
-//				}
-//
-//				if (foundIndex != -1) {
-//					foundIndexList.add(foundIndex);
-//				}
-//			}
-//
-//			/******************************************************/
-//			// '(?a ?b ?c) (inherit 0 1) ==> '(?a ?b)
-//			/******************************************************/
-//			if (foundIndexList.size() < matchVarCount) {
-//
-//				int[] inheritIndexs = new int[foundIndexList.size()];
-//				int i = 0;
-//				for (int index : foundIndexList) {
-//					inheritIndexs[i++] = index;
-//				}
-//
-//				parentNode = buildInherit(parentNode, inheritIndexs);
-//			}
-//
-//		}
+		if (USE_INHERIT) {
+
+			IRObject[] varEntry = parentNode.getVarEntry();
+			int entryLen = varEntry.length;
+			int matchVarCount = 0;
+			for (int i = 0; i < entryLen; ++i) {
+				if (varEntry[i] != null) {
+					matchVarCount++;
+				}
+			}
+
+			ArrayList<Integer> foundIndexList = new ArrayList<>();
+
+			for (IRObject actionVar : new HashSet<>(ReteUtil.buildVarList(actionStmtList))) {
+
+				int foundIndex = -1;
+				for (int i = 0; i < entryLen; ++i) {
+					IRObject matchVar = varEntry[i];
+					if (matchVar != null) {
+						if (RulpUtil.equal(matchVar, actionVar)) {
+							foundIndex = i;
+							break;
+						}
+					}
+				}
+
+				if (foundIndex != -1) {
+					foundIndexList.add(foundIndex);
+				}
+			}
+
+			/******************************************************/
+			// '(?a ?b ?c) (inherit 0 1) ==> '(?a ?b)
+			/******************************************************/
+			if (foundIndexList.size() < matchVarCount) {
+
+				int[] inheritIndexs = new int[foundIndexList.size()];
+				int i = 0;
+				for (int index : foundIndexList) {
+					inheritIndexs[i++] = index;
+				}
+
+				parentNode = buildInherit(parentNode, inheritIndexs);
+			}
+
+		}
 
 		XRNodeRule0 ruleNode = RNodeFactory.createRuleNode(model, _getNextNodeId(), ruleName,
 				parentNode.getEntryLength(), parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree)),
