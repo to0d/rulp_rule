@@ -499,10 +499,6 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 
 				this.lastError = null;
 				this.lastValueEntry = parentEntryQueue.getEntryAt(lastParentVisitIndex);
-//				if (lastValueEntry == null || lastValueEntry.isDroped()) {
-//					continue;
-//				}
-
 				if (!_match(lastValueEntry)) {
 					continue;
 				}

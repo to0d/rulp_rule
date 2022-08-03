@@ -49,6 +49,7 @@ import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
+import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
@@ -1970,5 +1971,20 @@ public class ReteUtil {
 		List<String> c = new LinkedList<>(varList);
 		Collections.sort(c);
 		return c;
+	}
+
+	public static IRReteEntry getNewEntry(IREntryTable entryTable, InheritIndex[] inheritIndexs, IRReteEntry leftEntry,
+			IRReteEntry rightEntry) throws RException {
+
+		int entryLength = inheritIndexs.length;
+
+		IRObject[] newElements = new IRObject[entryLength];
+		for (int i = 0; i < entryLength; ++i) {
+			InheritIndex inherit = inheritIndexs[i];
+			IRReteEntry parentEntry = inherit.parentIndex == 0 ? leftEntry : rightEntry;
+			newElements[i] = parentEntry.get(inherit.elementIndex);
+		}
+
+		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry), false);
 	}
 }

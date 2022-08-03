@@ -13,10 +13,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 
-	public XRNodeRete2(String instanceName) {
-		super(instanceName);
-	}
-
 	protected List<IRConstraint2> constraint2List = null;
 
 	protected IREntryTable entryTable;
@@ -24,6 +20,10 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 	protected int lastLeftEntryCount = 0;
 
 	protected int lastRightEntryCount = 0;
+
+	public XRNodeRete2(String instanceName) {
+		super(instanceName);
+	}
 
 	protected boolean _addNewEntry(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
 
@@ -41,15 +41,7 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 	}
 
 	protected IRReteEntry _getNewEntry(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
-
-		IRObject[] newElements = new IRObject[entryLength];
-		for (int i = 0; i < entryLength; ++i) {
-			InheritIndex inherit = getInheritIndex()[i];
-			IRReteEntry parentEntry = inherit.parentIndex == 0 ? leftEntry : rightEntry;
-			newElements[i] = parentEntry.get(inherit.elementIndex);
-		}
-
-		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry), false);
+		return ReteUtil.getNewEntry(entryTable, getInheritIndex(), leftEntry, rightEntry);
 	}
 
 	protected abstract boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException;
