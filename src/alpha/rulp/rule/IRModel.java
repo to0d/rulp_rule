@@ -74,6 +74,10 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IREntryTable getEntryTable();
 
+	public long getModelCountMap(String countkey);
+
+	public List<String> getModelCountKeyList();
+
 	public long getGcCount();
 
 	public long getGcTrigger();

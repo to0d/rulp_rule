@@ -352,6 +352,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
+	static final String CK_GC_COUNT = "model-gc-count";
+
+	static final String CK_GC_TRIGGER = "model-gc-trigger";
+
+	static final String CK_HAS_STMT_CACHE = "model-has-stmt-cache";
+
+	static final String CK_HAS_STMT_FIND = "model-has-stmt-find";
+
+	static final String CK_HAS_STMT_HIT = "model-has-stmt-hit";
+
 	static List<IRReteNode> EMPTY_NODES = Collections.emptyList();
 
 	static final String MODEL_CACHE_SUFFIX = ".mc";
@@ -367,7 +377,19 @@ public class XRModel extends AbsRInstance implements IRModel {
 			{ Partial, Partial, Partial, Halting, Failed, Partial }, // Partial
 	};
 
+	static List<String> modelCountKeyList = new ArrayList<>();
+
 	protected static int nodeExecId = 0;
+
+	static {
+		modelCountKeyList.add(CK_GC_TRIGGER);
+		modelCountKeyList.add(CK_GC_COUNT);
+		modelCountKeyList.add(CK_HAS_STMT_CACHE);
+		modelCountKeyList.add(CK_HAS_STMT_FIND);
+		modelCountKeyList.add(CK_HAS_STMT_HIT);
+
+		modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
+	}
 
 	protected List<IRReteNode> activeQueue = new LinkedList<>();
 
@@ -396,6 +418,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected long gcTrigger = 0;
 
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
+
+	protected int hasStmtFindCount = 0;
+
+	protected int hasStmtHitCount = 0;
 
 	protected IRInterpreter interpreter;
 
@@ -2081,6 +2107,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public int getHasStmtCacheCount() {
+		return hasEntryCacheMap.size();
+	}
+
+	@Override
+	public int getHasStmtFindCount() {
+		return hasStmtFindCount;
+	}
+
+	@Override
+	public int getHasStmtHitCount() {
+		return hasStmtHitCount;
+	}
+
+	@Override
 	public IRInterpreter getInterpreter() {
 		return interpreter;
 	}
@@ -2088,6 +2129,34 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRModel getModel() {
 		return this;
+	}
+
+	@Override
+	public List<String> getModelCountKeyList() {
+		return modelCountKeyList;
+	}
+
+	@Override
+	public long getModelCountMap(String countkey) {
+
+		switch (countkey) {
+		case CK_GC_TRIGGER:
+			return getGcTrigger();
+
+		case CK_GC_COUNT:
+			return getGcCount();
+
+		case CK_HAS_STMT_CACHE:
+			return getHasStmtCacheCount();
+
+		case CK_HAS_STMT_FIND:
+			return getHasStmtFindCount();
+
+		case CK_HAS_STMT_HIT:
+			return getHasStmtHitCount();
+		}
+
+		return 0;
 	}
 
 	@Override
@@ -2361,7 +2430,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		entryTable.removeEntry(entry);
 		return true;
 	}
-
+	
 	@Override
 	public int save() throws RException {
 
@@ -2410,7 +2479,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 	}
-
+	
 	@Override
 	public void setModelCachePath(String cachePath) throws RException {
 
@@ -2474,12 +2543,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 	}
-
+	
 	@Override
 	public void setNodeContext(RNodeContext nodeContext) {
 		this.nodeContext = nodeContext;
 	}
-
+	
 	@Override
 	public void setNodeLoader(IRReteNode node, IRStmtLoader loader) throws RException {
 
@@ -2507,7 +2576,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		_setNodeCache(node, null, saver);
 	}
-
 	@Override
 	public int start(int priority, final int maxStep) throws RException {
 
@@ -2583,22 +2651,4 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return false;
 	}
 
-	protected int hasStmtFindCount = 0;
-
-	protected int hasStmtHitCount = 0;
-
-	@Override
-	public int getHasStmtCacheCount() {
-		return hasEntryCacheMap.size();
-	}
-
-	@Override
-	public int getHasStmtFindCount() {
-		return hasStmtFindCount;
-	}
-
-	@Override
-	public int getHasStmtHitCount() {
-		return hasStmtHitCount;
-	}
 }

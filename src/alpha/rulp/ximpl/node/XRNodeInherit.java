@@ -2,8 +2,6 @@ package alpha.rulp.ximpl.node;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRReteNode.InheritIndex;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 

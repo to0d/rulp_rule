@@ -1140,11 +1140,11 @@ public class StatsUtil {
 		sb.append(SEP_LINE1);
 		sb.append(String.format("%-30s %8s\n", "name", "count"));
 		sb.append(SEP_LINE2);
-		sb.append(String.format("%-30s %8d\n", "model-gc-trigger", model.getGcTrigger()));
-		sb.append(String.format("%-30s %8d\n", "model-gc-count", model.getGcCount()));
-		sb.append(String.format("%-30s %8d\n", "model-has-stmt-cache", model.getHasStmtCacheCount()));
-		sb.append(String.format("%-30s %8d\n", "model-has-stmt-find", model.getHasStmtFindCount()));
-		sb.append(String.format("%-30s %8d\n", "model-has-stmt-hit", model.getHasStmtHitCount()));
+
+		for (String key : model.getModelCountKeyList()) {
+			sb.append(String.format("%-30s %8d\n", key, model.getModelCountMap(key)));
+		}
+
 		sb.append(String.format("%-30s %8d\n", "graph-gc-count", graph.getGcCount()));
 		sb.append(String.format("%-30s %8d\n", "graph-gc-node-remove", graph.getGcRemoveNodeCount()));
 		sb.append(String.format("%-30s %8d\n", "graph-gc-node-clean", graph.getGcCleanNodeCount()));
