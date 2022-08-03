@@ -98,8 +98,8 @@ public class RNodeFactory {
 	}
 
 	public static AbsReteNode createBeta0Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
-			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
+			IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry, InheritIndex[] inheritIndexs,
+			List<JoinIndex> joinIndexList) throws RException {
 
 		XRNodeBeta0 node = new XRNodeBeta0(ReteUtil.getNodeName(RReteType.BETA0, nodeId));
 
@@ -119,7 +119,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry table
-		node.setEntryTable(entryTable);
+		node.setEntryTable(model.getEntryTable());
 
 		// Entry queue
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
@@ -571,6 +571,46 @@ public class RNodeFactory {
 		node.setVarEntry(varEntry);
 
 		return node;
+	}
+
+	public static AbsReteNode createInheritNode(IRModel model, int nodeId, String uniqName, int entryLength,
+			IRReteNode parentNode, IRObject[] varEntry, int[] inheritIndexs) throws RException {
+
+		XRNodeInherit node = new XRNodeInherit(ReteUtil.getNodeName(RReteType.INHER, nodeId));
+
+		// Model
+		node.setModel(model);
+
+		// Node id
+		node.setNodeId(nodeId);
+
+		// Node type
+		node.setReteType(RReteType.INHER);
+
+		// Uniq name
+		node.setUniqName(uniqName);
+
+		// Entry length
+		node.setEntryLength(entryLength);
+
+		// Entry table
+		node.setEntryTable(model.getEntryTable());
+
+		// Inherit index list
+		node.setInheritIndexs(inheritIndexs);
+
+		// Entry queue
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.UNIQ, node));
+
+		// Parent node
+		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
+		parentNode.addChildNode(node);
+
+		// var entry
+		node.setVarEntry(varEntry);
+
+		return node;
+
 	}
 
 	public static XRNodeNamed createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)

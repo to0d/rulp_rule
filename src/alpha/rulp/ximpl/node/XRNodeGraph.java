@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.node;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
+import static alpha.rulp.rule.Constant.A_Inherit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_RETE_TYPE;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -814,7 +815,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		return RNodeFactory.createBeta0Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-				entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
+				leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
 
 	}
 
@@ -1825,6 +1826,56 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder("rule"));
 
+		/******************************************************/
+		// Create inherit node if possible
+		/******************************************************/
+//		{
+//
+//			IRObject[] varEntry = parentNode.getVarEntry();
+//			int entryLen = varEntry.length;
+//			int matchVarCount = 0;
+//			for (int i = 0; i < entryLen; ++i) {
+//				if (varEntry[i] != null) {
+//					matchVarCount++;
+//				}
+//			}
+//
+//			ArrayList<Integer> foundIndexList = new ArrayList<>();
+//
+//			for (IRObject actionVar : new HashSet<>(ReteUtil.buildVarList(actionStmtList))) {
+//
+//				int foundIndex = -1;
+//				for (int i = 0; i < entryLen; ++i) {
+//					IRObject matchVar = varEntry[i];
+//					if (matchVar != null) {
+//						if (RulpUtil.equal(matchVar, actionVar)) {
+//							foundIndex = i;
+//							break;
+//						}
+//					}
+//				}
+//
+//				if (foundIndex != -1) {
+//					foundIndexList.add(foundIndex);
+//				}
+//			}
+//
+//			/******************************************************/
+//			// '(?a ?b ?c) (inherit 0 1) ==> '(?a ?b)
+//			/******************************************************/
+//			if (foundIndexList.size() < matchVarCount) {
+//
+//				int[] inheritIndexs = new int[foundIndexList.size()];
+//				int i = 0;
+//				for (int index : foundIndexList) {
+//					inheritIndexs[i++] = index;
+//				}
+//
+//				parentNode = buildInherit(parentNode, inheritIndexs);
+//			}
+//
+//		}
+
 		XRNodeRule0 ruleNode = RNodeFactory.createRuleNode(model, _getNextNodeId(), ruleName,
 				parentNode.getEntryLength(), parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree)),
 				actionStmtList);
@@ -1949,6 +2000,62 @@ public class XRNodeGraph implements IRNodeGraph {
 		_addNode(indexNode);
 
 		return indexNode;
+	}
+
+	@Override
+	public IRReteNode buildInherit(IRReteNode node, int[] indexs) throws RException {
+
+		if (indexs == null || indexs.length == 0) {
+			throw new RException("null inherit indexs");
+		}
+
+		List<Integer> indexsArray = RulpUtil.toArray2(indexs);
+		Collections.sort(indexsArray);
+
+		int[] inheritIndexs = new int[indexs.length];
+		IRObject[] inheritVarEntry = new IRObject[indexs.length];
+
+		String uniqName = node.getUniqName() + " (" + A_Inherit;
+		int lastIndex = -1;
+		int i = 0;
+
+		for (int index : indexsArray) {
+
+			if (index < 0 || index >= node.getEntryLength()) {
+				throw new RException(String.format("invalid index : %d", index));
+			}
+
+			if (index == lastIndex) {
+				throw new RException(String.format("duplicated index : %d", index));
+			}
+
+			IRObject var = node.getVarEntry()[index];
+
+			if (node.getVarEntry()[index] == null) {
+				throw new RException(String.format("not var found at index : %d", index));
+			}
+
+			uniqName += " " + index;
+			inheritIndexs[i] = index;
+			inheritVarEntry[i] = var;
+			lastIndex = index;
+			++i;
+		}
+
+		uniqName += ")";
+
+		for (IRReteNode childNode : node.getChildNodes()) {
+			if (childNode.getReteType() == RReteType.INHER && childNode.getUniqName().equals(uniqName)) {
+				return childNode;
+			}
+		}
+
+		AbsReteNode inheritNode = RNodeFactory.createInheritNode(model, _getNextNodeId(), uniqName, indexs.length, node,
+				inheritVarEntry, inheritIndexs);
+
+		_addNode(inheritNode);
+
+		return inheritNode;
 	}
 
 	@Override

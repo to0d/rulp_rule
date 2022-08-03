@@ -3,7 +3,6 @@ package alpha.rulp.ximpl.node;
 import java.util.ArrayList;
 import java.util.List;
 
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
@@ -32,12 +31,12 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 		/*******************************************************/
 		IRReteEntry newEntry = _getNewEntry(leftEntry, rightEntry);
 
-		if (addReteEntry(newEntry)) {
-			entryTable.addReference(newEntry, this, leftEntry, rightEntry);
-			return true;
+		if (!addReteEntry(newEntry)) {
+			return false;
 		}
 
-		return false;
+		entryTable.addReference(newEntry, this, leftEntry, rightEntry);
+		return true;
 	}
 
 	protected IRReteEntry _getNewEntry(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {

@@ -63,6 +63,8 @@ public interface Constant {
 
 	String A_Partial = "partial";
 
+	String A_Inherit = "inherit";
+
 	String A_Priority = "priority";
 
 	String A_Reasoned = "reasoned";

@@ -39,6 +39,8 @@ public interface IRNodeGraph {
 
 	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException;
 
+	public IRReteNode buildInherit(IRReteNode node, int[] inheritIndexs) throws RException;
+
 	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException;
 
 	public IRNodeSubGraph buildSourceSubGraph(IRReteNode queryNode) throws RException;
