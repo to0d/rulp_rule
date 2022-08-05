@@ -64,7 +64,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 
 		_setup();
 		_run_script();
-
+		_statsInfo("m");
 	}
 
 	@Test

@@ -610,6 +610,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected RUpdateResult _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
 
 		if (!ReteUtil.isReteStmtNoVar(stmt)) {
+			ReteUtil.isReteStmtNoVar(stmt);
 			throw new RException("not support stmt: " + stmt);
 		}
 

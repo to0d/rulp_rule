@@ -576,7 +576,7 @@ public class RNodeFactory {
 	public static AbsReteNode createInheritNode(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry, int[] inheritIndexs) throws RException {
 
-		XRNodeInherit node = new XRNodeInherit(ReteUtil.getNodeName(RReteType.INHER, nodeId));
+		XRNodeInher node = new XRNodeInher(ReteUtil.getNodeName(RReteType.INHER, nodeId));
 
 		// Model
 		node.setModel(model);

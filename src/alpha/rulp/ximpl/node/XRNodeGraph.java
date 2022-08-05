@@ -1843,29 +1843,31 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			ArrayList<Integer> foundIndexList = new ArrayList<>();
+			HashSet<IRObject> actionVars = new HashSet<>(ReteUtil.buildVarList(actionStmtList));
 
-			for (IRObject actionVar : new HashSet<>(ReteUtil.buildVarList(actionStmtList))) {
+			for (int i = 0; i < entryLen; ++i) {
+				IRObject matchVar = ruleVarEntry[i];
+				if (matchVar == null) {
+					continue;
+				}
 
-				int foundIndex = -1;
-				for (int i = 0; i < entryLen; ++i) {
-					IRObject matchVar = ruleVarEntry[i];
-					if (matchVar != null) {
-						if (RulpUtil.equal(matchVar, actionVar)) {
-							foundIndex = i;
-							break;
-						}
+				boolean found = false;
+				for (IRObject actionVar : actionVars) {
+					if (RulpUtil.equal(actionVar, matchVar)) {
+						found = true;
+						break;
 					}
 				}
 
-				if (foundIndex != -1) {
-					foundIndexList.add(foundIndex);
+				if (found) {
+					foundIndexList.add(i);
 				}
 			}
 
 			/******************************************************/
 			// '(?a ?b ?c) (inherit 0 1) ==> '(?a ?b)
 			/******************************************************/
-			if (foundIndexList.size() < matchVarCount) {
+			if (!foundIndexList.isEmpty() && foundIndexList.size() < matchVarCount) {
 
 				int[] inheritIndexs = new int[foundIndexList.size()];
 				IRObject[] newRuleVarEntry = new IRObject[foundIndexList.size()];
@@ -2037,9 +2039,10 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			IRObject var = node.getVarEntry()[index];
-
-			if (!RReteType.isRootType(node.getReteType()) && node.getVarEntry()[index] == null) {
-				throw new RException(String.format("not var found at index : %d", index));
+			if (var == null) {
+				if (!RReteType.isRootType(node.getReteType()) && node.getReteType() != RReteType.EXPR1) {
+					throw new RException(String.format("not var found at index : %d", index));
+				}
 			}
 
 			uniqName += " " + index;

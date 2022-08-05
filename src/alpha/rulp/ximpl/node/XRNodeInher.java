@@ -5,7 +5,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRNodeInherit extends XRNodeRete1 {
+public class XRNodeInher extends XRNodeRete1 {
 
 	protected int[] inheritIndexs;
 
@@ -15,7 +15,7 @@ public class XRNodeInherit extends XRNodeRete1 {
 		this.entryTable = entryTable;
 	}
 
-	public XRNodeInherit(String instanceName) {
+	public XRNodeInher(String instanceName) {
 		super(instanceName);
 	}
 
