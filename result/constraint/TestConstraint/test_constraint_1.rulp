@@ -1,17 +1,17 @@
 (new model m)
-;;;
+;=>
 
 (add-constraint m n1:'(?n) (type int on ?n))
-;;;
+;=>
 
 (add-constraint m n1:'(?n) (max 10 on ?n))
-;;;
+;=>
 
 (add-rule m if n1:'(?n) do (-> n1:'((+ ?n 1))))
-;;;
+;=>
 
 (add-stmt m n1:'(1))
-;;;
+;=>
 
 (query-stmt m ?x from n1:'(?x))
-;;;
+;=>

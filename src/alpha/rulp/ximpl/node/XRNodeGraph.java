@@ -1827,17 +1827,17 @@ public class XRNodeGraph implements IRNodeGraph {
 		IRList matchTree = MatchTree.build(actualMatchStmtList, this.model.getInterpreter(), this.model.getFrame());
 
 		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder("rule"));
+		IRObject[] ruleVarEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree));
 
 		/******************************************************/
 		// Create inherit node if possible
 		/******************************************************/
 		if (USE_INHERIT) {
 
-			IRObject[] varEntry = parentNode.getVarEntry();
-			int entryLen = varEntry.length;
+			int entryLen = ruleVarEntry.length;
 			int matchVarCount = 0;
 			for (int i = 0; i < entryLen; ++i) {
-				if (varEntry[i] != null) {
+				if (ruleVarEntry[i] != null) {
 					matchVarCount++;
 				}
 			}
@@ -1848,7 +1848,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				int foundIndex = -1;
 				for (int i = 0; i < entryLen; ++i) {
-					IRObject matchVar = varEntry[i];
+					IRObject matchVar = ruleVarEntry[i];
 					if (matchVar != null) {
 						if (RulpUtil.equal(matchVar, actionVar)) {
 							foundIndex = i;
@@ -1868,19 +1868,24 @@ public class XRNodeGraph implements IRNodeGraph {
 			if (foundIndexList.size() < matchVarCount) {
 
 				int[] inheritIndexs = new int[foundIndexList.size()];
+				IRObject[] newRuleVarEntry = new IRObject[foundIndexList.size()];
+
 				int i = 0;
 				for (int index : foundIndexList) {
-					inheritIndexs[i++] = index;
+					inheritIndexs[i] = index;
+					newRuleVarEntry[i] = ruleVarEntry[index];
+					i++;
 				}
 
 				parentNode = buildInherit(parentNode, inheritIndexs);
+
+				ruleVarEntry = newRuleVarEntry;
 			}
 
 		}
 
 		XRNodeRule0 ruleNode = RNodeFactory.createRuleNode(model, _getNextNodeId(), ruleName,
-				parentNode.getEntryLength(), parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree)),
-				actionStmtList);
+				parentNode.getEntryLength(), parentNode, ruleVarEntry, actionStmtList);
 
 		ruleNode.setMatchStmtList(actualMatchStmtList);
 		setNodePriority(ruleNode, priority);
@@ -2033,7 +2038,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			IRObject var = node.getVarEntry()[index];
 
-			if (node.getVarEntry()[index] == null) {
+			if (!RReteType.isRootType(node.getReteType()) && node.getVarEntry()[index] == null) {
 				throw new RException(String.format("not var found at index : %d", index));
 			}
 
