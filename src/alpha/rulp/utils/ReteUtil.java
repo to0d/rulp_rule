@@ -172,12 +172,17 @@ public class ReteUtil {
 
 	static int _getVarUniqIndex(int stmtLen, IRObject var) throws RException {
 
-		String varName = var.asString().substring(1);
-		if (!StringUtil.isNumber(varName)) {
+		String varName = var.asString();
+		if (!varName.startsWith(INDEX_VAR_PRE)) {
 			return -1;
 		}
 
-		int varIndex = Integer.valueOf(varName);
+		String varNum = varName.substring(INDEX_VAR_PRE.length());
+		if (!StringUtil.isNumber(varNum)) {
+			return -1;
+		}
+
+		int varIndex = Integer.valueOf(varNum);
 		if (varIndex < 0 || varIndex >= stmtLen) {
 			return -1;
 		}
@@ -316,6 +321,10 @@ public class ReteUtil {
 		return;
 	}
 
+//	static final String INDEX_VAR_PRE = A_QUESTION + "_";
+	
+	static final String INDEX_VAR_PRE = A_QUESTION;
+
 	private static String _toUniq(IRObject obj, Map<String, String> varMap, boolean create) throws RException {
 
 		if (obj == null) {
@@ -333,7 +342,7 @@ public class ReteUtil {
 				String newName = varMap.get(atomName);
 				if (newName == null) {
 					if (create) {
-						newName = A_QUESTION + varMap.size();
+						newName = INDEX_VAR_PRE + varMap.size();
 						varMap.put(atomName, newName);
 					} else {
 						newName = atomName;
@@ -1138,7 +1147,7 @@ public class ReteUtil {
 			if (i != 0) {
 				uniqName += " ";
 			}
-			uniqName += A_QUESTION + i;
+			uniqName += INDEX_VAR_PRE + i;
 		}
 		uniqName += ")";
 

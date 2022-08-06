@@ -34,6 +34,14 @@ class ActionUtilTest extends RuleTestBase {
 		_test_buildRelatedStmtUniqNames("(add-stmt '(?a ?a ?a))", "['(?0 ?0 ?0)]");
 	}
 
+	static interface ITestAction2 {
+		public String test(String input);
+	}
+
+	static void _test_buildRelatedStmtUniqNames(String path) {
+
+	}
+
 	@Test
 	void test_buildRelatedStmtUniqNames_2() {
 		_setup();
