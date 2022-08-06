@@ -9,7 +9,7 @@
 ;=>RU000 RU001 true true true
 
 (start m)
-;=>7
+;=>8
 
 (list-stmt m)
 ;=>'('(a p b1) '(a p b2) '(a p b3) '(a typeof x) '(a typeof x2))

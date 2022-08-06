@@ -20,7 +20,7 @@
 ;=>&?x
 
 (start m)
-;=>6
+;=>7
 
 (list-stmt m)
 ;=>'('(a b) '(b a))
@@ -41,7 +41,7 @@
 ;=>&?x
 
 (start m)
-;=>6
+;=>7
 
 (list-stmt m)
 ;=>'('(a b) '(b a) '(x y) '(y x))

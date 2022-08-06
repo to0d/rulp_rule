@@ -661,7 +661,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// - Entry not exist
 		// - or marked as "drop" (removed by entry table automatically)
 		/*******************************************************/
-		if (oldEntry == null || oldEntry.getStatus() == null || oldEntry.getStatus() == CLEAN) {
+		if (ReteUtil.isRemovedEntry(oldEntry)) {
 
 			int stmtLen = stmt.size();
 

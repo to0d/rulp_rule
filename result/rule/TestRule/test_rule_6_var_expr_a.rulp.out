@@ -17,7 +17,7 @@
 ;=>true
 
 (start m)
-;=>5
+;=>6
 
 (list-stmt m)
 ;=>'('(a p 2) n1:'(2))

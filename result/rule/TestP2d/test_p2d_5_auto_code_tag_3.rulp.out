@@ -12,7 +12,7 @@
 ;=>true true true true true true true true
 
 (start p2d)
-;=>714
+;=>830
 
 (state-of p2d)
 ;=>completed

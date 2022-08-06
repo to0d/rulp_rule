@@ -11,7 +11,7 @@
 ;=>true
 
 (start m)
-;=>13
+;=>15
 
 (list-stmt m)
 ;=>'('(x p 2) '(x p 12) '(x p 22))

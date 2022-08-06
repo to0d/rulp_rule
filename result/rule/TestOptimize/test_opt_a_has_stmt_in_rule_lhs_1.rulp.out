@@ -9,7 +9,7 @@
 ;=>true true RU000
 
 (start m)
-;=>6
+;=>7
 
 (list-stmt m)
 ;=>'('(b p1 a) '(a p1 c) '(b p2 b))

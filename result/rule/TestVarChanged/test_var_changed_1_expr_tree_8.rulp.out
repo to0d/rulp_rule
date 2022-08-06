@@ -14,7 +14,7 @@
 ;=>&?x
 
 (start m)
-;=>4
+;=>5
 
 (list-stmt m)
 ;=>'('(a b "abcd"))

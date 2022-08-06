@@ -23,7 +23,7 @@
 ;=>'('(a p b) '(b p c) '(a p2 b) '(b p2 c))
 
 (start m)
-;=>4
+;=>5
 
 (list-stmt m)
 ;=>'('(a p b) '(b p c) '(a p2 b) '(b p2 c) '(a p2 c))

@@ -452,7 +452,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected final Map<String, IRReteNode> varNodeMap = new HashMap<>();
 
-	static boolean USE_INHERIT = false;
+	static boolean USE_INHERIT = true;
 
 	public XRNodeGraph(IRModel model, IREntryTable entryTable) {
 
@@ -1832,7 +1832,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Create inherit node if possible
 		/******************************************************/
-		if (USE_INHERIT) {
+		if (USE_INHERIT && indexExprList.isEmpty()) {
 
 			int entryLen = ruleVarEntry.length;
 			int matchVarCount = 0;

@@ -11,7 +11,7 @@
 ;=>true
 
 (start m)
-;=>4
+;=>5
 
 (list-stmt m)
 ;=>'('(b p c))

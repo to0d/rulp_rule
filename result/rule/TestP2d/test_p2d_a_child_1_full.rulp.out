@@ -5,7 +5,7 @@
 ;=>true
 
 (start p2d)
-;=>353
+;=>481
 
 (state-of p2d)
 ;=>completed
@@ -20,5 +20,5 @@
 ;=>'('(tb nm:beChildTagOf ta))
 
 (list-stmt p2d from '(?x nm:typeOf nm:tag))
-;=>'('(tb nm:typeOf nm:tag) '(ta nm:typeOf nm:tag) '(nt:$TGROUP nm:typeOf nm:tag))
+;=>'('(ta nm:typeOf nm:tag) '(tb nm:typeOf nm:tag) '(nt:$TGROUP nm:typeOf nm:tag))
 

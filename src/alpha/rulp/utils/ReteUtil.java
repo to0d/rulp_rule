@@ -1332,6 +1332,10 @@ public class ReteUtil {
 		return StringUtil.isNumber(var.substring(1));
 	}
 
+	public static boolean isRemovedEntry(IRReteEntry entry) throws RException {
+		return entry == null || entry.getStatus() == null || entry.getStatus() == CLEAN;
+	}
+
 	public static boolean isIndexVarStmt(IRList stmt) throws RException {
 
 		if (stmt.getType() == RType.EXPR || isReteStmt(stmt)) {
