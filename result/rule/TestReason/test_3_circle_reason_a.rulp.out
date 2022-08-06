@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x p ?y) '(p p2 p3) do (-> m '(?y p ?x)))
+;=>RU000
+
+(add-stmt m '(a p c))
+;=>true
+
+(add-stmt m '(p p2 p3))
+;=>true
+
+(start m)
+;=>9
+
+(list-stmt m)
+;=>'('(a p c) '(p p2 p3) '(c p a))
+
+(dump-entry-info m (+ ?script-path ".dump.1.txt"))
+;=>nil
+
+(remove-stmt m '(p p2 p3))
+;=>true
+
+(list-stmt m)
+;=>'('(a p c))
+
+(dump-entry-info m (+ ?script-path ".dump.2.txt"))
+;=>nil
+

@@ -1,0 +1,29 @@
+(new model m)
+;=>
+
+(add-rule m if '(?x p ?y) '(p p2 p3) do (-> m '(?y p ?x)))
+;=>
+
+(add-stmt m '(a p c))
+;=>
+
+(add-stmt m '(p p2 p3))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>
+
+(dump-entry-info m (+ ?script-path ".dump.1.txt"))
+;=>
+
+(remove-stmt m '(p p2 p3))
+;=>
+
+(list-stmt m)
+;=>
+
+(dump-entry-info m (+ ?script-path ".dump.2.txt"))
+;=>
