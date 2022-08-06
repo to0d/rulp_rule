@@ -1,0 +1,17 @@
+(new model m)
+;=>m
+
+(add-stmt m '(x y z))
+(add-stmt m name1:'(a b c))
+(add-stmt m name2:'(x y z))
+;=>true true true
+
+(set-node-cache-path m name1:'(?...) "result/rule/TestCache/test_cache_node_2a")
+;=>nan
+
+(set-node-cache-path m name2:'(?...) "result/rule/TestCache/test_cache_node_2b")
+;=>nan
+
+(save-model m)
+;=>2
+

@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_has_stmt_1")
+;=>nan
+
+(has-stmt m n2:'(x y ?z))
+;=>true
+

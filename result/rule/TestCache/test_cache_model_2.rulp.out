@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_model_2")
+;=>nan
+
+(save-model m)
+;=>0
+
+(list-stmt m)
+;=>'('(a b c) name2:'(x y z))
+

@@ -1,0 +1,14 @@
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_7")
+;=>
+
+(list-stmt m from n1:'(?x ?y ?z))
+;=>
+
+(save-model m)
+;=>
+
+(open-txt-file "result/rule/TestCache/test_7/n1.3.mc")
+;=>

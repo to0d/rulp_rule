@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_model_1b")
+;=>nan
+
+(add-stmt m '(x y z))
+;=>true
+
+(add-stmt m name1:'(a b c))
+;=>true
+
+(save-model m)
+;=>2
+

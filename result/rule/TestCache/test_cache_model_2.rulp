@@ -1,0 +1,11 @@
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_model_2")
+;=>
+
+(save-model m)
+;=>
+
+(list-stmt m)
+;=>

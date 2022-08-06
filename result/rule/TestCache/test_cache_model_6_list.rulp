@@ -1,0 +1,5 @@
+(new model m)
+;=>
+
+(add-stmt m n1:'(a '(b c)))
+;=>

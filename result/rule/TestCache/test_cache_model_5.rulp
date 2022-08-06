@@ -1,0 +1,26 @@
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_model_5")
+;=>
+
+(add-stmt m '(x y z))
+;=>
+
+(save-model m)
+;=>
+
+(delete m)
+;=>
+
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_model_5")
+;=>
+
+(remove-stmt m '(x y z))
+;=>
+
+(save-model m)
+;=>

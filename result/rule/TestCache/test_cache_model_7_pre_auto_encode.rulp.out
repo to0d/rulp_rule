@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(set-model-cache-path m "result/rule/TestCache/test_7")
+;=>nan
+
+(list-stmt m from n1:'(?x ?y ?z))
+;=>'(n1:'("2022-02-06" "KKK" https://bj.ke.com/ershoufang/101113237601.html))
+
+(save-model m)
+;=>2
+
+(open-txt-file "result/rule/TestCache/test_7/n1.3.mc")
+;=>'(";@: '(pre \"BK2##\" \"https://bj.ke.com/ershoufang/\")" "\"2022-02-06\" \"KKK\" BK2##101113237601.html")
+

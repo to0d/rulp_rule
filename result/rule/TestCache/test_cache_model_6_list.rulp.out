@@ -1,0 +1,6 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(a '(b c)))
+;=>true
+

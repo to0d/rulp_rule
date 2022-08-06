@@ -1,0 +1,8 @@
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_model_8_pre")
+;=>
+
+(list-stmt m from n1:'(?x ?y ?z))
+;=>

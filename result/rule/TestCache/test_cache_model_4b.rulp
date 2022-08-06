@@ -1,0 +1,14 @@
+(new model m)
+;=>
+
+(set-model-cache-path m "result/rule/TestCache/test_cache_model_4")
+;=>
+
+(add-rule m if name1:'(?x ?y ?z) do (-> name3:'(?x ?y ?z)) )
+;=>
+
+(query-stmt m '(?x ?y ?z) from name3:'(?x ?y ?z))
+;=>
+
+(save-model m)
+;=>
