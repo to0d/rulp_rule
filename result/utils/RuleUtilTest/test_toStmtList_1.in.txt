@@ -1,0 +1,3 @@
+INP: '(a b c)
+INP: '('(a b c) '(x y z))
+INP: '('(a b c) '('(x y z) '(m n t)))

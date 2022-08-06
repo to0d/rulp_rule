@@ -1,0 +1,3 @@
+INP: (-> '(a b c))
+INP: (-> m2 '(a b c))
+INP: (do (-> '(a b c)) (-> '(x y z)))

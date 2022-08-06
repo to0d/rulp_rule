@@ -11,7 +11,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,52 +26,38 @@ import alpha.rulp.utils.RulpUtil;
 
 class ReteUtilTest extends RuleTestBase {
 
-	protected void _test_buildVarList(String inputTree, String expectVarList) {
-		try {
+	protected String _test_buildVarList(String inputTree) throws RException {
 
-			LinkedList<IRList> treeList = new LinkedList<>();
-			for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
-				treeList.add(RulpUtil.asList(obj));
-			}
-
-			assertEquals(inputTree, 1, treeList.size());
-
-			IRList tree = treeList.get(0);
-			ArrayList<IRObject> vars = ReteUtil.buildVarList(tree);
-			assertEquals(inputTree, expectVarList, vars.toString());
-
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
+		LinkedList<IRList> treeList = new LinkedList<>();
+		for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
+			treeList.add(RulpUtil.asList(obj));
 		}
+
+		assertEquals(inputTree, 1, treeList.size());
+
+		return ReteUtil.buildVarList(treeList.get(0)).toString();
+
 	}
 
-	protected void _test_entry_uniqname(String inputTree, String expectName) {
+	protected String _test_entry_uniqname(String inputTree) throws RException {
 
-		try {
-
-			LinkedList<IRList> stmtList = new LinkedList<>();
-			for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
-				stmtList.add(RulpUtil.asList(obj));
-			}
-
-			assertEquals(1, stmtList.size());
-			IRList tree = stmtList.get(0);
-
-			IRObject entry[] = new IRObject[tree.size()];
-			for (int i = 0; i < entry.length; ++i) {
-				entry[i] = tree.get(i);
-			}
-
-			assertTrue(inputTree, ReteUtil.isReteTree(tree));
-
-			String entryName = ReteUtil.uniqName(entry);
-			assertEquals(inputTree, expectName, entryName);
-
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
+		LinkedList<IRList> stmtList = new LinkedList<>();
+		for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
+			stmtList.add(RulpUtil.asList(obj));
 		}
+
+		assertEquals(1, stmtList.size());
+		IRList tree = stmtList.get(0);
+
+		IRObject entry[] = new IRObject[tree.size()];
+		for (int i = 0; i < entry.length; ++i) {
+			entry[i] = tree.get(i);
+		}
+
+		assertTrue(inputTree, ReteUtil.isReteTree(tree));
+
+		return ReteUtil.uniqName(entry);
+
 	}
 
 	protected void _test_isReteStmt(String input, boolean expect) {
@@ -144,71 +129,39 @@ class ReteUtilTest extends RuleTestBase {
 		}
 	}
 
-//	protected void _test_tree_uniqname_stmt(String inputTree,  String expectName) {
-//
-//		try {
-//
-//			LinkedList<IRList> stmtList = new LinkedList<>();
-//			for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
-//				stmtList.add(RulpUtil.asList(obj));
-//			}
-//
-//			assertEquals(1, stmtList.size());
-//			IRList stmt = stmtList.get(0);
-//
-//			assertTrue(inputTree, ReteUtility.isReteStmtNoVar(stmt));
-//
-//			String treeName = ReteUtility.uniqName(stmt);
-//			assertEquals(inputTree, expectName, treeName);
-//
-//		} catch (RException e) {
-//			e.printStackTrace();
-//			fail(e.toString());
-//		}
-//	}
+	String _test_tree_uniqname(String inputTree) throws RException {
 
-	protected void _test_tree_uniqname(String inputTree, String expectName) {
-
-		try {
-
-			LinkedList<IRList> stmtList = new LinkedList<>();
-			for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
-				stmtList.add(RulpUtil.asList(obj));
-			}
-
-			assertEquals(1, stmtList.size());
-			IRList tree = stmtList.get(0);
-
-//			assertTrue(inputTree, ReteUtil.isReteTree(tree));
-
-			String treeName = ReteUtil.uniqName(tree);
-			assertEquals(inputTree, expectName, treeName);
-
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
+		LinkedList<IRList> stmtList = new LinkedList<>();
+		for (IRObject obj : RulpFactory.createParser().parse(inputTree)) {
+			stmtList.add(RulpUtil.asList(obj));
 		}
+
+		assertEquals(1, stmtList.size());
+		IRList tree = stmtList.get(0);
+
+		return ReteUtil.uniqName(tree);
 	}
 
 	@Test
 	void test_buildVarList() {
+
 		_setup();
-		_test_buildVarList("'(a ?x b)", "[?x]");
-		_test_buildVarList("'(a ?x ?y)", "[?x, ?y]");
-		_test_buildVarList("'(?y ?x ?y)", "[?y, ?x]");
-		_test_buildVarList("'(? ?y ?)", "[?y]");
-		_test_buildVarList("'('(?p1 p2 c) '(?x1 ?p1 ?x2))", "[?p1, ?x1, ?x2]");
-		_test_buildVarList("'('('(?y ?p2 ?z) '('(a ?p1 b) '('(?x ?p1 b) '(?x ?p2 b)))))", "[?y, ?p2, ?z, ?p1, ?x]");
-		_test_buildVarList("'('(?p1 ?p2 ?p3))", "[?p1, ?p2, ?p3]");
-		_test_buildVarList("'('(?x ?p2 ?x))", "[?x, ?p2]");
+
+		_test((input) -> {
+			return _test_buildVarList(input);
+		});
+
 	}
 
 	@Test
 	void test_entry_uniqname() {
+
 		_setup();
-		_test_entry_uniqname("'(?p1 p2 c)", "?0 p2 c");
-		_test_entry_uniqname("'(?x ?x z)", "?0 ?0 z");
-		_test_entry_uniqname("'(?x ?y z)", "?0 ?1 z");
+
+		_test((input) -> {
+			return _test_entry_uniqname(input);
+		});
+
 	}
 
 	@Test
@@ -357,56 +310,47 @@ class ReteUtilTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_tree_uniqname() {
-		_setup();
-		_test_tree_uniqname("'('(?p1 p2 c) '(?x1 ?p1 ?x2))", "'('(?0 p2 c) '(?1 ?0 ?2))");
-
-		_test_tree_uniqname("'('('(?y ?p2 ?z) '('(a ?p1 b) '('(?x ?p1 b) '(?x ?p2 b)))))",
-				"'('('(?0 ?1 ?2) '('(a ?3 b) '('(?4 ?3 b) '(?4 ?1 b)))))");
-
-		_test_tree_uniqname("'('(?p1 ?p2 ?p3))", "'('(?0 ?1 ?2))");
-
-		_test_tree_uniqname("'('(?x ?p2 ?x))", "'('(?0 ?1 ?0))");
-
-		_test_tree_uniqname("'('(?x ?x ?x))", "'('(?0 ?0 ?0))");
-
-		_test_tree_uniqname("'('(?x ?x ?x ?x))", "'('(?0 ?0 ?0 ?0))");
-	}
-
-//	@Test
-//	void test_tree_uniqName_stmt() {
-//
-//		_test_tree_uniqname_stmt("'(a b c)", 0, "a b c");
-//		_test_tree_uniqname_stmt("'(a b c)", 1, "b a c");
-//		_test_tree_uniqname_stmt("'(a b c)", 2, "c a b");
-//	}
-
-	@Test
-	void test_tree_uniqname_with_expr() {
+	void test_tree_uniqname_1() {
 
 		_setup();
 
-		_test_tree_uniqname("'('(?p1 p2 c) (not-equal ?p1 a))", "'('(?0 p2 c) (not-equal ?0 a))");
-	}
-
-	@Test
-	void test_tree_uniqname_with_external_var() {
-
-		_setup();
-
-		_test_tree_uniqname("'('(?a ?b ?c) (> ?c ?x))", "'('(?0 ?1 ?2) (> ?2 ?x))");
-		_test_tree_uniqname("'('('(?a1 p1 ?b1) (!= ?a1 ?x2)) (!= ?a1 ?x1))",
-				"'('('(?0 p1 ?1) (!= ?0 ?x2)) (!= ?0 ?x1))");
+		_test((input) -> {
+			return _test_tree_uniqname(input);
+		});
 
 	}
 
 	@Test
-	void test_tree_uniqname_with_var_expression() {
+	void test_tree_uniqname_2_expr() {
+
 		_setup();
-		_test_tree_uniqname("'('(?p1 p2 ?v) (var-changed ?s1 v1 ?v))", "'('(?0 p2 ?1) (var-changed ?s1 v1 ?s1.new))");
-		_test_tree_uniqname("'((var-changed ?x ?v1 ?v2) (f ?v1))", "'((var-changed ?x ?x.old ?x.new) (f ?x.old))");
-		_test_tree_uniqname("'((var-changed ?x ?v1 ?v2) (f ?v2))", "'((var-changed ?x ?x.old ?x.new) (f ?x.new))");
-		_test_tree_uniqname("'((var-changed ?x ?v) (f ?v ?e))", "'((var-changed ?x ?x.new) (f ?x.new ?e))");
+
+		_test((input) -> {
+			return _test_tree_uniqname(input);
+		});
+
+	}
+
+	@Test
+	void test_tree_uniqname_3_external_var() {
+
+		_setup();
+
+		_test((input) -> {
+			return _test_tree_uniqname(input);
+		});
+
+	}
+
+	@Test
+	void test_tree_uniqname_4_var_expression() {
+
+		_setup();
+
+		_test((input) -> {
+			return _test_tree_uniqname(input);
+		});
+
 	}
 
 	@Test

@@ -1,0 +1,4 @@
+INP: '('(?p1 p2 ?v) (var-changed ?s1 v1 ?v))
+INP: '((var-changed ?x ?v1 ?v2) (f ?v1))
+INP: '((var-changed ?x ?v1 ?v2) (f ?v2))
+INP: '((var-changed ?x ?v) (f ?v ?e))

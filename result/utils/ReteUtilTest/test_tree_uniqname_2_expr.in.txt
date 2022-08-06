@@ -1,0 +1,1 @@
+INP: '('(?p1 p2 c) (not-equal ?p1 a))

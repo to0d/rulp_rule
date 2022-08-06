@@ -1,0 +1,3 @@
+INP: '(?p1 p2 c)
+INP: '(?x ?x z)
+INP: '(?x ?y z)

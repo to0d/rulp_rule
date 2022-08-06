@@ -15,6 +15,16 @@ import alpha.rulp.ximpl.entry.XREntryTable;
 
 public class RuleTestBase extends RulpTestBase {
 
+	public static interface ITActionInStrOutStr {
+		public String test(String input) throws RException;
+	}
+
+	static final String IT_PRE_ERR = "ERR: ";
+
+	static final String IT_PRE_INP = "INP: ";
+
+	static final String IT_PRE_OUT = "OUT: ";
+
 	static boolean PRIME_MODE = true;
 
 	static {
@@ -33,19 +43,6 @@ public class RuleTestBase extends RulpTestBase {
 
 	protected Boolean traceModel = null;
 
-//	protected void _test(String input) {
-//		System.out.println(input);
-//		System.out.println(";;;");
-//		System.out.println();
-//	}
-//
-//	protected void _test(String input, String out) {
-//
-//		System.out.println(input);
-//		System.out.println(";=>");
-//		System.out.println();
-//	}
-
 	protected void _clean_model_cache() {
 
 		String cachePath = getCachePath();
@@ -58,6 +55,19 @@ public class RuleTestBase extends RulpTestBase {
 			}
 		}
 	}
+
+//	protected void _test(String input) {
+//		System.out.println(input);
+//		System.out.println(";;;");
+//		System.out.println();
+//	}
+//
+//	protected void _test(String input, String out) {
+//
+//		System.out.println(input);
+//		System.out.println(";=>");
+//		System.out.println();
+//	}
 
 	protected void _dumpEntryTable(String modelName) {
 		_dumpEntryTable(modelName, getCachePath() + ".dump_entry.txt");
@@ -210,6 +220,45 @@ public class RuleTestBase extends RulpTestBase {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+
+	protected void _test(ITActionInStrOutStr action) {
+
+		String inputPath = getCachePath() + ".in.txt";
+		String outputPath = getCachePath() + ".out.txt";
+
+		ArrayList<String> outLines = new ArrayList<>();
+
+		try {
+
+			for (String line : FileUtil.openTxtFile(inputPath)) {
+
+				if (line.trim().isEmpty() || line.startsWith(";")) {
+					continue;
+				}
+
+				if (!line.startsWith(IT_PRE_INP)) {
+					throw new IOException("Invalid input line: " + line);
+				}
+
+				String input = line.substring(IT_PRE_INP.length());
+				String output = "";
+
+				try {
+					output = IT_PRE_OUT + action.test(input);
+				} catch (RException e) {
+					output = IT_PRE_ERR + e.toString();
+				}
+
+				outLines.add(output);
+			}
+
+			FileUtil.saveTxtFile(outputPath, outLines);
+
+		} catch (IOException e) {
 			e.printStackTrace();
 			fail(e.toString());
 		}

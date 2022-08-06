@@ -1,0 +1,1 @@
+OUT: '('(?0 p2 c) (not-equal ?0 a))
