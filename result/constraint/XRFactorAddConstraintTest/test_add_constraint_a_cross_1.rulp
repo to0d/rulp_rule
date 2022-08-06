@@ -1,0 +1,5 @@
+(new model m)
+;=>
+
+(add-constraint m n1:'(?x ?y) n2:'() (!= ?x nil))
+;=>

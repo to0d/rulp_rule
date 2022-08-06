@@ -245,6 +245,8 @@ mbr=assumed, mbr-property='(public), mbr-attribute='(), obj=assumed, obj-type=at
 mbr=cmp, mbr-property='(public), mbr-attribute='(), obj=(cmp nil nil), obj-type=func, obj-attribute='()
 mbr=completed, mbr-property='(public), mbr-attribute='(), obj=completed, obj-type=atom, obj-attribute='()
 mbr=defined, mbr-property='(public), mbr-attribute='(), obj=defined, obj-type=atom, obj-attribute='()
+mbr=dump-entry-info, mbr-property='(public), mbr-attribute='(), obj=dump-entry-info, obj-type=factor, obj-attribute='()
+mbr=dump-node-info, mbr-property='(public), mbr-attribute='(), obj=dump-node-info, obj-type=factor, obj-attribute='()
 mbr=dump-status, mbr-property='(public), mbr-attribute='(), obj=dump-status, obj-type=factor, obj-attribute='()
 mbr=equal, mbr-property='(public), mbr-attribute='(), obj='((equal nil nil) (equal string string)), obj-type=func, obj-attribute='()
 mbr=failed, mbr-property='(public), mbr-attribute='(), obj=failed, obj-type=atom, obj-attribute='()

@@ -135,6 +135,10 @@ public interface Constant {
 
 	String F_DUMP_STATUS = "dump-status";
 
+	String F_DUMP_NODE_INFO = "dump-node-info";
+
+	String F_DUMP_ENTRY_INFO = "dump-entry-info";
+
 	String F_FIX_STMT = "fix-stmt";
 
 	String F_GC_MODEL = "gc-model";

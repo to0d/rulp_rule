@@ -8,6 +8,8 @@ import static alpha.rulp.rule.Constant.F_ADD_NODE;
 import static alpha.rulp.rule.Constant.F_ADD_RULE;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
+import static alpha.rulp.rule.Constant.F_DUMP_ENTRY_INFO;
+import static alpha.rulp.rule.Constant.F_DUMP_NODE_INFO;
 import static alpha.rulp.rule.Constant.F_DUMP_STATUS;
 import static alpha.rulp.rule.Constant.F_FIX_STMT;
 import static alpha.rulp.rule.Constant.F_GC_MODEL;
@@ -70,6 +72,8 @@ import alpha.rulp.ximpl.factor.XRFactorAddNode;
 import alpha.rulp.ximpl.factor.XRFactorAddRule;
 import alpha.rulp.ximpl.factor.XRFactorAddStmt;
 import alpha.rulp.ximpl.factor.XRFactorAssumeStmt;
+import alpha.rulp.ximpl.factor.XRFactorDumpEntryInfo;
+import alpha.rulp.ximpl.factor.XRFactorDumpNodeInfo;
 import alpha.rulp.ximpl.factor.XRFactorDumpStatus;
 import alpha.rulp.ximpl.factor.XRFactorFixStmt;
 import alpha.rulp.ximpl.factor.XRFactorGcModel;
@@ -179,6 +183,8 @@ public class RRuleLoader implements IRObjectLoader {
 		// Assume
 		RulpUtil.addFrameObject(frame, new XRFactorAssumeStmt(F_ASSUME_STMT));
 		RulpUtil.addFrameObject(frame, new XRFactorDumpStatus(F_DUMP_STATUS));
+		RulpUtil.addFrameObject(frame, new XRFactorDumpNodeInfo(F_DUMP_NODE_INFO));
+		RulpUtil.addFrameObject(frame, new XRFactorDumpEntryInfo(F_DUMP_ENTRY_INFO));
 
 		// Load rule library
 		LoadUtil.loadRulpFromJar(interpreter, frame, "alpha/resource/rule.res", "utf-8");

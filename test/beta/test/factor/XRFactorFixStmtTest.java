@@ -41,6 +41,8 @@ class XRFactorFixStmtTest extends RuleTestBase {
 		_dumpEntryTable("m",
 				"result/factor/XRFactorFixStmtTest/test_fix_stmt_3_auto_remove_child_ref.entry.dump.2.txt");
 	}
+	
+	
 
 	@Test
 	void test_fix_stmt_4_child_is_fix() {

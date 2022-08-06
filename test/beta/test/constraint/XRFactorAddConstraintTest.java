@@ -146,8 +146,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 
 		_setup();
 		_clean_model_cache();
-		_test("(new model m)");
-		_test("(add-constraint m n1:'(?x ?y) n2:'() (!= ?x nil))", "1");
+		_run_script();
 		_statsInfo("m");
 		_save_model_cache("m");
 	}

@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x ?y) n2:'() (!= ?x nil))
+;err:
+Invalid parameters: (add-constraint m n1:'(?x ?y) n2:'() (!= ?x nil))
+at (add-constraint m n1:'(?x ?y) n2:'() (!= ?x nil)) ; main-2
+;eof
+
