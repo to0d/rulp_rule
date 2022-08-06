@@ -9,7 +9,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
-import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public abstract class AbsActionSimpleStmt implements IAction {
@@ -54,15 +54,7 @@ public abstract class AbsActionSimpleStmt implements IAction {
 			elements.add(obj);
 		}
 
-		IRList stmt = null;
-
-		if (stmtName != null) {
-			stmt = RulpFactory.createNamedList(elements, stmtName);
-		} else {
-			stmt = RulpFactory.createList(elements);
-		}
-
-		_doAction(entry, context, stmt);
+		_doAction(entry, context, RulpUtil.toList(stmtName, elements));
 	}
 
 	@Override

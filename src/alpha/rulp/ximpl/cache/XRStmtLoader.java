@@ -13,7 +13,6 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.utils.FileUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 
 public class XRStmtLoader {
@@ -115,14 +114,7 @@ public class XRStmtLoader {
 					throw new RException(String.format("Invalid stmt for node<%s:%d>: %s", stmtName, stmtLen, list));
 				}
 
-				IRList stmt;
-				if (stmtName == null) {
-					stmt = RulpFactory.createList(list);
-				} else {
-					stmt = RulpFactory.createNamedList(list, stmtName);
-				}
-
-				stmtListener.doAction(stmt);
+				stmtListener.doAction(RulpUtil.toList(stmtName, list));
 			}
 		}
 	}

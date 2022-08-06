@@ -540,7 +540,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				List<IRObject> list = RulpUtil.toArray(reteTree);
 				list.set(0, tmpVarBuilder.next());
 
-				IRReteNode parentNode = _findReteNode(RulpFactory.createNamedList(list, namedName), tmpVarBuilder);
+				IRReteNode parentNode = _findReteNode(RulpFactory.createNamedList(namedName, list), tmpVarBuilder);
 
 				IRObject[] varEntry = ReteUtil._varEntry(parentNode.getVarEntry());
 				varEntry[0] = null;
@@ -586,7 +586,7 @@ public class XRNodeGraph implements IRNodeGraph {
 					List<IRObject> list = RulpUtil.toArray(reteTree);
 					list.set(lastVarPos, tmpVarBuilder.next());
 
-					IRReteNode parentNode = _findReteNode(RulpFactory.createNamedList(list, namedName), tmpVarBuilder);
+					IRReteNode parentNode = _findReteNode(RulpFactory.createNamedList(namedName, list), tmpVarBuilder);
 
 					IRObject[] varEntry = ReteUtil._varEntry(parentNode.getVarEntry());
 					varEntry[lastVarPos] = null;
@@ -633,7 +633,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				list.set(lastValuePos, tmpVarBuilder.next());
 
-				IRReteNode parentNode = _findReteNode(RulpFactory.createNamedList(list, namedName), tmpVarBuilder);
+				IRReteNode parentNode = _findReteNode(RulpFactory.createNamedList(namedName, list), tmpVarBuilder);
 
 				AbsReteNode alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 						ReteUtil.uniqName(reteTree), stmtLen, parentNode,

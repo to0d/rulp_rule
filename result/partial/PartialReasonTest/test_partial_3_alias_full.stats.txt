@@ -2852,7 +2852,7 @@ Object create count:
         atom:         6763            0         6763
          int:            3            0            3
       string:          222            0          222
-        list:         1540            1         1539
+        list:         1586            1         1585
         expr:         2040           30         2010
          var:          130           94           36
     constant:           54            0           54

@@ -48,7 +48,7 @@ public class XRUniqObjBuilder implements IRObjBuilder {
 		// LIST & EXPR can't be indexed to save space
 		case LIST:
 			IRList oldList = (IRList) obj;
-			return RulpFactory.createNamedList(_uniqIterator(oldList.iterator()), oldList.getNamedName());
+			return RulpFactory.createNamedList(oldList.getNamedName(), _uniqIterator(oldList.iterator()));
 
 		case EXPR:
 			return RulpFactory.createExpression(_uniqIterator(((IRExpr) obj).iterator()));

@@ -232,11 +232,7 @@ public class ReteUtil {
 			}
 
 			if (filterObjs != null) {
-				if (namedName == null) {
-					filter = RulpFactory.createList(filterObjs);
-				} else {
-					filter = RulpFactory.createNamedList(filterObjs, namedName);
-				}
+				filter = RulpUtil.toList(namedName, filterObjs);
 			}
 		}
 
@@ -265,7 +261,7 @@ public class ReteUtil {
 
 				while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
 					if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
-						_matchNodes(nodeGraph, RulpFactory.createNamedList(extendFilterObjs, namedName), nodes);
+						_matchNodes(nodeGraph, RulpFactory.createNamedList(namedName, extendFilterObjs), nodes);
 					}
 				}
 
@@ -281,7 +277,7 @@ public class ReteUtil {
 				extendFilterObjs.add(tmpVarBuilder.next());
 			}
 
-			filter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+			filter = RulpFactory.createNamedList(namedName, extendFilterObjs);
 		}
 
 		/******************************************************/
@@ -1837,7 +1833,7 @@ public class ReteUtil {
 						filterObjs.add(vgVarBuilder.next());
 					}
 
-					stmt = RulpFactory.createNamedList(filterObjs, namedName);
+					stmt = RulpFactory.createNamedList(namedName, filterObjs);
 				}
 
 				/******************************************************/
@@ -1877,7 +1873,7 @@ public class ReteUtil {
 					if (namedName == null) {
 						stmt = RulpFactory.createList(filterObjs);
 					} else {
-						stmt = RulpFactory.createNamedList(filterObjs, namedName);
+						stmt = RulpFactory.createNamedList(namedName, filterObjs);
 					}
 				}
 

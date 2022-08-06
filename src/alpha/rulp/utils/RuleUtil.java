@@ -275,34 +275,6 @@ public class RuleUtil {
 		return node;
 	}
 
-//	public static void setRulePriority(IRRule rule, int priority) throws RException {
-//
-//		if (priority < 0 || priority > RETE_PRIORITY_MAXIMUM) {
-//			throw new RException("Invalid priority: " + priority);
-//		}
-//
-//		if (rule.getPriority() == priority) {
-//			return;
-//		}
-//
-//		XRRuleNode ruleNode = (XRRuleNode) rule;
-//		ruleNode.setPriority(priority);
-//
-//		IRModel model = ruleNode.getModel();
-//
-//		/******************************************************/
-//		// Update all rule node priority
-//		/******************************************************/
-//		ModelUtil.travelReteParentNodeByPostorder(ruleNode, (node) -> {
-//			if (node.getReteType() != RReteType.ROOT0 && node != ruleNode) {
-//				int newPriority = ModelUtil.recalcuatePriority(model, node);
-//				node.setPriority(newPriority);
-//			}
-//
-//			return false;
-//		});
-//	}
-
 	public static IRReteNode asNode(IRObject obj) throws RException {
 
 		if (!(obj instanceof IRReteNode)) {
@@ -320,15 +292,6 @@ public class RuleUtil {
 
 		return (IRRule) obj;
 	}
-
-//	public static IRScope asScope(IRObject obj) throws RException {
-//
-//		if (!(obj instanceof IRScope)) {
-//			throw new RException("Can't convert to scope: " + obj);
-//		}
-//
-//		return (IRScope) obj;
-//	}
 
 	public static List<IRObject> compute(IRModel model, String input) throws RException {
 

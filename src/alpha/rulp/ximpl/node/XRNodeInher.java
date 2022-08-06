@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.node;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
@@ -35,20 +36,19 @@ public class XRNodeInher extends XRNodeRete1 {
 			newElements[i] = entry.get(inheritIndexs[i]);
 		}
 
-		IRReteEntry newEntry = entryTable.createEntry(null, newElements, entry.getStatus(), false);
-
+		String uniqName = ReteUtil.uniqName(RulpUtil.toList(entry.getNamedName(), newElements));
 		IRReteEntry oldEntry = null;
 		if (entryQueue.getQueueType() == REntryQueueType.UNIQ) {
-			oldEntry = entryQueue.getStmt(ReteUtil.uniqName(newEntry));
+			oldEntry = entryQueue.getStmt(uniqName);
 		}
 
 		// old entry exist
 		if (!ReteUtil.isRemovedEntry(oldEntry)) {
 			entryTable.addReference(oldEntry, this, entry);
-			entryTable.removeEntry(newEntry);
 			return false;
 		}
 
+		IRReteEntry newEntry = entryTable.createEntry(null, newElements, entry.getStatus(), false);
 		if (!super.addReteEntry(newEntry)) {
 			entryTable.removeEntry(newEntry);
 			return false;

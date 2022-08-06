@@ -39,4 +39,12 @@ class XRFactorFixStmtTest extends RuleTestBase {
 		_dumpEntryTable("m");
 	}
 
+	@Test
+	void test_fix_stmt_5_inherit_dup_entry() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
 }

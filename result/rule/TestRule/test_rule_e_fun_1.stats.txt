@@ -283,7 +283,7 @@ Object create count:
         atom:         2020            0         2020
          int:            8            0            8
       string:           80            0           80
-        list:           75            1           74
+        list:           76            1           75
         expr:          896            4          892
          var:           31            8           23
         func:           83            0           83

@@ -360,10 +360,7 @@ public class ModifiterUtil {
 				rstList.add(_compute(listIt.next(), frame));
 			}
 
-			if (oldList.getNamedName() == null)
-				return RulpFactory.createList(rstList);
-			else
-				return RulpFactory.createNamedList(rstList, oldList.getNamedName());
+			return RulpUtil.toList(oldList.getNamedName(), rstList);
 
 		default:
 			throw new RException("Invalid Type: " + rt + ", obj:" + obj.toString());

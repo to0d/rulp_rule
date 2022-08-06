@@ -15,7 +15,6 @@ import static alpha.rulp.rule.Constant.V_M_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.V_M_GC_INTERVAL;
 import static alpha.rulp.rule.Constant.V_M_GC_MAX_CACHE_NODE;
 import static alpha.rulp.rule.Constant.V_M_STATE;
-import static alpha.rulp.rule.RReteStatus.CLEAN;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
@@ -855,12 +854,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			newStmtArr.set(index, varBuilder.next());
 		}
 
-		IRList newStmt = null;
-		if (stmt.getNamedName() == null) {
-			newStmt = RulpFactory.createList(newStmtArr);
-		} else {
-			newStmt = RulpFactory.createNamedList(newStmtArr, stmt.getNamedName());
-		}
+		IRList newStmt = RulpUtil.toList(stmt.getNamedName(), newStmtArr);
 
 		IRNodeGraph graph = getNodeGraph();
 		IRReteNode indexNode = graph.buildIndex(graph.getNodeByTree(newStmt), orderList);
@@ -1243,11 +1237,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			if (filterObjs != null) {
-				if (namedName == null) {
-					filter = RulpFactory.createList(filterObjs);
-				} else {
-					filter = RulpFactory.createNamedList(filterObjs, namedName);
-				}
+				filter = RulpUtil.toList(namedName, filterObjs);
 			}
 		}
 
@@ -1282,7 +1272,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 						if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
 
-							IRList subFilter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+							IRList subFilter = RulpFactory.createNamedList(namedName, extendFilterObjs);
 							int subSize = _listStatements(subFilter, statusMask, subLimit, reverse, builder, action);
 							size += subSize;
 
@@ -1312,7 +1302,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 					FIND_SUB: for (ArrayList<IRObject> extendFilter : filterList) {
 
-						IRList subFilter = RulpFactory.createNamedList(extendFilter, namedName);
+						IRList subFilter = RulpFactory.createNamedList(namedName, extendFilter);
 
 						int subSize = _listStatements(subFilter, statusMask, subLimit, reverse, builder, action);
 						size += subSize;
@@ -1339,7 +1329,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				extendFilterObjs.add(tmpVarBuilder.next());
 			}
 
-			filter = RulpFactory.createNamedList(extendFilterObjs, namedName);
+			filter = RulpFactory.createNamedList(namedName, extendFilterObjs);
 		}
 
 		/******************************************************/
@@ -1651,11 +1641,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			if (filterObjs != null) {
-				if (list.getNamedName() == null) {
-					list = RulpFactory.createList(filterObjs);
-				} else {
-					list = RulpFactory.createNamedList(filterObjs, list.getNamedName());
-				}
+				list = RulpUtil.toList(list.getNamedName(), filterObjs);
 			}
 		}
 

@@ -20,7 +20,6 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
@@ -409,11 +408,7 @@ public class ActionUtil {
 		}
 
 		if (newArr != null) {
-			if (stmt.getNamedName() == null) {
-				stmt = RulpFactory.createList(newArr);
-			} else {
-				stmt = RulpFactory.createNamedList(newArr, stmt.getNamedName());
-			}
+			stmt = RulpUtil.toList(stmt.getNamedName(), newArr);
 		}
 
 		return ReteUtil.uniqName(stmt);
