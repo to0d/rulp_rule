@@ -227,8 +227,8 @@ public class RuleTestBase extends RulpTestBase {
 
 	protected void _test(ITActionInStrOutStr action) {
 
-		String inputPath = getCachePath() + ".in.txt";
-		String outputPath = getCachePath() + ".out.txt";
+		String inputPath = getCachePath() + ".txt";
+		String outputPath = getCachePath() + ".txt.out";
 
 		ArrayList<String> outLines = new ArrayList<>();
 

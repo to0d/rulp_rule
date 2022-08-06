@@ -1,3 +1,0 @@
-OUT: ?0 p2 c
-OUT: ?0 ?0 z
-OUT: ?0 ?1 z

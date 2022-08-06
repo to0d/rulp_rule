@@ -8,13 +8,13 @@
 ;=>RULE1
 
 (rete-node-of (get-rule m "RULE1") RRT_BETA0)
-;=>'('('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?3 ?0)))
+;=>'('('(?_0 ?_1 ?_2) '(?_3 ?_4 ?_5) (equal ?_3 ?_0)))
 
 (rete-node-of (get-rule m "RULE1") RRT_BETA3)
 ;=>'()
 
 (rete-node-of (get-rule m "RULE1") RRT_EXPR1)
-;=>'('('('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?3 ?0)) (equal ?4 ?1)))
+;=>'('('('(?_0 ?_1 ?_2) '(?_3 ?_4 ?_5) (equal ?_3 ?_0)) (equal ?_4 ?_1)))
 
 (add-stmt m '(a b c))
 ;=>true

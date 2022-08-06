@@ -68,20 +68,20 @@ node info3:
 =================================================================================================================================================================
 NODE[n]      UniqName
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[2]    eton_daily_task1:'(?0 ?1)
-N00003[3]    eton_working_task1:'(?0 ?1 ?2)
-N00007[3]    eton_completed_task1:'(?0 ?1 ?2)
-N00011[2]    task_func:'(?0 ?1)
-N00018[4]    eton_daily_data:'(?0 ?1 ?2 ?3)
-E00005[4]    '('(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (day-is-bigger-than ?0 ?3))
-E00009[4]    '('(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2)) (not (day-is-bigger-than ?3 ?0)))
-E10013[3]    '('(task_func:'(?0 ?1) task_func:'(?0 ?2)) (!= ?1 ?2))
-E10016[3]    '('(task_func:'(?0 ?1) task_func:'(?2 ?1)) (!= ?0 ?2))
-B00004[4]    '(eton_working_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-B00008[4]    '(eton_completed_task1:'(?0 ?1 ?2) eton_working_task1:'(?3 ?1 ?2))
-B00012[3]    '(task_func:'(?0 ?1) task_func:'(?0 ?2))
-B00015[3]    '(task_func:'(?0 ?1) task_func:'(?2 ?1))
-B00019[4]    '(eton_working_task1:'(?0 ?1 ?2) task_func:'(?1 ?3))
+N00001[2]    eton_daily_task1:'(?_0 ?_1)
+N00003[3]    eton_working_task1:'(?_0 ?_1 ?_2)
+N00007[3]    eton_completed_task1:'(?_0 ?_1 ?_2)
+N00011[2]    task_func:'(?_0 ?_1)
+N00018[4]    eton_daily_data:'(?_0 ?_1 ?_2 ?_3)
+E00005[4]    '('(eton_working_task1:'(?_0 ?_1 ?_2) eton_working_task1:'(?_3 ?_1 ?_2)) (day-is-bigger-than ?_0 ?_3))
+E00009[4]    '('(eton_completed_task1:'(?_0 ?_1 ?_2) eton_working_task1:'(?_3 ?_1 ?_2)) (not (day-is-bigger-than ?_3 ?_0)))
+E10013[3]    '('(task_func:'(?_0 ?_1) task_func:'(?_0 ?_2)) (!= ?_1 ?_2))
+E10016[3]    '('(task_func:'(?_0 ?_1) task_func:'(?_2 ?_1)) (!= ?_0 ?_2))
+B00004[4]    '(eton_working_task1:'(?_0 ?_1 ?_2) eton_working_task1:'(?_3 ?_1 ?_2))
+B00008[4]    '(eton_completed_task1:'(?_0 ?_1 ?_2) eton_working_task1:'(?_3 ?_1 ?_2))
+B00012[3]    '(task_func:'(?_0 ?_1) task_func:'(?_0 ?_2))
+B00015[3]    '(task_func:'(?_0 ?_1) task_func:'(?_2 ?_1))
+B00019[4]    '(eton_working_task1:'(?_0 ?_1 ?_2) task_func:'(?_1 ?_3))
 R1[2]        R1
 R2[4]        R2
 R3[4]        R3
@@ -114,12 +114,12 @@ R2[4]        0     EXPR  (do
                              (trace "R2:remove-stmt: " eton_working_task1:'(?day2 ?task ?arg0))
                              (remove-stmt eton_working_task1:'(?day2 ?task ?arg0))
                          )
-                         0: RMV eton_working_task1:'(?0 ?1 ?2)
+                         0: RMV eton_working_task1:'(?_0 ?_1 ?_2)
 R3[4]        0     EXPR  (do
                              (trace "R3:remove-stmt: " eton_working_task1:'(?day1 ?task ?arg0))
                              (remove-stmt eton_working_task1:'(?day1 ?task ?arg0))
                          )
-                         0: RMV eton_working_task1:'(?0 ?1 ?2)
+                         0: RMV eton_working_task1:'(?_0 ?_1 ?_2)
 R4[3]        0     EXPR  (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2))
 R5[3]        0     EXPR  (throw bad-rule (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1))
 =================================================================================================================================================================
@@ -165,7 +165,7 @@ node source info:
 =================================================================================================================================================================
 NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00003(NAME0) :                 3      eton_working_task1:'(?0 ?1 ?2)
+N00003(NAME0) :                 3      eton_working_task1:'(?_0 ?_1 ?_2)
              0: R2              3      A(1/1)=[0]
              1: R3              3      A(1/1)=[0]
 =================================================================================================================================================================

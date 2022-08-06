@@ -14,13 +14,13 @@
 ;=>true
 
 (rete-node-of m)
-;=>'('(?0 ?1 ?2) n1:'(?0) '(?0 p1 ?1) R1)
+;=>'('(?_0 ?_1 ?_2) n1:'(?_0) '(?_0 p1 ?_1) R1)
 
 (rete-node-of m RRT_ROOT)
-;=>'('(?0 ?1 ?2))
+;=>'('(?_0 ?_1 ?_2))
 
 (rete-node-of m RRT_NAME)
-;=>'(n1:'(?0))
+;=>'(n1:'(?_0))
 
 (rete-node-of m RRT_RULE)
 ;=>'(R1)

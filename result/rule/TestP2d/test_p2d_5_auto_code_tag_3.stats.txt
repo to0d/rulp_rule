@@ -369,102 +369,102 @@ node info3:
 =================================================================================================================================================================
 NODE[n]      UniqName
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    '(?0 ?1 ?2)
+R00001[3]    '(?_0 ?_1 ?_2)
 V00005[3]    (var-changed ?model-state ?model-state.old ?model-state.new)
-A00002[3]    '(?0 nm:typeOf ?1)
-A00003[3]    '(?0 nm:typeOf nm:tag)
-A00009[3]    '(?0 nm:beInstanceTagOf ?1)
-A00011[3]    '(?0 nm:hasSubCollection ?1)
-A00012[3]    '(?0 nm:beParentTagOf ?1)
-A00016[3]    '(?0 nm:hasGroupParent ?1)
-A00018[3]    '(?0 nm:inverseProperty ?1)
-A00021[3]    '(?0 ?1 ?0)
-A00022[3]    '(?0 nm:propertyOf ?1)
-A00023[3]    '(?0 nm:propertyOf nm:nonSelfDefine)
-A00026[3]    '(?0 nm:propertyOf nm:tagProperty)
-A00029[3]    '(?0 nm:propertyOf nm:singlePropery)
-A00034[3]    '(?0 nm:propertyOf nm:symmetricProperty)
-A00037[3]    '(?0 nm:classOf ?1)
-A00041[3]    '(?0 nm:propertyOf nm:nonCircleProperty)
-A00045[3]    '(?0 nm:propertyOf nm:tagRelation)
-A00048[3]    '(?0 nm:beAliasTo ?1)
-A00060[3]    '(?0 nm:inverseSimpleTagProperty ?1)
-A00062[3]    '(?0 nm:hasTagAttr ?1)
-A00063[3]    '(?0 nm:typeOf nm:tagAttr)
-A00066[3]    '(?0 nm:inverseSimpleDomainProperty ?1)
-A00068[3]    '(?0 nm:beParentDomainOf ?1)
-A00070[3]    '(?0 nm:beAncestorDomainOf ?1)
-A00073[3]    '(?0 nm:hasTag ?1)
-A00077[3]    '(?0 nm:typeOf nm:domain)
-A00083[3]    '(?0 nm:hasDescendant ?1)
-A00086[3]    '(?0 nm:hasRelatedTag ?1)
-A00089[3]    '(?0 nm:hasAncestors ?1)
-A00094[3]    '(?0 nm:hasAutoRelatedTag ?1)
-A00097[3]    '(?0 nm:defineTag ?1)
-A00100[3]    '(?0 nm:beDefinedByTag ?1)
-A00110[3]    '(?0 nm:hasFieldTag ?1)
-A00115[3]    '(?0 nm:beClassTagOf ?1)
+A00002[3]    '(?_0 nm:typeOf ?_1)
+A00003[3]    '(?_0 nm:typeOf nm:tag)
+A00009[3]    '(?_0 nm:beInstanceTagOf ?_1)
+A00011[3]    '(?_0 nm:hasSubCollection ?_1)
+A00012[3]    '(?_0 nm:beParentTagOf ?_1)
+A00016[3]    '(?_0 nm:hasGroupParent ?_1)
+A00018[3]    '(?_0 nm:inverseProperty ?_1)
+A00021[3]    '(?_0 ?_1 ?_0)
+A00022[3]    '(?_0 nm:propertyOf ?_1)
+A00023[3]    '(?_0 nm:propertyOf nm:nonSelfDefine)
+A00026[3]    '(?_0 nm:propertyOf nm:tagProperty)
+A00029[3]    '(?_0 nm:propertyOf nm:singlePropery)
+A00034[3]    '(?_0 nm:propertyOf nm:symmetricProperty)
+A00037[3]    '(?_0 nm:classOf ?_1)
+A00041[3]    '(?_0 nm:propertyOf nm:nonCircleProperty)
+A00045[3]    '(?_0 nm:propertyOf nm:tagRelation)
+A00048[3]    '(?_0 nm:beAliasTo ?_1)
+A00060[3]    '(?_0 nm:inverseSimpleTagProperty ?_1)
+A00062[3]    '(?_0 nm:hasTagAttr ?_1)
+A00063[3]    '(?_0 nm:typeOf nm:tagAttr)
+A00066[3]    '(?_0 nm:inverseSimpleDomainProperty ?_1)
+A00068[3]    '(?_0 nm:beParentDomainOf ?_1)
+A00070[3]    '(?_0 nm:beAncestorDomainOf ?_1)
+A00073[3]    '(?_0 nm:hasTag ?_1)
+A00077[3]    '(?_0 nm:typeOf nm:domain)
+A00083[3]    '(?_0 nm:hasDescendant ?_1)
+A00086[3]    '(?_0 nm:hasRelatedTag ?_1)
+A00089[3]    '(?_0 nm:hasAncestors ?_1)
+A00094[3]    '(?_0 nm:hasAutoRelatedTag ?_1)
+A00097[3]    '(?_0 nm:defineTag ?_1)
+A00100[3]    '(?_0 nm:beDefinedByTag ?_1)
+A00110[3]    '(?_0 nm:hasFieldTag ?_1)
+A00115[3]    '(?_0 nm:beClassTagOf ?_1)
 A10006[3]    (var-changed ?model-state running completed)
-E00004[3]    '('(?0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?0)))
-E00117[3]    '('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (p2d_get_uri_name ?2))) nm:typeOf nm:tag)))
-E00121[3]    '('(?0 nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?0) "-Beginner"))
-E00124[3]    '('(?0 nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?0) "-") 0))
-E00130[3]    '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant)))
-E00133[4]    '('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3)))
-E00136[3]    '('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP)))
-E10032[4]    '('('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3)) (not-equal ?3 ?2))
-E10040[3]    '('(?0 ?1 ?2) (!= ?0 ?2))
-E10051[3]    '('(?0 ?1 ?2) (!= ?1 nm:hasAliasTag))
-E10052[3]    '('('(?0 ?1 ?2) (!= ?1 nm:hasAliasTag)) (not-equal nm:beAliasTo ?1))
-E10079[3]    '('('(?0 nm:typeOf nm:domain) (not (has-stmt p2d '(?x nm:beParentDomainOf ?0)))) (not-equal ?0 nd:Global))
-E10092[3]    '('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag))
-E10103[3]    '('(?0 nm:beParentTagOf ?1) (!= ?0 ?1))
-E20078[3]    '('(?0 nm:typeOf nm:domain) (not (has-stmt p2d '(?x nm:beParentDomainOf ?0) order by 2)))
-B00013[3]    '('(?0 nm:hasSubCollection ?1) '(?1 nm:beParentTagOf ?2))
-B00019[4]    '('(?0 ?1 ?2) '(?1 nm:inverseProperty ?3))
-B00024[2]    '('(?0 ?1 ?0) '(?1 nm:propertyOf nm:nonSelfDefine))
-B00031[4]    '('('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery)) '(?0 ?1 ?3))
-B00038[3]    '('(?0 nm:typeOf ?1) '(?1 nm:classOf ?2))
-B00049[3]    '('(?0 nm:beAliasTo ?1) '(?1 nm:beAliasTo ?2))
-B00053[4]    '('('('(?0 ?1 ?2) (!= ?1 nm:hasAliasTag)) (not-equal nm:beAliasTo ?1)) '(?0 nm:beAliasTo ?3))
-B00055[4]    '('('('(?0 ?1 ?2) (!= ?1 nm:hasAliasTag)) (not-equal nm:beAliasTo ?1)) '(?2 nm:beAliasTo ?3))
-B00058[2]    '('(?0 nm:inverseProperty ?1) '(?0 nm:propertyOf nm:tagRelation))
-B00064[2]    '('(?0 nm:hasTagAttr ?1) '(?0 nm:typeOf nm:tagAttr))
-B00071[3]    '('(?0 nm:beAncestorDomainOf ?1) '(?1 nm:beAncestorDomainOf ?2))
-B00074[3]    '('(?0 nm:beAncestorDomainOf ?1) '(?1 nm:hasTag ?2))
-B00084[3]    '('(?0 nm:hasDescendant ?1) '(?1 nm:hasDescendant ?2))
-B00087[2]    '('(?0 nm:hasDescendant ?1) '(?0 nm:hasRelatedTag ?1))
-B00090[2]    '('(?0 nm:hasAncestors ?1) '(?0 nm:hasRelatedTag ?1))
-B00098[2]    '('(?0 nm:defineTag ?1) '(?0 nm:hasDescendant ?1))
-B00101[2]    '('(?0 nm:hasDescendant ?1) '(?1 nm:beDefinedByTag ?0))
-B00104[3]    '('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2)))
-B00111[3]    '('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2))
-B00116[3]    '('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2))
-B00132[4]    '('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0))
-B00134[5]    '('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4))
-B00135[6]    '('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2))
-B00138[7]    '('('('('('('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation)) '(?3 nm:hasFieldTag ?0)) (not ('((equal nil nil) (equal string string)) ?2 ?3))) '(?3 nm:beClassTagOf ?4)) '(?5 nm:hasTag ?2)) '('('(?4 ?6 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?6 nm:propertyOf nm:tagRelation)))
-B10007[2]    '('('(?0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?0))) (var-changed ?model-state running completed))
-B10043[4]    '('('('(?0 ?1 ?2) (!= ?0 ?2)) '(?1 nm:propertyOf nm:nonCircleProperty)) (var-changed ?model-state running completed))
-B10080[3]    '('('('(?0 nm:typeOf nm:domain) (not (has-stmt p2d '(?x nm:beParentDomainOf ?0)))) (not-equal ?0 nd:Global)) (var-changed ?model-state running completed))
-B10106[4]    '('('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2))) (var-changed ?model-state running completed))
-B10108[2]    '('(?0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
-B10113[4]    '('('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10119[4]    '('('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (p2d_get_uri_name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
-B10122[2]    '('('(?0 nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?0) "-Beginner")) (var-changed ?model-state running completed))
-B10125[2]    '('('(?0 nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?0) "-") 0)) (var-changed ?model-state running completed))
-B20027[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagProperty))
-B20030[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:singlePropery))
-B20035[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:symmetricProperty))
-B20042[3]    '('('(?0 ?1 ?2) (!= ?0 ?2)) '(?1 nm:propertyOf nm:nonCircleProperty))
-B20046[3]    '('(?0 ?1 ?2) '(?1 nm:propertyOf nm:tagRelation))
-B20093[3]    '('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation))
-B20095[3]    '('('('(?0 ?1 ?2) (!= ?1 nm:hasAutoRelatedTag)) '(?1 nm:propertyOf nm:tagRelation)) '(?0 nm:hasAutoRelatedTag ?2))
-B20105[3]    '('('('(?0 nm:beParentTagOf ?1) (!= ?0 ?1)) '('(?1 nm:beParentTagOf ?2) (!= ?1 ?2))) '('(?0 nm:beParentTagOf ?2) (!= ?0 ?2)))
-B20112[3]    '('('(?0 nm:beParentTagOf ?1) '(?0 nm:hasFieldTag ?2)) '(?0 nm:typeOf nm:tag))
-B20118[3]    '('('('(?0 nm:beClassTagOf ?1) '(?0 nm:hasFieldTag ?2)) (has-stmt p2d '((to-atom (strcat (to-string ?1) "-" (p2d_get_uri_name ?2))) nm:typeOf nm:tag))) '(?0 nm:typeOf nm:tag))
-B20131[3]    '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?1 nm:hasDescendant))) '(?1 nm:propertyOf nm:tagRelation))
-B20137[3]    '('('(?0 ?1 ?2) (not ('((equal nil nil) (equal string string)) ?2 nt:$TGROUP))) '(?1 nm:propertyOf nm:tagRelation))
+E00004[3]    '('(?_0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?_0)))
+E00117[3]    '('('(?_0 nm:beClassTagOf ?_1) '(?_0 nm:hasFieldTag ?_2)) (has-stmt p2d '((to-atom (strcat (to-string ?_1) "-" (p2d_get_uri_name ?_2))) nm:typeOf nm:tag)))
+E00121[3]    '('(?_0 nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?_0) "-Beginner"))
+E00124[3]    '('(?_0 nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?_0) "-") 0))
+E00130[3]    '('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_1 nm:hasDescendant)))
+E00133[4]    '('('('('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_1 nm:hasDescendant))) '(?_1 nm:propertyOf nm:tagRelation)) '(?_3 nm:hasFieldTag ?_0)) (not ('((equal nil nil) (equal string string)) ?_2 ?_3)))
+E00136[3]    '('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_2 nt:$TGROUP)))
+E10032[4]    '('('('(?_0 ?_1 ?_2) '(?_1 nm:propertyOf nm:singlePropery)) '(?_0 ?_1 ?_3)) (not-equal ?_3 ?_2))
+E10040[3]    '('(?_0 ?_1 ?_2) (!= ?_0 ?_2))
+E10051[3]    '('(?_0 ?_1 ?_2) (!= ?_1 nm:hasAliasTag))
+E10052[3]    '('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasAliasTag)) (not-equal nm:beAliasTo ?_1))
+E10079[3]    '('('(?_0 nm:typeOf nm:domain) (not (has-stmt p2d '(?x nm:beParentDomainOf ?_0)))) (not-equal ?_0 nd:Global))
+E10092[3]    '('(?_0 ?_1 ?_2) (!= ?_1 nm:hasAutoRelatedTag))
+E10103[3]    '('(?_0 nm:beParentTagOf ?_1) (!= ?_0 ?_1))
+E20078[3]    '('(?_0 nm:typeOf nm:domain) (not (has-stmt p2d '(?x nm:beParentDomainOf ?_0) order by 2)))
+B00013[3]    '('(?_0 nm:hasSubCollection ?_1) '(?_1 nm:beParentTagOf ?_2))
+B00019[4]    '('(?_0 ?_1 ?_2) '(?_1 nm:inverseProperty ?_3))
+B00024[2]    '('(?_0 ?_1 ?_0) '(?_1 nm:propertyOf nm:nonSelfDefine))
+B00031[4]    '('('(?_0 ?_1 ?_2) '(?_1 nm:propertyOf nm:singlePropery)) '(?_0 ?_1 ?_3))
+B00038[3]    '('(?_0 nm:typeOf ?_1) '(?_1 nm:classOf ?_2))
+B00049[3]    '('(?_0 nm:beAliasTo ?_1) '(?_1 nm:beAliasTo ?_2))
+B00053[4]    '('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasAliasTag)) (not-equal nm:beAliasTo ?_1)) '(?_0 nm:beAliasTo ?_3))
+B00055[4]    '('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasAliasTag)) (not-equal nm:beAliasTo ?_1)) '(?_2 nm:beAliasTo ?_3))
+B00058[2]    '('(?_0 nm:inverseProperty ?_1) '(?_0 nm:propertyOf nm:tagRelation))
+B00064[2]    '('(?_0 nm:hasTagAttr ?_1) '(?_0 nm:typeOf nm:tagAttr))
+B00071[3]    '('(?_0 nm:beAncestorDomainOf ?_1) '(?_1 nm:beAncestorDomainOf ?_2))
+B00074[3]    '('(?_0 nm:beAncestorDomainOf ?_1) '(?_1 nm:hasTag ?_2))
+B00084[3]    '('(?_0 nm:hasDescendant ?_1) '(?_1 nm:hasDescendant ?_2))
+B00087[2]    '('(?_0 nm:hasDescendant ?_1) '(?_0 nm:hasRelatedTag ?_1))
+B00090[2]    '('(?_0 nm:hasAncestors ?_1) '(?_0 nm:hasRelatedTag ?_1))
+B00098[2]    '('(?_0 nm:defineTag ?_1) '(?_0 nm:hasDescendant ?_1))
+B00101[2]    '('(?_0 nm:hasDescendant ?_1) '(?_1 nm:beDefinedByTag ?_0))
+B00104[3]    '('('(?_0 nm:beParentTagOf ?_1) (!= ?_0 ?_1)) '('(?_1 nm:beParentTagOf ?_2) (!= ?_1 ?_2)))
+B00111[3]    '('(?_0 nm:beParentTagOf ?_1) '(?_0 nm:hasFieldTag ?_2))
+B00116[3]    '('(?_0 nm:beClassTagOf ?_1) '(?_0 nm:hasFieldTag ?_2))
+B00132[4]    '('('('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_1 nm:hasDescendant))) '(?_1 nm:propertyOf nm:tagRelation)) '(?_3 nm:hasFieldTag ?_0))
+B00134[5]    '('('('('('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_1 nm:hasDescendant))) '(?_1 nm:propertyOf nm:tagRelation)) '(?_3 nm:hasFieldTag ?_0)) (not ('((equal nil nil) (equal string string)) ?_2 ?_3))) '(?_3 nm:beClassTagOf ?_4))
+B00135[6]    '('('('('('('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_1 nm:hasDescendant))) '(?_1 nm:propertyOf nm:tagRelation)) '(?_3 nm:hasFieldTag ?_0)) (not ('((equal nil nil) (equal string string)) ?_2 ?_3))) '(?_3 nm:beClassTagOf ?_4)) '(?_5 nm:hasTag ?_2))
+B00138[7]    '('('('('('('('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_1 nm:hasDescendant))) '(?_1 nm:propertyOf nm:tagRelation)) '(?_3 nm:hasFieldTag ?_0)) (not ('((equal nil nil) (equal string string)) ?_2 ?_3))) '(?_3 nm:beClassTagOf ?_4)) '(?_5 nm:hasTag ?_2)) '('('(?_4 ?_6 ?_2) (not ('((equal nil nil) (equal string string)) ?_2 nt:$TGROUP))) '(?_6 nm:propertyOf nm:tagRelation)))
+B10007[2]    '('('(?_0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?_0))) (var-changed ?model-state running completed))
+B10043[4]    '('('('(?_0 ?_1 ?_2) (!= ?_0 ?_2)) '(?_1 nm:propertyOf nm:nonCircleProperty)) (var-changed ?model-state running completed))
+B10080[3]    '('('('(?_0 nm:typeOf nm:domain) (not (has-stmt p2d '(?x nm:beParentDomainOf ?_0)))) (not-equal ?_0 nd:Global)) (var-changed ?model-state running completed))
+B10106[4]    '('('('('(?_0 nm:beParentTagOf ?_1) (!= ?_0 ?_1)) '('(?_1 nm:beParentTagOf ?_2) (!= ?_1 ?_2))) '('(?_0 nm:beParentTagOf ?_2) (!= ?_0 ?_2))) (var-changed ?model-state running completed))
+B10108[2]    '('(?_0 nm:typeOf nm:tag) (var-changed ?model-state running completed))
+B10113[4]    '('('('(?_0 nm:beParentTagOf ?_1) '(?_0 nm:hasFieldTag ?_2)) '(?_0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+B10119[4]    '('('('('(?_0 nm:beClassTagOf ?_1) '(?_0 nm:hasFieldTag ?_2)) (has-stmt p2d '((to-atom (strcat (to-string ?_1) "-" (p2d_get_uri_name ?_2))) nm:typeOf nm:tag))) '(?_0 nm:typeOf nm:tag)) (var-changed ?model-state running completed))
+B10122[2]    '('('(?_0 nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?_0) "-Beginner")) (var-changed ?model-state running completed))
+B10125[2]    '('('(?_0 nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?_0) "-") 0)) (var-changed ?model-state running completed))
+B20027[3]    '('(?_0 ?_1 ?_2) '(?_1 nm:propertyOf nm:tagProperty))
+B20030[3]    '('(?_0 ?_1 ?_2) '(?_1 nm:propertyOf nm:singlePropery))
+B20035[3]    '('(?_0 ?_1 ?_2) '(?_1 nm:propertyOf nm:symmetricProperty))
+B20042[3]    '('('(?_0 ?_1 ?_2) (!= ?_0 ?_2)) '(?_1 nm:propertyOf nm:nonCircleProperty))
+B20046[3]    '('(?_0 ?_1 ?_2) '(?_1 nm:propertyOf nm:tagRelation))
+B20093[3]    '('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasAutoRelatedTag)) '(?_1 nm:propertyOf nm:tagRelation))
+B20095[3]    '('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasAutoRelatedTag)) '(?_1 nm:propertyOf nm:tagRelation)) '(?_0 nm:hasAutoRelatedTag ?_2))
+B20105[3]    '('('('(?_0 nm:beParentTagOf ?_1) (!= ?_0 ?_1)) '('(?_1 nm:beParentTagOf ?_2) (!= ?_1 ?_2))) '('(?_0 nm:beParentTagOf ?_2) (!= ?_0 ?_2)))
+B20112[3]    '('('(?_0 nm:beParentTagOf ?_1) '(?_0 nm:hasFieldTag ?_2)) '(?_0 nm:typeOf nm:tag))
+B20118[3]    '('('('(?_0 nm:beClassTagOf ?_1) '(?_0 nm:hasFieldTag ?_2)) (has-stmt p2d '((to-atom (strcat (to-string ?_1) "-" (p2d_get_uri_name ?_2))) nm:typeOf nm:tag))) '(?_0 nm:typeOf nm:tag))
+B20131[3]    '('('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_1 nm:hasDescendant))) '(?_1 nm:propertyOf nm:tagRelation))
+B20137[3]    '('('(?_0 ?_1 ?_2) (not ('((equal nil nil) (equal string string)) ?_2 nt:$TGROUP))) '(?_1 nm:propertyOf nm:tagRelation))
 TV1[2]       TV1
 TC1[3]       TC1
 CC1[3]       CC1
@@ -506,7 +506,7 @@ AC5[2]       AC5
 AC6[2]       AC6
 AC7[2]       AC7
 AC8[2]       AC8
-I00129[3]    '(?0 nm:beParentDomainOf ?1) (order by ?2 asc)
+I00129[3]    '(?_0 nm:beParentDomainOf ?_1) (order by ?2 asc)
 =================================================================================================================================================================
 
 node info4: constraint
@@ -638,8 +638,8 @@ TV1[2]       0     EXPR  (do
                                  )
                              )
                          )
-                         0: ADD '(?0 nm:isVersionOf ?1)
-                         1: ADD '(?0 nm:beDefinedByTag ?1)
+                         0: ADD '(?_0 nm:isVersionOf ?_1)
+                         1: ADD '(?_0 nm:beDefinedByTag ?_1)
 TC1[3]       0     ADD   '(?2, nm:beDefinedByTag, nt:$TClass)
 CC1[3]       0     ADD   '(?0, nm:beParentTagOf, ?2)
              1     ADD   '(?0, nm:beDefinedByTag, nt:$TCollection)
@@ -698,32 +698,32 @@ AC2[2]       0     EXPR  (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref 
                                  (-> p2d '(?t nm:hasAutoRelatedTag (to-atom ?t1)))
                              )
                          )
-                         0: ADD '(?0 nm:hasAutoRelatedTag ?1)
+                         0: ADD '(?_0 nm:hasAutoRelatedTag ?_1)
 AC3[4]       0     EXPR  (let (?cf (to-atom (+ (to-string ?c) "-" (p2d_get_field_name (p2d_get_uri_name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c)))))
-                         0: ADD '(?0 nm:hasSubCollection ?1)
-                         1: ADD '(?0 nm:beFieldTagOf ?1)
+                         0: ADD '(?_0 nm:hasSubCollection ?_1)
+                         1: ADD '(?_0 nm:beFieldTagOf ?_1)
 AC4[4]       0     EXPR  (do
                              (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f)))))
                              (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f)))))
                          )
-                         0: ADD '(?0 nm:hasFieldTag ?1)
-                         1: ADD '(?0 nm:beParentTagOf ?1)
+                         0: ADD '(?_0 nm:hasFieldTag ?_1)
+                         1: ADD '(?_0 nm:beParentTagOf ?_1)
 AC5[2]       0     ADD   '(?0, nm:beChildTagOf, nt:$BEGINNER)
              1     ADD   '(?0, nm:beDefinedByTag, nt:$TOPIC)
              2     EXPR  (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn)))))
-                         0: ADD '(?0 nm:beDefinedByTag ?1)
+                         0: ADD '(?_0 nm:beDefinedByTag ?_1)
 AC6[2]       0     EXPR  (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain)))
                              (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))
                          )
-                         0: ADD '(?0 nm:hasRelatedTag ?1)
+                         0: ADD '(?_0 nm:hasRelatedTag ?_1)
 AC7[2]       0     EXPR  (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag)))
                              (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t))
                          )
-                         0: ADD '(?0 nm:hasGroupChild ?1)
+                         0: ADD '(?_0 nm:hasGroupChild ?_1)
 AC8[2]       0     EXPR  (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag)))
                              (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t))
                          )
-                         0: ADD '(?0 nm:beParentTagOf ?1)
+                         0: ADD '(?_0 nm:beParentTagOf ?_1)
 =================================================================================================================================================================
 
 node info6:
@@ -883,7 +883,7 @@ node source info:
 =================================================================================================================================================================
 NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001(ROOT0) :                 3      '(?0 ?1 ?2)
+R00001(ROOT0) :                 3      '(?_0 ?_1 ?_2)
              0: AC1             3      A(2/2)=[0, 1]
              1: AC2             3      A(1/1)=[0]
              2: AC3             3      A(1/1)=[0]
@@ -921,7 +921,7 @@ R00001(ROOT0) :                 3      '(?0 ?1 ?2)
             34: TG1             3      A(1/1)=[0]
             35: TG3             3      A(1/1)=[0]
             36: TV1             3      A(1/1)=[0]
-A00002(ALPH0) :                 3      '(?0 nm:typeOf ?1)
+A00002(ALPH0) :                 3      '(?_0 nm:typeOf ?_1)
              0: C1              3      A(1/1)=[0]
              1: C3              3      A(1/1)=[0]
              2: C5              3      A(1/1)=[0]
@@ -930,7 +930,7 @@ A00002(ALPH0) :                 3      '(?0 nm:typeOf ?1)
              5: T2              3      A(1/1)=[0]
              6: T3              3      A(1/1)=[0]
              7: TA5             3      A(1/1)=[0]
-A00003(ALPH0) :                 3      '(?0 nm:typeOf nm:tag)
+A00003(ALPH0) :                 3      '(?_0 nm:typeOf nm:tag)
              0: C1              3      A(1/1)=[0]
              1: C3              3      A(1/1)=[0]
              2: C5              3      A(1/1)=[0]
@@ -939,18 +939,18 @@ A00003(ALPH0) :                 3      '(?0 nm:typeOf nm:tag)
              5: T2              3      A(1/1)=[0]
              6: T3              3      A(1/1)=[0]
              7: TA5             3      A(1/1)=[0]
-A00009(ALPH0) :                 3      '(?0 nm:beInstanceTagOf ?1)
+A00009(ALPH0) :                 3      '(?_0 nm:beInstanceTagOf ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00011(ALPH0) :                 3      '(?0 nm:hasSubCollection ?1)
+A00011(ALPH0) :                 3      '(?_0 nm:hasSubCollection ?_1)
              0: AC3             3      A(1/1)=[0]
              1: C1              3      A(1/1)=[0]
              2: C5              3      A(1/1)=[0]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
-A00012(ALPH0) :                 3      '(?0 nm:beParentTagOf ?1)
+A00012(ALPH0) :                 3      '(?_0 nm:beParentTagOf ?_1)
              0: AC1             3      A(1/2)=[0]
              1: AC4             3      A(1/1)=[0]
              2: AC8             3      A(1/1)=[0]
@@ -959,19 +959,19 @@ A00012(ALPH0) :                 3      '(?0 nm:beParentTagOf ?1)
              5: CC1             3      A(1/2)=[0]
              6: T2              3      A(1/1)=[0]
              7: T3              3      A(1/1)=[0]
-A00016(ALPH0) :                 3      '(?0 nm:hasGroupParent ?1)
+A00016(ALPH0) :                 3      '(?_0 nm:hasGroupParent ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00018(ALPH0) :                 3      '(?0 nm:inverseProperty ?1)
+A00018(ALPH0) :                 3      '(?_0 nm:inverseProperty ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: D1              3      A(1/7)=[6]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
              5: T8              3      A(1/7)=[6]
-A00021(ALPH0) :                 3      '(?0 ?1 ?0)
+A00021(ALPH0) :                 3      '(?_0 ?_1 ?_0)
              0: AC1             3      A(2/2)=[0, 1]
              1: AC2             3      A(1/1)=[0]
              2: AC3             3      A(1/1)=[0]
@@ -1009,7 +1009,7 @@ A00021(ALPH0) :                 3      '(?0 ?1 ?0)
             34: TG1             3      A(1/1)=[0]
             35: TG3             3      A(1/1)=[0]
             36: TV1             3      A(1/1)=[0]
-A00022(ALPH0) :                 3      '(?0 nm:propertyOf ?1)
+A00022(ALPH0) :                 3      '(?_0 nm:propertyOf ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: D1              3      A(6/7)=[0, 1, 2, 3, 4, 5]
@@ -1018,108 +1018,108 @@ A00022(ALPH0) :                 3      '(?0 nm:propertyOf ?1)
              5: T4              3      A(1/1)=[0]
              6: T5              3      A(1/1)=[0]
              7: T8              3      A(6/7)=[0, 1, 2, 3, 4, 5]
-A00023(ALPH0) :                 3      '(?0 nm:propertyOf nm:nonSelfDefine)
+A00023(ALPH0) :                 3      '(?_0 nm:propertyOf nm:nonSelfDefine)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: D1              3      A(2/7)=[0, 1]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
              5: T8              3      A(2/7)=[0, 1]
-A00026(ALPH0) :                 3      '(?0 nm:propertyOf nm:tagProperty)
+A00026(ALPH0) :                 3      '(?_0 nm:propertyOf nm:tagProperty)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
              4: T4              3      A(1/1)=[0]
-A00029(ALPH0) :                 3      '(?0 nm:propertyOf nm:singlePropery)
+A00029(ALPH0) :                 3      '(?_0 nm:propertyOf nm:singlePropery)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00034(ALPH0) :                 3      '(?0 nm:propertyOf nm:symmetricProperty)
+A00034(ALPH0) :                 3      '(?_0 nm:propertyOf nm:symmetricProperty)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00037(ALPH0) :                 3      '(?0 nm:classOf ?1)
+A00037(ALPH0) :                 3      '(?_0 nm:classOf ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00041(ALPH0) :                 3      '(?0 nm:propertyOf nm:nonCircleProperty)
+A00041(ALPH0) :                 3      '(?_0 nm:propertyOf nm:nonCircleProperty)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: D1              3      A(2/7)=[2, 3]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
              5: T8              3      A(2/7)=[2, 3]
-A00045(ALPH0) :                 3      '(?0 nm:propertyOf nm:tagRelation)
+A00045(ALPH0) :                 3      '(?_0 nm:propertyOf nm:tagRelation)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
              4: T5              3      A(1/1)=[0]
              5: T8              3      A(2/7)=[4, 5]
-A00048(ALPH0) :                 3      '(?0 nm:beAliasTo ?1)
+A00048(ALPH0) :                 3      '(?_0 nm:beAliasTo ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00060(ALPH0) :                 3      '(?0 nm:inverseSimpleTagProperty ?1)
+A00060(ALPH0) :                 3      '(?_0 nm:inverseSimpleTagProperty ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00062(ALPH0) :                 3      '(?0 nm:hasTagAttr ?1)
+A00062(ALPH0) :                 3      '(?_0 nm:hasTagAttr ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00063(ALPH0) :                 3      '(?0 nm:typeOf nm:tagAttr)
+A00063(ALPH0) :                 3      '(?_0 nm:typeOf nm:tagAttr)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: C6              3      A(1/1)=[0]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
-A00066(ALPH0) :                 3      '(?0 nm:inverseSimpleDomainProperty ?1)
+A00066(ALPH0) :                 3      '(?_0 nm:inverseSimpleDomainProperty ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00068(ALPH0) :                 3      '(?0 nm:beParentDomainOf ?1)
+A00068(ALPH0) :                 3      '(?_0 nm:beParentDomainOf ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: DC1             3      A(1/1)=[0]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
-A00070(ALPH0) :                 3      '(?0 nm:beAncestorDomainOf ?1)
+A00070(ALPH0) :                 3      '(?_0 nm:beAncestorDomainOf ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: D2              3      A(1/1)=[0]
              3: D3              3      A(1/1)=[0]
              4: T2              3      A(1/1)=[0]
              5: T3              3      A(1/1)=[0]
-A00073(ALPH0) :                 3      '(?0 nm:hasTag ?1)
+A00073(ALPH0) :                 3      '(?_0 nm:hasTag ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: D4              3      A(1/1)=[0]
              3: D5              3      A(1/1)=[0]
              4: T2              3      A(1/1)=[0]
              5: T3              3      A(1/1)=[0]
-A00077(ALPH0) :                 3      '(?0 nm:typeOf nm:domain)
+A00077(ALPH0) :                 3      '(?_0 nm:typeOf nm:domain)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: C6              3      A(1/1)=[0]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
-A00083(ALPH0) :                 3      '(?0 nm:hasDescendant ?1)
+A00083(ALPH0) :                 3      '(?_0 nm:hasDescendant ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: RR1             3      A(1/1)=[0]
              3: RR2             3      A(1/1)=[0]
              4: T2              3      A(1/1)=[0]
              5: T3              3      A(1/1)=[0]
-A00086(ALPH0) :                 3      '(?0 nm:hasRelatedTag ?1)
+A00086(ALPH0) :                 3      '(?_0 nm:hasRelatedTag ?_1)
              0: AC6             3      A(1/1)=[0]
              1: C1              3      A(1/1)=[0]
              2: C5              3      A(1/1)=[0]
@@ -1128,25 +1128,25 @@ A00086(ALPH0) :                 3      '(?0 nm:hasRelatedTag ?1)
              5: T2              3      A(1/1)=[0]
              6: T3              3      A(1/1)=[0]
              7: TG3             3      A(1/1)=[0]
-A00089(ALPH0) :                 3      '(?0 nm:hasAncestors ?1)
+A00089(ALPH0) :                 3      '(?_0 nm:hasAncestors ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]
              3: T3              3      A(1/1)=[0]
-A00094(ALPH0) :                 3      '(?0 nm:hasAutoRelatedTag ?1)
+A00094(ALPH0) :                 3      '(?_0 nm:hasAutoRelatedTag ?_1)
              0: AC2             3      A(1/1)=[0]
              1: C1              3      A(1/1)=[0]
              2: C5              3      A(1/1)=[0]
              3: RR5             3      A(1/1)=[0]
              4: T2              3      A(1/1)=[0]
              5: T3              3      A(1/1)=[0]
-A00097(ALPH0) :                 3      '(?0 nm:defineTag ?1)
+A00097(ALPH0) :                 3      '(?_0 nm:defineTag ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: RR6             3      A(1/1)=[0]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
-A00100(ALPH0) :                 3      '(?0 nm:beDefinedByTag ?1)
+A00100(ALPH0) :                 3      '(?_0 nm:beDefinedByTag ?_1)
              0: AC5             3      A(2/3)=[1, 2]
              1: C1              3      A(1/1)=[0]
              2: C5              3      A(1/1)=[0]
@@ -1156,13 +1156,13 @@ A00100(ALPH0) :                 3      '(?0 nm:beDefinedByTag ?1)
              6: T3              3      A(1/1)=[0]
              7: TC1             3      A(1/1)=[0]
              8: TV1             3      A(1/1)=[0]
-A00110(ALPH0) :                 3      '(?0 nm:hasFieldTag ?1)
+A00110(ALPH0) :                 3      '(?_0 nm:hasFieldTag ?_1)
              0: AC4             3      A(1/1)=[0]
              1: C1              3      A(1/1)=[0]
              2: C5              3      A(1/1)=[0]
              3: T2              3      A(1/1)=[0]
              4: T3              3      A(1/1)=[0]
-A00115(ALPH0) :                 3      '(?0 nm:beClassTagOf ?1)
+A00115(ALPH0) :                 3      '(?_0 nm:beClassTagOf ?_1)
              0: C1              3      A(1/1)=[0]
              1: C5              3      A(1/1)=[0]
              2: T2              3      A(1/1)=[0]

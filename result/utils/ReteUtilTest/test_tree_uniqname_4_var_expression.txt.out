@@ -1,4 +1,4 @@
-OUT: '('(?0 p2 ?1) (var-changed ?s1 v1 ?s1.new))
+OUT: '('(?_0 p2 ?_1) (var-changed ?s1 v1 ?s1.new))
 OUT: '((var-changed ?x ?x.old ?x.new) (f ?x.old))
 OUT: '((var-changed ?x ?x.old ?x.new) (f ?x.new))
 OUT: '((var-changed ?x ?x.new) (f ?x.new ?e))

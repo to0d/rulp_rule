@@ -151,6 +151,8 @@ public class ReteUtil {
 
 	}
 
+	static final String INDEX_VAR_PRE = A_QUESTION + "_";
+
 	static IRObjBuilder nanBuilder = new IRObjBuilder() {
 
 		@Override
@@ -320,10 +322,6 @@ public class ReteUtil {
 
 		return;
 	}
-
-//	static final String INDEX_VAR_PRE = A_QUESTION + "_";
-	
-	static final String INDEX_VAR_PRE = A_QUESTION;
 
 	private static String _toUniq(IRObject obj, Map<String, String> varMap, boolean create) throws RException {
 
@@ -1032,6 +1030,21 @@ public class ReteUtil {
 
 	public static String getNamedUniqName(String name, int stmtLen) {
 		return name + ":" + ReteUtil.getRootUniqName(stmtLen);
+	}
+
+	public static IRReteEntry getNewEntry(IREntryTable entryTable, InheritIndex[] inheritIndexs, IRReteEntry leftEntry,
+			IRReteEntry rightEntry) throws RException {
+
+		int entryLength = inheritIndexs.length;
+
+		IRObject[] newElements = new IRObject[entryLength];
+		for (int i = 0; i < entryLength; ++i) {
+			InheritIndex inherit = inheritIndexs[i];
+			IRReteEntry parentEntry = inherit.parentIndex == 0 ? leftEntry : rightEntry;
+			newElements[i] = parentEntry.get(inherit.elementIndex);
+		}
+
+		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry), false);
 	}
 
 	public static List<IRConstraint1> getNodeConstraint1List(IRReteNode node) {
@@ -1986,20 +1999,5 @@ public class ReteUtil {
 		List<String> c = new LinkedList<>(varList);
 		Collections.sort(c);
 		return c;
-	}
-
-	public static IRReteEntry getNewEntry(IREntryTable entryTable, InheritIndex[] inheritIndexs, IRReteEntry leftEntry,
-			IRReteEntry rightEntry) throws RException {
-
-		int entryLength = inheritIndexs.length;
-
-		IRObject[] newElements = new IRObject[entryLength];
-		for (int i = 0; i < entryLength; ++i) {
-			InheritIndex inherit = inheritIndexs[i];
-			IRReteEntry parentEntry = inherit.parentIndex == 0 ? leftEntry : rightEntry;
-			newElements[i] = parentEntry.get(inherit.elementIndex);
-		}
-
-		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry), false);
 	}
 }

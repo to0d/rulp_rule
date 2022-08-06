@@ -248,16 +248,16 @@ class ReteUtilTest extends RuleTestBase {
 
 		_setup();
 
-		_test_isUniqReteStmt("'(?0 ?1 ?2)", true);
-		_test_isUniqReteStmt("'(?0 ?1 ?1)", true);
-		_test_isUniqReteStmt("'(?1 ?1 ?1)", false);
-		_test_isUniqReteStmt("'(?0 ?0 ?0)", true);
-		_test_isUniqReteStmt("'(?0 ?1 ?0)", true);
-		_test_isUniqReteStmt("'(?1 ?0 ?1)", false);
-		_test_isUniqReteStmt("'(?0 a ?2)", false);
-		_test_isUniqReteStmt("'(?0 a ?1)", true);
-		_test_isUniqReteStmt("'(a a ?1)", false);
-		_test_isUniqReteStmt("'(a a ?0)", true);
+		_test_isUniqReteStmt("'(?_0 ?_1 ?_2)", true);
+		_test_isUniqReteStmt("'(?_0 ?_1 ?_1)", true);
+		_test_isUniqReteStmt("'(?_1 ?_1 ?_1)", false);
+		_test_isUniqReteStmt("'(?_0 ?_0 ?_0)", true);
+		_test_isUniqReteStmt("'(?_0 ?_1 ?_0)", true);
+		_test_isUniqReteStmt("'(?_1 ?_0 ?_1)", false);
+		_test_isUniqReteStmt("'(?_0 a ?_2)", false);
+		_test_isUniqReteStmt("'(?_0 a ?_1)", true);
+		_test_isUniqReteStmt("'(a a ?_1)", false);
+		_test_isUniqReteStmt("'(a a ?_0)", true);
 	}
 
 	@Test
@@ -290,23 +290,23 @@ class ReteUtilTest extends RuleTestBase {
 	@Test
 	void test_matchUniqStmt() {
 		_setup();
-		_test_matchUniqStmt("'(a b c)", "'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("'(a a ?0)", "'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("'(a ?0 ?0)", "'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("'(a ?0 ?1)", "'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("'(?0 b c)", "'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("'(a ?0 c)", "'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("'(?0 ?1 ?2)", "'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("'(?0 ?1 ?2)", "'(a b c)", true);
-		_test_matchUniqStmt("'(?0 ?1 ?2)", "'(a ?0 c)", true);
-		_test_matchUniqStmt("'(?0 ?1 ?2)", "'(a b ?0)", true);
-		_test_matchUniqStmt("'(?0 ?1 ?2)", "'(?0 ?1 c)", true);
-		_test_matchUniqStmt("'(a b c)", "'(?0 ?1 c)", true);
-		_test_matchUniqStmt("'(?0 ?0 a)", "'(?0 b ?0)", true);
-		_test_matchUniqStmt("'(?0 ?0 ?c)", "'(a b ?0)", false);
+		_test_matchUniqStmt("'(a b c)", "'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("'(a a ?_0)", "'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("'(a ?_0 ?_0)", "'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("'(a ?_0 ?_1)", "'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("'(?_0 b c)", "'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("'(a ?_0 c)", "'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(a b c)", true);
+		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(a ?_0 c)", true);
+		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(a b ?_0)", true);
+		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(?_0 ?_1 c)", true);
+		_test_matchUniqStmt("'(a b c)", "'(?_0 ?_1 c)", true);
+		_test_matchUniqStmt("'(?_0 ?_0 a)", "'(?_0 b ?_0)", true);
+		_test_matchUniqStmt("'(?_0 ?_0 ?_c)", "'(a b ?_0)", false);
 
-		_test_matchUniqStmt("name1:'(a b c)", "name1:'(?0 ?1 ?2)", true);
-		_test_matchUniqStmt("name1:'(a b c)", "'(?0 ?1 ?2)", false);
+		_test_matchUniqStmt("name1:'(a b c)", "name1:'(?_0 ?_1 ?_2)", true);
+		_test_matchUniqStmt("name1:'(a b c)", "'(?_0 ?_1 ?_2)", false);
 	}
 
 	@Test

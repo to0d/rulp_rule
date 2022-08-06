@@ -52,17 +52,17 @@ node info3:
 =================================================================================================================================================================
 NODE[n]      UniqName
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    '(?0 ?1 ?2)
+R00001[3]    '(?_0 ?_1 ?_2)
 V00006[3]    (var-changed ?model-state ?model-state.old ?model-state.new)
-A00002[3]    '(?0 nm:typeOf ?1)
-A00003[3]    '(?0 nm:typeOf nm:domain)
-A00010[3]    '(?0 nm:beParentDomainOf ?1)
+A00002[3]    '(?_0 nm:typeOf ?_1)
+A00003[3]    '(?_0 nm:typeOf nm:domain)
+A00010[3]    '(?_0 nm:beParentDomainOf ?_1)
 A10007[3]    (var-changed ?model-state running completed)
-E10005[3]    '('('(?0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?0)))) (not-equal ?0 nd:Global))
-E20004[3]    '('(?0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?0) order by 2)))
-B10008[3]    '('('('(?0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?0)))) (not-equal ?0 nd:Global)) (var-changed ?model-state running completed))
+E10005[3]    '('('(?_0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?_0)))) (not-equal ?_0 nd:Global))
+E20004[3]    '('(?_0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?_0) order by 2)))
+B10008[3]    '('('('(?_0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?_0)))) (not-equal ?_0 nd:Global)) (var-changed ?model-state running completed))
 DC1[3]       DC1
-I00011[3]    '(?0 nm:beParentDomainOf ?1) (order by ?2 asc)
+I00011[3]    '(?_0 nm:beParentDomainOf ?_1) (order by ?2 asc)
 =================================================================================================================================================================
 
 node info4: constraint
@@ -121,9 +121,9 @@ node source info:
 =================================================================================================================================================================
 NODE[n]         Rule            Length Description
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001(ROOT0) :                 3      '(?0 ?1 ?2)
+R00001(ROOT0) :                 3      '(?_0 ?_1 ?_2)
              0: DC1             3      A(1/1)=[0]
-A00010(ALPH0) :                 3      '(?0 nm:beParentDomainOf ?1)
+A00010(ALPH0) :                 3      '(?_0 nm:beParentDomainOf ?_1)
              0: DC1             3      A(1/1)=[0]
 =================================================================================================================================================================
 

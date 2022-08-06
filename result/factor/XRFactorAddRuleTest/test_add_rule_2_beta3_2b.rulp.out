@@ -8,7 +8,7 @@
 ;=>RULE1
 
 (rete-node-of (get-rule m "RULE1") RRT_BETA0)
-;=>'('('(?0 ?1 ?2) '(?3 ?4 ?5) (equal ?0 ?3)))
+;=>'('('(?_0 ?_1 ?_2) '(?_3 ?_4 ?_5) (equal ?_0 ?_3)))
 
 (rete-node-of (get-rule m "RULE1") RRT_BETA3)
 ;=>'()
