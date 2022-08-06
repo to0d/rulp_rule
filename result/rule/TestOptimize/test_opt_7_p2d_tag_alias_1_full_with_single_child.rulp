@@ -1,0 +1,33 @@
+(load "note/p2d.rulp")
+;=>
+
+(add-stmt p2d '(ta nm:hasAliasTag tb))
+(add-stmt p2d '(ta nm:hasAliasTag tc))
+;=>
+
+(dump-node-info p2d (+ ?script-path ".n1.txt"))
+;=>
+
+(opt-model p2d)
+;=>
+
+(dump-node-info p2d (+ ?script-path ".n2.txt"))
+;=>
+
+(start p2d)
+;=>
+
+(state-of p2d)
+;=>
+
+(list-with-state (list-rule p2d) failed)
+;=>
+
+(list-stmt p2d from '(?x nm:hasAliasTag ?y))
+;=>
+
+(list-stmt p2d from '(?x nm:beAliasTo ?y))
+;=>
+
+(list-stmt p2d from '(?x nm:typeOf nm:tag))
+;=>

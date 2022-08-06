@@ -153,24 +153,7 @@ public class TestOptimize extends RuleTestBase {
 	void test_opt_7_p2d_tag_alias_1_full_with_single_child() {
 
 		_setup();
-
-		_test("(load \"note/p2d.rulp\")");
-		_test("(add-stmt p2d '(ta nm:hasAliasTag tb))");
-		_test("(add-stmt p2d '(ta nm:hasAliasTag tc))");
-
-		_nodeInfo("p2d", "result/rule/TestOptimize/test_opt_7_p2d_tag_alias_1_full_with_single_child_n1.txt");
-		_test("(opt-model p2d)", "1");
-		_nodeInfo("p2d", "result/rule/TestOptimize/test_opt_7_p2d_tag_alias_1_full_with_single_child_n2.txt");
-
-		_test("(start p2d)", "273");
-		_test("(state-of p2d)", "completed");
-		_test("(list-with-state (list-rule p2d) failed)", "'()");
-
-		_test("(list-stmt p2d from '(?x nm:hasAliasTag ?y))", "'('(ta nm:hasAliasTag tb) '(ta nm:hasAliasTag tc))");
-		_test("(list-stmt p2d from '(?x nm:beAliasTo ?y))", "'('(tb nm:beAliasTo ta) '(tc nm:beAliasTo ta))");
-		_test("(list-stmt p2d from '(?x nm:typeOf nm:tag))",
-				"'('(tb nm:typeOf nm:tag) '(ta nm:typeOf nm:tag) '(tc nm:typeOf nm:tag))");
-
+		_run_script();
 		_statsInfo("p2d");
 		_dumpEntryTable("p2d");
 	}
@@ -228,7 +211,7 @@ public class TestOptimize extends RuleTestBase {
 		_statsInfo("m");
 
 	}
-	
+
 	@Test
 	void test_opt_b_unused_var_in_action_3() {
 

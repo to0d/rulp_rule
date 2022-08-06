@@ -1,0 +1,34 @@
+(load "note/p2d.rulp")
+;=>nil
+
+(add-stmt p2d '(ta nm:hasAliasTag tb))
+(add-stmt p2d '(ta nm:hasAliasTag tc))
+;=>true true
+
+(dump-node-info p2d (+ ?script-path ".n1.txt"))
+;=>nil
+
+(opt-model p2d)
+;=>1
+
+(dump-node-info p2d (+ ?script-path ".n2.txt"))
+;=>nil
+
+(start p2d)
+;=>273
+
+(state-of p2d)
+;=>completed
+
+(list-with-state (list-rule p2d) failed)
+;=>'()
+
+(list-stmt p2d from '(?x nm:hasAliasTag ?y))
+;=>'('(ta nm:hasAliasTag tb) '(ta nm:hasAliasTag tc))
+
+(list-stmt p2d from '(?x nm:beAliasTo ?y))
+;=>'('(tb nm:beAliasTo ta) '(tc nm:beAliasTo ta))
+
+(list-stmt p2d from '(?x nm:typeOf nm:tag))
+;=>'('(tb nm:typeOf nm:tag) '(ta nm:typeOf nm:tag) '(tc nm:typeOf nm:tag))
+

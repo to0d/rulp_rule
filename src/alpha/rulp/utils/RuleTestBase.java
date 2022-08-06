@@ -123,31 +123,6 @@ public class RuleTestBase extends RulpTestBase {
 		}
 	}
 
-	protected void _nodeInfo(String modelName, String expectFile) {
-
-		try {
-
-			String outoputInfo = StatsUtil.printNodeInfo(_model(modelName));
-
-			if (PRIME_MODE) {
-
-				ArrayList<String> lines = new ArrayList<>();
-				lines.add(outoputInfo);
-
-				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
-
-			} else {
-
-				String expectInfo = RulpUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
-				assertEquals(expectInfo.trim(), outoputInfo.trim());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
-	}
-
 	protected void _refInfo(String modelName) {
 		_refInfo(modelName, getCachePath() + ".ref.txt");
 	}
