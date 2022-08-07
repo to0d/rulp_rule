@@ -2011,6 +2011,24 @@ public class XRNodeGraph implements IRNodeGraph {
 		return indexNode;
 	}
 
+	public static String getInheritUniqName(String parentUniqName, int[] inheritIndexs) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("(");
+		sb.append(A_Inherit);
+		sb.append(" ");
+		sb.append(parentUniqName);
+
+		for (int index : inheritIndexs) {
+			sb.append(" ");
+			sb.append(index);
+		}
+
+		sb.append(")");
+
+		return sb.toString();
+	}
+
 	@Override
 	public IRReteNode buildInherit(IRReteNode node, int[] indexs) throws RException {
 
@@ -2024,7 +2042,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		int[] inheritIndexs = new int[indexs.length];
 		IRObject[] inheritVarEntry = new IRObject[indexs.length];
 
-		String uniqName = node.getUniqName() + " (" + A_Inherit;
 		int lastIndex = -1;
 		int i = 0;
 
@@ -2045,15 +2062,13 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 			}
 
-			uniqName += " " + index;
 			inheritIndexs[i] = index;
 			inheritVarEntry[i] = var;
 			lastIndex = index;
 			++i;
 		}
 
-		uniqName += ")";
-
+		String uniqName = getInheritUniqName(node.getUniqName(), inheritIndexs);
 		for (IRReteNode childNode : node.getChildNodes()) {
 			if (childNode.getReteType() == RReteType.INHER && childNode.getUniqName().equals(uniqName)) {
 				return childNode;

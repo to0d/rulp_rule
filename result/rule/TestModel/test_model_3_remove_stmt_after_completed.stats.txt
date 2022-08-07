@@ -62,7 +62,7 @@ B00004[3]    '('('(?_0 hasChild ?_1) (!= ?_0 ?_1)) '('(?_1 hasChild ?_2) (!= ?_1
 B10008[4]    '('('('('(?_0 hasChild ?_1) (!= ?_0 ?_1)) '('(?_1 hasChild ?_2) (!= ?_1 ?_2))) '('(?_0 hasChild ?_2) (!= ?_0 ?_2))) (var-changed ?model-state running completed))
 B20005[3]    '('('('(?_0 hasChild ?_1) (!= ?_0 ?_1)) '('(?_1 hasChild ?_2) (!= ?_1 ?_2))) '('(?_0 hasChild ?_2) (!= ?_0 ?_2)))
 RU000[2]     RU000
-I10009[2]    '('('('('(?_0 hasChild ?_1) (!= ?_0 ?_1)) '('(?_1 hasChild ?_2) (!= ?_1 ?_2))) '('(?_0 hasChild ?_2) (!= ?_0 ?_2))) (var-changed ?model-state running completed)) (inherit 1 2)
+I10009[2]    (inherit '('('('('(?_0 hasChild ?_1) (!= ?_0 ?_1)) '('(?_1 hasChild ?_2) (!= ?_1 ?_2))) '('(?_0 hasChild ?_2) (!= ?_0 ?_2))) (var-changed ?model-state running completed)) 1 2)
 =================================================================================================================================================================
 
 node info4: constraint

@@ -42,7 +42,7 @@ V00001[3]    (var-changed ?x ?x.old ?x.new)
 V00002[3]    (var-changed ?y ?y.old ?y.new)
 B10003[6]    '((var-changed ?x ?x.old ?x.new) (var-changed ?y ?y.old ?y.new))
 RU000[2]     RU000
-I10004[2]    '((var-changed ?x ?x.old ?x.new) (var-changed ?y ?y.old ?y.new)) (inherit 2 5)
+I10004[2]    (inherit '((var-changed ?x ?x.old ?x.new) (var-changed ?y ?y.old ?y.new)) 2 5)
 =================================================================================================================================================================
 
 node info5: action

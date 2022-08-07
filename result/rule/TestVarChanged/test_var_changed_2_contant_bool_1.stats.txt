@@ -44,7 +44,7 @@ V00002[3]    (var-changed ?x ?x.old ?x.new)
 A10003[3]    (var-changed ?x ?x.old true)
 B10004[4]    '('(?_0 ?_1) (var-changed ?x ?x.old true))
 RU000[2]     RU000
-I10005[2]    '('(?_0 ?_1) (var-changed ?x ?x.old true)) (inherit 0 1)
+I10005[2]    (inherit '('(?_0 ?_1) (var-changed ?x ?x.old true)) 0 1)
 =================================================================================================================================================================
 
 node info4: constraint

@@ -62,8 +62,8 @@ B20006[3]    '('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasRelation)) (not-equal nm:hasAuto
 B20010[3]    '('('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?_1)) '(?_1 nm:propertyOf nm:tagRelation)) '(?_0 nm:hasAutoRelatedTag ?_2))
 T7[2]        T7
 RR5[2]       RR5
-I10007[2]    '('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?_1)) '(?_1 nm:propertyOf nm:tagRelation)) (inherit 0 2)
-I10011[2]    '('('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?_1)) '(?_1 nm:propertyOf nm:tagRelation)) '(?_0 nm:hasAutoRelatedTag ?_2)) (inherit 0 2)
+I10007[2]    (inherit '('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?_1)) '(?_1 nm:propertyOf nm:tagRelation)) 0 2)
+I10011[2]    (inherit '('('('('(?_0 ?_1 ?_2) (!= ?_1 nm:hasRelation)) (not-equal nm:hasAutoRelatedTag ?_1)) '(?_1 nm:propertyOf nm:tagRelation)) '(?_0 nm:hasAutoRelatedTag ?_2)) 0 2)
 =================================================================================================================================================================
 
 node info4: constraint

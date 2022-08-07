@@ -46,7 +46,7 @@ V00002[3]    (var-changed ?xmode ?xmode.old ?xmode.new)
 A10003[3]    (var-changed ?xmode ?xmode.old true)
 B10004[3]    '(name1:'(?_0) (var-changed ?xmode ?xmode.old true))
 RU000[1]     RU000
-I10005[1]    '(name1:'(?_0) (var-changed ?xmode ?xmode.old true)) (inherit 0)
+I10005[1]    (inherit '(name1:'(?_0) (var-changed ?xmode ?xmode.old true)) 0)
 =================================================================================================================================================================
 
 node info4: constraint

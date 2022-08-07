@@ -75,7 +75,7 @@ B20013[3]    '('('(?_0 has-hobby ?_1) '(?_2 has-hobby ?_1)) '(canBeCouple ?_0 ?_
 B30006[4]    '('('(?_0 has-sex ?_1) '(?_0 typeof guess)) '('(?_2 has-sex ?_3) '(?_2 typeof guess)) (not-equal ?_0 ?_2))
 RU000[4]     RU000
 RU001[2]     RU001
-I10014[2]    '('('(?_0 has-hobby ?_1) '(?_2 has-hobby ?_1)) '(canBeCouple ?_0 ?_2 true)) (inherit 0 2)
+I10014[2]    (inherit '('('(?_0 has-hobby ?_1) '(?_2 has-hobby ?_1)) '(canBeCouple ?_0 ?_2 true)) 0 2)
 =================================================================================================================================================================
 
 node info4: constraint

@@ -43,7 +43,7 @@ V00001[3]    (var-changed ?x ?x.old ?x.new)
 E00002[3]    ((var-changed ?x ?x.old ?x.new) (f1 ?x.new))
 RU000[1]     RU000
 RU001[1]     RU001
-I10003[1]    ((var-changed ?x ?x.old ?x.new) (f1 ?x.new)) (inherit 2)
+I10003[1]    (inherit ((var-changed ?x ?x.old ?x.new) (f1 ?x.new)) 2)
 =================================================================================================================================================================
 
 node info4: constraint

@@ -61,7 +61,7 @@ A10006[3]    (var-changed ?model-state running completed)
 E10004[3]    '('(?_0 nm:typeOf nm:domain) (!= ?_0 nd:Global))
 B10007[2]    '('('(?_0 nm:typeOf nm:domain) (!= ?_0 nd:Global)) (var-changed ?model-state running completed))
 DC1[1]       DC1
-I10008[1]    '('('(?_0 nm:typeOf nm:domain) (!= ?_0 nd:Global)) (var-changed ?model-state running completed)) (inherit 0)
+I10008[1]    (inherit '('('(?_0 nm:typeOf nm:domain) (!= ?_0 nd:Global)) (var-changed ?model-state running completed)) 0)
 =================================================================================================================================================================
 
 node info4: constraint
