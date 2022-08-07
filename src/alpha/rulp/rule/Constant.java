@@ -39,6 +39,10 @@ public interface Constant {
 
 	String A_Halting = "halting";
 
+	String A_Index = "index";
+
+	String A_Inherit = "inherit";
+
 	String A_Limit = "limit";
 
 	String A_M_TRACE = "?model-trace";
@@ -62,8 +66,6 @@ public interface Constant {
 	String A_Order_by = "order by";
 
 	String A_Partial = "partial";
-
-	String A_Inherit = "inherit";
 
 	String A_Priority = "priority";
 
@@ -111,11 +113,11 @@ public interface Constant {
 
 	String F_ADD_CONSTRAINT = "add-constraint";
 
+	String F_ADD_INDEX = "add-index";
+
 	String F_ADD_LAZY_STMT = "add-lazy-stmt";
 
 	String F_ADD_NODE = "add-node";
-
-	String F_ADD_INDEX = "add-index";
 
 	String F_ADD_RULE = "add-rule";
 
@@ -133,11 +135,11 @@ public interface Constant {
 
 	String F_DEFS_S = "->";
 
-	String F_DUMP_STATUS = "dump-status";
+	String F_DUMP_ENTRY_INFO = "dump-entry-info";
 
 	String F_DUMP_NODE_INFO = "dump-node-info";
 
-	String F_DUMP_ENTRY_INFO = "dump-entry-info";
+	String F_DUMP_STATUS = "dump-status";
 
 	String F_FIX_STMT = "fix-stmt";
 

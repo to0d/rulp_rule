@@ -1,6 +1,13 @@
 package alpha.rulp.ximpl.factor;
 
+import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.rule.Constant.A_Asc;
+import static alpha.rulp.rule.Constant.A_BackSearch;
+import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Order_by;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
@@ -11,9 +18,13 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1OrderBy;
@@ -26,56 +37,134 @@ public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, 
 		super(factorName);
 	}
 
+	static void _addOrderIndex(Modifier modifier, List<OrderEntry> orderList, IRList nodeExpr, IRObject orderObj,
+			boolean asc) throws RException {
+
+		int index = -1;
+
+		if (!RulpUtil.isVarAtom(orderObj)) {
+			throw new RException("unsupport modifier: " + modifier.obj);
+		}
+
+		for (int i = 0; i < nodeExpr.size(); ++i) {
+			if (RulpUtil.equal(orderObj, nodeExpr.get(i))) {
+				index = i;
+				break;
+			}
+		}
+
+		if (index == -1) {
+			throw new RException("unsupport modifier: " + modifier.obj);
+		}
+
+		OrderEntry order = new OrderEntry();
+		order.index = index;
+		order.asc = asc;
+		orderList.add(order);
+	}
+
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		int argSize = args.size();
 
-		// (add-index m '(?a ?b c) (order by '(?b ?a)))
+		// (add-index m '(?a ?b c) order by '(?b ?a))
 		/********************************************/
 		// Check parameters
 		/********************************************/
-		if (argSize != 4) {
+		if (argSize < 5) {
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
-		IRList nodeExpr = RulpUtil.asList(interpreter.compute(frame, args.get(2)));
+		/**************************************************/
+		// Check model object
+		/**************************************************/
+		int argIndex = 1;
+		IRModel model = null;
+		IRObject obj = interpreter.compute(frame, args.get(argIndex));
+		if (obj instanceof IRModel) {
+			model = (IRModel) obj;
+			obj = null;
+			argIndex++;
+		} else {
+			model = RuleUtil.getDefaultModel(frame);
+			if (model == null) {
+				throw new RException("no model be specified");
+			}
+		}
+
+		IRList nodeExpr = RulpUtil.asList(interpreter.compute(frame, args.get(argIndex++)));
 
 		/********************************************/
 		// Check index expression
 		/********************************************/
-		if (!ReteUtil.isIndexStmt(nodeExpr)) {
-			throw new RException(String.format("Invalid index expr: %s", nodeExpr));
+		if (!ReteUtil.supportIndexStmt(nodeExpr)) {
+			throw new RException(String.format("Invalid index expr: %s", args));
 		}
 
-//		ArrayList<String> nodeVarList = new ArrayList<>();
-//		ReteUtil.fillVarList(nodeExpr, nodeVarList);
-//
-//		if (nodeVarList.isEmpty()) {
-//			throw new RException(String.format("no var in node expr: %s", nodeExpr));
-//		}
-//
-//		HashSet<String> nodeVarSet = new HashSet<>(nodeVarList);
-//		if (nodeVarSet.size() != nodeVarList.size()) {
-//			throw new RException(String.format("Duplicated var found in node expr: %s", nodeExpr));
-//		}
+		List<OrderEntry> orderList = new ArrayList<>();
 
 		/********************************************/
-		// Check order expression
+		// Check modifier
 		/********************************************/
-		IRExpr orderExpr = RulpUtil.asExpression(args.get(3));
+		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame)) {
 
-		IRConstraint1 cons = new ConstraintBuilder(ReteUtil._varEntry(ReteUtil.buildTreeVarList(nodeExpr)))
-				.build(orderExpr, interpreter, frame);
+			switch (modifier.name) {
+			case A_Order_by:
 
-		if (cons == null || !cons.getConstraintName().equals(A_Order_by)) {
-			throw new RException(String.format("Invalid order expr: %s", orderExpr));
+				IRList orderEntryObj = RulpUtil.asList(RulpUtil.asList(modifier.obj).get(0));
+
+				boolean asc = true;
+				switch (orderEntryObj.get(1).asString()) {
+				case A_Asc:
+					asc = true;
+					break;
+
+				case A_Desc:
+					asc = false;
+					break;
+
+				case A_NIL:
+					asc = true;
+					break;
+
+				default:
+					throw new RException("unsupport modifier: " + modifier.obj);
+				}
+
+				IRObject orderObj = orderEntryObj.get(0);
+
+				switch (orderObj.getType()) {
+				case ATOM:
+					_addOrderIndex(modifier, orderList, nodeExpr, orderObj, asc);
+					break;
+
+				case LIST:
+					IRList orderObjList = (IRList) orderObj;
+					IRIterator<? extends IRObject> it = orderObjList.iterator();
+					while (it.hasNext()) {
+						_addOrderIndex(modifier, orderList, nodeExpr, it.next(), asc);
+					}
+					break;
+
+				default:
+					throw new RException("unsupport modifier: " + modifier.obj);
+				}
+
+				break;
+
+			default:
+				throw new RException("unsupport modifier: " + modifier.name);
+			}
+		}
+
+		if (orderList.isEmpty()) {
+			throw new RException(String.format("Invalid order expr: %s", args));
 		}
 
 		IRNodeGraph graph = model.getNodeGraph();
 		IRReteNode node = graph.getNodeByTree(nodeExpr);
 
-		return graph.buildIndex(node, ((IRConstraint1OrderBy) cons).getOrderList());
+		return graph.buildIndex(node, orderList);
 	}
 }

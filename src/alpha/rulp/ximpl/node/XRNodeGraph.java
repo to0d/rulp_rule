@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.node;
 import static alpha.rulp.lang.Constant.F_EQUAL;
 import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.A_Inherit;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_RETE_TYPE;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -2011,7 +2011,25 @@ public class XRNodeGraph implements IRNodeGraph {
 		return indexNode;
 	}
 
-	public static String getInheritUniqName(String parentUniqName, int[] inheritIndexs) {
+//	protected static String _getUniqNameForIndexNode(String parentUniqName, List<OrderEntry> orderList) {
+//
+//		StringBuffer sb = new StringBuffer();
+//		sb.append("(");
+//		sb.append(A_Index);
+//		sb.append(" ");
+//		sb.append(parentUniqName);
+//
+//		for (int index : inheritIndexs) {
+//			sb.append(" ");
+//			sb.append(index);
+//		}
+//
+//		sb.append(")");
+//
+//		return sb.toString();
+//	}
+
+	protected static String _getUniqNameForInheritNode(String parentUniqName, int[] inheritIndexs) {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("(");
@@ -2068,8 +2086,9 @@ public class XRNodeGraph implements IRNodeGraph {
 			++i;
 		}
 
-		String uniqName = getInheritUniqName(node.getUniqName(), inheritIndexs);
+		String uniqName = _getUniqNameForInheritNode(node.getUniqName(), inheritIndexs);
 		for (IRReteNode childNode : node.getChildNodes()) {
+
 			if (childNode.getReteType() == RReteType.INHER && childNode.getUniqName().equals(uniqName)) {
 				return childNode;
 			}

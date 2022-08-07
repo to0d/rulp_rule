@@ -1294,7 +1294,7 @@ public class ReteUtil {
 		}
 	}
 
-	public static boolean isIndexStmt(IRList stmt) throws RException {
+	public static boolean supportIndexStmt(IRList stmt) throws RException {
 
 		if (!ReteUtil.isAlphaMatchTree(stmt)) {
 			return false;

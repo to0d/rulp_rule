@@ -1,24 +1,27 @@
 (new model m)
 ;=>m
 
-(add-index m n1:'(?a ?b c) (order by ?a))
+(add-index m n1:'(?a ?b c) order by ?a)
 ;=>n1:'(?_0 ?_1 c) (order by ?0 asc)
 
-(add-index m n1:'(?a ?b c) (order by '(?b ?a)))
+(add-index m n1:'(?a ?b c) order by '(?b ?a))
 ;=>n1:'(?_0 ?_1 c) (order by ?1 asc order by ?0 asc)
 
-(add-index m '(?a b c) (order by ?a))
+(add-index m '(?a b c) order by ?a)
 ;=>'(?_0 b c) (order by ?0 asc)
 
-(add-index m '(?a ?a c) (order by ?a))
+(add-index m '(?a ?a c) order by ?a)
 ;err:
-Invalid index expr: '(?a ?a c)
-at (add-index m '(?a ?a c) (order by ?a)) ; main-2
+Invalid index expr: (add-index m '(?a ?a c) order by ?a)
+at (add-index m '(?a ?a c) order by ?a) ; main-2
 ;eof
 
-(add-index m '(a b c) (order by ?a))
+(add-index m '(a b c) order by ?a)
 ;err:
-Invalid index expr: '(a b c)
-at (add-index m '(a b c) (order by ?a)) ; main-2
+Invalid index expr: (add-index m '(a b c) order by ?a)
+at (add-index m '(a b c) order by ?a) ; main-2
 ;eof
+
+(add-index m n1:'(?a ?b ?c) order by ?c desc order by ?b asc)
+;=>n1:'(?_0 ?_1 ?_2) (order by ?2 desc order by ?1 asc)
 

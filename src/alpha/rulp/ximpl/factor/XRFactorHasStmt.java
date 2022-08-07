@@ -163,7 +163,7 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		/********************************************/
 		// create index and query
 		/********************************************/
-		if (orderList != null && ReteUtil.isIndexStmt(stmt)) {
+		if (orderList != null && ReteUtil.supportIndexStmt(stmt)) {
 			return RulpFactory.createBoolean(model.hasStatement(stmt, orderList));
 		}
 
