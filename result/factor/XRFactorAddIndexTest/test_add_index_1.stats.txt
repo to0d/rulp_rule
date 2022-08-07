@@ -47,10 +47,10 @@ N00001[3]    n1:'(?_0 ?_1 ?_2)
 A00002[3]    n1:'(?_0 ?_1 c)
 A00006[3]    '(?_0 b ?_1)
 A00007[3]    '(?_0 b c)
-I00003[3]    (index n1:'(?_0 ?_1 c) order by ?_0 asc)
-I00004[3]    (index n1:'(?_0 ?_1 c) order by ?_1 asc order by ?_0 asc)
-I00008[3]    (index '(?_0 b c) order by ?_0 asc)
-I00009[3]    (index n1:'(?_0 ?_1 ?_2) order by ?_2 desc order by ?_1 asc)
+I00003[3]    (index n1:'(?_0 ?_1 c) order by 0 asc)
+I00004[3]    (index n1:'(?_0 ?_1 c) order by 1 asc order by 0 asc)
+I00008[3]    (index '(?_0 b c) order by 0 asc)
+I00009[3]    (index n1:'(?_0 ?_1 ?_2) order by 2 desc order by 1 asc)
 =================================================================================================================================================================
 
 node info4: constraint

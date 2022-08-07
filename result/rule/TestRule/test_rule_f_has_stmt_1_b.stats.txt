@@ -65,7 +65,7 @@ E10005[3]    '('('(?_0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomai
 E20004[3]    '('(?_0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?_0) order by 2)))
 B10008[3]    '('('('(?_0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?_0)))) (not-equal ?_0 nd:Global)) (var-changed ?model-state running completed))
 DC1[1]       DC1
-I00012[3]    (index '(?_0 nm:beParentDomainOf ?_1) order by ?_2 asc)
+I00012[3]    (index '(?_0 nm:beParentDomainOf ?_1) order by 2 asc)
 I10009[1]    (inherit '('('('(?_0 nm:typeOf nm:domain) (not (has-stmt '(?x nm:beParentDomainOf ?_0)))) (not-equal ?_0 nd:Global)) (var-changed ?model-state running completed)) 0)
 =================================================================================================================================================================
 

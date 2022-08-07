@@ -372,7 +372,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			sb.append(" ");
 			sb.append(A_Order_by);
 			sb.append(" ");
-			sb.append(ReteUtil.getIndexVarName(order.index));
+			sb.append(order.index);
 			sb.append(" ");
 			sb.append(order.asc ? A_Asc : A_Desc);
 		}

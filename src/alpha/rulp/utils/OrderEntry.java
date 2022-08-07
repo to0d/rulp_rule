@@ -23,7 +23,11 @@ public class OrderEntry {
 				if (index++ != 0) {
 					sb.append(" ");
 				}
-				sb.append("" + orderEntry);
+				sb.append(A_Order_by);
+				sb.append(" ");
+				sb.append(orderEntry.index);
+				sb.append(" ");
+				sb.append(orderEntry.asc ? A_Asc : A_Desc);
 			}
 
 			sb.append(")");
