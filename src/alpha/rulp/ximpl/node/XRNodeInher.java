@@ -1,12 +1,13 @@
 package alpha.rulp.ximpl.node;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
-import alpha.rulp.ximpl.entry.REntryQueueType;
 
 public class XRNodeInher extends XRNodeRete1 {
 
@@ -26,6 +27,8 @@ public class XRNodeInher extends XRNodeRete1 {
 		this.inheritIndexs = inheritIndexs;
 	}
 
+	protected Map<String, IRReteEntry> uniqEntryMap = new HashMap<>();
+
 	@Override
 	public boolean addReteEntry(IRReteEntry entry) throws RException {
 
@@ -36,16 +39,19 @@ public class XRNodeInher extends XRNodeRete1 {
 			newElements[i] = entry.get(inheritIndexs[i]);
 		}
 
-		String uniqName = ReteUtil.uniqName(RulpUtil.toList(entry.getNamedName(), newElements));
-		IRReteEntry oldEntry = null;
-		if (entryQueue.getQueueType() == REntryQueueType.UNIQ) {
-			oldEntry = entryQueue.getStmt(uniqName);
-		}
+		String uniqName = "'(" + ReteUtil.uniqName(newElements) + ")";
 
-		// old entry exist
-		if (!ReteUtil.isRemovedEntry(oldEntry)) {
-			entryTable.addReference(oldEntry, this, entry);
-			return false;
+		// Check old entry
+		{
+			IRReteEntry oldEntry = uniqEntryMap.get(uniqName);
+
+			// old entry exist
+			if (!ReteUtil.isRemovedEntry(oldEntry)) {
+				entryTable.addReference(oldEntry, this, entry);
+				entryQueue.incNodeUpdateCount();
+				entryQueue.incEntryRedundant();
+				return false;
+			}
 		}
 
 		IRReteEntry newEntry = entryTable.createEntry(null, newElements, entry.getStatus(), false);
@@ -55,6 +61,7 @@ public class XRNodeInher extends XRNodeRete1 {
 		}
 
 		entryTable.addReference(newEntry, this, entry);
+		uniqEntryMap.put(uniqName, newEntry);
 		return true;
 	}
 }

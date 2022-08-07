@@ -154,8 +154,8 @@ R2[3]        RULE  Rule0 ACTION                           1     0    0    0    0
 R3[3]        RULE  Rule0 ACTION                           1     0    0    0    0   0   0 197 [?task, ?arg0, ?day1]
 R4[3]        RULE  Rule0 ACTION                           1     0    0    0    0   0   0 196 [?t1, ?f1, ?f2]
 R5[3]        RULE  Rule0 ACTION                           1     0    0    0    0   0   0 195 [?t1, ?f1, ?t2]
-I10006[3]    INHER Inher UNIQ                             1     1    1    0    0   0   0 198 [?task, ?arg0, ?day2]
-I10011[3]    INHER Inher UNIQ                             1     1    1    0    0   0   0 197 [?task, ?arg0, ?day1]
+I10006[3]    INHER Inher MULTI                            1     1    1    0    0   0   0 198 [?task, ?arg0, ?day2]
+I10011[3]    INHER Inher MULTI                            1     1    1    0    0   0   0 197 [?task, ?arg0, ?day1]
 =================================================================================================================================================================
 
 priority info:
@@ -572,7 +572,7 @@ Object create count:
         atom:         2997            0         2997
          int:           12            0           12
       string:          133            0          133
-        list:          196            7          189
+        list:          195            7          188
         expr:         1397           25         1372
          var:          109           74           35
     constant:           44            0           44

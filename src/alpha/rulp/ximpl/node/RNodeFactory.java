@@ -600,7 +600,7 @@ public class RNodeFactory {
 		node.setInheritIndexs(inheritIndexs);
 
 		// Entry queue
-		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.UNIQ, node));
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
 		node.setParentNodes(ReteUtil.toNodesArray(parentNode));

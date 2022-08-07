@@ -108,9 +108,9 @@ CST01[4]     RULE  Rule0 ACTION                           1     0    0    0    0
 CST02[1]     RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node]
 CST03[1]     RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node]
 CST04[1]     RULE  Rule0 ACTION                           1     0    0    0    0   0   0   0 [?node]
-I10006[1]    INHER Inher UNIQ                             1     1    1    0    0   0   0   0 [null]
-I10009[1]    INHER Inher UNIQ                             1     1    1    0    0   0   0   0 [null]
-I10012[1]    INHER Inher UNIQ                             1     1    1    0    0   0   0   0 [null]
+I10006[1]    INHER Inher MULTI                            1     1    1    0    0   0   0   0 [null]
+I10009[1]    INHER Inher MULTI                            1     1    1    0    0   0   0   0 [null]
+I10012[1]    INHER Inher MULTI                            1     1    1    0    0   0   0   0 [null]
 =================================================================================================================================================================
 
 priority info:
@@ -411,7 +411,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         2152            0         2152
       string:           84            0           84
-        list:          160            8          152
+        list:          159            8          151
         expr:          912            6          906
          var:           39           16           23
         func:           83            0           83

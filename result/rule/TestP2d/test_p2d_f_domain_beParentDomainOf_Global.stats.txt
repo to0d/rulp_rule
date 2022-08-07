@@ -892,30 +892,30 @@ AC6[1]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?
 AC7[1]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?t]
 AC8[1]       RULE  Rule0 ACTION            1     0    0    0    0   0   0  99 [?t]
 I00153[3]    INDEX Index ORDER             1     0    0    0    0   0   0   0 [?a, null, ?b]
-I10008[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?tag]
-I10011[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?tc]
-I10016[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?c]
-I10020[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?p]
-I10024[3]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?t1, ?t2, ?p2]
-I10033[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a]
-I10045[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?c2]
-I10051[3]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?p, ?b]
-I10055[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?b]
-I10063[3]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?p, ?c, ?b]
-I10066[3]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?c, ?p, ?b]
-I10070[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?p2]
-I10077[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a]
-I10085[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?c]
-I10089[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?da, ?t]
-I10096[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?d]
-I10101[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?c]
-I10113[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?b]
-I10125[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?a, ?c]
-I10128[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?t]
-I10134[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?c, ?f]
-I10141[2]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?ins, ?f]
-I10145[1]    INHER Inher UNIQ              1     1    1    0    0   0   0  99 [?t]
-I10149[1]    INHER Inher UNIQ              1     3    3    0    0   0   0  99 [?t]
+I10008[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?tag]
+I10011[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?tc]
+I10016[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?c]
+I10020[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?p]
+I10024[3]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?t1, ?t2, ?p2]
+I10033[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a]
+I10045[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?c2]
+I10051[3]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?p, ?b]
+I10055[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?b]
+I10063[3]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?p, ?c, ?b]
+I10066[3]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?c, ?p, ?b]
+I10070[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?p2]
+I10077[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a]
+I10085[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?c]
+I10089[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?da, ?t]
+I10096[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?d]
+I10101[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?c]
+I10113[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?b]
+I10125[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?a, ?c]
+I10128[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?t]
+I10134[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?c, ?f]
+I10141[2]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?ins, ?f]
+I10145[1]    INHER Inher MULTI             1     1    1    0    0   0   0  99 [?t]
+I10149[1]    INHER Inher MULTI             1     3    3    0    0   0   0  99 [?t]
 =================================================================================================================================================================
 
 priority info:
@@ -2759,7 +2759,7 @@ Object create count:
         atom:         6724            0         6724
          int:            3            0            3
       string:          206            0          206
-        list:         1591            3         1588
+        list:         1538            3         1535
         expr:         2066           43         2023
          var:          156          125           31
     constant:           54            0           54
