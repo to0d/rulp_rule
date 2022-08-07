@@ -336,7 +336,7 @@ public class ReteUtil {
 				String newName = varMap.get(atomName);
 				if (newName == null) {
 					if (create) {
-						newName = INDEX_VAR_PRE + varMap.size();
+						newName = getIndexVarName(varMap.size());
 						varMap.put(atomName, newName);
 					} else {
 						newName = atomName;
@@ -1156,11 +1156,15 @@ public class ReteUtil {
 			if (i != 0) {
 				uniqName += " ";
 			}
-			uniqName += INDEX_VAR_PRE + i;
+			uniqName += getIndexVarName(i);
 		}
 		uniqName += ")";
 
 		return uniqName;
+	}
+
+	public static String getIndexVarName(int index) {
+		return INDEX_VAR_PRE + index;
 	}
 
 	public static int getStmtVarCount(IRList stmt) throws RException {

@@ -2,13 +2,13 @@
 ;=>m
 
 (add-index m n1:'(?a ?b c) order by ?a)
-;=>n1:'(?_0 ?_1 c) (order by ?0 asc)
+;=>(index n1:'(?_0 ?_1 c) order by ?_0 asc)
 
 (add-index m n1:'(?a ?b c) order by '(?b ?a))
-;=>n1:'(?_0 ?_1 c) (order by ?1 asc order by ?0 asc)
+;=>(index n1:'(?_0 ?_1 c) order by ?_1 asc order by ?_0 asc)
 
 (add-index m '(?a b c) order by ?a)
-;=>'(?_0 b c) (order by ?0 asc)
+;=>(index '(?_0 b c) order by ?_0 asc)
 
 (add-index m '(?a ?a c) order by ?a)
 ;err:
@@ -23,5 +23,5 @@ at (add-index m '(a b c) order by ?a) ; main-2
 ;eof
 
 (add-index m n1:'(?a ?b ?c) order by ?c desc order by ?b asc)
-;=>n1:'(?_0 ?_1 ?_2) (order by ?2 desc order by ?1 asc)
+;=>(index n1:'(?_0 ?_1 ?_2) order by ?_2 desc order by ?_1 asc)
 

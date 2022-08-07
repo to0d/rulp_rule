@@ -555,7 +555,7 @@ AC5[1]       AC5
 AC6[1]       AC6
 AC7[1]       AC7
 AC8[1]       AC8
-I00153[3]    '(?_0 nm:beParentDomainOf ?_1) (order by ?2 asc)
+I00153[3]    (index '(?_0 nm:beParentDomainOf ?_1) order by ?_2 asc)
 I10008[1]    (inherit '('('(?_0 nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?_0))) (var-changed ?model-state running completed)) 0)
 I10011[1]    (inherit '(?_0 nm:beInstanceTagOf ?_1) 2)
 I10016[2]    (inherit '('(?_0 nm:hasSubCollection ?_1) '(?_1 nm:beParentTagOf ?_2)) 0 2)
