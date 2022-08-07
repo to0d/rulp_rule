@@ -225,9 +225,9 @@ public class ActionUtil {
 			inheritCount++;
 		}
 
-		if (inheritCount == 0) {
-			throw new RException("not var found: " + varStmt);
-		}
+//		if (inheritCount == 0) {
+//			throw new RException("not var found: " + varStmt);
+//		}
 
 		AbsActionSimpleStmt action = null;
 

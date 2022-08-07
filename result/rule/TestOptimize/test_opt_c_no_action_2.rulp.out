@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?a ?b) (> ?a ?b) do (-> m n2:'(x)))
+(add-stmt m n1:'(10 1))
+(add-stmt m n1:'(10 2))
+(add-stmt m n1:'(10 3))
+;=>RU000 true true true
+
+(start m)
+;=>3
+
+(list-stmt m)
+;=>'(n1:'(10 1) n1:'(10 2) n1:'(10 3) n2:'(x))
+

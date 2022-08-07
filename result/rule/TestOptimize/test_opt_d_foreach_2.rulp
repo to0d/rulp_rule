@@ -1,0 +1,15 @@
+(new model m)
+;=>
+
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m n1:'(?a)))
+(add-stmt m '(a p b))
+(add-stmt m '(b p c1))
+(add-stmt m '(b p c2))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>
+

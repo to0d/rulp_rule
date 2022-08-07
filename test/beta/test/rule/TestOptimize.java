@@ -220,4 +220,40 @@ public class TestOptimize extends RuleTestBase {
 		_statsInfo("m");
 
 	}
+
+	@Test
+	void test_opt_c_no_action_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_c_no_action_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_d_foreach_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_d_foreach_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }
