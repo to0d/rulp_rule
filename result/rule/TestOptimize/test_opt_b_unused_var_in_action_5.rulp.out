@@ -1,15 +1,20 @@
 (new model m)
 ;=>m
 
-(add-rule m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p2 ?z)))
-(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?c p3 ?a)))
+(add-rule m if '(?x p ?y) '(?y p ?z) do (println (+ "R1: " ?x ", " ?z)))
+(add-rule m if '(?a p ?b) '(?b p ?c) do (println (+ "R1: " ?c ", " ?a)))
 (add-stmt m '(a p b))
 (add-stmt m '(b p c))
 ;=>RU000 RU001 true true
 
 (start m)
-;=>9
+;=>6
+;out:
+R1: a, c
+R1: c, a
+
+;eof
 
 (list-stmt m)
-;=>'('(a p b) '(b p c) '(a p2 c) '(c p3 a))
+;=>'('(a p b) '(b p c))
 

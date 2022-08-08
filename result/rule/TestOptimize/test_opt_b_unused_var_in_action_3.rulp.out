@@ -1,7 +1,7 @@
 (new model m)
 ;=>m
 
-(add-rule m if '(?a p ?b) '(?a p ?c) do (-> m '(?a typeof x)))
+(add-rule m if '(?a p ?b) '(?a p ?c) do (println (+ "R1: " ?a)))
 (add-stmt m '(a p b1))
 (add-stmt m '(a p b2))
 (add-stmt m '(a p b3))
@@ -9,8 +9,12 @@
 ;=>RU000 true true true true
 
 (start m)
-;=>7
+;=>5
+;out:
+R1: a
+
+;eof
 
 (list-stmt m)
-;=>'('(a p b1) '(a p b2) '(a p b3) '(a p c) '(a typeof x))
+;=>'('(a p b1) '(a p b2) '(a p b3) '(a p c))
 

@@ -1,15 +1,20 @@
 (new model m)
 ;=>m
 
-(add-rule m if '(?a p ?b) do (-> m '(?a typeof x)))
-(add-stmt m '(a p b1))
-(add-stmt m '(a p b2))
-(add-stmt m '(a p b3))
+(add-rule m if n1:'(?a ?b) do (println (+ "R1: " ?a)))
+(add-stmt m n1:'(1 a))
+(add-stmt m n1:'(2 a))
+(add-stmt m n1:'(2 b))
 ;=>RU000 true true true
 
 (start m)
-;=>6
+;=>3
+;out:
+R1: 1
+R1: 2
+
+;eof
 
 (list-stmt m)
-;=>'('(a p b1) '(a p b2) '(a p b3) '(a typeof x))
+;=>'(n1:'(1 a) n1:'(2 a) n1:'(2 b))
 

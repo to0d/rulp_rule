@@ -1,7 +1,7 @@
 (new model m)
 ;=>
 
-(add-rule m if '(?a p ?b) '(?a p ?c) do (-> m '(?a typeof x)))
+(add-rule m if '(?a p ?b) '(?a p ?c) do (println (+ "R1: " ?a)))
 (add-stmt m '(a p b1))
 (add-stmt m '(a p b2))
 (add-stmt m '(a p b3))

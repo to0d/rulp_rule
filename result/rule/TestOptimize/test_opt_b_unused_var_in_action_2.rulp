@@ -1,11 +1,11 @@
 (new model m)
 ;=>
 
-(add-rule m if '(?a p ?b) do (-> m '(?a typeof x)))
-(add-rule m if '(?x p ?y) do (-> m '(?x typeof x2)))
-(add-stmt m '(a p b1))
-(add-stmt m '(a p b2))
-(add-stmt m '(a p b3))
+(add-rule m if n1:'(?a ?b) do (println (+ "R1: " ?a)))
+(add-rule m if n1:'(?a ?b) do (println (+ "R2: " ?a)))
+(add-stmt m n1:'(1 a))
+(add-stmt m n1:'(2 a))
+(add-stmt m n1:'(2 b))
 ;=>
 
 (start m)
