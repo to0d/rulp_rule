@@ -7,7 +7,7 @@
 ;=>true true true
 
 (start p2d)
-;=>359
+;=>356
 
 (state-of p2d)
 ;=>completed

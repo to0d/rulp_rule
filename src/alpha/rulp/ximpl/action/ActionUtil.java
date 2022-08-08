@@ -423,6 +423,8 @@ public class ActionUtil {
 		switch (expr.get(0).asString()) {
 		case F_ADD_STMT:
 		case F_DEFS_S:
+		case F_REMOVE_STMT:
+		case F_FIX_STMT:
 			IAction action = _buildSimpleAction(expr, model, varEntry);
 			if (action == null) {
 				return false;

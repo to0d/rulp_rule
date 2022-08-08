@@ -799,7 +799,6 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		if (unProcessNodes.isEmpty() && (rightNode.getReteType() == RReteType.ALPH1
 				|| rightNode.getReteType() == RReteType.VAR || rightNode.getReteType() == RReteType.CONST)) {
-
 			return RNodeFactory.createBeta1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
 					entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
 
@@ -1808,6 +1807,39 @@ public class XRNodeGraph implements IRNodeGraph {
 		return true;
 	}
 
+	protected boolean _supportInheritOpt(IRReteNode parentNode, IRObject[] ruleVarEntry, List<IRExpr> indexExprList,
+			List<IRExpr> actionStmtList) throws RException {
+
+		if (!USE_INHERIT) {
+			return false;
+		}
+
+		/******************************************************/
+		// Does not use inherit node if there is var-change expr
+		/******************************************************/
+		switch (parentNode.getReteType()) {
+		case ALPH1:
+		case BETA1:
+			return false;
+
+		default:
+			break;
+		}
+
+		if (!indexExprList.isEmpty()) {
+			return false;
+		}
+
+		/******************************************************/
+		// Does not use inherit node if all actions are simple statements
+		/******************************************************/
+		if (ActionUtil.isSimpleAddStmtAction(actionStmtList, model, ruleVarEntry)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	@Override
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException {
 
@@ -1865,11 +1897,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		/******************************************************/
 		// Create inherit node if possible
-		// 1. if all actions are simple add stmts (-> '(xx)), no need add inherit node,
-		// increase shared node, shared entries
 		/******************************************************/
-		if (USE_INHERIT && indexExprList.isEmpty()
-				&& !ActionUtil.isSimpleAddStmtAction(actionStmtList, model, ruleVarEntry)) {
+		if (_supportInheritOpt(parentNode, ruleVarEntry, indexExprList, actionStmtList)) {
 
 			int entryLen = ruleVarEntry.length;
 			int matchVarCount = 0;

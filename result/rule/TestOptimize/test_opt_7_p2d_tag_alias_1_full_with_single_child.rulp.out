@@ -15,7 +15,7 @@
 ;=>nil
 
 (start p2d)
-;=>275
+;=>273
 
 (state-of p2d)
 ;=>completed

@@ -21,7 +21,7 @@
 ;=>true
 
 (start m)
-;=>13
+;=>12
 
 (state-of m)
 ;=>completed
