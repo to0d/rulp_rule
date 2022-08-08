@@ -2,7 +2,7 @@
 ;=>m
 
 (add-rule m if '(?a p ?b) do (-> m '(?a typeof x)))
-(add-rule m if '(?a p ?b) do (-> m '(?a typeof x2)))
+(add-rule m if '(?x p ?y) do (-> m '(?x typeof x2)))
 (add-stmt m '(a p b1))
 (add-stmt m '(a p b2))
 (add-stmt m '(a p b3))

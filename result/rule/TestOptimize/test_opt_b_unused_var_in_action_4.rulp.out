@@ -1,0 +1,17 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x p ?y) '(?y p ?z) do (-> m '(?x p2 ?z)))
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p3 ?b)))
+(add-stmt m '(a1 p b1))
+(add-stmt m '(b1 p c1))
+(add-stmt m '(a2 p b2))
+(add-stmt m '(b2 p c2))
+;=>RU000 RU001 true true true true
+
+(start m)
+;=>10
+
+(list-stmt m)
+;=>'('(a1 p b1) '(b1 p c1) '(a2 p b2) '(b2 p c2) '(a1 p2 c1) '(a2 p2 c2) '(a1 p3 b1) '(a2 p3 b2))
+

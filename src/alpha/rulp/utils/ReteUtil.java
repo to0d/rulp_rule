@@ -5,7 +5,7 @@ import static alpha.rulp.lang.Constant.A_QUESTION;
 import static alpha.rulp.lang.Constant.A_QUESTION_C;
 import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.A_Order_by;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
@@ -1591,6 +1591,33 @@ public class ReteUtil {
 		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION_LIST);
 	}
 
+	public static boolean isInheritExpr(IRObject obj) throws RException {
+
+		if (obj.getType() != RType.EXPR || ((IRList) obj).size() < 3) {
+			return false;
+		}
+
+		IRExpr expr = (IRExpr) obj;
+
+		if (!RulpUtil.isFactor(expr.get(0), A_Inherit)) {
+			return false;
+		}
+
+		IRObject e1 = expr.get(1);
+		if (e1.getType() != RType.EXPR && e1.getType() != RType.LIST) {
+			return false;
+		}
+
+		IRIterator<? extends IRObject> it = expr.listIterator(2);
+		while (it.hasNext()) {
+			if (it.next().getType() != RType.INT) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public static boolean isVarChangeExpr(IRObject obj) throws RException {
 
 		if (obj.getType() != RType.EXPR || ((IRList) obj).size() == 0) {
@@ -1598,7 +1625,6 @@ public class ReteUtil {
 		}
 
 		IRExpr expr = (IRExpr) obj;
-
 		IRObject e0 = expr.get(0);
 
 		if (e0.getType() == RType.ATOM) {

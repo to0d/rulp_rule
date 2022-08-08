@@ -1074,6 +1074,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			return _buildExprNode(reteTree, tmpVarBuilder);
 		}
 
+		// (var-changed)
 		if (ReteUtil.isVarChangeExpr(reteTree)) {
 
 			// (var-changed ?State Running Completed)
@@ -1086,6 +1087,11 @@ public class XRNodeGraph implements IRNodeGraph {
 				return _buildExprNode(reteTree, tmpVarBuilder);
 			}
 		}
+
+//		// ((inherit '(?a ?b ?c) 0))
+//		if (ReteUtil.isInheritExpr(reteTree)) {
+//
+//		}
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
 		if (ReteUtil.isBeta3Tree(reteTree, treeSize)) {
@@ -2038,6 +2044,18 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		return indexNode;
 	}
+
+//	protected AbsReteNode _buildInheritNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
+//
+//		IRList parentTree = (IRList) reteTree.get(1);
+//		IRReteNode parentNode = _findReteNode(parentTree, tmpVarBuilder);
+//
+//		IRIterator<? extends IRObject> it = reteTree.listIterator(2);
+//		while (it.hasNext()) {
+//			if (it.next().getType() != RType.INT) {
+//			}
+//		}
+//	}
 
 	@Override
 	public IRReteNode buildInherit(IRReteNode node, int[] indexs) throws RException {
