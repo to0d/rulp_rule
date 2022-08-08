@@ -17,7 +17,7 @@
 ;=>mm true true true true true true true true true true RU000 RU001
 
 (start mm)
-;=>20
+;=>19
 
 (state-of mm)
 ;=>completed

@@ -23,7 +23,7 @@
 ;=>runnable
 
 (start m)
-;=>11
+;=>8
 
 (state-of m)
 ;=>completed

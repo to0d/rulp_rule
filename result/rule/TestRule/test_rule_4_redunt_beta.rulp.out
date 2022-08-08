@@ -17,7 +17,7 @@
 ;=>true
 
 (start m)
-;=>6
+;=>5
 
 (list-stmt m)
 ;=>'('(x p1 y) '(y p1 z) '(x p2 y) '(y p2 z) '(x p3 z))

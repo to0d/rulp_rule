@@ -20,7 +20,7 @@
 ;=>true
 
 (start m)
-;=>5
+;=>4
 
 (state-of m)
 ;=>completed

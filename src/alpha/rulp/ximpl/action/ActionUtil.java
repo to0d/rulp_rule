@@ -189,7 +189,7 @@ public class ActionUtil {
 		int stmtSize = varStmt.size();
 		int inheritIndexs[] = new int[stmtSize];
 		IRObject stmtObjs[] = new IRObject[stmtSize];
-		int inheritCount = 0;
+//		int inheritCount = 0;
 
 		for (int i = 0; i < stmtSize; ++i) {
 
@@ -222,7 +222,7 @@ public class ActionUtil {
 
 			inheritIndexs[i] = inheritIndex;
 			stmtObjs[i] = null;
-			inheritCount++;
+//			inheritCount++;
 		}
 
 //		if (inheritCount == 0) {
@@ -412,6 +412,53 @@ public class ActionUtil {
 		}
 
 		return ReteUtil.uniqName(stmt);
+	}
+
+	public static boolean isSimpleAddStmtAction(IRExpr expr, IRModel model, IRObject[] varEntry) throws RException {
+
+		if (expr.size() < 2) {
+			return false;
+		}
+
+		switch (expr.get(0).asString()) {
+		case F_ADD_STMT:
+		case F_DEFS_S:
+			IAction action = _buildSimpleAction(expr, model, varEntry);
+			if (action == null) {
+				return false;
+			}
+
+			return true;
+
+		case A_DO:
+
+			IRIterator<? extends IRObject> it = expr.listIterator(1);
+			while (it.hasNext()) {
+
+				IRObject obj = it.next();
+				if (!RulpUtil.isExpr(obj) || !isSimpleAddStmtAction(RulpUtil.asExpression(obj), model, varEntry)) {
+					return false;
+				}
+
+			}
+
+			return true;
+
+		default:
+			return false;
+		}
+	}
+
+	public static boolean isSimpleAddStmtAction(List<IRExpr> exprList, IRModel model, IRObject[] varEntry)
+			throws RException {
+
+		for (IRExpr expr : exprList) {
+			if (!isSimpleAddStmtAction(expr, model, varEntry)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

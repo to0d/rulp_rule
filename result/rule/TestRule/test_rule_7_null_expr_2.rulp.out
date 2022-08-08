@@ -11,7 +11,7 @@
 ;=>true
 
 (start m)
-;=>6
+;=>5
 
 (list-stmt m)
 ;=>'('(x p nil) '(y p nil) name1:'(x y) name1:'(y x))

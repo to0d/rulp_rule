@@ -5,7 +5,7 @@
 ;=>RU000
 
 (foreach (?n (rete-node-of m)) (return (name-of $(value-of ?n))))
-;=>'("root3" "B20002" "RU000" "I10003")
+;=>'("root3" "B20002" "RU000")
 
 (list-source-node m n1:'(?...))
 ;=>'()

@@ -10,7 +10,7 @@
 ;=>true true true
 
 (start m)
-;=>12
+;=>11
 
 (state-of m)
 ;=>completed

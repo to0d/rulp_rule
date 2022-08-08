@@ -1865,8 +1865,11 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		/******************************************************/
 		// Create inherit node if possible
+		// 1. if all actions are simple add stmts (-> '(xx)), no need add inherit node,
+		// increase shared node, shared entries
 		/******************************************************/
-		if (USE_INHERIT && indexExprList.isEmpty()) {
+		if (USE_INHERIT && indexExprList.isEmpty()
+				&& !ActionUtil.isSimpleAddStmtAction(actionStmtList, model, ruleVarEntry)) {
 
 			int entryLen = ruleVarEntry.length;
 			int matchVarCount = 0;

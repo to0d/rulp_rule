@@ -17,7 +17,7 @@
 ;=>'('(a p1 b) '(b p2 c))
 
 (start m)
-;=>18
+;=>15
 
 (list-stmt m)
 ;=>'('(a p1 b) '(b p2 c) '(b p3 c) '(a p2 c) '(a p3 c))

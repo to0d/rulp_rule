@@ -20,7 +20,7 @@
 ;=>'('(a p1 b) '(b p1 c) '(c p1 a))
 
 (start m)
-;=>14
+;=>13
 
 (state-of m)
 ;=>completed
@@ -29,5 +29,5 @@
 ;=>'('(a p1 b) '(b p1 c) '(a p1 c))
 
 (gc-model m)
-;=>28
+;=>26
 

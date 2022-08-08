@@ -19,7 +19,7 @@
 ;=>true
 
 (start m)
-;=>20
+;=>19
 
 (list-stmt m)
 ;=>'('(abc nm:typeOf nm:domain) '(nd:Global nm:beParentDomainOf abc))
