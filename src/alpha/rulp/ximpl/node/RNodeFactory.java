@@ -187,8 +187,8 @@ public class RNodeFactory {
 //	}
 
 	public static AbsReteNode createBeta1Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
-			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
+			IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry, InheritIndex[] inheritIndexs,
+			List<JoinIndex> joinIndexList) throws RException {
 
 		if (!(rightNode.getEntryQueue() instanceof XREntryQueueSingle)) {
 			throw new RException("Invalid right parent queue: " + rightNode);
@@ -212,7 +212,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry table
-		node.setEntryTable(entryTable);
+		node.setEntryTable(model.getEntryTable());
 
 		// Entry queue
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
@@ -238,8 +238,8 @@ public class RNodeFactory {
 	}
 
 	public static AbsReteNode createBeta2Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
-			InheritIndex[] inheritIndexs, List<JoinIndex> joinIndexList) throws RException {
+			IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry, InheritIndex[] inheritIndexs,
+			List<JoinIndex> joinIndexList) throws RException {
 
 		XRNodeBeta2 node = new XRNodeBeta2(ReteUtil.getNodeName(RReteType.BETA2, nodeId));
 
@@ -259,7 +259,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry table
-		node.setEntryTable(entryTable);
+		node.setEntryTable(model.getEntryTable());
 
 		// Entry queue
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
@@ -284,8 +284,8 @@ public class RNodeFactory {
 	}
 
 	public static AbsReteNode createBeta3Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			IREntryTable entryTable, IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry,
-			InheritIndex[] inheritIndexs) throws RException {
+			IRReteNode leftNode, IRReteNode rightNode, IRObject[] varEntry, InheritIndex[] inheritIndexs)
+			throws RException {
 
 		XRNodeBeta3 node = new XRNodeBeta3(ReteUtil.getNodeName(RReteType.BETA3, nodeId));
 
@@ -305,7 +305,7 @@ public class RNodeFactory {
 		node.setEntryLength(entryLength);
 
 		// Entry table
-		node.setEntryTable(entryTable);
+		node.setEntryTable(model.getEntryTable());
 
 		// Entry queue
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
@@ -456,7 +456,7 @@ public class RNodeFactory {
 	}
 
 	public static AbsReteNode createExpr3Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRObject[] varEntry) throws RException {
+			int leftEnryLength, IRReteNode parentNode, IRObject[] varEntry) throws RException {
 
 		XRNodeExpr3 node = new XRNodeExpr3(ReteUtil.getNodeName(RReteType.EXPR3, nodeId));
 
@@ -479,7 +479,7 @@ public class RNodeFactory {
 		node.setLeftEnryLength(leftEnryLength);
 
 		// Entry table
-		node.setEntryTable(entryTable);
+		node.setEntryTable(model.getEntryTable());
 
 		// Entry queue
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
@@ -495,8 +495,7 @@ public class RNodeFactory {
 	}
 
 	public static AbsReteNode createExpr4Node(IRModel model, int nodeId, String uniqName, int entryLength,
-			int leftEnryLength, IREntryTable entryTable, IRReteNode parentNode, IRConstraint1 matchNode,
-			IRObject[] varEntry) throws RException {
+			int leftEnryLength, IRReteNode parentNode, IRConstraint1 matchNode, IRObject[] varEntry) throws RException {
 
 		XRNodeExpr3 node = new XRNodeExpr3(ReteUtil.getNodeName(RReteType.EXPR4, nodeId));
 
@@ -519,7 +518,7 @@ public class RNodeFactory {
 		node.setLeftEnryLength(leftEnryLength);
 
 		// Entry table
-		node.setEntryTable(entryTable);
+		node.setEntryTable(model.getEntryTable());
 
 		// Entry queue
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));

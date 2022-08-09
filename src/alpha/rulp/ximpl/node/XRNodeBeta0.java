@@ -18,10 +18,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 
-	public XRNodeBeta0(String instanceName) {
-		super(instanceName);
-	}
-
 	public static int MAP_MATCH_MIN_COUNT = 100;
 
 	static final boolean RETE_BETA_HASHMAP_MATCH_MODE = true;
@@ -61,6 +57,14 @@ public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 	}
 
 	protected ArrayList<JoinIndex> joinIndexList = null;
+
+	public XRNodeBeta0(String instanceName) {
+		super(instanceName);
+	}
+
+	protected JoinIndex _getPrimaryJoinIndex() {
+		return joinIndexList == null ? null : joinIndexList.get(0);
+	}
 
 	@Override
 	protected boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
@@ -133,13 +137,13 @@ public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 		ArrayList<String> keysList = new ArrayList<>();
 
 		Map<String, List<IRReteEntry>> leftPrimaryMap = _buildPrimaryMap(parentNodes[0].getEntryQueue(), leftBegin,
-				leftEnd, getPrimaryJoinIndex().leftIndex, null, keysList);
+				leftEnd, _getPrimaryJoinIndex().leftIndex, null, keysList);
 		if (leftPrimaryMap.isEmpty()) {
 			return 0;
 		}
 
 		Map<String, List<IRReteEntry>> rightPrimaryMap = _buildPrimaryMap(parentNodes[1].getEntryQueue(), rightBegin,
-				rightEnd, getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet(), null);
+				rightEnd, _getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet(), null);
 		if (rightPrimaryMap.isEmpty()) {
 			return 0;
 		}
@@ -181,7 +185,7 @@ public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 			return false;
 		}
 
-		if (getPrimaryJoinIndex() == null) {
+		if (_getPrimaryJoinIndex() == null) {
 			return false;
 		}
 
@@ -198,10 +202,6 @@ public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 		int maxUpdateCount = leftParentEntryCount * rightParentEntryCount - lastLeftEntryCount * lastRightEntryCount;
 
 		return maxUpdateCount > MAP_MATCH_MIN_COUNT;
-	}
-
-	protected JoinIndex getPrimaryJoinIndex() {
-		return joinIndexList == null ? null : joinIndexList.get(0);
 	}
 
 	public void addJoinIndex(JoinIndex joinIndex) {

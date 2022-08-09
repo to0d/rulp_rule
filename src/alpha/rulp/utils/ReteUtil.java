@@ -50,7 +50,6 @@ import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
-import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
@@ -791,6 +790,19 @@ public class ReteUtil {
 		return varList;
 	}
 
+	public static String combine(String a, String b) {
+
+		if (a == null || a.isEmpty()) {
+			return b;
+		}
+
+		if (b == null || b.isEmpty()) {
+			return a;
+		}
+
+		return a + "; " + b;
+	}
+
 	public static int compareEntry(IRList e1, IRList e2, List<OrderEntry> orderEntries) throws RException {
 
 		int d = 0;
@@ -993,6 +1005,10 @@ public class ReteUtil {
 		return nodeEntryLengh;
 	}
 
+	public static String getIndexVarName(int index) {
+		return INDEX_VAR_PRE + index;
+	}
+
 	public static IRReteEntry getLastEntry(IREntryQueue queue) {
 
 		int size = queue.size();
@@ -1149,10 +1165,6 @@ public class ReteUtil {
 		return uniqName;
 	}
 
-	public static String getIndexVarName(int index) {
-		return INDEX_VAR_PRE + index;
-	}
-
 	public static int getStmtVarCount(IRList stmt) throws RException {
 
 		int varCount = 0;
@@ -1284,27 +1296,6 @@ public class ReteUtil {
 		}
 	}
 
-	public static boolean supportIndexStmt(IRList stmt) throws RException {
-
-		if (!ReteUtil.isAlphaMatchTree(stmt)) {
-			return false;
-		}
-
-		ArrayList<String> nodeVarList = new ArrayList<>();
-		ReteUtil.fillVarList(stmt, nodeVarList);
-
-		if (nodeVarList.isEmpty()) {
-			return false;
-		}
-
-		HashSet<String> nodeVarSet = new HashSet<>(nodeVarList);
-		if (nodeVarSet.size() != nodeVarList.size()) {
-			return false;
-		}
-
-		return true;
-	}
-
 	public static boolean isIndexVarAtom(IRObject obj) {
 		return obj.getType() == RType.ATOM && isIndexVarName(obj.asString());
 	}
@@ -1318,10 +1309,6 @@ public class ReteUtil {
 		return StringUtil.isNumber(var.substring(1));
 	}
 
-	public static boolean isRemovedEntry(IRReteEntry entry) throws RException {
-		return entry == null || entry.getStatus() == null || entry.getStatus() == CLEAN;
-	}
-
 	public static boolean isIndexVarStmt(IRList stmt) throws RException {
 
 		if (stmt.getType() == RType.EXPR || isReteStmt(stmt)) {
@@ -1333,6 +1320,37 @@ public class ReteUtil {
 		}
 
 		return false;
+	}
+
+	public static boolean isInheritExpr(IRObject obj) throws RException {
+
+		if (obj.getType() != RType.EXPR || ((IRList) obj).size() < 3) {
+			return false;
+		}
+
+		IRExpr expr = (IRExpr) obj;
+
+		if (!RulpUtil.isFactor(expr.get(0), A_Inherit)) {
+			return false;
+		}
+
+		IRObject e1 = expr.get(1);
+		if (e1.getType() != RType.EXPR && e1.getType() != RType.LIST) {
+			return false;
+		}
+
+		IRIterator<? extends IRObject> it = expr.listIterator(2);
+		while (it.hasNext()) {
+			if (it.next().getType() != RType.INT) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean isRemovedEntry(IRReteEntry entry) throws RException {
+		return entry == null || entry.getStatus() == null || entry.getStatus() == CLEAN;
 	}
 
 	public static boolean isReteStmt(IRList stmt) throws RException {
@@ -1577,33 +1595,6 @@ public class ReteUtil {
 		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION_LIST);
 	}
 
-	public static boolean isInheritExpr(IRObject obj) throws RException {
-
-		if (obj.getType() != RType.EXPR || ((IRList) obj).size() < 3) {
-			return false;
-		}
-
-		IRExpr expr = (IRExpr) obj;
-
-		if (!RulpUtil.isFactor(expr.get(0), A_Inherit)) {
-			return false;
-		}
-
-		IRObject e1 = expr.get(1);
-		if (e1.getType() != RType.EXPR && e1.getType() != RType.LIST) {
-			return false;
-		}
-
-		IRIterator<? extends IRObject> it = expr.listIterator(2);
-		while (it.hasNext()) {
-			if (it.next().getType() != RType.INT) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public static boolean isVarChangeExpr(IRObject obj) throws RException {
 
 		if (obj.getType() != RType.EXPR || ((IRList) obj).size() == 0) {
@@ -1776,6 +1767,27 @@ public class ReteUtil {
 					return false;
 				}
 			}
+		}
+
+		return true;
+	}
+
+	public static boolean supportIndexStmt(IRList stmt) throws RException {
+
+		if (!ReteUtil.isAlphaMatchTree(stmt)) {
+			return false;
+		}
+
+		ArrayList<String> nodeVarList = new ArrayList<>();
+		ReteUtil.fillVarList(stmt, nodeVarList);
+
+		if (nodeVarList.isEmpty()) {
+			return false;
+		}
+
+		HashSet<String> nodeVarSet = new HashSet<>(nodeVarList);
+		if (nodeVarSet.size() != nodeVarList.size()) {
+			return false;
 		}
 
 		return true;

@@ -6,28 +6,17 @@ import java.util.Map;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeInher extends XRNodeRete1 {
 
 	protected int[] inheritIndexs;
 
-	protected IREntryTable entryTable;
-
-	public void setEntryTable(IREntryTable entryTable) {
-		this.entryTable = entryTable;
-	}
+	protected Map<String, IRReteEntry> uniqEntryMap = new HashMap<>();
 
 	public XRNodeInher(String instanceName) {
 		super(instanceName);
 	}
-
-	public void setInheritIndexs(int[] inheritIndexs) {
-		this.inheritIndexs = inheritIndexs;
-	}
-
-	protected Map<String, IRReteEntry> uniqEntryMap = new HashMap<>();
 
 	@Override
 	public boolean addReteEntry(IRReteEntry entry) throws RException {
@@ -66,5 +55,9 @@ public class XRNodeInher extends XRNodeRete1 {
 		entryTable.addReference(newEntry, this, entry);
 		uniqEntryMap.put(uniqName, newEntry);
 		return true;
+	}
+
+	public void setInheritIndexs(int[] inheritIndexs) {
+		this.inheritIndexs = inheritIndexs;
 	}
 }

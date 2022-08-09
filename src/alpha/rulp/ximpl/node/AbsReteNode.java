@@ -24,6 +24,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
+import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
@@ -53,6 +54,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	protected int entryLength;
 
 	protected IREntryQueue entryQueue = null;
+
+	protected IREntryTable entryTable;
 
 	protected DeCounter execCounter = new DeCounter(MAX_EXEC_COUNTER_SIZE);
 
@@ -252,6 +255,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public int getAddEntryFailCount() {
 		return addEntryFailCount;
+	}
+
+	public String getCacheInfo() {
+		return "";
 	}
 
 	@Override
@@ -597,6 +604,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public void setEntryQueue(IREntryQueue entryQueue) {
 		this.entryQueue = entryQueue;
+	}
+
+	public void setEntryTable(IREntryTable entryTable) {
+		this.entryTable = entryTable;
 	}
 
 	@Override

@@ -82,6 +82,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public IREntryQueue getEntryQueue();
 
+	public String getCacheInfo();
+
 	public IGraphInfo getGraphInfo();
 
 	public InheritIndex[] getInheritIndex();

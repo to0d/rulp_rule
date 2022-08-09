@@ -98,8 +98,6 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 
 	protected List<IRReteNode> allReteNodes = new LinkedList<>();
 
-//	protected List<IRExpr> indexExprList = new LinkedList<>();
-
 	protected IRError lastError;
 
 	protected IRReteEntry lastValueEntry;
@@ -207,6 +205,11 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		}
 
 		return _testConstraint1(entry);
+	}
+
+	public void addAction(IAction action) {
+		action.setIndex(this.actionList.size());
+		this.actionList.add(action);
 	}
 
 	public void addNode(IRReteNode node) {
@@ -428,11 +431,6 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		default:
 			throw new RException("unknown state: " + getRunState());
 		}
-	}
-
-	public void addAction(IAction action) {
-		action.setIndex(this.actionList.size());
-		this.actionList.add(action);
 	}
 
 	public void setMatchStmtList(List<IRList> matchStmtList) {

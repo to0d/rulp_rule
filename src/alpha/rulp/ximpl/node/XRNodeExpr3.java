@@ -7,18 +7,15 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
-import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeExpr3 extends XRNodeRete1 {
 
+	private int leftEnryLength;
+
 	public XRNodeExpr3(String instanceName) {
 		super(instanceName);
 	}
-
-	protected IREntryTable entryTable;
-
-	private int leftEnryLength;
 
 	public boolean addReteEntry(IRReteEntry entry, IRObject[] externalVars) throws RException {
 
@@ -51,10 +48,6 @@ public class XRNodeExpr3 extends XRNodeRete1 {
 		}
 
 		return true;
-	}
-
-	public void setEntryTable(IREntryTable entryTable) {
-		this.entryTable = entryTable;
 	}
 
 	public void setLeftEnryLength(int leftEnryLength) {

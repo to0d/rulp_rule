@@ -20,7 +20,9 @@ import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RCountType.AssumeCount;
 import static alpha.rulp.rule.RCountType.BindFromCount;
 import static alpha.rulp.rule.RCountType.BindToCount;
+import static alpha.rulp.rule.RCountType.CreateEntry;
 import static alpha.rulp.rule.RCountType.DefinedCount;
+import static alpha.rulp.rule.RCountType.DeleteEntry;
 import static alpha.rulp.rule.RCountType.DropCount;
 import static alpha.rulp.rule.RCountType.ExecCount;
 import static alpha.rulp.rule.RCountType.FailedCount;
@@ -32,7 +34,7 @@ import static alpha.rulp.rule.RCountType.MaxPriority;
 import static alpha.rulp.rule.RCountType.MinPriority;
 import static alpha.rulp.rule.RCountType.NodeCount;
 import static alpha.rulp.rule.RCountType.NullCount;
-import static alpha.rulp.rule.RCountType.*;
+import static alpha.rulp.rule.RCountType.QueryFetch;
 import static alpha.rulp.rule.RCountType.QueryMatch;
 import static alpha.rulp.rule.RCountType.ReasonCount;
 import static alpha.rulp.rule.RCountType.RedundantCount;
@@ -819,7 +821,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		if (unProcessNodes.isEmpty() && (rightNode.getReteType() == RReteType.ALPH1
 				|| rightNode.getReteType() == RReteType.VAR || rightNode.getReteType() == RReteType.CONST)) {
 			return RNodeFactory.createBeta1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-					entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
+					leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
 
 		}
 
@@ -843,7 +845,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			AbsReteNode node = RNodeFactory.createBeta3Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-					beteEntryLen, entryTable, leftNode, rightNode, varEntry, inheritIndexs);
+					beteEntryLen, leftNode, rightNode, varEntry, inheritIndexs);
 
 			// match mode
 			if (constraint != null) {
@@ -859,7 +861,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		// child entry.
 		if (leftNode.getEntryLength() == beteEntryLen && ReteUtil.getMainInheritIndex(inheritIndexs) == 0) {
 			return RNodeFactory.createBeta2Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-					entryTable, leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
+					leftNode, rightNode, varEntry, inheritIndexs, joinIndexList);
 		}
 
 		return RNodeFactory.createBeta0Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
@@ -946,7 +948,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 
 				AbsReteNode node = RNodeFactory.createExpr3Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-						varEntry.length, leftNode.getEntryLength(), entryTable, leftNode, varEntry);
+						varEntry.length, leftNode.getEntryLength(), leftNode, varEntry);
 
 				// constant
 				addConstraint(node, ConstraintFactory.expr3(rightExpr, model.getFrame()));

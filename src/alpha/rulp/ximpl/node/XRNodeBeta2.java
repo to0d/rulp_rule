@@ -22,7 +22,7 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 
 	protected Set<Integer> leftUsedIndexSet = new HashSet<>();
 
-	private Boolean sameInherit = null;
+	protected Boolean sameInherit = null;
 
 	public XRNodeBeta2(String instanceName) {
 		super(instanceName);
@@ -224,13 +224,13 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		ArrayList<String> keysList = new ArrayList<>();
 
 		Map<String, List<Integer>> leftPrimaryMap = _buildPrimaryIndexMap(parentNodes[0].getEntryQueue(), leftBegin,
-				leftEnd, getPrimaryJoinIndex().leftIndex, null, keysList, true);
+				leftEnd, _getPrimaryJoinIndex().leftIndex, null, keysList, true);
 		if (leftPrimaryMap.isEmpty()) {
 			return 0;
 		}
 
 		Map<String, List<Integer>> rightPrimaryMap = _buildPrimaryIndexMap(parentNodes[1].getEntryQueue(), rightBegin,
-				rightEnd, getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet(), null, false);
+				rightEnd, _getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet(), null, false);
 		if (rightPrimaryMap.isEmpty()) {
 			return 0;
 		}
@@ -282,6 +282,11 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		}
 
 		return updateCount;
+	}
+
+	@Override
+	public String getCacheInfo() {
+		return ReteUtil.combine(super.getCacheInfo(), "leftUsedIndexSet: size=" + leftUsedIndexSet.size());
 	}
 
 }

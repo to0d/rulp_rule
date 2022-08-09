@@ -5,18 +5,14 @@ import java.util.List;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
-import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 
 	protected List<IRConstraint2> constraint2List = null;
-
-	protected IREntryTable entryTable;
 
 	protected int lastLeftEntryCount = 0;
 
@@ -160,10 +156,6 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 
 	public boolean isNodeFresh() {
 		return lastLeftEntryCount == 0 && lastRightEntryCount == 0;
-	}
-
-	public void setEntryTable(IREntryTable entryTable) {
-		this.entryTable = entryTable;
 	}
 
 	@Override
