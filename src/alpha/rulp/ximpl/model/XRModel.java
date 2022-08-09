@@ -1183,8 +1183,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 					return size;
 				}
 			}
-
-			_gc(false);
 		}
 
 		return size;
@@ -1363,7 +1361,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			size++;
 
-			_gc(false);
 			return size;
 		}
 
@@ -1470,7 +1467,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 
-		_gc(false);
 		return size;
 	}
 
@@ -1559,8 +1555,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 									return;
 								}
 							}
-
-							_gc(false);
 						}
 
 						break;
@@ -1584,7 +1578,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.processingLevel--;
 			this._setRunState(RRunState.Partial);
 			subGraph.rollback();
-			_gc(false);
 		}
 	}
 
@@ -2550,11 +2543,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			builder = REntryFactory.defaultBuilder();
 		}
 
-		try {
-			return _listStatements(filter, statusMask, limit, reverse, builder, action);
-		} finally {
-			_gc(false);
-		}
+		return _listStatements(filter, statusMask, limit, reverse, builder, action);
 	}
 
 	@Override
@@ -2574,6 +2563,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		_queryCond(resultQueue, findNode(condList), limit);
+		_gc(false);
 	}
 
 	@Override
@@ -2592,7 +2582,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		} finally {
 			this.tryRemoveConstraintLevel--;
-			_gc(false);
 		}
 	}
 
@@ -2673,7 +2662,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException(e.toString());
 
 		} finally {
-
 			_gc(false);
 		}
 

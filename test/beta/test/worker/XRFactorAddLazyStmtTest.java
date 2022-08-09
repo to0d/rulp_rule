@@ -41,4 +41,13 @@ class XRFactorAddLazyStmtTest extends RuleTestBase {
 		_statsInfo("m");
 
 	}
+	
+	@Test
+	void test_add_lazy_stmt_5_gc_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }

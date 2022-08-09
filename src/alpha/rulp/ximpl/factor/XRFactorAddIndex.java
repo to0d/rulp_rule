@@ -2,14 +2,12 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.A_BackSearch;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Order_by;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -20,14 +18,11 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.ModifiterUtil.Modifier;
-import alpha.rulp.ximpl.constraint.ConstraintBuilder;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
-import alpha.rulp.ximpl.constraint.IRConstraint1OrderBy;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 

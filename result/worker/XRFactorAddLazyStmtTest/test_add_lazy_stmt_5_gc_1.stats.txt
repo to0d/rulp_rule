@@ -2,30 +2,69 @@ Model<m> stats info:
 =================================================================================================================================================================
 NODE    Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ROOT0        0      3      0      0     0     0     0     0      0      0     1      0     2     1    0        0      3      0    0    0  900  900      0       3
+ALPH0        0      3      0      0     0     0     0     0      1      0     1      0     2     1    0        3      3      0    1    1    0    0      0       3
+WORK         0      0      0      0     0     0     0     0      0      1     1      0     1     0    0        0      0      0    0    0  -99  -99      0       0
 =================================================================================================================================================================
 
 node info:
 =================================================================================================================================================================
 NODE[n]       Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+R00002[3]         0      3      0      0      0      0     0     0   0/0      0      3      0    2    1           0   0 900   0     1 InActive            
+A00003[3]         0      3      0      0      0      0     0     0   1/0      3      3      0    2    1           0   1   0   0     2 InActive           3
+W00001[0]         0      0      0      0      0      0     0     0   0/1      0      0      0    1    0           0   0 -99   0     0 InActive            
+=================================================================================================================================================================
+
+node info2:
+=================================================================================================================================================================
+NODE[n]       Parent         Child                                Rule                           Inherit                        Join
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+R00002[3]                    [A00003]
+A00003[3]     [R00002]
 =================================================================================================================================================================
 
 node info3:
 =================================================================================================================================================================
 NODE[n]      UniqName
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+R00002[3]    '(?_0 ?_1 ?_2)
+A00003[3]    '(?_0 typeof ?_1)
+W00001[0]    W000
+=================================================================================================================================================================
+
+node info4: constraint
+=================================================================================================================================================================
+NODE[n]      Match  Fail  Constraint
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+A00003[3]        3     0
+                 3     0  C1:(cmp-entry-value = ?1 typeof)
 =================================================================================================================================================================
 
 node info6:
 =================================================================================================================================================================
 NODE[n]      Type  Class Queue  Named Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+R00002[3]    ROOT0 Rete0 UNIQ              0     1    0    0    0   0   0 900 [null, null, null]
+A00003[3]    ALPH0 Rete1 MULTI             1     0    0    0    0   1   0   0 [?x, null, ?y]
+W00001[0]    WORK  Work  EMPTY             0     0    0    0    0   0   0 -99 []
 =================================================================================================================================================================
 
 priority info:
 =================================================================================================================================================================
-Priority       
+Priority        ROOT0 ALPH0  WORK
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+900(root)    :      1            
+000(inactive):            1      
+-99(dead)    :                  1
+=================================================================================================================================================================
+
+node bind info:
+=================================================================================================================================================================
+ NODE         bind-to       UniqName
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+W00001(WORK):               W000
+           0: A00003(ALPH0)  '(?_0 typeof ?_1)
 =================================================================================================================================================================
 
 model count info:
@@ -42,18 +81,18 @@ model-addRule                         0
 model-addRuleExecutedListener         0
 model-addRuleFailedListener           0
 model-addSaveNodeListener             0
-model-addStatement                    0
+model-addStatement                    3
 model-addStatementListener            0
-model-addUpdateNode                   0
+model-addUpdateNode                   6
 model-assumeStatement                 0
 model-doGC                            1
-model-execute                         0
+model-execute                         5
 model-getVar                          0
 model-halt                            0
 model-hasStatement-1                  0
 model-hasStatement-2                  0
-model-listStatements                  1
-model-query                           0
+model-listStatements                  0
+model-query                           1
 model-removeConstraint                0
 model-removeStatement                 0
 model-save                            0
@@ -70,40 +109,60 @@ graph-gc-cache                        0
 =================================================================================================================================================================
 
 
+Model<m> share index:
+=================================================================================================================================================================
+ NODE Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ALPH0                                                                                                                                                         
+ WORK                                                                                                                                                         
+=================================================================================================================================================================
+
 MatchCount: BETA0 BETA2 BETA3
 
 Entry Table:
 	    ETA: total-action=0, new-action=0, max-size=0, capacity=256, expend=0
-	  Entry: count=0, stmt=0
+	  Entry: count=3, stmt=3
 =================================================================================================================================================================
-Entry Bit Map: total=0, max-id=0, create=0, removed=0, group-size=10, group-count=1
+Entry Bit Map: total=3, max-id=3, create=3, removed=0, group-size=10, group-count=1
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-0 [0]
+3 [3]
 =================================================================================================================================================================
-Length Array: min=1, max=0
+Length Array: min=3, max=3
+Entry[0003]= 3
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Length Array:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Length:
- total:
+Length:   ROOT0
+     3:       3
+ total:       3
 =================================================================================================================================================================
 Ref Array:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-RefCount: unRefer
+RefCount: unRefer   ROOT0
        0:       0
-   total:       0
+       1:       0       3
+   total:       0       3
 =================================================================================================================================================================
-Ref Bit Map: total=0, max-id=0, create=0, removed=0, group-size=10, group-count=1
+Ref Bit Map: total=3, max-id=3, create=3, removed=0, group-size=10, group-count=1
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-0 [0]
+3 [3]
 =================================================================================================================================================================
 
-Model<m> frame:id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
+Model<m> frame:id=3, name=model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 82       3        2    instance   model@m             
+default_model        : 24       3        2    instance   model@m             
 ==========================================================================================================================
+
+node update info: model-exec-count=5, row=3, column=6(1), value-max=1, value-unit=1^x
+=================================================================================================================================================================
+NODE[n]   Update Exec Idle ...111 max=1, unit=1^x
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+R00002[3]    1    2    1     1 
+A00003[3]    1    2    1      1
+W00001[0]    1    1    0    1  
+=================================================================================================================================================================
 
 
 Global Info:
@@ -112,9 +171,9 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      247
+           Interpreter call id:      246
     Interpreter call level/max:        0        3
-               Frame max level:        3
+               Frame max level:        4
                   Frame max id:        5
            Frame free id count:        1
 ==========================================================================================================================
@@ -133,56 +192,50 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      335
-      func:        1
+    factor:      274
 ==========================================================================================================================
 
-Callable stats info: callId=247, row=16, column=62(4), value-max=44, value-unit=2^x
+Callable stats info: callId=246, row=13, column=62(4), value-max=21, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333674 max=64, unit=2^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333633 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
-    root   factor     77    0 defun                                                                        3333 3333313365 
-    root   factor     44    0 defconst                                                                                   7 
-    root   factor      8    0 defmacro                                                                                  43 
+    root   factor     66    0 defun                                                                        3333 3333313362 
     root   factor      7    0 alias                          33                                                      1     
     root   factor      5    0 defvar                                                                           3        1  
+    root   factor      5    0 defmacro                                                                                  4  
     root   factor      4    0 make-list                                                                        3           
-    root   factor      3    0 load                                                                                      12 
     root   factor      3    0 deftemplate                                                                           12     
-    root   factor      1    0 sleep                                                                                       1
     root   factor      1    0 setq                                                                                        1
-    main     func      1    2 (set-model-gc-interval type#mo                                                              1
+  system   factor      1    0 query-stmt                                                                                  1
     root   factor      1    0 new                                                                                        1 
-    root   factor      1    0 load-class                                                                                 1 
-  system   factor      1    0 list-stmt                                                                                   1
+    root   factor      1    0 load                                                                                      1  
   system   factor      1    0 gc-model                                                                                    1
+  system   factor      1    0 add-lazy-stmt                                                                              1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2346            0         2346
-         int:            2            0            2
-      string:           91            0           91
-        list:           57            0           57
-        expr:         1083            1         1082
+        atom:         2057            0         2057
+      string:           77            0           77
+        list:           86            1           85
+        expr:          884            0          884
          var:           22            2           20
-    constant:           44            0           44
-        func:           94            0           94
+        func:           83            0           83
     template:            1            0            1
-       macro:            8            0            8
-      member:           22            0           22
+       macro:            5            0            5
+      member:           19            0           19
        frame:            2            1            1
  interpreter:            1            0
-  frameEntry:          386            0
+  frameEntry:          329            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/3, entry=82, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=24, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -220,78 +273,20 @@ print-list           : 17       2        3    funcList   '((print-list list) (pr
 to-valid-path        : 18       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 19       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 20       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 21       2        2    var        result\rule\TestGC\test_gc_1.rulp : type=string
+?script-path         : 21       2        2    var        result\worker\XRFactorAddLazyStmtTest\test_add_lazy_stmt_5_gc_1.rulp : type=string
 script_out           : 22       2        2    macro      script_out          
 _ginfo               : 23       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-RRT_ROOT             : 24       2        2    constant   RRT_ROOT:"0"        
-RRT_NAME             : 25       2        2    constant   RRT_NAME:"1"        
-RRT_VAR              : 26       2        2    constant   RRT_VAR:"2"         
-RRT_CONST            : 27       2        2    constant   RRT_CONST:"3"       
-RRT_ALPH0            : 28       2        2    constant   RRT_ALPH0:"4"       
-RRT_ALPH1            : 29       2        2    constant   RRT_ALPH1:"5"       
-RRT_EXPR0            : 30       2        2    constant   RRT_EXPR0:"6"       
-RRT_EXPR1            : 31       2        2    constant   RRT_EXPR1:"7"       
-RRT_EXPR2            : 32       2        2    constant   RRT_EXPR2:"8"       
-RRT_EXPR3            : 33       2        2    constant   RRT_EXPR3:"9"       
-RRT_EXPR4            : 34       2        2    constant   RRT_EXPR4:"10"      
-RRT_BETA0            : 35       2        2    constant   RRT_BETA0:"11"      
-RRT_BETA1            : 36       2        2    constant   RRT_BETA1:"12"      
-RRT_BETA2            : 37       2        2    constant   RRT_BETA2:"13"      
-RRT_BETA3            : 38       2        2    constant   RRT_BETA3:"14"      
-RRT_RULE             : 39       2        2    constant   RRT_RULE:"15"       
-RRT_WORK             : 40       2        2    constant   RRT_WORK:"16"       
-RRT_INDEX            : 41       2        2    constant   RRT_INDEX:"17"      
-RRT_INHER            : 42       2        2    constant   RRT_INHER:"18"      
-RRT_OR               : 43       2        2    constant   RRT_OR:"19"         
-ATTR_RETE_TYPE       : 44       2        2    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 45       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 46       2        2    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 47       2        2    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 48       2        2    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 49       2        2    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 50       2        2    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 51       2        2    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 52       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 53       2        2    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 54       2        2    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 55       2        2    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 56       2        2    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 57       2        2    constant   RETE_QUEUE_ACTION:"4"
-RETE_QUEUE_ORDER     : 58       2        2    constant   RETE_QUEUE_ORDER:"5"
-RETE_PRIORITY_DEFAULT : 59       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 60       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 61       2        2    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 62       2        2    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 63       2        2    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 64       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 65       2        2    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 66       2        2    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 67       2        2    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 68       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 69       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 70       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 71       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 72       2        2    macro      list-with-state     
-list-without-state   : 73       2        2    macro      list-without-state  
-list-rule            : 74       2        2    macro      list-rule           
-get-rule             : 75       2        2    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 76       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 77       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 78       2        2    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 79       2        2    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 80       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 81       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-m                    : 83       2        2    instance   model@m             
+m                    : 25       2        2    instance   model@m             
 ==========================================================================================================================
 
 
-id=3, name=model, lvl=3, ref=1/1, entry=1, pid=2(main), subject=model
+id=3, name=model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 82       3        2    instance   model@m             
+default_model        : 24       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=6
@@ -299,8 +294,8 @@ Root var list: total=6
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
-?load-jar            : '("rulp_rule_bin_0.0.1.jar")
-?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp")
+?load-jar            : '()
+?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp")
 ?model-trace         : false
 ?path                : '()
 ?trace               : false
@@ -321,8 +316,8 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 --------------------------------------------------------------------------------------------------------------------------
 ?cst-init                      : DEFAULT                      0    1    var        false : type=bool
 ?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
-?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
-?model-gc-interval             : DEFAULT                      0    1    var        50L : type=long
+?model-gc-inactive-leaf        : DEFAULT                      0    1    var        0 : type=int
+?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
 this                           : DEFAULT                      0    2    instance   model@m

@@ -1,0 +1,15 @@
+(new model m)
+;=>m
+
+(add-lazy-stmt m '(?x typeof ?y) '('(a typeof node) '(b typeof node) '(c typeof tag)))
+;=>nil
+
+(setq m::?model-gc-inactive-leaf 0)
+;=>&?model-gc-inactive-leaf
+
+(gc-model m)
+;=>0
+
+(query-stmt m ?x from '(?x typeof ?))
+;=>'(a b c)
+

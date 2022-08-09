@@ -1,7 +1,22 @@
 package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Asc;
+import static alpha.rulp.rule.Constant.A_Desc;
+import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
+import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
+import static alpha.rulp.rule.Constant.A_Index;
+import static alpha.rulp.rule.Constant.A_Inherit;
+import static alpha.rulp.rule.Constant.A_Order_by;
+import static alpha.rulp.rule.Constant.A_RETE_TYPE;
+import static alpha.rulp.rule.Constant.A_Uniq;
+import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
+import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
+import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RCountType.AssumeCount;
 import static alpha.rulp.rule.RCountType.BindFromCount;
 import static alpha.rulp.rule.RCountType.BindToCount;
@@ -185,6 +200,10 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		public XGraphInfo(IRReteNode node) {
 			this.node = node;
+		}
+
+		public boolean hasBindNode() {
+			return bindFromNodeList != null && !bindFromNodeList.isEmpty();
 		}
 
 		public void addRule(IRRule rule) {
@@ -1144,6 +1163,24 @@ public class XRNodeGraph implements IRNodeGraph {
 		return rootNode;
 	}
 
+	protected boolean _isUnusedNode(IRReteNode node) {
+
+		if (!node.getChildNodes().isEmpty()) {
+			return false;
+		}
+
+		if (node.getPriority() > RETE_PRIORITY_INACTIVE) {
+			return false;
+		}
+
+		XGraphInfo info = ((XGraphInfo) node.getGraphInfo());
+		if (info.hasBindNode()) {
+			return false;
+		}
+
+		return true;
+	}
+
 //	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
 //			throws RException {
 //
@@ -1772,6 +1809,39 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	}
 
+	protected boolean _supportInheritOpt(IRReteNode parentNode, IRObject[] ruleVarEntry, List<IRExpr> indexExprList,
+			List<IRExpr> actionStmtList) throws RException {
+
+		if (!USE_INHERIT) {
+			return false;
+		}
+
+		/******************************************************/
+		// Does not use inherit node if there is var-change expr
+		/******************************************************/
+		switch (parentNode.getReteType()) {
+		case ALPH1:
+		case BETA1:
+			return false;
+
+		default:
+			break;
+		}
+
+		if (!indexExprList.isEmpty()) {
+			return false;
+		}
+
+		/******************************************************/
+		// Does not use inherit node if all actions are simple statements
+		/******************************************************/
+		if (ActionUtil.isSimpleAddStmtAction(actionStmtList, model, ruleVarEntry)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	protected IRList _toList(String list) throws RException {
 
 		List<IRObject> objs = model.getInterpreter().getParser().parse(list);
@@ -1804,39 +1874,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		_graphChanged();
-		return true;
-	}
-
-	protected boolean _supportInheritOpt(IRReteNode parentNode, IRObject[] ruleVarEntry, List<IRExpr> indexExprList,
-			List<IRExpr> actionStmtList) throws RException {
-
-		if (!USE_INHERIT) {
-			return false;
-		}
-
-		/******************************************************/
-		// Does not use inherit node if there is var-change expr
-		/******************************************************/
-		switch (parentNode.getReteType()) {
-		case ALPH1:
-		case BETA1:
-			return false;
-
-		default:
-			break;
-		}
-
-		if (!indexExprList.isEmpty()) {
-			return false;
-		}
-
-		/******************************************************/
-		// Does not use inherit node if all actions are simple statements
-		/******************************************************/
-		if (ActionUtil.isSimpleAddStmtAction(actionStmtList, model, ruleVarEntry)) {
-			return false;
-		}
-
 		return true;
 	}
 
@@ -2279,9 +2316,9 @@ public class XRNodeGraph implements IRNodeGraph {
 		gcCount++;
 
 		/**************************************************/
-		// Clean inactive leaf node
+		// Clean unused nodes
 		/**************************************************/
-		if (gcMaxInactiveLeafCount > 0) {
+		if (gcMaxInactiveLeafCount > -1) {
 
 			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
 				@Override
@@ -2292,22 +2329,13 @@ public class XRNodeGraph implements IRNodeGraph {
 			});
 
 			for (AbsReteNode node : listNodes(RReteType.ALPH0)) {
-
-				if (!node.getChildNodes().isEmpty()) {
-					continue;
+				if (_isUnusedNode(node)) {
+					nodeHeap.push(node);
 				}
-
-				if (node.getPriority() > RETE_PRIORITY_INACTIVE) {
-					continue;
-				}
-
-				nodeHeap.push(node);
 			}
 
 			if (nodeHeap.size() > gcMaxInactiveLeafCount) {
-
 				gcInactiveLeafCount++;
-
 				while (nodeHeap.size() > gcMaxInactiveLeafCount) {
 					AbsReteNode node = nodeHeap.pop();
 					node.setReteStage(RReteStage.InActive);
@@ -2333,11 +2361,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 			});
 
-			for (
-
-			AbsReteNode node :
-
-			listNodes(RReteType.NAME0)) {
+			for (AbsReteNode node : listNodes(RReteType.NAME0)) {
 
 				if (!node.getChildNodes().isEmpty()) {
 					continue;

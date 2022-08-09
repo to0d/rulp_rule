@@ -13,3 +13,6 @@
 (list-stmt m)
 ;=>'()
 
+(gc-model m)
+;=>0
+

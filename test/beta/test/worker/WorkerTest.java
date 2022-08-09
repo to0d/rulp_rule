@@ -37,7 +37,7 @@ public class WorkerTest extends RuleTestBase {
 	}
 
 	@Test
-	public void test_load_2_always_has_data_no_duplicate() {
+	void test_load_2_always_has_data_no_duplicate() {
 
 		_setup();
 		_test("(new model m)");
@@ -45,6 +45,7 @@ public class WorkerTest extends RuleTestBase {
 		try {
 
 			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, new IRWorker() {
+
 				int index = 0;
 
 				@Override
@@ -52,6 +53,7 @@ public class WorkerTest extends RuleTestBase {
 					RuleUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(n%d typeof node))", index++)));
 					return false;
 				}
+
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
 
 		} catch (RException e) {
@@ -67,7 +69,7 @@ public class WorkerTest extends RuleTestBase {
 	}
 
 	@Test
-	public void test_load_3_always_has_data_has_duplicate() {
+	void test_load_3_always_has_data_has_duplicate() {
 
 		_setup();
 		_test("(new model m)");
@@ -90,7 +92,7 @@ public class WorkerTest extends RuleTestBase {
 	}
 
 	@Test
-	public void test_load_4_data_not_match_filter() {
+	void test_load_4_data_not_match_filter() {
 
 		_setup();
 		_test("(new model m)");
@@ -112,7 +114,7 @@ public class WorkerTest extends RuleTestBase {
 	}
 
 	@Test
-	public void test_load_5_multi_bind_2() {
+	void test_load_5_multi_bind_2() {
 
 		_setup();
 		_test("(new model m)");
@@ -146,7 +148,7 @@ public class WorkerTest extends RuleTestBase {
 	}
 
 	@Test
-	public void test_load_5_multi_bind_3() {
+	void test_load_5_multi_bind_3() {
 
 		_setup();
 		_test("(new model m)");

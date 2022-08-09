@@ -12,3 +12,6 @@
 
 (list-stmt m)
 ;=>
+
+(gc-model m)
+;=>
