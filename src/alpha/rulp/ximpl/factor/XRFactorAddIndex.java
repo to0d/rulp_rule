@@ -28,10 +28,6 @@ import alpha.rulp.ximpl.node.IRNodeGraph;
 
 public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
-	public XRFactorAddIndex(String factorName) {
-		super(factorName);
-	}
-
 	static void _addOrderIndex(Modifier modifier, List<OrderEntry> orderList, IRList nodeExpr, IRObject orderObj,
 			boolean asc) throws RException {
 
@@ -56,6 +52,10 @@ public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, 
 		order.index = index;
 		order.asc = asc;
 		orderList.add(order);
+	}
+
+	public XRFactorAddIndex(String factorName) {
+		super(factorName);
 	}
 
 	@Override

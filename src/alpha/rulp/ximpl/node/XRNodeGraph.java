@@ -204,10 +204,6 @@ public class XRNodeGraph implements IRNodeGraph {
 			this.node = node;
 		}
 
-		public boolean hasBindNode() {
-			return bindFromNodeList != null && !bindFromNodeList.isEmpty();
-		}
-
 		public void addRule(IRRule rule) {
 
 			if (relatedRules == null) {
@@ -269,6 +265,10 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		public int getUseCount() {
 			return this.useCount;
+		}
+
+		public boolean hasBindNode() {
+			return bindFromNodeList != null && !bindFromNodeList.isEmpty();
 		}
 
 		public void incUseCount() {
@@ -396,24 +396,6 @@ public class XRNodeGraph implements IRNodeGraph {
 			sb.append(order.index);
 			sb.append(" ");
 			sb.append(order.asc ? A_Asc : A_Desc);
-		}
-
-		sb.append(")");
-
-		return sb.toString();
-	}
-
-	protected static String _getUniqNameForInheritNode(String parentUniqName, int[] inheritIndexs) {
-
-		StringBuffer sb = new StringBuffer();
-		sb.append("(");
-		sb.append(A_Inherit);
-		sb.append(" ");
-		sb.append(parentUniqName);
-
-		for (int index : inheritIndexs) {
-			sb.append(" ");
-			sb.append(index);
 		}
 
 		sb.append(")");
@@ -1031,6 +1013,53 @@ public class XRNodeGraph implements IRNodeGraph {
 		return node;
 	}
 
+	protected AbsReteNode _buildInheritNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
+
+		IRList parentTree = (IRList) reteTree.get(1);
+		IRReteNode parentNode = _findReteNode(parentTree, tmpVarBuilder);
+
+		int entryLength = reteTree.size() - 2;
+		int[] inheritIndexs = new int[entryLength];
+		IRObject[] inheritVarEntry = new IRObject[entryLength];
+
+		int i = 0;
+		int lastIndex = -1;
+
+		IRIterator<? extends IRObject> it = reteTree.listIterator(2);
+		while (it.hasNext()) {
+
+			IRObject indexObj = it.next();
+			if (indexObj.getType() != RType.INT) {
+				throw new RException("invalid index : " + indexObj);
+			}
+
+			int index = RulpUtil.asInteger(indexObj).asInteger();
+
+			if (index < 0 || index >= parentNode.getEntryLength()) {
+				throw new RException(String.format("invalid index : %d", index));
+			}
+
+			if (index == lastIndex) {
+				throw new RException(String.format("duplicated index : %d", index));
+			}
+
+			IRObject var = parentNode.getVarEntry()[index];
+			if (var == null) {
+				if (!RReteType.isRootType(parentNode.getReteType()) && parentNode.getReteType() != RReteType.EXPR1) {
+					throw new RException(String.format("not var found at index : %d", index));
+				}
+			}
+
+			inheritIndexs[i] = index;
+			inheritVarEntry[i] = var;
+			lastIndex = index;
+			++i;
+		}
+
+		return RNodeFactory.createInheritNode(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), entryLength,
+				parentNode, inheritVarEntry, inheritIndexs);
+	}
+
 	protected AbsReteNode _buildNamedNode(String namedName, int stmtLen) throws RException {
 
 		if (namedName == null || stmtLen == -1) {
@@ -1163,24 +1192,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		return rootNode;
-	}
-
-	protected boolean _isUnusedNode(IRReteNode node) {
-
-		if (!node.getChildNodes().isEmpty()) {
-			return false;
-		}
-
-		if (node.getPriority() > RETE_PRIORITY_INACTIVE) {
-			return false;
-		}
-
-		XGraphInfo info = ((XGraphInfo) node.getGraphInfo());
-		if (info.hasBindNode()) {
-			return false;
-		}
-
-		return true;
 	}
 
 //	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
@@ -1680,6 +1691,24 @@ public class XRNodeGraph implements IRNodeGraph {
 		_constraintCheckSubGraphMap = null;
 	}
 
+	protected boolean _isUnusedNode(IRReteNode node) {
+
+		if (!node.getChildNodes().isEmpty()) {
+			return false;
+		}
+
+		if (node.getPriority() > RETE_PRIORITY_INACTIVE) {
+			return false;
+		}
+
+		XGraphInfo info = ((XGraphInfo) node.getGraphInfo());
+		if (info.hasBindNode()) {
+			return false;
+		}
+
+		return true;
+	}
+
 	protected Map<IRReteNode, List<IRReteNode>> _openAffectNodeMap(IRReteNode rootNode) throws RException {
 
 		if (_affectNodeMap == null) {
@@ -2121,104 +2150,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		_addNode(indexNode);
 
 		return indexNode;
-	}
-
-	protected AbsReteNode _buildInheritNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
-
-		IRList parentTree = (IRList) reteTree.get(1);
-		IRReteNode parentNode = _findReteNode(parentTree, tmpVarBuilder);
-
-		int entryLength = reteTree.size() - 2;
-		int[] inheritIndexs = new int[entryLength];
-		IRObject[] inheritVarEntry = new IRObject[entryLength];
-
-		int i = 0;
-		int lastIndex = -1;
-
-		IRIterator<? extends IRObject> it = reteTree.listIterator(2);
-		while (it.hasNext()) {
-
-			IRObject indexObj = it.next();
-			if (indexObj.getType() != RType.INT) {
-				throw new RException("invalid index : " + indexObj);
-			}
-
-			int index = RulpUtil.asInteger(indexObj).asInteger();
-
-			if (index < 0 || index >= parentNode.getEntryLength()) {
-				throw new RException(String.format("invalid index : %d", index));
-			}
-
-			if (index == lastIndex) {
-				throw new RException(String.format("duplicated index : %d", index));
-			}
-
-			IRObject var = parentNode.getVarEntry()[index];
-			if (var == null) {
-				if (!RReteType.isRootType(parentNode.getReteType()) && parentNode.getReteType() != RReteType.EXPR1) {
-					throw new RException(String.format("not var found at index : %d", index));
-				}
-			}
-
-			inheritIndexs[i] = index;
-			inheritVarEntry[i] = var;
-			lastIndex = index;
-			++i;
-		}
-
-		return RNodeFactory.createInheritNode(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), entryLength,
-				parentNode, inheritVarEntry, inheritIndexs);
-	}
-
-	@Override
-	public IRReteNode buildInherit(IRReteNode node, int[] indexs) throws RException {
-
-		if (indexs == null || indexs.length == 0) {
-			throw new RException("null inherit indexs");
-		}
-
-		int[] inheritIndexs = new int[indexs.length];
-		IRObject[] inheritVarEntry = new IRObject[indexs.length];
-
-		int lastIndex = -1;
-		int i = 0;
-
-		for (int index : indexs) {
-
-			if (index < 0 || index >= node.getEntryLength()) {
-				throw new RException(String.format("invalid index : %d", index));
-			}
-
-			if (index == lastIndex) {
-				throw new RException(String.format("duplicated index : %d", index));
-			}
-
-			IRObject var = node.getVarEntry()[index];
-			if (var == null) {
-				if (!RReteType.isRootType(node.getReteType()) && node.getReteType() != RReteType.EXPR1) {
-					throw new RException(String.format("not var found at index : %d", index));
-				}
-			}
-
-			inheritIndexs[i] = index;
-			inheritVarEntry[i] = var;
-			lastIndex = index;
-			++i;
-		}
-
-		String uniqName = _getUniqNameForInheritNode(node.getUniqName(), inheritIndexs);
-		for (IRReteNode childNode : node.getChildNodes()) {
-			if (childNode.getReteType() == RReteType.INHER && childNode.getUniqName().equals(uniqName)) {
-				return childNode;
-			}
-		}
-
-		AbsReteNode inheritNode = RNodeFactory.createInheritNode(model, _getNextNodeId(), uniqName, indexs.length, node,
-				inheritVarEntry, inheritIndexs);
-
-		_addNode(inheritNode);
-
-		return inheritNode;
 	}
 
 	@Override
