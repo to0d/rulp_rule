@@ -838,7 +838,6 @@ B20035[3]    leftUsedIndexSet: size=30
 B20042[3]    leftUsedIndexSet: size=6                                      
 B20046[3]    leftUsedIndexSet: size=10                                     
 B20093[3]    leftUsedIndexSet: size=8                                      
-B20095[3]    leftUsedIndexSet: size=3                                      
 ===============================================================================================================================================================================
 
 priority info:

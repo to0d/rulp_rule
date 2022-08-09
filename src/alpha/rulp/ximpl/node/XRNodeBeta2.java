@@ -79,13 +79,15 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 
 	protected void _ignoreLeftIndex(int leftIndex) {
 
+//		if (this.getNodeName().equals("B20035")) {
+//			System.out.println("ignore index: " + leftIndex);
+//		}
+
 		if (leftIndex == leftBeginIndex) {
 
-			while (++leftBeginIndex < lastLeftEntryCount) {
-				if (!leftUsedIndexSet.remove(leftBeginIndex)) {
-					break;
-				}
-			}
+			do {
+				++leftBeginIndex;
+			} while (leftUsedIndexSet.remove(leftBeginIndex));
 
 		} else {
 
