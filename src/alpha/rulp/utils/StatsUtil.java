@@ -1344,8 +1344,8 @@ public class StatsUtil {
 
 			sb.append(String.format(
 					"%-12s %6d %6d %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %5d %8s %11s",
-					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(FIXED_),
-					node.getEntryCreateCount(), node.getEntryDeleteCount(), entryCounter.getEntryCount(DEFINE),
+					node.getNodeName() + "[" + node.getEntryLength() + "]", node.getEntryCreateCount(),
+					node.getEntryDeleteCount(), entryCounter.getEntryCount(FIXED_), entryCounter.getEntryCount(DEFINE),
 					entryCounter.getEntryCount(REASON), entryCounter.getEntryCount(ASSUME),
 					entryCounter.getEntryCount(null), entryCounter.getEntryCount(REMOVE),
 					entryCounter.getEntryCount(TEMP__), entryCounter.getEntryNullCount(),
