@@ -188,6 +188,155 @@ public class OptimizeUtil {
 		return constCount == (expr.size() - 1) && isConstOperatorName(expr.get(0).asString());
 	}
 
+	protected static IRExpr _optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
+
+		if (!XRFactorHasStmt.isSimpleHasStmtExpr(expr)) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// no external var
+		// - (has-stmt '(?a ?b ?c)), ?a ?b ?c are all external vars
+		// - (has-stmt '(a b c))
+		/*********************************************************/
+		if (leftVarList.isEmpty()) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// no var
+		// - (has-stmt '(a b c))
+		/*********************************************************/
+		ArrayList<IRObject> thisVarList = ReteUtil.buildVarList(expr);
+		if (thisVarList.isEmpty()) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// Optimization: create index
+		// before: '(?a ?b c) '(has-stmt '(?a x ?y))
+		// after : '(?a ?b c) '(has-stmt '(?a x ?y) order by 0)
+		/*********************************************************/
+		List<IRObject> oldElements = null;
+		List<IRObject> newList = null;
+
+		int indexCount = 0;
+		for (IRObject var : thisVarList) {
+
+			if (!leftVarList.contains(var)) {
+				continue;
+			}
+
+			if (oldElements == null) {
+
+				// (has-stmt '(a b c))
+				if (expr.size() == 2) {
+					oldElements = RulpUtil.toArray((IRList) expr.get(1));
+				} else {
+					oldElements = RulpUtil.toArray((IRList) expr.get(2));
+				}
+
+			}
+
+			int idx = oldElements.indexOf(var);
+			if (idx != -1) {
+
+				if (newList == null) {
+					newList = RulpUtil.toArray(expr);
+				}
+
+				newList.add(RulpFactory.createAtom(A_Order));
+				newList.add(RulpFactory.createAtom(A_By));
+				newList.add(RulpFactory.createInteger(idx));
+				indexCount++;
+			}
+		}
+
+		/*********************************************************/
+		// all var are left vars
+		// - (?a ?b ?c) (has-stmt '(?a ?b ?c))
+		/*********************************************************/
+		if (indexCount == thisVarList.size()) {
+			return expr;
+		}
+
+		/*********************************************************/
+		// all var are external vars
+		// - (has-stmt '(?a ?b ?c))
+		/*********************************************************/
+		if (indexCount == 0) {
+			return expr;
+		}
+
+		return RulpFactory.createExpression(newList);
+	}
+
+//	private static IRObject _optimizeExpr(IRObject obj) throws RException {
+//
+//		if (obj.getType() != RType.EXPR) {
+//			return null;
+//		}
+//
+//		IRExpr expr = (IRExpr) obj;
+//		int size = expr.size();
+//		int update = 0;
+//
+//		/*******************************************************/
+//		// Optimize child
+//		/*******************************************************/
+//		{
+//
+//			ArrayList<IRObject> optiArray = null;
+//
+//			for (int i = 0; i < size; ++i) {
+//
+//				IRObject e = expr.get(i);
+//				IRObject optiE = null;
+//
+//				if ((optiE = _optimizeExpr(e)) != null) {
+//
+//					if (optiArray == null) {
+//						optiArray = new ArrayList<>();
+//
+//						// Copy previous elements
+//						for (int j = 0; j < i - 1; ++j) {
+//							optiArray.add(expr.get(j));
+//						}
+//					}
+//
+//					optiArray.add(optiE);
+//
+//				} else {
+//
+//					if (optiArray != null) {
+//						optiArray.add(e);
+//					}
+//				}
+//			}
+//
+//			if (optiArray != null) {
+//				expr = RulpFactory.createExpression(optiArray);
+//				++update;
+//			}
+//		}
+//
+//		// (not (equal a b)) ==> (not-equal a b)
+//		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
+//
+//			ArrayList<IRObject> optiArray = new ArrayList<>();
+//			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
+//			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
+//			while (childExprIter.hasNext()) {
+//				optiArray.add(childExprIter.next());
+//			}
+//
+//			expr = RulpFactory.createExpression(optiArray);
+//			++update;
+//		}
+//
+//		return update > 0 ? expr : null;
+//	}
+
 	private static Pair<IRList, IRList> _optRuleHasStmt_1(Pair<IRList, IRList> rule, IRInterpreter interpreter,
 			IRFrame frame) throws RException {
 
@@ -287,72 +436,6 @@ public class OptimizeUtil {
 
 		return null;
 	}
-
-//	private static IRObject _optimizeExpr(IRObject obj) throws RException {
-//
-//		if (obj.getType() != RType.EXPR) {
-//			return null;
-//		}
-//
-//		IRExpr expr = (IRExpr) obj;
-//		int size = expr.size();
-//		int update = 0;
-//
-//		/*******************************************************/
-//		// Optimize child
-//		/*******************************************************/
-//		{
-//
-//			ArrayList<IRObject> optiArray = null;
-//
-//			for (int i = 0; i < size; ++i) {
-//
-//				IRObject e = expr.get(i);
-//				IRObject optiE = null;
-//
-//				if ((optiE = _optimizeExpr(e)) != null) {
-//
-//					if (optiArray == null) {
-//						optiArray = new ArrayList<>();
-//
-//						// Copy previous elements
-//						for (int j = 0; j < i - 1; ++j) {
-//							optiArray.add(expr.get(j));
-//						}
-//					}
-//
-//					optiArray.add(optiE);
-//
-//				} else {
-//
-//					if (optiArray != null) {
-//						optiArray.add(e);
-//					}
-//				}
-//			}
-//
-//			if (optiArray != null) {
-//				expr = RulpFactory.createExpression(optiArray);
-//				++update;
-//			}
-//		}
-//
-//		// (not (equal a b)) ==> (not-equal a b)
-//		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
-//
-//			ArrayList<IRObject> optiArray = new ArrayList<>();
-//			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
-//			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
-//			while (childExprIter.hasNext()) {
-//				optiArray.add(childExprIter.next());
-//			}
-//
-//			expr = RulpFactory.createExpression(optiArray);
-//			++update;
-//		}
-//
-//		return update > 0 ? expr : null;
-//	}
 
 	private static Pair<IRList, IRList> _optRuleHasStmt_2(Pair<IRList, IRList> rule, IRInterpreter interpreter,
 			IRFrame frame) throws RException {
@@ -672,15 +755,6 @@ public class OptimizeUtil {
 		return expr;
 	}
 
-	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
-
-		if (!_canOptimizeMatchTree(matchTree)) {
-			return matchTree;
-		}
-
-		return (IRList) _buildOptimizeMatchTree(matchTree);
-	}
-
 	public static IRExpr optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
 
 		int size = expr.size();
@@ -726,87 +800,13 @@ public class OptimizeUtil {
 		return expr;
 	}
 
-	protected static IRExpr _optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
+	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
 
-		if (!XRFactorHasStmt.isSimpleHasStmtExpr(expr)) {
-			return expr;
+		if (!_canOptimizeMatchTree(matchTree)) {
+			return matchTree;
 		}
 
-		/*********************************************************/
-		// no external var
-		// - (has-stmt '(?a ?b ?c)), ?a ?b ?c are all external vars
-		// - (has-stmt '(a b c))
-		/*********************************************************/
-		if (leftVarList.isEmpty()) {
-			return expr;
-		}
-
-		/*********************************************************/
-		// no var
-		// - (has-stmt '(a b c))
-		/*********************************************************/
-		ArrayList<IRObject> thisVarList = ReteUtil.buildVarList(expr);
-		if (thisVarList.isEmpty()) {
-			return expr;
-		}
-
-		/*********************************************************/
-		// Optimization: create index
-		// before: '(?a ?b c) '(has-stmt '(?a x ?y))
-		// after : '(?a ?b c) '(has-stmt '(?a x ?y) order by 0)
-		/*********************************************************/
-		List<IRObject> oldElements = null;
-		List<IRObject> newList = null;
-
-		int indexCount = 0;
-		for (IRObject var : thisVarList) {
-
-			if (!leftVarList.contains(var)) {
-				continue;
-			}
-
-			if (oldElements == null) {
-
-				// (has-stmt '(a b c))
-				if (expr.size() == 2) {
-					oldElements = RulpUtil.toArray((IRList) expr.get(1));
-				} else {
-					oldElements = RulpUtil.toArray((IRList) expr.get(2));
-				}
-
-			}
-
-			int idx = oldElements.indexOf(var);
-			if (idx != -1) {
-
-				if (newList == null) {
-					newList = RulpUtil.toArray(expr);
-				}
-
-				newList.add(RulpFactory.createAtom(A_Order));
-				newList.add(RulpFactory.createAtom(A_By));
-				newList.add(RulpFactory.createInteger(idx));
-				indexCount++;
-			}
-		}
-
-		/*********************************************************/
-		// all var are left vars
-		// - (?a ?b ?c) (has-stmt '(?a ?b ?c))
-		/*********************************************************/
-		if (indexCount == thisVarList.size()) {
-			return expr;
-		}
-
-		/*********************************************************/
-		// all var are external vars
-		// - (has-stmt '(?a ?b ?c))
-		/*********************************************************/
-		if (indexCount == 0) {
-			return expr;
-		}
-
-		return RulpFactory.createExpression(newList);
+		return (IRList) _buildOptimizeMatchTree(matchTree);
 	}
 
 	public static IRList optimizeRuleActionIndexVar(IRList condList, IRList actionList) throws RException {
