@@ -33,6 +33,10 @@ public abstract class AbsRConstraint2 extends AbsRConstraint implements IRConstr
 
 	}
 
+	public String getCacheInfo() {
+		return "";
+	}
+
 	@Override
 	public RConstraintKind getConstraintKind() {
 		return RConstraintKind.C2;

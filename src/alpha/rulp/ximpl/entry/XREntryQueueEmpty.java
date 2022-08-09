@@ -38,6 +38,10 @@ public class XREntryQueueEmpty implements IREntryQueue {
 		return 0;
 	}
 
+	public String getCacheInfo() {
+		return "";
+	}
+
 	@Override
 	public IRReteEntry getEntryAt(int index) {
 		return null;

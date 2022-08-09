@@ -71,6 +71,10 @@ public class XREntryQueueSingle implements IREntryQueue {
 		return 0;
 	}
 
+	public String getCacheInfo() {
+		return "";
+	}
+
 	@Override
 	public IRReteEntry getEntryAt(int index) {
 		++queryFetchCount;

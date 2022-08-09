@@ -19,6 +19,8 @@ public interface IREntryQueue extends IREntryList, IREntryAction {
 
 	public int doGC();
 
+	public String getCacheInfo();
+
 	public IREntryCounter getEntryCounter();
 
 	public int getEntryLength();

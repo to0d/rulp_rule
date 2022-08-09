@@ -6,6 +6,8 @@ public interface IRConstraint extends IRInstance {
 
 	public void close();
 
+	public String getCacheInfo();
+
 	public String getConstraintExpression();
 
 	public RConstraintKind getConstraintKind();
@@ -13,6 +15,6 @@ public interface IRConstraint extends IRInstance {
 	public String getConstraintName();
 
 	public int getFailCount();
-
+	
 	public int getMatchCount();
 }

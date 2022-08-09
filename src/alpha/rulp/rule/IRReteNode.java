@@ -64,6 +64,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public int getAddEntryFailCount();
 
+	public String getCacheInfo();
+
 	public IRCacheWorker getCacheWorker();
 
 	public List<IRReteNode> getChildNodes();
@@ -81,8 +83,6 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 	public int getEntryLength();
 
 	public IREntryQueue getEntryQueue();
-
-	public String getCacheInfo();
 
 	public IGraphInfo getGraphInfo();
 

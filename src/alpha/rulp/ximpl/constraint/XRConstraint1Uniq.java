@@ -74,6 +74,11 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 
 		uniqEntryMap = null;
 	}
 
+	public String getCacheInfo() {
+		return ReteUtil.combine(super.getCacheInfo(),
+				"uniqEntryMap: size=" + (uniqEntryMap == null ? "null" : "" + uniqEntryMap.size()));
+	}
+
 //	@Override
 //	public void doAction(IRReteEntry obj) throws RException {
 //

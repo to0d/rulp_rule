@@ -493,6 +493,45 @@ public class StatsUtil {
 		sb.append(SEP_LINE1);
 	}
 
+	private static void _printCacheInfo(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		boolean outputHead = false;
+
+		for (IRReteNode node : nodes) {
+
+			String nodeCacheInfo = node.getCacheInfo();
+			String entryQueueCacheInfo = node.getEntryQueue().getCacheInfo();
+			String consCacheInfo = "";
+
+			int consCount = node.getConstraint1Count();
+			for (int i = 0; i < consCount; ++i) {
+				consCacheInfo = ReteUtil.combine(consCacheInfo, node.getConstraint1(i).getCacheInfo());
+			}
+
+			if (nodeCacheInfo.isEmpty() && entryQueueCacheInfo.isEmpty() && consCacheInfo.isEmpty()) {
+				continue;
+			}
+
+			if (!outputHead) {
+				sb.append("cache info:\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format("%-12s %-30s %-30s %s\n", "NODE[n]", "Node", "Queue", "Constraint"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
+			}
+
+			sb.append(String.format("%-12s %-30s %-30s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					nodeCacheInfo, entryQueueCacheInfo, consCacheInfo));
+		}
+
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+	}
+
 	private static void _printEntryTable(StringBuffer sb, IRModel model, IREntryTable entryTable) throws RException {
 
 		Set<RReteType> typeSet = new HashSet<>();
@@ -1825,6 +1864,7 @@ public class StatsUtil {
 			printNodeInfo4(sb, model, nodes);
 			_printNodeInfo5Action(sb, model, nodes);
 			_printNodeInfo6(sb, model, nodes);
+			_printCacheInfo(sb, model, nodes);
 		}
 
 		/****************************************************/

@@ -17,38 +17,7 @@ public class XREntryQueueOrder extends XREntryQueueMulit {
 		super(entryLength);
 	}
 
-	public List<OrderEntry> getOrderList() {
-		return orderList;
-	}
-
-	@Override
-	public REntryQueueType getQueueType() {
-		return REntryQueueType.ORDER;
-	}
-
-	public void setOrderList(List<OrderEntry> orderList) {
-		this.orderList = orderList;
-	}
-
-	public void rebuildOrder() {
-
-		int len = size();
-		if (len <= 1) {
-			return;
-		}
-
-		Collections.sort(entryList, (e1, e2) -> {
-			try {
-				return _compare(e1, e2);
-			} catch (RException e) {
-				e.printStackTrace();
-				return 0;
-			}
-		});
-
-	}
-
-	int _compare(IRList e1, IRList e2) throws RException {
+	protected int _compare(IRList e1, IRList e2) throws RException {
 		return ReteUtil.compareEntry(e2, e1, orderList);
 	}
 
@@ -106,5 +75,36 @@ public class XREntryQueueOrder extends XREntryQueueMulit {
 		}
 
 		return null;
+	}
+
+	public List<OrderEntry> getOrderList() {
+		return orderList;
+	}
+
+	@Override
+	public REntryQueueType getQueueType() {
+		return REntryQueueType.ORDER;
+	}
+
+	public void rebuildOrder() {
+
+		int len = size();
+		if (len <= 1) {
+			return;
+		}
+
+		Collections.sort(entryList, (e1, e2) -> {
+			try {
+				return _compare(e1, e2);
+			} catch (RException e) {
+				e.printStackTrace();
+				return 0;
+			}
+		});
+
+	}
+
+	public void setOrderList(List<OrderEntry> orderList) {
+		this.orderList = orderList;
 	}
 }

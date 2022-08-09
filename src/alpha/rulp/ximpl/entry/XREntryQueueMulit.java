@@ -200,6 +200,10 @@ public class XREntryQueueMulit implements IREntryQueue {
 		return removeCount;
 	}
 
+	public String getCacheInfo() {
+		return "";
+	}
+
 	@Override
 	public IRReteEntry getEntryAt(int index) {
 

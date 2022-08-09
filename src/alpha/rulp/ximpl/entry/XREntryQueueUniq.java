@@ -75,6 +75,10 @@ public class XREntryQueueUniq extends XREntryQueueMulit {
 		return super.doGC();
 	}
 
+	public String getCacheInfo() {
+		return ReteUtil.combine(super.getCacheInfo(), "uniqEntryMap: size=" + uniqEntryMap.size());
+	}
+
 	@Override
 	public REntryQueueType getQueueType() {
 		return REntryQueueType.UNIQ;

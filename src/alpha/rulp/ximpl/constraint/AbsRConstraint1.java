@@ -9,10 +9,6 @@ public abstract class AbsRConstraint1 extends AbsRConstraint implements IRConstr
 
 	protected abstract boolean _addEntry(IRReteEntry entry, IRContext context) throws RException;
 
-	public void setNode(IRReteNode node) {
-
-	}
-
 	@Override
 	public boolean addEntry(IRReteEntry entry, IRContext context) throws RException {
 
@@ -36,6 +32,10 @@ public abstract class AbsRConstraint1 extends AbsRConstraint implements IRConstr
 
 	}
 
+	public String getCacheInfo() {
+		return "";
+	}
+
 	@Override
 	public RConstraintKind getConstraintKind() {
 		return RConstraintKind.C1;
@@ -48,5 +48,9 @@ public abstract class AbsRConstraint1 extends AbsRConstraint implements IRConstr
 	@Override
 	public boolean isDeleted() {
 		return false;
+	}
+
+	public void setNode(IRReteNode node) {
+
 	}
 }

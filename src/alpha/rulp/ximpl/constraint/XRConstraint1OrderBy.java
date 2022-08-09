@@ -27,6 +27,11 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 
 	private Map<String, IRReteEntry> uniqEntryMap = null;
 
+	public String getCacheInfo() {
+		return ReteUtil.combine(super.getCacheInfo(),
+				"uniqEntryMap: size=" + (uniqEntryMap == null ? "null" : "" + uniqEntryMap.size()));
+	}
+
 	public XRConstraint1OrderBy(List<OrderEntry> orderList) {
 
 		super();
