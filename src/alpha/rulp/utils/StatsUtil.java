@@ -103,10 +103,10 @@ public class StatsUtil {
 			RULE, WORK, CONST, INDEX };
 
 	static final String SEP_LINE1 = "=========================================================================="
-			+ "=======================================================================================\n";
+			+ "=====================================================================================================\n";
 
 	static final String SEP_LINE2 = "--------------------------------------------------------------------------"
-			+ "---------------------------------------------------------------------------------------\n";
+			+ "-----------------------------------------------------------------------------------------------------\n";
 
 	private static List<String> _formatTableResult(List<List<String>> result, List<Integer> maxColumnLen) {
 
@@ -251,6 +251,10 @@ public class StatsUtil {
 		case RemoveCount:
 			return 5;
 
+		case CreateEntry:
+		case DeleteEntry:
+			return 6;
+
 		default:
 			return 6;
 		}
@@ -330,6 +334,12 @@ public class StatsUtil {
 
 		case RedundantCount:
 			return "Redunt";
+
+		case CreateEntry:
+			return "Create";
+
+		case DeleteEntry:
+			return "Delete";
 
 		default:
 			return "Unknown";
@@ -1257,9 +1267,10 @@ public class StatsUtil {
 		sb.append("\nnode info:\n");
 		sb.append(SEP_LINE1);
 		sb.append(String.format(
-				"%-12s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %5s %8s %11s\n",
-				"NODE[n]", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null", "Bind", "Match",
-				"Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "Use", "Stage", "PVisit"));
+				"%-12s %6s %6s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %5s %8s %11s\n",
+				"NODE[n]", "Create", "Delete", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null",
+				"Bind", "Match", "Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "Use",
+				"Stage", "PVisit"));
 		sb.append(SEP_LINE2);
 
 		IRNodeGraph graph = model.getNodeGraph();
@@ -1293,12 +1304,12 @@ public class StatsUtil {
 			}
 
 			sb.append(String.format(
-					"%-12s %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %5d %8s %11s",
+					"%-12s %6d %6d %6d %6d %6d %6d %6d %6d %5d %5d %5s %6d %6d %6d %4d %4d %6s %4d %3d %3d %3d %5d %8s %11s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", entryCounter.getEntryCount(FIXED_),
-					entryCounter.getEntryCount(DEFINE), entryCounter.getEntryCount(REASON),
-					entryCounter.getEntryCount(ASSUME), entryCounter.getEntryCount(null),
-					entryCounter.getEntryCount(REMOVE), entryCounter.getEntryCount(TEMP__),
-					entryCounter.getEntryNullCount(),
+					node.getEntryCreateCount(), node.getEntryDeleteCount(), entryCounter.getEntryCount(DEFINE),
+					entryCounter.getEntryCount(REASON), entryCounter.getEntryCount(ASSUME),
+					entryCounter.getEntryCount(null), entryCounter.getEntryCount(REMOVE),
+					entryCounter.getEntryCount(TEMP__), entryCounter.getEntryNullCount(),
 					"" + graph.getBindFromNodes(node).size() + "/" + graph.getBindToNodes(node).size(),
 					node.getNodeMatchCount(), entryQueue.getUpdateCount(), entryQueue.getRedundantCount(),
 					node.getNodeExecCount(), node.getNodeIdleCount(), waste, node.getNodeFailedCount(),

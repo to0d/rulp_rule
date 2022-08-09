@@ -53,7 +53,7 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 
 		model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder, (entry) -> {
 			list.add(entry);
-			entryTable.removeEntry(entry);
+			entryTable.deleteEntry(entry);
 			return true;
 		});
 
@@ -71,7 +71,7 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 				return false;
 			}
 
-			entryTable.removeEntry(entry);
+			entryTable.deleteEntry(entry);
 			return true;
 		});
 

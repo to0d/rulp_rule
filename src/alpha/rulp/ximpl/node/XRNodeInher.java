@@ -55,8 +55,11 @@ public class XRNodeInher extends XRNodeRete1 {
 		}
 
 		IRReteEntry newEntry = entryTable.createEntry(null, newElements, entry.getStatus(), false);
+		incEntryCreateCount();
+
 		if (!super.addReteEntry(newEntry)) {
-			entryTable.removeEntry(newEntry);
+			entryTable.deleteEntry(newEntry);
+			incEntryDeleteCount();
 			return false;
 		}
 

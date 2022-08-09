@@ -1029,21 +1029,6 @@ public class ReteUtil {
 		return name + ":" + ReteUtil.getRootUniqName(stmtLen);
 	}
 
-	public static IRReteEntry getNewEntry(IREntryTable entryTable, InheritIndex[] inheritIndexs, IRReteEntry leftEntry,
-			IRReteEntry rightEntry) throws RException {
-
-		int entryLength = inheritIndexs.length;
-
-		IRObject[] newElements = new IRObject[entryLength];
-		for (int i = 0; i < entryLength; ++i) {
-			InheritIndex inherit = inheritIndexs[i];
-			IRReteEntry parentEntry = inherit.parentIndex == 0 ? leftEntry : rightEntry;
-			newElements[i] = parentEntry.get(inherit.elementIndex);
-		}
-
-		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry), false);
-	}
-
 	public static List<IRConstraint1> getNodeConstraint1List(IRReteNode node) {
 
 		int count = node.getConstraint1Count();

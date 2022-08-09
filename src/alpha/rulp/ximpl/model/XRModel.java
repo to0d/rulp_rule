@@ -676,8 +676,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			IRReteEntry newEntry = entryTable.createEntry(stmt.getNamedName(), newElements, newStatus, true);
+			rootNode.incEntryCreateCount();
+
 			if (!rootNode.addReteEntry(newEntry)) {
-				entryTable.removeEntry(newEntry);
+				entryTable.deleteEntry(newEntry);
+				rootNode.incEntryDeleteCount();
 				IRConstraint1 failedConstraint1 = rootNode.getLastFailedConstraint1();
 				if (failedConstraint1 != null) {
 					if (nodeContext == null || this.assuemeStatmentLevel > 0) {
@@ -738,7 +741,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			break;
 
 		case REMOVE:
-			entryTable.removeEntryReference(oldEntry, rootNode);
+			entryTable.deleteEntryReference(oldEntry, rootNode);
 			break;
 
 		default:
@@ -2613,7 +2616,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return false;
 		}
 
-		entryTable.removeEntry(entry);
+		entryTable.deleteEntry(entry);
+		rootNode.incEntryDeleteCount();
 		return true;
 	}
 

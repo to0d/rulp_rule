@@ -2,37 +2,39 @@ package alpha.rulp.rule;
 
 public enum RCountType {
 
-	FixedCount(0), //
-	DefinedCount(1), //
-	ReasonCount(2), //
-	AssumeCount(3), //
-	DropCount(4), //
-	RemoveCount(5), //
-	TempCount(6), //
-	NullCount(7), //
-	BindFromCount(8), //
-	BindToCount(9), //
-	NodeCount(10), //
-	SourceCount(11), //
-	ExecCount(12), //
-	IdleCount(13), //
-	FailedCount(14), //
-	MatchCount(15), //
-	UpdateCount(16), //
-	RedundantCount(17), //
-	MinLevel(18), //
-	MaxLevel(19), //
-	MinPriority(20), //
-	MaxPriority(21), //
-	QueryMatch(22), //
-	QueryFetch(23); //
+	CreateEntry(0), //
+	DeleteEntry(1), //
+	FixedCount(2), //
+	DefinedCount(3), //
+	ReasonCount(4), //
+	AssumeCount(5), //
+	DropCount(6), //
+	RemoveCount(7), //
+	TempCount(8), //
+	NullCount(9), //
+	BindFromCount(10), //
+	BindToCount(11), //
+	NodeCount(12), //
+	SourceCount(13), //
+	ExecCount(14), //
+	IdleCount(15), //
+	FailedCount(16), //
+	MatchCount(17), //
+	UpdateCount(18), //
+	RedundantCount(19), //
+	MinLevel(20), //
+	MaxLevel(21), //
+	MinPriority(22), //
+	MaxPriority(23), //
+	QueryMatch(24), //
+	QueryFetch(25); //
 
-	public static final int COUNT_TYPE_NUM = 24;
+	public static final int COUNT_TYPE_NUM = 26;
 
-	public static final RCountType ALL_COUNT_TYPE[] = { FixedCount, DefinedCount, ReasonCount, AssumeCount, DropCount,
-			RemoveCount, TempCount, NullCount, BindFromCount, BindToCount, NodeCount, SourceCount, ExecCount, IdleCount,
-			FailedCount, MatchCount, UpdateCount, RedundantCount, MinLevel, MaxLevel, MinPriority, MaxPriority,
-			QueryMatch, QueryFetch };
+	public static final RCountType ALL_COUNT_TYPE[] = { CreateEntry, DeleteEntry, FixedCount, DefinedCount, ReasonCount,
+			AssumeCount, DropCount, RemoveCount, TempCount, NullCount, BindFromCount, BindToCount, NodeCount,
+			SourceCount, ExecCount, IdleCount, FailedCount, MatchCount, UpdateCount, RedundantCount, MinLevel, MaxLevel,
+			MinPriority, MaxPriority, QueryMatch, QueryFetch };
 
 	private int index;
 

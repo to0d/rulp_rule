@@ -46,6 +46,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected Map<String, IRConstraint1> constraintExprMap = null;
 
+	protected int entryCreateCount = 0;
+
+	protected int entryDeleteCount = 0;
+
 	protected int entryLength;
 
 	protected IREntryQueue entryQueue = null;
@@ -141,26 +145,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		autoUpdateChildNodes.add(child);
-	}
-
-	@Override
-	public void removeChildNode(IRReteNode child) {
-
-		if (allChildNodes != null) {
-			allChildNodes.remove(child);
-
-			if (allChildNodes.isEmpty()) {
-				allChildNodes = null;
-			}
-		}
-
-		if (autoUpdateChildNodes != null) {
-			autoUpdateChildNodes.remove(child);
-
-			if (autoUpdateChildNodes.isEmpty()) {
-				autoUpdateChildNodes = null;
-			}
-		}
 	}
 
 	@Override
@@ -303,6 +287,16 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public int getConstraint1Count() {
 		return constraint1List == null ? 0 : constraint1List.size();
+	}
+
+	@Override
+	public int getEntryCreateCount() {
+		return entryCreateCount;
+	}
+
+	@Override
+	public int getEntryDeleteCount() {
+		return entryDeleteCount;
 	}
 
 	@Override
@@ -486,6 +480,14 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		this.addEntryFailCount++;
 	}
 
+	public void incEntryCreateCount() {
+		entryCreateCount++;
+	}
+
+	public void incEntryDeleteCount() {
+		entryDeleteCount++;
+	}
+
 	@Override
 	public void incExecCount(int execId) {
 		execCounter.add(execId);
@@ -510,6 +512,26 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	public void removeChild(IRReteNode child) {
+
+		if (allChildNodes != null) {
+			allChildNodes.remove(child);
+
+			if (allChildNodes.isEmpty()) {
+				allChildNodes = null;
+			}
+		}
+
+		if (autoUpdateChildNodes != null) {
+			autoUpdateChildNodes.remove(child);
+
+			if (autoUpdateChildNodes.isEmpty()) {
+				autoUpdateChildNodes = null;
+			}
+		}
+	}
+
+	@Override
+	public void removeChildNode(IRReteNode child) {
 
 		if (allChildNodes != null) {
 			allChildNodes.remove(child);

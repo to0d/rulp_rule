@@ -56,4 +56,5 @@ public class XRNodeRete0 extends AbsReteNode {
 
 		return updateCount;
 	}
+
 }

@@ -21,7 +21,7 @@ public class XRNodeNamed extends XRNodeRete0 implements IRNamedNode {
 
 		IREntryTable entryTable = this.getModel().getEntryTable();
 		for (IRReteEntry entry : ReteUtil.getAllEntries(this.getEntryQueue())) {
-			entryTable.removeEntryReference(entry, this);
+			entryTable.deleteEntryReference(entry, this);
 		}
 
 		this.entryQueue.cleanCache();

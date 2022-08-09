@@ -3,7 +3,9 @@ package alpha.rulp.ximpl.node;
 import java.util.ArrayList;
 import java.util.List;
 
+import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint2;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -40,7 +42,18 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 	}
 
 	protected IRReteEntry _getNewEntry(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException {
-		return ReteUtil.getNewEntry(entryTable, getInheritIndex(), leftEntry, rightEntry);
+
+		int entryLength = inheritIndexs.length;
+
+		IRObject[] newElements = new IRObject[entryLength];
+		for (int i = 0; i < entryLength; ++i) {
+			InheritIndex inherit = inheritIndexs[i];
+			IRReteEntry parentEntry = inherit.parentIndex == 0 ? leftEntry : rightEntry;
+			newElements[i] = parentEntry.get(inherit.elementIndex);
+		}
+
+		incEntryCreateCount();
+		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(leftEntry, rightEntry), false);
 	}
 
 	protected abstract boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException;

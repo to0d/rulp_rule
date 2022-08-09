@@ -228,6 +228,20 @@ public class XRReteCounter implements IRReteNodeCounter {
 
 				break;
 
+			case CreateEntry:
+				for (IRReteNode node : nodeList) {
+					value += node.getEntryCreateCount();
+				}
+
+				break;
+
+			case DeleteEntry:
+				for (IRReteNode node : nodeList) {
+					value += node.getEntryDeleteCount();
+				}
+
+				break;
+
 			default:
 
 				value = 0;

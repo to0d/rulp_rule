@@ -32,7 +32,7 @@ import static alpha.rulp.rule.RCountType.MaxPriority;
 import static alpha.rulp.rule.RCountType.MinPriority;
 import static alpha.rulp.rule.RCountType.NodeCount;
 import static alpha.rulp.rule.RCountType.NullCount;
-import static alpha.rulp.rule.RCountType.QueryFetch;
+import static alpha.rulp.rule.RCountType.*;
 import static alpha.rulp.rule.RCountType.QueryMatch;
 import static alpha.rulp.rule.RCountType.ReasonCount;
 import static alpha.rulp.rule.RCountType.RedundantCount;
@@ -1479,8 +1479,11 @@ public class XRNodeGraph implements IRNodeGraph {
 			elements[2] = n;
 
 			IRReteEntry reteEntry = entryTable.createEntry(null, elements, TEMP__, true);
+			varNode.incEntryCreateCount();
+
 			if (!varNode.addReteEntry(reteEntry)) {
-				entryTable.removeEntry(reteEntry);
+				entryTable.deleteEntry(reteEntry);
+				varNode.incEntryDeleteCount();
 				return;
 			}
 
@@ -1786,7 +1789,8 @@ public class XRNodeGraph implements IRNodeGraph {
 					node.getReteLevel());
 			gcRemoveNodeCountArray[MaxPriority.getIndex()] = Math.min(gcRemoveNodeCountArray[MaxPriority.getIndex()],
 					node.getPriority());
-
+			gcRemoveNodeCountArray[CreateEntry.getIndex()] += node.getEntryCreateCount();
+			gcRemoveNodeCountArray[DeleteEntry.getIndex()] += node.getEntryDeleteCount();
 		}
 
 		RReteType reteType = node.getReteType();

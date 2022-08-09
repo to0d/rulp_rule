@@ -74,6 +74,10 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public int getConstraint1Count();
 
+	public int getEntryCreateCount();
+
+	public int getEntryDeleteCount();
+
 	public int getEntryLength();
 
 	public IREntryQueue getEntryQueue();
@@ -123,6 +127,10 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 	public IRObject[] getVarEntry();
 
 	public void incAddEntryFailCount();
+
+	public void incEntryCreateCount();
+
+	public void incEntryDeleteCount();
 
 	public void incExecCount(int execId);
 

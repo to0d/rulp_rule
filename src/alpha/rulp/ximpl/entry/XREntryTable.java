@@ -717,6 +717,67 @@ public class XREntryTable implements IREntryTable {
 	}
 
 	@Override
+	public void deleteEntry(IRReteEntry entry) throws RException {
+
+		if (XREntryTable.TRACE) {
+			System.out.println("==> deleteEntry: entry=" + entry);
+		}
+
+		XRReteEntry xEntry = _toEntry(entry);
+		RReteStatus status = xEntry.getStatus();
+
+		_pushRemoveEntry(_toEntry(xEntry));
+		_processEtaQueue();
+
+		// Remove assume from uniq node
+		if (status == RReteStatus.ASSUME) {
+			xEntry.status = CLEAN;
+		} else {
+			xEntry.status = REMOVE; // mark entry as "remove"
+		}
+	}
+
+	@Override
+	public void deleteEntryReference(IRReteEntry entry, IRReteNode node) throws RException {
+
+		if (XREntryTable.TRACE) {
+			System.out.println("==> deleteEntryReference: entry=" + entry + ", node=" + node);
+		}
+
+		XRReteEntry xEntry = _toEntry(entry);
+
+		int find = 0;
+
+		if (xEntry.getReferenceCount() > 0) {
+
+			Iterator<XRReference> it = xEntry.getReferenceIterator();
+			while (it.hasNext()) {
+
+				XRReference ref = it.next();
+				if (ref.node != node) {
+					continue;
+				}
+
+				// Break the link between child entry and reference
+				it.remove();
+				ref.childEntry = null;
+				++find;
+
+				_pushRemoveRef(ref);
+			}
+		}
+
+		if (find == 0) {
+			throw new RException("no ref found");
+		}
+
+		if (xEntry.referenceList == null || xEntry.referenceList.isEmpty()) {
+			_pushRemoveEntry(xEntry);
+			_processEtaQueue();
+		}
+	}
+
+	@Override
 	public int doGC() throws RException {
 
 		if (XREntryTable.TRACE) {
@@ -779,67 +840,6 @@ public class XREntryTable implements IREntryTable {
 	@Override
 	public List<? extends IRReteEntry> listAllEntries() {
 		return entryFixArray.entryArray;
-	}
-
-	@Override
-	public void removeEntry(IRReteEntry entry) throws RException {
-
-		if (XREntryTable.TRACE) {
-			System.out.println("==> removeEntry: entry=" + entry);
-		}
-
-		XRReteEntry xEntry = _toEntry(entry);
-		RReteStatus status = xEntry.getStatus();
-
-		_pushRemoveEntry(_toEntry(xEntry));
-		_processEtaQueue();
-
-		// Remove assume from uniq node
-		if (status == RReteStatus.ASSUME) {
-			xEntry.status = CLEAN;
-		} else {
-			xEntry.status = REMOVE; // mark entry as "remove"
-		}
-	}
-
-	@Override
-	public void removeEntryReference(IRReteEntry entry, IRReteNode node) throws RException {
-
-		if (XREntryTable.TRACE) {
-			System.out.println("==> removeEntryReference: entry=" + entry + ", node=" + node);
-		}
-
-		XRReteEntry xEntry = _toEntry(entry);
-
-		int find = 0;
-
-		if (xEntry.getReferenceCount() > 0) {
-
-			Iterator<XRReference> it = xEntry.getReferenceIterator();
-			while (it.hasNext()) {
-
-				XRReference ref = it.next();
-				if (ref.node != node) {
-					continue;
-				}
-
-				// Break the link between child entry and reference
-				it.remove();
-				ref.childEntry = null;
-				++find;
-
-				_pushRemoveRef(ref);
-			}
-		}
-
-		if (find == 0) {
-			throw new RException("no ref found");
-		}
-
-		if (xEntry.referenceList == null || xEntry.referenceList.isEmpty()) {
-			_pushRemoveEntry(xEntry);
-			_processEtaQueue();
-		}
 	}
 
 	@Override

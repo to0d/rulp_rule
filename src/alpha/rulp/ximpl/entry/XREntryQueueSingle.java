@@ -45,7 +45,7 @@ public class XREntryQueueSingle implements IREntryQueue {
 
 			// drop old entry
 			if (bindNode != null) {
-				entryTable.removeEntryReference(curEntry, bindNode);
+				entryTable.deleteEntryReference(curEntry, bindNode);
 			}
 
 		}

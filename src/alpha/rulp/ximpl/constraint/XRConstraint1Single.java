@@ -20,7 +20,7 @@ public class XRConstraint1Single extends AbsRConstraint1 implements IRConstraint
 		}
 
 		if (lastEntry != null && !lastEntry.isDroped()) {
-			context.getModel().getEntryTable().removeEntry(lastEntry);
+			context.getModel().getEntryTable().deleteEntry(lastEntry);
 		}
 
 		lastEntry = entry;

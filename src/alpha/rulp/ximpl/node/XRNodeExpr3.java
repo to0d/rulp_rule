@@ -40,10 +40,13 @@ public class XRNodeExpr3 extends XRNodeRete1 {
 
 		IRReteEntry newEntry = entryTable.createEntry(entry.getNamedName(), newElements, ReteUtil.getChildStatus(entry),
 				false);
+		incEntryCreateCount();
+
 		entryTable.addReference(newEntry, this, entry);
 
 		if (!entryQueue.addEntry(newEntry)) {
-			entryTable.removeEntry(newEntry);
+			entryTable.deleteEntry(newEntry);
+			incEntryDeleteCount();
 			return false;
 		}
 
