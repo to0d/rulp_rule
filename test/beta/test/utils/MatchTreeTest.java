@@ -23,7 +23,7 @@ import alpha.rulp.utils.RulpUtil;
 class MatchTreeTest extends RuleTestBase {
 
 	protected void _test_buildMatchTree() {
-		_test_buildMatchTree(getCachePath() + ".in.rulp", getCachePath() + ".out.rulp");
+		_test_buildMatchTree(getCachePath() + ".rulp", getCachePath() + ".rulp.out");
 	}
 
 	protected void _test_buildMatchTree(String inputFile, String outputFile) {
@@ -73,85 +73,85 @@ class MatchTreeTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_1() {
+	void test_build_match_tree_1() {
 
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_2_beta3() {
+	void test_build_match_tree_2_beta3() {
 
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_3_error() {
+	void test_build_match_tree_3_error() {
 
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_4_order() {
+	void test_build_match_tree_4_order() {
 
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_5_const_stmt() {
+	void test_build_match_tree_5_const_stmt() {
 
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_6_expr() {
+	void test_build_match_tree_6_expr() {
 
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_7_var_expr() {
+	void test_build_match_tree_7_var_expr() {
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_8_var_changed() {
+	void test_build_match_tree_8_var_changed() {
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_9_stmt_changed() {
+	void test_build_match_tree_9_stmt_changed() {
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_a_force_node() {
+	void test_build_match_tree_a_force_node() {
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_b_optimize() {
+	void test_build_match_tree_b_optimize() {
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_c_external_var() {
+	void test_build_match_tree_c_external_var() {
 		_setup();
 		_test_buildMatchTree();
 	}
 
 	@Test
-	void test_d_special() {
+	void test_build_match_tree_d_special() {
 		_setup();
 		_test_buildMatchTree();
 	}
