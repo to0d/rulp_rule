@@ -828,15 +828,11 @@ NODE[n]      Node                           Queue                          Const
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001[3]                                   uniqEntryMap: size=239         
 B20027[3]    leftUsedIndexSet: size=52                                     
-B20030[3]    leftUsedIndexSet: size=0                                      
 B20035[3]    leftUsedIndexSet: size=38                                     
 B20042[3]    leftUsedIndexSet: size=40                                     
 B20046[3]    leftUsedIndexSet: size=52                                     
 B20093[3]    leftUsedIndexSet: size=48                                     
 B20095[3]    leftUsedIndexSet: size=4                                      
-B20105[3]    leftUsedIndexSet: size=0                                      
-B20112[3]    leftUsedIndexSet: size=0                                      
-B20118[3]    leftUsedIndexSet: size=0                                      
 ===============================================================================================================================================================================
 
 priority info:

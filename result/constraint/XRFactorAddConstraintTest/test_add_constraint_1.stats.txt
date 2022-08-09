@@ -184,26 +184,11 @@ cache info:
 ===============================================================================================================================================================================
 NODE[n]      Node                           Queue                          Constraint
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00001[3]                                   uniqEntryMap: size=0           
-N00002[3]                                   uniqEntryMap: size=0           
-N00003[3]                                   uniqEntryMap: size=0           
-N00004[3]                                   uniqEntryMap: size=0           
-N00005[3]                                                                  uniqEntryMap: size=null
-N00006[3]                                   uniqEntryMap: size=0           
 N00007[3]                                   uniqEntryMap: size=9           
 N00012[3]                                   uniqEntryMap: size=1           
 N00014[3]                                   uniqEntryMap: size=1           
-N00016[1]                                   uniqEntryMap: size=0           
 N00017[2]                                   uniqEntryMap: size=8           
-N00018[3]                                   uniqEntryMap: size=0           
-N00019[2]                                   uniqEntryMap: size=0           
-N00020[2]                                   uniqEntryMap: size=0           
 N00021[3]                                   uniqEntryMap: size=1           
-N00022[2]                                   uniqEntryMap: size=0           
-N00023[3]                                   uniqEntryMap: size=0           
-N00024[2]                                                                  uniqEntryMap: size=null
-N00025[2]                                                                  uniqEntryMap: size=null
-N00026[2]                                                                  uniqEntryMap: size=null
 ===============================================================================================================================================================================
 
 priority info:

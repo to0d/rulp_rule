@@ -76,6 +76,11 @@ public class XREntryQueueUniq extends XREntryQueueMulit {
 	}
 
 	public String getCacheInfo() {
+
+		if (uniqEntryMap == null || uniqEntryMap.isEmpty()) {
+			return super.getCacheInfo();
+		}
+
 		return ReteUtil.combine(super.getCacheInfo(), "uniqEntryMap: size=" + uniqEntryMap.size());
 	}
 

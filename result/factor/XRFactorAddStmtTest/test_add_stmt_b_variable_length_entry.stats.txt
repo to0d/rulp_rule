@@ -120,7 +120,6 @@ NODE[n]      Node                           Queue                          Const
 R00001[3]                                   uniqEntryMap: size=1           
 R00002[4]                                   uniqEntryMap: size=1           
 R00003[5]                                   uniqEntryMap: size=1           
-R00010[6]                                   uniqEntryMap: size=0           
 R00013[2]                                   uniqEntryMap: size=1           
 R00015[1]                                   uniqEntryMap: size=1           
 ===============================================================================================================================================================================

@@ -286,6 +286,11 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 
 	@Override
 	public String getCacheInfo() {
+
+		if (leftUsedIndexSet == null || leftUsedIndexSet.isEmpty()) {
+			return super.getCacheInfo();
+		}
+
 		return ReteUtil.combine(super.getCacheInfo(), "leftUsedIndexSet: size=" + leftUsedIndexSet.size());
 	}
 
