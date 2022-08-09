@@ -1108,7 +1108,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 		}
 
-		// ((inherit '(?a ?b ?c) 0))
+		// (inherit '(?a ?b ?c) 0)
 		if (ReteUtil.isInheritExpr(reteTree)) {
 			return _buildInheritNode(reteTree, tmpVarBuilder);
 		}
@@ -1934,8 +1934,9 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		IRList matchTree = MatchTree.build(actualMatchStmtList, this.model.getInterpreter(), this.model.getFrame());
+		XTempVarBuilder varBuilder = new XTempVarBuilder("rule");
 
-		IRReteNode parentNode = _findReteNode(matchTree, new XTempVarBuilder("rule"));
+		IRReteNode parentNode = _findReteNode(matchTree, varBuilder);
 		IRObject[] ruleVarEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree));
 
 		/******************************************************/
@@ -1978,18 +1979,20 @@ public class XRNodeGraph implements IRNodeGraph {
 			/******************************************************/
 			if (!foundIndexList.isEmpty() && foundIndexList.size() < matchVarCount) {
 
-				int[] inheritIndexs = new int[foundIndexList.size()];
 				IRObject[] newRuleVarEntry = new IRObject[foundIndexList.size()];
+
+				ArrayList<IRObject> inheritExprObjs = new ArrayList<>();
+				inheritExprObjs.add(RulpFactory.createAtom(A_Inherit));
+				inheritExprObjs.add(matchTree);
 
 				int i = 0;
 				for (int index : foundIndexList) {
-					inheritIndexs[i] = index;
 					newRuleVarEntry[i] = ruleVarEntry[index];
+					inheritExprObjs.add(RulpFactory.createInteger(index));
 					i++;
 				}
 
-				parentNode = buildInherit(parentNode, inheritIndexs);
-
+				parentNode = _findReteNode(RulpFactory.createExpression(inheritExprObjs), varBuilder);
 				ruleVarEntry = newRuleVarEntry;
 			}
 
