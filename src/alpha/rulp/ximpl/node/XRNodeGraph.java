@@ -379,8 +379,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
-	static boolean USE_INHERIT = true;
-
 	protected static String _getUniqNameForIndexNode(String parentUniqName, List<OrderEntry> orderList) {
 
 		StringBuffer sb = new StringBuffer();
@@ -1847,10 +1845,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	protected boolean _supportInheritOpt(IRReteNode parentNode, IRObject[] ruleVarEntry, List<IRExpr> indexExprList,
 			List<IRExpr> actionStmtList) throws RException {
 
-		if (!USE_INHERIT) {
-			return false;
-		}
-
 		/******************************************************/
 		// Does not use inherit node if there is var-change expr
 		/******************************************************/
@@ -1870,7 +1864,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Does not use inherit node if all actions are simple statements
 		/******************************************************/
-		if (ActionUtil.isSimpleAddStmtAction(actionStmtList, model, ruleVarEntry)) {
+		if (ActionUtil.isSimpleAddStmtAction(actionStmtList, ruleVarEntry)) {
 			return false;
 		}
 

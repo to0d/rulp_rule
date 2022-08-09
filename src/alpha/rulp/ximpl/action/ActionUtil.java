@@ -414,7 +414,7 @@ public class ActionUtil {
 		return ReteUtil.uniqName(stmt);
 	}
 
-	public static boolean isSimpleAddStmtAction(IRExpr expr, IRModel model, IRObject[] varEntry) throws RException {
+	public static boolean isSimpleAddStmtAction(IRExpr expr, IRObject[] varEntry) throws RException {
 
 		if (expr.size() < 2) {
 			return false;
@@ -425,9 +425,61 @@ public class ActionUtil {
 		case F_DEFS_S:
 		case F_REMOVE_STMT:
 		case F_FIX_STMT:
-			IAction action = _buildSimpleAction(expr, model, varEntry);
-			if (action == null) {
+			int argSize = expr.size();
+			if (argSize != 2 && argSize != 3) {
 				return false;
+			}
+
+			IRObject ex = null;
+
+			if (argSize == 3) {
+				ex = expr.get(2);
+			} else {
+				ex = expr.get(1);
+			}
+
+			if (!ReteUtil.isReteStmt(ex)) {
+				return false;
+			}
+
+			IRList varStmt = (IRList) ex;
+
+			int stmtSize = varStmt.size();
+			int inheritIndexs[] = new int[stmtSize];
+			IRObject stmtObjs[] = new IRObject[stmtSize];
+
+			for (int i = 0; i < stmtSize; ++i) {
+
+				IRObject obj = varStmt.get(i);
+
+				if (!RulpUtil.isVarAtom(obj)) {
+					stmtObjs[i] = obj;
+					inheritIndexs[i] = -1;
+					continue;
+				}
+
+				int inheritIndex = -1;
+
+				for (int j = 0; j < varEntry.length; ++j) {
+
+					IRObject varObj = varEntry[j];
+					if (varObj == null) {
+						continue;
+					}
+
+					if (RulpUtil.equal(obj, varObj)) {
+						inheritIndex = j;
+						break;
+					}
+				}
+
+				if (inheritIndex == -1) {
+					return false;
+				}
+
+				inheritIndexs[i] = inheritIndex;
+				stmtObjs[i] = null;
+
 			}
 
 			return true;
@@ -438,7 +490,7 @@ public class ActionUtil {
 			while (it.hasNext()) {
 
 				IRObject obj = it.next();
-				if (!RulpUtil.isExpr(obj) || !isSimpleAddStmtAction(RulpUtil.asExpression(obj), model, varEntry)) {
+				if (!RulpUtil.isExpr(obj) || !isSimpleAddStmtAction(RulpUtil.asExpression(obj), varEntry)) {
 					return false;
 				}
 
@@ -451,11 +503,10 @@ public class ActionUtil {
 		}
 	}
 
-	public static boolean isSimpleAddStmtAction(List<IRExpr> exprList, IRModel model, IRObject[] varEntry)
-			throws RException {
+	public static boolean isSimpleAddStmtAction(List<IRExpr> exprList, IRObject[] varEntry) throws RException {
 
 		for (IRExpr expr : exprList) {
-			if (!isSimpleAddStmtAction(expr, model, varEntry)) {
+			if (!isSimpleAddStmtAction(expr, varEntry)) {
 				return false;
 			}
 		}
