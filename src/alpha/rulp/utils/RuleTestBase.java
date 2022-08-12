@@ -1,6 +1,5 @@
 package alpha.rulp.utils;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -14,18 +13,6 @@ import alpha.rulp.utils.SystemUtil.OSType;
 import alpha.rulp.ximpl.entry.XREntryTable;
 
 public class RuleTestBase extends RulpTestBase {
-
-	public static interface ITActionInStrOutStr {
-		public String test(String input) throws RException;
-	}
-
-	static final String IT_PRE_ERR = "ERR: ";
-
-	static final String IT_PRE_INP = "INP: ";
-
-	static final String IT_PRE_OUT = "OUT: ";
-
-	static boolean PRIME_MODE = true;
 
 	static {
 		RulpFactory.registerLoader(RRuleLoader.class);
@@ -132,19 +119,9 @@ public class RuleTestBase extends RulpTestBase {
 		try {
 
 			String outoputInfo = StatsUtil.printRefInfo(_model(modelName));
-
-			if (PRIME_MODE) {
-
-				ArrayList<String> lines = new ArrayList<>();
-				lines.add(outoputInfo);
-
-				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
-
-			} else {
-
-				String expectInfo = RulpUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
-				assertEquals(expectInfo.trim(), outoputInfo.trim());
-			}
+			ArrayList<String> lines = new ArrayList<>();
+			lines.add(outoputInfo);
+			FileUtil.saveTxtFile(expectFile, lines, "utf-8");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -178,62 +155,11 @@ public class RuleTestBase extends RulpTestBase {
 	protected void _statsInfo(String modelName, String expectFile) {
 
 		try {
-
 			String outoputInfo = StatsUtil.printStatsInfo(_model(modelName));
-
-			if (PRIME_MODE) {
-
-				ArrayList<String> lines = new ArrayList<>();
-				lines.add(outoputInfo);
-
-				FileUtil.saveTxtFile(expectFile, lines, "utf-8");
-
-			} else {
-
-				String expectInfo = RulpUtil.toOneLine(FileUtil.openTxtFile(expectFile, "utf-8")) + "\n\n";
-				assertEquals(expectInfo.trim(), outoputInfo.trim());
-			}
-
+			ArrayList<String> lines = new ArrayList<>();
+			lines.add(outoputInfo);
+			FileUtil.saveTxtFile(expectFile, lines, "utf-8");
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
-	}
-
-	protected void _test(ITActionInStrOutStr action) {
-
-		String inputPath = getCachePath() + ".txt";
-		String outputPath = getCachePath() + ".txt.out";
-
-		ArrayList<String> outLines = new ArrayList<>();
-
-		try {
-
-			for (String line : FileUtil.openTxtFile(inputPath)) {
-
-				if (line.trim().isEmpty() || line.startsWith(";")) {
-					continue;
-				}
-
-				if (!line.startsWith(IT_PRE_INP)) {
-					throw new IOException("Invalid input line: " + line);
-				}
-
-				String input = line.substring(IT_PRE_INP.length());
-				String output = "";
-
-				try {
-					output = IT_PRE_OUT + action.test(input);
-				} catch (RException e) {
-					output = IT_PRE_ERR + e.toString();
-				}
-
-				outLines.add(output);
-			}
-
-			FileUtil.saveTxtFile(outputPath, outLines);
-
-		} catch (IOException e) {
 			e.printStackTrace();
 			fail(e.toString());
 		}
