@@ -2547,17 +2547,17 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 
 node update info: model-exec-count=303, row=39, column=76(4), value-max=1, value-unit=1^x
 ===============================================================================================================================================================================
-NODE[n]   Update Exec Idle 2.1.22.11....2..11....1.3..1...221..111232133..11322311.1.1.21112.2..1.11.32 max=4, unit=2^x
+NODE[n]   Update Exec Idle 2.1.22.11....2..2......131.....221..111232133..11322311.1.1.21112.2..1.11.32 max=4, unit=2^x
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-R00001[3]    9    9    0 1            1   1                    111        1  1           1           
+R00001[3]    9    9    0 1            1  1                     111        1  1           1           
 E10051[3]    5    5    0     1                            1          1           1            1      
 E10052[3]    5    5    0                         1                1          1          1          1 
 E10092[3]    5    5    0        1                            1          1          1             1   
 A00022[3]    4    5    0   1                             1          1          1                     
-A00026[3]    3    4    0                            1                      1           1             
+A00026[3]    3    4    0                         1                         1           1             
 A00002[3]    2    5    0 1                                                    1                      
 A00018[3]    2    5    0                                1          1                                 
-A00045[3]    2    4    0                       1                 1                                   
+A00045[3]    2    4    0                        1                1                                   
 A00129[3]    2    5    0                                                 1           1               
 B00019[4]    2    5    1                                1           1                                
 B20035[3]    2    5    1                                 1          1                                
@@ -2570,7 +2570,7 @@ A00003[3]    1    2    0                                                        
 A00034[3]    1    4    0                         1                                                   
 A00048[3]    1    5    0                                             1                               
 A00060[3]    1    5    0      1                                                                      
-A00063[3]    1    2    0                         1                                                   
+A00063[3]    1    2    0                          1                                                  
 A00066[3]    1    5    0      1                                                                      
 A00073[3]    1    5    0                                                                        1    
 A00130[3]    1    3    1                                                     1                       
@@ -2664,18 +2664,18 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6946            0         6946
+        atom:         6954            0         6954
          int:            2            0            2
       string:          218            0          218
         list:         1601            2         1599
-        expr:         2038           30         2008
+        expr:         2042           30         2012
          var:          119           87           32
     constant:           54            0           54
-        func:          137            0          137
+        func:          138            0          138
     template:            1            0            1
        macro:            9            0            9
        class:            3            0            3
-      member:           86            0           86
+      member:           89            0           89
        frame:           47           43            4
  interpreter:            1            0
   frameEntry:          514            0
@@ -2893,11 +2893,12 @@ Global frame tree:
 
 Global Subject list:
 
-name=map, string=map, lvl=0, ref=2/3, parent=null, final=true, mbrs=17, frame=null
+name=map, string=map, lvl=0, ref=2/3, parent=null, final=true, mbrs=19, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?impl                          : PRIVATE                      0    1    var        nil
+_has_key                       : PRIVATE                      0    0    factor     _has_key
 _key_list                      : PRIVATE                      0    0    factor     _key_list
 _map_clear                     : PRIVATE                      0    0    factor     _map_clear
 _map_get                       : PRIVATE                      0    0    factor     _map_get
@@ -2908,6 +2909,7 @@ _map_size_of                   : PRIVATE                      0    0    factor  
 _value_list                    : PRIVATE                      0    0    factor     _value_list
 clear                          : DEFAULT Y                    1    1    func       (clear) : frame=frame@main
 get                            : DEFAULT Y                    1    1    func       (get nil) : frame=frame@main
+has-key                        : DEFAULT Y                    1    1    func       (has-key nil) : frame=frame@main
 init                           : DEFAULT Y                    1    1    func       (init) : frame=frame@main
 is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
 key-list                       : DEFAULT Y                    1    1    func       (key-list) : frame=frame@main

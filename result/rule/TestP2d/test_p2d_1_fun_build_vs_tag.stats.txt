@@ -2474,9 +2474,9 @@ Child Count:
        7: entry='(nt:vs_x_y nm:hasRelatedTag nt:x), status=define
        7: entry='(nt:vs_x_y nm:hasRelatedTag nt:y), status=define
        7: entry='(nt:vs_x_y nm:hasRelatedTag nt:$VS), status=define
-       7: entry='(nt:vs_b_a nm:beAliasTo nt:vs_a_b), status=reason
        7: entry='(nt:a nm:hasRelatedTag nt:vs_a_b), status=reason
        7: entry='(nt:b nm:hasRelatedTag nt:vs_a_b), status=reason
+       7: entry='(nt:$VS nm:hasRelatedTag nt:vs_a_b), status=reason
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
            Entry[2]  Entry[3]  Entry[4]
  0 -  0:        23       166         0
@@ -2510,32 +2510,32 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 
 node update info: model-exec-count=331, row=36, column=83(4), value-max=2, value-unit=2^x
 ===============================================================================================================================================================================
-NODE[n]   Update Exec Idle 2.1.22.111..3331.2122211221111113...2..1.....2.....33213211231.11.................1 max=4, unit=2^x
+NODE[n]   Update Exec Idle 2.1.22.111..333.12122211221111113..11..1...2.......33213211231.11.................1 max=4, unit=2^x
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001[3]   10   11    1 1            12    1    1       1                  12                              
 E10051[3]    6    7    1     1             1    1    1          1                1                          
 E10052[3]    6    8    2             1        1    1    1                    1       1                      
-B20035[3]    4    7    2                1      1             1                  1                           
+B20035[3]    4    7    2                 1     1            1                   1                           
 C5[3]        4    7    3                    1     1                         1        1                      
 V00005[3]    3    3    0         1                       1                              1                   
 A00022[3]    3    7    1   1              1         1                                                       
-A00026[3]    3    5    2             1       1         1                                                    
+A00026[3]    3    5    2              1      1         1                                                    
 A00002[3]    2    7    1 1                                                    1                             
 A00003[3]    2    4    2          1                                                 1                       
 A00018[3]    2    7    1                  1   1                                                             
 A00045[3]    2    5    2              1      1                                                              
 A00086[3]    2    4    1                                 1                        1                         
 B00019[4]    2    7    2                                     1                 1                            
-B20027[3]    2    8    2                                              1         1                           
-B20046[3]    2    7    2                                              1         1                           
+B20027[3]    2    8    2                                            1           1                           
+B20046[3]    2    7    2                                            1           1                           
 C1[4]        2    5    3                                                    1       1                       
 C3[3]        2    5    3                                                      1      1                      
 C8[3]        2    5    3                                                     1       1                      
-T4[3]        2    4    2              1          1                                                          
+T4[3]        2    4    2               1         1                                                          
 A00034[3]    1    5    2             1                                                                      
 A00048[3]    1    7    1                                                         1                          
 A00060[3]    1    7    1      1                                                                             
-A00063[3]    1    4    2              1                                                                     
+A00063[3]    1    4    2             1                                                                      
 A00066[3]    1    7    1      1                                                                             
 A00129[3]    1    4    2                                                    1                               
 A00130[3]    1    1    0                                                                 1                  
@@ -2547,7 +2547,7 @@ B00131[2]    1    2    1                                                        
 T2[4]        1    4    3                                                              1                     
 T5[2]        1    4    3                              1                                                     
 T8[3]        1    3    2               1                                                                    
-D1[3]        1    3    2               1                                                                    
+D1[3]        1    3    2              1                                                                     
 ===============================================================================================================================================================================
 
 
@@ -2656,20 +2656,20 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         7155            0         7155
+        atom:         7163            0         7163
          int:            2            0            2
       string:          264            0          264
         list:         1723           14         1709
-        expr:         2127           99         2028
+        expr:         2131           99         2032
        array:            2            0            2
          var:          264          230           34
     constant:           54            0           54
-        func:          144            5          139
+        func:          145            5          140
     template:            1            0            1
        macro:            9            0            9
     instance:            4            2            2
        class:            3            0            3
-      member:          104            8           96
+      member:          107            8           99
        frame:          175          169            6
  interpreter:            1            0
   frameEntry:          665            0
@@ -2881,11 +2881,12 @@ Global frame tree:
 
 Global Subject list:
 
-name=map, string=map, lvl=0, ref=2/3, parent=null, final=true, mbrs=17, frame=6(SF-map-0)
+name=map, string=map, lvl=0, ref=2/3, parent=null, final=true, mbrs=19, frame=6(SF-map-0)
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?impl                          : PRIVATE                      0    1    var        nil
+_has_key                       : PRIVATE                      0    0    factor     _has_key
 _key_list                      : PRIVATE                      0    0    factor     _key_list
 _map_clear                     : PRIVATE                      0    0    factor     _map_clear
 _map_get                       : PRIVATE                      0    0    factor     _map_get
@@ -2896,6 +2897,7 @@ _map_size_of                   : PRIVATE                      0    0    factor  
 _value_list                    : PRIVATE                      0    0    factor     _value_list
 clear                          : DEFAULT Y                    1    1    func       (clear) : frame=frame@main
 get                            : DEFAULT Y                    1    1    func       (get nil) : frame=frame@main
+has-key                        : DEFAULT Y                    1    1    func       (has-key nil) : frame=frame@main
 init                           : DEFAULT Y                    1    1    func       (init) : frame=frame@main
 is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
 key-list                       : DEFAULT Y                    1    1    func       (key-list) : frame=frame@main

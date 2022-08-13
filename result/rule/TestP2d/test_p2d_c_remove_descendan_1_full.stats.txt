@@ -2684,18 +2684,18 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6750            0         6750
+        atom:         6758            0         6758
          int:            3            0            3
       string:          224            0          224
         list:         1630            4         1626
-        expr:         2096           73         2023
+        expr:         2100           73         2027
          var:          258          219           39
     constant:           54            0           54
-        func:          137            0          137
+        func:          138            0          138
     template:            1            0            1
        macro:            9            0            9
        class:            3            0            3
-      member:           86            0           86
+      member:           89            0           89
        frame:          155          149            6
  interpreter:            1            0
   frameEntry:          654            0
@@ -2936,11 +2936,12 @@ Global frame tree:
 
 Global Subject list:
 
-name=map, string=map, lvl=0, ref=2/3, parent=null, final=true, mbrs=17, frame=null
+name=map, string=map, lvl=0, ref=2/3, parent=null, final=true, mbrs=19, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
 ?impl                          : PRIVATE                      0    1    var        nil
+_has_key                       : PRIVATE                      0    0    factor     _has_key
 _key_list                      : PRIVATE                      0    0    factor     _key_list
 _map_clear                     : PRIVATE                      0    0    factor     _map_clear
 _map_get                       : PRIVATE                      0    0    factor     _map_get
@@ -2951,6 +2952,7 @@ _map_size_of                   : PRIVATE                      0    0    factor  
 _value_list                    : PRIVATE                      0    0    factor     _value_list
 clear                          : DEFAULT Y                    1    1    func       (clear) : frame=frame@main
 get                            : DEFAULT Y                    1    1    func       (get nil) : frame=frame@main
+has-key                        : DEFAULT Y                    1    1    func       (has-key nil) : frame=frame@main
 init                           : DEFAULT Y                    1    1    func       (init) : frame=frame@main
 is-empty                       : DEFAULT Y                    1    1    func       (is-empty) : frame=frame@main
 key-list                       : DEFAULT Y                    1    1    func       (key-list) : frame=frame@main
