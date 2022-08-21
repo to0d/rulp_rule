@@ -2134,67 +2134,67 @@ public class StatsUtil {
 		return sb.toString();
 	}
 
-	public static String formatEntryTableCount(IREntryTable entryTable) throws RException {
-
-		String out = "";
-
-		/****************************************************/
-		// MaxId & size
-		/****************************************************/
-		final int endEntryId = entryTable.getEntryMaxId();
-		final int beginEntryId = 1;
-		out += String.format("size=%d, max-id=%d", entryTable.getEntryCount(), endEntryId);
-
-		/****************************************************/
-		// Reference count
-		/****************************************************/
-		{
-			int dupCount = 0;
-			int nullCount = 0;
-
-			Map<Integer, Integer> referCountMap = new HashMap<>();
-
-			for (int entryId = beginEntryId; entryId <= endEntryId; ++entryId) {
-
-				IRReteEntry entry = entryTable.getEntry(entryId);
-				if (entry == null) {
-					nullCount++;
-					continue;
-				}
-
-				int referCount = entry.getReferenceCount();
-				Integer num = referCountMap.get(referCount);
-				referCountMap.put(referCount, num == null ? 1 : num + 1);
-
-				if (referCount <= 1) {
-					continue;
-				}
-
-				Set<IRReteNode> nodes = new HashSet<>();
-
-				Iterator<? extends IRReference> refIt = entry.getReferenceIterator();
-				while (refIt.hasNext()) {
-					IRReference ref = refIt.next();
-					if (nodes.contains(ref.getNode())) {
-						++dupCount;
-					} else {
-						nodes.add(ref.getNode());
-					}
-				}
-			}
-
-			ArrayList<Integer> refCountList = new ArrayList<>(referCountMap.size());
-			Collections.sort(refCountList);
-
-			out += String.format(", dup=%d, null=%d", dupCount, nullCount);
-
-			for (int refCount : refCountList) {
-				out += String.format(", ref-%d=%d", refCount, referCountMap.get(refCount));
-			}
-		}
-
-		return out;
-	}
+//	public static String formatEntryTableCount(IREntryTable entryTable) throws RException {
+//
+//		String out = "";
+//
+//		/****************************************************/
+//		// MaxId & size
+//		/****************************************************/
+//		final int endEntryId = entryTable.getEntryMaxId();
+//		final int beginEntryId = 1;
+//		out += String.format("size=%d, max-id=%d", entryTable.getEntryCount(), endEntryId);
+//
+//		/****************************************************/
+//		// Reference count
+//		/****************************************************/
+//		{
+//			int dupCount = 0;
+//			int nullCount = 0;
+//
+//			Map<Integer, Integer> referCountMap = new HashMap<>();
+//
+//			for (int entryId = beginEntryId; entryId <= endEntryId; ++entryId) {
+//
+//				IRReteEntry entry = entryTable.getEntry(entryId);
+//				if (entry == null) {
+//					nullCount++;
+//					continue;
+//				}
+//
+//				int referCount = entry.getReferenceCount();
+//				Integer num = referCountMap.get(referCount);
+//				referCountMap.put(referCount, num == null ? 1 : num + 1);
+//
+//				if (referCount <= 1) {
+//					continue;
+//				}
+//
+//				Set<IRReteNode> nodes = new HashSet<>();
+//
+//				Iterator<? extends IRReference> refIt = entry.getReferenceIterator();
+//				while (refIt.hasNext()) {
+//					IRReference ref = refIt.next();
+//					if (nodes.contains(ref.getNode())) {
+//						++dupCount;
+//					} else {
+//						nodes.add(ref.getNode());
+//					}
+//				}
+//			}
+//
+//			ArrayList<Integer> refCountList = new ArrayList<>(referCountMap.size());
+//			Collections.sort(refCountList);
+//
+//			out += String.format(", dup=%d, null=%d", dupCount, nullCount);
+//
+//			for (int refCount : refCountList) {
+//				out += String.format(", ref-%d=%d", refCount, referCountMap.get(refCount));
+//			}
+//		}
+//
+//		return out;
+//	}
 
 	public static String formatModelCount(IRModelCounter counter) throws RException {
 

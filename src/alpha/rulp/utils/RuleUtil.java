@@ -293,51 +293,51 @@ public class RuleUtil {
 		return (IRRule) obj;
 	}
 
-	public static List<IRObject> compute(IRModel model, String input) throws RException {
-
-		IRInterpreter interpreter = model.getInterpreter();
-		IRFrame modelFrame = model.getFrame();
-		IRParser parser = interpreter.getParser();
-
-		List<IRObject> objs;
-
-		synchronized (parser) {
-			objs = parser.parse(input);
-		}
-
-		try {
-
-			List<IRObject> rsts = new LinkedList<>();
-
-			for (IRObject obj : objs) {
-				rsts.add(interpreter.compute(modelFrame, obj));
-			}
-
-			return rsts;
-
-		} catch (RIException e) {
-
-			if (XRInterpreter.TRACE) {
-				e.printStackTrace();
-			}
-
-			throw new RException("Unhandled internal exception: " + e.toString());
-
-		} catch (RError e) {
-
-			if (XRInterpreter.TRACE) {
-				e.printStackTrace();
-			}
-
-			RException newExp = new RException("" + e.getError());
-
-			for (String addMsg : e.getAdditionalMessages()) {
-				newExp.addMessage(addMsg);
-			}
-
-			throw newExp;
-		}
-	}
+//	public static List<IRObject> compute(IRModel model, String input) throws RException {
+//
+//		IRInterpreter interpreter = model.getInterpreter();
+//		IRFrame modelFrame = model.getFrame();
+//		IRParser parser = interpreter.getParser();
+//
+//		List<IRObject> objs;
+//
+//		synchronized (parser) {
+//			objs = parser.parse(input);
+//		}
+//
+//		try {
+//
+//			List<IRObject> rsts = new LinkedList<>();
+//
+//			for (IRObject obj : objs) {
+//				rsts.add(interpreter.compute(modelFrame, obj));
+//			}
+//
+//			return rsts;
+//
+//		} catch (RIException e) {
+//
+//			if (XRInterpreter.TRACE) {
+//				e.printStackTrace();
+//			}
+//
+//			throw new RException("Unhandled internal exception: " + e.toString());
+//
+//		} catch (RError e) {
+//
+//			if (XRInterpreter.TRACE) {
+//				e.printStackTrace();
+//			}
+//
+//			RException newExp = new RException("" + e.getError());
+//
+//			for (String addMsg : e.getAdditionalMessages()) {
+//				newExp.addMessage(addMsg);
+//			}
+//
+//			throw newExp;
+//		}
+//	}
 
 	public static IRVar createModelVar(IRModel model, String varName, IRObject value) throws RException {
 
@@ -370,24 +370,24 @@ public class RuleUtil {
 		return RuleUtil.asModel(mobj);
 	}
 
-	public static int getNodeMaxPriority(IRModel model) {
-
-		int maxPriority = -1;
-
-		for (IRReteNode node : model.getNodeGraph().getNodeMatrix().getAllNodes()) {
-
-			if (node.getReteType() == RReteType.ROOT0) {
-				continue;
-			}
-
-			int pirority = node.getPriority();
-			if (maxPriority < pirority) {
-				maxPriority = pirority;
-			}
-		}
-
-		return maxPriority;
-	}
+//	public static int getNodeMaxPriority(IRModel model) {
+//
+//		int maxPriority = -1;
+//
+//		for (IRReteNode node : model.getNodeGraph().getNodeMatrix().getAllNodes()) {
+//
+//			if (node.getReteType() == RReteType.ROOT0) {
+//				continue;
+//			}
+//
+//			int pirority = node.getPriority();
+//			if (maxPriority < pirority) {
+//				maxPriority = pirority;
+//			}
+//		}
+//
+//		return maxPriority;
+//	}
 
 	public static IRParser getParser() {
 		if (parser == null) {
@@ -444,18 +444,18 @@ public class RuleUtil {
 		return varTraceModel.getBoolValue();
 	}
 
-	public static Collection<SourceNode> listMatchCondition(IRList stmt, IRRule rule) throws RException {
-
-		if (!ReteUtil.isReteStmtNoVar(stmt)) {
-			throw new RException("unsupport var: " + stmt);
-		}
-
-		for (IAction action : rule.getActionList()) {
-
-		}
-		return null;
-
-	}
+//	public static Collection<SourceNode> listMatchCondition(IRList stmt, IRRule rule) throws RException {
+//
+//		if (!ReteUtil.isReteStmtNoVar(stmt)) {
+//			throw new RException("unsupport var: " + stmt);
+//		}
+//
+//		for (IAction action : rule.getActionList()) {
+//
+//		}
+//		return null;
+//
+//	}
 
 	public static List<IRReteNode> listNodes(IRNodeGraph graph, RReteType... types) {
 
@@ -596,19 +596,19 @@ public class RuleUtil {
 
 	}
 
-	public static List<Integer> toList(int[] ids) {
-
-		if (ids == null || ids.length == 0) {
-			return Collections.emptyList();
-		}
-
-		List<Integer> list = new ArrayList<Integer>();
-		for (int id : ids) {
-			list.add(id);
-		}
-
-		return list;
-	}
+//	public static List<Integer> toList(int[] ids) {
+//
+//		if (ids == null || ids.length == 0) {
+//			return Collections.emptyList();
+//		}
+//
+//		List<Integer> list = new ArrayList<Integer>();
+//		for (int id : ids) {
+//			list.add(id);
+//		}
+//
+//		return list;
+//	}
 
 	public static IRList toStmtFilter(String filter) throws RException {
 

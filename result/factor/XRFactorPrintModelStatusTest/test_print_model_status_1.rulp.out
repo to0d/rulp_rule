@@ -1,0 +1,24 @@
+(load "rule")
+;=>nil
+
+(new model m)
+;=>m
+
+(add-stmt m '(a typeof node))
+;=>true
+
+(add-stmt m '(b typeof node))
+;=>true
+
+(add-rule "R1" m if '(?x typeof node) do (-> '(?x typeof2 node)))
+;=>R1
+
+(start m)
+;=>6
+
+(state-of m)
+;=>completed
+
+(print-model-status m)
+;=>"sc=[0,2,2], a0=[2,0,2,99,3,0,0,6,4,0,4/0,4], ru=[1,0,3,99,1,0,0,0,2],"
+
