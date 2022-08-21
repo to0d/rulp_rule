@@ -143,7 +143,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      252
+           Interpreter call id:      254
     Interpreter call level/max:        0        8
                Frame max level:        7
                   Frame max id:        9
@@ -164,39 +164,39 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:    12411
+    factor:    12413
       func:     4020
 ==========================================================================================================================
 
-Callable stats info: callId=252, row=26, column=64(4), value-max=4010, value-unit=3^x
+Callable stats info: callId=254, row=26, column=64(4), value-max=2014, value-unit=3^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         23333333333333333333333333333333333333333333333333333333333555X1 max=16052, unit=3^x
+   Frame    RType  Count  Ref Object                         23333333333333333333333333333333333333333333333333333333333535XX max=8066, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor   4020    0 return                                                                                      49 
-    root   factor   4008    0 add-list-to-array                                                                           39 
-  system funcList   4008    1 add                                                                                         39 
-    root   factor   2006    0 +                                                                                           28 
-    root   factor   2004    0 to-atom                                                                                     28 
+    root   factor   4020    0 return                                                                                       88
+    root   factor   4008    0 add-list-to-array                                                                            88
+  system funcList   4008    1 add                                                                                          88
+    root   factor   2006    0 +                                                                                            88
+    root   factor   2004    0 to-atom                                                                                      88
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
-    root   factor     79    0 defun                                                                        2333 33332133442  
-    root   factor     44    0 defconst                                                                                   5   
-    root   factor     11    0 defvar                                                                           3        1 23 
-    root   factor      8    0 defmacro                                                                                  32   
-    root   factor      7    0 alias                          22                                                      1       
-  system funcList      6    1 to-list                                                                                     23 
-    root   factor      6    0 make-array                                                                                  23 
-    root   factor      6    0 loop                                                                                        23 
-    root   factor      6    0 do                                                                                          23 
-  system   factor      6    0 add-stmt                                                                                    23 
-    root   factor      6    0 add-array-to-list                                                                           23 
+    root   factor     81    0 defun                                                                        2333 33333123424  
+    root   factor     44    0 defconst                                                                                    5  
+    root   factor     11    0 defvar                                                                           3         1 32
+    root   factor      8    0 defmacro                                                                                  312  
+    root   factor      7    0 alias                          22                                                       1      
+  system funcList      6    1 to-list                                                                                      32
+    root   factor      6    0 make-array                                                                                   32
+    root   factor      6    0 loop                                                                                         32
+    root   factor      6    0 do                                                                                           32
+  system   factor      6    0 add-stmt                                                                                     32
+    root   factor      6    0 add-array-to-list                                                                            32
     root   factor      4    0 make-list                                                                        3             
-    root   factor      3    0 to-named-list                                                                               12 
-    main     func      3    1 (make_root_list int string)                                                                 12 
-    main     func      3    1 (make_named_list int string)                                                                12 
-    root   factor      3    0 load                                                                                      12   
-    root   factor      3    0 deftemplate                                                                           12       
-    root   factor      1    0 new                                                                                        1   
-    root   factor      1    0 load-class                                                                                 1   
+    root   factor      3    0 to-named-list                                                                                21
+    main     func      3    1 (make_root_list int string)                                                                  21
+    main     func      3    1 (make_named_list int string)                                                                 21
+    root   factor      3    0 load                                                                                      1 2  
+    root   factor      3    0 deftemplate                                                                            2       
+    root   factor      1    0 new                                                                                         1  
+    root   factor      1    0 load-class                                                                                  1  
   system   factor      1    0 list-stmt                                                                                     1
 ==========================================================================================================================
 
@@ -204,21 +204,21 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:        18462            0        18462
+        atom:        18481            0        18481
          int:         3500            0         3500
       string:         4105            0         4105
-        list:         4102            4         4098
-        expr:         5144         4020         1124
+        list:         4103            4         4099
+        expr:         5155         4020         1135
        array:            6            6            0
          var:        12075        12054           21
     constant:           44            0           44
-        func:           96            0           96
+        func:           98            0           98
     template:            1            0            1
        macro:            8            0            8
       member:           22            0           22
        frame:         8041         8040            1
  interpreter:            1            0
-  frameEntry:        12447            0
+  frameEntry:        12449            0
       lambda:            0            0
 ==========================================================================================================================
 

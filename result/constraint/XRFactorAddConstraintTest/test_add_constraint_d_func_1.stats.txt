@@ -134,7 +134,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      250
+           Interpreter call id:      252
     Interpreter call level/max:        0        8
                Frame max level:        6
                   Frame max id:        7
@@ -155,50 +155,50 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      290
+    factor:      292
       func:        6
 ==========================================================================================================================
 
-Callable stats info: callId=250, row=18, column=63(4), value-max=21, value-unit=2^x
+Callable stats info: callId=252, row=18, column=64(4), value-max=23, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333336363 max=28, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333363551 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
-    root   factor     67    0 defun                                                                        3333 3333313363  
-    root   factor      7    0 alias                          33                                                      1      
-    root   factor      6    0 return                                                                                      4 
-    root   factor      5    0 defvar                                                                           3        1   
-    root   factor      5    0 defmacro                                                                                  4   
-    root   factor      4    0 make-list                                                                        3            
-    root   factor      4    0 get-of-list                                                                                 3 
-  system funcList      4    1 get                                                                                         3 
-    root   factor      3    0 deftemplate                                                                           12      
-  system   factor      3    0 add-stmt                                                                                    21
-  system   factor      2    0 list-stmt                                                                                   11
-    main     func      2    4 (c1 nil)                                                                                    2 
-    root   factor      2    0 >                                                                                           2 
-  system   factor      1    0 remove-constraint                                                                            1
-    root   factor      1    0 new                                                                                        1  
-    root   factor      1    0 load                                                                                      1   
-  system   factor      1    0 add-constraint                                                                              1 
+    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
+    root   factor     69    0 defun                                                                        3333 33333133621  
+    root   factor      7    0 alias                          33                                                       1      
+    root   factor      6    0 return                                                                                      33 
+    root   factor      5    0 defvar                                                                           3         1   
+    root   factor      5    0 defmacro                                                                                  31   
+    root   factor      4    0 make-list                                                                        3             
+    root   factor      4    0 get-of-list                                                                                 22 
+  system funcList      4    1 get                                                                                         22 
+    root   factor      3    0 deftemplate                                                                            3       
+  system   factor      3    0 add-stmt                                                                                    12 
+  system   factor      2    0 list-stmt                                                                                    11
+    main     func      2    4 (c1 nil)                                                                                    11 
+    root   factor      2    0 >                                                                                           11 
+  system   factor      1    0 remove-constraint                                                                            1 
+    root   factor      1    0 new                                                                                         1  
+    root   factor      1    0 load                                                                                      1    
+  system   factor      1    0 add-constraint                                                                              1  
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2015            0         2015
+        atom:         2034            0         2034
       string:           77            0           77
-        list:           68            3           65
-        expr:          903            6          897
+        list:           69            3           66
+        expr:          914            6          908
          var:           33           12           21
-        func:           84            0           84
+        func:           86            0           86
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
        frame:            8            6            2
  interpreter:            1            0
-  frameEntry:          340            0
+  frameEntry:          342            0
       lambda:            0            0
 ==========================================================================================================================
 

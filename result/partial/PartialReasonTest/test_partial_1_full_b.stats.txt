@@ -293,7 +293,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      254
+           Interpreter call id:      256
     Interpreter call level/max:        0        3
                Frame max level:        2
                   Frame max id:        4
@@ -314,45 +314,45 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      282
+    factor:      284
 ==========================================================================================================================
 
-Callable stats info: callId=254, row=14, column=64(4), value-max=21, value-unit=2^x
+Callable stats info: callId=256, row=14, column=33(8), value-max=27, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333363333 max=28, unit=2^x
+   Frame    RType  Count  Ref Object                         444444444444444444444444454446441 max=32, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
-    root   factor     66    0 defun                                                                        3333 3333313362   
-    root   factor      7    0 alias                          33                                                      1       
-    root   factor      5    0 defvar                                                                           3        1    
-    root   factor      5    0 defmacro                                                                                  4    
-    root   factor      4    0 make-list                                                                        3             
-  system   factor      3    0 state-of                                                                                     21
-  system   factor      3    0 start                                                                                        21
-    root   factor      3    0 deftemplate                                                                           12       
-  system   factor      3    0 add-stmt                                                                                    3  
-  system   factor      2    0 add-rule                                                                                   11  
-    root   factor      1    0 new                                                                                        1   
-    root   factor      1    0 load                                                                                      1    
-  system   factor      1    0 list-stmt                                                                                     1
+    root   factor    178    0 add-attribute                  144444444444444444444441         
+    root   factor     68    0 defun                                                 44344362  
+    root   factor      7    0 alias                          4                           1    
+    root   factor      5    0 defvar                                                  3    1  
+    root   factor      5    0 defmacro                                                    31  
+    root   factor      4    0 make-list                                               3       
+  system   factor      3    0 state-of                                                      3 
+  system   factor      3    0 start                                                         3 
+    root   factor      3    0 deftemplate                                                3    
+  system   factor      3    0 add-stmt                                                     12 
+  system   factor      2    0 add-rule                                                     2  
+    root   factor      1    0 new                                                          1  
+    root   factor      1    0 load                                                        1   
+  system   factor      1    0 list-stmt                                                      1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2198            0         2198
+        atom:         2217            0         2217
       string:           79            0           79
-        list:          128            1          127
-        expr:          896            0          896
+        list:          129            1          128
+        expr:          907            0          907
          var:           20            0           20
-        func:           83            0           83
+        func:           85            0           85
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          326            0
+  frameEntry:          328            0
       lambda:            0            0
 ==========================================================================================================================
 
