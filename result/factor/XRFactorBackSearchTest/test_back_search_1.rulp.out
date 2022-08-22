@@ -6,8 +6,11 @@
 ;=>true
 
 (back-search m '(a p2 b))
-;=>true
+;=>false
 
 (back-search m '(a ?x b))
-;=>true
+;err:
+not support stmt: '(a ?x b)
+at (back-search m '(a ?x b)) ; main-2
+;eof
 

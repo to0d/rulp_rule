@@ -54,7 +54,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean assumeStatement(IRList stmt) throws RException;
 
-	public boolean backSearch(IRList stmt) throws RException;
+	public boolean backSearch(IRList filter) throws RException;
 
 	public void beginTransaction() throws RException;
 

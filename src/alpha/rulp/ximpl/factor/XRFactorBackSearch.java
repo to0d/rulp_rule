@@ -29,11 +29,7 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 		IRModel model = StmtUtil.getStmtModel(args, interpreter, frame, 3);
 		IRList stmt = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmt3Object(args)));
 
-		if (model.hasStatement(stmt)) {
-			return RulpFactory.createBoolean(true);
-		}
-
-		return RulpFactory.createBoolean(model.addStatement(stmt));
+		return RulpFactory.createBoolean(model.backSearch(stmt));
 	}
 
 }

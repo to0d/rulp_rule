@@ -25,12 +25,14 @@ import static alpha.rulp.rule.RRunState.Running;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import alpha.rulp.lang.IRClass;
@@ -63,6 +65,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
+import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
@@ -606,7 +609,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected RUpdateResult _addReteEntry(IRList stmt, RReteStatus toStatus) throws RException {
 
 		if (!ReteUtil.isReteStmtNoVar(stmt)) {
-			ReteUtil.isReteStmtNoVar(stmt);
 			throw new RException("not support stmt: " + stmt);
 		}
 
@@ -1989,20 +1991,70 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public boolean backSearch(IRList stmt) throws RException {
+	public boolean backSearch(IRList filter) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> backSearch: " + stmt);
+			System.out.println("==> backSearch: " + filter);
 		}
 
 		mcBackSearch++;
 
-		if (stmt == null || !ReteUtil.isReteStmtNoVar(stmt)) {
-			ReteUtil.isReteStmtNoVar(stmt);
-			throw new RException("not support stmt: " + stmt);
+		if (filter == null) {
+			throw new RException("not support null");
+		}
+
+		if (!ReteUtil.isReteStmtNoVar(filter)) {
+			throw new RException("not support stmt: " + filter);
+		}
+
+		// Check root node for root statement
+		if (_findRootEntry(filter, 0) != null) {
+			return true;
 		}
 
 		return false;
+	}
+
+	static class XRBackSearcher {
+
+		static enum BackStats {
+			INIT, EXPAND, COMPLETED
+		}
+
+		static enum BackType {
+			AND, OR
+		}
+
+		ArrayList<BackNode> queryStack = new ArrayList<>();
+
+		Map<String, BackNode> nodeMap = new HashMap<>();
+
+		static class BackNode {
+
+			public IRList stmt;
+
+			public BackType type;
+
+			public boolean rst;
+
+			public ArrayList<BackNode> childNodes = null;
+		}
+
+		public boolean backSearch(IRList stmt) throws RException {
+			return false;
+
+//			ArrayList<BackNode> stack = new ArrayList<>();
+//			stack.add(new BackNode(stmt, true));
+//
+//			while (!stack.isEmpty()) {
+//
+//				BackNode topNode = stack.get(stack.size() - 1);
+//				if (!topNode.expand) {
+//
+//				}
+//			}
+		}
+
 	}
 
 	@Override
