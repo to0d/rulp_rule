@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import alpha.rulp.utils.RuleTestBase;
 
-class XRFactorProveStmtTest extends RuleTestBase {
+class XRFactorListStmtGenerateTreeTest extends RuleTestBase {
 
 	@Test
-	public void test_1() {
+	void test_list_stmt_generate_tree_1() {
 
 		_setup();
 		_run_script();

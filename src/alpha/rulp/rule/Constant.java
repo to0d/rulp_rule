@@ -157,6 +157,8 @@ public interface Constant {
 
 	String F_LIST_STMT = "list-stmt";
 
+	String F_LIST_STMT_GENERATE_TREE = "list-stmt-generate-tree";
+
 	String F_LOAD_STMT = "load-stmt";
 
 	String F_MBR_RULE_GROUP_NAMES = "$RG-names$";
@@ -172,8 +174,6 @@ public interface Constant {
 	String F_PRINT_RUNNABLE_COUNTER = "print-runnable-counter";
 
 	String F_PRIORITY_OF = "priority-of";
-
-	String F_PROVE_STMT = "prove-stmt";
 
 	String F_QUERY_STMT = "query-stmt";
 

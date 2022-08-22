@@ -13,7 +13,7 @@
 (list-stmt m)
 ;=>'('(a b c) '(b c a) '(c a b))
 
-(prove-stmt m '(c a b))
+(list-stmt-generate-tree m '(c a b))
 ;=>nil
 ;out:
 '(c a b) : RU000 '(b c a)
@@ -22,7 +22,7 @@
 
 ;eof
 
-(prove-stmt m '(c b a))
+(list-stmt-generate-tree m '(c b a))
 ;=>nil
 ;out:
 '(c b a): not found
