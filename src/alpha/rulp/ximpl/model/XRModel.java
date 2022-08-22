@@ -363,6 +363,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	static final String CK_ASSUME_STMT = "model-assumeStatement";
 
+	static final String CK_BACK_SEARCH = "model-backSearch";
+
 	static final String CK_DO_GC = "model-doGC";
 
 	static final String CK_EXEC = "model-execute";
@@ -455,6 +457,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		modelCountKeyList.add(CK_SET_NODE_SAVER);
 		modelCountKeyList.add(CK_START);
 		modelCountKeyList.add(CK_TRY_ADD_STMT);
+		modelCountKeyList.add(CK_BACK_SEARCH);
 
 		modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
 	}
@@ -513,6 +516,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected long mcAssumeStatement = 0;
 
+	protected long mcBackSearch = 0;
+
 	protected long mcDoGC = 0;
 
 	protected long mcExecute = 0;
@@ -524,8 +529,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected long mcHalt = 0;
 
 	protected long mcHasStatement1 = 0;
-
-	protected long mcBackSearch = 0;
 
 	protected long mcHasStatement2 = 0;
 
@@ -2283,6 +2286,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return mcStart;
 		case CK_TRY_ADD_STMT:
 			return mcTryAddStatement;
+		case CK_BACK_SEARCH:
+			return mcBackSearch;
 		}
 
 		return 0;

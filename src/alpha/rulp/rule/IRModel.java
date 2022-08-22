@@ -48,13 +48,13 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean addStatement(IRList stmt) throws RException;
 
-	public boolean backSearch(IRList stmt) throws RException;
-
 	public void addStatementListener(IRList condList, IRListener1<IRList> listener) throws RException;
 
 	public void addUpdateNode(IRReteNode node) throws RException;
 
 	public boolean assumeStatement(IRList stmt) throws RException;
+
+	public boolean backSearch(IRList stmt) throws RException;
 
 	public void beginTransaction() throws RException;
 
@@ -76,10 +76,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IREntryTable getEntryTable();
 
-	public long getModelCountMap(String countkey);
-
-	public List<String> getModelCountKeyList();
-
 	public long getGcCount();
 
 	public long getGcTrigger();
@@ -87,6 +83,10 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public int getHasStmtCacheCount();
 
 	public int getHasStmtHitCount();
+
+	public List<String> getModelCountKeyList();
+
+	public long getModelCountMap(String countkey);
 
 	public String getModelName();
 

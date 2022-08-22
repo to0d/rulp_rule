@@ -1191,19 +1191,25 @@ public class StatsUtil {
 		sb.append(SEP_LINE2);
 
 		for (String key : model.getModelCountKeyList()) {
-			sb.append(String.format("%-30s %8d\n", key, model.getModelCountMap(key)));
+			_printModelCountInfo_put(sb, key, model.getModelCountMap(key));
 		}
 
-		sb.append(String.format("%-30s %8d\n", "graph-gc-count", graph.getGcCount()));
-		sb.append(String.format("%-30s %8d\n", "graph-gc-node-remove", graph.getGcRemoveNodeCount()));
-		sb.append(String.format("%-30s %8d\n", "graph-gc-node-clean", graph.getGcCleanNodeCount()));
-		sb.append(String.format("%-30s %8d\n", "graph-gc-inactive-leaf", graph.getGcInactiveLeafCount()));
-		sb.append(String.format("%-30s %8d\n", "graph-gc-cache", graph.getGcCacheCount()));
+		_printModelCountInfo_put(sb, "graph-gc-count", graph.getGcCount());
+		_printModelCountInfo_put(sb, "graph-gc-node-remove", graph.getGcRemoveNodeCount());
+		_printModelCountInfo_put(sb, "graph-gc-node-clean", graph.getGcCleanNodeCount());
+		_printModelCountInfo_put(sb, "graph-gc-inactive-leaf", graph.getGcInactiveLeafCount());
+		_printModelCountInfo_put(sb, "graph-gc-cache", graph.getGcCacheCount());
 
 		sb.append(SEP_LINE1);
 
 		sb.append("\n");
 		sb.append("\n");
+	}
+
+	static void _printModelCountInfo_put(StringBuffer sb, String key, long count) {
+		if (count != 0) {
+			sb.append(String.format("%-30s %8d\n", key, count));
+		}
 	}
 
 	private static void _printModelFrame(StringBuffer sb, IRModel model) throws RException {
