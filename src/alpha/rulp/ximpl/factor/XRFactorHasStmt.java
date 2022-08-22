@@ -2,7 +2,6 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.A_BackSearch;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.F_HAS_STMT;
@@ -58,7 +57,7 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 
 		/********************************************/
 		// Check parameters
-		// - (has-stmt m '(a b c) back-search order by 1)
+		// - (has-stmt m '(a b c) order by 1)
 		/********************************************/
 		int argSize = args.size();
 		if (argSize < 2) {
@@ -92,7 +91,7 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		IRList stmt = RulpUtil.asList(obj);
 		argIndex++;
 
-		boolean backSearch = false;
+//		boolean backSearch = false;
 		List<OrderEntry> orderList = null;
 
 		/********************************************/
@@ -101,12 +100,12 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame)) {
 
 			switch (modifier.name) {
-			case A_BackSearch:
-				backSearch = true;
-				if (!ReteUtil.isReteStmtNoVar(stmt)) {
-					throw new RException("unsupport var in back search: " + stmt);
-				}
-				break;
+//			case A_BackSearch:
+//				backSearch = true;
+//				if (!ReteUtil.isReteStmtNoVar(stmt)) {
+//					throw new RException("unsupport var in back search: " + stmt);
+//				}
+//				break;
 
 			case A_Order_by:
 
@@ -148,17 +147,17 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 			}
 		}
 
-		/********************************************/
-		// back search
-		/********************************************/
-		if (backSearch) {
-
-			if (orderList != null) {
-				throw new RException("does not support order in back search: " + args);
-			}
-
-			return RulpFactory.createBoolean(model.hasStatement(stmt));
-		}
+//		/********************************************/
+//		// back search
+//		/********************************************/
+//		if (backSearch) {
+//
+//			if (orderList != null) {
+//				throw new RException("does not support order in back search: " + args);
+//			}
+//
+//			return RulpFactory.createBoolean(model.hasStatement(stmt));
+//		}
 
 		/********************************************/
 		// create index and query

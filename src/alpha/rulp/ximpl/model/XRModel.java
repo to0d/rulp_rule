@@ -525,6 +525,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected long mcHasStatement1 = 0;
 
+	protected long mcBackSearch = 0;
+
 	protected long mcHasStatement2 = 0;
 
 	protected long mcListStatements = 0;
@@ -1971,6 +1973,23 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.assuemeStatmentLevel--;
 			return false;
 		}
+	}
+
+	@Override
+	public boolean backSearch(IRList stmt) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> backSearch: " + stmt);
+		}
+
+		mcBackSearch++;
+
+		if (stmt == null || !ReteUtil.isReteStmtNoVar(stmt)) {
+			ReteUtil.isReteStmtNoVar(stmt);
+			throw new RException("not support stmt: " + stmt);
+		}
+
+		return false;
 	}
 
 	@Override

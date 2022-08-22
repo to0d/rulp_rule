@@ -1,0 +1,13 @@
+(new model m)
+(add-stmt m '(a p1 b))
+;=>m true
+
+(back-search m '(a p1 b))
+;=>true
+
+(back-search m '(a p2 b))
+;=>true
+
+(back-search m '(a ?x b))
+;=>true
+

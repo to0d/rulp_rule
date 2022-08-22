@@ -48,6 +48,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean addStatement(IRList stmt) throws RException;
 
+	public boolean backSearch(IRList stmt) throws RException;
+
 	public void addStatementListener(IRList condList, IRListener1<IRList> listener) throws RException;
 
 	public void addUpdateNode(IRReteNode node) throws RException;

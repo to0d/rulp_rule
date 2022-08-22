@@ -3,6 +3,6 @@
 (add-stmt m '(a p1 b))
 ;=>
 
-(has-stmt m '(a p2 b) back-search)
+(back-search m '(a p2 b))
 ;=>true
 

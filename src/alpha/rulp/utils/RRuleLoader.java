@@ -1,5 +1,6 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.rule.Constant.A_BackSearch;
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_ADD_INDEX;
@@ -72,6 +73,7 @@ import alpha.rulp.ximpl.factor.XRFactorAddNode;
 import alpha.rulp.ximpl.factor.XRFactorAddRule;
 import alpha.rulp.ximpl.factor.XRFactorAddStmt;
 import alpha.rulp.ximpl.factor.XRFactorAssumeStmt;
+import alpha.rulp.ximpl.factor.XRFactorBackSearch;
 import alpha.rulp.ximpl.factor.XRFactorDumpEntryInfo;
 import alpha.rulp.ximpl.factor.XRFactorDumpNodeInfo;
 import alpha.rulp.ximpl.factor.XRFactorDumpStatus;
@@ -174,6 +176,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorReteQueueTypeOf(F_RETE_QUEUE_TYPE_OF));
 		RulpUtil.addFrameObject(frame, new XRFactorSetNodeQueueType(F_SET_NODE_QUEUE_TYPE));
 		RulpUtil.addFrameObject(frame, new XRFactorAddIndex(F_ADD_INDEX));
+		RulpUtil.addFrameObject(frame, new XRFactorBackSearch(A_BackSearch));
 
 		// Constraint
 		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

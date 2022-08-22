@@ -1,0 +1,14 @@
+(new model m)
+(add-stmt m '(a p1 b))
+;=>
+
+(back-search m '(a p1 b))
+;=>
+
+(back-search m '(a p2 b))
+;=>
+
+(back-search m '(a ?x b))
+;err
+
+

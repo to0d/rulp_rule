@@ -294,7 +294,7 @@ Object create count:
       member:           21            0           21
        frame:           13           11            2
  interpreter:            1            0
-  frameEntry:          383            0
+  frameEntry:          384            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -326,7 +326,7 @@ RRT_RULE             : 19       2        2    constant   RRT_RULE:"15"
 RRT_WORK             : 20       2        2    constant   RRT_WORK:"16"       
 RRT_INDEX            : 21       2        2    constant   RRT_INDEX:"17"      
 RRT_INHER            : 22       2        2    constant   RRT_INHER:"18"      
-RRT_OR               : 23       2        2    constant   RRT_OR:"19"         
+RRT_OR0              : 23       2        2    constant   RRT_OR0:"19"        
 ATTR_RETE_TYPE       : 24       2        2    constant   ATTR_RETE_TYPE:"rete-type"
 ATTR_ENTRY_LEN       : 25       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
 RRS_DEFINE           : 26       2        2    constant   RRS_DEFINE:"0"      

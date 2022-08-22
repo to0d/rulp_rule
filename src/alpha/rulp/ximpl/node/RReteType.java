@@ -23,7 +23,7 @@ public enum RReteType {
 	WORK(16), //
 	INDEX(17), //
 	INHER(18), // inherit
-	OR0(19);
+	OR0(19); //
 
 	static final int RRT_ROOT0 = 0;
 	static final int RRT_NAME0 = 1;
@@ -43,7 +43,7 @@ public enum RReteType {
 	static final int RRT_RULE = 15;
 	static final int RRT_WORK = 16;
 	static final int RRT_INDEX = 17;
-	static final int RRT_INHER = 18; 
+	static final int RRT_INHER = 18;
 	static final int RRT_OR0 = 19;
 
 	public static final RReteType ALL_RETE_TYPE[] = { ROOT0, NAME0, VAR, CONST, ALPH0, ALPH1, EXPR0, EXPR1, EXPR2,
