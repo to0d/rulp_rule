@@ -881,6 +881,20 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return entry;
 	}
 
+	protected IRReteEntry _findRootEntry(IRList filter, int statusMask) throws RException {
+
+		IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
+		_checkCache(rootNode);
+
+		String uniqName = ReteUtil.uniqName(filter);
+		IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(uniqName);
+		if (oldEntry == null || !ReteUtil.matchReteStatus(oldEntry, statusMask)) {
+			return null;
+		}
+
+		return oldEntry;
+	}
+
 	protected IRReteNode _findRootNode(String namedName, int stmtLen) throws RException {
 		if (namedName == null) {
 			return nodeGraph.getRootNode(stmtLen);
@@ -1283,12 +1297,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		if (ReteUtil.getStmtVarCount(filter) == 0) {
 
-			IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
-			_checkCache(rootNode);
-
-			String uniqName = ReteUtil.uniqName(filter);
-			IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(uniqName);
-			if (oldEntry == null || !ReteUtil.matchReteStatus(oldEntry, statusMask)) {
+			IRReteEntry oldEntry = _findRootEntry(filter, statusMask);
+			if (oldEntry == null) {
 				return 0;
 			}
 
@@ -2392,6 +2402,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _hasAnyStatement();
 		}
 
+		// Check root node for root statement
+		if (ReteUtil.isReteStmtNoVar(filter)) {
+			return _findRootEntry(filter, 0) != null;
+		}
+
 		if (_hasCacheStatement(filter)) {
 			++hasStmtHitCount;
 			return true;
@@ -2419,6 +2434,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Has any stmt
 		if (filter == null) {
 			return _hasAnyStatement();
+		}
+
+		// Check root node for root statement
+		if (ReteUtil.isReteStmtNoVar(filter)) {
+			return _findRootEntry(filter, 0) != null;
 		}
 
 		if (_hasCacheStatement(filter)) {

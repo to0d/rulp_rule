@@ -1432,7 +1432,6 @@ public class ReteUtil {
 				break;
 
 			case ATOM:
-
 				if (RulpUtil.isVarName(((IRAtom) obj).getName())) {
 					return false;
 				}
