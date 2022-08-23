@@ -99,6 +99,8 @@ public interface Constant {
 
 	String A_Uniq = "uniq";
 
+	String A_Dup = "dup";
+
 	String A_VIEW = "view";
 
 	String A_Where = "where";

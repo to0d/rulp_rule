@@ -1,11 +1,8 @@
 package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.lang.Constant.F_EQUAL;
-import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_ENTRY_LEN;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.A_Index;
 import static alpha.rulp.rule.Constant.A_Inherit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_RETE_TYPE;
@@ -379,27 +376,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
-	protected static String _getUniqNameForIndexNode(String parentUniqName, List<OrderEntry> orderList) {
-
-		StringBuffer sb = new StringBuffer();
-		sb.append("(");
-		sb.append(A_Index);
-		sb.append(" ");
-		sb.append(parentUniqName);
-
-		for (OrderEntry order : orderList) {
-			sb.append(" ");
-			sb.append(A_Order_by);
-			sb.append(" ");
-			sb.append(order.index);
-			sb.append(" ");
-			sb.append(order.asc ? A_Asc : A_Desc);
-		}
-
-		sb.append(")");
-
-		return sb.toString();
-	}
+	static List<String> graphCountKeyList = new ArrayList<>();
 
 	public static boolean isSymmetricBetaNode(IRReteNode node) {
 
@@ -496,8 +473,6 @@ public class XRNodeGraph implements IRNodeGraph {
 			this.gcRemoveNodeCountArray[i] = 0;
 		}
 	}
-
-	static List<String> graphCountKeyList = new ArrayList<>();
 
 	protected void _addNode(AbsReteNode node) throws RException {
 
@@ -2101,12 +2076,10 @@ public class XRNodeGraph implements IRNodeGraph {
 			throw new RException(String.format("Can't add index to node: %s", node.getUniqName()));
 		}
 
-		String uniqName = _getUniqNameForIndexNode(node.getUniqName(), orderList);
-
-		for (IRReteNode childNode : node.getChildNodes()) {
-			if (childNode.getReteType() == RReteType.INDEX && childNode.getUniqName().equals(uniqName)) {
-				return childNode;
-			}
+		String uniqName = ReteUtil.getIndexNodeUniqName(node.getUniqName(), orderList);
+		IRReteNode oldIndexNode = ReteUtil.matchChildNode(node, RReteType.INDEX, uniqName);
+		if (oldIndexNode != null) {
+			return oldIndexNode;
 		}
 
 		AbsReteNode indexNode = RNodeFactory.createIndexNode(model, _getNextNodeId(), uniqName, node.getEntryLength(),
@@ -2349,6 +2322,12 @@ public class XRNodeGraph implements IRNodeGraph {
 	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException {
 		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
 		return nodeInfo.bindToNodeList == null ? Collections.emptyList() : nodeInfo.bindToNodeList;
+	}
+
+	@Override
+	public IRReteNode getDuplicateNode(IRReteNode node) {
+
+		return null;
 	}
 
 	@Override
@@ -2703,12 +2682,6 @@ public class XRNodeGraph implements IRNodeGraph {
 				return false;
 			});
 		}
-	}
-
-	@Override
-	public IRReteNode getDuplicateNode(IRReteNode node) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

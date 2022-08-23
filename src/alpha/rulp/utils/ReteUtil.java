@@ -4,7 +4,10 @@ import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.lang.Constant.A_QUESTION;
 import static alpha.rulp.lang.Constant.A_QUESTION_C;
 import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
+import static alpha.rulp.rule.Constant.A_Asc;
+import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
+import static alpha.rulp.rule.Constant.A_Index;
 import static alpha.rulp.rule.Constant.A_Inherit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -840,14 +843,7 @@ public class ReteUtil {
 	}
 
 	public static IRReteNode findDuplicateNode(IRReteNode node) {
-
-		for (IRReteNode child : node.getChildNodes()) {
-			if (child.getReteType() == RReteType.DUP) {
-				return child;
-			}
-		}
-
-		return null;
+		return matchChildNode(node, RReteType.DUP, null);
 	}
 
 	public static IRReteNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
@@ -1007,6 +1003,28 @@ public class ReteUtil {
 		}
 
 		return nodeEntryLengh;
+	}
+
+	public static String getIndexNodeUniqName(String parentUniqName, List<OrderEntry> orderList) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("(");
+		sb.append(A_Index);
+		sb.append(" ");
+		sb.append(parentUniqName);
+
+		for (OrderEntry order : orderList) {
+			sb.append(" ");
+			sb.append(A_Order_by);
+			sb.append(" ");
+			sb.append(order.index);
+			sb.append(" ");
+			sb.append(order.asc ? A_Asc : A_Desc);
+		}
+
+		sb.append(")");
+
+		return sb.toString();
 	}
 
 	public static String getIndexVarName(int index) {
@@ -1655,6 +1673,24 @@ public class ReteUtil {
 		}
 
 		return false;
+	}
+
+	public static IRReteNode matchChildNode(IRReteNode node, RReteType type, String childUniqName) {
+
+		for (IRReteNode child : node.getChildNodes()) {
+
+			if (type != null && child.getReteType() != type) {
+				continue;
+			}
+
+			if (childUniqName != null && !child.getUniqName().equals(childUniqName)) {
+				continue;
+			}
+
+			return child;
+		}
+
+		return null;
 	}
 
 	public static List<IRReteNode> matchNodes(IRNodeGraph nodeGraph, IRList filter) throws RException {
