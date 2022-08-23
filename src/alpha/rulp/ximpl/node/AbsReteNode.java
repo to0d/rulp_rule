@@ -518,24 +518,24 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return trace;
 	}
 
-	public void removeChild(IRReteNode child) {
-
-		if (allChildNodes != null) {
-			allChildNodes.remove(child);
-
-			if (allChildNodes.isEmpty()) {
-				allChildNodes = null;
-			}
-		}
-
-		if (autoUpdateChildNodes != null) {
-			autoUpdateChildNodes.remove(child);
-
-			if (autoUpdateChildNodes.isEmpty()) {
-				autoUpdateChildNodes = null;
-			}
-		}
-	}
+//	public void removeChild(IRReteNode child) {
+//
+//		if (allChildNodes != null) {
+//			allChildNodes.remove(child);
+//
+//			if (allChildNodes.isEmpty()) {
+//				allChildNodes = null;
+//			}
+//		}
+//
+//		if (autoUpdateChildNodes != null) {
+//			autoUpdateChildNodes.remove(child);
+//
+//			if (autoUpdateChildNodes.isEmpty()) {
+//				autoUpdateChildNodes = null;
+//			}
+//		}
+//	}
 
 	@Override
 	public void removeChildNode(IRReteNode child) {

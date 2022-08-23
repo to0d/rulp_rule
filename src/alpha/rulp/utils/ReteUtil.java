@@ -7,7 +7,7 @@ import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_ENTRY_ORDER;
-import static alpha.rulp.rule.Constant.A_Index;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_Inherit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Uniq;
@@ -842,7 +842,7 @@ public class ReteUtil {
 		}
 	}
 
-	public static IRReteNode findDuplicateNode(IRReteNode node) {
+	public static IRReteNode findDupNode(IRReteNode node) {
 		return matchChildNode(node, RReteType.DUP, null);
 	}
 
@@ -958,6 +958,18 @@ public class ReteUtil {
 		}
 
 		return fixCount > 0 ? FIXED_ : DEFINE;
+	}
+
+	public static String getDupNodeUniqName(String parentUniqName) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("(");
+		sb.append(A_Dup);
+		sb.append(" ");
+		sb.append(parentUniqName);
+		sb.append(")");
+
+		return sb.toString();
 	}
 
 	public static int getFilerEntryLength(IRList filter) throws RException {
@@ -1833,7 +1845,7 @@ public class ReteUtil {
 			IRReteNode parent = parents[i];
 
 			if (parent.getReteType() == RReteType.ROOT0 || parent.getReteType() == RReteType.NAME0) {
-				IRReteNode dupNode = findDuplicateNode(parent);
+				IRReteNode dupNode = findDupNode(parent);
 				if (dupNode != null) {
 					parent = dupNode;
 				}

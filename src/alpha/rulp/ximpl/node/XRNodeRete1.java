@@ -25,9 +25,13 @@ public class XRNodeRete1 extends AbsReteNode {
 
 	@Override
 	public int update() throws RException {
+		return update(0);
+	}
+
+	public int update(int maxParentCount) throws RException {
 
 		if (this.isTrace()) {
-			System.out.println("update: " + this);
+			System.out.println("update: " + this + ", max=" + maxParentCount);
 		}
 
 		++nodeExecCount;
@@ -37,6 +41,10 @@ public class XRNodeRete1 extends AbsReteNode {
 		/*********************************************/
 		IREntryQueue parentEntryQueue = parentNodes[0].getEntryQueue();
 		int parentEntryCount = parentEntryQueue.size();
+		if (maxParentCount > 0 && parentEntryCount > maxParentCount) {
+			parentEntryCount = maxParentCount;
+		}
+
 		if (lastParentVisitIndex == parentEntryCount) {
 			++nodeIdleCount;
 			return 0;
@@ -59,6 +67,7 @@ public class XRNodeRete1 extends AbsReteNode {
 		}
 
 		return updateCount;
+
 	}
 
 }

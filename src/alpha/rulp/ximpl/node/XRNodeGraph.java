@@ -2173,7 +2173,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				IRReteNode parentNode = exprParent1.getParentNodes()[0];
 
 				// Remove link
-				exprParent1.removeChild(exprChild1);
+				exprParent1.removeChildNode(exprChild1);
 
 				// Add new link
 				parentNode.addChildNode(exprChild1);
@@ -2325,9 +2325,52 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRReteNode getDuplicateNode(IRReteNode node) {
+	public IRReteNode getDupNode(IRReteNode node) throws RException {
 
-		return null;
+		IRReteNode oldDupNode = ReteUtil.findDupNode(node);
+		if (oldDupNode != null) {
+			return oldDupNode;
+		}
+
+		String dupUniqName = ReteUtil.getDupNodeUniqName(node.getUniqName());
+
+		ArrayList<IRReteNode> childNodes = new ArrayList<>(node.getChildNodes());
+
+		// Get the max visit index
+		int parentMaxVisitIndex = -1;
+		for (IRReteNode child : childNodes) {
+
+			int parentVisitIndex = -1;
+			int parentCount = child.getParentCount();
+
+			for (int j = 0; j < parentCount; ++j) {
+				if (child.getParentNodes()[j] == node) {
+					parentVisitIndex = child.getParentVisitIndex(j);
+					break;
+				}
+			}
+
+			if (parentVisitIndex == -1) {
+				throw new RException("parentVisitIndex not found: " + child);
+			}
+
+			parentMaxVisitIndex = Math.max(parentMaxVisitIndex, parentVisitIndex);
+		}
+
+		XRNodeRete1 dupNode = RNodeFactory.createDupNode(model, _getNextNodeId(), dupUniqName, node);
+
+		// Move all child node to dup node
+		for (IRReteNode child : childNodes) {
+			node.removeChildNode(child);
+			ReteUtil.setParentNodes(dupNode, child);
+		}
+
+		// Force update for dup node
+		if (parentMaxVisitIndex > 0) {
+			dupNode.update(parentMaxVisitIndex);
+		}
+
+		return dupNode;
 	}
 
 	@Override

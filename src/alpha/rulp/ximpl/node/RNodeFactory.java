@@ -346,7 +346,7 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static AbsReteNode createDupNode(IRModel model, int nodeId, String uniqName, IRReteNode parentNode)
+	public static XRNodeRete1 createDupNode(IRModel model, int nodeId, String uniqName, IRReteNode parentNode)
 			throws RException {
 
 		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.DUP, nodeId));
