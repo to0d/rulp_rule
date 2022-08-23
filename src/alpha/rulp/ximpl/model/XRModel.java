@@ -902,11 +902,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	protected IRReteNode _findRootNode(String namedName, int stmtLen) throws RException {
-		if (namedName == null) {
-			return nodeGraph.getRootNode(stmtLen);
-		} else {
-			return nodeGraph.getNamedNode(namedName, stmtLen);
-		}
+		return nodeGraph.getRootNode(namedName, stmtLen);
 	}
 
 	protected void _fireLoadNodeAction(IRReteNode node) throws RException {
@@ -1225,7 +1221,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 					FIND_SUB: while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
 
-						if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
+						if (nodeGraph.findRootNode(null, extendFilterObjs.size()) != null) {
 
 							IRList subFilter = RulpFactory.createNamedList(namedName, extendFilterObjs);
 							int subSize = _listStatements(subFilter, statusMask, subLimit, reverse, builder, action);
@@ -1247,7 +1243,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 					ArrayList<ArrayList<IRObject>> filterList = new ArrayList<>();
 					while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
-						if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
+						if (nodeGraph.findRootNode(null, extendFilterObjs.size()) != null) {
 							filterList.add(new ArrayList<>(extendFilterObjs));
 						}
 						extendFilterObjs.add(tmpVarBuilder.next());
@@ -1275,7 +1271,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return size;
 			}
 
-			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
+			IRReteNode namedNode = nodeGraph.findRootNode(namedName, -1);
 			if (namedNode == null || extendFilterObjs.size() > namedNode.getEntryLength()) {
 				return 0;
 			}
@@ -1291,8 +1287,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Check named node
 		/******************************************************/
 		if (namedName != null) {
-
-			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
+			IRReteNode namedNode = nodeGraph.findRootNode(namedName, -1);
 			if (namedNode == null || namedNode.getEntryLength() != filter.size()) {
 				return 0;
 			}
@@ -2161,14 +2156,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				IRList stmt = childNode.stmt;
 
-				IRReteNode rootNode = null;
+				IRReteNode rootNode = graph.findRootNode(stmt.getNamedName(), stmt.size());
 				Set<String> uniqSet = null;
-
-				if (stmt.getNamedName() == null) {
-					rootNode = graph.findRootNode(stmt.size());
-				} else {
-					rootNode = graph.getNamedNode(stmt.getNamedName(), stmt.size());
-				}
 
 				int pos = rootNodes.indexOf(rootNode);
 				if (pos == -1) {

@@ -446,6 +446,9 @@ public class StatsUtil {
 		case OR0:
 			return "o0";
 
+		case DUP:
+			return "d0";
+
 		default:
 			return "un";
 		}

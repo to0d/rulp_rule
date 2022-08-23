@@ -260,7 +260,7 @@ public class ReteUtil {
 			if (namedName == null) {
 
 				while (extendFilterObjs.size() <= nodeGraph.getMaxRootStmtLen()) {
-					if (nodeGraph.findRootNode(extendFilterObjs.size()) != null) {
+					if (nodeGraph.findRootNode(null, extendFilterObjs.size()) != null) {
 						_matchNodes(nodeGraph, RulpFactory.createNamedList(namedName, extendFilterObjs), nodes);
 					}
 				}
@@ -268,7 +268,7 @@ public class ReteUtil {
 				return;
 			}
 
-			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
+			IRReteNode namedNode = nodeGraph.findRootNode(namedName, -1);
 			if (namedNode == null || extendFilterObjs.size() > namedNode.getEntryLength()) {
 				return;
 			}
@@ -285,7 +285,7 @@ public class ReteUtil {
 		/******************************************************/
 		if (namedName != null) {
 
-			IRReteNode namedNode = nodeGraph.findNamedNode(namedName);
+			IRReteNode namedNode = nodeGraph.findRootNode(namedName, -1);
 			if (namedNode == null || namedNode.getEntryLength() != filter.size()) {
 				return;
 			}
@@ -297,12 +297,7 @@ public class ReteUtil {
 		IRReteNode node;
 
 		if (ReteUtil.getStmtVarCount(filter) == 0) {
-
-			if (filter.getNamedName() == null) {
-				node = nodeGraph.getRootNode(filter.size());
-			} else {
-				node = nodeGraph.getNamedNode(filter.getNamedName(), filter.size());
-			}
+			node = nodeGraph.getRootNode(filter.getNamedName(), filter.size());
 
 		} else {
 			node = nodeGraph.getNodeByTree(filter);
@@ -867,7 +862,7 @@ public class ReteUtil {
 		/**************************************************/
 		// Check entry length
 		/**************************************************/
-		IRReteNode namedNode = graph.findNamedNode(namedName);
+		IRReteNode namedNode = graph.findRootNode(namedName, -1);
 		if (namedNode != null) {
 
 			if (varArgIndex == -1) {
@@ -1122,6 +1117,9 @@ public class ReteUtil {
 
 		case OR0:
 			return String.format("O0%04d", nodeId);
+
+		case DUP:
+			return String.format("D0%04d", nodeId);
 
 		default:
 			return String.format("X%05d", nodeId);
@@ -1837,7 +1835,7 @@ public class ReteUtil {
 					/******************************************************/
 					// n:'(?...) or n:'(?x ?...)
 					/******************************************************/
-					IRReteNode namedNode = graph.findNamedNode(namedName);
+					IRReteNode namedNode = graph.findRootNode(namedName, -1);
 					if (namedNode == null) {
 						throw new RException(String.format("namedNode not found: %s", namedName));
 					}

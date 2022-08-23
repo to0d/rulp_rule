@@ -45,11 +45,9 @@ public interface IRNodeGraph {
 
 	public int doOptimize() throws RException;
 
-	public IRReteNode findNamedNode(String name) throws RException;
-
 	public IRReteNode findNodeByUniqName(String uniqName) throws RException;
 
-	public IRReteNode findRootNode(int stmtLen) throws RException;
+	public IRReteNode findRootNode(String name, int stmtLen) throws RException;
 
 	public void gc() throws RException;
 
@@ -71,8 +69,6 @@ public interface IRNodeGraph {
 
 	public int getMaxRootStmtLen();
 
-	public IRReteNode getNamedNode(String name, int stmtLen) throws RException;
-
 	public IRReteNode getNodeById(int nodeId);
 
 	public IRReteNode getNodeByTree(IRList tree) throws RException;
@@ -81,7 +77,7 @@ public interface IRNodeGraph {
 
 	public List<IRRule> getRelatedRules(IRReteNode node) throws RException;
 
-	public IRReteNode getRootNode(int stmtLen) throws RException;
+	public IRReteNode getRootNode(String name, int stmtLen) throws RException;
 
 	public IRRule getRule(String ruleName);
 

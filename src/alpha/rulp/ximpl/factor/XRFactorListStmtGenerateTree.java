@@ -191,15 +191,7 @@ public class XRFactorListStmtGenerateTree extends AbsAtomFactorAdapter implement
 			/****************************************************/
 			// Find root node
 			/****************************************************/
-			IRReteNode rootNode = null;
-			if (stmt.getNamedName() == null) {
-				rootNode = model.getNodeGraph().findRootNode(stmt.size());
-			} else {
-				rootNode = model.getNodeGraph().findNamedNode(stmt.getNamedName());
-				if (rootNode != null && rootNode.getEntryLength() != stmt.size()) {
-					rootNode = null;
-				}
-			}
+			IRReteNode rootNode = model.getNodeGraph().findRootNode(stmt.getNamedName(), stmt.size());
 
 			String uniqName = RulpUtil.toString(stmt);
 			if (rootNode == null) {

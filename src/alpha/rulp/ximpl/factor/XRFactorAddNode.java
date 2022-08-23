@@ -56,7 +56,7 @@ public class XRFactorAddNode extends AbsAtomFactorAdapter implements IRFactor, I
 		/**************************************************/
 		// Create node
 		/**************************************************/
-		node = model.getNodeGraph().getNamedNode(namedList.getNamedName(), ReteUtil.getFilerEntryLength(namedList));
+		node = model.getNodeGraph().getRootNode(namedList.getNamedName(), ReteUtil.getFilerEntryLength(namedList));
 		if (node == null) {
 			throw new RException(String.format("Fail to create named node: %s", namedList));
 		}

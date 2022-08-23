@@ -612,6 +612,43 @@ public class RNodeFactory {
 
 	}
 
+	public static AbsReteNode createDupNode(IRModel model, int nodeId, String uniqName, IRReteNode parentNode)
+			throws RException {
+
+		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.DUP, nodeId));
+
+		// Model
+		node.setModel(model);
+
+		// Node id
+		node.setNodeId(nodeId);
+
+		// Node type
+		node.setReteType(RReteType.DUP);
+
+		// Uniq name
+		node.setUniqName(uniqName);
+
+		// Entry length
+		node.setEntryLength(parentNode.getEntryLength());
+
+		// Entry table
+		node.setEntryTable(model.getEntryTable());
+
+		// Entry queue
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
+
+		// Parent node
+		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
+		parentNode.addChildNode(node);
+
+		// var entry
+		node.setVarEntry(parentNode.getVarEntry());
+
+		return node;
+
+	}
+
 	public static XRNodeNamed createName0Node(IRModel model, int nodeId, String namedName, int stmtLen)
 			throws RException {
 

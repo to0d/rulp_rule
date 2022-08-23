@@ -128,7 +128,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=m
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 86       3        2    instance   model@m             
+default_model        : 87       3        2    instance   model@m             
 ==========================================================================================================================
 
 node update info: model-exec-count=18, row=3, column=16(1), value-max=1, value-unit=1^x
@@ -168,17 +168,17 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      520
+    factor:      521
       func:       43
 ==========================================================================================================================
 
-Callable stats info: callId=250, row=46, column=63(4), value-max=44, value-unit=2^x
+Callable stats info: callId=250, row=46, column=63(4), value-max=45, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333336399 max=148, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
     root   factor     84    0 defun                                                                        3333 33333133625 
-    root   factor     44    0 defconst                                                                                    7 
+    root   factor     45    0 defconst                                                                                    7 
     root   factor     43    0 return                                                                                      56
     root   factor     23    0 defvar                                                                           3         145
     root   factor      9    0 to-atom                                                                                     34
@@ -228,27 +228,27 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2646            0         2646
+        atom:         2648            0         2648
          int:            2            0            2
       string:          116            0          116
         list:          124            8          116
-        expr:         1238           43         1195
+        expr:         1239           43         1196
        array:            3            0            3
          var:          142          121           21
-    constant:           44            0           44
+    constant:           45            0           45
         func:          104            0          104
     template:            1            0            1
        macro:            8            0            8
       member:           22            0           22
        frame:           77           76            1
  interpreter:            1            0
-  frameEntry:          516            0
+  frameEntry:          517            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=3/4, entry=87, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=88, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -311,52 +311,53 @@ RRT_WORK             : 40       2        2    constant   RRT_WORK:"16"
 RRT_INDEX            : 41       2        2    constant   RRT_INDEX:"17"      
 RRT_INHER            : 42       2        2    constant   RRT_INHER:"18"      
 RRT_OR0              : 43       2        2    constant   RRT_OR0:"19"        
-ATTR_RETE_TYPE       : 44       2        2    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 45       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 46       2        2    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 47       2        2    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 48       2        2    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 49       2        2    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 50       2        2    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 51       2        2    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 52       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 53       2        2    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 54       2        2    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 55       2        2    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 56       2        2    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 57       2        2    constant   RETE_QUEUE_ACTION:"4"
-RETE_QUEUE_ORDER     : 58       2        2    constant   RETE_QUEUE_ORDER:"5"
-RETE_PRIORITY_DEFAULT : 59       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 60       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 61       2        2    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 62       2        2    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 63       2        2    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 64       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 65       2        2    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 66       2        2    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 67       2        2    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 68       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 69       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 70       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 71       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 72       2        2    macro      list-with-state     
-list-without-state   : 73       2        2    macro      list-without-state  
-list-rule            : 74       2        2    macro      list-rule           
-get-rule             : 75       2        2    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 76       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 77       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 78       2        2    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 79       2        2    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 80       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 81       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-__sub_statement__    : 82       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
-__previous_statement__ : 83       2        2    func       (__previous_statement__ nil) : frame=frame@main
-__make_filter_array__ : 84       2        2    func       (__make_filter_array__ nil) : frame=frame@main
-diff-stmt            : 85       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
+RRT_DUP              : 44       2        2    constant   RRT_DUP:"20"        
+ATTR_RETE_TYPE       : 45       2        2    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 46       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 47       2        2    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 48       2        2    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 49       2        2    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 50       2        2    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 51       2        2    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 52       2        2    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 53       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 54       2        2    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 55       2        2    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 56       2        2    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 57       2        2    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 58       2        2    constant   RETE_QUEUE_ACTION:"4"
+RETE_QUEUE_ORDER     : 59       2        2    constant   RETE_QUEUE_ORDER:"5"
+RETE_PRIORITY_DEFAULT : 60       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 61       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 62       2        2    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 63       2        2    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 64       2        2    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 65       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 66       2        2    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 67       2        2    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 68       2        2    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 69       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 70       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 71       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 72       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 73       2        2    macro      list-with-state     
+list-without-state   : 74       2        2    macro      list-without-state  
+list-rule            : 75       2        2    macro      list-rule           
+get-rule             : 76       2        2    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 77       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 78       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 79       2        2    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 80       2        2    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 81       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
+set-node-multi-queue : 82       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+__sub_statement__    : 83       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
+__previous_statement__ : 84       2        2    func       (__previous_statement__ nil) : frame=frame@main
+__make_filter_array__ : 85       2        2    func       (__make_filter_array__ nil) : frame=frame@main
+diff-stmt            : 86       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
                                          2    func       (diff-stmt nil list list) : frame=frame@main
                                          1    func       (diff-stmt nil list list list) : frame=frame@main
-m                    : 87       2        2    instance   model@m             
-?rv                  : 129      2        1    var        false : type=bool   
+m                    : 88       2        2    instance   model@m             
+?rv                  : 130      2        1    var        false : type=bool   
 ==========================================================================================================================
 
 
@@ -364,7 +365,7 @@ id=3, name=model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 86       3        2    instance   model@m             
+default_model        : 87       3        2    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=6

@@ -392,44 +392,44 @@ Model<em> frame:id=3, name=model, lvl=3, ref=5/6, entry=1, pid=2(main), subject=
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 87       3        6    instance   model@em            
+default_model        : 88       3        6    instance   model@em            
 ==========================================================================================================================
 
 Node<R1> frame:id=10, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 152      10       6    instance   model@em            
-?task                : 153      10       1    var        task1 : type=string 
-?arg0                : 154      10       1    var        value0 : type=string
+default_model        : 153      10       6    instance   model@em            
+?task                : 154      10       1    var        task1 : type=string 
+?arg0                : 155      10       1    var        value0 : type=string
 ==========================================================================================================================
 
 Node<E00005> frame:id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 157      13       1    var        2022-08-23 : type=string
-?3                   : 158      13       1    var        2022-08-23 : type=string
-?rv                  : 161      13       1    var        false : type=bool   
+?0                   : 158      13       1    var        2022-08-23 : type=string
+?3                   : 159      13       1    var        2022-08-23 : type=string
+?rv                  : 162      13       1    var        false : type=bool   
 ==========================================================================================================================
 
 Node<E00010> frame:id=14, name=NF-E00010, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00010
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 171      14       1    var        2022-08-23 : type=string
-?3                   : 172      14       1    var        2022-08-23 : type=string
-?rv                  : 175      14       1    var        false : type=bool   
+?0                   : 172      14       1    var        2022-08-23 : type=string
+?3                   : 173      14       1    var        2022-08-23 : type=string
+?rv                  : 176      14       1    var        false : type=bool   
 ==========================================================================================================================
 
 Node<R3> frame:id=7, name=NF-R3, lvl=4, ref=1/2, entry=4, pid=3(model), subject=NF-R3
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 176      7        6    instance   model@em            
-?task                : 177      7        1    var        task1 : type=string 
-?arg0                : 178      7        1    var        value0 : type=string
-?day1                : 179      7        1    var        2022-08-23 : type=string
+default_model        : 177      7        6    instance   model@em            
+?task                : 178      7        1    var        task1 : type=string 
+?arg0                : 179      7        1    var        value0 : type=string
+?day1                : 180      7        1    var        2022-08-23 : type=string
 ==========================================================================================================================
 
 node update info: model-exec-count=34, row=13, column=20(1), value-max=1, value-unit=1^x
@@ -479,18 +479,18 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      510
+    factor:      511
       func:       29
      macro:       11
 ==========================================================================================================================
 
-Callable stats info: callId=251, row=59, column=63(4), value-max=44, value-unit=2^x
+Callable stats info: callId=251, row=59, column=63(4), value-max=45, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333336398 max=195, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333336398 max=196, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
     root   factor     94    0 defun                                                                        3333 33333133626 
-    root   factor     44    0 defconst                                                                                    7 
+    root   factor     45    0 defconst                                                                                    7 
     root   factor     22    0 return                                                                                      54
     root   factor     20    0 defvar                                                                           3         144
     root   factor     16    0 do                                                                                          53
@@ -553,26 +553,26 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3030            0         3030
+        atom:         3042            0         3042
          int:           12            0           12
       string:          133            0          133
-        list:          196            7          189
-        expr:         1419           25         1394
+        list:          200            7          193
+        expr:         1420           25         1395
          var:          109           74           35
-    constant:           44            0           44
+    constant:           45            0           45
         func:          114            0          114
     template:            1            0            1
        macro:            9            0            9
       member:           22            0           22
        frame:           59           52            7
  interpreter:            1            0
-  frameEntry:          497            0
+  frameEntry:          498            0
       lambda:            1            0
 ==========================================================================================================================
 
 Global frame list: total=7
 
-id=2, name=main, lvl=2, ref=3/4, entry=100, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=3/4, entry=101, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -635,65 +635,66 @@ RRT_WORK             : 40       2        2    constant   RRT_WORK:"16"
 RRT_INDEX            : 41       2        2    constant   RRT_INDEX:"17"      
 RRT_INHER            : 42       2        2    constant   RRT_INHER:"18"      
 RRT_OR0              : 43       2        2    constant   RRT_OR0:"19"        
-ATTR_RETE_TYPE       : 44       2        2    constant   ATTR_RETE_TYPE:"rete-type"
-ATTR_ENTRY_LEN       : 45       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
-RRS_DEFINE           : 46       2        2    constant   RRS_DEFINE:"0"      
-RRS_REASON           : 47       2        2    constant   RRS_REASON:"1"      
-RRS_ASSUME           : 48       2        2    constant   RRS_ASSUME:"2"      
-RRS_REMOVE           : 49       2        2    constant   RRS_REMOVE:"3"      
-RRS_FIXED            : 50       2        2    constant   RRS_FIXED:"4"       
-RRS_TEMP             : 51       2        2    constant   RRS_TEMP:"5"        
-RRS_ALL_STATUS       : 52       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
-RETE_QUEUE_EMPTY     : 53       2        2    constant   RETE_QUEUE_EMPTY:"0"
-RETE_QUEUE_MULTI     : 54       2        2    constant   RETE_QUEUE_MULTI:"1"
-RETE_QUEUE_SINGLE    : 55       2        2    constant   RETE_QUEUE_SINGLE:"2"
-RETE_QUEUE_UNIQ      : 56       2        2    constant   RETE_QUEUE_UNIQ:"3" 
-RETE_QUEUE_ACTION    : 57       2        2    constant   RETE_QUEUE_ACTION:"4"
-RETE_QUEUE_ORDER     : 58       2        2    constant   RETE_QUEUE_ORDER:"5"
-RETE_PRIORITY_DEFAULT : 59       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
-RETE_PRIORITY_MAXIMUM : 60       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
-RRUN_STATE_COMPLETED : 61       2        2    constant   RRUN_STATE_COMPLETED:"completed"
-RRUN_STATE_FAILED    : 62       2        2    constant   RRUN_STATE_FAILED:"failed"
-RRUN_STATE_HALTING   : 63       2        2    constant   RRUN_STATE_HALTING:"halting"
-RRUN_STATE_RUNNABLE  : 64       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
-RRUN_STATE_RUNNING   : 65       2        2    constant   RRUN_STATE_RUNNING:"running"
-RRUN_STATE_PARTIAL   : 66       2        2    constant   RRUN_STATE_PARTIAL:"partial"
-RETE_MAX_STMT_LEN    : 67       2        2    constant   RETE_MAX_STMT_LEN:"1000"
-set-model-gc-capacity : 68       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
-set-model-gc-interval : 69       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
-set-model-gc-inactive-leaf : 70       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
-set-model-gc-max-cache-node : 71       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
-list-with-state      : 72       2        2    macro      list-with-state     
-list-without-state   : 73       2        2    macro      list-without-state  
-list-rule            : 74       2        2    macro      list-rule           
-get-rule             : 75       2        2    func       (get-rule type#model string) : frame=frame@main
-get-root-rete-node   : 76       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
-get-named-rete-node  : 77       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
-rete-type-of         : 78       2        2    func       (rete-type-of nil) : frame=frame@main
-entry-length-of      : 79       2        2    func       (entry-length-of nil) : frame=frame@main
-rete-valid-entry-of  : 80       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
-set-node-multi-queue : 81       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
-__sub_statement__    : 82       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
-__previous_statement__ : 83       2        2    func       (__previous_statement__ nil) : frame=frame@main
-__make_filter_array__ : 84       2        2    func       (__make_filter_array__ nil) : frame=frame@main
-diff-stmt            : 85       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
+RRT_DUP              : 44       2        2    constant   RRT_DUP:"20"        
+ATTR_RETE_TYPE       : 45       2        2    constant   ATTR_RETE_TYPE:"rete-type"
+ATTR_ENTRY_LEN       : 46       2        2    constant   ATTR_ENTRY_LEN:"entry-len"
+RRS_DEFINE           : 47       2        2    constant   RRS_DEFINE:"0"      
+RRS_REASON           : 48       2        2    constant   RRS_REASON:"1"      
+RRS_ASSUME           : 49       2        2    constant   RRS_ASSUME:"2"      
+RRS_REMOVE           : 50       2        2    constant   RRS_REMOVE:"3"      
+RRS_FIXED            : 51       2        2    constant   RRS_FIXED:"4"       
+RRS_TEMP             : 52       2        2    constant   RRS_TEMP:"5"        
+RRS_ALL_STATUS       : 53       2        2    constant   RRS_ALL_STATUS:"'(0 1 2 3 4 5)"
+RETE_QUEUE_EMPTY     : 54       2        2    constant   RETE_QUEUE_EMPTY:"0"
+RETE_QUEUE_MULTI     : 55       2        2    constant   RETE_QUEUE_MULTI:"1"
+RETE_QUEUE_SINGLE    : 56       2        2    constant   RETE_QUEUE_SINGLE:"2"
+RETE_QUEUE_UNIQ      : 57       2        2    constant   RETE_QUEUE_UNIQ:"3" 
+RETE_QUEUE_ACTION    : 58       2        2    constant   RETE_QUEUE_ACTION:"4"
+RETE_QUEUE_ORDER     : 59       2        2    constant   RETE_QUEUE_ORDER:"5"
+RETE_PRIORITY_DEFAULT : 60       2        2    constant   RETE_PRIORITY_DEFAULT:"99"
+RETE_PRIORITY_MAXIMUM : 61       2        2    constant   RETE_PRIORITY_MAXIMUM:"499"
+RRUN_STATE_COMPLETED : 62       2        2    constant   RRUN_STATE_COMPLETED:"completed"
+RRUN_STATE_FAILED    : 63       2        2    constant   RRUN_STATE_FAILED:"failed"
+RRUN_STATE_HALTING   : 64       2        2    constant   RRUN_STATE_HALTING:"halting"
+RRUN_STATE_RUNNABLE  : 65       2        2    constant   RRUN_STATE_RUNNABLE:"runnable"
+RRUN_STATE_RUNNING   : 66       2        2    constant   RRUN_STATE_RUNNING:"running"
+RRUN_STATE_PARTIAL   : 67       2        2    constant   RRUN_STATE_PARTIAL:"partial"
+RETE_MAX_STMT_LEN    : 68       2        2    constant   RETE_MAX_STMT_LEN:"1000"
+set-model-gc-capacity : 69       2        2    func       (set-model-gc-capacity type#model long) : frame=frame@main
+set-model-gc-interval : 70       2        2    func       (set-model-gc-interval type#model long) : frame=frame@main
+set-model-gc-inactive-leaf : 71       2        2    func       (set-model-gc-inactive-leaf type#model int) : frame=frame@main
+set-model-gc-max-cache-node : 72       2        2    func       (set-model-gc-max-cache-node type#model int) : frame=frame@main
+list-with-state      : 73       2        2    macro      list-with-state     
+list-without-state   : 74       2        2    macro      list-without-state  
+list-rule            : 75       2        2    macro      list-rule           
+get-rule             : 76       2        2    func       (get-rule type#model string) : frame=frame@main
+get-root-rete-node   : 77       2        2    func       (get-root-rete-node type#model int) : frame=frame@main
+get-named-rete-node  : 78       2        2    func       (get-named-rete-node type#model string) : frame=frame@main
+rete-type-of         : 79       2        2    func       (rete-type-of nil) : frame=frame@main
+entry-length-of      : 80       2        2    func       (entry-length-of nil) : frame=frame@main
+rete-valid-entry-of  : 81       2        2    func       (rete-valid-entry-of nil) : frame=frame@main
+set-node-multi-queue : 82       2        2    func       (set-node-multi-queue type#model list) : frame=frame@main
+__sub_statement__    : 83       2        2    func       (__sub_statement__ nil nil) : frame=frame@main
+__previous_statement__ : 84       2        2    func       (__previous_statement__ nil) : frame=frame@main
+__make_filter_array__ : 85       2        2    func       (__make_filter_array__ nil) : frame=frame@main
+diff-stmt            : 86       2        2    funcList   '((diff-stmt nil list list list) (diff-stmt nil list list)) : frame=null, type=list
                                          2    func       (diff-stmt nil list list) : frame=frame@main
                                          1    func       (diff-stmt nil list list list) : frame=frame@main
-?eton_model          : 86       2        2    var        model@em : type=instance
-em                   : 88       2        6    instance   model@em            
-?process_count       : 89       2        2    var        1 : type=int        
-__inc_process_count__ : 90       2        4    func       (__inc_process_count__) : frame=frame@main
-eton_model           : 91       2        2    func       (eton_model) : frame=frame@main
-init_eton_model      : 92       2        2    func       (init_eton_model string) : frame=frame@main
-add_daily_task       : 93       2        2    func       (add_daily_task string nil) : frame=frame@main
-add_working_task     : 94       2        2    func       (add_working_task string nil) : frame=frame@main
-register_task_function : 95       2        2    func       (register_task_function type#model string func) : frame=frame@main
-update_eton          : 96       2        2    func       (update_eton atom nil nil) : frame=frame@main
-has_subject_property : 97       2        2    func       (has_subject_property atom nil nil) : frame=frame@main
-process-eton         : 98       2        2    func       (process-eton) : frame=frame@main
-_eton_priority_      : 101      2        1    macro      _eton_priority_     
-fun1                 : 143      2        3    func       (fun1 nil) : frame=frame@main
-?rv                  : 144      2        1    var        model@em : type=instance
+?eton_model          : 87       2        2    var        model@em : type=instance
+em                   : 89       2        6    instance   model@em            
+?process_count       : 90       2        2    var        1 : type=int        
+__inc_process_count__ : 91       2        4    func       (__inc_process_count__) : frame=frame@main
+eton_model           : 92       2        2    func       (eton_model) : frame=frame@main
+init_eton_model      : 93       2        2    func       (init_eton_model string) : frame=frame@main
+add_daily_task       : 94       2        2    func       (add_daily_task string nil) : frame=frame@main
+add_working_task     : 95       2        2    func       (add_working_task string nil) : frame=frame@main
+register_task_function : 96       2        2    func       (register_task_function type#model string func) : frame=frame@main
+update_eton          : 97       2        2    func       (update_eton atom nil nil) : frame=frame@main
+has_subject_property : 98       2        2    func       (has_subject_property atom nil nil) : frame=frame@main
+process-eton         : 99       2        2    func       (process-eton) : frame=frame@main
+_eton_priority_      : 102      2        1    macro      _eton_priority_     
+fun1                 : 144      2        3    func       (fun1 nil) : frame=frame@main
+?rv                  : 145      2        1    var        model@em : type=instance
 ==========================================================================================================================
 
 
@@ -701,14 +702,14 @@ id=3, name=model, lvl=3, ref=5/6, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 87       3        6    instance   model@em            
+default_model        : 88       3        6    instance   model@em            
 ==========================================================================================================================
 
 id=4, name=_$fun$_init_eton_model, lvl=3, ref=1/2, entry=1, pid=2(main), subject=_$fun$_init_eton_model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?path                : 99       4        1    var         : type=string      
+?path                : 100      4        1    var         : type=string      
 ==========================================================================================================================
 
 id=5, name=do, lvl=4, ref=1/2, entry=0, pid=4(_$fun$_init_eton_model), subject=do
@@ -717,37 +718,37 @@ id=7, name=NF-R3, lvl=4, ref=1/2, entry=4, pid=3(model), subject=NF-R3
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 176      7        6    instance   model@em            
-?task                : 177      7        1    var        task1 : type=string 
-?arg0                : 178      7        1    var        value0 : type=string
-?day1                : 179      7        1    var        2022-08-23 : type=string
+default_model        : 177      7        6    instance   model@em            
+?task                : 178      7        1    var        task1 : type=string 
+?arg0                : 179      7        1    var        value0 : type=string
+?day1                : 180      7        1    var        2022-08-23 : type=string
 ==========================================================================================================================
 
 id=10, name=NF-R1, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-R1
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 152      10       6    instance   model@em            
-?task                : 153      10       1    var        task1 : type=string 
-?arg0                : 154      10       1    var        value0 : type=string
+default_model        : 153      10       6    instance   model@em            
+?task                : 154      10       1    var        task1 : type=string 
+?arg0                : 155      10       1    var        value0 : type=string
 ==========================================================================================================================
 
 id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 157      13       1    var        2022-08-23 : type=string
-?3                   : 158      13       1    var        2022-08-23 : type=string
-?rv                  : 161      13       1    var        false : type=bool   
+?0                   : 158      13       1    var        2022-08-23 : type=string
+?3                   : 159      13       1    var        2022-08-23 : type=string
+?rv                  : 162      13       1    var        false : type=bool   
 ==========================================================================================================================
 
 id=14, name=NF-E00010, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00010
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 171      14       1    var        2022-08-23 : type=string
-?3                   : 172      14       1    var        2022-08-23 : type=string
-?rv                  : 175      14       1    var        false : type=bool   
+?0                   : 172      14       1    var        2022-08-23 : type=string
+?3                   : 173      14       1    var        2022-08-23 : type=string
+?rv                  : 176      14       1    var        false : type=bool   
 ==========================================================================================================================
 
 Root var list: total=6

@@ -499,6 +499,11 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected void _addNode(AbsReteNode node) throws RException {
 
+		String uniqName = node.getUniqName();
+		if (this.nodeUniqNameMap.containsKey(uniqName)) {
+			return;
+		}
+
 		RReteType reteType = node.getReteType();
 
 		switch (reteType) {
@@ -525,7 +530,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		node.setGraphInfo(new XGraphInfo(node));
 		this.nodeListArray[reteType.getIndex()].nodes.add(node);
-		this.nodeUniqNameMap.put(node.getUniqName(), node);
+		this.nodeUniqNameMap.put(uniqName, node);
 
 		int nodeId = node.getNodeId();
 		while (this.nodeInfoArray.size() <= nodeId) {
@@ -622,8 +627,10 @@ public class XRNodeGraph implements IRNodeGraph {
 
 					AbsReteNode alph0Node = RNodeFactory.createAlpha0Node(model, _getNextNodeId(),
 							ReteUtil.uniqName(reteTree), stmtLen, parentNode, varEntry);
+
 					addConstraint(alph0Node,
 							ConstraintFactory.cmpEntryIndex(RRelationalOperator.EQ, lastSamePos, lastVarPos));
+
 					return alph0Node;
 				}
 			}
@@ -649,12 +656,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			// not value found, link to root node
 			/***********************************************/
 			if (lastValuePos == -1) {
-
-				if (namedName == null) {
-					return _buildRootNode(stmtLen);
-				} else {
-					return _buildNamedNode(namedName, stmtLen);
-				}
+				return getRootNode(namedName, stmtLen);
 
 			} else {
 
@@ -856,7 +858,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		int stmtLen = constStmt.size();
-		IRReteNode parentNode = getRootNode(stmtLen);
+		IRReteNode parentNode = getRootNode(null, stmtLen);
 
 		return RNodeFactory.createConstNode(model, _getNextNodeId(), constStmt, entryTable, parentNode);
 	}
@@ -1058,28 +1060,6 @@ public class XRNodeGraph implements IRNodeGraph {
 				parentNode, inheritVarEntry, inheritIndexs);
 	}
 
-	protected AbsReteNode _buildNamedNode(String namedName, int stmtLen) throws RException {
-
-		if (namedName == null || stmtLen == -1) {
-			throw new RException(String.format("invalid namedNode<%s:%d>", namedName, stmtLen));
-		}
-
-		AbsReteNode namedNode = namedNodeMap.get(namedName);
-
-		if (namedNode == null) {
-
-			namedNode = RNodeFactory.createName0Node(model, _getNextNodeId(), namedName, stmtLen);
-			namedNodeMap.put(namedName, namedNode);
-
-		} else if (namedNode.getEntryLength() != stmtLen) {
-			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=", stmtLen,
-					namedNode.getEntryLength(), namedNode.getNodeName()));
-		}
-
-		return namedNode;
-
-	}
-
 	protected AbsReteNode _buildReteNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
 
 		RType treeType = reteTree.getType();
@@ -1176,20 +1156,6 @@ public class XRNodeGraph implements IRNodeGraph {
 //		}
 
 		throw new RException("Invalid tree found: " + reteTree);
-	}
-
-	protected AbsReteNode _buildRootNode(int stmtLen) throws RException {
-
-		AbsReteNode rootNode = rootNodeArray[stmtLen];
-		if (rootNode == null) {
-			rootNode = RNodeFactory.createRoot0Node(model, _getNextNodeId(), stmtLen);
-			rootNodeArray[stmtLen] = rootNode;
-			if (stmtLen > maxRootStmtLen) {
-				maxRootStmtLen = stmtLen;
-			}
-		}
-
-		return rootNode;
 	}
 
 //	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
@@ -2261,18 +2227,24 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRReteNode findNamedNode(String name) throws RException {
-		return namedNodeMap.get(name);
-	}
-
-	@Override
 	public IRReteNode findNodeByUniqName(String uniqName) throws RException {
 		return nodeUniqNameMap.get(uniqName);
 	}
 
 	@Override
-	public IRReteNode findRootNode(int stmtLen) throws RException {
-		return rootNodeArray[stmtLen];
+	public IRReteNode findRootNode(String name, int stmtLen) throws RException {
+
+		if (name == null) {
+			return rootNodeArray[stmtLen];
+		}
+
+		IRReteNode node = namedNodeMap.get(name);
+		if (node != null && stmtLen > 0 && node.getEntryLength() != stmtLen) {
+			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
+					node.getEntryLength(), node.getNodeName()));
+		}
+
+		return node;
 	}
 
 	@Override
@@ -2410,25 +2382,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRReteNode getNamedNode(String name, int stmtLen) throws RException {
-
-		AbsReteNode namedNode = namedNodeMap.get(name);
-		if (namedNode == null) {
-			namedNode = _buildNamedNode(name, stmtLen);
-			_addNode(namedNode);
-			namedNode.setReteTree(_toList(ReteUtil.getNamedUniqName(name, stmtLen)));
-
-		}
-
-		if (stmtLen != -1 && namedNode.getEntryLength() != stmtLen) {
-			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
-					namedNode.getEntryLength(), namedNode.getNodeName()));
-		}
-
-		return namedNode;
-	}
-
-	@Override
 	public IRReteNode getNodeById(int nodeId) {
 		return _getNodeInfo(nodeId);
 	}
@@ -2486,16 +2439,44 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRReteNode getRootNode(int stmtLen) throws RException {
+	public AbsReteNode getRootNode(String name, int stmtLen) throws RException {
 
-		AbsReteNode rootNode = rootNodeArray[stmtLen];
-		if (rootNode == null) {
-			rootNode = _buildRootNode(stmtLen);
-			_addNode(rootNode);
-			rootNode.setReteTree(_toList(ReteUtil.getRootUniqName(stmtLen)));
+		if (name == null) {
+
+			AbsReteNode rootNode = rootNodeArray[stmtLen];
+			if (rootNode == null) {
+
+				rootNode = RNodeFactory.createRoot0Node(model, _getNextNodeId(), stmtLen);
+				rootNodeArray[stmtLen] = rootNode;
+				if (stmtLen > maxRootStmtLen) {
+					maxRootStmtLen = stmtLen;
+				}
+
+				_addNode(rootNode);
+				rootNode.setReteTree(_toList(ReteUtil.getRootUniqName(stmtLen)));
+			}
+
+			return rootNode;
 		}
 
-		return rootNode;
+		if (stmtLen == -1) {
+			throw new RException(String.format("invalid namedNode<%s:%d>", name, stmtLen));
+		}
+
+		AbsReteNode namedNode = namedNodeMap.get(name);
+		if (namedNode == null) {
+			namedNode = RNodeFactory.createName0Node(model, _getNextNodeId(), name, stmtLen);
+			namedNodeMap.put(name, namedNode);
+			_addNode(namedNode);
+			namedNode.setReteTree(_toList(ReteUtil.getNamedUniqName(name, stmtLen)));
+		}
+
+		if (stmtLen != -1 && namedNode.getEntryLength() != stmtLen) {
+			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
+					namedNode.getEntryLength(), namedNode.getNodeName()));
+		}
+
+		return namedNode;
 	}
 
 	@Override
