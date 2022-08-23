@@ -1082,10 +1082,6 @@ public class XRNodeGraph implements IRNodeGraph {
 				return _buildConstNode(reteTree);
 			}
 
-//			if (varCount == reteTree.size()) {
-//				return getRootNode(reteTree.getNamedName(), varCount);
-//			}
-
 			return _buildAlphaNode(reteTree, tmpVarBuilder);
 		}
 
@@ -2715,9 +2711,4 @@ public class XRNodeGraph implements IRNodeGraph {
 		return null;
 	}
 
-	@Override
-	public IRReteNode findDuplicateNode(String name, int stmtLen) throws RException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

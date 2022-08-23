@@ -839,6 +839,17 @@ public class ReteUtil {
 		}
 	}
 
+	public static IRReteNode findDuplicateNode(IRReteNode node) {
+
+		for (IRReteNode child : node.getChildNodes()) {
+			if (child.getReteType() == RReteType.DUP) {
+				return child;
+			}
+		}
+
+		return null;
+	}
+
 	public static IRReteNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 
 		String namedName = filter.getNamedName();
@@ -1346,15 +1357,6 @@ public class ReteUtil {
 		return entry == null || entry.getStatus() == null || entry.getStatus() == CLEAN;
 	}
 
-	public static void setParentNodes(AbsReteNode child, IRReteNode... parents) throws RException {
-
-		child.setParentNodes(ReteUtil.toNodesArray(parents));
-
-		for (IRReteNode parent : parents) {
-			parent.addChildNode(child);
-		}
-	}
-
 	public static boolean isReteStmt(IRList stmt) throws RException {
 
 		if (!isValidStmtLen(stmt.size())) {
@@ -1771,6 +1773,33 @@ public class ReteUtil {
 		}
 
 		return true;
+	}
+
+	public static void setParentNodes(AbsReteNode child, IRReteNode... parents) throws RException {
+
+		if (parents == null || parents.length == 0) {
+			return;
+		}
+
+		int len = parents.length;
+
+		IRReteNode[] realParents = new IRReteNode[len];
+		for (int i = 0; i < len; ++i) {
+
+			IRReteNode parent = parents[i];
+
+			if (parent.getReteType() == RReteType.ROOT0 || parent.getReteType() == RReteType.NAME0) {
+				IRReteNode dupNode = findDuplicateNode(parent);
+				if (dupNode != null) {
+					parent = dupNode;
+				}
+			}
+
+			parent.addChildNode(child);
+			realParents[i] = parent;
+		}
+
+		child.setParentNodes(realParents);
 	}
 
 	public static boolean supportIndexStmt(IRList stmt) throws RException {

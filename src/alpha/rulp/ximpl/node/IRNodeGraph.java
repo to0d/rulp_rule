@@ -81,8 +81,6 @@ public interface IRNodeGraph {
 
 	public IRReteNode getRootNode(String name, int stmtLen) throws RException;
 
-	public IRReteNode findDuplicateNode(String name, int stmtLen) throws RException;
-
 	public IRRule getRule(String ruleName);
 
 	public int getUniqueObjectCount();
