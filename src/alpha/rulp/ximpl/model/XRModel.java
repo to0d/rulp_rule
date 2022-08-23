@@ -25,12 +25,15 @@ import static alpha.rulp.rule.RRunState.Running;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import alpha.rulp.lang.IRClass;
@@ -61,8 +64,12 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.RuntimeUtil;
 import alpha.rulp.utils.StringUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
+import alpha.rulp.ximpl.action.IAction;
+import alpha.rulp.ximpl.action.IActionSimpleStmt;
+import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
@@ -2009,16 +2016,17 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return true;
 		}
 
+//		return new XRBackSearcher(this).search(filter);
 		return false;
 	}
 
 	static class XRBackSearcher {
 
-		static enum BackStats {
-			INIT, EXPAND, COMPLETED
+		static enum BSStats {
+			INIT, EXPAND, PROCESS, COMPLETED
 		}
 
-		static enum BackType {
+		static enum BSType {
 			AND, OR
 		}
 
@@ -2026,30 +2034,295 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		Map<String, BackNode> nodeMap = new HashMap<>();
 
+		BackNode rootNode;
+
+		XRModel model;
+
+		IRNodeGraph graph;
+
+		public XRBackSearcher(XRModel model) {
+			super();
+			this.model = model;
+			this.graph = model.getNodeGraph();
+		}
+
 		static class BackNode {
 
 			public IRList stmt;
 
-			public BackType type;
+			public BSType type;
+
+			public BSStats status;
 
 			public boolean rst;
 
-			public ArrayList<BackNode> childNodes = null;
+			public BackNode parentNode;
+
+			public ArrayList<BackNode> childNodes;
+
+			public SourceNode sourceNode;
+
+			public IAction action;
+
+			public int curChildIndex = -1;
+
+			public String toString() {
+				return String.format("type=%s, stmt=%s", "" + type, "" + stmt);
+			}
+
+			public int getChildCount() {
+				return this.childNodes == null ? 0 : this.childNodes.size();
+			}
+
+			public void addChild(BackNode child) {
+
+				if (this.childNodes == null) {
+					this.childNodes = new ArrayList<>();
+				}
+
+				this.childNodes.add(child);
+				child.parentNode = this;
+			}
 		}
 
-		public boolean backSearch(IRList stmt) throws RException {
+		static BackNode _new(IRList stmt, BSType type) {
+
+			BackNode node = new BackNode();
+			node.stmt = stmt;
+			node.type = type;
+			node.status = BSStats.INIT;
+
+			return node;
+		}
+
+		void _expandAndNode(BackNode node) throws RException {
+
+			IActionSimpleStmt addAction = (IActionSimpleStmt) node.action;
+			int[] inheritIndexs = addAction.getInheritIndexs();
+			int inheritSize = inheritIndexs.length;
+			if (inheritSize != node.stmt.size()) {
+				throw new RException("invalid action: " + addAction);
+			}
+
+			Map<String, IRObject> varValueMap = new HashMap<>();
+
+			for (int i = 0; i < inheritSize; ++i) {
+				int inheritIndex = inheritIndexs[i];
+				if (inheritIndex != -1) {
+
+					IRObject var = node.sourceNode.rule.getVarEntry()[inheritIndex];
+					if (var == null) {
+						throw new RException("invalid inheritIndex: " + inheritIndex);
+					}
+
+					varValueMap.put(RulpUtil.toString(var), node.stmt.get(i));
+				}
+			}
+
+			for (IRList list : node.sourceNode.rule.getMatchStmtList()) {
+				if (ReteUtil.isAlphaMatchTree(list)) {
+
+					IRList newStmt = (IRList) RuntimeUtil.rebuild(list, varValueMap);
+					if (!ReteUtil.isReteStmtNoVar(newStmt)) {
+						throw new RException("can't prove stmt: " + newStmt);
+					}
+
+					node.addChild(_new(newStmt, BSType.OR));
+				}
+			}
+		}
+
+		void _expandOrNode(BackNode node) throws RException {
+
+			for (SourceNode sn : graph.listSourceNodes(node.stmt)) {
+				for (IAction action : sn.actionList) {
+
+					if (action.getActionType() != RActionType.ADD) {
+						continue;
+					}
+
+					BackNode child = _new(node.stmt, BSType.AND);
+					child.sourceNode = sn;
+					child.action = action;
+
+					node.addChild(child);
+				}
+			}
+		}
+
+		void _processAndNode(BackNode node) throws RException {
+
+			// need trigger all related rete-node
+
+			ArrayList<IRReteNode> rootNodes = new ArrayList<>();
+			ArrayList<Set<String>> preStmtUniqList = new ArrayList<>();
+
+			for (BackNode childNode : node.childNodes) {
+
+				IRList stmt = childNode.stmt;
+
+				IRReteNode rootNode = null;
+				Set<String> uniqSet = null;
+
+				if (stmt.getNamedName() == null) {
+					rootNode = graph.findRootNode(stmt.size());
+				} else {
+					rootNode = graph.getNamedNode(stmt.getNamedName(), stmt.size());
+				}
+
+				int pos = rootNodes.indexOf(rootNode);
+				if (pos == -1) {
+					rootNodes.add(rootNode);
+					uniqSet = new HashSet<>();
+					preStmtUniqList.add(uniqSet);
+				} else {
+					uniqSet = preStmtUniqList.get(pos);
+				}
+
+				uniqSet.add(ReteUtil.uniqName(stmt));
+			}
+
+			int rootNodeCount = rootNodes.size();
+
+			for (int i = 0; i < rootNodeCount; ++i) {
+
+				IRReteNode rootNode = rootNodes.get(i);
+				int rootEntrySize = rootNode.getEntryQueue().size();
+
+				for (IRReteNode childNode : rootNode.getChildNodes()) {
+					for (int j = 0; j < 2; ++j) {
+						if (childNode.getParentNodes()[j] == rootNode) {
+							// dd
+						}
+					}
+				}
+
+			}
+
+		}
+
+		public boolean search(IRList stmt) throws RException {
+
+			rootNode = _new(stmt, BSType.OR);
+			BackNode curNode = rootNode;
+
+			int update = 0;
+			int lastUpdate = -1;
+
+			BS_LOOP: while (rootNode.status != BSStats.COMPLETED) {
+
+				if (lastUpdate == update) {
+					throw new RException("dead loop found" + curNode);
+				}
+
+				lastUpdate = update;
+
+				BSStats oldStatus = curNode.status;
+
+				switch (curNode.type) {
+
+				case OR:
+
+					switch (oldStatus) {
+
+					case INIT:
+
+						// has statement
+						if (model._findRootEntry(curNode.stmt, 0) != null) {
+							curNode.status = BSStats.COMPLETED;
+							curNode.rst = true;
+							++update;
+							continue BS_LOOP;
+						}
+
+						_expandOrNode(curNode);
+						curNode.status = BSStats.EXPAND;
+						++update;
+
+						break;
+
+					case EXPAND:
+						break;
+
+					case PROCESS:
+						break;
+
+					case COMPLETED:
+
+						BackNode parentNode = curNode.parentNode;
+
+						// (and false xx xx) ==> false
+						if (!curNode.rst) {
+							parentNode.status = BSStats.PROCESS;
+							parentNode.rst = false;
+						}
+						// Scan next if have more brother node
+						else if ((++parentNode.curChildIndex) < parentNode.getChildCount()) {
+							curNode = parentNode.childNodes.get(parentNode.curChildIndex);
+						}
+						// No child need update, mark the parent's result is true
+						else {
+							parentNode.status = BSStats.PROCESS;
+							parentNode.rst = true;
+							curNode = parentNode;
+						}
+
+						++update;
+						continue BS_LOOP;
+
+					default:
+						throw new RException("unknown status: " + curNode.status);
+
+					}
+
+					break;
+
+				case AND:
+
+					switch (oldStatus) {
+
+					case INIT:
+						_expandAndNode(curNode);
+						curNode.status = BSStats.EXPAND;
+
+						break;
+
+					case EXPAND:
+						break;
+
+					case PROCESS:
+						if (curNode.rst) {
+							_processAndNode(curNode);
+						}
+						curNode.status = BSStats.COMPLETED;
+						break;
+
+					case COMPLETED:
+						break;
+
+					default:
+						throw new RException("unknown status: " + curNode.status);
+
+					}
+
+					break;
+
+				default:
+					throw new RException("unknown type: " + curNode.type);
+				}
+
+				// first time process
+				if (oldStatus == BSStats.INIT && curNode.status == BSStats.EXPAND && curNode.getChildCount() > 0) {
+					curNode.curChildIndex = 0;
+					curNode = curNode.childNodes.get(0);
+					++update;
+					continue BS_LOOP;
+				}
+
+			}
+
 			return false;
 
-//			ArrayList<BackNode> stack = new ArrayList<>();
-//			stack.add(new BackNode(stmt, true));
-//
-//			while (!stack.isEmpty()) {
-//
-//				BackNode topNode = stack.get(stack.size() - 1);
-//				if (!topNode.expand) {
-//
-//				}
-//			}
 		}
 
 	}

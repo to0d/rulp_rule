@@ -1,5 +1,6 @@
 package alpha.rulp.rule;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import alpha.rulp.lang.IRError;
@@ -45,4 +46,5 @@ public interface IRRule extends IRReteNode, IRRunnable {
 
 	public void setRuleDecription(String ruleDecription);
 
+	public List<IRList> getMatchStmtList();
 }

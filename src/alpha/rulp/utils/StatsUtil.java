@@ -1646,8 +1646,8 @@ public class StatsUtil {
 						node.getUniqName()));
 			} else {
 				sb.append(String.format("%-13s : %14s  %-6d %s ==> %s\n", nodeName, "", node.getEntryLength(),
-						RulpUtil.toString(((XRNodeRule0) node).getMatchStmtList()),
-						RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
+						RulpUtil.toString(((IRRule) node).getMatchStmtList()),
+						RulpUtil.toString(((IRRule) node).getActionStmtList())));
 			}
 
 			List<SourceNode> sourceNodeList = new ArrayList<>(sourceNodes);
@@ -1913,8 +1913,8 @@ public class StatsUtil {
 					sb.append(String.format("%12s: %12s  %s\n", nodeName, "", node.getUniqName()));
 				} else {
 					sb.append(String.format("%12s: %12s  %s ==> %s\n", nodeName, "",
-							RulpUtil.toString(((XRNodeRule0) node).getMatchStmtList()),
-							RulpUtil.toString(((XRNodeRule0) node).getActionStmtList())));
+							RulpUtil.toString(((IRRule) node).getMatchStmtList()),
+							RulpUtil.toString(((IRRule) node).getActionStmtList())));
 				}
 
 				List<IRReteNode> sourceNodes = new ArrayList<>(bindToNodes);

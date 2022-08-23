@@ -329,7 +329,8 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 	public IRList getLastValues() {
 		return lastValueEntry;
 	}
-
+	
+	@Override
 	public LinkedList<IRList> getMatchStmtList() {
 		return matchStmtList;
 	}

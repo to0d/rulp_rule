@@ -12,7 +12,7 @@ import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public abstract class AbsActionSimpleStmt implements IAction {
+public abstract class AbsActionSimpleStmt implements IActionSimpleStmt {
 
 	protected String _toString;
 
@@ -65,6 +65,11 @@ public abstract class AbsActionSimpleStmt implements IAction {
 	@Override
 	public int getIndex() {
 		return index;
+	}
+
+	@Override
+	public int[] getInheritIndexs() {
+		return inheritIndexs;
 	}
 
 	@Override
