@@ -955,7 +955,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		IRReteEntry oldEntry = null;
 		if (entryQueue.getQueueType() == REntryQueueType.UNIQ) {
-			oldEntry = entryQueue.getStmt(ReteUtil.uniqName(stmt));
+			oldEntry = ReteUtil.getStmt(rootNode, stmt);
 		}
 
 		/*******************************************************/
@@ -1192,8 +1192,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
 		_checkCache(rootNode);
 
-		String uniqName = ReteUtil.uniqName(filter);
-		IRReteEntry oldEntry = rootNode.getEntryQueue().getStmt(uniqName);
+		IRReteEntry oldEntry = ReteUtil.getStmt(rootNode, filter);
 		if (oldEntry == null || !ReteUtil.matchReteStatus(oldEntry, statusMask)) {
 			return null;
 		}
@@ -2873,8 +2872,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		IRReteNode rootNode = _findRootNode(stmt.getNamedName(), stmt.size());
 		_checkCache(rootNode);
 
-		String uniqName = ReteUtil.uniqName(stmt);
-		IRReteEntry entry = rootNode.getEntryQueue().getStmt(uniqName);
+		IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
 		if (entry == null || entry.isDroped()) {
 			return false;
 		}

@@ -1169,6 +1169,14 @@ public class ReteUtil {
 		return name == null ? uniqName : (name + ":" + uniqName);
 	}
 
+	public static IRReteEntry getStmt(IRReteNode rootNode, IRList stmt) throws RException {
+		return getStmt(rootNode, ReteUtil.uniqName(stmt));
+	}
+
+	public static IRReteEntry getStmt(IRReteNode rootNode, String uniqName) throws RException {
+		return rootNode.getEntryQueue().getStmt(uniqName);
+	}
+
 	public static int getStmtVarCount(IRList stmt) throws RException {
 
 		int varCount = 0;

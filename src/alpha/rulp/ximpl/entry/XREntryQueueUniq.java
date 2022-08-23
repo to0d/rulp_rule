@@ -10,9 +10,22 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 
-public class XREntryQueueUniq extends XREntryQueueMulit {
+public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueUniq {
 
-	protected Map<String, IRReteEntry> uniqEntryMap = new HashMap<>();
+	static class UniqEntry {
+
+		public IRReteEntry entry;
+
+		public int index;
+
+		public UniqEntry(IRReteEntry entry, int index) {
+			super();
+			this.entry = entry;
+			this.index = index;
+		}
+	}
+
+	protected Map<String, UniqEntry> uniqEntryMap = new HashMap<>();
 
 	public XREntryQueueUniq(int entryLength) {
 		super(entryLength);
@@ -28,19 +41,22 @@ public class XREntryQueueUniq extends XREntryQueueMulit {
 
 		++nodeUpdateCount;
 
-		IRReteEntry oldEntry = uniqEntryMap.get(uniqName);
+		UniqEntry oldEntry = uniqEntryMap.get(uniqName);
 
 		/*******************************************************/
 		// Entry not exist
 		/*******************************************************/
-		if (oldEntry == null || oldEntry.isDroped()) {
+		if (oldEntry == null || oldEntry.entry.isDroped()) {
 
-			uniqEntryMap.put(uniqName, newEntry);
+			int index = size();
+
+			uniqEntryMap.put(uniqName, new UniqEntry(newEntry, index));
 			if (entryList == null) {
 				entryList = new ArrayList<>();
 			}
 
 			entryList.add(newEntry);
+			
 			return true;
 
 		} else {
@@ -60,12 +76,12 @@ public class XREntryQueueUniq extends XREntryQueueMulit {
 	@Override
 	public int doGC() {
 
-		Iterator<Entry<String, IRReteEntry>> it = uniqEntryMap.entrySet().iterator();
+		Iterator<Entry<String, UniqEntry>> it = uniqEntryMap.entrySet().iterator();
 		while (it.hasNext()) {
 
-			Entry<String, IRReteEntry> e = it.next();
+			Entry<String, UniqEntry> e = it.next();
 
-			IRReteEntry entry = e.getValue();
+			IRReteEntry entry = e.getValue().entry;
 			if (entry == null || entry.getStatus() == null) {
 				it.remove();
 				continue;
@@ -89,7 +105,9 @@ public class XREntryQueueUniq extends XREntryQueueMulit {
 		return REntryQueueType.UNIQ;
 	}
 
+	@Override
 	public IRReteEntry getStmt(String uniqName) throws RException {
-		return uniqEntryMap.get(uniqName);
+		UniqEntry entry = uniqEntryMap.get(uniqName);
+		return entry == null ? null : entry.entry;
 	}
 }

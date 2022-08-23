@@ -25,6 +25,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.AndOrTreeUtil;
 import alpha.rulp.utils.AndOrTreeUtil.DLRVisitNode;
 import alpha.rulp.utils.AndOrTreeUtil.IAOTreeNode;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReference;
@@ -192,10 +193,8 @@ public class XRFactorListStmtGenerateTree extends AbsAtomFactorAdapter implement
 			// Find root node
 			/****************************************************/
 			IRReteNode rootNode = model.getNodeGraph().findRootNode(stmt.getNamedName(), stmt.size());
-
-			String uniqName = RulpUtil.toString(stmt);
 			if (rootNode == null) {
-				return String.format("==> %s: node not found\n", uniqName);
+				return String.format("==> %s: node not found\n", stmt);
 			}
 
 			StringBuilder sb = new StringBuilder();
@@ -203,9 +202,9 @@ public class XRFactorListStmtGenerateTree extends AbsAtomFactorAdapter implement
 			Set<String> provedStmt = new HashSet<>();
 
 			{
-				IRReteEntry entry = rootNode.getEntryQueue().getStmt(uniqName);
+				IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
 				if (entry == null) {
-					return String.format("%s: not found\n", uniqName);
+					return String.format("%s: not found\n", stmt);
 				}
 
 				needProveStmt.add(entry);

@@ -93,16 +93,13 @@ public class RefPrinter {
 		// Find root node
 		/****************************************************/
 		IRReteNode rootNode = model.getNodeGraph().findRootNode(stmt.getNamedName(), stmt.size());
-
-		String uniqName = RulpUtil.toString(stmt);
-
 		if (rootNode == null) {
-			return String.format("==> %s: node not found\n", uniqName);
+			return String.format("==> %s: node not found\n", stmt);
 		}
 
-		IRReteEntry entry = rootNode.getEntryQueue().getStmt(uniqName);
+		IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
 		if (entry == null) {
-			return String.format("==> %s: entry not found\n", uniqName);
+			return String.format("==> %s: entry not found\n", stmt);
 		}
 
 		StringBuilder sb = new StringBuilder();

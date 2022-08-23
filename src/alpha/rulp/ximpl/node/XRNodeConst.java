@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.node;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRListener1;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeConst extends XRNodeRete0 implements IRListener1<IRReteEntry> {
@@ -27,7 +28,7 @@ public class XRNodeConst extends XRNodeRete0 implements IRListener1<IRReteEntry>
 		String constUniqName = this.getUniqName();
 //		XREntryQueueRootStmtList rootQueue = (XREntryQueueRootStmtList) parentNode.getEntryQueue();
 
-		constEntry = parentNode.getEntryQueue().getStmt(constUniqName);
+		constEntry = ReteUtil.getStmt(parentNode, constUniqName);
 		if (constEntry == null) {
 			return 0;
 		}
