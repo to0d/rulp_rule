@@ -673,6 +673,7 @@ public class XRNodeGraph implements IRNodeGraph {
 						ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
 				addConstraint(alph0Node,
 						ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, lastValuePos, lastValue));
+
 				return alph0Node;
 			}
 		}
@@ -1074,10 +1075,16 @@ public class XRNodeGraph implements IRNodeGraph {
 		// Build alpha node: '(a b c)
 		if (treeType == RType.LIST && ReteUtil.isEntryValueType(e0Type)) {
 
+			int varCount = ReteUtil.getStmtVarCount(reteTree);
+
 			// Build const node
-			if (ReteUtil.getStmtVarCount(reteTree) == 0) {
+			if (varCount == 0) {
 				return _buildConstNode(reteTree);
 			}
+
+//			if (varCount == reteTree.size()) {
+//				return getRootNode(reteTree.getNamedName(), varCount);
+//			}
 
 			return _buildAlphaNode(reteTree, tmpVarBuilder);
 		}

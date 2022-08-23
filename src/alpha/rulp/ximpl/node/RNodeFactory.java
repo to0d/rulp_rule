@@ -52,8 +52,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -88,8 +87,8 @@ public class RNodeFactory {
 		// Entry queue
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.SINGLE, node));
 
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		// Parent node
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -125,9 +124,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
-		leftNode.addChildNode(node);
-		rightNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, leftNode, rightNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -218,9 +215,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
-		leftNode.addChildNode(node);
-		rightNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, leftNode, rightNode);
 //		leftNode.setChildNodeUpdateMode(node, false);
 
 		// var entry
@@ -265,9 +260,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
-		leftNode.addChildNode(node);
-		rightNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, leftNode, rightNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -311,9 +304,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(leftNode, rightNode));
-		leftNode.addChildNode(node);
-		rightNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, leftNode, rightNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -350,10 +341,45 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.SINGLE, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		return node;
+	}
+
+	public static AbsReteNode createDupNode(IRModel model, int nodeId, String uniqName, IRReteNode parentNode)
+			throws RException {
+
+		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.DUP, nodeId));
+
+		// Model
+		node.setModel(model);
+
+		// Node id
+		node.setNodeId(nodeId);
+
+		// Node type
+		node.setReteType(RReteType.DUP);
+
+		// Uniq name
+		node.setUniqName(uniqName);
+
+		// Entry length
+		node.setEntryLength(parentNode.getEntryLength());
+
+		// Entry table
+		node.setEntryTable(model.getEntryTable());
+
+		// Entry queue
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
+
+		// Parent node
+		ReteUtil.setParentNodes(node, parentNode);
+
+		// var entry
+		node.setVarEntry(parentNode.getVarEntry());
+
+		return node;
+
 	}
 
 	public static AbsReteNode createExpr0Node(IRModel model, int nodeId, String uniqName, int entryLength,
@@ -380,8 +406,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -413,8 +438,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -446,8 +470,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -485,8 +508,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -524,8 +546,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 //		// constant
 //		ModelUtil.addConstraint(model, node, matchNode);
@@ -563,8 +584,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.ORDER, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
@@ -602,48 +622,10 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		// var entry
 		node.setVarEntry(varEntry);
-
-		return node;
-
-	}
-
-	public static AbsReteNode createDupNode(IRModel model, int nodeId, String uniqName, IRReteNode parentNode)
-			throws RException {
-
-		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.DUP, nodeId));
-
-		// Model
-		node.setModel(model);
-
-		// Node id
-		node.setNodeId(nodeId);
-
-		// Node type
-		node.setReteType(RReteType.DUP);
-
-		// Uniq name
-		node.setUniqName(uniqName);
-
-		// Entry length
-		node.setEntryLength(parentNode.getEntryLength());
-
-		// Entry table
-		node.setEntryTable(model.getEntryTable());
-
-		// Entry queue
-		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
-
-		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
-
-		// var entry
-		node.setVarEntry(parentNode.getVarEntry());
 
 		return node;
 
@@ -751,8 +733,7 @@ public class RNodeFactory {
 		node.setEntryQueue(REntryFactory.createActionQueue(node));
 
 		// Parent node
-		node.setParentNodes(ReteUtil.toNodesArray(parentNode));
-		parentNode.addChildNode(node);
+		ReteUtil.setParentNodes(node, parentNode);
 
 		return node;
 	}

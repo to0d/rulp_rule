@@ -54,6 +54,7 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IRObjBuilder;
+import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
@@ -298,7 +299,6 @@ public class ReteUtil {
 
 		if (ReteUtil.getStmtVarCount(filter) == 0) {
 			node = nodeGraph.getRootNode(filter.getNamedName(), filter.size());
-
 		} else {
 			node = nodeGraph.getNodeByTree(filter);
 		}
@@ -1344,6 +1344,15 @@ public class ReteUtil {
 
 	public static boolean isRemovedEntry(IRReteEntry entry) throws RException {
 		return entry == null || entry.getStatus() == null || entry.getStatus() == CLEAN;
+	}
+
+	public static void setParentNodes(AbsReteNode child, IRReteNode... parents) throws RException {
+
+		child.setParentNodes(ReteUtil.toNodesArray(parents));
+
+		for (IRReteNode parent : parents) {
+			parent.addChildNode(child);
+		}
 	}
 
 	public static boolean isReteStmt(IRList stmt) throws RException {
