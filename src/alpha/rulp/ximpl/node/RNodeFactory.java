@@ -667,7 +667,7 @@ public class RNodeFactory {
 		node.setNamedName(namedName);
 
 		// Uniq name
-		node.setUniqName(ReteUtil.getNamedUniqName(namedName, stmtLen));
+		node.setUniqName(ReteUtil.getRootUniqName(namedName, stmtLen));
 
 		// Entry length
 		node.setEntryLength(stmtLen);
@@ -702,7 +702,7 @@ public class RNodeFactory {
 		node.setReteType(RReteType.ROOT0);
 
 		// Uniq name
-		node.setUniqName(ReteUtil.getRootUniqName(stmtLen));
+		node.setUniqName(ReteUtil.getRootUniqName(null, stmtLen));
 
 		// Entry length
 		node.setEntryLength(stmtLen);

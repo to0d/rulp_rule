@@ -918,8 +918,6 @@ public class ReteUtil {
 
 	public static RReteStatus getChildStatus(IRReteEntry... parents) throws RException {
 
-//		RReteStatus status = 
-
 		if (parents == null) {
 			return DEFINE;
 		}
@@ -1036,10 +1034,6 @@ public class ReteUtil {
 		return mainInheritIndex;
 	}
 
-	public static String getNamedUniqName(String name, int stmtLen) {
-		return name + ":" + ReteUtil.getRootUniqName(stmtLen);
-	}
-
 	public static List<IRConstraint1> getNodeConstraint1List(IRReteNode node) {
 
 		int count = node.getConstraint1Count();
@@ -1149,9 +1143,10 @@ public class ReteUtil {
 		return modifierCount;
 	}
 
-	public static String getRootUniqName(int stmtLen) {
+	public static String getRootUniqName(String name, int stmtLen) {
 
 		String uniqName = "'(";
+
 		for (int i = 0; i < stmtLen; ++i) {
 			if (i != 0) {
 				uniqName += " ";
@@ -1160,7 +1155,7 @@ public class ReteUtil {
 		}
 		uniqName += ")";
 
-		return uniqName;
+		return name == null ? uniqName : (name + ":" + uniqName);
 	}
 
 	public static int getStmtVarCount(IRList stmt) throws RException {

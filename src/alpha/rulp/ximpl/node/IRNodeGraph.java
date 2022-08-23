@@ -55,6 +55,8 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
 
+	public IRReteNode getDuplicateNode(IRReteNode node);
+
 	public int getGcCacheCount();
 
 	public int getGcCleanNodeCount();
@@ -78,6 +80,8 @@ public interface IRNodeGraph {
 	public List<IRRule> getRelatedRules(IRReteNode node) throws RException;
 
 	public IRReteNode getRootNode(String name, int stmtLen) throws RException;
+
+	public IRReteNode findDuplicateNode(String name, int stmtLen) throws RException;
 
 	public IRRule getRule(String ruleName);
 

@@ -74,19 +74,11 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IRModelCounter getCounter();
 
+	public long getCounterValue(String countkey);
+
+	public List<String> getCounterKeyList();
+
 	public IREntryTable getEntryTable();
-
-	public long getGcCount();
-
-	public long getGcTrigger();
-
-	public int getHasStmtCacheCount();
-
-	public int getHasStmtHitCount();
-
-	public List<String> getModelCountKeyList();
-
-	public long getModelCountMap(String countkey);
 
 	public String getModelName();
 

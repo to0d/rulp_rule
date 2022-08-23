@@ -497,6 +497,8 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
+	static List<String> graphCountKeyList = new ArrayList<>();
+
 	protected void _addNode(AbsReteNode node) throws RException {
 
 		String uniqName = node.getUniqName();
@@ -2453,7 +2455,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 
 				_addNode(rootNode);
-				rootNode.setReteTree(_toList(ReteUtil.getRootUniqName(stmtLen)));
+				rootNode.setReteTree(_toList(ReteUtil.getRootUniqName(null, stmtLen)));
 			}
 
 			return rootNode;
@@ -2468,7 +2470,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			namedNode = RNodeFactory.createName0Node(model, _getNextNodeId(), name, stmtLen);
 			namedNodeMap.put(name, namedNode);
 			_addNode(namedNode);
-			namedNode.setReteTree(_toList(ReteUtil.getNamedUniqName(name, stmtLen)));
+			namedNode.setReteTree(_toList(ReteUtil.getRootUniqName(name, stmtLen)));
 		}
 
 		if (stmtLen != -1 && namedNode.getEntryLength() != stmtLen) {
@@ -2698,5 +2700,17 @@ public class XRNodeGraph implements IRNodeGraph {
 				return false;
 			});
 		}
+	}
+
+	@Override
+	public IRReteNode getDuplicateNode(IRReteNode node) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IRReteNode findDuplicateNode(String name, int stmtLen) throws RException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

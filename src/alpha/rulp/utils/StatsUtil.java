@@ -85,7 +85,6 @@ import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.SourceNode;
-import alpha.rulp.ximpl.node.XRNodeRule0;
 
 public class StatsUtil {
 
@@ -1193,8 +1192,8 @@ public class StatsUtil {
 		sb.append(String.format("%-30s %8s\n", "name", "count"));
 		sb.append(SEP_LINE2);
 
-		for (String key : model.getModelCountKeyList()) {
-			_printModelCountInfo_put(sb, key, model.getModelCountMap(key));
+		for (String key : model.getCounterKeyList()) {
+			_printModelCountInfo_put(sb, key, model.getCounterValue(key));
 		}
 
 		_printModelCountInfo_put(sb, "graph-gc-count", graph.getGcCount());
