@@ -110,6 +110,7 @@ import alpha.rulp.ximpl.constraint.RConstraintConflict;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
+import alpha.rulp.ximpl.entry.IREntryQueueUniq;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -450,46 +451,69 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 		}
 
+		static class StmtIndexs {
+
+			public ArrayList<Integer> stmtIndexs = new ArrayList<>();
+
+			public int maxStmtIndex = -1;
+
+			public void addIndex(int index) {
+				stmtIndexs.add(index);
+				maxStmtIndex = Math.max(maxStmtIndex, index);
+			}
+		}
+
 		void _processAndNode(BackNode node) throws RException {
 
 			// need trigger all related rete-node
 
 			ArrayList<IRReteNode> rootNodes = new ArrayList<>();
-			ArrayList<Set<String>> preStmtUniqList = new ArrayList<>();
+			Map<IRReteNode, StmtIndexs> stmtIndexMap = new HashMap<>();
 
 			for (BackNode childNode : node.childNodes) {
 
 				IRList stmt = childNode.stmt;
 
 				IRReteNode rootNode = graph.findRootNode(stmt.getNamedName(), stmt.size());
-				Set<String> uniqSet = null;
-
-				int pos = rootNodes.indexOf(rootNode);
-				if (pos == -1) {
+				if (!rootNodes.contains(rootNode)) {
 					rootNodes.add(rootNode);
-					uniqSet = new HashSet<>();
-					preStmtUniqList.add(uniqSet);
-				} else {
-					uniqSet = preStmtUniqList.get(pos);
 				}
 
-				uniqSet.add(ReteUtil.uniqName(stmt));
+				IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
+				int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(stmt));
+
+				StmtIndexs si = stmtIndexMap.get(rootNode);
+				if (si == null) {
+					si = new StmtIndexs();
+					stmtIndexMap.put(rootNode, si);
+				}
+
+				si.addIndex(stmtIndex);
 			}
 
-			int rootNodeCount = rootNodes.size();
+			LinkedList<IRReteNode> updateQueue = new LinkedList<>();
 
-			for (int i = 0; i < rootNodeCount; ++i) {
+			for (IRReteNode rootNode : rootNodes) {
 
-				IRReteNode rootNode = rootNodes.get(i);
-				int rootEntrySize = rootNode.getEntryQueue().size();
+				StmtIndexs si = stmtIndexMap.get(rootNode);
 
-				for (IRReteNode childNode : rootNode.getChildNodes()) {
-					for (int j = 0; j < 2; ++j) {
-						if (childNode.getParentNodes()[j] == rootNode) {
-							// dd
-						}
+				// Get the max visit index
+				int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(rootNode);
+
+				// All statements are already passed to child nodes
+				if (childMaxVisitIndex > si.maxStmtIndex) {
+					continue;
+				}
+
+				ArrayList<Integer> unPassedStmtIndex = new ArrayList<>();
+				for (int index : si.stmtIndexs) {
+					if (index > si.maxStmtIndex) {
+						unPassedStmtIndex.add(index);
 					}
 				}
+
+				// make duplicated node
+				graph.getDupNode(rootNode);
 
 			}
 

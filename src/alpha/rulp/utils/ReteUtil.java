@@ -64,6 +64,32 @@ import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
 
+	public static int findChildMaxVisitIndex(IRReteNode node) throws RException {
+
+		// Get the max visit index
+		int childMaxVisitIndex = -1;
+		for (IRReteNode child : node.getChildNodes()) {
+
+			int parentVisitIndex = -1;
+			int parentCount = child.getParentCount();
+
+			for (int j = 0; j < parentCount; ++j) {
+				if (child.getParentNodes()[j] == node) {
+					parentVisitIndex = child.getParentVisitIndex(j);
+					break;
+				}
+			}
+
+			if (parentVisitIndex == -1) {
+				throw new RException("parentVisitIndex not found: " + child);
+			}
+
+			childMaxVisitIndex = Math.max(childMaxVisitIndex, parentVisitIndex);
+		}
+
+		return childMaxVisitIndex;
+	}
+
 	static class ReplaceMap implements Map<String, IRObject> {
 
 		private Map<String, String> nameMap;
