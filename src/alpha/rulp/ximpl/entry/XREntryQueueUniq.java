@@ -56,7 +56,7 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 			}
 
 			entryList.add(newEntry);
-			
+
 			return true;
 
 		} else {
@@ -109,5 +109,11 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 	public IRReteEntry getStmt(String uniqName) throws RException {
 		UniqEntry entry = uniqEntryMap.get(uniqName);
 		return entry == null ? null : entry.entry;
+	}
+
+	@Override
+	public int getStmtIndex(String uniqName) throws RException {
+		UniqEntry entry = uniqEntryMap.get(uniqName);
+		return entry == null ? -1 : entry.index;
 	}
 }

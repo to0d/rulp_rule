@@ -21,6 +21,37 @@ import static alpha.rulp.rule.RRunState.Halting;
 import static alpha.rulp.rule.RRunState.Partial;
 import static alpha.rulp.rule.RRunState.Runnable;
 import static alpha.rulp.rule.RRunState.Running;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_CONSTRAINT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_LOAD_NODE_LIS;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_RULE;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_RULE_EXEC_LIS;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_RULE_FAIL_LIS;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_SAVE_NODE_LIS;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_STMT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_STMT_LIS;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_UPDATE_NODE;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ASSUME_STMT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BACK_SEARCH;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_DO_GC;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_EXEC;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_GC_COUNT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_GC_TRIGGER;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_GET_VAR;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_HALT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_HAS_STMT_1;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_HAS_STMT_2;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_HAS_STMT_CACHE;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_HAS_STMT_HIT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_LIST_STMT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_QUERY;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_RMV_CONSTRAINT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_RMV_STMT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_SAVE;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_SET_CACHE_PATH;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_SET_NODE_LOADER;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_SET_NODE_SAVER;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_START;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_TRY_ADD_STMT;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,6 +128,173 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
+	static class MCCounter {
+
+		static final String CK_ADD_CONSTRAINT = "model-addConstraint";
+
+		static final String CK_ADD_LOAD_NODE_LIS = "model-addLoadNodeListener";
+
+		static final String CK_ADD_RULE = "model-addRule";
+
+		static final String CK_ADD_RULE_EXEC_LIS = "model-addRuleExecutedListener";
+
+		static final String CK_ADD_RULE_FAIL_LIS = "model-addRuleFailedListener";
+
+		static final String CK_ADD_SAVE_NODE_LIS = "model-addSaveNodeListener";
+
+		static final String CK_ADD_STMT = "model-addStatement";
+
+		static final String CK_ADD_STMT_LIS = "model-addStatementListener";
+
+		static final String CK_ADD_UPDATE_NODE = "model-addUpdateNode";
+
+		static final String CK_ASSUME_STMT = "model-assumeStatement";
+
+		static final String CK_BACK_SEARCH = "model-backSearch";
+
+		static final String CK_DO_GC = "model-doGC";
+
+		static final String CK_EXEC = "model-execute";
+
+		static final String CK_FIX_STMT = "model-fixStatement";
+
+		static final String CK_GC_COUNT = "model-gc-count";
+
+		static final String CK_GC_TRIGGER = "model-gc-trigger";
+
+		static final String CK_GET_VAR = "model-getVar";
+
+		static final String CK_HALT = "model-halt";
+
+		static final String CK_HAS_STMT_1 = "model-hasStatement-1";
+
+		static final String CK_HAS_STMT_2 = "model-hasStatement-2";
+
+		static final String CK_HAS_STMT_CACHE = "model-has-stmt-cache";
+
+		static final String CK_HAS_STMT_HIT = "model-has-stmt-hit";
+
+		static final String CK_LIST_STMT = "model-listStatements";
+
+		static final String CK_QUERY = "model-query";
+
+		static final String CK_RMV_CONSTRAINT = "model-removeConstraint";
+
+		static final String CK_RMV_STMT = "model-removeStatement";
+
+		static final String CK_SAVE = "model-save";
+
+		static final String CK_SET_CACHE_PATH = "model-setModelCachePath";
+
+		static final String CK_SET_NODE_LOADER = "model-setNodeLoader";
+
+		static final String CK_SET_NODE_SAVER = "model-setNodeSaver";
+
+		static final String CK_START = "model-start";
+
+		static final String CK_TRY_ADD_STMT = "model-tryAddStatement";
+
+		static List<String> modelCountKeyList = new ArrayList<>();
+
+		static {
+			modelCountKeyList.add(CK_GC_TRIGGER);
+			modelCountKeyList.add(CK_GC_COUNT);
+			modelCountKeyList.add(CK_HAS_STMT_CACHE);
+			modelCountKeyList.add(CK_HAS_STMT_HIT);
+			modelCountKeyList.add(CK_ADD_CONSTRAINT);
+			modelCountKeyList.add(CK_ADD_LOAD_NODE_LIS);
+			modelCountKeyList.add(CK_ADD_RULE);
+			modelCountKeyList.add(CK_ADD_RULE_EXEC_LIS);
+			modelCountKeyList.add(CK_ADD_RULE_FAIL_LIS);
+			modelCountKeyList.add(CK_ADD_SAVE_NODE_LIS);
+			modelCountKeyList.add(CK_ADD_STMT);
+			modelCountKeyList.add(CK_ADD_STMT_LIS);
+			modelCountKeyList.add(CK_ADD_UPDATE_NODE);
+			modelCountKeyList.add(CK_ASSUME_STMT);
+			modelCountKeyList.add(CK_DO_GC);
+			modelCountKeyList.add(CK_EXEC);
+			modelCountKeyList.add(CK_GET_VAR);
+			modelCountKeyList.add(CK_HALT);
+			modelCountKeyList.add(CK_HAS_STMT_1);
+			modelCountKeyList.add(CK_HAS_STMT_2);
+			modelCountKeyList.add(CK_LIST_STMT);
+			modelCountKeyList.add(CK_QUERY);
+			modelCountKeyList.add(CK_RMV_CONSTRAINT);
+			modelCountKeyList.add(CK_RMV_STMT);
+			modelCountKeyList.add(CK_SAVE);
+			modelCountKeyList.add(CK_SET_CACHE_PATH);
+			modelCountKeyList.add(CK_SET_NODE_LOADER);
+			modelCountKeyList.add(CK_SET_NODE_SAVER);
+			modelCountKeyList.add(CK_START);
+			modelCountKeyList.add(CK_TRY_ADD_STMT);
+			modelCountKeyList.add(CK_BACK_SEARCH);
+
+			modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
+		}
+
+		protected long gcCount = 0;
+
+		protected long gcTrigger = 0;
+
+		protected int hasStmtHitCount = 0;
+
+		protected long mcAddConstraint = 0;
+
+		protected long mcAddLoadNodeListener = 0;
+
+		protected long mcAddRule = 0;
+
+		protected long mcAddRuleExecutedListener = 0;
+
+		protected long mcAddRuleFailedListener = 0;
+
+		protected long mcAddSaveNodeListener = 0;
+
+		protected long mcAddStatement = 0;
+
+		protected long mcAddStatementListener = 0;
+
+		protected long mcAddUpdateNode = 0;
+
+		protected long mcAssumeStatement = 0;
+
+		protected long mcBackSearch = 0;
+
+		protected long mcDoGC = 0;
+
+		protected long mcExecute = 0;
+
+		protected long mcFixStatement = 0;
+
+		protected long mcGetVar = 0;
+
+		protected long mcHalt = 0;
+
+		protected long mcHasStatement1 = 0;
+
+		protected long mcHasStatement2 = 0;
+
+		protected long mcListStatements = 0;
+
+		protected long mcQuery = 0;
+
+		protected long mcRemoveConstraint = 0;
+
+		protected long mcRemoveStatement = 0;
+
+		protected long mcSave = 0;
+
+		protected long mcSetModelCachePath = 0;
+
+		protected long mcSetNodeLoader = 0;
+
+		protected long mcSetNodeSaver = 0;
+
+		protected long mcStart = 0;
+
+		protected long mcTryAddStatement = 0;
+	}
+
 	static enum RUpdateResult {
 
 		CHANGE, INVALID, NEW, NOCHANGE;
@@ -116,11 +314,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
+//	public static boolean RuleUtility.isModelTrace() = false;
+
 	static class XCount {
 		public int count = 0;
 	}
-
-//	public static boolean RuleUtility.isModelTrace() = false;
 
 	static class XRBackSearcher {
 
@@ -650,70 +848,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-	static final String CK_ADD_CONSTRAINT = "model-addConstraint";
-
-	static final String CK_ADD_LOAD_NODE_LIS = "model-addLoadNodeListener";
-
-	static final String CK_ADD_RULE = "model-addRule";
-
-	static final String CK_ADD_RULE_EXEC_LIS = "model-addRuleExecutedListener";
-
-	static final String CK_ADD_RULE_FAIL_LIS = "model-addRuleFailedListener";
-
-	static final String CK_ADD_SAVE_NODE_LIS = "model-addSaveNodeListener";
-
-	static final String CK_ADD_STMT = "model-addStatement";
-
-	static final String CK_ADD_STMT_LIS = "model-addStatementListener";
-
-	static final String CK_ADD_UPDATE_NODE = "model-addUpdateNode";
-
-	static final String CK_ASSUME_STMT = "model-assumeStatement";
-
-	static final String CK_BACK_SEARCH = "model-backSearch";
-
-	static final String CK_DO_GC = "model-doGC";
-
-	static final String CK_EXEC = "model-execute";
-
-	static final String CK_FIX_STMT = "model-fixStatement";
-
-	static final String CK_GC_COUNT = "model-gc-count";
-
-	static final String CK_GC_TRIGGER = "model-gc-trigger";
-
-	static final String CK_GET_VAR = "model-getVar";
-
-	static final String CK_HALT = "model-halt";
-
-	static final String CK_HAS_STMT_1 = "model-hasStatement-1";
-
-	static final String CK_HAS_STMT_2 = "model-hasStatement-2";
-
-	static final String CK_HAS_STMT_CACHE = "model-has-stmt-cache";
-
-	static final String CK_HAS_STMT_HIT = "model-has-stmt-hit";
-
-	static final String CK_LIST_STMT = "model-listStatements";
-
-	static final String CK_QUERY = "model-query";
-
-	static final String CK_RMV_CONSTRAINT = "model-removeConstraint";
-
-	static final String CK_RMV_STMT = "model-removeStatement";
-
-	static final String CK_SAVE = "model-save";
-
-	static final String CK_SET_CACHE_PATH = "model-setModelCachePath";
-
-	static final String CK_SET_NODE_LOADER = "model-setNodeLoader";
-
-	static final String CK_SET_NODE_SAVER = "model-setNodeSaver";
-
-	static final String CK_START = "model-start";
-
-	static final String CK_TRY_ADD_STMT = "model-tryAddStatement";
-
 	static List<IRReteNode> EMPTY_NODES = Collections.emptyList();
 
 	static final String MODEL_CACHE_SUFFIX = ".mc";
@@ -729,45 +863,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			{ Partial, Partial, Partial, Halting, Failed, Partial }, // Partial
 	};
 
-	static List<String> modelCountKeyList = new ArrayList<>();
-
 	protected static int nodeExecId = 0;
-
-	static {
-		modelCountKeyList.add(CK_GC_TRIGGER);
-		modelCountKeyList.add(CK_GC_COUNT);
-		modelCountKeyList.add(CK_HAS_STMT_CACHE);
-		modelCountKeyList.add(CK_HAS_STMT_HIT);
-		modelCountKeyList.add(CK_ADD_CONSTRAINT);
-		modelCountKeyList.add(CK_ADD_LOAD_NODE_LIS);
-		modelCountKeyList.add(CK_ADD_RULE);
-		modelCountKeyList.add(CK_ADD_RULE_EXEC_LIS);
-		modelCountKeyList.add(CK_ADD_RULE_FAIL_LIS);
-		modelCountKeyList.add(CK_ADD_SAVE_NODE_LIS);
-		modelCountKeyList.add(CK_ADD_STMT);
-		modelCountKeyList.add(CK_ADD_STMT_LIS);
-		modelCountKeyList.add(CK_ADD_UPDATE_NODE);
-		modelCountKeyList.add(CK_ASSUME_STMT);
-		modelCountKeyList.add(CK_DO_GC);
-		modelCountKeyList.add(CK_EXEC);
-		modelCountKeyList.add(CK_GET_VAR);
-		modelCountKeyList.add(CK_HALT);
-		modelCountKeyList.add(CK_HAS_STMT_1);
-		modelCountKeyList.add(CK_HAS_STMT_2);
-		modelCountKeyList.add(CK_LIST_STMT);
-		modelCountKeyList.add(CK_QUERY);
-		modelCountKeyList.add(CK_RMV_CONSTRAINT);
-		modelCountKeyList.add(CK_RMV_STMT);
-		modelCountKeyList.add(CK_SAVE);
-		modelCountKeyList.add(CK_SET_CACHE_PATH);
-		modelCountKeyList.add(CK_SET_NODE_LOADER);
-		modelCountKeyList.add(CK_SET_NODE_SAVER);
-		modelCountKeyList.add(CK_START);
-		modelCountKeyList.add(CK_TRY_ADD_STMT);
-		modelCountKeyList.add(CK_BACK_SEARCH);
-
-		modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
-	}
 
 	protected List<IRReteNode> activeQueue = new LinkedList<>();
 
@@ -783,81 +879,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final ModelConstraintUtil constraintUtil;
 
+	protected final MCCounter counter = new MCCounter();
+
 	protected final IREntryTable entryTable = new XREntryTable();
 
 	protected long gcCapacity = DEF_GC_CAPACITY;
-
-	protected long gcCount = 0;
 
 	protected long gcInterval = -1;
 
 	protected long gcLastGcTime = -1;
 
-	protected long gcTrigger = 0;
-
 	protected Map<String, IRReteEntry> hasEntryCacheMap = new HashMap<>();
-
-	protected int hasStmtHitCount = 0;
 
 	protected IRInterpreter interpreter;
 
 	protected XRRListener1Adapter<IRReteNode> loadNodeListener = null;
-
-	protected long mcAddConstraint = 0;
-
-	protected long mcAddLoadNodeListener = 0;
-
-	protected long mcAddRule = 0;
-
-	protected long mcAddRuleExecutedListener = 0;
-
-	protected long mcAddRuleFailedListener = 0;
-
-	protected long mcAddSaveNodeListener = 0;
-
-	protected long mcAddStatement = 0;
-
-	protected long mcAddStatementListener = 0;
-
-	protected long mcAddUpdateNode = 0;
-
-	protected long mcAssumeStatement = 0;
-
-	protected long mcBackSearch = 0;
-
-	protected long mcDoGC = 0;
-
-	protected long mcExecute = 0;
-
-	protected long mcFixStatement = 0;
-
-	protected long mcGetVar = 0;
-
-	protected long mcHalt = 0;
-
-	protected long mcHasStatement1 = 0;
-
-	protected long mcHasStatement2 = 0;
-
-	protected long mcListStatements = 0;
-
-	protected long mcQuery = 0;
-
-	protected long mcRemoveConstraint = 0;
-
-	protected long mcRemoveStatement = 0;
-
-	protected long mcSave = 0;
-
-	protected long mcSetModelCachePath = 0;
-
-	protected long mcSetNodeLoader = 0;
-
-	protected long mcSetNodeSaver = 0;
-
-	protected long mcStart = 0;
-
-	protected long mcTryAddStatement = 0;
 
 	protected String modelCachePath = null;
 
@@ -1300,17 +1336,17 @@ public class XRModel extends AbsRInstance implements IRModel {
 					betaGcCount, exprGcCount, ruleGcCount));
 		}
 
-		this.gcCount++;
+		this.counter.gcCount++;
 		this.nodeGraph.gc();
 		this.entryTable.doGC();
 		this.hasEntryCacheMap.clear();
 
 		long curTime = System.currentTimeMillis();
-		if (curTime < (gcLastGcTime + gcInterval)) {
+		if (curTime < (this.gcLastGcTime + this.gcInterval)) {
 			return totalGcCount;
 		}
 
-		gcTrigger++;
+		counter.gcTrigger++;
 
 		try {
 
@@ -2065,7 +2101,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
-		mcAddConstraint++;
+		counter.mcAddConstraint++;
 
 		if (this.tryAddConstraintLevel > 0) {
 			return this.nodeGraph.addConstraint(node, constraint);
@@ -2082,7 +2118,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public void addLoadNodeListener(IRListener1<IRReteNode> listener) {
 
-		mcAddLoadNodeListener++;
+		counter.mcAddLoadNodeListener++;
 
 		if (loadNodeListener == null) {
 			loadNodeListener = new XRRListener1Adapter<>();
@@ -2098,7 +2134,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println(String.format("==> addRule: %s, %s, %s", ruleName, condList, actionList));
 		}
 
-		mcAddRule++;
+		counter.mcAddRule++;
 
 		/******************************************************/
 		// update condition list
@@ -2165,20 +2201,22 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public void addRuleExecutedListener(IRListener1<IRRule> listener) {
-		mcAddRuleExecutedListener++;
+
+		counter.mcAddRuleExecutedListener++;
 		modelRuleExecutedListenerDispatcher.addListener(listener);
 	}
 
 	@Override
 	public void addRuleFailedListener(IRListener1<IRRule> listener) {
-		mcAddRuleFailedListener++;
+
+		counter.mcAddRuleFailedListener++;
 		modelRuleFailedListenerDispatcher.addListener(listener);
 	}
 
 	@Override
 	public void addSaveNodeListener(IRListener1<IRReteNode> listener) {
 
-		mcAddSaveNodeListener++;
+		counter.mcAddSaveNodeListener++;
 
 		if (saveNodeListener == null) {
 			saveNodeListener = new XRRListener1Adapter<>();
@@ -2194,7 +2232,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> addStatement: " + stmt);
 		}
 
-		mcAddStatement++;
+		counter.mcAddStatement++;
 
 		RReteStatus status = _getNewStmtStatus();
 
@@ -2216,7 +2254,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> addStmtListener: " + condList);
 		}
 
-		mcAddStatementListener++;
+		counter.mcAddStatementListener++;
 
 		stmtListenUpdater.addStatementListener(this.findNode(condList), listener);
 	}
@@ -2224,7 +2262,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public void addUpdateNode(IRReteNode node) throws RException {
 
-		mcAddUpdateNode++;
+		counter.mcAddUpdateNode++;
 
 		if (node.getReteType() == RReteType.VAR) {
 
@@ -2252,7 +2290,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> tryAddStatement: " + stmt);
 		}
 
-		mcAssumeStatement++;
+		counter.mcAssumeStatement++;
 
 		if (stmt.getNamedName() == null) {
 			throw new RException("Invalid stmt: " + stmt);
@@ -2295,7 +2333,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> backSearch: " + filter);
 		}
 
-		mcBackSearch++;
+		counter.mcBackSearch++;
 
 		if (filter == null) {
 			throw new RException("not support null");
@@ -2368,7 +2406,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> doGC: ");
 		}
 
-		mcDoGC++;
+		counter.mcDoGC++;
 
 		return _gc(true);
 	}
@@ -2380,7 +2418,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> " + node.toString());
 		}
 
-		mcExecute++;
+		counter.mcExecute++;
 
 		_checkCache(node);
 
@@ -2469,7 +2507,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> fixStatement: " + stmt);
 		}
 
-		mcFixStatement++;
+		counter.mcFixStatement++;
 
 		RUpdateResult rst = _addReteEntry(stmt, RReteStatus.FIXED_);
 
@@ -2493,83 +2531,83 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public List<String> getCounterKeyList() {
+		return MCCounter.modelCountKeyList;
+	}
+
+	@Override
 	public long getCounterValue(String countkey) {
 
 		switch (countkey) {
 		case CK_GC_TRIGGER:
-			return gcTrigger;
+			return counter.gcTrigger;
 
 		case CK_GC_COUNT:
-			return gcCount;
+			return counter.gcCount;
 
 		case CK_HAS_STMT_CACHE:
 			return hasEntryCacheMap.size();
 
 		case CK_HAS_STMT_HIT:
-			return hasStmtHitCount;
+			return counter.hasStmtHitCount;
 
 		case CK_ADD_CONSTRAINT:
-			return mcAddConstraint;
+			return counter.mcAddConstraint;
 		case CK_ADD_LOAD_NODE_LIS:
-			return mcAddLoadNodeListener;
+			return counter.mcAddLoadNodeListener;
 		case CK_ADD_RULE:
-			return mcAddRule;
+			return counter.mcAddRule;
 		case CK_ADD_RULE_EXEC_LIS:
-			return mcAddRuleExecutedListener;
+			return counter.mcAddRuleExecutedListener;
 		case CK_ADD_RULE_FAIL_LIS:
-			return mcAddRuleFailedListener;
+			return counter.mcAddRuleFailedListener;
 		case CK_ADD_SAVE_NODE_LIS:
-			return mcAddSaveNodeListener;
+			return counter.mcAddSaveNodeListener;
 		case CK_ADD_STMT:
-			return mcAddStatement;
+			return counter.mcAddStatement;
 		case CK_ADD_STMT_LIS:
-			return mcAddStatementListener;
+			return counter.mcAddStatementListener;
 		case CK_ADD_UPDATE_NODE:
-			return mcAddUpdateNode;
+			return counter.mcAddUpdateNode;
 		case CK_ASSUME_STMT:
-			return mcAssumeStatement;
+			return counter.mcAssumeStatement;
 		case CK_DO_GC:
-			return mcDoGC;
+			return counter.mcDoGC;
 		case CK_EXEC:
-			return mcExecute;
+			return counter.mcExecute;
 		case CK_GET_VAR:
-			return mcGetVar;
+			return counter.mcGetVar;
 		case CK_HALT:
-			return mcHalt;
+			return counter.mcHalt;
 		case CK_HAS_STMT_1:
-			return mcHasStatement1;
+			return counter.mcHasStatement1;
 		case CK_HAS_STMT_2:
-			return mcHasStatement2;
+			return counter.mcHasStatement2;
 		case CK_LIST_STMT:
-			return mcListStatements;
+			return counter.mcListStatements;
 		case CK_QUERY:
-			return mcQuery;
+			return counter.mcQuery;
 		case CK_RMV_CONSTRAINT:
-			return mcRemoveConstraint;
+			return counter.mcRemoveConstraint;
 		case CK_RMV_STMT:
-			return mcRemoveStatement;
+			return counter.mcRemoveStatement;
 		case CK_SAVE:
-			return mcSave;
+			return counter.mcSave;
 		case CK_SET_CACHE_PATH:
-			return mcSetModelCachePath;
+			return counter.mcSetModelCachePath;
 		case CK_SET_NODE_LOADER:
-			return mcSetNodeLoader;
+			return counter.mcSetNodeLoader;
 		case CK_SET_NODE_SAVER:
-			return mcSetNodeSaver;
+			return counter.mcSetNodeSaver;
 		case CK_START:
-			return mcStart;
+			return counter.mcStart;
 		case CK_TRY_ADD_STMT:
-			return mcTryAddStatement;
+			return counter.mcTryAddStatement;
 		case CK_BACK_SEARCH:
-			return mcBackSearch;
+			return counter.mcBackSearch;
 		}
 
 		return 0;
-	}
-
-	@Override
-	public List<String> getCounterKeyList() {
-		return modelCountKeyList;
 	}
 
 	@Override
@@ -2622,7 +2660,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRVar getVar(String varName) throws RException {
 
-		mcGetVar++;
+		counter.mcGetVar++;
 
 		switch (varName) {
 		case V_M_STATE:
@@ -2655,7 +2693,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public RRunState halt() throws RException {
 
-		mcHalt++;
+		counter.mcHalt++;
 
 		RRunState _state = getRunState();
 		switch (_state) {
@@ -2684,7 +2722,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> hasStatement: " + filter);
 		}
 
-		mcHasStatement1++;
+		counter.mcHasStatement1++;
 
 		// Has any stmt
 		if (filter == null) {
@@ -2697,7 +2735,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		if (_hasCacheStatement(filter)) {
-			++hasStmtHitCount;
+			++counter.hasStmtHitCount;
 			return true;
 		}
 
@@ -2718,7 +2756,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return hasStatement(filter);
 		}
 
-		mcHasStatement2++;
+		counter.mcHasStatement2++;
 
 		// Has any stmt
 		if (filter == null) {
@@ -2731,7 +2769,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		if (_hasCacheStatement(filter)) {
-			++hasStmtHitCount;
+			++counter.hasStmtHitCount;
 			return true;
 		}
 
@@ -2767,7 +2805,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 					gcCapacity = RulpUtil.asLong(o2).asLong();
 				});
 
-		RuleUtil.createModelVar(this, V_M_GC_INTERVAL, RulpFactory.createLong(gcInterval))
+		RuleUtil.createModelVar(this, V_M_GC_INTERVAL, RulpFactory.createLong(this.gcInterval))
 				.addVarListener((v1, o1, o2) -> {
 					gcInterval = RulpUtil.asLong(o2).asLong();
 				});
@@ -2802,7 +2840,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> listStatements: " + filter + ", " + statusMask + ", " + limit + ", " + reverse);
 		}
 
-		mcListStatements++;
+		counter.mcListStatements++;
 
 		if (builder == null) {
 			builder = REntryFactory.defaultBuilder();
@@ -2818,7 +2856,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> query: cond=" + condList + ", limit=" + limit);
 		}
 
-		mcQuery++;
+		counter.mcQuery++;
 
 		/*****************************************************/
 		// Does not support query when running
@@ -2834,7 +2872,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
-		mcRemoveConstraint++;
+		counter.mcRemoveConstraint++;
 
 		if (this.tryRemoveConstraintLevel > 0) {
 			return this.nodeGraph.removeConstraint(node, constraint);
@@ -2863,7 +2901,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> removeStatement: " + stmt);
 		}
 
-		mcRemoveStatement++;
+		counter.mcRemoveStatement++;
 
 		if (ReteUtil.getStmtVarCount(stmt) != 0) {
 			throw new RException("Invalid stmt: " + stmt);
@@ -2885,7 +2923,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public int save() throws RException {
 
-		mcSave++;
+		counter.mcSave++;
 
 		int totalSaveLines = 0;
 
@@ -2939,7 +2977,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> setModelCachePath: " + cachePath);
 		}
 
-		mcSetModelCachePath++;
+		counter.mcSetModelCachePath++;
 
 		if (this.modelCachePath != null && !this.modelCachePath.equals(cachePath)) {
 			throw new RException(
@@ -3010,7 +3048,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> setNodeLoader: node=" + node);
 		}
 
-		mcSetNodeLoader++;
+		counter.mcSetNodeLoader++;
 
 		if (node.getReteType() != RReteType.NAME0) {
 			throw new RException("invalid node type: " + node);
@@ -3026,7 +3064,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> setNodeSaver: node=" + node);
 		}
 
-		mcSetNodeSaver++;
+		counter.mcSetNodeSaver++;
 
 		if (node.getReteType() != RReteType.NAME0) {
 			throw new RException("invalid node type: " + node);
@@ -3042,7 +3080,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("starting: " + this + ", priority=" + priority);
 		}
 
-		mcStart++;
+		counter.mcStart++;
 
 		if (priority > RETE_PRIORITY_MAXIMUM) {
 			throw new RException("Invalid priority: " + priority);
@@ -3091,7 +3129,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			System.out.println("==> tryAddStatement: " + stmt);
 		}
 
-		mcTryAddStatement++;
+		counter.mcTryAddStatement++;
 
 		RReteStatus status = _getNewStmtStatus();
 
