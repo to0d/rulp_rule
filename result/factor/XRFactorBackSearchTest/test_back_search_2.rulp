@@ -3,9 +3,6 @@
 (add-stmt m '(a p1 b))
 ;=>
 
-(list-source-node m '(a p2 b))
-;=>
-
 (back-search m '(a p2 b))
 ;=>true
 

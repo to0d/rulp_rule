@@ -9,6 +9,8 @@ public class TestSubscript extends RuleTestBase {
 	@Test
 	void test_sub_0() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");

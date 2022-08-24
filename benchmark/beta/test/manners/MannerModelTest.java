@@ -17,6 +17,8 @@ public class MannerModelTest extends RuleTestBase {
 	@Test
 	void test_can_sit_backward_2() {
 
+		// Should fail
+
 		_setup();
 
 		_run_script();

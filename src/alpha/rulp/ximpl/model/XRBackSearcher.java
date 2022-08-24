@@ -2,7 +2,6 @@ package alpha.rulp.ximpl.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import alpha.rulp.lang.IRList;
@@ -47,7 +46,7 @@ public class XRBackSearcher {
 
 		public abstract BSNode childComplete(XRBackSearcher bs, BSNode child) throws RException;
 
-		public abstract void complete(XRBackSearcher bs) throws RException;
+		public abstract boolean complete(XRBackSearcher bs) throws RException;
 
 		public int getChildCount() {
 			return this.childNodes == null ? 0 : this.childNodes.size();
@@ -58,7 +57,7 @@ public class XRBackSearcher {
 		public abstract BSNode init(XRBackSearcher bs) throws RException;
 
 		public String toString() {
-			return String.format("type=%s, stmt=%s", "" + this.getType(), "" + stmt);
+			return String.format("stmt=%s, type=%s, status=%s", "" + stmt, "" + this.getType(), "" + this.status);
 		}
 	}
 
@@ -89,17 +88,31 @@ public class XRBackSearcher {
 			return this;
 		}
 
-		public void complete(XRBackSearcher bs) throws RException {
+		static class BSStmtIndexs {
+
+			public int maxStmtIndex = -1;
+
+			public ArrayList<Integer> stmtIndexs = new ArrayList<>();
+
+			public void addIndex(int index) {
+				stmtIndexs.add(index);
+				maxStmtIndex = Math.max(maxStmtIndex, index);
+			}
+
+			public ArrayList<Integer> relocatedStmtIndexs = new ArrayList<>();
+		}
+
+		public boolean complete(XRBackSearcher bs) throws RException {
 
 			// no need process
 			if (!this.rst) {
-				return;
+				return false;
 			}
 
 			// need trigger all related rete-node
 
 			ArrayList<IRReteNode> rootNodes = new ArrayList<>();
-			Map<IRReteNode, StmtIndexs> stmtIndexMap = new HashMap<>();
+			Map<IRReteNode, BSStmtIndexs> stmtIndexMap = new HashMap<>();
 
 			for (BSNode childNode : childNodes) {
 
@@ -113,20 +126,18 @@ public class XRBackSearcher {
 				IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
 				int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(stmt));
 
-				StmtIndexs si = stmtIndexMap.get(rootNode);
+				BSStmtIndexs si = stmtIndexMap.get(rootNode);
 				if (si == null) {
-					si = new StmtIndexs();
+					si = new BSStmtIndexs();
 					stmtIndexMap.put(rootNode, si);
 				}
 
 				si.addIndex(stmtIndex);
 			}
 
-			LinkedList<IRReteNode> updateQueue = new LinkedList<>();
-
 			for (IRReteNode rootNode : rootNodes) {
 
-				StmtIndexs si = stmtIndexMap.get(rootNode);
+				BSStmtIndexs si = stmtIndexMap.get(rootNode);
 
 				// Get the max visit index
 				int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(rootNode);
@@ -136,15 +147,26 @@ public class XRBackSearcher {
 					continue;
 				}
 
-				ArrayList<Integer> unPassedStmtIndex = new ArrayList<>();
 				for (int index : si.stmtIndexs) {
-					if (index > si.maxStmtIndex) {
-						unPassedStmtIndex.add(index);
+					if (index >= childMaxVisitIndex) {
+						si.relocatedStmtIndexs.add(index);
 					}
 				}
 
+				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
 			}
 
+			this.sourceNode.rule.start(-1, -1);
+
+			for (IRReteNode rootNode : rootNodes) {
+				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(-1, null);
+			}
+
+			if (bs.model._findRootEntry(this.stmt, 0) == null) {
+				this.rst = false;
+			}
+
+			return this.rst;
 		}
 
 		@Override
@@ -224,8 +246,17 @@ public class XRBackSearcher {
 			return this;
 		}
 
-		public void complete(XRBackSearcher bs) throws RException {
+		public boolean complete(XRBackSearcher bs) throws RException {
 
+			if (this.rst) {
+
+				// re-check statement in case it was deleted
+				if (bs.model._findRootEntry(this.stmt, 0) == null) {
+					this.rst = false;
+				}
+			}
+
+			return this.rst;
 		}
 
 		@Override
@@ -275,18 +306,6 @@ public class XRBackSearcher {
 		AND, OR
 	}
 
-	static class StmtIndexs {
-
-		public int maxStmtIndex = -1;
-
-		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
-
-		public void addIndex(int index) {
-			stmtIndexs.add(index);
-			maxStmtIndex = Math.max(maxStmtIndex, index);
-		}
-	}
-
 	static BSNode _newAndNode(IRList stmt, SourceNode sourceNode, IAction action) {
 
 		BSNodeAnd node = new BSNodeAnd();
@@ -330,6 +349,9 @@ public class XRBackSearcher {
 
 		while (rootNode.status != BSStats.COMPLETED) {
 
+			BSNode oldNode = curNode;
+			BSStats oldStatus = curNode.status;
+
 			switch (curNode.status) {
 
 			case INIT:
@@ -356,9 +378,12 @@ public class XRBackSearcher {
 				throw new RException("unknown status: " + curNode.status);
 
 			}
+
+			if (curNode == oldNode && curNode.status == oldStatus) {
+				throw new RException("dead loop found: " + curNode);
+			}
 		}
 
-		return false;
-
+		return curNode.complete(this);
 	}
 }

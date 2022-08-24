@@ -144,6 +144,8 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	@Test
 	void test_add_constraint_a_cross_1() {
 
+		// Should fail
+
 		_setup();
 		_clean_model_cache();
 		_run_script();
@@ -218,6 +220,8 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	@Test
 	void test_add_constraint_e_order_by_4_after_add_stmt() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");
@@ -225,6 +229,8 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 
 	@Test
 	void test_add_constraint_e_order_by_5_when_has_child() {
+
+		// Should fail
 
 		_setup();
 		_run_script();

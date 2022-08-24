@@ -315,6 +315,8 @@ public class TestRule extends RuleTestBase {
 	@Test
 	void test_rule_9_stmtchange_1() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");
@@ -348,6 +350,8 @@ public class TestRule extends RuleTestBase {
 	@Test
 	void test_rule_d_type_expr_1() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");
@@ -360,7 +364,7 @@ public class TestRule extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_rule_f_has_stmt_1_a() {
 
@@ -368,7 +372,7 @@ public class TestRule extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_rule_f_has_stmt_1_b() {
 

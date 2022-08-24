@@ -1,8 +1,10 @@
 package alpha.rulp.ximpl.entry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -115,5 +117,70 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 	public int getStmtIndex(String uniqName) throws RException {
 		UniqEntry entry = uniqEntryMap.get(uniqName);
 		return entry == null ? -1 : entry.index;
+	}
+
+	@Override
+	public int size() {
+		return relocateSize != -1 ? relocateSize : super.size();
+	}
+
+	protected int relocateSize = -1;
+
+	@Override
+	public void relocate(int relocatePos, List<Integer> stmtIndexs) throws RException {
+
+		if (relocatePos == -1) {
+			relocateSize = -1;
+			return;
+		}
+
+		if (stmtIndexs == null || stmtIndexs.isEmpty()) {
+			relocateSize = relocatePos;
+			return;
+		}
+
+		// no need relocated since all statements are used
+		if ((stmtIndexs.size() + relocatePos) == super.size()) {
+			relocateSize = -1;
+			return;
+		}
+
+		Collections.sort(stmtIndexs);
+
+		relocateSize = relocatePos;
+		int maxRelocateIndex = stmtIndexs.get(stmtIndexs.size() - 1);
+		int pos = 0;
+
+		while (relocateSize < maxRelocateIndex) {
+
+			int stmtIndex = stmtIndexs.get(pos);
+
+			// no need update
+			if (stmtIndex == relocateSize) {
+				relocateSize++;
+				pos++;
+				continue;
+			}
+
+		}
+
+		for (int stmtIndex : stmtIndexs) {
+
+			// no need update
+			if (stmtIndex == relocateSize) {
+				relocateSize++;
+				continue;
+			}
+
+			// Swap entries
+			IRReteEntry a = entryList.get(relocateSize);
+			IRReteEntry b = entryList.get(stmtIndex);
+
+			entryList.set(stmtIndex, a);
+			entryList.set(relocateSize, b);
+
+			uniqEntryMap.get(ReteUtil.uniqName(a)).index = stmtIndex;
+			uniqEntryMap.get(ReteUtil.uniqName(b)).index = relocateSize;
+		}
 	}
 }

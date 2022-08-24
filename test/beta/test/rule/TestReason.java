@@ -16,6 +16,9 @@ public class TestReason extends RuleTestBase {
 
 	@Test
 	void test_3_circle_reason_b_named() {
+
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");

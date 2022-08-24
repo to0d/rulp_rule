@@ -9,7 +9,9 @@ import alpha.rulp.utils.RuleTestBase;
 public class LT0062 extends RuleTestBase {
 
 	@Test
-	public void test_lt0062_1() {
+	void test_lt0062_1() {
+
+		// Should fail
 
 		// 1: how to prove: f(m, n) = f(n, m)
 		// 2: dp solution, use 1*n vector

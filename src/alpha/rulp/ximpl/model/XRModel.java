@@ -2041,8 +2041,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return true;
 		}
 
-//		return new XRBackSearcher(this).search(filter);
-		return false;
+		return new XRBackSearcher(this).search(filter);
 	}
 
 	@Override
