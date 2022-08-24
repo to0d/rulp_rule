@@ -148,21 +148,6 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 		Collections.sort(stmtIndexs);
 
 		relocateSize = relocatePos;
-		int maxRelocateIndex = stmtIndexs.get(stmtIndexs.size() - 1);
-		int pos = 0;
-
-		while (relocateSize < maxRelocateIndex) {
-
-			int stmtIndex = stmtIndexs.get(pos);
-
-			// no need update
-			if (stmtIndex == relocateSize) {
-				relocateSize++;
-				pos++;
-				continue;
-			}
-
-		}
 
 		for (int stmtIndex : stmtIndexs) {
 
@@ -181,6 +166,7 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 
 			uniqEntryMap.get(ReteUtil.uniqName(a)).index = stmtIndex;
 			uniqEntryMap.get(ReteUtil.uniqName(b)).index = relocateSize;
+			relocateSize++;
 		}
 	}
 }

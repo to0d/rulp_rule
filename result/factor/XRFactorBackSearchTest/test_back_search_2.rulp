@@ -1,8 +1,12 @@
 (new model m)
 (add-rule m if '(?x p1 ?y) do (-> m '(?x p2 ?y)))
+(add-stmt m '(x1 p1 y1))
 (add-stmt m '(a p1 b))
+(add-stmt m '(x2 p1 y2))
 ;=>
 
 (back-search m '(a p2 b))
 ;=>true
 
+(list-stmt m)
+;=>
