@@ -2324,38 +2324,38 @@ public class XRNodeGraph implements IRNodeGraph {
 		return nodeInfo.bindToNodeList == null ? Collections.emptyList() : nodeInfo.bindToNodeList;
 	}
 
-	@Override
-	public IRReteNode getDupNode(IRReteNode node) throws RException {
-
-		IRReteNode oldDupNode = ReteUtil.findDupNode(node);
-		if (oldDupNode != null) {
-			return oldDupNode;
-		}
-
-		String dupUniqName = ReteUtil.getDupNodeUniqName(node.getUniqName());
-
-		// Get the max visit index
-		int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(node);
-
-		// Backup child nodes
-		ArrayList<IRReteNode> childNodes = new ArrayList<>(node.getChildNodes());
-
-		// Create dup node
-		XRNodeRete1 dupNode = RNodeFactory.createDupNode(model, _getNextNodeId(), dupUniqName, node);
-
-		// Move all child node to dup node
-		for (IRReteNode child : childNodes) {
-			node.removeChildNode(child);
-			ReteUtil.setParentNodes(dupNode, child);
-		}
-
-		// Force update for dup node
-		if (childMaxVisitIndex > 0) {
-			dupNode.update(childMaxVisitIndex);
-		}
-
-		return dupNode;
-	}
+//	@Override
+//	public IRReteNode getDupNode(IRReteNode node) throws RException {
+//
+//		IRReteNode oldDupNode = ReteUtil.findDupNode(node);
+//		if (oldDupNode != null) {
+//			return oldDupNode;
+//		}
+//
+//		String dupUniqName = ReteUtil.getDupNodeUniqName(node.getUniqName());
+//
+//		// Get the max visit index
+//		int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(node);
+//
+//		// Backup child nodes
+//		ArrayList<IRReteNode> childNodes = new ArrayList<>(node.getChildNodes());
+//
+//		// Create dup node
+//		XRNodeRete1 dupNode = RNodeFactory.createDupNode(model, _getNextNodeId(), dupUniqName, node);
+//
+//		// Move all child node to dup node
+//		for (IRReteNode child : childNodes) {
+//			node.removeChildNode(child);
+//			ReteUtil.setParentNodes(dupNode, child);
+//		}
+//
+//		// Force update for dup node
+//		if (childMaxVisitIndex > 0) {
+//			dupNode.update(childMaxVisitIndex);
+//		}
+//
+//		return dupNode;
+//	}
 
 	@Override
 	public int getGcCacheCount() {

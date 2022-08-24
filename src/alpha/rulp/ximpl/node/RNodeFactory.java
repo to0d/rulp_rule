@@ -346,41 +346,41 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static XRNodeRete1 createDupNode(IRModel model, int nodeId, String uniqName, IRReteNode parentNode)
-			throws RException {
-
-		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.DUP, nodeId));
-
-		// Model
-		node.setModel(model);
-
-		// Node id
-		node.setNodeId(nodeId);
-
-		// Node type
-		node.setReteType(RReteType.DUP);
-
-		// Uniq name
-		node.setUniqName(uniqName);
-
-		// Entry length
-		node.setEntryLength(parentNode.getEntryLength());
-
-		// Entry table
-		node.setEntryTable(model.getEntryTable());
-
-		// Entry queue
-		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
-
-		// Parent node
-		ReteUtil.setParentNodes(node, parentNode);
-
-		// var entry
-		node.setVarEntry(parentNode.getVarEntry());
-
-		return node;
-
-	}
+//	public static XRNodeRete1 createDupNode(IRModel model, int nodeId, String uniqName, IRReteNode parentNode)
+//			throws RException {
+//
+//		XRNodeRete1 node = new XRNodeRete1(ReteUtil.getNodeName(RReteType.DUP, nodeId));
+//
+//		// Model
+//		node.setModel(model);
+//
+//		// Node id
+//		node.setNodeId(nodeId);
+//
+//		// Node type
+//		node.setReteType(RReteType.DUP);
+//
+//		// Uniq name
+//		node.setUniqName(uniqName);
+//
+//		// Entry length
+//		node.setEntryLength(parentNode.getEntryLength());
+//
+//		// Entry table
+//		node.setEntryTable(model.getEntryTable());
+//
+//		// Entry queue
+//		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
+//
+//		// Parent node
+//		ReteUtil.setParentNodes(node, parentNode);
+//
+//		// var entry
+//		node.setVarEntry(parentNode.getVarEntry());
+//
+//		return node;
+//
+//	}
 
 	public static AbsReteNode createExpr0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode parentNode, IRObject[] varEntry) throws RException {

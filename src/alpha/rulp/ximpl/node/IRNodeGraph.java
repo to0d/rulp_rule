@@ -55,7 +55,7 @@ public interface IRNodeGraph {
 
 	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
 
-	public IRReteNode getDupNode(IRReteNode node) throws RException;
+//	public IRReteNode getDupNode(IRReteNode node) throws RException;
 
 	public int getGcCacheCount();
 
