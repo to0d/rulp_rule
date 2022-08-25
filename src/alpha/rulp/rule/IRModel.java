@@ -56,8 +56,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean backSearch(IRList filter) throws RException;
 
-	public void beginTransaction() throws RException;
-
 	public IRIterator<? extends IRList> buildStatementIterator(IRList filter) throws RException;
 
 	public int doGC() throws RException;
@@ -65,8 +63,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public int execute(IRReteNode node) throws RException;
 
 	public IRReteNode findNode(IRList condList) throws RException;
-
-//	public IRObject backSearch(IRList condList, IRObject rstExpr) throws RException;
 
 	public boolean fixStatement(IRList stmt) throws RException;
 
@@ -83,8 +79,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public String getModelName();
 
 	public IRNodeGraph getNodeGraph();
-
-	public void getTransaction();
 
 	public IRVar getVar(String name) throws RException;
 
@@ -106,8 +100,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public IRRule removeRule(String ruleName) throws RException;
 
 	public boolean removeStatement(IRList stmt) throws RException;
-
-//	public List<? extends IRList> removeStatements(IRList filter) throws RException;
 
 	public int save() throws RException;
 

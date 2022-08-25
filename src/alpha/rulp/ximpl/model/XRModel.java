@@ -1552,7 +1552,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	public boolean assumeStatement(IRList stmt) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> tryAddStatement: " + stmt);
+			System.out.println("==> assumeStatement: " + stmt);
 		}
 
 		counter.mcAssumeStatement++;
@@ -1635,16 +1635,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void beginTransaction() throws RException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public IRIterator<? extends IRList> buildStatementIterator(IRList filter) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> listStatements: " + filter);
+			System.out.println("==> buildStatementIterator: " + filter);
 		}
 
 		if (filter == null) {
@@ -1697,7 +1691,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	public int execute(IRReteNode node) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> " + node.toString());
+			System.out.println("==> execute: " + node);
 		}
 
 		counter.mcExecute++;
@@ -1873,13 +1867,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void getTransaction() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public IRVar getVar(String varName) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> getVar: " + varName);
+		}
 
 		counter.mcGetVar++;
 
@@ -1913,6 +1905,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public RRunState halt() throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> halt: ");
+		}
 
 		counter.mcHalt++;
 
@@ -2006,6 +2002,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public void init(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> init: " + args);
+		}
+
 		this.interpreter = interpreter;
 
 		/******************************************/
@@ -2093,6 +2093,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> removeConstraint: " + node + ", " + constraint);
+		}
+
 		counter.mcRemoveConstraint++;
 
 		if (this.tryRemoveConstraintLevel > 0) {
@@ -2143,6 +2147,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public int save() throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> save: ");
+		}
 
 		counter.mcSave++;
 
@@ -2298,7 +2306,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	public int start(int priority, final int maxStep) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("starting: " + this + ", priority=" + priority);
+			System.out.println("start: " + priority + ", " + maxStep);
 		}
 
 		counter.mcStart++;
