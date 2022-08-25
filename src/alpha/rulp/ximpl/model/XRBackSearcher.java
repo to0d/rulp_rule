@@ -1,7 +1,9 @@
 package alpha.rulp.ximpl.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import alpha.rulp.lang.IRList;
@@ -22,17 +24,15 @@ public class XRBackSearcher {
 
 	abstract class BSNode {
 
-		public ArrayList<BSNode> childNodes;
+		protected ArrayList<BSNode> childNodes;
 
-		public int curChildIndex = 0;
+		protected int curChildIndex = 0;
 
-		public BSNode parentNode;
+		protected BSNode parentNode;
 
-		public boolean rst;
+		protected boolean rst;
 
-		public BSStats status;
-
-		public IRList stmt;
+		protected BSStats status;
 
 		public void addChild(BSNode child) {
 
@@ -56,16 +56,17 @@ public class XRBackSearcher {
 
 		public abstract BSNode process() throws RException;
 
-		public String toString() {
-			return String.format("stmt=%s, type=%s, status=%s", "" + stmt, "" + this.getType(), "" + this.status);
-		}
 	}
 
 	class BSNodeAnd extends BSNode {
 
-		public IAction action;
+		protected IAction action;
 
-		public SourceNode sourceNode;
+		protected BSNodeQuery queryChildNode;
+
+		protected SourceNode sourceNode;
+
+		protected IRList stmt;
 
 		public void complete() throws RException {
 
@@ -75,21 +76,29 @@ public class XRBackSearcher {
 			}
 
 			// need trigger all related rete-node
+			if (queryChildNode == null) {
+				execute(listAllChildAndStmts());
+			}
+
+			if (!_hasStmt(this.stmt)) {
+				this.rst = false;
+			}
+		}
+
+		public void execute(List<IRList> childStmts) throws RException {
 
 			ArrayList<IRReteNode> rootNodes = new ArrayList<>();
 			Map<IRReteNode, BSStmtIndexs> stmtIndexMap = new HashMap<>();
 
-			for (BSNode childNode : childNodes) {
+			for (IRList childStmt : childStmts) {
 
-				IRList stmt = childNode.stmt;
-
-				IRReteNode rootNode = graph.findRootNode(stmt.getNamedName(), stmt.size());
+				IRReteNode rootNode = graph.findRootNode(childStmt.getNamedName(), childStmt.size());
 				if (!rootNodes.contains(rootNode)) {
 					rootNodes.add(rootNode);
 				}
 
 				IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
-				int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(stmt));
+				int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(childStmt));
 
 				BSStmtIndexs si = stmtIndexMap.get(rootNode);
 				if (si == null) {
@@ -128,10 +137,6 @@ public class XRBackSearcher {
 			for (IRReteNode rootNode : rootNodes) {
 				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(-1, null);
 			}
-
-			if (!_hasStmt(this.stmt)) {
-				this.rst = false;
-			}
 		}
 
 		@Override
@@ -163,24 +168,38 @@ public class XRBackSearcher {
 				}
 			}
 
+			ArrayList<IRList> queryStmtList = null;
+
 			for (IRList list : sourceNode.rule.getMatchStmtList()) {
 
 				if (ReteUtil.isAlphaMatchTree(list)) {
 
 					IRList newStmt = (IRList) RuntimeUtil.rebuild(list, varValueMap);
-					if (!ReteUtil.isReteStmtNoVar(newStmt)) {
-						throw new RException("can't prove stmt: " + newStmt);
+
+					if (ReteUtil.isReteStmtNoVar(newStmt)) {
+
+						// The and should fail once circular proof be found
+						if (_isCircularProof(newStmt)) {
+							this.status = BSStats.COMPLETE;
+							this.rst = false;
+							bscCircularProof++;
+							return this;
+						}
+
+						this.addChild(_newOrNode(newStmt));
+					}
+					// '(?a p b) should be used in query node
+					else {
+
+						if (queryStmtList == null) {
+							queryStmtList = new ArrayList<>();
+						}
+
+						queryStmtList.add(newStmt);
+
+						throw new RException("not ready");
 					}
 
-					// The and should fail once circular proof be found
-					if (_isCircularProof(newStmt)) {
-						this.status = BSStats.COMPLETE;
-						this.rst = false;
-						bscCircularProof++;
-						return this;
-					}
-
-					this.addChild(_newOrNode(newStmt));
 				}
 			}
 
@@ -194,6 +213,28 @@ public class XRBackSearcher {
 			this.status = BSStats.PROCESS;
 			this.curChildIndex = 0;
 			return this.childNodes.get(0);
+		}
+
+		public List<IRList> listAllChildAndStmts() {
+
+			List<IRList> stmts = null;
+
+			for (BSNode childNode : childNodes) {
+				if (childNode != queryChildNode) {
+
+					BSNodeOr orNode = (BSNodeOr) childNode;
+					if (stmts == null) {
+						stmts = new ArrayList<>();
+					}
+					stmts.add(orNode.getStmt());
+				}
+			}
+
+			if (stmts == null) {
+				stmts = Collections.emptyList();
+			}
+
+			return stmts;
 		}
 
 		public BSNode process() throws RException {
@@ -218,9 +259,15 @@ public class XRBackSearcher {
 			this.rst = true;
 			return this;
 		}
+
+		public String toString() {
+			return String.format("stmt=%s, type=%s, status=%s", "" + stmt, "" + this.getType(), "" + this.status);
+		}
 	}
 
 	class BSNodeOr extends BSNode {
+
+		protected IRList stmt;
 
 		public void complete() throws RException {
 
@@ -233,6 +280,10 @@ public class XRBackSearcher {
 			if (!_hasStmt(this.stmt)) {
 				this.rst = false;
 			}
+		}
+
+		public IRList getStmt() {
+			return stmt;
 		}
 
 		@Override
@@ -294,6 +345,56 @@ public class XRBackSearcher {
 			return this;
 		}
 
+		public String toString() {
+			return String.format("stmt=%s, type=%s, status=%s", "" + stmt, "" + this.getType(), "" + this.status);
+		}
+
+	}
+
+	class BSNodeQuery extends BSNode {
+
+		protected List<IRList> queryStmtList;
+
+		protected List<String> queryVarList = new ArrayList<>();
+
+		@Override
+		public void complete() throws RException {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public BSType getType() {
+			return BSType.QUERY;
+		}
+
+		@Override
+		public BSNode init() throws RException {
+
+			// Get all uniq var names
+			for (IRList queryStmt : queryStmtList) {
+				for (String var : ReteUtil.varList(queryStmt)) {
+					if (!queryVarList.contains(var)) {
+						queryVarList.add(var);
+					}
+				}
+			}
+			
+			
+
+			return null;
+		}
+
+		public List<IRList> listQueryStmtList() {
+			return null;
+		}
+
+		@Override
+		public BSNode process() throws RException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	static enum BSStats {
@@ -315,10 +416,10 @@ public class XRBackSearcher {
 	}
 
 	static enum BSType {
-		AND, OR
+		AND, OR, QUERY
 	}
 
-	static boolean TRACE = true;
+	static boolean TRACE = false;
 
 	protected int bscCircularProof = 0;
 
