@@ -141,6 +141,15 @@ model-listStatements                  2
 model-query                           2
 model-removeConstraint                4
 model-removeStatement                 2
+graph-addConstraint                   3
+graph-createNodeByTree                4
+graph-createNodeRoot                 15
+graph-createNodeRule                  4
+graph-createSubGraphForQueryNode        2
+graph-createSubGraphForRuleGroup        2
+graph-listSourceNodes                27
+graph-removeConstraint                2
+graph-setRulePriority                 4
 ===============================================================================================================================================================================
 
 

@@ -91,6 +91,12 @@ model-addUpdateNode                   4
 model-execute                         5
 model-listStatements                  3
 model-start                           2
+graph-addConstraint                   1
+graph-createNodeRoot                  3
+graph-createNodeRule                  1
+graph-createSubGraphForRuleGroup        1
+graph-listSourceNodes                 7
+graph-setRulePriority                 1
 ===============================================================================================================================================================================
 
 

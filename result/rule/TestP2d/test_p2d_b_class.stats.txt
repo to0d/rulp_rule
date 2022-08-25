@@ -1153,6 +1153,11 @@ model-hasStatement-1                 19
 model-listStatements                  4
 model-removeStatement                 2
 model-start                           1
+graph-addConstraint                  48
+graph-createNodeByTree                4
+graph-createNodeRoot                301
+graph-createNodeRule                 41
+graph-listSourceNodes               106
 ===============================================================================================================================================================================
 
 

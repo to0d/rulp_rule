@@ -91,6 +91,11 @@ model-addUpdateNode                   8
 model-execute                         9
 model-listStatements                  1
 model-query                           2
+graph-createNodeByTree                2
+graph-createNodeRoot                  8
+graph-createNodeRule                  2
+graph-createSubGraphForQueryNode        2
+graph-listSourceNodes                 9
 ===============================================================================================================================================================================
 
 

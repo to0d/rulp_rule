@@ -107,6 +107,10 @@ model-execute                         4
 model-getVar                          1
 model-listStatements                  1
 model-start                           1
+graph-addConstraint                   1
+graph-createNodeRoot                  2
+graph-createNodeRule                  2
+graph-listSourceNodes                 7
 ===============================================================================================================================================================================
 
 

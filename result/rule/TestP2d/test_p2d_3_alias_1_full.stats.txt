@@ -1151,6 +1151,11 @@ model-getVar                          1
 model-hasStatement-1                  4
 model-listStatements                  4
 model-start                           1
+graph-addConstraint                  48
+graph-createNodeByTree                3
+graph-createNodeRoot                221
+graph-createNodeRule                 41
+graph-listSourceNodes               106
 ===============================================================================================================================================================================
 
 

@@ -37,7 +37,8 @@ public interface IRNodeGraph {
 
 	public IRReteNode createNodeRoot(String name, int stmtLen) throws RException;
 
-	public IRRule createNodeRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException;
+	public IRReteNode createNodeRule(String ruleName, IRList condList, IRList actionList, int priority)
+			throws RException;
 
 	public IRNodeSubGraph createSubGraphForConstraintCheck(IRReteNode rootNode) throws RException;
 
@@ -57,13 +58,9 @@ public interface IRNodeGraph {
 
 	public IRRule findRule(String ruleName);
 
-	public int getGcCacheCount();
+	public List<String> getCounterKeyList();
 
-	public int getGcCleanNodeCount();
-
-	public int getGcCount();
-
-	public int getGcInactiveLeafCount();
+	public long getCounterValue(String countkey);
 
 	public long getGcNodeRemoveCount(RCountType countType) throws RException;
 

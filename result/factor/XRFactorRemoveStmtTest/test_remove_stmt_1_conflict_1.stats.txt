@@ -103,7 +103,12 @@ model-execute                         6
 model-listStatements                  2
 model-removeStatement                 1
 model-start                           1
-graph-gc-count                        1
+graph-doGc                            1
+graph-addConstraint                   1
+graph-createNodeByTree                2
+graph-createNodeRoot                  4
+graph-createNodeRule                  1
+graph-listSourceNodes                 7
 ===============================================================================================================================================================================
 
 

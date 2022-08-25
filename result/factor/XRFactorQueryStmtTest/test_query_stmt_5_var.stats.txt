@@ -99,6 +99,11 @@ model-addStatement                    5
 model-addUpdateNode                  23
 model-execute                        21
 model-query                           6
+graph-addConstraint                   6
+graph-createNodeByTree                6
+graph-createNodeRoot                  5
+graph-createSubGraphForQueryNode        6
+graph-listSourceNodes                33
 ===============================================================================================================================================================================
 
 

@@ -100,6 +100,13 @@ model-addStatement                    4
 model-addUpdateNode                  10
 model-execute                        12
 model-query                           1
+graph-addConstraint                   3
+graph-bindNode                        1
+graph-createNodeByTree                2
+graph-createNodeRoot                  5
+graph-createSubGraphForQueryNode        1
+graph-createWorkNode                  1
+graph-listSourceNodes                17
 ===============================================================================================================================================================================
 
 

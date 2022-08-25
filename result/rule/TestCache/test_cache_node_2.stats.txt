@@ -59,6 +59,9 @@ model-addUpdateNode                   3
 model-save                            1
 model-setNodeLoader                   2
 model-setNodeSaver                    2
+graph-createNodeByTree                2
+graph-createNodeRoot                  3
+graph-listSourceNodes                 9
 ===============================================================================================================================================================================
 
 

@@ -78,6 +78,9 @@ model-addUpdateNode                   6
 model-execute                         8
 model-listStatements                  1
 model-start                           1
+graph-createNodeRoot                  5
+graph-createNodeRule                  1
+graph-listSourceNodes                 4
 ===============================================================================================================================================================================
 
 

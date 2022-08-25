@@ -49,6 +49,10 @@ model-addUpdateNode                   5
 model-execute                         2
 model-listStatements                  1
 model-query                           4
+graph-createNodeByTree                4
+graph-createNodeRoot                  3
+graph-createSubGraphForQueryNode        2
+graph-listSourceNodes                 4
 ===============================================================================================================================================================================
 
 

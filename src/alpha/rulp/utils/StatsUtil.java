@@ -1196,11 +1196,9 @@ public class StatsUtil {
 			_printModelCountInfo_put(sb, key, model.getCounterValue(key));
 		}
 
-		_printModelCountInfo_put(sb, "graph-gc-count", graph.getGcCount());
-		_printModelCountInfo_put(sb, "graph-gc-node-remove", graph.getGcRemoveNodeCount());
-		_printModelCountInfo_put(sb, "graph-gc-node-clean", graph.getGcCleanNodeCount());
-		_printModelCountInfo_put(sb, "graph-gc-inactive-leaf", graph.getGcInactiveLeafCount());
-		_printModelCountInfo_put(sb, "graph-gc-cache", graph.getGcCacheCount());
+		for (String key : graph.getCounterKeyList()) {
+			_printModelCountInfo_put(sb, key, graph.getCounterValue(key));
+		}
 
 		sb.append(SEP_LINE1);
 

@@ -105,6 +105,10 @@ model-execute                         9
 model-listStatements                  2
 model-removeStatement                 1
 model-start                           1
+graph-addConstraint                   1
+graph-createNodeRoot                  7
+graph-createNodeRule                  1
+graph-listSourceNodes                 7
 ===============================================================================================================================================================================
 
 

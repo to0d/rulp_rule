@@ -131,6 +131,14 @@ model-execute                        17
 model-listStatements                  6
 model-query                           2
 model-start                           1
+graph-addConstraint                   3
+graph-bindNode                        2
+graph-createNodeByTree                4
+graph-createNodeRoot                  7
+graph-createNodeRule                  1
+graph-createSubGraphForQueryNode        2
+graph-createWorkNode                  2
+graph-listSourceNodes                16
 ===============================================================================================================================================================================
 
 

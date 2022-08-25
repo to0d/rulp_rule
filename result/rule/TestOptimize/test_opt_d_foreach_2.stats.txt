@@ -103,6 +103,10 @@ model-addUpdateNode                   4
 model-execute                         4
 model-listStatements                  1
 model-start                           1
+graph-addConstraint                   1
+graph-createNodeRoot                  6
+graph-createNodeRule                  1
+graph-listSourceNodes                11
 ===============================================================================================================================================================================
 
 

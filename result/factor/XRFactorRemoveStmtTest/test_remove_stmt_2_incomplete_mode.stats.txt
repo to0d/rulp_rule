@@ -51,7 +51,9 @@ model-addUpdateNode                   3
 model-doGC                            1
 model-listStatements                  2
 model-removeStatement                 1
-graph-gc-count                        1
+graph-doGc                            1
+graph-createNodeRoot                  4
+graph-listSourceNodes                 3
 ===============================================================================================================================================================================
 
 

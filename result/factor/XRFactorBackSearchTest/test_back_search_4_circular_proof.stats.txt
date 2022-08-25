@@ -114,6 +114,10 @@ bsc-status-complete                   3
 bsc-op-loop                          10
 bsc-op-search                         1
 bsc-circular-proof                    1
+graph-addConstraint                   2
+graph-createNodeRoot                  5
+graph-createNodeRule                  2
+graph-listSourceNodes                12
 ===============================================================================================================================================================================
 
 

@@ -47,6 +47,8 @@ name                              count
 model-addStatement                    1
 model-addUpdateNode                   1
 model-listStatements                  1
+graph-createNodeRoot                  1
+graph-listSourceNodes                 3
 ===============================================================================================================================================================================
 
 

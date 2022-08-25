@@ -83,6 +83,10 @@ model-addStatement                    4
 model-addUpdateNode                   3
 model-execute                        24
 model-listStatements                  5
+graph-addConstraint                   4
+graph-createNodeByTree                4
+graph-createNodeRoot                  5
+graph-listSourceNodes                14
 ===============================================================================================================================================================================
 
 

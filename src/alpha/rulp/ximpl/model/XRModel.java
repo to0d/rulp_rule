@@ -248,7 +248,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			modelCountKeyList.add(CK_SET_NODE_SAVER);
 			modelCountKeyList.add(CK_START);
 			modelCountKeyList.add(CK_TRY_ADD_STMT);
-
 			modelCountKeyList.add(CK_BACK_SEARCH);
 			modelCountKeyList.add(CK_BSC_NODE_AND);
 			modelCountKeyList.add(CK_BSC_NODE_OR);

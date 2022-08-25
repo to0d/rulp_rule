@@ -70,6 +70,11 @@ model-assumeStatement                 2
 model-execute                         3
 model-listStatements                  2
 model-start                           1
+graph-createNodeByTree                1
+graph-createNodeRoot                  4
+graph-createNodeRule                  1
+graph-createSubGraphForConstraintCheck        1
+graph-listSourceNodes                 4
 ===============================================================================================================================================================================
 
 

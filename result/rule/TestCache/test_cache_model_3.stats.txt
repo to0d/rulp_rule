@@ -58,6 +58,8 @@ model-addUpdateNode                   3
 model-listStatements                  1
 model-save                            1
 model-setModelCachePath               1
+graph-createNodeRoot                  3
+graph-listSourceNodes                 9
 ===============================================================================================================================================================================
 
 

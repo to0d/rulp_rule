@@ -63,6 +63,10 @@ model-addUpdateNode                   1
 model-execute                         1
 model-listStatements                  2
 model-setModelCachePath               1
+graph-addConstraint                   2
+graph-createNodeByTree                2
+graph-createNodeRoot                  2
+graph-listSourceNodes                 6
 ===============================================================================================================================================================================
 
 

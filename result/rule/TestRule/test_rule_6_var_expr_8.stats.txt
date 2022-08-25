@@ -106,6 +106,12 @@ model-addUpdateNode                  15
 model-execute                        15
 model-getVar                          1
 model-query                           2
+graph-addConstraint                   1
+graph-createNodeByTree                2
+graph-createNodeRoot                  4
+graph-createNodeRule                  1
+graph-createSubGraphForQueryNode        2
+graph-listSourceNodes                10
 ===============================================================================================================================================================================
 
 

@@ -1128,6 +1128,10 @@ name                              count
 model-addRule                        41
 model-addUpdateNode                 102
 model-getVar                          1
+graph-addConstraint                  47
+graph-createNodeRoot                 28
+graph-createNodeRule                 41
+graph-listSourceNodes               104
 ===============================================================================================================================================================================
 
 

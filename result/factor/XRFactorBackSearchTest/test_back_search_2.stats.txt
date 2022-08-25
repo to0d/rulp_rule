@@ -99,6 +99,10 @@ bsc-status-complete                   2
 bsc-op-loop                           7
 bsc-op-relocate                       1
 bsc-op-search                         1
+graph-addConstraint                   1
+graph-createNodeRoot                 11
+graph-createNodeRule                  1
+graph-listSourceNodes                 8
 ===============================================================================================================================================================================
 
 

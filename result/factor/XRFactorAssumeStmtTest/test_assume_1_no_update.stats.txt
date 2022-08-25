@@ -49,6 +49,9 @@ model-addUpdateNode                   1
 model-assumeStatement                 1
 model-execute                         1
 model-listStatements                  1
+graph-createNodeByTree                1
+graph-createNodeRoot                  2
+graph-listSourceNodes                 3
 ===============================================================================================================================================================================
 
 

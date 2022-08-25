@@ -48,6 +48,8 @@ model-addStatement                    2
 model-addUpdateNode                   2
 model-listStatements                  3
 model-removeStatement                 1
+graph-createNodeRoot                  3
+graph-listSourceNodes                 3
 ===============================================================================================================================================================================
 
 

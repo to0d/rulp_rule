@@ -64,10 +64,12 @@ model-addUpdateNode                   6
 model-doGC                            1
 model-listStatements                  2
 model-setModelCachePath               1
-graph-gc-count                        1
+graph-doGc                            1
 graph-gc-node-clean                   2
 graph-gc-inactive-leaf                1
 graph-gc-cache                        1
+graph-createNodeRoot                  4
+graph-listSourceNodes                12
 ===============================================================================================================================================================================
 
 

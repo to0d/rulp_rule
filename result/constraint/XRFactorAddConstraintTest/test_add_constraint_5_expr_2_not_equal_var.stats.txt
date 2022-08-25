@@ -56,6 +56,9 @@ model-addConstraint                   1
 model-addStatement                    4
 model-addUpdateNode                   2
 model-listStatements                  2
+graph-addConstraint                   1
+graph-createNodeRoot                  5
+graph-listSourceNodes                 3
 ===============================================================================================================================================================================
 
 

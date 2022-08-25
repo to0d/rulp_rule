@@ -106,6 +106,12 @@ model-execute                        12
 model-hasStatement-2                  2
 model-listStatements                  1
 model-start                           1
+graph-addConstraint                   2
+graph-createNodeByTree                2
+graph-createNodeIndex                 2
+graph-createNodeRoot                  3
+graph-createNodeRule                  1
+graph-listSourceNodes                 7
 ===============================================================================================================================================================================
 
 
