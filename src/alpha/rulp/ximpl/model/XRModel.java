@@ -32,6 +32,14 @@ import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_STMT_LIS;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_UPDATE_NODE;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ASSUME_STMT;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BACK_SEARCH;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_NODE_AND;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_NODE_OR;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_OP_LOOP;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_OP_RELOCATE;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_OP_SEARCH;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_STATUS_COMPLETE;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_STATUS_INIT;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_STATUS_PROCESS;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_DO_GC;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_EXEC;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_GC_COUNT;
@@ -146,6 +154,22 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		static final String CK_BACK_SEARCH = "model-backSearch";
 
+		static final String CK_BSC_NODE_AND = "bsc-node-and";
+
+		static final String CK_BSC_NODE_OR = "bsc-node-or";
+
+		static final String CK_BSC_OP_LOOP = "bsc-op-loop";
+
+		static final String CK_BSC_OP_RELOCATE = "bsc-op-relocate";
+
+		static final String CK_BSC_OP_SEARCH = "bsc-op-search";
+
+		static final String CK_BSC_STATUS_COMPLETE = "bsc-status-complete";
+
+		static final String CK_BSC_STATUS_INIT = "bsc-status-init";
+
+		static final String CK_BSC_STATUS_PROCESS = "bsc-status-process";
+
 		static final String CK_DO_GC = "model-doGC";
 
 		static final String CK_EXEC = "model-execute";
@@ -221,10 +245,35 @@ public class XRModel extends AbsRInstance implements IRModel {
 			modelCountKeyList.add(CK_SET_NODE_SAVER);
 			modelCountKeyList.add(CK_START);
 			modelCountKeyList.add(CK_TRY_ADD_STMT);
+
 			modelCountKeyList.add(CK_BACK_SEARCH);
+			modelCountKeyList.add(CK_BSC_NODE_AND);
+			modelCountKeyList.add(CK_BSC_NODE_OR);
+			modelCountKeyList.add(CK_BSC_STATUS_INIT);
+			modelCountKeyList.add(CK_BSC_STATUS_PROCESS);
+			modelCountKeyList.add(CK_BSC_STATUS_COMPLETE);
+			modelCountKeyList.add(CK_BSC_OP_LOOP);
+			modelCountKeyList.add(CK_BSC_OP_RELOCATE);
+			modelCountKeyList.add(CK_BSC_OP_SEARCH);
 
 			modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
 		}
+
+		protected int bscNodeAnd = 0;
+
+		protected int bscNodeOr = 0;
+
+		protected int bscOpLoop = 0;
+
+		protected int bscOpRelocate = 0;
+
+		protected int bscOpSearch = 0;
+
+		protected int bscStatusComplete = 0;
+
+		protected int bscStatusInit = 0;
+
+		protected int bscStatusProcess = 0;
 
 		protected long gcCount = 0;
 
@@ -2041,7 +2090,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return true;
 		}
 
-		return new XRBackSearcher(this).search(filter);
+		XRBackSearcher bs = new XRBackSearcher(this);
+
+		try {
+			return bs.search(filter);
+
+		} finally {
+
+			counter.bscNodeAnd += bs.getBscNodeAnd();
+			counter.bscNodeOr += bs.getBscNodeOr();
+			counter.bscStatusInit += bs.getBscStatusInit();
+			counter.bscStatusProcess += bs.getBscStatusProcess();
+			counter.bscStatusComplete += bs.getBscStatusComplete();
+			counter.bscOpRelocate += bs.getBscOpRelocate();
+			counter.bscOpSearch += bs.getBscOpSearch();
+			counter.bscOpLoop += bs.getBscOpLoop();
+
+		}
+
 	}
 
 	@Override
@@ -2245,58 +2311,109 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		case CK_ADD_CONSTRAINT:
 			return counter.mcAddConstraint;
+
 		case CK_ADD_LOAD_NODE_LIS:
 			return counter.mcAddLoadNodeListener;
+
 		case CK_ADD_RULE:
 			return counter.mcAddRule;
+
 		case CK_ADD_RULE_EXEC_LIS:
 			return counter.mcAddRuleExecutedListener;
+
 		case CK_ADD_RULE_FAIL_LIS:
 			return counter.mcAddRuleFailedListener;
+
 		case CK_ADD_SAVE_NODE_LIS:
 			return counter.mcAddSaveNodeListener;
+
 		case CK_ADD_STMT:
 			return counter.mcAddStatement;
+
 		case CK_ADD_STMT_LIS:
 			return counter.mcAddStatementListener;
+
 		case CK_ADD_UPDATE_NODE:
 			return counter.mcAddUpdateNode;
+
 		case CK_ASSUME_STMT:
 			return counter.mcAssumeStatement;
+
 		case CK_DO_GC:
 			return counter.mcDoGC;
+
 		case CK_EXEC:
 			return counter.mcExecute;
+
 		case CK_GET_VAR:
 			return counter.mcGetVar;
+
 		case CK_HALT:
 			return counter.mcHalt;
+
 		case CK_HAS_STMT_1:
 			return counter.mcHasStatement1;
+
 		case CK_HAS_STMT_2:
 			return counter.mcHasStatement2;
+
 		case CK_LIST_STMT:
 			return counter.mcListStatements;
+
 		case CK_QUERY:
 			return counter.mcQuery;
+
 		case CK_RMV_CONSTRAINT:
 			return counter.mcRemoveConstraint;
+
 		case CK_RMV_STMT:
 			return counter.mcRemoveStatement;
+
 		case CK_SAVE:
 			return counter.mcSave;
+
 		case CK_SET_CACHE_PATH:
 			return counter.mcSetModelCachePath;
+
 		case CK_SET_NODE_LOADER:
 			return counter.mcSetNodeLoader;
+
 		case CK_SET_NODE_SAVER:
 			return counter.mcSetNodeSaver;
+
 		case CK_START:
 			return counter.mcStart;
+
 		case CK_TRY_ADD_STMT:
 			return counter.mcTryAddStatement;
+
 		case CK_BACK_SEARCH:
 			return counter.mcBackSearch;
+
+		case CK_BSC_NODE_AND:
+			return counter.bscNodeAnd;
+
+		case CK_BSC_NODE_OR:
+			return counter.bscNodeOr;
+
+		case CK_BSC_STATUS_INIT:
+			return counter.bscStatusInit;
+
+		case CK_BSC_STATUS_PROCESS:
+			return counter.bscStatusProcess;
+
+		case CK_BSC_STATUS_COMPLETE:
+			return counter.bscStatusComplete;
+
+		case CK_BSC_OP_LOOP:
+			return counter.bscOpLoop;
+
+		case CK_BSC_OP_RELOCATE:
+			return counter.bscOpRelocate;
+
+		case CK_BSC_OP_SEARCH:
+			return counter.bscOpSearch;
+
 		}
 
 		return 0;

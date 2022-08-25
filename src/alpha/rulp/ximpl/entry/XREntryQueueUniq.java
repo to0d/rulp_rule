@@ -27,6 +27,8 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 		}
 	}
 
+	protected int relocateSize = -1;
+
 	protected Map<String, UniqEntry> uniqEntryMap = new HashMap<>();
 
 	public XREntryQueueUniq(int entryLength) {
@@ -120,13 +122,6 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 	}
 
 	@Override
-	public int size() {
-		return relocateSize != -1 ? relocateSize : super.size();
-	}
-
-	protected int relocateSize = -1;
-
-	@Override
 	public void relocate(int relocatePos, List<Integer> stmtIndexs) throws RException {
 
 		if (relocatePos == -1) {
@@ -168,5 +163,10 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 			uniqEntryMap.get(ReteUtil.uniqName(b)).index = relocateSize;
 			relocateSize++;
 		}
+	}
+
+	@Override
+	public int size() {
+		return relocateSize != -1 ? relocateSize : super.size();
 	}
 }

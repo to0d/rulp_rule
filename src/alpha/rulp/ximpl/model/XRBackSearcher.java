@@ -20,7 +20,7 @@ import alpha.rulp.ximpl.node.SourceNode;
 
 public class XRBackSearcher {
 
-	static abstract class BSNode {
+	abstract class BSNode {
 
 		public ArrayList<BSNode> childNodes;
 
@@ -44,9 +44,7 @@ public class XRBackSearcher {
 			child.parentNode = this;
 		}
 
-		public abstract BSNode childComplete(XRBackSearcher bs, BSNode child) throws RException;
-
-		public abstract boolean complete(XRBackSearcher bs) throws RException;
+		public abstract void complete() throws RException;
 
 		public int getChildCount() {
 			return this.childNodes == null ? 0 : this.childNodes.size();
@@ -54,59 +52,26 @@ public class XRBackSearcher {
 
 		public abstract BSType getType();
 
-		public abstract BSNode init(XRBackSearcher bs) throws RException;
+		public abstract BSNode init() throws RException;
+
+		public abstract BSNode process() throws RException;
 
 		public String toString() {
 			return String.format("stmt=%s, type=%s, status=%s", "" + stmt, "" + this.getType(), "" + this.status);
 		}
 	}
 
-	static class BSNodeAnd extends BSNode {
+	class BSNodeAnd extends BSNode {
 
 		public IAction action;
 
 		public SourceNode sourceNode;
 
-		public BSNode childComplete(XRBackSearcher bs, BSNode child) throws RException {
-
-			// (and false xx xx) ==> false
-			if (!child.rst) {
-				this.status = BSStats.COMPLETED;
-				this.rst = false;
-				return this;
-			}
-
-			// Scan next if have more brother nodes
-			this.curChildIndex++;
-			if (this.curChildIndex < this.getChildCount()) {
-				return this.childNodes.get(this.curChildIndex);
-			}
-
-			// No child need update, mark the parent's result is true
-			this.status = BSStats.COMPLETED;
-			this.rst = true;
-			return this;
-		}
-
-		static class BSStmtIndexs {
-
-			public int maxStmtIndex = -1;
-
-			public ArrayList<Integer> stmtIndexs = new ArrayList<>();
-
-			public void addIndex(int index) {
-				stmtIndexs.add(index);
-				maxStmtIndex = Math.max(maxStmtIndex, index);
-			}
-
-			public ArrayList<Integer> relocatedStmtIndexs = new ArrayList<>();
-		}
-
-		public boolean complete(XRBackSearcher bs) throws RException {
+		public void complete() throws RException {
 
 			// no need process
 			if (!this.rst) {
-				return false;
+				return;
 			}
 
 			// need trigger all related rete-node
@@ -118,7 +83,7 @@ public class XRBackSearcher {
 
 				IRList stmt = childNode.stmt;
 
-				IRReteNode rootNode = bs.graph.findRootNode(stmt.getNamedName(), stmt.size());
+				IRReteNode rootNode = graph.findRootNode(stmt.getNamedName(), stmt.size());
 				if (!rootNodes.contains(rootNode)) {
 					rootNodes.add(rootNode);
 				}
@@ -153,6 +118,8 @@ public class XRBackSearcher {
 					}
 				}
 
+				XRBackSearcher.this.bscOpRelocate += si.relocatedStmtIndexs.size();
+
 				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
 			}
 
@@ -162,11 +129,9 @@ public class XRBackSearcher {
 				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(-1, null);
 			}
 
-			if (bs.model._findRootEntry(this.stmt, 0) == null) {
+			if (!_hasStmt(this.stmt)) {
 				this.rst = false;
 			}
-
-			return this.rst;
 		}
 
 		@Override
@@ -174,7 +139,7 @@ public class XRBackSearcher {
 			return BSType.AND;
 		}
 
-		public BSNode init(XRBackSearcher bs) throws RException {
+		public BSNode init() throws RException {
 
 			IActionSimpleStmt addAction = (IActionSimpleStmt) action;
 			int[] inheritIndexs = addAction.getInheritIndexs();
@@ -212,7 +177,7 @@ public class XRBackSearcher {
 
 			// no child
 			if (this.getChildCount() == 0) {
-				this.status = BSStats.COMPLETED;
+				this.status = BSStats.COMPLETE;
 				this.rst = false;
 				return this;
 			}
@@ -221,16 +186,15 @@ public class XRBackSearcher {
 			this.curChildIndex = 0;
 			return this.childNodes.get(0);
 		}
-	}
 
-	static class BSNodeOr extends BSNode {
+		public BSNode process() throws RException {
 
-		public BSNode childComplete(XRBackSearcher bs, BSNode child) throws RException {
+			BSNode child = this.childNodes.get(curChildIndex);
 
-			// (or true xx xx) ==> (true)
-			if (child.rst) {
-				this.status = BSStats.COMPLETED;
-				this.rst = true;
+			// (and false xx xx) ==> false
+			if (!child.rst) {
+				this.status = BSStats.COMPLETE;
+				this.rst = false;
 				return this;
 			}
 
@@ -241,22 +205,25 @@ public class XRBackSearcher {
 			}
 
 			// No child need update, mark the parent's result is true
-			this.status = BSStats.COMPLETED;
-			this.rst = false;
+			this.status = BSStats.COMPLETE;
+			this.rst = true;
 			return this;
 		}
+	}
 
-		public boolean complete(XRBackSearcher bs) throws RException {
+	class BSNodeOr extends BSNode {
 
-			if (this.rst) {
+		public void complete() throws RException {
 
-				// re-check statement in case it was deleted
-				if (bs.model._findRootEntry(this.stmt, 0) == null) {
-					this.rst = false;
-				}
+			// no need process
+			if (!this.rst) {
+				return;
 			}
 
-			return this.rst;
+			// re-check statement in case it was deleted
+			if (!_hasStmt(this.stmt)) {
+				this.rst = false;
+			}
 		}
 
 		@Override
@@ -264,16 +231,15 @@ public class XRBackSearcher {
 			return BSType.OR;
 		}
 
-		public BSNode init(XRBackSearcher bs) throws RException {
+		public BSNode init() throws RException {
 
-			// has statement
-			if (bs.model._findRootEntry(this.stmt, 0) != null) {
-				this.status = BSStats.COMPLETED;
+			if (_hasStmt(this.stmt)) {
+				this.status = BSStats.COMPLETE;
 				this.rst = true;
 				return this;
 			}
 
-			for (SourceNode sn : bs.graph.listSourceNodes(stmt)) {
+			for (SourceNode sn : graph.listSourceNodes(stmt)) {
 				for (IAction action : sn.actionList) {
 
 					if (action.getActionType() != RActionType.ADD) {
@@ -286,7 +252,7 @@ public class XRBackSearcher {
 
 			// no child
 			if (this.getChildCount() == 0) {
-				this.status = BSStats.COMPLETED;
+				this.status = BSStats.COMPLETE;
 				this.rst = false;
 				return this;
 			}
@@ -296,45 +262,78 @@ public class XRBackSearcher {
 			return this.childNodes.get(0);
 		}
 
+		public BSNode process() throws RException {
+
+			BSNode child = this.childNodes.get(curChildIndex);
+
+			// (or true xx xx) ==> (true)
+			if (child.rst) {
+				this.status = BSStats.COMPLETE;
+				this.rst = true;
+				return this;
+			}
+
+			// Scan next if have more brother nodes
+			this.curChildIndex++;
+			if (this.curChildIndex < this.getChildCount()) {
+				return this.childNodes.get(this.curChildIndex);
+			}
+
+			// No child need update, mark the parent's result is true
+			this.status = BSStats.COMPLETE;
+			this.rst = false;
+			return this;
+		}
+
 	}
 
 	static enum BSStats {
-		COMPLETED, INIT, PROCESS
+		COMPLETE, INIT, PROCESS
+	}
+
+	static class BSStmtIndexs {
+
+		public int maxStmtIndex = -1;
+
+		public ArrayList<Integer> relocatedStmtIndexs = new ArrayList<>();
+
+		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
+
+		public void addIndex(int index) {
+			stmtIndexs.add(index);
+			maxStmtIndex = Math.max(maxStmtIndex, index);
+		}
 	}
 
 	static enum BSType {
 		AND, OR
 	}
 
-	static BSNode _newAndNode(IRList stmt, SourceNode sourceNode, IAction action) {
+	protected int bscNodeAnd = 0;
 
-		BSNodeAnd node = new BSNodeAnd();
-		node.stmt = stmt;
-		node.status = BSStats.INIT;
-		node.sourceNode = sourceNode;
-		node.action = action;
+	protected int bscNodeOr = 0;
 
-		return node;
-	}
+	protected int bscOpLoop = 0;
 
-	static BSNode _newOrNode(IRList stmt) {
+	protected int bscOpRelocate = 0;
 
-		BSNodeOr node = new BSNodeOr();
-		node.stmt = stmt;
-		node.status = BSStats.INIT;
+	protected int bscOpSearch = 0;
 
-		return node;
-	}
+	protected int bscStatusComplete = 0;
 
-	IRNodeGraph graph;
+	protected int bscStatusInit = 0;
 
-	XRModel model;
+	protected int bscStatusProcess = 0;
 
-	Map<String, BSNode> nodeMap = new HashMap<>();
+	protected IRNodeGraph graph;
 
-	ArrayList<BSNode> queryStack = new ArrayList<>();
+	protected XRModel model;
 
-	BSNode rootNode;
+	protected Map<String, BSNode> nodeMap = new HashMap<>();
+
+	protected ArrayList<BSNode> queryStack = new ArrayList<>();
+
+	protected BSNode rootNode;
 
 	public XRBackSearcher(XRModel model) {
 		super();
@@ -342,12 +341,76 @@ public class XRBackSearcher {
 		this.graph = model.getNodeGraph();
 	}
 
+	boolean _hasStmt(IRList stmt) throws RException {
+		return model._findRootEntry(stmt, 0) != null;
+	}
+
+	protected BSNode _newAndNode(IRList stmt, SourceNode sourceNode, IAction action) {
+
+		BSNodeAnd node = new BSNodeAnd();
+		node.stmt = stmt;
+		node.status = BSStats.INIT;
+		node.sourceNode = sourceNode;
+		node.action = action;
+
+		this.bscNodeAnd++;
+
+		return node;
+	}
+
+	protected BSNode _newOrNode(IRList stmt) {
+
+		BSNodeOr node = new BSNodeOr();
+		node.stmt = stmt;
+		node.status = BSStats.INIT;
+
+		this.bscNodeOr++;
+
+		return node;
+	}
+
+	public int getBscNodeAnd() {
+		return bscNodeAnd;
+	}
+
+	public int getBscNodeOr() {
+		return bscNodeOr;
+	}
+
+	public int getBscOpLoop() {
+		return bscOpLoop;
+	}
+
+	public int getBscOpRelocate() {
+		return bscOpRelocate;
+	}
+
+	public int getBscOpSearch() {
+		return bscOpSearch;
+	}
+
+	public int getBscStatusComplete() {
+		return bscStatusComplete;
+	}
+
+	public int getBscStatusInit() {
+		return bscStatusInit;
+	}
+
+	public int getBscStatusProcess() {
+		return bscStatusProcess;
+	}
+
 	public boolean search(IRList stmt) throws RException {
 
 		rootNode = _newOrNode(stmt);
 		BSNode curNode = rootNode;
 
-		while (rootNode.status != BSStats.COMPLETED) {
+		this.bscOpSearch++;
+
+		while (rootNode.status != BSStats.COMPLETE) {
+
+			this.bscOpLoop++;
 
 			BSNode oldNode = curNode;
 			BSStats oldStatus = curNode.status;
@@ -355,14 +418,21 @@ public class XRBackSearcher {
 			switch (curNode.status) {
 
 			case INIT:
-				curNode = curNode.init(this);
+				this.bscStatusInit++;
+
+				curNode = curNode.init();
 				break;
 
 			case PROCESS:
+				this.bscStatusProcess++;
+
+				curNode = curNode.process();
 				break;
 
-			case COMPLETED:
-				curNode.complete(this);
+			case COMPLETE:
+				this.bscStatusComplete++;
+
+				curNode.complete();
 				if (curNode == rootNode) {
 					break;
 				}
@@ -371,7 +441,8 @@ public class XRBackSearcher {
 				if (parent.childNodes.get(parent.curChildIndex) != curNode) {
 					throw new RException("Invalid child: " + parent.curChildIndex);
 				}
-				curNode = parent.childComplete(this, curNode);
+
+				curNode = parent;
 				break;
 
 			default:
@@ -384,6 +455,8 @@ public class XRBackSearcher {
 			}
 		}
 
-		return curNode.complete(this);
+		curNode.complete();
+
+		return curNode.rst;
 	}
 }

@@ -91,6 +91,14 @@ model-addUpdateNode                   4
 model-execute                         3
 model-listStatements                  1
 model-backSearch                      1
+bsc-node-and                          1
+bsc-node-or                           2
+bsc-status-init                       3
+bsc-status-process                    2
+bsc-status-complete                   2
+bsc-op-loop                           7
+bsc-op-relocate                       1
+bsc-op-search                         1
 ===============================================================================================================================================================================
 
 
