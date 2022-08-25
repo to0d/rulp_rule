@@ -2048,7 +2048,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNodeSubGraph buildConstraintCheckSubGraph(IRReteNode rootNode) throws RException {
+	public IRNodeSubGraph buildSubGraphForConstraintCheck(IRReteNode rootNode) throws RException {
 
 		if (_constraintCheckSubGraphMap == null) {
 			_constraintCheckSubGraphMap = new HashMap<>();
@@ -2091,7 +2091,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException {
+	public IRNodeSubGraph buildSubGraphForRuleGroup(String ruleGroupName) throws RException {
 
 		if (_ruleGroupSubGraphMap == null) {
 			_ruleGroupSubGraphMap = new HashMap<>();
@@ -2107,7 +2107,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNodeSubGraph buildSourceSubGraph(IRReteNode queryNode) throws RException {
+	public IRNodeSubGraph buildSubGraphForQueryNode(IRReteNode queryNode) throws RException {
 
 		if (_sourceSubGraphMap == null) {
 			_sourceSubGraphMap = new HashMap<>();

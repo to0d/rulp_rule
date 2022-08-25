@@ -35,13 +35,13 @@ public interface IRNodeGraph {
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
 
-	public IRNodeSubGraph buildConstraintCheckSubGraph(IRReteNode rootNode) throws RException;
-
 	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException;
 
-	public IRNodeSubGraph buildRuleGroupSubGraph(String ruleGroupName) throws RException;
+	public IRNodeSubGraph buildSubGraphForConstraintCheck(IRReteNode rootNode) throws RException;
 
-	public IRNodeSubGraph buildSourceSubGraph(IRReteNode queryNode) throws RException;
+	public IRNodeSubGraph buildSubGraphForQueryNode(IRReteNode queryNode) throws RException;
+
+	public IRNodeSubGraph buildSubGraphForRuleGroup(String ruleGroupName) throws RException;
 
 	public int doOptimize() throws RException;
 

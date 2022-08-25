@@ -227,7 +227,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		/********************************************/
 		IRNodeSubGraph subGraph = null;
 		if (ruleGroupName != null) {
-			subGraph = model.getNodeGraph().buildRuleGroupSubGraph(ruleGroupName);
+			subGraph = model.getNodeGraph().buildSubGraphForRuleGroup(ruleGroupName);
 		}
 
 		/********************************************/

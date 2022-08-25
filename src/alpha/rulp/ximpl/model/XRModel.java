@@ -891,7 +891,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build subgraph
 		/******************************************************/
-		IRNodeSubGraph subGraph = this.nodeGraph.buildConstraintCheckSubGraph(rootNode);
+		IRNodeSubGraph subGraph = this.nodeGraph.buildSubGraphForConstraintCheck(rootNode);
 		if (subGraph.isEmpty()) {
 			return;
 		}
@@ -1543,7 +1543,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build subgraph
 		/******************************************************/
-		IRNodeSubGraph subGraph = this.nodeGraph.buildSourceSubGraph(queryNode);
+		IRNodeSubGraph subGraph = this.nodeGraph.buildSubGraphForQueryNode(queryNode);
 
 		/******************************************************/
 		// Invoke running

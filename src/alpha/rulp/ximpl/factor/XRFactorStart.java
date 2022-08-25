@@ -98,7 +98,7 @@ public class XRFactorStart extends AbsAtomFactorAdapter implements IRFactor, IRu
 		/********************************************/
 		IRNodeSubGraph subGraph = null;
 		if (ruleGroupName != null) {
-			subGraph = RuleUtil.asModel((IRObject) runObj).getNodeGraph().buildRuleGroupSubGraph(ruleGroupName);
+			subGraph = RuleUtil.asModel((IRObject) runObj).getNodeGraph().buildSubGraphForRuleGroup(ruleGroupName);
 		}
 
 		try {
