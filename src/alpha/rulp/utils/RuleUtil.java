@@ -239,7 +239,7 @@ public class RuleUtil {
 
 	public static void addWorker(IRModel model, IRList condList, IRWorker worker) throws RException {
 
-		IRReteNode fromNode = model.getNodeGraph().addWorker(null, worker);
+		IRReteNode fromNode = model.getNodeGraph().createWorkNode(null, worker);
 		IRReteNode toNode = model.findNode(condList);
 		model.getNodeGraph().bindNode(fromNode, toNode);
 	}
@@ -433,7 +433,7 @@ public class RuleUtil {
 	}
 
 	public static void invokeRule(IRModel model, String ruleName) throws RException {
-		model.getNodeGraph().getRule(ruleName).start(-1, -1);
+		model.getNodeGraph().findRule(ruleName).start(-1, -1);
 	}
 
 	public static boolean isModelTrace() throws RException {
@@ -537,7 +537,7 @@ public class RuleUtil {
 
 		int priority = 0;
 
-		for (IRRule rule : model.getNodeGraph().getRelatedRules(node)) {
+		for (IRRule rule : model.getNodeGraph().listRelatedRules(node)) {
 			int rulePriority = rule.getPriority();
 			if (rulePriority > priority) {
 				priority = rulePriority;

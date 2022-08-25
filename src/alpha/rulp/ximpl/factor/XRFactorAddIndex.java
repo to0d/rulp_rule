@@ -158,8 +158,8 @@ public class XRFactorAddIndex extends AbsAtomFactorAdapter implements IRFactor, 
 		}
 
 		IRNodeGraph graph = model.getNodeGraph();
-		IRReteNode node = graph.getNodeByTree(nodeExpr);
+		IRReteNode node = graph.createNodeByTree(nodeExpr);
 
-		return graph.buildIndex(node, orderList);
+		return graph.createNodeIndex(node, orderList);
 	}
 }

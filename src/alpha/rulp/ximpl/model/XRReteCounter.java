@@ -108,13 +108,13 @@ public class XRReteCounter implements IRReteNodeCounter {
 
 			case BindFromCount:
 				for (IRReteNode node : nodeList) {
-					value += model.getNodeGraph().getBindFromNodes(node).size();
+					value += model.getNodeGraph().listBindFromNodes(node).size();
 				}
 				break;
 
 			case BindToCount:
 				for (IRReteNode node : nodeList) {
-					value += model.getNodeGraph().getBindToNodes(node).size();
+					value += model.getNodeGraph().listBindToNodes(node).size();
 				}
 				break;
 

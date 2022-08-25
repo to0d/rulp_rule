@@ -32,7 +32,7 @@ public class XRFactorAddLazyStmt extends AbsAtomFactorAdapter implements IRFacto
 		IRList condList = RuleUtil.toCondList(interpreter.compute(frame, args.get(2)));
 		IRObject obj = args.get(3);
 
-		model.getNodeGraph().bindNode(model.getNodeGraph().addWorker(null, (m) -> {
+		model.getNodeGraph().bindNode(model.getNodeGraph().createWorkNode(null, (m) -> {
 			RuleUtil.addStatements(model, RuleUtil.toStmtList(interpreter.compute(frame, obj)));
 			return true;
 		}), model.findNode(condList));

@@ -633,7 +633,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			// not value found, link to root node
 			/***********************************************/
 			if (lastValuePos == -1) {
-				return getRootNode(namedName, stmtLen);
+				return createNodeRoot(namedName, stmtLen);
 
 			} else {
 
@@ -836,7 +836,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		int stmtLen = constStmt.size();
-		IRReteNode parentNode = getRootNode(null, stmtLen);
+		IRReteNode parentNode = createNodeRoot(null, stmtLen);
 
 		return RNodeFactory.createConstNode(model, _getNextNodeId(), constStmt, entryTable, parentNode);
 	}
@@ -1286,7 +1286,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 			}
 
-			for (IRReteNode newSrcNode : getBindFromNodes(sourceNode)) {
+			for (IRReteNode newSrcNode : listBindFromNodes(sourceNode)) {
 				visitStack.add(newSrcNode);
 			}
 
@@ -1745,8 +1745,8 @@ public class XRNodeGraph implements IRNodeGraph {
 					.getEntryCount(TEMP__);
 			gcRemoveNodeCountArray[NullCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryNullCount();
 			gcRemoveNodeCountArray[RedundantCount.getIndex()] += node.getEntryQueue().getRedundantCount();
-			gcRemoveNodeCountArray[BindFromCount.getIndex()] += model.getNodeGraph().getBindFromNodes(node).size();
-			gcRemoveNodeCountArray[BindToCount.getIndex()] += model.getNodeGraph().getBindToNodes(node).size();
+			gcRemoveNodeCountArray[BindFromCount.getIndex()] += model.getNodeGraph().listBindFromNodes(node).size();
+			gcRemoveNodeCountArray[BindToCount.getIndex()] += model.getNodeGraph().listBindToNodes(node).size();
 			gcRemoveNodeCountArray[NodeCount.getIndex()] += 1;
 			gcRemoveNodeCountArray[SourceCount.getIndex()] += RuleUtil.listSource(model, node).size();
 			gcRemoveNodeCountArray[MatchCount.getIndex()] += node.getNodeMatchCount();
@@ -1786,6 +1786,16 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		_graphChanged();
 
+	}
+
+	protected void _setNodePriority(IRReteNode node, int priority) throws RException {
+
+		if (node.getPriority() == priority) {
+			return;
+		}
+
+		node.setPriority(priority);
+		_graphChanged();
 	}
 
 	protected boolean _supportInheritOpt(IRReteNode parentNode, IRObject[] ruleVarEntry, List<IRExpr> indexExprList,
@@ -1853,12 +1863,110 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRRule addRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException {
+	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> bindNode: " + fromNode + ", " + toNode);
+		}
+
+		XGraphInfo fromNodeInfo = (XGraphInfo) fromNode.getGraphInfo();
+		XGraphInfo toNodeInfo = (XGraphInfo) toNode.getGraphInfo();
+		fromNodeInfo.bind(toNodeInfo);
+
+		_graphChanged();
+	}
+
+	@Override
+	public IRReteNode createNodeByTree(IRList tree) throws RException {
+
+		if (ReteUtil.isReteStmt(tree)) {
+			List<IRList> matchStmtList = new LinkedList<>();
+			matchStmtList.add(tree);
+			return _findReteNode(matchStmtList);
+		}
+
+		if (ReteUtil.isCondList(tree)) {
+			return _findReteNode(ReteUtil.toCondList(tree, this, uniqBuilder));
+		}
+
+		throw new RException("Can't find node by stmts: " + tree);
+	}
+
+	@Override
+	public IRReteNode createNodeIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
+
+		switch (node.getReteType()) {
+		case ROOT0:
+		case NAME0:
+		case ALPH0:
+			break;
+
+		default:
+			throw new RException(String.format("Can't add index to node: %s", node.getUniqName()));
+		}
+
+		String uniqName = ReteUtil.getIndexNodeUniqName(node.getUniqName(), orderList);
+		IRReteNode oldIndexNode = ReteUtil.matchChildNode(node, RReteType.INDEX, uniqName);
+		if (oldIndexNode != null) {
+			return oldIndexNode;
+		}
+
+		AbsReteNode indexNode = RNodeFactory.createIndexNode(model, _getNextNodeId(), uniqName, node.getEntryLength(),
+				node, node.getVarEntry(), orderList);
+
+		_addNode(indexNode);
+
+		return indexNode;
+	}
+
+	@Override
+	public AbsReteNode createNodeRoot(String name, int stmtLen) throws RException {
+
+		if (name == null) {
+
+			AbsReteNode rootNode = rootNodeArray[stmtLen];
+			if (rootNode == null) {
+
+				rootNode = RNodeFactory.createRoot0Node(model, _getNextNodeId(), stmtLen);
+				rootNodeArray[stmtLen] = rootNode;
+				if (stmtLen > maxRootStmtLen) {
+					maxRootStmtLen = stmtLen;
+				}
+
+				_addNode(rootNode);
+				rootNode.setReteTree(_toList(ReteUtil.getRootUniqName(null, stmtLen)));
+			}
+
+			return rootNode;
+		}
+
+		if (stmtLen == -1) {
+			throw new RException(String.format("invalid namedNode<%s:%d>", name, stmtLen));
+		}
+
+		AbsReteNode namedNode = namedNodeMap.get(name);
+		if (namedNode == null) {
+			namedNode = RNodeFactory.createName0Node(model, _getNextNodeId(), name, stmtLen);
+			namedNodeMap.put(name, namedNode);
+			_addNode(namedNode);
+			namedNode.setReteTree(_toList(ReteUtil.getRootUniqName(name, stmtLen)));
+		}
+
+		if (stmtLen != -1 && namedNode.getEntryLength() != stmtLen) {
+			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
+					namedNode.getEntryLength(), namedNode.getNodeName()));
+		}
+
+		return namedNode;
+	}
+
+	@Override
+	public IRRule createNodeRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException {
 
 		if (ruleName == null) {
 			ruleName = String.format("RU%03d", anonymousRuleIndex++);
 
-		} else if (getRule(ruleName) != null) {
+		} else if (findRule(ruleName) != null) {
 			throw new RException("Duplicate rule name: " + ruleName);
 		}
 
@@ -1971,7 +2079,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				parentNode.getEntryLength(), parentNode, ruleVarEntry, actionStmtList);
 
 		ruleNode.setMatchStmtList(actualMatchStmtList);
-		setNodePriority(ruleNode, priority);
+		_setNodePriority(ruleNode, priority);
 
 		for (IRExpr expr : indexExprList) {
 			addConstraint(ruleNode, ConstraintFactory.expr4(expr, actualMatchStmtList));
@@ -1990,7 +2098,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 
 				if (node.getPriority() < priority) {
-					setNodePriority(node, priority);
+					_setNodePriority(node, priority);
 				}
 			}
 			return false;
@@ -2013,7 +2121,55 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRReteNode addWorker(String name, IRWorker worker) throws RException {
+	public IRNodeSubGraph createSubGraphForConstraintCheck(IRReteNode rootNode) throws RException {
+
+		if (_constraintCheckSubGraphMap == null) {
+			_constraintCheckSubGraphMap = new HashMap<>();
+		}
+
+		IRNodeSubGraph subGraph = _constraintCheckSubGraphMap.get(rootNode);
+		if (subGraph == null) {
+			subGraph = _buildSubGraphConstraintCheck(rootNode);
+			_constraintCheckSubGraphMap.put(rootNode, subGraph);
+		}
+
+		return subGraph;
+	}
+
+	@Override
+	public IRNodeSubGraph createSubGraphForQueryNode(IRReteNode queryNode) throws RException {
+
+		if (_sourceSubGraphMap == null) {
+			_sourceSubGraphMap = new HashMap<>();
+		}
+
+		IRNodeSubGraph subGraph = _sourceSubGraphMap.get(queryNode);
+		if (subGraph == null) {
+			subGraph = _buildSubGroupSource(queryNode);
+			_sourceSubGraphMap.put(queryNode, subGraph);
+		}
+
+		return subGraph;
+	}
+
+	@Override
+	public IRNodeSubGraph createSubGraphForRuleGroup(String ruleGroupName) throws RException {
+
+		if (_ruleGroupSubGraphMap == null) {
+			_ruleGroupSubGraphMap = new HashMap<>();
+		}
+
+		IRNodeSubGraph subGraph = _ruleGroupSubGraphMap.get(ruleGroupName);
+		if (subGraph == null) {
+			subGraph = _buildSubGraphRuleGroup(ruleGroupName);
+			_ruleGroupSubGraphMap.put(ruleGroupName, subGraph);
+		}
+
+		return subGraph;
+	}
+
+	@Override
+	public IRReteNode createWorkNode(String name, IRWorker worker) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> addWorker: " + name);
@@ -2034,199 +2190,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> bindNode: " + fromNode + ", " + toNode);
-		}
-
-		XGraphInfo fromNodeInfo = (XGraphInfo) fromNode.getGraphInfo();
-		XGraphInfo toNodeInfo = (XGraphInfo) toNode.getGraphInfo();
-		fromNodeInfo.bind(toNodeInfo);
-
-		_graphChanged();
-	}
-
-	@Override
-	public IRNodeSubGraph buildSubGraphForConstraintCheck(IRReteNode rootNode) throws RException {
-
-		if (_constraintCheckSubGraphMap == null) {
-			_constraintCheckSubGraphMap = new HashMap<>();
-		}
-
-		IRNodeSubGraph subGraph = _constraintCheckSubGraphMap.get(rootNode);
-		if (subGraph == null) {
-			subGraph = _buildSubGraphConstraintCheck(rootNode);
-			_constraintCheckSubGraphMap.put(rootNode, subGraph);
-		}
-
-		return subGraph;
-	}
-
-	@Override
-	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
-
-		switch (node.getReteType()) {
-		case ROOT0:
-		case NAME0:
-		case ALPH0:
-			break;
-
-		default:
-			throw new RException(String.format("Can't add index to node: %s", node.getUniqName()));
-		}
-
-		String uniqName = ReteUtil.getIndexNodeUniqName(node.getUniqName(), orderList);
-		IRReteNode oldIndexNode = ReteUtil.matchChildNode(node, RReteType.INDEX, uniqName);
-		if (oldIndexNode != null) {
-			return oldIndexNode;
-		}
-
-		AbsReteNode indexNode = RNodeFactory.createIndexNode(model, _getNextNodeId(), uniqName, node.getEntryLength(),
-				node, node.getVarEntry(), orderList);
-
-		_addNode(indexNode);
-
-		return indexNode;
-	}
-
-	@Override
-	public IRNodeSubGraph buildSubGraphForRuleGroup(String ruleGroupName) throws RException {
-
-		if (_ruleGroupSubGraphMap == null) {
-			_ruleGroupSubGraphMap = new HashMap<>();
-		}
-
-		IRNodeSubGraph subGraph = _ruleGroupSubGraphMap.get(ruleGroupName);
-		if (subGraph == null) {
-			subGraph = _buildSubGraphRuleGroup(ruleGroupName);
-			_ruleGroupSubGraphMap.put(ruleGroupName, subGraph);
-		}
-
-		return subGraph;
-	}
-
-	@Override
-	public IRNodeSubGraph buildSubGraphForQueryNode(IRReteNode queryNode) throws RException {
-
-		if (_sourceSubGraphMap == null) {
-			_sourceSubGraphMap = new HashMap<>();
-		}
-
-		IRNodeSubGraph subGraph = _sourceSubGraphMap.get(queryNode);
-		if (subGraph == null) {
-			subGraph = _buildSubGroupSource(queryNode);
-			_sourceSubGraphMap.put(queryNode, subGraph);
-		}
-
-		return subGraph;
-	}
-
-	@Override
-	public int doOptimize() throws RException {
-
-		int optCount = 0;
-
-		/***********************************************************/
-		// Link node and its single child node
-		/***********************************************************/
-		for (IRReteNode node : nodeUniqNameMap.values()) {
-
-			// ignore node which is not active
-			if (node.getPriority() == 0) {
-				continue;
-			}
-
-			// ignore node which is not fresh
-			if (!node.isNodeFresh()) {
-				continue;
-			}
-
-			// ignore node which has multi child
-			List<IRReteNode> allChild = node.getChildNodes();
-			if (allChild.size() != 1) {
-				continue;
-			}
-
-			IRReteNode child = allChild.get(0);
-
-			// ignore node whose child is not active
-			if (child.getPriority() == 0) {
-				continue;
-			}
-
-			// ignore node whose child is not same type
-			if (child.getReteType() != node.getReteType()) {
-				continue;
-			}
-
-			// ignore node whose child has multi parent
-			if (child.getParentCount() != 1) {
-				continue;
-			}
-
-			switch (node.getReteType()) {
-			case EXPR1:
-
-				XRNodeRete1 exprParent1 = (XRNodeRete1) node;
-				XRNodeRete1 exprChild1 = (XRNodeRete1) child;
-				IRReteNode parentNode = exprParent1.getParentNodes()[0];
-
-				// Remove link
-				exprParent1.removeChildNode(exprChild1);
-
-				// Add new link
-				parentNode.addChildNode(exprChild1);
-				exprChild1.setParentNodes(ReteUtil.toNodesArray(parentNode));
-
-				// Copy match node from parent to child
-				int consSize = exprParent1.getConstraint1Count();
-				for (int i = 0; i < consSize; ++i) {
-					addConstraint(exprChild1, exprParent1.getConstraint1(i));
-				}
-
-				// Update priority
-				if (exprParent1.getPriority() > exprChild1.getPriority()) {
-					setNodePriority(exprChild1, exprParent1.getPriority());
-				}
-
-				// disable parent node
-				setNodePriority(exprParent1, 0);
-
-				++optCount;
-
-				break;
-
-			default:
-			}
-		}
-
-		return optCount;
-	}
-
-	@Override
-	public IRReteNode findNodeByUniqName(String uniqName) throws RException {
-		return nodeUniqNameMap.get(uniqName);
-	}
-
-	@Override
-	public IRReteNode findRootNode(String name, int stmtLen) throws RException {
-
-		if (name == null) {
-			return rootNodeArray[stmtLen];
-		}
-
-		IRReteNode node = namedNodeMap.get(name);
-		if (node != null && stmtLen > 0 && node.getEntryLength() != stmtLen) {
-			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
-					node.getEntryLength(), node.getNodeName()));
-		}
-
-		return node;
-	}
-
-	@Override
-	public void gc() throws RException {
+	public void doGc() throws RException {
 
 		gcCount++;
 
@@ -2313,49 +2277,112 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException {
-		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
-		return nodeInfo.bindFromNodeList == null ? Collections.emptyList() : nodeInfo.bindFromNodeList;
+	public int doOptimize() throws RException {
+
+		int optCount = 0;
+
+		/***********************************************************/
+		// Link node and its single child node
+		/***********************************************************/
+		for (IRReteNode node : nodeUniqNameMap.values()) {
+
+			// ignore node which is not active
+			if (node.getPriority() == 0) {
+				continue;
+			}
+
+			// ignore node which is not fresh
+			if (!node.isNodeFresh()) {
+				continue;
+			}
+
+			// ignore node which has multi child
+			List<IRReteNode> allChild = node.getChildNodes();
+			if (allChild.size() != 1) {
+				continue;
+			}
+
+			IRReteNode child = allChild.get(0);
+
+			// ignore node whose child is not active
+			if (child.getPriority() == 0) {
+				continue;
+			}
+
+			// ignore node whose child is not same type
+			if (child.getReteType() != node.getReteType()) {
+				continue;
+			}
+
+			// ignore node whose child has multi parent
+			if (child.getParentCount() != 1) {
+				continue;
+			}
+
+			switch (node.getReteType()) {
+			case EXPR1:
+
+				XRNodeRete1 exprParent1 = (XRNodeRete1) node;
+				XRNodeRete1 exprChild1 = (XRNodeRete1) child;
+				IRReteNode parentNode = exprParent1.getParentNodes()[0];
+
+				// Remove link
+				exprParent1.removeChildNode(exprChild1);
+
+				// Add new link
+				parentNode.addChildNode(exprChild1);
+				exprChild1.setParentNodes(ReteUtil.toNodesArray(parentNode));
+
+				// Copy match node from parent to child
+				int consSize = exprParent1.getConstraint1Count();
+				for (int i = 0; i < consSize; ++i) {
+					addConstraint(exprChild1, exprParent1.getConstraint1(i));
+				}
+
+				// Update priority
+				if (exprParent1.getPriority() > exprChild1.getPriority()) {
+					_setNodePriority(exprChild1, exprParent1.getPriority());
+				}
+
+				// disable parent node
+				_setNodePriority(exprParent1, 0);
+
+				++optCount;
+
+				break;
+
+			default:
+			}
+		}
+
+		return optCount;
 	}
 
 	@Override
-	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException {
-		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
-		return nodeInfo.bindToNodeList == null ? Collections.emptyList() : nodeInfo.bindToNodeList;
+	public IRReteNode findNodeByUniqName(String uniqName) throws RException {
+		return nodeUniqNameMap.get(uniqName);
 	}
 
-//	@Override
-//	public IRReteNode getDupNode(IRReteNode node) throws RException {
-//
-//		IRReteNode oldDupNode = ReteUtil.findDupNode(node);
-//		if (oldDupNode != null) {
-//			return oldDupNode;
-//		}
-//
-//		String dupUniqName = ReteUtil.getDupNodeUniqName(node.getUniqName());
-//
-//		// Get the max visit index
-//		int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(node);
-//
-//		// Backup child nodes
-//		ArrayList<IRReteNode> childNodes = new ArrayList<>(node.getChildNodes());
-//
-//		// Create dup node
-//		XRNodeRete1 dupNode = RNodeFactory.createDupNode(model, _getNextNodeId(), dupUniqName, node);
-//
-//		// Move all child node to dup node
-//		for (IRReteNode child : childNodes) {
-//			node.removeChildNode(child);
-//			ReteUtil.setParentNodes(dupNode, child);
-//		}
-//
-//		// Force update for dup node
-//		if (childMaxVisitIndex > 0) {
-//			dupNode.update(childMaxVisitIndex);
-//		}
-//
-//		return dupNode;
-//	}
+	@Override
+	public IRReteNode findRootNode(String name, int stmtLen) throws RException {
+
+		if (name == null) {
+			return rootNodeArray[stmtLen];
+		}
+
+		IRReteNode node = namedNodeMap.get(name);
+		if (node != null && stmtLen > 0 && node.getEntryLength() != stmtLen) {
+			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
+					node.getEntryLength(), node.getNodeName()));
+		}
+
+		return node;
+	}
+
+	@Override
+	public IRRule findRule(String ruleName) {
+		return ruleNodeMap.get(ruleName);
+	}
 
 	@Override
 	public int getGcCacheCount() {
@@ -2393,27 +2420,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRReteNode getNodeById(int nodeId) {
-		return _getNodeInfo(nodeId);
-	}
-
-	@Override
-	public IRReteNode getNodeByTree(IRList tree) throws RException {
-
-		if (ReteUtil.isReteStmt(tree)) {
-			List<IRList> matchStmtList = new LinkedList<>();
-			matchStmtList.add(tree);
-			return _findReteNode(matchStmtList);
-		}
-
-		if (ReteUtil.isCondList(tree)) {
-			return _findReteNode(ReteUtil.toCondList(tree, this, uniqBuilder));
-		}
-
-		throw new RException("Can't find node by stmts: " + tree);
-	}
-
-	@Override
 	public IReteNodeMatrix getNodeMatrix() {
 
 		return new IReteNodeMatrix() {
@@ -2443,59 +2449,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public List<IRRule> getRelatedRules(IRReteNode node) throws RException {
-
-		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
-		return nodeInfo.relatedRules == null ? Collections.emptyList() : nodeInfo.relatedRules;
-	}
-
-	@Override
-	public AbsReteNode getRootNode(String name, int stmtLen) throws RException {
-
-		if (name == null) {
-
-			AbsReteNode rootNode = rootNodeArray[stmtLen];
-			if (rootNode == null) {
-
-				rootNode = RNodeFactory.createRoot0Node(model, _getNextNodeId(), stmtLen);
-				rootNodeArray[stmtLen] = rootNode;
-				if (stmtLen > maxRootStmtLen) {
-					maxRootStmtLen = stmtLen;
-				}
-
-				_addNode(rootNode);
-				rootNode.setReteTree(_toList(ReteUtil.getRootUniqName(null, stmtLen)));
-			}
-
-			return rootNode;
-		}
-
-		if (stmtLen == -1) {
-			throw new RException(String.format("invalid namedNode<%s:%d>", name, stmtLen));
-		}
-
-		AbsReteNode namedNode = namedNodeMap.get(name);
-		if (namedNode == null) {
-			namedNode = RNodeFactory.createName0Node(model, _getNextNodeId(), name, stmtLen);
-			namedNodeMap.put(name, namedNode);
-			_addNode(namedNode);
-			namedNode.setReteTree(_toList(ReteUtil.getRootUniqName(name, stmtLen)));
-		}
-
-		if (stmtLen != -1 && namedNode.getEntryLength() != stmtLen) {
-			throw new RException(String.format("EntryLength not match: expect=%d, actual=%s, node=%s", stmtLen,
-					namedNode.getEntryLength(), namedNode.getNodeName()));
-		}
-
-		return namedNode;
-	}
-
-	@Override
-	public IRRule getRule(String ruleName) {
-		return ruleNodeMap.get(ruleName);
-	}
-
-	@Override
 	public int getUniqueObjectCount() {
 		return uniqBuilder.size();
 	}
@@ -2508,8 +2461,27 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
+	public List<IRReteNode> listBindFromNodes(IRReteNode node) throws RException {
+		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
+		return nodeInfo.bindFromNodeList == null ? Collections.emptyList() : nodeInfo.bindFromNodeList;
+	}
+
+	@Override
+	public List<IRReteNode> listBindToNodes(IRReteNode node) throws RException {
+		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
+		return nodeInfo.bindToNodeList == null ? Collections.emptyList() : nodeInfo.bindToNodeList;
+	}
+
+	@Override
 	public List<AbsReteNode> listNodes(RReteType reteType) {
 		return this.nodeListArray[reteType.getIndex()].nodes;
+	}
+
+	@Override
+	public List<IRRule> listRelatedRules(IRReteNode node) throws RException {
+
+		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
+		return nodeInfo.relatedRules == null ? Collections.emptyList() : nodeInfo.relatedRules;
 	}
 
 	@Override
@@ -2662,25 +2634,12 @@ public class XRNodeGraph implements IRNodeGraph {
 		return false;
 	}
 
-	@Override
 	public void setGcMaxCacheNodeCount(int gcMaxCacheNodeCount) {
 		this.gcMaxCacheNodeCount = gcMaxCacheNodeCount;
 	}
 
-	@Override
 	public void setGcMaxInactiveLeafCount(int gcMaxInactiveLeafCount) {
 		this.gcMaxInactiveLeafCount = gcMaxInactiveLeafCount;
-	}
-
-	@Override
-	public void setNodePriority(IRReteNode node, int priority) throws RException {
-
-		if (node.getPriority() == priority) {
-			return;
-		}
-
-		node.setPriority(priority);
-		_graphChanged();
 	}
 
 	@Override
@@ -2694,7 +2653,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			return;
 		}
 
-		setNodePriority(rule, priority);
+		_setNodePriority(rule, priority);
 
 		/******************************************************/
 		// Update all rule node priority
@@ -2704,7 +2663,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			RuleUtil.travelReteParentNodeByPostorder(rule, (_node) -> {
 				if (_node.getReteType() != RReteType.ROOT0 && _node != rule) {
 					int newPriority = RuleUtil.recalcuatePriority(model, _node);
-					setNodePriority(_node, newPriority);
+					_setNodePriority(_node, newPriority);
 				}
 				return false;
 			});

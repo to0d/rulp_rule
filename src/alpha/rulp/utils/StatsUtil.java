@@ -1357,7 +1357,7 @@ public class StatsUtil {
 					entryCounter.getEntryCount(REASON), entryCounter.getEntryCount(ASSUME),
 					entryCounter.getEntryCount(null), entryCounter.getEntryCount(REMOVE),
 					entryCounter.getEntryCount(TEMP__), entryCounter.getEntryNullCount(),
-					"" + graph.getBindFromNodes(node).size() + "/" + graph.getBindToNodes(node).size(),
+					"" + graph.listBindFromNodes(node).size() + "/" + graph.listBindToNodes(node).size(),
 					node.getNodeMatchCount(), entryQueue.getUpdateCount(), entryQueue.getRedundantCount(),
 					node.getNodeExecCount(), node.getNodeIdleCount(), waste, node.getNodeFailedCount(),
 					node.getReteLevel(), node.getPriority(), RuleUtil.listSource(model, node).size(),
@@ -1385,7 +1385,7 @@ public class StatsUtil {
 
 			int count = 0;
 
-			for (IRRule rule : model.getNodeGraph().getRelatedRules(node)) {
+			for (IRRule rule : model.getNodeGraph().listRelatedRules(node)) {
 				ruleNames.add(rule.getRuleName());
 				++count;
 			}
@@ -1590,7 +1590,7 @@ public class StatsUtil {
 					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(), className,
 					"" + node.getEntryQueue().getQueueType(), node.getNamedName() == null ? "" : node.getNamedName(),
 					node.getParentCount(), node.getChildNodes().size(),
-					model.getNodeGraph().getRelatedRules(node).size(),
+					model.getNodeGraph().listRelatedRules(node).size(),
 					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount,
 					node.getConstraint1Count(), constraint2Count, node.getPriority(), varEntry));
 
@@ -1896,7 +1896,7 @@ public class StatsUtil {
 
 			for (IRReteNode node : nodes) {
 
-				Collection<IRReteNode> bindToNodes = model.getNodeGraph().getBindToNodes(node);
+				Collection<IRReteNode> bindToNodes = model.getNodeGraph().listBindToNodes(node);
 				if (bindToNodes.isEmpty()) {
 					continue;
 				}

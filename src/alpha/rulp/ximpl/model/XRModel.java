@@ -155,6 +155,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		static final String CK_BACK_SEARCH = "model-backSearch";
 
+		static final String CK_BSC_CIRCULAR_PROOF = "bsc-circular-proof";
+
 		static final String CK_BSC_NODE_AND = "bsc-node-and";
 
 		static final String CK_BSC_NODE_OR = "bsc-node-or";
@@ -170,8 +172,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		static final String CK_BSC_STATUS_INIT = "bsc-status-init";
 
 		static final String CK_BSC_STATUS_PROCESS = "bsc-status-process";
-
-		static final String CK_BSC_CIRCULAR_PROOF = "bsc-circular-proof";
 
 		static final String CK_DO_GC = "model-doGC";
 
@@ -663,7 +663,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected RNodeContext nodeContext = null;
 
-	protected final IRNodeGraph nodeGraph;
+	protected final XRNodeGraph nodeGraph;
 
 	protected int processingLevel = 0;
 
@@ -891,7 +891,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build subgraph
 		/******************************************************/
-		IRNodeSubGraph subGraph = this.nodeGraph.buildSubGraphForConstraintCheck(rootNode);
+		IRNodeSubGraph subGraph = this.nodeGraph.createSubGraphForConstraintCheck(rootNode);
 		if (subGraph.isEmpty()) {
 			return;
 		}
@@ -947,7 +947,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		IRList newStmt = RulpUtil.toList(stmt.getNamedName(), newStmtArr);
 
 		IRNodeGraph graph = getNodeGraph();
-		IRReteNode indexNode = graph.buildIndex(graph.getNodeByTree(newStmt), orderList);
+		IRReteNode indexNode = graph.createNodeIndex(graph.createNodeByTree(newStmt), orderList);
 
 		// '(?a b ?c) ==> (a b ?c)
 		XREntryQueueOrder orderQueue = (XREntryQueueOrder) indexNode.getEntryQueue();
@@ -985,7 +985,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	protected IRReteNode _findRootNode(String namedName, int stmtLen) throws RException {
-		return nodeGraph.getRootNode(namedName, stmtLen);
+		return nodeGraph.createNodeRoot(namedName, stmtLen);
 	}
 
 	protected void _fireLoadNodeAction(IRReteNode node) throws RException {
@@ -1085,7 +1085,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		this.counter.gcCount++;
-		this.nodeGraph.gc();
+		this.nodeGraph.doGc();
 		this.entryTable.doGC();
 		this.hasEntryCacheMap.clear();
 
@@ -1395,7 +1395,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return size;
 		}
 
-		IRReteNode matchedNode = nodeGraph.getNodeByTree(filter);
+		IRReteNode matchedNode = nodeGraph.createNodeByTree(filter);
 		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
 			throw new RException("Invalid list node: " + matchedNode);
 		}
@@ -1543,7 +1543,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// Build subgraph
 		/******************************************************/
-		IRNodeSubGraph subGraph = this.nodeGraph.buildSubGraphForQueryNode(queryNode);
+		IRNodeSubGraph subGraph = this.nodeGraph.createSubGraphForQueryNode(queryNode);
 
 		/******************************************************/
 		// Invoke running
@@ -1821,7 +1821,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// update loaders
 		/******************************************************/
 		RuleUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
-			for (IRReteNode loader : nodeGraph.getBindFromNodes(node)) {
+			for (IRReteNode loader : nodeGraph.listBindFromNodes(node)) {
 				if (loader.getPriority() >= 0) {
 					int c = execute(loader);
 					if (c > 0) {
@@ -1904,7 +1904,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			actionList = rst.getValue();
 		}
 
-		IRRule rule = nodeGraph.addRule(ruleName, condList, actionList, RETE_PRIORITY_DEFAULT);
+		IRRule rule = nodeGraph.createNodeRule(ruleName, condList, actionList, RETE_PRIORITY_DEFAULT);
 
 		for (IRReteNode parentNode : rule.getParentNodes()) {
 
@@ -2137,7 +2137,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// find matched node
 		/******************************************************/
-		IRReteNode matchedNode = nodeGraph.getNodeByTree(filter);
+		IRReteNode matchedNode = nodeGraph.createNodeByTree(filter);
 		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
 			throw new RException("Invalid match node: " + matchedNode);
 		}
@@ -2262,7 +2262,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public IRReteNode findNode(IRList condList) throws RException {
-		return nodeGraph.getNodeByTree(condList);
+		return nodeGraph.createNodeByTree(condList);
 	}
 
 	@Override

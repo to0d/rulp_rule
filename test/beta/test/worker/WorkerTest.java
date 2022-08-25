@@ -22,7 +22,7 @@ public class WorkerTest extends RuleTestBase {
 
 		try {
 
-			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, (model) -> {
+			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().createWorkNode(null, (model) -> {
 				RuleUtil.addStatements(model, RuleUtil.toStmtList("'('(a typeof node) '(b typeof node))"));
 				return true;
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
@@ -44,7 +44,7 @@ public class WorkerTest extends RuleTestBase {
 
 		try {
 
-			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, new IRWorker() {
+			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().createWorkNode(null, new IRWorker() {
 
 				int index = 0;
 
@@ -76,7 +76,7 @@ public class WorkerTest extends RuleTestBase {
 
 		try {
 
-			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, (model) -> {
+			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().createWorkNode(null, (model) -> {
 				RuleUtil.addStatements(model, RuleUtil.toStmtList(String.format("'('(n%d typeof node))", 0)));
 				return false;
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
@@ -121,7 +121,7 @@ public class WorkerTest extends RuleTestBase {
 
 		try {
 
-			IRReteNode worker = _model("m").getNodeGraph().addWorker(null, new IRWorker() {
+			IRReteNode worker = _model("m").getNodeGraph().createWorkNode(null, new IRWorker() {
 				int index = 0;
 
 				@Override
@@ -155,7 +155,7 @@ public class WorkerTest extends RuleTestBase {
 
 		try {
 
-			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, new IRWorker() {
+			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().createWorkNode(null, new IRWorker() {
 				int index = 0;
 
 				@Override
@@ -165,7 +165,7 @@ public class WorkerTest extends RuleTestBase {
 				}
 			}), _model("m").findNode((IRList) RuleUtil.toCondList("'(?n typeof node)")));
 
-			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().addWorker(null, new IRWorker() {
+			_model("m").getNodeGraph().bindNode(_model("m").getNodeGraph().createWorkNode(null, new IRWorker() {
 				int index = 0;
 
 				@Override

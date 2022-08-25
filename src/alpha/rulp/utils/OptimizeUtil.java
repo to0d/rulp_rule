@@ -607,7 +607,7 @@ public class OptimizeUtil {
 
 		for (RReteType reteType : SHARED_RETE_TYPES) {
 			for (IRReteNode node : nodeMatrix.getNodeList(reteType)) {
-				int ruleCount = model.getNodeGraph().getRelatedRules(node).size();
+				int ruleCount = model.getNodeGraph().listRelatedRules(node).size();
 				if (ruleCount > 1) {
 					count += ruleCount - 1;
 				}

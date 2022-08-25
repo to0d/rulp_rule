@@ -328,9 +328,9 @@ public class ReteUtil {
 		IRReteNode node;
 
 		if (ReteUtil.getStmtVarCount(filter) == 0) {
-			node = nodeGraph.getRootNode(filter.getNamedName(), filter.size());
+			node = nodeGraph.createNodeRoot(filter.getNamedName(), filter.size());
 		} else {
-			node = nodeGraph.getNodeByTree(filter);
+			node = nodeGraph.createNodeByTree(filter);
 		}
 
 		if (!RReteType.isRootType(node.getReteType()) && node.getReteType() != RReteType.ALPH0) {

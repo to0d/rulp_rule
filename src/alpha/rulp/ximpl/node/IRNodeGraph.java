@@ -29,19 +29,25 @@ public interface IRNodeGraph {
 
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
-	public IRRule addRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException;
-
-	public IRReteNode addWorker(String name, IRWorker worker) throws RException;
-
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;
 
-	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException;
+	public IRReteNode createNodeByTree(IRList tree) throws RException;
 
-	public IRNodeSubGraph buildSubGraphForConstraintCheck(IRReteNode rootNode) throws RException;
+	public IRReteNode createNodeIndex(IRReteNode node, List<OrderEntry> orderList) throws RException;
 
-	public IRNodeSubGraph buildSubGraphForQueryNode(IRReteNode queryNode) throws RException;
+	public IRReteNode createNodeRoot(String name, int stmtLen) throws RException;
 
-	public IRNodeSubGraph buildSubGraphForRuleGroup(String ruleGroupName) throws RException;
+	public IRRule createNodeRule(String ruleName, IRList condList, IRList actionList, int priority) throws RException;
+
+	public IRNodeSubGraph createSubGraphForConstraintCheck(IRReteNode rootNode) throws RException;
+
+	public IRNodeSubGraph createSubGraphForQueryNode(IRReteNode queryNode) throws RException;
+
+	public IRNodeSubGraph createSubGraphForRuleGroup(String ruleGroupName) throws RException;
+
+	public IRReteNode createWorkNode(String name, IRWorker worker) throws RException;
+
+	public void doGc() throws RException;
 
 	public int doOptimize() throws RException;
 
@@ -49,13 +55,7 @@ public interface IRNodeGraph {
 
 	public IRReteNode findRootNode(String name, int stmtLen) throws RException;
 
-	public void gc() throws RException;
-
-	public List<IRReteNode> getBindFromNodes(IRReteNode node) throws RException;
-
-	public List<IRReteNode> getBindToNodes(IRReteNode node) throws RException;
-
-//	public IRReteNode getDupNode(IRReteNode node) throws RException;
+	public IRRule findRule(String ruleName);
 
 	public int getGcCacheCount();
 
@@ -71,35 +71,25 @@ public interface IRNodeGraph {
 
 	public int getMaxRootStmtLen();
 
-	public IRReteNode getNodeById(int nodeId);
-
-	public IRReteNode getNodeByTree(IRList tree) throws RException;
-
 	public IReteNodeMatrix getNodeMatrix();
-
-	public List<IRRule> getRelatedRules(IRReteNode node) throws RException;
-
-	public IRReteNode getRootNode(String name, int stmtLen) throws RException;
-
-	public IRRule getRule(String ruleName);
 
 	public int getUniqueObjectCount();
 
 	public int getUseCount(IRReteNode node);
 
+	public List<IRReteNode> listBindFromNodes(IRReteNode node) throws RException;
+
+	public List<IRReteNode> listBindToNodes(IRReteNode node) throws RException;
+
 	public List<? extends IRReteNode> listNodes(RReteType reteType);
+
+	public List<IRRule> listRelatedRules(IRReteNode node) throws RException;
 
 	public Collection<SourceNode> listSourceNodes(IRList cond) throws RException;
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public boolean removeNode(IRReteNode node) throws RException;
-
-	public void setGcMaxCacheNodeCount(int gcMaxCacheNodeCount);
-
-	public void setGcMaxInactiveLeafCount(int gcMaxInactiveLeafCount);
-
-	public void setNodePriority(IRReteNode node, int priority) throws RException;
 
 	public void setRulePriority(IRRule rule, int priority) throws RException;
 
