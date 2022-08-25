@@ -44,26 +44,6 @@ import static alpha.rulp.rule.RReteStatus.FIXED_;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_CACHE;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_DO_GC;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_DO_OPT;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_INACTIVE_LEAF;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_NODE_CLEAN;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_NODE_REMOVE;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_addConstraint;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_bindNode;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createNodeByTree;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createNodeIndex;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createNodeRoot;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createNodeRule;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createSubGraphForConstraintCheck;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createSubGraphForQueryNode;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createSubGraphForRuleGroup;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_createWorkNode;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_listSourceNodes;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_removeConstraint;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_removeNode;
-import static alpha.rulp.ximpl.node.XRNodeGraph.GCCounter.CK_GC_setRulePriority;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -110,7 +90,6 @@ import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
-import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
 
@@ -119,117 +98,6 @@ public class XRNodeGraph implements IRNodeGraph {
 	static class ActivateInfo {
 		public IRReteNode node;
 		public int oldPriority = -1;
-	}
-
-	static class GCCounter {
-
-		static final String CK_GC_addConstraint = "graph-addConstraint";
-
-		static final String CK_GC_bindNode = "graph-bindNode";
-
-		static final String CK_GC_CACHE = "graph-gc-cache";
-
-		static final String CK_GC_createNodeByTree = "graph-createNodeByTree";
-
-		static final String CK_GC_createNodeIndex = "graph-createNodeIndex";
-
-		static final String CK_GC_createNodeRoot = "graph-createNodeRoot";
-
-		static final String CK_GC_createNodeRule = "graph-createNodeRule";
-
-		static final String CK_GC_createSubGraphForConstraintCheck = "graph-createSubGraphForConstraintCheck";
-
-		static final String CK_GC_createSubGraphForQueryNode = "graph-createSubGraphForQueryNode";
-
-		static final String CK_GC_createSubGraphForRuleGroup = "graph-createSubGraphForRuleGroup";
-
-		static final String CK_GC_createWorkNode = "graph-createWorkNode";
-
-		static final String CK_GC_DO_GC = "graph-doGc";
-
-		static final String CK_GC_DO_OPT = "graph-doOptimize";
-
-		static final String CK_GC_INACTIVE_LEAF = "graph-gc-inactive-leaf";
-
-		static final String CK_GC_listSourceNodes = "graph-listSourceNodes";
-
-		static final String CK_GC_NODE_CLEAN = "graph-gc-node-clean";
-
-		static final String CK_GC_NODE_REMOVE = "graph-gc-node-remove";
-
-		static final String CK_GC_removeConstraint = "graph-removeConstraint";
-
-		static final String CK_GC_removeNode = "graph-removeNode";
-
-		static final String CK_GC_setRulePriority = "graph-setRulePriority";
-
-		static List<String> graphCountKeyList = new ArrayList<>();
-
-		static {
-
-			graphCountKeyList.add(CK_GC_DO_GC);
-			graphCountKeyList.add(CK_GC_DO_OPT);
-			graphCountKeyList.add(CK_GC_NODE_REMOVE);
-			graphCountKeyList.add(CK_GC_NODE_CLEAN);
-			graphCountKeyList.add(CK_GC_INACTIVE_LEAF);
-			graphCountKeyList.add(CK_GC_CACHE);
-			graphCountKeyList.add(CK_GC_addConstraint);
-			graphCountKeyList.add(CK_GC_bindNode);
-			graphCountKeyList.add(CK_GC_createNodeByTree);
-			graphCountKeyList.add(CK_GC_createNodeIndex);
-			graphCountKeyList.add(CK_GC_createNodeRoot);
-			graphCountKeyList.add(CK_GC_createNodeRule);
-			graphCountKeyList.add(CK_GC_createSubGraphForConstraintCheck);
-			graphCountKeyList.add(CK_GC_createSubGraphForQueryNode);
-			graphCountKeyList.add(CK_GC_createSubGraphForRuleGroup);
-			graphCountKeyList.add(CK_GC_createWorkNode);
-			graphCountKeyList.add(CK_GC_listSourceNodes);
-			graphCountKeyList.add(CK_GC_removeConstraint);
-			graphCountKeyList.add(CK_GC_removeNode);
-			graphCountKeyList.add(CK_GC_setRulePriority);
-
-			graphCountKeyList = Collections.unmodifiableList(graphCountKeyList);
-		}
-
-		protected int addConstraint = 0;
-
-		protected int bindNode = 0;
-
-		protected int createNodeByTree = 0;
-
-		protected int createNodeIndex = 0;
-
-		protected int createNodeRoot = 0;
-
-		protected int createNodeRule = 0;
-
-		protected int createSubGraphForConstraintCheck = 0;
-
-		protected int createSubGraphForQueryNode = 0;
-
-		protected int createSubGraphForRuleGroup = 0;
-
-		protected int createWorkNode = 0;
-
-		protected int doGc = 0;
-
-		protected int doOptimize = 0;
-
-		protected int gcCacheCount = 0;
-
-		protected int gcCleanNodeCount = 0;
-
-		protected int gcInactiveLeafCount = 0;
-
-		protected int gcRemoveNodeCount = 0;
-
-		protected int listSourceNodes = 0;
-
-		protected int removeConstraint = 0;
-
-		protected int removeNode = 0;
-
-		protected int setRulePriority = 0;
 	}
 
 	static class ReteNodeList {
@@ -275,7 +143,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		public void update(XRNodeGraph graph, IRRule rule) throws RException {
 
-			XGraphInfo ruleNodeInfo = (XGraphInfo) rule.getGraphInfo();
+			XRGraphInfo ruleNodeInfo = (XRGraphInfo) rule.getGraphInfo();
 			SourceNode sourceNode = null;
 
 			NEXT_ACTION: for (IAction action : rule.getActionList()) {
@@ -301,96 +169,6 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 		}
 
-	}
-
-	static class XGraphInfo implements IGraphInfo {
-
-		public Map<IAction, List<IRList>> actionUniqStmtListMap = null;
-
-		public List<IRReteNode> bindFromNodeList = null;
-
-		public List<IRReteNode> bindToNodeList = null;
-
-		public IRReteNode node;
-
-		public List<IRRule> relatedRules = null;
-
-		public int useCount = 0;
-
-		public XGraphInfo(IRReteNode node) {
-			this.node = node;
-		}
-
-		public void addRule(IRRule rule) {
-
-			if (relatedRules == null) {
-				relatedRules = new LinkedList<>();
-			}
-
-			relatedRules.add(rule);
-		}
-
-		public void bind(XGraphInfo toNode) {
-
-			if (this.bindToNodeList == null) {
-				this.bindToNodeList = new LinkedList<>();
-			}
-
-			if (toNode.bindFromNodeList == null) {
-				toNode.bindFromNodeList = new LinkedList<>();
-			}
-
-			/*************************************/
-			// Bind toNode <--- fromNode
-			/*************************************/
-			if (!this.bindToNodeList.contains(toNode.node)) {
-				this.bindToNodeList.add(toNode.node);
-			}
-
-			/*************************************/
-			// Bind fromNode ---> toNode
-			/*************************************/
-			if (!toNode.bindFromNodeList.contains(this.node)) {
-				toNode.bindFromNodeList.add(this.node);
-			}
-		}
-
-		public List<IRList> getRuleActionUniqStmt(IAction action, XRNodeGraph graph) throws RException {
-
-			if (actionUniqStmtListMap == null) {
-				actionUniqStmtListMap = new HashMap<>();
-			}
-
-			List<IRList> actionUniqStmtList = actionUniqStmtListMap.get(action);
-			if (actionUniqStmtList == null) {
-
-				List<String> uniqNames = ActionUtil.buildRelatedStmtUniqNames(action.getStmtExprList());
-				if (uniqNames.isEmpty()) {
-					actionUniqStmtList = Collections.emptyList();
-				} else {
-					actionUniqStmtList = new ArrayList<>();
-					for (String uniqName : uniqNames) {
-						actionUniqStmtList.add(graph._toList(uniqName));
-					}
-				}
-
-				actionUniqStmtListMap.put(action, actionUniqStmtList);
-			}
-
-			return actionUniqStmtList;
-		}
-
-		public int getUseCount() {
-			return this.useCount;
-		}
-
-		public boolean hasBindNode() {
-			return bindFromNodeList != null && !bindFromNodeList.isEmpty();
-		}
-
-		public void incUseCount() {
-			this.useCount++;
-		}
 	}
 
 	public static boolean isSymmetricBetaNode(IRReteNode node) {
@@ -429,7 +207,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected int anonymousWorkIndex = 0;
 
-	protected final GCCounter counter = new GCCounter();
+	protected final XRGraphCount counter = new XRGraphCount();
 
 	protected IREntryTable entryTable;
 
@@ -512,7 +290,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			node.setNamedName(node.getReteTree().getNamedName());
 		}
 
-		node.setGraphInfo(new XGraphInfo(node));
+		node.setGraphInfo(new XRGraphInfo(node));
 		this.nodeListArray[reteType.getIndex()].nodes.add(node);
 		this.nodeUniqNameMap.put(uniqName, node);
 
@@ -1484,7 +1262,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			_addNode(node);
 		}
 
-		((XGraphInfo) node.getGraphInfo()).incUseCount();
+		((XRGraphInfo) node.getGraphInfo()).incUseCount();
 
 		return node;
 	}
@@ -1524,7 +1302,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			return false;
 		}
 
-		XGraphInfo info = ((XGraphInfo) node.getGraphInfo());
+		XRGraphInfo info = ((XRGraphInfo) node.getGraphInfo());
 		if (info.hasBindNode()) {
 			return false;
 		}
@@ -1544,7 +1322,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 
 				// Build named -> rule map
-				List<IRRule> relatedRules = ((XGraphInfo) node.getGraphInfo()).relatedRules;
+				List<IRRule> relatedRules = ((XRGraphInfo) node.getGraphInfo()).relatedRules;
 				if (relatedRules != null) {
 
 					List<IRReteNode> affectList = _affectNodeMap.get(node);
@@ -1756,8 +1534,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		counter.bindNode++;
 
-		XGraphInfo fromNodeInfo = (XGraphInfo) fromNode.getGraphInfo();
-		XGraphInfo toNodeInfo = (XGraphInfo) toNode.getGraphInfo();
+		XRGraphInfo fromNodeInfo = (XRGraphInfo) fromNode.getGraphInfo();
+		XRGraphInfo toNodeInfo = (XRGraphInfo) toNode.getGraphInfo();
 		fromNodeInfo.bind(toNodeInfo);
 
 		_graphChanged();
@@ -2006,7 +1784,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				ruleNode.addNode(node);
 				if (node != ruleNode) {
-					((XGraphInfo) node.getGraphInfo()).addRule(ruleNode);
+					((XRGraphInfo) node.getGraphInfo()).addRule(ruleNode);
 				}
 
 				if (node.getPriority() < priority) {
@@ -2122,8 +1900,8 @@ public class XRNodeGraph implements IRNodeGraph {
 			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
 				@Override
 				public int compare(AbsReteNode n1, AbsReteNode n2) {
-					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
-							- ((XGraphInfo) n1.getGraphInfo()).getUseCount();
+					return ((XRGraphInfo) n2.getGraphInfo()).getUseCount()
+							- ((XRGraphInfo) n1.getGraphInfo()).getUseCount();
 				}
 			});
 
@@ -2155,8 +1933,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				@Override
 				public int compare(AbsReteNode n1, AbsReteNode n2) {
-					return ((XGraphInfo) n2.getGraphInfo()).getUseCount()
-							- ((XGraphInfo) n1.getGraphInfo()).getUseCount();
+					return ((XRGraphInfo) n2.getGraphInfo()).getUseCount()
+							- ((XRGraphInfo) n1.getGraphInfo()).getUseCount();
 				}
 			});
 
@@ -2308,76 +2086,12 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	@Override
 	public List<String> getCounterKeyList() {
-		return GCCounter.graphCountKeyList;
+		return XRGraphCount.getCounterKeyList();
 	}
 
 	@Override
 	public long getCounterValue(String countkey) {
-
-		switch (countkey) {
-		case CK_GC_DO_GC:
-			return counter.doGc;
-
-		case CK_GC_DO_OPT:
-			return counter.doOptimize;
-
-		case CK_GC_NODE_REMOVE:
-			return counter.gcRemoveNodeCount;
-
-		case CK_GC_NODE_CLEAN:
-			return counter.gcCleanNodeCount;
-
-		case CK_GC_INACTIVE_LEAF:
-			return counter.gcInactiveLeafCount;
-
-		case CK_GC_CACHE:
-			return counter.gcCacheCount;
-
-		case CK_GC_addConstraint:
-			return counter.addConstraint;
-
-		case CK_GC_bindNode:
-			return counter.bindNode;
-
-		case CK_GC_createNodeByTree:
-			return counter.createNodeByTree;
-
-		case CK_GC_createNodeIndex:
-			return counter.createNodeIndex;
-
-		case CK_GC_createNodeRoot:
-			return counter.createNodeRoot;
-
-		case CK_GC_createNodeRule:
-			return counter.createNodeRule;
-
-		case CK_GC_createSubGraphForConstraintCheck:
-			return counter.createSubGraphForConstraintCheck;
-
-		case CK_GC_createSubGraphForQueryNode:
-			return counter.createSubGraphForQueryNode;
-
-		case CK_GC_createSubGraphForRuleGroup:
-			return counter.createSubGraphForRuleGroup;
-
-		case CK_GC_createWorkNode:
-			return counter.createWorkNode;
-
-		case CK_GC_listSourceNodes:
-			return counter.listSourceNodes;
-
-		case CK_GC_removeConstraint:
-			return counter.removeConstraint;
-
-		case CK_GC_removeNode:
-			return counter.removeNode;
-
-		case CK_GC_setRulePriority:
-			return counter.setRulePriority;
-
-		}
-
-		return 0;
+		return counter.getCounterValue(countkey);
 	}
 
 	@Override
@@ -2431,19 +2145,19 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	@Override
 	public int getUseCount(IRReteNode node) {
-		return ((XGraphInfo) node.getGraphInfo()).getUseCount();
+		return ((XRGraphInfo) node.getGraphInfo()).getUseCount();
 
 	}
 
 	@Override
 	public List<IRReteNode> listBindFromNodes(IRReteNode node) throws RException {
-		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
+		XRGraphInfo nodeInfo = (XRGraphInfo) node.getGraphInfo();
 		return nodeInfo.bindFromNodeList == null ? Collections.emptyList() : nodeInfo.bindFromNodeList;
 	}
 
 	@Override
 	public List<IRReteNode> listBindToNodes(IRReteNode node) throws RException {
-		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
+		XRGraphInfo nodeInfo = (XRGraphInfo) node.getGraphInfo();
 		return nodeInfo.bindToNodeList == null ? Collections.emptyList() : nodeInfo.bindToNodeList;
 	}
 
@@ -2455,7 +2169,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	@Override
 	public List<IRRule> listRelatedRules(IRReteNode node) throws RException {
 
-		XGraphInfo nodeInfo = (XGraphInfo) node.getGraphInfo();
+		XRGraphInfo nodeInfo = (XRGraphInfo) node.getGraphInfo();
 		return nodeInfo.relatedRules == null ? Collections.emptyList() : nodeInfo.relatedRules;
 	}
 
