@@ -42,7 +42,16 @@ class XRFactorBackSearchTest extends RuleTestBase {
 	}
 	
 	@Test
-	void test_back_search_5_internal_var() {
+	void test_back_search_5_internal_var_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+	
+	@Test
+	void test_back_search_5_internal_var_2() {
 
 		_setup();
 		_run_script();
