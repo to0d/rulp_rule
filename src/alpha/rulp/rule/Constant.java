@@ -29,6 +29,8 @@ public interface Constant {
 
 	String A_Desc = "desc";
 
+	String A_Dup = "dup";
+
 	String A_ENTRY = "entry";
 
 	String A_ENTRY_LEN = "entry-len";
@@ -55,7 +57,7 @@ public interface Constant {
 
 	String A_Name = "name";
 
-	String A_NOT_NULL = "not-null";
+	String A_NOT_NIL = "not-nil";
 
 	String A_On = "on";
 
@@ -93,15 +95,9 @@ public interface Constant {
 
 	String A_State = "state";
 
-	String A_TABLE = "table";
-
 	String A_Type = "type";
 
 	String A_Uniq = "uniq";
-
-	String A_Dup = "dup";
-
-	String A_VIEW = "view";
 
 	String A_Where = "where";
 

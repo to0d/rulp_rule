@@ -9,7 +9,7 @@ import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Max;
 import static alpha.rulp.rule.Constant.A_Min;
-import static alpha.rulp.rule.Constant.A_NOT_NULL;
+import static alpha.rulp.rule.Constant.A_NOT_NIL;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_One_Of;
 import static alpha.rulp.rule.Constant.A_Order;
@@ -124,10 +124,10 @@ public class ConstraintBuilder {
 		}
 
 		// (not-nil on ?x)
-		if (size == 3 && _isAtom(expr, 0, A_NOT_NULL) && _isAtom(expr, 1, A_On)) {
+		if (size == 3 && _isAtom(expr, 0, A_NOT_NIL) && _isAtom(expr, 1, A_On)) {
 
 			RConstraint cons = new RConstraint();
-			cons.constraintName = A_NOT_NULL;
+			cons.constraintName = A_NOT_NIL;
 			cons.onObject = interpreter.compute(frame, expr.get(2));
 
 			return cons;
@@ -572,7 +572,7 @@ public class ConstraintBuilder {
 			case A_Uniq:
 				return _uniqConstraint(cons);
 
-			case A_NOT_NULL:
+			case A_NOT_NIL:
 				return _notNullConstraint(cons);
 
 			case A_Max:

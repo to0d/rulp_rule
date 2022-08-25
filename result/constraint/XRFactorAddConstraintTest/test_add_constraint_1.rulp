@@ -60,7 +60,7 @@
 (add-constraint m name8:'(?x ?y) (min 5 on ?y))
 ;=>
 
-(add-constraint m name8:'(?x ?y) (not-null on ?x))
+(add-constraint m name8:'(?x ?y) (not-nil on ?x))
 ;=>
 
 (add-constraint m name9:'(?x ?y) (one-of '(a b c) on ?x))

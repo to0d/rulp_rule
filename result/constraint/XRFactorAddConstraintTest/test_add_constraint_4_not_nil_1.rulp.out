@@ -4,7 +4,7 @@
 (add-node m name1:'(2))
 ;=>true
 
-(add-constraint m name1:'(?x ?y) (not-null on ?x))
+(add-constraint m name1:'(?x ?y) (not-nil on ?x))
 ;=>true
 
 (add-stmt m name1:'(a b))

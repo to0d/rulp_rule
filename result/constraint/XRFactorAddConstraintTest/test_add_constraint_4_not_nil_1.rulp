@@ -1,26 +1,26 @@
 (new model m)
-;;;
+;=>
 
 (add-node m name1:'(2))
-;;;
+;=>
 
-(add-constraint m name1:'(?x ?y) (not-null on ?x))
-;;;
+(add-constraint m name1:'(?x ?y) (not-nil on ?x))
+;=>
 
 (add-stmt m name1:'(a b))
-;;;
+;=>
 
 (add-stmt m name1:'(nil c))
-;;;
+;err
 
 (list-stmt m)
-;;;
+;=>
 
 (remove-constraint m name1:'(2) (? on ?))
-;;;
+;=>
 
 (add-stmt m name1:'(nil c))
-;;;
+;=>
 
 (list-stmt m)
-;;;
+;=>

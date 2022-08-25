@@ -57,7 +57,7 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_add_constraint_4_not_null_1() {
+	void test_add_constraint_4_not_nil_1() {
 
 		_setup();
 		_run_script();
