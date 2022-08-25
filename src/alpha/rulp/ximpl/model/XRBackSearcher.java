@@ -164,11 +164,20 @@ public class XRBackSearcher {
 			}
 
 			for (IRList list : sourceNode.rule.getMatchStmtList()) {
+
 				if (ReteUtil.isAlphaMatchTree(list)) {
 
 					IRList newStmt = (IRList) RuntimeUtil.rebuild(list, varValueMap);
 					if (!ReteUtil.isReteStmtNoVar(newStmt)) {
 						throw new RException("can't prove stmt: " + newStmt);
+					}
+
+					// The and should fail once circular proof be found
+					if (_isCircularProof(newStmt)) {
+						this.status = BSStats.COMPLETE;
+						this.rst = false;
+						bscCircularProof++;
+						return this;
 					}
 
 					this.addChild(_newOrNode(newStmt));
@@ -309,6 +318,10 @@ public class XRBackSearcher {
 		AND, OR
 	}
 
+	static boolean TRACE = true;
+
+	protected int bscCircularProof = 0;
+
 	protected int bscNodeAnd = 0;
 
 	protected int bscNodeOr = 0;
@@ -335,6 +348,8 @@ public class XRBackSearcher {
 
 	protected BSNode rootNode;
 
+	protected Map<String, BSNode> visitingOrNodeMap = new HashMap<>();
+
 	public XRBackSearcher(XRModel model) {
 		super();
 		this.model = model;
@@ -345,7 +360,15 @@ public class XRBackSearcher {
 		return model._findRootEntry(stmt, 0) != null;
 	}
 
+	protected boolean _isCircularProof(IRList stmt) throws RException {
+		return visitingOrNodeMap.containsKey(ReteUtil.uniqName(stmt));
+	}
+
 	protected BSNode _newAndNode(IRList stmt, SourceNode sourceNode, IAction action) {
+
+		if (TRACE) {
+			System.out.println("new and node: " + stmt);
+		}
 
 		BSNodeAnd node = new BSNodeAnd();
 		node.stmt = stmt;
@@ -358,7 +381,11 @@ public class XRBackSearcher {
 		return node;
 	}
 
-	protected BSNode _newOrNode(IRList stmt) {
+	protected BSNode _newOrNode(IRList stmt) throws RException {
+
+		if (TRACE) {
+			System.out.println("new or node: " + stmt);
+		}
 
 		BSNodeOr node = new BSNodeOr();
 		node.stmt = stmt;
@@ -366,7 +393,13 @@ public class XRBackSearcher {
 
 		this.bscNodeOr++;
 
+		visitingOrNodeMap.put(ReteUtil.uniqName(stmt), node);
+
 		return node;
+	}
+
+	public int getBscCircularProof() {
+		return bscCircularProof;
 	}
 
 	public int getBscNodeAnd() {

@@ -32,6 +32,7 @@ import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_STMT_LIS;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ADD_UPDATE_NODE;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_ASSUME_STMT;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BACK_SEARCH;
+import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_CIRCULAR_PROOF;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_NODE_AND;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_NODE_OR;
 import static alpha.rulp.ximpl.model.XRModel.MCCounter.CK_BSC_OP_LOOP;
@@ -170,6 +171,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		static final String CK_BSC_STATUS_PROCESS = "bsc-status-process";
 
+		static final String CK_BSC_CIRCULAR_PROOF = "bsc-circular-proof";
+
 		static final String CK_DO_GC = "model-doGC";
 
 		static final String CK_EXEC = "model-execute";
@@ -255,9 +258,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 			modelCountKeyList.add(CK_BSC_OP_LOOP);
 			modelCountKeyList.add(CK_BSC_OP_RELOCATE);
 			modelCountKeyList.add(CK_BSC_OP_SEARCH);
+			modelCountKeyList.add(CK_BSC_CIRCULAR_PROOF);
 
 			modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
 		}
+
+		protected int bscCircularProof = 0;
 
 		protected int bscNodeAnd = 0;
 
@@ -2105,6 +2111,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			counter.bscOpRelocate += bs.getBscOpRelocate();
 			counter.bscOpSearch += bs.getBscOpSearch();
 			counter.bscOpLoop += bs.getBscOpLoop();
+			counter.bscCircularProof += bs.getBscCircularProof();
 
 		}
 
@@ -2410,6 +2417,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		case CK_BSC_OP_RELOCATE:
 			return counter.bscOpRelocate;
+
+		case CK_BSC_CIRCULAR_PROOF:
+			return counter.bscCircularProof;
 
 		case CK_BSC_OP_SEARCH:
 			return counter.bscOpSearch;

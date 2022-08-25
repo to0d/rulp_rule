@@ -1,0 +1,12 @@
+(new model m)
+(add-rule m if '(?x p1 ?y) do (-> m '(?x p2 ?y)))
+(add-rule m if '(?x p2 ?y) do (-> m '(?x p1 ?y)))
+(add-stmt m '(a p1 b))
+;=>m RU000 RU001 true
+
+(back-search m '(c p1 d))
+;=>false
+
+(list-stmt m)
+;=>'('(a p1 b))
+
