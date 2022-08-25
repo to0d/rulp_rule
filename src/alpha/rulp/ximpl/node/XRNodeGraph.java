@@ -9,7 +9,6 @@ import static alpha.rulp.rule.Constant.A_RETE_TYPE;
 import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
-import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DISABLED;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
@@ -175,13 +174,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	static class XGraphInfo implements IGraphInfo {
 
-//		public int actionNodeLastRuleIndex = -1;
-
-//		public Set<IRReteNode> actionNodes = null;
-
 		public Map<IAction, List<IRList>> actionUniqStmtListMap = null;
-
-//		public IRList alphaUniqStmt = null;
 
 		public List<IRReteNode> bindFromNodeList = null;
 
@@ -190,10 +183,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		public IRReteNode node;
 
 		public List<IRRule> relatedRules = null;
-
-//		public int sourceNodeLastRuleIndex = -1;
-
-//		public Set<SourceNode> sourceNodes = null;
 
 		public int useCount = 0;
 
@@ -272,111 +261,6 @@ public class XRNodeGraph implements IRNodeGraph {
 			this.useCount++;
 		}
 	}
-
-	class XRNodeSubGraph implements IRNodeSubGraph {
-
-		private Map<IRReteNode, ActivateInfo> activateMap = null;
-
-		private List<IRReteNode> subNodeList = new LinkedList<>();
-
-		private Set<IRReteNode> subNodeSet = new HashSet<>();
-
-		@Override
-		public void activate(int priority) throws RException {
-
-			// Disable other nodes
-			for (IRReteNode node : getNodeMatrix().getAllNodes()) {
-
-				if (RReteType.isRootType(node.getReteType())) {
-					continue;
-				}
-
-				if (containNode(node)) {
-					continue;
-				}
-
-				if (node.getPriority() < priority) {
-					continue;
-				}
-
-				changeNodePriority(node, RETE_PRIORITY_DISABLED);
-			}
-
-			for (IRReteNode node : getSubNodes()) {
-
-				if (node.getPriority() <= RETE_PRIORITY_DISABLED) {
-					continue;
-				}
-
-				if (node.getPriority() < priority) {
-					changeNodePriority(node, priority);
-				}
-
-				model.addUpdateNode(node);
-			}
-		}
-
-		public void addNode(IRReteNode node) throws RException {
-			if (!subNodeSet.contains(node)) {
-				subNodeSet.add(node);
-				subNodeList.add(node);
-			}
-		}
-
-		public void changeNodePriority(IRReteNode node, int priority) throws RException {
-
-			if (activateMap == null) {
-				activateMap = new HashMap<>();
-			}
-
-			ActivateInfo info = activateMap.get(node);
-			if (info == null) {
-				info = new ActivateInfo();
-				info.node = node;
-				info.oldPriority = node.getPriority();
-				activateMap.put(node, info);
-			}
-
-			node.setPriority(priority);
-		}
-
-		public boolean containNode(IRReteNode node) {
-			return subNodeSet.contains(node);
-		}
-
-		@Override
-		public List<IRReteNode> getSubNodes() {
-			return subNodeList;
-		}
-
-		@Override
-		public boolean isEmpty() {
-			return subNodeSet.isEmpty();
-		}
-
-		@Override
-		public void rollback() throws RException {
-
-			if (activateMap == null) {
-				return;
-			}
-
-			// recovery old priority
-			for (ActivateInfo changeInfo : activateMap.values()) {
-
-				// ignore dead node
-				if (changeInfo.node.getPriority() == RETE_PRIORITY_DEAD) {
-					continue;
-				}
-
-				changeInfo.node.setPriority(changeInfo.oldPriority);
-			}
-
-			activateMap = null;
-		}
-	}
-
-	static List<String> graphCountKeyList = new ArrayList<>();
 
 	public static boolean isSymmetricBetaNode(IRReteNode node) {
 
@@ -1189,7 +1073,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IRNodeSubGraph _buildSubGraphConstraintCheck(IRReteNode rootNode) throws RException {
 
-		XRNodeSubGraph subGraph = new XRNodeSubGraph();
+		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
 
 		Map<IRReteNode, List<IRReteNode>> affectNodeMap = _openAffectNodeMap(rootNode);
 
@@ -1218,7 +1102,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 		}
 
-		for (IRReteNode node : new ArrayList<>(subGraph.subNodeList)) {
+		for (IRReteNode node : new ArrayList<>(subGraph.getNodes())) {
 			if (node.getReteType() == RReteType.RULE) {
 				for (IRReteNode anode : ((IRRule) node).getAllNodes()) {
 					subGraph.addNode(anode);
@@ -1231,7 +1115,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IRNodeSubGraph _buildSubGraphRuleGroup(String ruleGroupName) throws RException {
 
-		XRNodeSubGraph subGraph = new XRNodeSubGraph();
+		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
 
 		IRList ruleList = RuleUtil.getRuleGroupRuleList(model, ruleGroupName);
 		if (ruleList.size() == 0) {
@@ -1254,7 +1138,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected IRNodeSubGraph _buildSubGroupSource(IRReteNode queryNode) throws RException {
 
-		XRNodeSubGraph subGraph = new XRNodeSubGraph();
+		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
 
 		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
 
@@ -1499,134 +1383,6 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		return nodeInfoArray.get(nodeId);
 	}
-
-//	protected Set<SourceNode> _listSourceNodesForAlphaNode(IRReteNode node) throws RException {
-//
-//		XGraphInfo info = (XGraphInfo) node.getGraphInfo();
-//
-//		if (node.getReteType() != RReteType.ALPH0) {
-//			throw new RException("not alpha node: " + node);
-//		}
-//
-//		if (info.sourceNodes == null) {
-//			info.sourceNodes = new HashSet<>();
-//		}
-//
-//		if (info.sourceNodeLastRuleIndex < 0) {
-//			info.alphaUniqStmt = _toList(node.getUniqName());
-//			info.sourceNodeLastRuleIndex = 0;
-//		}
-//
-//		/******************************************************/
-//		// Update rule's action nodes
-//		/******************************************************/
-//		if (info.sourceNodeLastRuleIndex < maxRuleId) {
-//
-//			for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
-//
-//				// the rule has been processed
-//				if (ruleNode.getNodeId() <= info.sourceNodeLastRuleIndex) {
-//					continue;
-//				}
-//
-//				info.sourceNodeLastRuleIndex = ruleNode.getNodeId();
-//
-//				XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
-//				IRRule rule = (IRRule) ruleNode;
-//				SourceNode sourceNode = null;
-//
-//				NEXT_ACTION: for (IAction action : rule.getActionList()) {
-//
-//					for (IRList actionUniqStmt : ruleNodeInfo.getRuleActionUniqStmt(action, this)) {
-//
-//						if (ReteUtil.matchUniqStmt(actionUniqStmt, info.alphaUniqStmt)) {
-//							if (sourceNode == null) {
-//								sourceNode = new SourceNode();
-//								sourceNode.rule = rule;
-//								sourceNode.uniqStmt = info.alphaUniqStmt.toString();
-//							}
-//
-//							sourceNode.actionList.add(action);
-//							continue NEXT_ACTION;
-//						}
-//					}
-//
-//				}
-//
-//				if (sourceNode != null) {
-//					info.sourceNodes.add(sourceNode);
-//				}
-//			}
-//		}
-//
-//		return info.sourceNodes;
-//	}
-//
-//	protected Set<SourceNode> _listSourceNodesForRootNode(IRReteNode node) throws RException {
-//
-//		XGraphInfo info = (XGraphInfo) node.getGraphInfo();
-//
-//		if (!RReteType.isRootType(node.getReteType())) {
-//			throw new RException("not root node: " + node);
-//		}
-//
-//		if (info.sourceNodes == null) {
-//			info.sourceNodes = new HashSet<>();
-//		}
-//
-//		if (info.sourceNodeLastRuleIndex < 0) {
-//			info.sourceNodeLastRuleIndex = 0;
-//		}
-//
-//		String namedName = null;
-//		if (node.getReteType() == RReteType.NAME0) {
-//			namedName = node.getNamedName();
-//		}
-//
-//		/******************************************************/
-//		// Update rule's action nodes
-//		/******************************************************/
-//		if (info.sourceNodeLastRuleIndex < maxRuleId) {
-//
-//			for (IRReteNode ruleNode : listNodes(RReteType.RULE)) {
-//
-//				// the rule has been processed
-//				if (ruleNode.getNodeId() <= info.sourceNodeLastRuleIndex) {
-//					continue;
-//				}
-//
-//				info.sourceNodeLastRuleIndex = ruleNode.getNodeId();
-//
-//				XGraphInfo ruleNodeInfo = (XGraphInfo) ruleNode.getGraphInfo();
-//				IRRule rule = (IRRule) ruleNode;
-//				SourceNode sourceNode = null;
-//
-//				NEXT_ACTION: for (IAction action : rule.getActionList()) {
-//
-//					for (IRList actionUniqStmt : ruleNodeInfo.getRuleActionUniqStmt(action, this)) {
-//
-//						if (actionUniqStmt.size() == node.getEntryLength()
-//								&& RuleUtil.equal(namedName, actionUniqStmt.getNamedName())) {
-//							if (sourceNode == null) {
-//								sourceNode = new SourceNode();
-//								sourceNode.rule = rule;
-//								sourceNode.uniqStmt = node.getUniqName();
-//							}
-//							sourceNode.actionList.add(action);
-//							continue NEXT_ACTION;
-//						}
-//					}
-//				}
-//
-//				if (sourceNode != null) {
-//					info.sourceNodes.add(sourceNode);
-//				}
-//
-//			}
-//		}
-//
-//		return info.sourceNodes;
-//	}
 
 	protected void _graphChanged() {
 		_sourceSubGraphMap = null;

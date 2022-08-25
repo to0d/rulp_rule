@@ -20,7 +20,7 @@ public interface IRNodeGraph {
 
 		public void activate(int priority) throws RException;
 
-		public List<IRReteNode> getSubNodes();
+		public List<IRReteNode> getNodes();
 
 		public boolean isEmpty();
 
