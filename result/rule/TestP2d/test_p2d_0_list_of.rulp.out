@@ -266,6 +266,7 @@ mbr=list-constraint, mbr-property='(public), mbr-attribute='(), obj=list-constra
 mbr=list-source-node, mbr-property='(public), mbr-attribute='(), obj=list-source-node, obj-type=factor, obj-attribute='()
 mbr=list-stmt, mbr-property='(public), mbr-attribute='(), obj=list-stmt, obj-type=factor, obj-attribute='()
 mbr=list-stmt-generate-tree, mbr-property='(public), mbr-attribute='(), obj=list-stmt-generate-tree, obj-type=factor, obj-attribute='()
+mbr=list-subgraph-for-query, mbr-property='(public), mbr-attribute='(), obj=list-subgraph-for-query, obj-type=factor, obj-attribute='()
 mbr=load-stmt, mbr-property='(public), mbr-attribute='(), obj=load-stmt, obj-type=factor, obj-attribute='()
 mbr=model, mbr-property='(public), mbr-attribute='(), obj=model, obj-type=class, obj-attribute='(), class-property='()
 mbr=model-of, mbr-property='(public), mbr-attribute='(), obj=model-of, obj-type=factor, obj-attribute='()

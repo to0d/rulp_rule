@@ -20,6 +20,7 @@ import static alpha.rulp.rule.Constant.F_LIST_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_LIST_SOURCE_NODE;
 import static alpha.rulp.rule.Constant.F_LIST_STMT;
 import static alpha.rulp.rule.Constant.F_LIST_STMT_GENERATE_TREE;
+import static alpha.rulp.rule.Constant.F_LIST_SUBGRAPH_FOR_QUERY;
 import static alpha.rulp.rule.Constant.F_LOAD_STMT;
 import static alpha.rulp.rule.Constant.F_MODEL_OF;
 import static alpha.rulp.rule.Constant.F_OPT_MODEL;
@@ -85,6 +86,7 @@ import alpha.rulp.ximpl.factor.XRFactorListConstraint;
 import alpha.rulp.ximpl.factor.XRFactorListSourceNode;
 import alpha.rulp.ximpl.factor.XRFactorListStmt;
 import alpha.rulp.ximpl.factor.XRFactorListStmtGenerateTree;
+import alpha.rulp.ximpl.factor.XRFactorListSubGraphForQueryNode;
 import alpha.rulp.ximpl.factor.XRFactorLoadStmt;
 import alpha.rulp.ximpl.factor.XRFactorModelOf;
 import alpha.rulp.ximpl.factor.XRFactorOptModel;
@@ -177,6 +179,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorSetNodeQueueType(F_SET_NODE_QUEUE_TYPE));
 		RulpUtil.addFrameObject(frame, new XRFactorAddIndex(F_ADD_INDEX));
 		RulpUtil.addFrameObject(frame, new XRFactorBackSearch(A_BackSearch));
+		RulpUtil.addFrameObject(frame, new XRFactorListSubGraphForQueryNode(F_LIST_SUBGRAPH_FOR_QUERY));
 
 		// Constraint
 		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

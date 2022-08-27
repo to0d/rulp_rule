@@ -153,6 +153,8 @@ public interface Constant {
 
 	String F_LIST_SOURCE_NODE = "list-source-node";
 
+	String F_LIST_SUBGRAPH_FOR_QUERY = "list-subgraph-for-query";
+
 	String F_LIST_STMT = "list-stmt";
 
 	String F_LIST_STMT_GENERATE_TREE = "list-stmt-generate-tree";

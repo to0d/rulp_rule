@@ -493,10 +493,6 @@ public class RuleUtil {
 		return nodes;
 	}
 
-//	public IRReteNode buildIndex(IRReteNode node, List<OrderEntry> orderList) throws RException {
-//
-//	}
-
 	public static Collection<IRRule> listSourceNodes(IRModel model, IRReteNode node) throws RException {
 
 		Set<IRRule> nodes = new HashSet<>();
