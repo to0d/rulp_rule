@@ -104,7 +104,7 @@ graph-addConstraint                   3
 graph-bindNode                        1
 graph-createNodeByTree                4
 graph-createNodeRoot                  5
-graph-createSubGraphForQueryNode        3
+graph-createSubGraphForQueryNodeBackward        3
 graph-createWorkNode                  1
 graph-listSourceNodes                19
 ===============================================================================================================================================================================

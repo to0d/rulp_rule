@@ -42,7 +42,7 @@ public interface IRNodeGraph {
 
 	public IRNodeSubGraph createSubGraphForConstraintCheck(IRReteNode rootNode) throws RException;
 
-	public IRNodeSubGraph createSubGraphForQueryNode(IRReteNode queryNode) throws RException;
+	public IRNodeSubGraph createSubGraphForQueryNode(IRReteNode queryNode, boolean backward) throws RException;
 
 	public IRNodeSubGraph createSubGraphForRuleGroup(String ruleGroupName) throws RException;
 

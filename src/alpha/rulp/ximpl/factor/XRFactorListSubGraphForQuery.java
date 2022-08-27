@@ -45,7 +45,7 @@ public class XRFactorListSubGraphForQuery extends AbsAtomFactorAdapter implement
 		IRNodeGraph graph = model.getNodeGraph();
 
 		List<IRReteNode> sourceNodes = new ArrayList<>(
-				graph.createSubGraphForQueryNode(graph.createNodeByTree(cond)).getNodes());
+				graph.createSubGraphForQueryNode(graph.createNodeByTree(cond), backward).getNodes());
 		Collections.sort(sourceNodes, (n1, n2) -> {
 			return n1.getNodeName().compareTo(n2.getNodeName());
 		});

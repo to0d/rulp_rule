@@ -102,7 +102,7 @@ model-query                           6
 graph-addConstraint                   6
 graph-createNodeByTree                6
 graph-createNodeRoot                  5
-graph-createSubGraphForQueryNode        6
+graph-createSubGraphForQueryNodeBackward        6
 graph-listSourceNodes                33
 ===============================================================================================================================================================================
 

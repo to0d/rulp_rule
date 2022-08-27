@@ -74,7 +74,7 @@ model-query                           1
 graph-addConstraint                   2
 graph-createNodeByTree                1
 graph-createNodeRoot                  5
-graph-createSubGraphForQueryNode        1
+graph-createSubGraphForQueryNodeBackward        1
 graph-listSourceNodes                 9
 ===============================================================================================================================================================================
 

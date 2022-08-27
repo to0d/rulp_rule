@@ -51,7 +51,7 @@ model-listStatements                  1
 model-query                           3
 graph-createNodeByTree                3
 graph-createNodeRoot                  3
-graph-createSubGraphForQueryNode        3
+graph-createSubGraphForQueryNodeBackward        3
 graph-listSourceNodes                 4
 ===============================================================================================================================================================================
 

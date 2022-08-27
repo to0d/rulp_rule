@@ -1170,7 +1170,7 @@ graph-addConstraint                  49
 graph-createNodeByTree                3
 graph-createNodeRoot                267
 graph-createNodeRule                 41
-graph-createSubGraphForQueryNode        3
+graph-createSubGraphForQueryNodeBackward        3
 graph-listSourceNodes               166
 ===============================================================================================================================================================================
 

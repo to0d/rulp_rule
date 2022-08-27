@@ -22,7 +22,9 @@ public class XRGraphCount {
 
 	public static final String CK_GC_createSubGraphForConstraintCheck = "graph-createSubGraphForConstraintCheck";
 
-	public static final String CK_GC_createSubGraphForQueryNode = "graph-createSubGraphForQueryNode";
+	public static final String CK_GC_createSubGraphForQueryNodeBackward = "graph-createSubGraphForQueryNodeBackward";
+
+	public static final String CK_GC_createSubGraphForQueryNodeForward = "graph-createSubGraphForQueryNodeForward";
 
 	public static final String CK_GC_createSubGraphForRuleGroup = "graph-createSubGraphForRuleGroup";
 
@@ -63,7 +65,8 @@ public class XRGraphCount {
 		graphCountKeyList.add(CK_GC_createNodeRoot);
 		graphCountKeyList.add(CK_GC_createNodeRule);
 		graphCountKeyList.add(CK_GC_createSubGraphForConstraintCheck);
-		graphCountKeyList.add(CK_GC_createSubGraphForQueryNode);
+		graphCountKeyList.add(CK_GC_createSubGraphForQueryNodeBackward);
+		graphCountKeyList.add(CK_GC_createSubGraphForQueryNodeForward);
 		graphCountKeyList.add(CK_GC_createSubGraphForRuleGroup);
 		graphCountKeyList.add(CK_GC_createWorkNode);
 		graphCountKeyList.add(CK_GC_listSourceNodes);
@@ -88,7 +91,9 @@ public class XRGraphCount {
 
 	public int createSubGraphForConstraintCheck = 0;
 
-	public int createSubGraphForQueryNode = 0;
+	public int createSubGraphForQueryNodeBackward = 0;
+
+	public int createSubGraphForQueryNodeForward = 0;
 
 	public int createSubGraphForRuleGroup = 0;
 
@@ -160,8 +165,11 @@ public class XRGraphCount {
 		case CK_GC_createSubGraphForConstraintCheck:
 			return createSubGraphForConstraintCheck;
 
-		case CK_GC_createSubGraphForQueryNode:
-			return createSubGraphForQueryNode;
+		case CK_GC_createSubGraphForQueryNodeBackward:
+			return createSubGraphForQueryNodeBackward;
+
+		case CK_GC_createSubGraphForQueryNodeForward:
+			return createSubGraphForQueryNodeForward;
 
 		case CK_GC_createSubGraphForRuleGroup:
 			return createSubGraphForRuleGroup;
@@ -180,7 +188,6 @@ public class XRGraphCount {
 
 		case CK_GC_setRulePriority:
 			return setRulePriority;
-
 		}
 
 		return 0;

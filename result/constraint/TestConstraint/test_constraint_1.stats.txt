@@ -156,7 +156,7 @@ graph-addConstraint                   3
 graph-createNodeByTree                3
 graph-createNodeRoot                 20
 graph-createNodeRule                  5
-graph-createSubGraphForQueryNode        3
+graph-createSubGraphForQueryNodeBackward        3
 graph-createSubGraphForRuleGroup        2
 graph-listSourceNodes                24
 graph-setRulePriority                 4

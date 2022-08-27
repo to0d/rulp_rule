@@ -201,7 +201,9 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected Map<String, IRNodeSubGraph> _ruleGroupSubGraphMap = null;
 
-	protected Map<IRReteNode, IRNodeSubGraph> _sourceSubGraphMap = null;
+	protected Map<IRReteNode, IRNodeSubGraph> _subGraphForQueryBackwardMap = null;
+
+	protected Map<IRReteNode, IRNodeSubGraph> _subGraphForQueryForwardMap = null;
 
 	protected int anonymousRuleIndex = 0;
 
@@ -988,7 +990,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		return subGraph;
 	}
 
-	protected IRNodeSubGraph _buildSubGroupSource(IRReteNode queryNode) throws RException {
+	protected IRNodeSubGraph _buildSubGroupSource(IRReteNode queryNode, boolean backward) throws RException {
 
 		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
 
@@ -1286,7 +1288,9 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	protected void _graphChanged() {
-		_sourceSubGraphMap = null;
+
+		_subGraphForQueryBackwardMap = null;
+		_subGraphForQueryForwardMap = null;
 		_ruleGroupSubGraphMap = null;
 		_affectNodeMap = null;
 		_constraintCheckSubGraphMap = null;
@@ -1829,18 +1833,36 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public IRNodeSubGraph createSubGraphForQueryNode(IRReteNode queryNode) throws RException {
+	public IRNodeSubGraph createSubGraphForQueryNode(IRReteNode queryNode, boolean backward) throws RException {
 
-		counter.createSubGraphForQueryNode++;
+		Map<IRReteNode, IRNodeSubGraph> _map = null;
 
-		if (_sourceSubGraphMap == null) {
-			_sourceSubGraphMap = new HashMap<>();
+		if (backward) {
+
+			counter.createSubGraphForQueryNodeBackward++;
+
+			if (_subGraphForQueryBackwardMap == null) {
+				_subGraphForQueryBackwardMap = new HashMap<>();
+			}
+
+			_map = _subGraphForQueryBackwardMap;
+
+		} else {
+
+			counter.createSubGraphForQueryNodeForward++;
+
+			if (_subGraphForQueryForwardMap == null) {
+				_subGraphForQueryForwardMap = new HashMap<>();
+			}
+
+			_map = _subGraphForQueryForwardMap;
+
 		}
 
-		IRNodeSubGraph subGraph = _sourceSubGraphMap.get(queryNode);
+		IRNodeSubGraph subGraph = _map.get(queryNode);
 		if (subGraph == null) {
-			subGraph = _buildSubGroupSource(queryNode);
-			_sourceSubGraphMap.put(queryNode, subGraph);
+			subGraph = _buildSubGroupSource(queryNode, backward);
+			_map.put(queryNode, subGraph);
 		}
 
 		return subGraph;
