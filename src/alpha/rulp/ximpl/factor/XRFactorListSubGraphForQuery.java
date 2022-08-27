@@ -16,10 +16,11 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.node.IRNodeGraph;
 
-public class XRFactorListSubGraphForQueryNode extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorListSubGraphForQuery extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
-	public XRFactorListSubGraphForQueryNode(String factorName) {
+	public XRFactorListSubGraphForQuery(String factorName) {
 		super(factorName);
 	}
 
@@ -41,7 +42,10 @@ public class XRFactorListSubGraphForQueryNode extends AbsAtomFactorAdapter imple
 			backward = RulpUtil.asBoolean(interpreter.compute(frame, args.get(3))).asBoolean();
 		}
 
-		List<IRReteNode> sourceNodes = new ArrayList<>(RuleUtil.listSourceNodes(model, cond));
+		IRNodeGraph graph = model.getNodeGraph();
+
+		List<IRReteNode> sourceNodes = new ArrayList<>(
+				graph.createSubGraphForQueryNode(graph.createNodeByTree(cond)).getNodes());
 		Collections.sort(sourceNodes, (n1, n2) -> {
 			return n1.getNodeName().compareTo(n2.getNodeName());
 		});

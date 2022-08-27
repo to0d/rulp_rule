@@ -1,0 +1,9 @@
+(new model m)
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> '(?a p ?c)))
+;=>
+
+(list-subgraph-for-query m '('(x p ?y) '(?y p z)))
+;=>
+
+(list-subgraph-for-query m '('(xx p ?yy) '(?yy p zz)) true)
+;=>
