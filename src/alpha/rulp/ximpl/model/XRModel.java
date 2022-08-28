@@ -1597,10 +1597,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public IRList backSearch(IRList filter) throws RException {
+	public IRList backSearch(IRList filter, boolean explain) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> backSearch: " + filter);
+			System.out.println("==> backSearch: filter=" + filter + ", explain=" + explain);
 		}
 
 		counter.mcBackSearch++;
@@ -1621,7 +1621,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		XRBackSearcher bs = new XRBackSearcher(this);
 
 		try {
-			return bs.search(filter);
+			return bs.search(filter, explain);
 
 		} finally {
 

@@ -44,6 +44,8 @@ public interface Constant {
 	String A_Failed = "failed";
 
 	String A_Halting = "halting";
+	
+	String A_Explain = "explain";
 
 	String A_Index = "index";
 

@@ -1,13 +1,18 @@
 package alpha.rulp.ximpl.factor;
 
+import static alpha.rulp.rule.Constant.*;
+
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFactor {
@@ -21,14 +26,56 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 
 		// (back-search m '(a b c))
 		int argSize = args.size();
-		if (argSize != 2 && argSize != 3) {
+		if (argSize < 2) {
 			throw new RException("Invalid parameters: " + args);
 		}
 
-		IRModel model = StmtUtil.getStmtModel(args, interpreter, frame, 3);
-		IRList stmt = RulpUtil.asList(interpreter.compute(frame, StmtUtil.getStmt3Object(args)));
+		/**************************************************/
+		// Check model object
+		/**************************************************/
+		int argIndex = 1;
+		IRModel model = null;
+		IRObject obj = interpreter.compute(frame, args.get(argIndex));
+		if (obj instanceof IRModel) {
+			model = (IRModel) obj;
+			obj = null;
+			argIndex++;
+		} else {
+			model = RuleUtil.getDefaultModel(frame);
+			if (model == null) {
+				throw new RException("no model be specified");
+			}
+		}
 
-		return model.backSearch(stmt);
+		/**************************************************/
+		// Check statement
+		/**************************************************/
+		if (obj == null) {
+			obj = interpreter.compute(frame, args.get(argIndex));
+		}
+
+		IRList stmt = RulpUtil.asList(obj);
+		argIndex++;
+
+		boolean explain = false;
+
+		/********************************************/
+		// Check modifier
+		/********************************************/
+		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame)) {
+
+			switch (modifier.name) {
+
+			case A_Explain:
+				explain = true;
+				break;
+
+			default:
+				throw new RException("unsupport modifier: " + modifier.name);
+			}
+		}
+
+		return model.backSearch(stmt, explain);
 	}
 
 }

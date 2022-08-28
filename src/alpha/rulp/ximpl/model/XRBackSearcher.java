@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.rule.Constant.A_BS_TRACE;
+import static alpha.rulp.lang.Constant.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,6 +73,8 @@ public class XRBackSearcher {
 			child.parentNode = this;
 		}
 
+		public abstract IRList buildResultTree(boolean explain) throws RException;
+
 		public abstract void complete() throws RException;
 
 		public int getChildCount() {
@@ -113,6 +116,28 @@ public class XRBackSearcher {
 
 		public BSNodeAnd(int nodeId, String nodeName) {
 			super(nodeId, nodeName);
+		}
+
+		public IRList buildResultTree(boolean explain) throws RException {
+
+			if (!this.isSucc()) {
+				return RulpFactory.emptyConstList();
+			}
+
+			if (!explain) {
+				return RulpFactory.createList(stmt);
+			}
+
+			ArrayList<IRObject> treeList = new ArrayList<>();
+			treeList.add(RulpFactory.createString(sourceNode.rule.getRuleName()));
+
+			if (childNodes != null) {
+				for (BSNode child : childNodes) {
+					treeList.add(child.buildResultTree(explain));
+				}
+			}
+
+			return RulpFactory.createExpression(treeList);
 		}
 
 		public void complete() throws RException {
@@ -385,8 +410,23 @@ public class XRBackSearcher {
 
 		protected IRList stmt;
 
+		protected BSNode succChild = null;
+
 		public BSNodeOr(int nodeId, String nodeName) {
 			super(nodeId, nodeName);
+		}
+
+		public IRList buildResultTree(boolean explain) throws RException {
+
+			if (!this.isSucc()) {
+				return RulpFactory.emptyConstList();
+			}
+
+			if (!explain || succChild == null) {
+				return RulpFactory.createList(stmt);
+			}
+
+			return RulpFactory.createList(stmt, succChild.buildResultTree(explain));
 		}
 
 		public void complete() throws RException {
@@ -430,7 +470,7 @@ public class XRBackSearcher {
 			if (_hasStmt(this.stmt)) {
 
 				if (trace) {
-					_outln("has-stmt return true");
+					_outln("has-stmt, " + this.stmt);
 				}
 
 				this.status = BSStats.COMPLETE;
@@ -483,6 +523,7 @@ public class XRBackSearcher {
 					_outln(String.format("process, child %s succ, return true", child.nodeName));
 				}
 
+				this.succChild = child;
 				this.status = BSStats.COMPLETE;
 				this.rst = true;
 				return this;
@@ -534,6 +575,10 @@ public class XRBackSearcher {
 			}
 
 			return true;
+		}
+
+		public IRList buildResultTree(boolean explain) throws RException {
+			return queryReteNodeTree;
 		}
 
 		@Override
@@ -779,7 +824,7 @@ public class XRBackSearcher {
 		return bscStatusProcess;
 	}
 
-	public IRList search(IRList stmt) throws RException {
+	public IRList search(IRList stmt, boolean explain) throws RException {
 
 		trace = isBSTrace(model.getFrame());
 		rootNode = _newOrNode(stmt);
@@ -852,6 +897,6 @@ public class XRBackSearcher {
 			return RulpFactory.emptyConstList();
 		}
 
-		return RulpFactory.createList(stmt);
+		return rootNode.buildResultTree(explain);
 	}
 }

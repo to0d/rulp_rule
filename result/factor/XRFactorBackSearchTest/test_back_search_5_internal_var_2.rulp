@@ -8,7 +8,7 @@
 (setq ?bs-trace true)
 ;=>
 
-(back-search m '(a p c))
+(back-search m '(a p c) explain)
 ;=>
 
 (list-stmt m)

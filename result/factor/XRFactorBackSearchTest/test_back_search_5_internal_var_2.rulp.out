@@ -8,8 +8,8 @@
 (setq ?bs-trace true)
 ;=>&?bs-trace
 
-(back-search m '(a p c))
-;=>'('(a p c))
+(back-search m '(a p c) explain)
+;=>'('(a p c) ("RU001" '('(a p ?b) '(?b p c))))
 ;out:
 00000 O0000: create, stmt='(a p c)
 00000 O0000: init, stmt='(a p c)
