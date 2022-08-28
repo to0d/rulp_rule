@@ -7,7 +7,7 @@
 ;=>
 
 (back-search m '(a p3 b))
-;=>true
+;=>
 
 (list-stmt m)
 ;=>

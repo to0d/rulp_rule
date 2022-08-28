@@ -3,10 +3,10 @@
 ;=>m true
 
 (back-search m '(a p1 b))
-;=>true
+;=>'('(a p1 b))
 
 (back-search m '(a p2 b))
-;=>false
+;=>'()
 
 (back-search m '(a ?x b))
 ;err:

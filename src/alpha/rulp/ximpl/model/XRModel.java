@@ -1597,7 +1597,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public boolean backSearch(IRList filter) throws RException {
+	public IRList backSearch(IRList filter) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> backSearch: " + filter);
@@ -1615,7 +1615,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		// Check root node for root statement
 		if (_findRootEntry(filter, 0) != null) {
-			return true;
+			return RulpFactory.createList(filter);
 		}
 
 		XRBackSearcher bs = new XRBackSearcher(this);

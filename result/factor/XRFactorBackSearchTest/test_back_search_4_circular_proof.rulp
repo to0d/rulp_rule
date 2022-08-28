@@ -8,7 +8,7 @@
 ;=>
 
 (back-search m '(c p1 d))
-;=>false
+;=>
 
 (list-stmt m)
 ;=>

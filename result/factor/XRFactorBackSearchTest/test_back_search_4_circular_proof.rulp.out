@@ -8,7 +8,7 @@
 ;=>&?bs-trace
 
 (back-search m '(c p1 d))
-;=>false
+;=>'()
 ;out:
 00000 O0000: create, stmt='(c p1 d)
 00000 O0000: init, stmt='(c p1 d)

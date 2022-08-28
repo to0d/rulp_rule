@@ -33,11 +33,6 @@ public class XRBackSearcher {
 
 	abstract class BSNode {
 
-		protected void _outln(String line) {
-			interpreter.out(String.format("%05d %s%s: %s\n", getBscOpLoop(), RulpUtil.getSpaceLine(getLevel()),
-					this.nodeName, line));
-		}
-
 		protected ArrayList<BSNode> childNodes;
 
 		protected int curChildIndex = 0;
@@ -56,6 +51,11 @@ public class XRBackSearcher {
 			super();
 			this.nodeId = nodeId;
 			this.nodeName = nodeName;
+		}
+
+		protected void _outln(String line) {
+			interpreter.out(String.format("%05d %s%s: %s\n", getBscOpLoop(), RulpUtil.getSpaceLine(getLevel()),
+					this.nodeName, line));
 		}
 
 		public void addChild(BSNode child) {
@@ -103,10 +103,6 @@ public class XRBackSearcher {
 
 	class BSNodeAnd extends BSNode {
 
-		public BSNodeAnd(int nodeId, String nodeName) {
-			super(nodeId, nodeName);
-		}
-
 		protected IAction action;
 
 		protected boolean rst;
@@ -114,6 +110,10 @@ public class XRBackSearcher {
 		protected SourceNode sourceNode;
 
 		protected IRList stmt;
+
+		public BSNodeAnd(int nodeId, String nodeName) {
+			super(nodeId, nodeName);
+		}
 
 		public void complete() throws RException {
 
@@ -381,13 +381,13 @@ public class XRBackSearcher {
 
 	class BSNodeOr extends BSNode {
 
-		public BSNodeOr(int nodeId, String nodeName) {
-			super(nodeId, nodeName);
-		}
-
 		protected boolean rst;
 
 		protected IRList stmt;
+
+		public BSNodeOr(int nodeId, String nodeName) {
+			super(nodeId, nodeName);
+		}
 
 		public void complete() throws RException {
 
@@ -512,10 +512,6 @@ public class XRBackSearcher {
 
 	class BSNodeQuery extends BSNode implements IREntryAction {
 
-		public BSNodeQuery(int nodeId, String nodeName) {
-			super(nodeId, nodeName);
-		}
-
 		protected boolean queryBackward = false;
 
 		protected boolean queryForward = false;
@@ -525,6 +521,10 @@ public class XRBackSearcher {
 		protected IRList queryReteNodeTree;
 
 		protected List<IRList> queryStmtList;
+
+		public BSNodeQuery(int nodeId, String nodeName) {
+			super(nodeId, nodeName);
+		}
 
 		@Override
 		public boolean addEntry(IRReteEntry entry) throws RException {
@@ -779,7 +779,7 @@ public class XRBackSearcher {
 		return bscStatusProcess;
 	}
 
-	public boolean search(IRList stmt) throws RException {
+	public IRList search(IRList stmt) throws RException {
 
 		trace = isBSTrace(model.getFrame());
 		rootNode = _newOrNode(stmt);
@@ -847,8 +847,11 @@ public class XRBackSearcher {
 			this.bscOpLoop++;
 		}
 
-		curNode.complete();
+		rootNode.complete();
+		if (!rootNode.isSucc()) {
+			return RulpFactory.emptyConstList();
+		}
 
-		return curNode.isSucc();
+		return RulpFactory.createList(stmt);
 	}
 }

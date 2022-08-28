@@ -7,7 +7,7 @@
 ;=>m RU000 true true true true
 
 (back-search m '(a p3 b))
-;=>true
+;=>'('(a p3 b))
 
 (list-stmt m)
 ;=>'('(a p1 b) '(a p2 b) '(e p1 f) '(c p1 d) '(a p3 b))

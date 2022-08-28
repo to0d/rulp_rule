@@ -9,7 +9,7 @@
 ;=>&?bs-trace
 
 (back-search m '(a p2 b))
-;=>true
+;=>'('(a p2 b))
 ;out:
 00000 O0000: create, stmt='(a p2 b)
 00000 O0000: init, stmt='(a p2 b)

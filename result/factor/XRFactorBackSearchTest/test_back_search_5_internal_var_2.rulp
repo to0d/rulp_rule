@@ -9,7 +9,7 @@
 ;=>
 
 (back-search m '(a p c))
-;=>true
+;=>
 
 (list-stmt m)
 ;=>
