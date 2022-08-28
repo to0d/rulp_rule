@@ -1027,6 +1027,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throws RException {
 
 		int queryEntryIndex = 0;
+		int resultCount = 0;
 
 		/******************************************************/
 		// Update cache
@@ -1051,8 +1052,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 					continue;
 				}
 
+				resultCount++;
+
 				// limit <= 0 means query all
-				if (limit > 0 && objQueue.size() >= limit) {
+				if (limit > 0 && resultCount >= limit) {
 					return;
 				}
 			}
@@ -1099,8 +1102,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 									continue;
 								}
 
+								resultCount++;
+
 								// limit <= 0 means query all
-								if (limit > 0 && objQueue.size() >= limit) {
+								if (limit > 0 && resultCount >= limit) {
 									return;
 								}
 							}

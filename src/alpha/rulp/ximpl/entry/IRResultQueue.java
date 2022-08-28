@@ -6,5 +6,4 @@ public interface IRResultQueue {
 
 	public boolean addEntry(IRReteEntry entry) throws RException;
 
-	public int size();
 }

@@ -439,11 +439,6 @@ public class XRBackSearcher {
 			return false;
 		}
 
-		@Override
-		public int size() {
-			return 0;
-		}
-
 	}
 
 	static enum BSStats {

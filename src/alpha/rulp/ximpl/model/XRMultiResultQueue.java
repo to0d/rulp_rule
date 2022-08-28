@@ -216,8 +216,4 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		this.orderLimit = orderLimit;
 	}
 
-	@Override
-	public int size() {
-		return rstList.size();
-	}
 }
