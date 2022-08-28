@@ -379,8 +379,6 @@ public class XRBackSearcher {
 					}
 				}
 			}
-			
-			
 
 			return null;
 		}

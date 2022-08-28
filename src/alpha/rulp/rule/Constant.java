@@ -31,6 +31,10 @@ public interface Constant {
 
 	String A_Dup = "dup";
 
+	String A_Forward = "forward";
+
+	String A_Backward = "backward";
+
 	String A_ENTRY = "entry";
 
 	String A_ENTRY_LEN = "entry-len";

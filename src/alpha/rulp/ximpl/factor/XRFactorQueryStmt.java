@@ -4,7 +4,9 @@ import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.rule.Constant.A_Asc;
+import static alpha.rulp.rule.Constant.A_Backward;
 import static alpha.rulp.rule.Constant.A_Desc;
+import static alpha.rulp.rule.Constant.A_Forward;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Reverse;
@@ -105,6 +107,8 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 		IREntryIteratorBuilder orderBuilder = null;
 		String orderBuilderName = null;
+
+		Boolean backward = null;
 
 		/********************************************/
 		// Check modifier
@@ -217,9 +221,29 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				orderBuilderName = modifier.name;
 				break;
 
+			case A_Forward:
+				if (backward != null && backward) {
+					throw new RException(String.format("confilct modifier: %s", modifier.name));
+				}
+
+				backward = false;
+				break;
+
+			case A_Backward:
+				if (backward != null && !backward) {
+					throw new RException(String.format("confilct modifier: %s", modifier.name));
+				}
+
+				backward = true;
+				break;
+
 			default:
 				throw new RException("unsupport modifier: " + modifier.name);
 			}
+		}
+
+		if (backward == null) {
+			backward = true;
 		}
 
 		/********************************************/
@@ -277,7 +301,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				subGraph.activate(model.getPriority());
 			}
 
-			model.query(resultQueue, condList, limit);
+			model.query(resultQueue, condList, limit, backward);
 
 			return RulpFactory.createList(resultQueue.getResultList());
 

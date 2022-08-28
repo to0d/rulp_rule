@@ -5,7 +5,9 @@ import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Asc;
+import static alpha.rulp.rule.Constant.A_Backward;
 import static alpha.rulp.rule.Constant.A_Desc;
+import static alpha.rulp.rule.Constant.A_Forward;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_On;
 import static alpha.rulp.rule.Constant.A_Order;
@@ -291,6 +293,8 @@ public class ModifiterUtil {
 		modifierMap.put(A_State, new XModifierState(A_State));
 		modifierMap.put(A_Order, new XModifierOrderBy());
 		modifierMap.put(A_Reverse, new XModifier0(A_Reverse));
+		modifierMap.put(A_Forward, new XModifier0(A_Forward));
+		modifierMap.put(A_Backward, new XModifier0(A_Backward));
 //		modifierMap.put(A_BackSearch, new XModifier0(A_BackSearch));
 	}
 
