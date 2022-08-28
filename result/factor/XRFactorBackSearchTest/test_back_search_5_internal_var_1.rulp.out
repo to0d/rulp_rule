@@ -4,8 +4,29 @@
 (add-stmt m '(b p c))
 ;=>m RU000 true true
 
+(setq ?bs-trace true)
+;=>&?bs-trace
+
 (back-search m '(a p c))
 ;=>true
+;out:
+O0000: create, stmt='(a p c)
+O0000: init, stmt='(a p c)
+O0000: add child, type=AND, name=A0001
+O0000: route to A0001
+    A0001: init, stmt='(a p c), rule=RU000: RU000, action='(?0, p, ?2)(0)
+    A0001: add child, type=QUERY, name=Q0002
+    A0001: route to Q0002
+        Q0002: init, stmt-list=['(a p ?b), '(?b p c)]
+        Q0002: process, forward=true, backward=false, result=1
+        Q0002: route to A0001
+    A0001: process, no child fail, return true
+    A0001: complete return, rst=true
+    A0001: route to O0000
+O0000: process, child A0001 succ, return true
+O0000: complete return, rst=true
+
+;eof
 
 (list-stmt m)
 ;=>'('(a p b) '(b p c) '(a p c))

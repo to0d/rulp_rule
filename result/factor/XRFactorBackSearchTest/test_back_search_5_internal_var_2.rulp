@@ -5,6 +5,9 @@
 (add-stmt m '(b p2 c))
 ;=>
 
+(setq ?bs-trace true)
+;=>
+
 (back-search m '(a p c))
 ;=>true
 

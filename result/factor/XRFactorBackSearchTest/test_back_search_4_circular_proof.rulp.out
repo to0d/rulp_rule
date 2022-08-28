@@ -4,8 +4,32 @@
 (add-stmt m '(a p1 b))
 ;=>m RU000 RU001 true
 
+(setq ?bs-trace true)
+;=>&?bs-trace
+
 (back-search m '(c p1 d))
 ;=>false
+;out:
+O0000: create, stmt='(c p1 d)
+O0000: init, stmt='(c p1 d)
+O0000: add child, type=AND, name=A0001
+O0000: route to A0001
+    A0001: init, stmt='(c p1 d), rule=RU001: RU001, action='(?0, p1, ?2)(0)
+    A0001: add child, type=OR, name=O0002
+    A0001: route to O0002
+        O0002: init, stmt='(c p2 d)
+        O0002: add child, type=AND, name=A0003
+        O0002: route to A0003
+            A0003: init, stmt='(c p2 d), rule=RU000: RU000, action='(?0, p2, ?2)(0)
+            A0003: circular proof found, stmt='(c p1 d), return false
+            A0003: route to O0002
+        O0002: process, no child succ, return false
+        O0002: route to A0001
+    A0001: process, child O0002 false, return false
+    A0001: route to O0000
+O0000: process, no child succ, return false
+
+;eof
 
 (list-stmt m)
 ;=>'('(a p1 b))

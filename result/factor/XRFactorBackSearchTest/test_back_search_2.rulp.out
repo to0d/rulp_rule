@@ -5,8 +5,30 @@
 (add-stmt m '(x2 p1 y2))
 ;=>m RU000 true true true
 
+(setq ?bs-trace true)
+;=>&?bs-trace
+
 (back-search m '(a p2 b))
 ;=>true
+;out:
+O0000: create, stmt='(a p2 b)
+O0000: init, stmt='(a p2 b)
+O0000: add child, type=AND, name=A0001
+O0000: route to A0001
+    A0001: init, stmt='(a p2 b), rule=RU000: RU000, action='(?0, p2, ?2)(0)
+    A0001: add child, type=OR, name=O0002
+    A0001: route to O0002
+        O0002: init, stmt='(a p1 b)
+        O0002: has-stmt return true
+        O0002: complete return, rst=true
+        O0002: route to A0001
+    A0001: process, no child fail, return true
+    A0001: complete return, rst=true
+    A0001: route to O0000
+O0000: process, child A0001 succ, return true
+O0000: complete return, rst=true
+
+;eof
 
 (list-stmt m)
 ;=>'('(a p1 b) '(x1 p1 y1) '(x2 p1 y2) '(a p2 b))
