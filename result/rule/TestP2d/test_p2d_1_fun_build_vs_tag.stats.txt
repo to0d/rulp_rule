@@ -2639,7 +2639,7 @@ Object create count:
         list:         1724           14         1710
         expr:         2143           99         2044
        array:            2            0            2
-         var:          264          230           34
+         var:          265          230           35
     constant:           55            0           55
         func:          147            5          142
     template:            1            0            1
@@ -2649,7 +2649,7 @@ Object create count:
       member:          107            8           99
        frame:          175          169            6
  interpreter:            1            0
-  frameEntry:          670            0
+  frameEntry:          671            0
       lambda:            8            0
 ==========================================================================================================================
 
@@ -2833,10 +2833,11 @@ id=13, name=SF-un49-3, lvl=4, ref=2/3, entry=0, pid=12(SF-p2d_vs_group-2), subje
 
 id=15, name=SF-un50-4, lvl=4, ref=2/3, entry=0, pid=12(SF-p2d_vs_group-2), subject=un50
 
-Root var list: total=6
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
+?bs-trace            : false
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"            )...

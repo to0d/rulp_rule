@@ -53,6 +53,8 @@ public interface Constant {
 
 	String A_M_TRACE = "?model-trace";
 
+	String A_BS_TRACE = "?bs-trace";
+
 	String A_Max = "max";
 
 	String A_Min = "min";

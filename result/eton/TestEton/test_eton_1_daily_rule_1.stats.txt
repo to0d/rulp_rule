@@ -565,7 +565,7 @@ Object create count:
       string:          133            0          133
         list:          200            7          193
         expr:         1420           25         1395
-         var:          109           74           35
+         var:          110           74           36
     constant:           45            0           45
         func:          114            0          114
     template:            1            0            1
@@ -573,7 +573,7 @@ Object create count:
       member:           22            0           22
        frame:           59           52            7
  interpreter:            1            0
-  frameEntry:          499            0
+  frameEntry:          500            0
       lambda:            1            0
 ==========================================================================================================================
 
@@ -758,10 +758,11 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 176      14       1    var        false : type=bool   
 ==========================================================================================================================
 
-Root var list: total=6
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
+?bs-trace            : false
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\constraint/diff-stmt.rulp" "C:\\data\\eton\\load\\eton.rulp")

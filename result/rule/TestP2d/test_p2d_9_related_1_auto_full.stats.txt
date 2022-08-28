@@ -2643,7 +2643,7 @@ Object create count:
       string:          264            0          264
         list:         1540            3         1537
         expr:         2128           89         2039
-         var:          339          298           41
+         var:          340          298           42
     constant:           55            0           55
         func:          140            0          140
     template:            1            0            1
@@ -2652,7 +2652,7 @@ Object create count:
       member:           89            0           89
        frame:          173          165            8
  interpreter:            1            0
-  frameEntry:          742            0
+  frameEntry:          743            0
       lambda:            1            0
 ==========================================================================================================================
 
@@ -2881,10 +2881,11 @@ default_model        : 284      13       7    instance   model@p2d
 ?model-state         : 286      13       1    var        ?model-state:"completed" : type=var
 ==========================================================================================================================
 
-Root var list: total=6
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
+?bs-trace            : false
 ?load-class          : '("alpha.rulp.utils.RRuleLoader" "alpha.rulp.ximpl.collection.XRMap$Loader" "alpha.rulp.ximpl.collection.XRSet$Loader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp" "C:\\data\\rs\\load\\map.rulp" "C:\\data\\rs\\load\\set.rulp" "C:\\data\\rs\\load\\note/p2d_define.rulp" "C:\\data\\rs\\load\\note/p2d_utils.rulp" "C:\\data\\rs\\load\\note/p2d_tag_vs.rulp"            )...

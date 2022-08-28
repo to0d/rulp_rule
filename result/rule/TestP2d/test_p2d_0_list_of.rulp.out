@@ -222,6 +222,7 @@ mbr=~, mbr-property='(public), mbr-attribute='(), obj=~, obj-type=factor, obj-at
 (print-list system)
 ;=>nil
 ;out:
+mbr=?bs-trace, mbr-property='(public), mbr-attribute='(), obj=?bs-trace, obj-type=var, obj-attribute='(), var-value="false"
 mbr=?load-class, mbr-property='(public), mbr-attribute='(), obj=?load-class, obj-type=var, obj-attribute='(), var-value="'(alpha.rulp.utils.RRuleLoader)"
 mbr=?load-jar, mbr-property='(public), mbr-attribute='(), obj=?load-jar, obj-type=var, obj-attribute='(), var-value="'()"
 mbr=?load-script, mbr-property='(public), mbr-attribute='(), obj=?load-script, obj-type=var, obj-attribute='(), var-value="'(C:\datas\load\tool.rulp C:\datas\load\test/itest.rulp)"

@@ -1,5 +1,7 @@
 package alpha.rulp.utils;
 
+import static alpha.rulp.lang.Constant.O_False;
+import static alpha.rulp.rule.Constant.A_BS_TRACE;
 import static alpha.rulp.rule.Constant.A_BackSearch;
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.F_ADD_CONSTRAINT;
@@ -191,6 +193,9 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorDumpStatus(F_DUMP_STATUS));
 		RulpUtil.addFrameObject(frame, new XRFactorDumpNodeInfo(F_DUMP_NODE_INFO));
 		RulpUtil.addFrameObject(frame, new XRFactorDumpEntryInfo(F_DUMP_ENTRY_INFO));
+
+		// Variables
+		RulpUtil.setLocalVar(frame, A_BS_TRACE, O_False);
 
 		// Load rule library
 		LoadUtil.loadRulpFromJar(interpreter, frame, "alpha/resource/rule.res", "utf-8");

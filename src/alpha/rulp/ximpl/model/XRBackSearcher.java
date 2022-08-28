@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.model;
 
+import static alpha.rulp.rule.Constant.A_BS_TRACE;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
@@ -530,6 +533,10 @@ public class XRBackSearcher {
 	protected BSNode rootNode;
 
 	protected Map<String, BSNode> visitingOrNodeMap = new HashMap<>();
+
+	public static boolean isBSTrace(IRFrame frame) throws RException {
+		return RulpUtil.asBoolean(RulpUtil.getVarValue(frame, A_BS_TRACE)).asBoolean();
+	}
 
 	public XRBackSearcher(XRModel model) {
 		super();

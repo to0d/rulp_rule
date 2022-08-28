@@ -277,14 +277,14 @@ Object create count:
       string:           77            0           77
         list:           94            1           93
         expr:          917            4          913
-         var:           27            4           23
+         var:           28            4           24
         func:           87            0           87
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
        frame:            6            4            2
  interpreter:            1            0
-  frameEntry:          339            0
+  frameEntry:          340            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -355,10 +355,11 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 ?rv                  : 31       4        1    var        false : type=bool   
 ==========================================================================================================================
 
-Root var list: total=6
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
+?bs-trace            : false
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp")

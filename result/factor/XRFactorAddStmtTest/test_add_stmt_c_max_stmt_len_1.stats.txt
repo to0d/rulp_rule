@@ -180,7 +180,7 @@ Object create count:
         list:         4103            4         4099
         expr:         5156         4020         1136
        array:            6            6            0
-         var:        12075        12054           21
+         var:        12076        12054           22
     constant:           45            0           45
         func:           98            0           98
     template:            1            0            1
@@ -188,7 +188,7 @@ Object create count:
       member:           22            0           22
        frame:         8041         8040            1
  interpreter:            1            0
-  frameEntry:        12452            0
+  frameEntry:        12453            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -310,10 +310,11 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 83       3        2    instance   model@m             
 ==========================================================================================================================
 
-Root var list: total=6
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
+?bs-trace            : false
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
 ?load-jar            : '("rulp_rule_bin_0.0.1.jar")
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp" "C:\\data\\rs\\load\\rule.rulp")

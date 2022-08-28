@@ -415,14 +415,14 @@ Object create count:
       string:           96            0           96
         list:          173            6          167
         expr:          931            9          922
-         var:           53           26           27
+         var:           54           26           28
         func:           85            0           85
     template:            1            0            1
        macro:            5            0            5
       member:           20            0           20
        frame:           24           22            2
  interpreter:            1            0
-  frameEntry:          368            0
+  frameEntry:          369            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -494,10 +494,11 @@ default_model        : 57       6        9    instance   model@m
 ?type2               : 61       6        1    var        float : type=atom   
 ==========================================================================================================================
 
-Root var list: total=6
+Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
+?bs-trace            : false
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp")
