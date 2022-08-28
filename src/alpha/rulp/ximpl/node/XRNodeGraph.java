@@ -203,7 +203,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected Map<IRReteNode, IRNodeSubGraph> _subGraphForQueryBackwardMap = null;
 
-	protected Map<IRReteNode, IRNodeSubGraph> _subGraphForQueryForwardMap = null;
+	protected Map<IRReteNode, XRNodeSubGraph> _subGraphForQueryForwardMap = null;
 
 	protected int anonymousRuleIndex = 0;
 
@@ -990,7 +990,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		return subGraph;
 	}
 
-	protected IRNodeSubGraph _buildSubGroupSource(IRReteNode queryNode, boolean backward) throws RException {
+	protected IRNodeSubGraph _buildSubGroupSourceBackward(IRReteNode queryNode) throws RException {
 
 		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
 
@@ -1251,6 +1251,54 @@ public class XRNodeGraph implements IRNodeGraph {
 		default:
 			throw new RException("factor not support: " + e0);
 		}
+	}
+
+	protected IRNodeSubGraph _createSubGraphForQueryNodeBackward(IRReteNode queryNode) throws RException {
+
+		counter.createSubGraphForQueryNodeBackward++;
+
+		if (_subGraphForQueryBackwardMap == null) {
+			_subGraphForQueryBackwardMap = new HashMap<>();
+		}
+
+		Map<IRReteNode, IRNodeSubGraph> _map = _subGraphForQueryBackwardMap;
+		IRNodeSubGraph subGraph = _map.get(queryNode);
+		if (subGraph == null) {
+			subGraph = _buildSubGroupSourceBackward(queryNode);
+			_map.put(queryNode, subGraph);
+		}
+
+		return subGraph;
+	}
+
+	protected IRNodeSubGraph _createSubGraphForQueryNodeForward(IRReteNode queryNode) throws RException {
+
+		counter.createSubGraphForQueryNodeForward++;
+
+		if (_subGraphForQueryForwardMap == null) {
+			_subGraphForQueryForwardMap = new HashMap<>();
+		}
+
+		Map<IRReteNode, XRNodeSubGraph> _map = _subGraphForQueryForwardMap;
+		XRNodeSubGraph subGraph = _map.get(queryNode);
+		if (subGraph == null) {
+
+			subGraph = new XRNodeSubGraph(this);
+
+			for (IRReteNode node : RuleUtil.getAllParentNodes(queryNode)) {
+				if (!subGraph.containNode(node)) {
+					subGraph.addNode(node);
+				}
+			}
+
+			if (!subGraph.containNode(queryNode)) {
+				subGraph.addNode(queryNode);
+			}
+
+			_map.put(queryNode, subGraph);
+		}
+
+		return subGraph;
 	}
 
 	protected IRReteNode _findReteNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
@@ -1835,37 +1883,13 @@ public class XRNodeGraph implements IRNodeGraph {
 	@Override
 	public IRNodeSubGraph createSubGraphForQueryNode(IRReteNode queryNode, boolean backward) throws RException {
 
-		Map<IRReteNode, IRNodeSubGraph> _map = null;
-
 		if (backward) {
-
-			counter.createSubGraphForQueryNodeBackward++;
-
-			if (_subGraphForQueryBackwardMap == null) {
-				_subGraphForQueryBackwardMap = new HashMap<>();
-			}
-
-			_map = _subGraphForQueryBackwardMap;
+			return _createSubGraphForQueryNodeBackward(queryNode);
 
 		} else {
-
-			counter.createSubGraphForQueryNodeForward++;
-
-			if (_subGraphForQueryForwardMap == null) {
-				_subGraphForQueryForwardMap = new HashMap<>();
-			}
-
-			_map = _subGraphForQueryForwardMap;
-
+			return _createSubGraphForQueryNodeForward(queryNode);
 		}
 
-		IRNodeSubGraph subGraph = _map.get(queryNode);
-		if (subGraph == null) {
-			subGraph = _buildSubGroupSource(queryNode, backward);
-			_map.put(queryNode, subGraph);
-		}
-
-		return subGraph;
 	}
 
 	@Override

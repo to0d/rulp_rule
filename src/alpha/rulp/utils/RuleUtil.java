@@ -356,14 +356,19 @@ public class RuleUtil {
 		return b != null && a.equals(b);
 	}
 
-	public static IRModel getDefaultModel(IRFrame frame) throws RException {
+	public static List<IRReteNode> getAllParentNodes(IRReteNode node) throws RException {
 
-		IRObject mobj = frame.getObject(A_DEFAULT_MODEL);
-		if (mobj == null) {
-			return null;
-		}
+		List<IRReteNode> nodes = new ArrayList<>();
 
-		return RuleUtil.asModel(mobj);
+		RuleUtil.travelReteParentNodeByPostorder(node, (_node) -> {
+			if (!nodes.contains(_node)) {
+				nodes.add(_node);
+			}
+
+			return false;
+		});
+
+		return nodes;
 	}
 
 //	public static int getNodeMaxPriority(IRModel model) {
@@ -384,6 +389,16 @@ public class RuleUtil {
 //
 //		return maxPriority;
 //	}
+
+	public static IRModel getDefaultModel(IRFrame frame) throws RException {
+
+		IRObject mobj = frame.getObject(A_DEFAULT_MODEL);
+		if (mobj == null) {
+			return null;
+		}
+
+		return RuleUtil.asModel(mobj);
+	}
 
 	public static IRParser getParser() {
 		if (parser == null) {
@@ -436,10 +451,6 @@ public class RuleUtil {
 		model.getNodeGraph().findRule(ruleName).start(-1, -1);
 	}
 
-	public static boolean isModelTrace() throws RException {
-		return varTraceModel.getBoolValue();
-	}
-
 //	public static Collection<SourceNode> listMatchCondition(IRList stmt, IRRule rule) throws RException {
 //
 //		if (!ReteUtil.isReteStmtNoVar(stmt)) {
@@ -452,6 +463,10 @@ public class RuleUtil {
 //		return null;
 //
 //	}
+
+	public static boolean isModelTrace() throws RException {
+		return varTraceModel.getBoolValue();
+	}
 
 	public static List<IRReteNode> listNodes(IRNodeGraph graph, RReteType... types) {
 
@@ -551,13 +566,13 @@ public class RuleUtil {
 		parser = null;
 	}
 
-	public static void setDefaultModel(IRFrame frame, IRModel model) throws RException {
-		frame.setEntry(A_DEFAULT_MODEL, model);
-	}
-
 //	public static void changeNode(boolean trace) throws RException {
 //
 //	}
+
+	public static void setDefaultModel(IRFrame frame, IRModel model) throws RException {
+		frame.setEntry(A_DEFAULT_MODEL, model);
+	}
 
 	public static void setModelTrace(boolean trace) throws RException {
 		varTraceModel.setBoolValue(trace);
@@ -577,17 +592,6 @@ public class RuleUtil {
 		}
 	}
 
-	public static IRList toCondList(String cond) throws RException {
-
-		List<IRObject> stmts = getParser().parse(cond);
-		if (stmts.size() == 1) {
-			return toCondList(stmts.get(0));
-		} else {
-			return toCondList(RulpFactory.createList(stmts));
-		}
-
-	}
-
 //	public static List<Integer> toList(int[] ids) {
 //
 //		if (ids == null || ids.length == 0) {
@@ -601,6 +605,17 @@ public class RuleUtil {
 //
 //		return list;
 //	}
+
+	public static IRList toCondList(String cond) throws RException {
+
+		List<IRObject> stmts = getParser().parse(cond);
+		if (stmts.size() == 1) {
+			return toCondList(stmts.get(0));
+		} else {
+			return toCondList(RulpFactory.createList(stmts));
+		}
+
+	}
 
 	public static IRList toStmtFilter(String filter) throws RException {
 

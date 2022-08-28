@@ -14,4 +14,11 @@ class XRFactorListSubGraphForQueryTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_list_subgraph_for_query_1_forward() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
