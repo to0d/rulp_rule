@@ -1,0 +1,9 @@
+(new model m)
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p ?c)))
+(add-stmt m '(a p b))
+(add-stmt m '(b p c))
+;=>m RU000 true true
+
+(query-stmt m '(?a ?b) from '(?a p ?b) forward)
+;=>'('(a b) '(b c))
+
