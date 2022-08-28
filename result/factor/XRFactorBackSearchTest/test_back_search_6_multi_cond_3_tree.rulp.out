@@ -1,0 +1,17 @@
+(new model m)
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p ?c)))
+(add-stmt m '(a p b))
+(add-stmt m '(b p c))
+;=>m RU000 true true
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(back-search m (or (and '(a p b) '(a p d)) '(a p c)) explain)
+;err:
+Can't convert to bool: '(a p b)
+at (and '(a p b) '(a p d)) ; main-2
+at (or (and '(a p b) '(a p d)) '(a p c)) ; main-2
+at (back-search m (or (and '(a p b) '(a p d)) '(a p c)) explain) ; main-2
+;eof
+

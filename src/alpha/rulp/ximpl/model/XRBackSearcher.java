@@ -1,7 +1,6 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.rule.Constant.A_BS_TRACE;
-import static alpha.rulp.lang.Constant.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -478,7 +477,12 @@ public class XRBackSearcher {
 				return this;
 			}
 
-			for (SourceNode sn : graph.listSourceNodes(stmt)) {
+			ArrayList<SourceNode> sourceNodes = new ArrayList<>(graph.listSourceNodes(stmt));
+			Collections.sort(sourceNodes, (s1, s2) -> {
+				return s1.rule.getRuleName().compareTo(s2.rule.getRuleName());
+			});
+
+			for (SourceNode sn : sourceNodes) {
 
 				for (IAction action : sn.actionList) {
 

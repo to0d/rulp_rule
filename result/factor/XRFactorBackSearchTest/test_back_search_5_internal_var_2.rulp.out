@@ -16,17 +16,26 @@
 00000 O0000: add child, type=AND, name=A0001
 00000 O0000: add child, type=AND, name=A0002
 00000 O0000: route to A0001
-00001     A0001: init, stmt='(a p c), rule=RU001: RU001, action='(?0, p, ?2)(0)
-00001     A0001: add child, type=QUERY, name=Q0003
-00001     A0001: route to Q0003
-00002         Q0003: init, stmt-list=['(a p ?b), '(?b p c)]
-00003         Q0003: process, forward=true, backward=true, result=1
-00003         Q0003: route to A0001
-00004     A0001: process, no child fail, return true
-00005     A0001: complete return, rst=true
+00001     A0001: init, stmt='(a p c), rule=RU000: RU000, action='(?0, p, ?2)(0)
+00001     A0001: add child, type=OR, name=O0003
+00001     A0001: route to O0003
+00002         O0003: init, stmt='(a p2 c)
+00002         O0003: not child, return false
+00003         O0003: route to A0001
+00004     A0001: process, child O0003 false, return false
 00005     A0001: route to O0000
-00006 O0000: process, child A0001 succ, return true
-00007 O0000: complete return, rst=true
+00006 O0000: route to A0002
+00007     A0002: init, stmt='(a p c), rule=RU001: RU001, action='(?0, p, ?2)(0)
+00007     A0002: add child, type=QUERY, name=Q0004
+00007     A0002: route to Q0004
+00008         Q0004: init, stmt-list=['(a p ?b), '(?b p c)]
+00009         Q0004: process, forward=true, backward=true, result=1
+00009         Q0004: route to A0002
+00010     A0002: process, no child fail, return true
+00011     A0002: complete return, rst=true
+00011     A0002: route to O0000
+00012 O0000: process, child A0002 succ, return true
+00013 O0000: complete return, rst=true
 
 ;eof
 

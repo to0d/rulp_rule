@@ -40,7 +40,7 @@ class XRFactorBackSearchTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
+
 	@Test
 	void test_back_search_5_internal_var_1() {
 
@@ -49,9 +49,36 @@ class XRFactorBackSearchTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
+
 	@Test
 	void test_back_search_5_internal_var_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_back_search_6_multi_cond_1_and() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_back_search_6_multi_cond_2_or() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_back_search_6_multi_cond_3_tree() {
 
 		_setup();
 		_run_script();

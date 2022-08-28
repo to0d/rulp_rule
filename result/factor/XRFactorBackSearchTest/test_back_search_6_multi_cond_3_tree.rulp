@@ -1,0 +1,14 @@
+(new model m)
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p ?c)))
+(add-stmt m '(a p b))
+(add-stmt m '(b p c))
+;=>
+
+(setq ?bs-trace true)
+;=>
+
+(back-search m (or (and '(a p b) '(a p d)) '(a p c)) explain)
+;=>
+
+(list-stmt m)
+;=>
