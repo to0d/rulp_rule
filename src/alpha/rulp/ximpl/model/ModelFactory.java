@@ -15,7 +15,6 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.entry.IRResultQueue;
 
 public class ModelFactory {
 
@@ -31,7 +30,8 @@ public class ModelFactory {
 		return varEntry;
 	}
 
-	public static IRResultQueue createResultQueue(IRModel model, IRObject rstExpr, IRList condList) throws RException {
+	public static XRMultiResultQueue createResultQueue(IRModel model, IRObject rstExpr, IRList condList)
+			throws RException {
 
 		/******************************************************/
 		// Build frame

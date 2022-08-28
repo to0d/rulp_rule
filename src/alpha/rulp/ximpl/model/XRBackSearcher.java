@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.IActionSimpleStmt;
 import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.entry.IREntryQueueUniq;
+import alpha.rulp.ximpl.entry.IRResultQueue;
+import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.SourceNode;
 
@@ -77,15 +80,31 @@ public class XRBackSearcher {
 
 			// need trigger all related rete-node
 			if (queryChildNode == null) {
-				execute(listAllChildAndStmts());
+				this.rst = execute(listAllChildAndStmts());
+				return;
+
 			}
 
-			if (!_hasStmt(this.stmt)) {
-				this.rst = false;
+			List<IRList> allChildStmts = listAllChildAndStmts();
+			Iterator<List<IRList>> queryIt = queryChildNode.listAllPossibleList();
+			while (queryIt.hasNext()) {
+
+				List<IRList> allStmts = new ArrayList<>(allChildStmts);
+				allStmts.addAll(queryIt.next());
+
+				if (execute(listAllChildAndStmts())) {
+					this.rst = true;
+					return;
+				}
+
 			}
+
+			this.rst = false;
+			return;
+
 		}
 
-		public void execute(List<IRList> childStmts) throws RException {
+		public boolean execute(List<IRList> childStmts) throws RException {
 
 			ArrayList<IRReteNode> rootNodes = new ArrayList<>();
 			Map<IRReteNode, BSStmtIndexs> stmtIndexMap = new HashMap<>();
@@ -137,6 +156,8 @@ public class XRBackSearcher {
 			for (IRReteNode rootNode : rootNodes) {
 				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(-1, null);
 			}
+
+			return _hasStmt(this.stmt);
 		}
 
 		@Override
@@ -351,11 +372,17 @@ public class XRBackSearcher {
 
 	}
 
-	class BSNodeQuery extends BSNode {
+	class BSNodeQuery extends BSNode implements IRResultQueue {
 
 		protected List<IRList> queryStmtList;
 
 		protected List<String> queryVarList = new ArrayList<>();
+
+		protected int queryVarVisitIndex = 0;
+
+		protected boolean queryForward = false;
+
+		protected boolean queryBackward = false;
 
 		@Override
 		public void complete() throws RException {
@@ -380,17 +407,41 @@ public class XRBackSearcher {
 				}
 			}
 
-			return null;
+			this.status = BSStats.PROCESS;
+
+			return this;
 		}
 
-		public List<IRList> listQueryStmtList() {
+		public Iterator<List<IRList>> listAllPossibleList() {
 			return null;
 		}
 
 		@Override
 		public BSNode process() throws RException {
+
+			if (!queryForward) {
+
+				// query forward
+				model.query(null, null, queryVarVisitIndex, false);
+			}
+
+			if (!queryBackward) {
+
+			}
+
+			this.rst = true;
+			return this;
+		}
+
+		@Override
+		public boolean addEntry(IRReteEntry entry) throws RException {
 			// TODO Auto-generated method stub
-			return null;
+			return false;
+		}
+
+		@Override
+		public int size() {
+			return 0;
 		}
 
 	}
@@ -424,6 +475,12 @@ public class XRBackSearcher {
 	protected int bscNodeAnd = 0;
 
 	protected int bscNodeOr = 0;
+
+	protected int bscNodeQuery = 0;
+
+	public int getBscNodeQuery() {
+		return bscNodeQuery;
+	}
 
 	protected int bscOpLoop = 0;
 

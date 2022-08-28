@@ -37,10 +37,10 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
-import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
+import alpha.rulp.ximpl.model.XRMultiResultQueue;
 
 public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -215,9 +215,10 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		/********************************************/
 		// Build result queue
 		/********************************************/
-		IRResultQueue resultQueue = null;
 		if (whereList != null) {
-			resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST, RulpFactory.createList(filter));
+
+			final XRMultiResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
+					RulpFactory.createList(filter));
 
 			IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
 					filter.getType() == RType.LIST ? (IRList) filter : RulpFactory.createList(filter)));
@@ -229,11 +230,12 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 					resultQueue.addConstraint(cons);
 				}
 			}
-		}
 
-		if (resultQueue != null) {
-			model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder,
-					resultQueue);
+			model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder, (entry) -> {
+				return resultQueue.addEntry(entry);
+
+			});
+
 			return RulpFactory.createList(resultQueue.getResultList());
 		}
 

@@ -1623,6 +1623,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			counter.bscNodeAnd += bs.getBscNodeAnd();
 			counter.bscNodeOr += bs.getBscNodeOr();
+			counter.bscNodeQuery += bs.getBscNodeQuery();
 			counter.bscStatusInit += bs.getBscStatusInit();
 			counter.bscStatusProcess += bs.getBscStatusProcess();
 			counter.bscStatusComplete += bs.getBscStatusComplete();

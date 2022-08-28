@@ -34,6 +34,8 @@ public class XRModelCount {
 
 	public static final String CK_BSC_NODE_OR = "bsc-node-or";
 
+	public static final String CK_BSC_NODE_QUERY = "bsc-node-query";
+
 	public static final String CK_BSC_OP_LOOP = "bsc-op-loop";
 
 	public static final String CK_BSC_OP_RELOCATE = "bsc-op-relocate";
@@ -124,6 +126,7 @@ public class XRModelCount {
 		modelCountKeyList.add(CK_BACK_SEARCH);
 		modelCountKeyList.add(CK_BSC_NODE_AND);
 		modelCountKeyList.add(CK_BSC_NODE_OR);
+		modelCountKeyList.add(CK_BSC_NODE_QUERY);
 		modelCountKeyList.add(CK_BSC_STATUS_INIT);
 		modelCountKeyList.add(CK_BSC_STATUS_PROCESS);
 		modelCountKeyList.add(CK_BSC_STATUS_COMPLETE);
@@ -140,6 +143,8 @@ public class XRModelCount {
 	public int bscNodeAnd = 0;
 
 	public int bscNodeOr = 0;
+
+	public int bscNodeQuery = 0;
 
 	public int bscOpLoop = 0;
 
@@ -317,6 +322,9 @@ public class XRModelCount {
 
 		case CK_BSC_NODE_OR:
 			return bscNodeOr;
+
+		case CK_BSC_NODE_QUERY:
+			return bscNodeQuery;
 
 		case CK_BSC_STATUS_INIT:
 			return bscStatusInit;
