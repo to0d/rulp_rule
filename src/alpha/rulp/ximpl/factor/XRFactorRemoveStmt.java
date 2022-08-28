@@ -258,28 +258,33 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 		/********************************************/
 		// Build result queue
 		/********************************************/
-		XRMultiResultQueue resultQueue = null;
 
 		if (whereList != null) {
-			resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST, RulpFactory.createList(filter));
 
-			IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
-					filter.getType() == RType.LIST ? (IRList) filter : RulpFactory.createList(filter)));
+			XRMultiResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
+					RulpFactory.createList(filter));
 
-			ConstraintBuilder cb = new ConstraintBuilder(varEntry);
-			for (IRObject where : RulpUtil.toArray(whereList)) {
-				IRConstraint1 cons = cb.build((IRExpr) where, interpreter, frame);
-				if (cons != null) {
-					resultQueue.addConstraint(cons);
+			try {
+
+				IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
+						filter.getType() == RType.LIST ? (IRList) filter : RulpFactory.createList(filter)));
+
+				ConstraintBuilder cb = new ConstraintBuilder(varEntry);
+				for (IRObject where : RulpUtil.toArray(whereList)) {
+					IRConstraint1 cons = cb.build((IRExpr) where, interpreter, frame);
+					if (cons != null) {
+						resultQueue.addConstraint(cons);
+					}
 				}
+
+				return _remove(model, filter, limit, reverse, builder, resultQueue);
+
+			} finally {
+				resultQueue.close();
 			}
 		}
 
-		if (resultQueue != null) {
-			return _remove(model, filter, limit, reverse, builder, resultQueue);
-		} else {
-			return _remove(model, filter, limit, reverse, builder);
-		}
+		return _remove(model, filter, limit, reverse, builder);
 
 	}
 }

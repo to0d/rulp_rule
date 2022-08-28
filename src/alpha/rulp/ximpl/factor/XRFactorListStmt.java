@@ -220,23 +220,31 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 			final XRMultiResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
 					RulpFactory.createList(filter));
 
-			IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
-					filter.getType() == RType.LIST ? (IRList) filter : RulpFactory.createList(filter)));
+			try {
 
-			ConstraintBuilder cb = new ConstraintBuilder(varEntry);
-			for (IRObject where : RulpUtil.toArray(whereList)) {
-				IRConstraint1 cons = cb.build((IRExpr) where, interpreter, frame);
-				if (cons != null) {
-					resultQueue.addConstraint(cons);
+				IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(
+						filter.getType() == RType.LIST ? (IRList) filter : RulpFactory.createList(filter)));
+
+				ConstraintBuilder cb = new ConstraintBuilder(varEntry);
+				for (IRObject where : RulpUtil.toArray(whereList)) {
+					IRConstraint1 cons = cb.build((IRExpr) where, interpreter, frame);
+					if (cons != null) {
+						resultQueue.addConstraint(cons);
+					}
 				}
+
+				model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder,
+						(entry) -> {
+							return resultQueue.addEntry(entry);
+
+						});
+
+				return RulpFactory.createList(resultQueue.getResultList());
+
+			} finally {
+				resultQueue.close();
 			}
 
-			model.listStatements(filter, RReteStatus.RETE_STATUS_MASK_NOT_DELETED, limit, reverse, builder, (entry) -> {
-				return resultQueue.addEntry(entry);
-
-			});
-
-			return RulpFactory.createList(resultQueue.getResultList());
 		}
 
 		return RulpFactory.createList(RuleUtil.listStatements(model, filter, statusMask, limit, reverse, builder));
