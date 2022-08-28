@@ -34,7 +34,8 @@ public class XRBackSearcher {
 	abstract class BSNode {
 
 		protected void _outln(String line) {
-			interpreter.out(RulpUtil.getSpaceLine(getLevel()) + this.nodeName + ": " + line + "\n");
+			interpreter.out(String.format("%05d %s%s: %s\n", getBscOpLoop(), RulpUtil.getSpaceLine(getLevel()),
+					this.nodeName, line));
 		}
 
 		protected ArrayList<BSNode> childNodes;
@@ -793,8 +794,6 @@ public class XRBackSearcher {
 
 		while (rootNode.status != BSStats.COMPLETE) {
 
-			this.bscOpLoop++;
-
 			BSNode oldNode = curNode;
 			BSStats oldStatus = curNode.status;
 
@@ -844,6 +843,8 @@ public class XRBackSearcher {
 					}
 				}
 			}
+
+			this.bscOpLoop++;
 		}
 
 		curNode.complete();
