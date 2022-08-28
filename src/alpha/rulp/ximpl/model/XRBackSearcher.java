@@ -3,9 +3,10 @@ package alpha.rulp.ximpl.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -13,6 +14,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.RuntimeUtil;
 import alpha.rulp.ximpl.action.IAction;
@@ -32,8 +34,6 @@ public class XRBackSearcher {
 		protected int curChildIndex = 0;
 
 		protected BSNode parentNode;
-
-		protected boolean rst;
 
 		protected BSStats status;
 
@@ -57,6 +57,8 @@ public class XRBackSearcher {
 
 		public abstract BSNode init() throws RException;
 
+		public abstract boolean isSucc();
+
 		public abstract BSNode process() throws RException;
 
 	}
@@ -65,7 +67,7 @@ public class XRBackSearcher {
 
 		protected IAction action;
 
-		protected BSNodeQuery queryChildNode;
+		protected boolean rst;
 
 		protected SourceNode sourceNode;
 
@@ -79,27 +81,24 @@ public class XRBackSearcher {
 			}
 
 			// need trigger all related rete-node
-			if (queryChildNode == null) {
-				this.rst = execute(listAllChildAndStmts());
+			if (execute(listAllChildAndStmts())) {
+				this.rst = true;
 				return;
-
 			}
 
-			List<IRList> allChildStmts = listAllChildAndStmts();
-			Iterator<List<IRList>> queryIt = queryChildNode.listAllPossibleList();
-			while (queryIt.hasNext()) {
+			BSNode lastChild = this.childNodes.get(childNodes.size() - 1);
+			if (lastChild.getType() == BSType.QUERY) {
 
-				List<IRList> allStmts = new ArrayList<>(allChildStmts);
-				allStmts.addAll(queryIt.next());
-
-				if (execute(listAllChildAndStmts())) {
-					this.rst = true;
+				BSNodeQuery queryChildNode = (BSNodeQuery) lastChild;
+				if (!queryChildNode.hasMore()) {
+					this.rst = false;
 					return;
 				}
-
 			}
 
-			this.rst = false;
+			this.sourceNode.rule.start(-1, -1);
+
+			this.rst = _hasStmt(this.stmt);
 			return;
 
 		}
@@ -107,6 +106,8 @@ public class XRBackSearcher {
 		public boolean execute(List<IRList> childStmts) throws RException {
 
 			ArrayList<IRReteNode> rootNodes = new ArrayList<>();
+			ArrayList<BSStmtIndexs> BSStmtIndexsList = new ArrayList<>();
+
 			Map<IRReteNode, BSStmtIndexs> stmtIndexMap = new HashMap<>();
 
 			for (IRList childStmt : childStmts) {
@@ -122,18 +123,18 @@ public class XRBackSearcher {
 				BSStmtIndexs si = stmtIndexMap.get(rootNode);
 				if (si == null) {
 					si = new BSStmtIndexs();
+					si.rootNode = rootNode;
 					stmtIndexMap.put(rootNode, si);
+					BSStmtIndexsList.add(si);
 				}
 
 				si.addIndex(stmtIndex);
 			}
 
-			for (IRReteNode rootNode : rootNodes) {
-
-				BSStmtIndexs si = stmtIndexMap.get(rootNode);
+			for (BSStmtIndexs si : BSStmtIndexsList) {
 
 				// Get the max visit index
-				int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(rootNode);
+				int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(si.rootNode);
 
 				// All statements are already passed to child nodes
 				if (childMaxVisitIndex > si.maxStmtIndex) {
@@ -142,19 +143,26 @@ public class XRBackSearcher {
 
 				for (int index : si.stmtIndexs) {
 					if (index >= childMaxVisitIndex) {
+						if (si.relocatedStmtIndexs == null) {
+							si.relocatedStmtIndexs = new ArrayList<>();
+						}
 						si.relocatedStmtIndexs.add(index);
 					}
 				}
 
-				XRBackSearcher.this.bscOpRelocate += si.relocatedStmtIndexs.size();
-
-				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
+				if (si.relocatedStmtIndexs != null) {
+					XRBackSearcher.this.bscOpRelocate += si.relocatedStmtIndexs.size();
+					((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex,
+							si.relocatedStmtIndexs);
+				}
 			}
 
 			this.sourceNode.rule.start(-1, -1);
 
-			for (IRReteNode rootNode : rootNodes) {
-				((IREntryQueueUniq) rootNode.getEntryQueue()).relocate(-1, null);
+			for (BSStmtIndexs si : BSStmtIndexsList) {
+				if (si.relocatedStmtIndexs != null) {
+					((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(-1, null);
+				}
 			}
 
 			return _hasStmt(this.stmt);
@@ -217,11 +225,12 @@ public class XRBackSearcher {
 						}
 
 						queryStmtList.add(newStmt);
-
-						throw new RException("not ready");
 					}
-
 				}
+			}
+
+			if (queryStmtList != null) {
+				this.addChild(_newQueryNode(queryStmtList));
 			}
 
 			// no child
@@ -236,12 +245,17 @@ public class XRBackSearcher {
 			return this.childNodes.get(0);
 		}
 
+		@Override
+		public boolean isSucc() {
+			return this.rst;
+		}
+
 		public List<IRList> listAllChildAndStmts() {
 
 			List<IRList> stmts = null;
 
 			for (BSNode childNode : childNodes) {
-				if (childNode != queryChildNode) {
+				if (childNode.getType() == BSType.OR) {
 
 					BSNodeOr orNode = (BSNodeOr) childNode;
 					if (stmts == null) {
@@ -263,7 +277,7 @@ public class XRBackSearcher {
 			BSNode child = this.childNodes.get(curChildIndex);
 
 			// (and false xx xx) ==> false
-			if (!child.rst) {
+			if (!child.isSucc()) {
 				this.status = BSStats.COMPLETE;
 				this.rst = false;
 				return this;
@@ -287,6 +301,8 @@ public class XRBackSearcher {
 	}
 
 	class BSNodeOr extends BSNode {
+
+		protected boolean rst;
 
 		protected IRList stmt;
 
@@ -343,12 +359,17 @@ public class XRBackSearcher {
 			return this.childNodes.get(0);
 		}
 
+		@Override
+		public boolean isSucc() {
+			return this.rst;
+		}
+
 		public BSNode process() throws RException {
 
 			BSNode child = this.childNodes.get(curChildIndex);
 
 			// (or true xx xx) ==> (true)
-			if (child.rst) {
+			if (child.isSucc()) {
 				this.status = BSStats.COMPLETE;
 				this.rst = true;
 				return this;
@@ -374,19 +395,28 @@ public class XRBackSearcher {
 
 	class BSNodeQuery extends BSNode implements IREntryAction {
 
-		protected List<IRList> queryStmtList;
-
-		protected List<String> queryVarList = new ArrayList<>();
-
-		protected int queryVarVisitIndex = 0;
+		protected boolean queryBackward = false;
 
 		protected boolean queryForward = false;
 
-		protected boolean queryBackward = false;
+		protected Set<String> queryResultEntrySet = new HashSet<>();
+
+		protected IRList queryReteNodeTree;
+
+		protected List<IRList> queryStmtList;
+
+		@Override
+		public boolean addEntry(IRReteEntry entry) throws RException {
+
+			if (entry != null && !entry.isDroped()) {
+				queryResultEntrySet.add(ReteUtil.uniqName(entry));
+			}
+
+			return true;
+		}
 
 		@Override
 		public void complete() throws RException {
-			// TODO Auto-generated method stub
 
 		}
 
@@ -395,25 +425,29 @@ public class XRBackSearcher {
 			return BSType.QUERY;
 		}
 
-		@Override
-		public BSNode init() throws RException {
+		public boolean hasMore() throws RException {
 
-			// Get all uniq var names
-			for (IRList queryStmt : queryStmtList) {
-				for (String var : ReteUtil.varList(queryStmt)) {
-					if (!queryVarList.contains(var)) {
-						queryVarList.add(var);
-					}
-				}
+			if (queryBackward) {
+				return false;
 			}
 
-			this.status = BSStats.PROCESS;
+			int oldSize = queryResultEntrySet.size();
+			model.query(this, queryReteNodeTree, -1, true);
+			queryBackward = true;
 
+			return queryResultEntrySet.size() > oldSize;
+		}
+
+		@Override
+		public BSNode init() throws RException {
+			queryReteNodeTree = RulpFactory.createList(queryStmtList);
+			this.status = BSStats.PROCESS;
 			return this;
 		}
 
-		public Iterator<List<IRList>> listAllPossibleList() {
-			return null;
+		@Override
+		public boolean isSucc() {
+			return queryResultEntrySet.size() > 0;
 		}
 
 		@Override
@@ -422,21 +456,19 @@ public class XRBackSearcher {
 			if (!queryForward) {
 
 				// query forward
-				model.query(null, null, queryVarVisitIndex, false);
+				model.query(this, queryReteNodeTree, -1, false);
+				queryForward = true;
 			}
 
-			if (!queryBackward) {
+			if (!queryBackward && !isSucc()) {
 
+				// query forward
+				model.query(this, queryReteNodeTree, -1, true);
+				queryBackward = true;
 			}
 
-			this.rst = true;
-			return this;
-		}
-
-		@Override
-		public boolean addEntry(IRReteEntry entry) throws RException {
-			// TODO Auto-generated method stub
-			return false;
+			this.status = BSStats.COMPLETE;
+			return this.parentNode;
 		}
 
 	}
@@ -449,7 +481,9 @@ public class XRBackSearcher {
 
 		public int maxStmtIndex = -1;
 
-		public ArrayList<Integer> relocatedStmtIndexs = new ArrayList<>();
+		public ArrayList<Integer> relocatedStmtIndexs = null;
+
+		public IRReteNode rootNode;
 
 		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
 
@@ -472,10 +506,6 @@ public class XRBackSearcher {
 	protected int bscNodeOr = 0;
 
 	protected int bscNodeQuery = 0;
-
-	public int getBscNodeQuery() {
-		return bscNodeQuery;
-	}
 
 	protected int bscOpLoop = 0;
 
@@ -549,6 +579,21 @@ public class XRBackSearcher {
 		return node;
 	}
 
+	protected BSNode _newQueryNode(List<IRList> stmtList) throws RException {
+
+		if (TRACE) {
+			System.out.println("new query node: " + stmtList);
+		}
+
+		BSNodeQuery node = new BSNodeQuery();
+		node.queryStmtList = stmtList;
+		node.status = BSStats.INIT;
+
+		this.bscNodeQuery++;
+
+		return node;
+	}
+
 	public int getBscCircularProof() {
 		return bscCircularProof;
 	}
@@ -559,6 +604,10 @@ public class XRBackSearcher {
 
 	public int getBscNodeOr() {
 		return bscNodeOr;
+	}
+
+	public int getBscNodeQuery() {
+		return bscNodeQuery;
 	}
 
 	public int getBscOpLoop() {
@@ -641,6 +690,6 @@ public class XRBackSearcher {
 
 		curNode.complete();
 
-		return curNode.rst;
+		return curNode.isSucc();
 	}
 }

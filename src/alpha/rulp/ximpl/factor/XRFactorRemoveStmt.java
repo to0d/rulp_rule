@@ -41,7 +41,6 @@ import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.model.ModelFactory;
 
 public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -261,7 +260,7 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 
 		if (whereList != null) {
 
-			IRResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
+			IRResultQueue resultQueue = ReteUtil.createResultQueue(model, O_QUESTION_LIST,
 					RulpFactory.createList(filter));
 
 			try {

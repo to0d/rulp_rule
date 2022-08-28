@@ -12,6 +12,7 @@ import static alpha.rulp.rule.Constant.A_Index;
 import static alpha.rulp.rule.Constant.A_Inherit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Uniq;
+import static alpha.rulp.rule.Constant.F_QUERY_STMT;
 import static alpha.rulp.rule.Constant.F_VAR_CHANGED;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.Constant.STMT_MIN_LEN;
@@ -38,6 +39,7 @@ import alpha.rulp.lang.IRBoolean;
 import alpha.rulp.lang.IRDouble;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFloat;
+import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRInteger;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRLong;
@@ -46,6 +48,7 @@ import alpha.rulp.lang.IRString;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
+import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.IRReteNode.InheritIndex;
 import alpha.rulp.rule.RReteStatus;
@@ -54,42 +57,18 @@ import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
+import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IRObjBuilder;
+import alpha.rulp.ximpl.model.XRMultiResultQueue;
 import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
-
-	public static int findChildMaxVisitIndex(IRReteNode node) throws RException {
-
-		// Get the max visit index
-		int childMaxVisitIndex = -1;
-		for (IRReteNode child : node.getChildNodes()) {
-
-			int parentVisitIndex = -1;
-			int parentCount = child.getParentCount();
-
-			for (int j = 0; j < parentCount; ++j) {
-				if (child.getParentNodes()[j] == node) {
-					parentVisitIndex = child.getParentVisitIndex(j);
-					break;
-				}
-			}
-
-			if (parentVisitIndex == -1) {
-				throw new RException("parentVisitIndex not found: " + child);
-			}
-
-			childMaxVisitIndex = Math.max(childMaxVisitIndex, parentVisitIndex);
-		}
-
-		return childMaxVisitIndex;
-	}
 
 	static class ReplaceMap implements Map<String, IRObject> {
 
@@ -757,6 +736,18 @@ public class ReteUtil {
 		throw new RException("Invalid tree node found: " + reteTree);
 	}
 
+	public static IRObject[] buildVarEntry(IRModel model, IRList condList) throws RException {
+
+		/******************************************************/
+		// Build var list
+		/******************************************************/
+		List<IRList> matchStmtList = ReteUtil.toCondList(condList, model.getNodeGraph());
+		IRList matchTree = MatchTree.build(matchStmtList, model.getInterpreter(), model.getFrame());
+		IRObject[] varEntry = ReteUtil._varEntry(ReteUtil.buildTreeVarList(matchTree));
+
+		return varEntry;
+	}
+
 	public static ArrayList<IRObject> buildVarList(IRList reteTree) throws RException {
 		ArrayList<IRObject> varList = new ArrayList<>();
 		buildVarList(reteTree, varList, new HashSet<String>());
@@ -851,6 +842,31 @@ public class ReteUtil {
 		return d;
 	}
 
+	public static IRResultQueue createResultQueue(IRModel model, IRObject rstExpr, IRList condList) throws RException {
+
+		/******************************************************/
+		// Build frame
+		/******************************************************/
+		IRFrame queryFrame = RulpFactory.createFrame(model.getFrame(), F_QUERY_STMT);
+		RuleUtil.setDefaultModel(queryFrame, model);
+		RulpUtil.incRef(queryFrame);
+
+		/******************************************************/
+		// Build var list
+		/******************************************************/
+		IRObject[] varEntry = buildVarEntry(model, condList);
+		IRVar[] vars = new IRVar[varEntry.length];
+
+		for (int i = 0; i < varEntry.length; ++i) {
+			IRObject obj = varEntry[i];
+			if (obj != null) {
+				vars[i] = RulpUtil.addVar(queryFrame, RulpUtil.asAtom(obj).getName());
+			}
+		}
+
+		return new XRMultiResultQueue(model.getInterpreter(), queryFrame, rstExpr, vars);
+	}
+
 	public static void fillVarList(IRList stmt, Collection<String> varList) throws RException {
 
 		IRIterator<? extends IRObject> iter = ((IRList) stmt).iterator();
@@ -867,6 +883,32 @@ public class ReteUtil {
 				fillVarList((IRList) obj, varList);
 			}
 		}
+	}
+
+	public static int findChildMaxVisitIndex(IRReteNode node) throws RException {
+
+		// Get the max visit index
+		int childMaxVisitIndex = -1;
+		for (IRReteNode child : node.getChildNodes()) {
+
+			int parentVisitIndex = -1;
+			int parentCount = child.getParentCount();
+
+			for (int j = 0; j < parentCount; ++j) {
+				if (child.getParentNodes()[j] == node) {
+					parentVisitIndex = child.getParentVisitIndex(j);
+					break;
+				}
+			}
+
+			if (parentVisitIndex == -1) {
+				throw new RException("parentVisitIndex not found: " + child);
+			}
+
+			childMaxVisitIndex = Math.max(childMaxVisitIndex, parentVisitIndex);
+		}
+
+		return childMaxVisitIndex;
 	}
 
 //	public static IRReteNode findDupNode(IRReteNode node) {

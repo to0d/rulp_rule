@@ -41,7 +41,6 @@ import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.model.ModelFactory;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
 
 public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
@@ -161,7 +160,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 					throw new RException("need condList");
 				}
 
-				IRObject[] varEntry = ModelFactory.buildVarEntry(model, condList);
+				IRObject[] varEntry = ReteUtil.buildVarEntry(model, condList);
 				Map<String, Integer> varIndexMap = new HashMap<>();
 				int len = varEntry.length;
 				for (int i = 0; i < len; ++i) {
@@ -257,7 +256,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		/********************************************/
 		// Build result queue
 		/********************************************/
-		IRResultQueue resultQueue = ModelFactory.createResultQueue(model, rstExpr, condList);
+		IRResultQueue resultQueue = ReteUtil.createResultQueue(model, rstExpr, condList);
 
 		// Add do expression
 		if (doList != null) {

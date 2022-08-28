@@ -6,8 +6,8 @@
 ;=>m RU000 RU001 true true
 
 (back-search m '(a p c))
-;err:
-not ready
-at (back-search m '(a p c)) ; main-2
-;eof
+;=>true
+
+(list-stmt m)
+;=>'('(a p2 b) '(b p2 c) '(a p b) '(b p c) '(a p c))
 
