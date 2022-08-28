@@ -16,7 +16,6 @@ import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryTable;
-import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 
@@ -93,7 +92,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public int listStatements(IRList filter, int statusMask, int limit, boolean reverse, IREntryIteratorBuilder builder,
 			IREntryAction action) throws RException;
 
-	public void query(IRResultQueue result, IRList condList, int limit, boolean backward) throws RException;
+	public void query(IREntryAction result, IRList condList, int limit, boolean backward) throws RException;
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 

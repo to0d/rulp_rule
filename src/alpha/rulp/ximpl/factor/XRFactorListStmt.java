@@ -37,10 +37,10 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
+import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
-import alpha.rulp.ximpl.model.XRMultiResultQueue;
 
 public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -217,7 +217,7 @@ public class XRFactorListStmt extends AbsAtomFactorAdapter implements IRFactor, 
 		/********************************************/
 		if (whereList != null) {
 
-			final XRMultiResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
+			final IRResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
 					RulpFactory.createList(filter));
 
 			try {

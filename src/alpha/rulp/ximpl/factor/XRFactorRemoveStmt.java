@@ -37,11 +37,11 @@ import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryTable;
+import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.model.ModelFactory;
-import alpha.rulp.ximpl.model.XRMultiResultQueue;
 
 public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -61,7 +61,7 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 	}
 
 	static IRList _remove(IRModel model, IRList filter, int limit, boolean reverse, IREntryIteratorBuilder builder,
-			XRMultiResultQueue resultQueue) throws RException {
+			IRResultQueue resultQueue) throws RException {
 
 		IREntryTable entryTable = model.getEntryTable();
 
@@ -261,7 +261,7 @@ public class XRFactorRemoveStmt extends AbsAtomFactorAdapter implements IRFactor
 
 		if (whereList != null) {
 
-			XRMultiResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
+			IRResultQueue resultQueue = ModelFactory.createResultQueue(model, O_QUESTION_LIST,
 					RulpFactory.createList(filter));
 
 			try {

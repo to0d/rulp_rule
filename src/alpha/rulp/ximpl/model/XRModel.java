@@ -75,7 +75,6 @@ import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryQueue.IREntryCounter;
 import alpha.rulp.ximpl.entry.IREntryTable;
-import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
@@ -1023,7 +1022,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return updateQueue.pop();
 	}
 
-	protected void _queryCond(IRResultQueue objQueue, IRReteNode queryNode, final int limit, boolean backward)
+	protected void _queryCond(IREntryAction action, IRReteNode queryNode, final int limit, boolean backward)
 			throws RException {
 
 		int queryEntryIndex = 0;
@@ -1048,7 +1047,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			while (queryEntryIndex < queryNodeQueue.size()) {
 
 				IRReteEntry entry = queryNodeQueue.getEntryAt(queryEntryIndex++);
-				if (!objQueue.addEntry(entry)) {
+				if (!action.addEntry(entry)) {
 					continue;
 				}
 
@@ -1098,7 +1097,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 							while (queryEntryIndex < queue.size()) {
 
 								IRReteEntry entry = queue.getEntryAt(queryEntryIndex++);
-								if (!objQueue.addEntry(entry)) {
+								if (!action.addEntry(entry)) {
 									continue;
 								}
 
@@ -2078,7 +2077,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void query(IRResultQueue resultQueue, IRList condList, int limit, boolean backward) throws RException {
+	public void query(IREntryAction action, IRList condList, int limit, boolean backward) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> query: cond=" + condList + ", limit=" + limit + ", backward=" + backward);
@@ -2093,7 +2092,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Can't query, the model is running");
 		}
 
-		_queryCond(resultQueue, findNode(condList), limit, backward);
+		_queryCond(action, findNode(condList), limit, backward);
 		_gc(false);
 	}
 

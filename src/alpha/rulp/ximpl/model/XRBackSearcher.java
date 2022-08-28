@@ -10,6 +10,7 @@ import java.util.Map;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
@@ -18,7 +19,6 @@ import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.IActionSimpleStmt;
 import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.entry.IREntryQueueUniq;
-import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.SourceNode;
@@ -372,7 +372,7 @@ public class XRBackSearcher {
 
 	}
 
-	class BSNodeQuery extends BSNode implements IRResultQueue {
+	class BSNodeQuery extends BSNode implements IREntryAction {
 
 		protected List<IRList> queryStmtList;
 

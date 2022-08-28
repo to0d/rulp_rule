@@ -119,6 +119,7 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		return true;
 	}
 
+	@Override
 	public void addConstraint(IRConstraint1 con) {
 
 		if (constraintList == null) {
@@ -128,6 +129,7 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		constraintList.add(con);
 	}
 
+	@Override
 	public void addDoExpr(IRExpr expr) {
 
 		if (doExprList == null) {
@@ -151,7 +153,6 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		} else {
 			return _addEntry(entry);
 		}
-
 	}
 
 	@Override
@@ -159,6 +160,7 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 
 	}
 
+	@Override
 	public void close() throws RException {
 
 		if (queryFrame != null) {
@@ -189,6 +191,7 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		return null;
 	}
 
+	@Override
 	public List<? extends IRObject> getResultList() throws RException {
 
 		if (orderCacheList != null) {
@@ -206,12 +209,14 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 		return rstList;
 	}
 
+	@Override
 	public void setOrderBuilder(IREntryIteratorBuilder orderBuilder) {
 
 		this.orderBuilder = orderBuilder;
 		this.orderCacheList = new OrderEntryList();
 	}
 
+	@Override
 	public void setOrderLimit(int orderLimit) {
 		this.orderLimit = orderLimit;
 	}
