@@ -11,7 +11,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.ximpl.bs.XRBackSearcher;
+import alpha.rulp.ximpl.bs.BSUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFactor {
@@ -53,7 +53,7 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 			obj = args.get(argIndex);
 		}
 
-		if (!XRBackSearcher.isBSTree(obj)) {
+		if (!BSUtil.isBSTree(obj)) {
 			throw new RException("Invalid parameters: " + args);
 		}
 
