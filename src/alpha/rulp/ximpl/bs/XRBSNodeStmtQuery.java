@@ -9,7 +9,7 @@ import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBSNodeQuery extends AbsBSNode implements IREntryAction {
+public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 
 	protected boolean queryBackward = false;
 
@@ -19,7 +19,7 @@ public class XRBSNodeQuery extends AbsBSNode implements IREntryAction {
 
 	protected IRList queryReteNodeTree;
 
-	public XRBSNodeQuery(XRBackSearcher bs, int nodeId, String nodeName) {
+	public XRBSNodeStmtQuery(XRBackSearcher bs, int nodeId, String nodeName) {
 		super(bs, nodeId, nodeName);
 	}
 
@@ -49,7 +49,7 @@ public class XRBSNodeQuery extends AbsBSNode implements IREntryAction {
 
 	@Override
 	public BSType getType() {
-		return BSType.QUERY;
+		return BSType.STMT_QUERY;
 	}
 
 	public boolean hasMore() throws RException {

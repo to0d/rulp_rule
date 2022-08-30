@@ -10,13 +10,13 @@
 (back-search m (and '(a p c) '(a p b)) explain)
 ;=>'()
 ;out:
-00000 O0000: create_root, stmt=(and '(a p c) '(a p b)), type=OR, status=INIT
-00000 O0000: init begin, stmt=(and '(a p c) '(a p b)), type=OR, status=INIT
-00000 O0000: has stmt, stmt=(and '(a p c) '(a p b)), rst=false
-00000 O0000: not child, return false
-00000 O0000: init end, rst=false, status=COMPLETE, succ-child=null
-00001 O0000: has stmt, stmt=(and '(a p c) '(a p b)), rst=false
-00001 O0000: complete end, rst=false
+00000 SO0000: create_root, stmt=(and '(a p c) '(a p b)), type=STMT_OR, status=INIT
+00000 SO0000: init begin, stmt=(and '(a p c) '(a p b)), type=STMT_OR, status=INIT
+00000 SO0000: has stmt, stmt=(and '(a p c) '(a p b)), rst=false
+00000 SO0000: not child, return false
+00000 SO0000: init end, rst=false, status=COMPLETE, succ-child=null
+00001 SO0000: has stmt, stmt=(and '(a p c) '(a p b)), rst=false
+00001 SO0000: complete end, rst=false
 
 ;eof
 

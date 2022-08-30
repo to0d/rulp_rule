@@ -29,8 +29,8 @@ public abstract class AbsBSNode implements IRBSNode {
 
 	public void addChild(AbsBSNode child) {
 
-		if (bs.isTrace()) {
-			bs.outln(this, String.format("add child, type=%s, name=%s", child.getType(), child.nodeName));
+		if (bs._isTrace()) {
+			bs._outln(this, String.format("add child, type=%s, name=%s", child.getType(), child.nodeName));
 		}
 
 		if (this.childNodes == null) {

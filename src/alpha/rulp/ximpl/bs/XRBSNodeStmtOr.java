@@ -10,7 +10,7 @@ import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.node.SourceNode;
 
-public class XRBSNodeOr extends AbsBSNode {
+public class XRBSNodeStmtOr extends AbsBSNode {
 
 	protected boolean rst;
 
@@ -18,7 +18,7 @@ public class XRBSNodeOr extends AbsBSNode {
 
 	protected IRBSNode succChild = null;
 
-	public XRBSNodeOr(XRBackSearcher bs, int nodeId, String nodeName) {
+	public XRBSNodeStmtOr(XRBackSearcher bs, int nodeId, String nodeName) {
 		super(bs, nodeId, nodeName);
 	}
 
@@ -38,7 +38,7 @@ public class XRBSNodeOr extends AbsBSNode {
 	public void complete() throws RException {
 
 		// re-check statement in case it was deleted
-		if (!bs.hasStmt(this, this.stmt)) {
+		if (!bs._hasStmt(this, this.stmt)) {
 			this.rst = false;
 		}
 	}
@@ -53,12 +53,12 @@ public class XRBSNodeOr extends AbsBSNode {
 
 	@Override
 	public BSType getType() {
-		return BSType.OR;
+		return BSType.STMT_OR;
 	}
 
 	public void init() throws RException {
 
-		if (bs.hasStmt(this, this.stmt)) {
+		if (bs._hasStmt(this, this.stmt)) {
 			this.status = BSStats.COMPLETE;
 			this.rst = true;
 			return;
@@ -84,8 +84,8 @@ public class XRBSNodeOr extends AbsBSNode {
 		// no child
 		if (this.getChildCount() == 0) {
 
-			if (bs.isTrace()) {
-				bs.outln(this, "not child, return false");
+			if (bs._isTrace()) {
+				bs._outln(this, "not child, return false");
 			}
 
 			this.status = BSStats.COMPLETE;

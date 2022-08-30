@@ -18,6 +18,29 @@ public class BSUtil {
 		return RulpUtil.asBoolean(RulpUtil.getVarValue(frame, A_BS_TRACE)).asBoolean();
 	}
 
+	public static String getBSNodeName(BSType type, int nodeId) {
+
+		switch (type) {
+		case LOGIC_AND:
+			return String.format("LA%04d", nodeId);
+
+		case LOGIC_OR:
+			return String.format("LO%04d", nodeId);
+
+		case STMT_AND:
+			return String.format("SA%04d", nodeId);
+
+		case STMT_OR:
+			return String.format("SO%04d", nodeId);
+
+		case STMT_QUERY:
+			return String.format("SQ%04d", nodeId);
+
+		default:
+			return String.format("UN%04d", nodeId);
+		}
+	}
+
 	public static boolean isBSTree(IRObject obj) throws RException {
 
 		switch (obj.getType()) {
