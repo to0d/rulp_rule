@@ -77,7 +77,7 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 					continue;
 				}
 
-				this.addChild(bs._newAndNode(stmt, sn, action));
+				this.addChild(bs._newNodeStmtAnd(stmt, sn, action));
 			}
 		}
 

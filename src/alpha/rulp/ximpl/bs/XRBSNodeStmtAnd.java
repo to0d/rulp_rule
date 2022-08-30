@@ -221,7 +221,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 						return;
 					}
 
-					this.addChild(bs._newOrNode(newStmt));
+					this.addChild(bs._newNodeStmtOr(newStmt));
 				}
 				// '(?a p b) should be used in query node
 				else {
@@ -236,7 +236,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 		}
 
 		if (queryStmtList != null) {
-			this.addChild(bs._newQueryNode(queryStmtList));
+			this.addChild(bs._newNodeStmtQuery(queryStmtList));
 		}
 
 		// no child

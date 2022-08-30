@@ -1,13 +1,19 @@
 package alpha.rulp.ximpl.bs;
 
+import static alpha.rulp.lang.Constant.F_B_AND;
+import static alpha.rulp.lang.Constant.F_B_OR;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
+import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -20,11 +26,15 @@ public class XRBackSearcher {
 
 	protected int bscCircularProof = 0;
 
-	protected int bscNodeAnd = 0;
+	protected int bscNodeLogicAnd = 0;
 
-	protected int bscNodeOr = 0;
+	protected int bscNodeLogicOr = 0;
+	
+	protected int bscNodeStmtAnd = 0;
 
-	protected int bscNodeQuery = 0;
+	protected int bscNodeStmtOr = 0;
+
+	protected int bscNodeStmtQuery = 0;
 
 	protected int bscOpLoop = 0;
 
@@ -89,7 +99,40 @@ public class XRBackSearcher {
 		return trace;
 	}
 
-	protected AbsBSNode _newAndNode(IRList stmt, SourceNode sourceNode, IAction action) {
+	protected AbsBSNode _newNode(IRList tree) throws RException {
+
+		switch (tree.getType()) {
+		case LIST:
+			return _newNodeStmtOr(tree);
+
+		case EXPR:
+
+			IRExpr expr = (IRExpr) tree;
+
+			ArrayList<IRList> elements = new ArrayList<>();
+			IRIterator<? extends IRObject> it = expr.listIterator(1);
+			while (it.hasNext()) {
+				elements.add((IRList) it.next());
+			}
+
+			switch (expr.get(0).asString()) {
+			case F_B_AND:
+
+			case F_B_OR:
+				break;
+			default:
+				throw new RException("invalid bs tree: " + tree);
+			}
+
+			break;
+
+		default:
+		}
+
+		throw new RException("invalid bs tree: " + tree);
+	}
+
+	protected AbsBSNode _newNodeStmtAnd(IRList stmt, SourceNode sourceNode, IAction action) {
 
 		int nodeId = _nextNodeId();
 		String nodeName = BSUtil.getBSNodeName(BSType.STMT_AND, nodeId);
@@ -100,12 +143,12 @@ public class XRBackSearcher {
 		node.sourceNode = sourceNode;
 		node.action = action;
 
-		this.bscNodeAnd++;
+		this.bscNodeStmtAnd++;
 
 		return node;
 	}
 
-	protected AbsBSNode _newOrNode(IRList stmt) throws RException {
+	protected AbsBSNode _newNodeStmtOr(IRList stmt) throws RException {
 
 		int nodeId = _nextNodeId();
 		String nodeName = BSUtil.getBSNodeName(BSType.STMT_OR, nodeId);
@@ -114,14 +157,14 @@ public class XRBackSearcher {
 		node.stmt = stmt;
 		node.status = BSStats.INIT;
 
-		this.bscNodeOr++;
+		this.bscNodeStmtOr++;
 
 		visitingOrNodeMap.put(ReteUtil.uniqName(stmt), node);
 
 		return node;
 	}
 
-	protected AbsBSNode _newQueryNode(List<IRList> stmtList) throws RException {
+	protected AbsBSNode _newNodeStmtQuery(List<IRList> stmtList) throws RException {
 
 		int nodeId = _nextNodeId();
 		String nodeName = BSUtil.getBSNodeName(BSType.STMT_QUERY, nodeId);
@@ -129,7 +172,7 @@ public class XRBackSearcher {
 		XRBSNodeStmtQuery node = new XRBSNodeStmtQuery(this, nodeId, nodeName);
 		node.queryReteNodeTree = RulpFactory.createList(stmtList);
 		node.status = BSStats.INIT;
-		this.bscNodeQuery++;
+		this.bscNodeStmtQuery++;
 
 		return node;
 	}
@@ -152,16 +195,24 @@ public class XRBackSearcher {
 		return bscCircularProof;
 	}
 
-	public int getBscNodeAnd() {
-		return bscNodeAnd;
+	public int getBscNodeLogicAnd() {
+		return bscNodeLogicAnd;
 	}
 
-	public int getBscNodeOr() {
-		return bscNodeOr;
+	public int getBscNodeLogicOr() {
+		return bscNodeLogicOr;
 	}
 
-	public int getBscNodeQuery() {
-		return bscNodeQuery;
+	public int getBscNodeStmtAnd() {
+		return bscNodeStmtAnd;
+	}
+
+	public int getBscNodeStmtOr() {
+		return bscNodeStmtOr;
+	}
+
+	public int getBscNodeStmtQuery() {
+		return bscNodeStmtQuery;
 	}
 
 	public int getBscOpLoop() {
@@ -188,41 +239,6 @@ public class XRBackSearcher {
 		return bscStatusProcess;
 	}
 
-//	protected AbsBSNode _buildTree(IRList tree) throws RException {
-//
-//		switch (tree.getType()) {
-//		case LIST:
-//			return ReteUtil.isReteStmt(obj);
-//
-//		case EXPR:
-//
-//			IRExpr expr = (IRExpr) obj;
-//			if (expr.size() < 2) {
-//				return false;
-//			}
-//
-//			switch (expr.get(0).asString()) {
-//			case F_B_AND:
-//			case F_B_OR:
-//				break;
-//			default:
-//				return false;
-//			}
-//
-//			IRIterator<? extends IRObject> it = expr.listIterator(1);
-//			while (it.hasNext()) {
-//				if (!isBSTree(it.next())) {
-//					return false;
-//				}
-//			}
-//
-//			return true;
-//
-//		default:
-//			return false;
-//		}
-//	}
-
 	public IRList search(IRList tree, boolean explain) throws RException {
 
 		if (!BSUtil.isBSTree(tree)) {
@@ -230,7 +246,7 @@ public class XRBackSearcher {
 		}
 
 		trace = BSUtil.isBSTrace(model.getFrame());
-		rootNode = _newOrNode(tree);
+		rootNode = _newNodeStmtOr(tree);
 
 		if (trace) {
 			_outln(rootNode, "create_root, " + rootNode.toString());

@@ -48,7 +48,7 @@ model-addStatement                    1
 model-addUpdateNode                   1
 model-hasStatement-1                  2
 model-backSearch                      3
-bsc-node-or                           1
+bsc-node-stmt-or                      1
 bsc-status-init                       1
 bsc-op-loop                           1
 bsc-op-search                         1

@@ -104,8 +104,8 @@ model-execute                         5
 model-hasStatement-1                  7
 model-listStatements                  1
 model-backSearch                      1
-bsc-node-and                          1
-bsc-node-or                           3
+bsc-node-stmt-and                     1
+bsc-node-stmt-or                      3
 bsc-status-init                       4
 bsc-status-process                    3
 bsc-status-complete                   3
