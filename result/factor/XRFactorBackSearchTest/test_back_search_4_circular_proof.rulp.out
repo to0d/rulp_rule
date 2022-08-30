@@ -10,24 +10,35 @@
 (back-search m '(c p1 d))
 ;=>'()
 ;out:
-00000 O0000: create, stmt='(c p1 d)
-00000 O0000: init, stmt='(c p1 d)
+00000 O0000: create_root, stmt='(c p1 d), type=OR, status=INIT
+00000 O0000: init begin, stmt='(c p1 d), type=OR, status=INIT
+00000 O0000: has stmt, stmt='(c p1 d), rst=false
 00000 O0000: add child, type=AND, name=A0001
+00000 O0000: init end, rst=false, status=PROCESS, succ-child=null
 00000 O0000: route to A0001
-00001     A0001: init, stmt='(c p1 d), rule=RU001: RU001, action='(?0, p1, ?2)(0)
+00001     A0001: init begin, stmt='(c p1 d), rule=RU001: RU001, action='(?0, p1, ?2)(0), type=AND, status=INIT
 00001     A0001: add child, type=OR, name=O0002
+00001     A0001: init end, rst=false, status=PROCESS, fail-child=null
 00001     A0001: route to O0002
-00002         O0002: init, stmt='(c p2 d)
+00002         O0002: init begin, stmt='(c p2 d), type=OR, status=INIT
+00002         O0002: has stmt, stmt='(c p2 d), rst=false
 00002         O0002: add child, type=AND, name=A0003
+00002         O0002: init end, rst=false, status=PROCESS, succ-child=null
 00002         O0002: route to A0003
-00003             A0003: init, stmt='(c p2 d), rule=RU000: RU000, action='(?0, p2, ?2)(0)
+00003             A0003: init begin, stmt='(c p2 d), rule=RU000: RU000, action='(?0, p2, ?2)(0), type=AND, status=INIT
 00003             A0003: circular proof found, stmt='(c p1 d), return false
+00003             A0003: init end, rst=false, status=COMPLETE, fail-child=null
 00004             A0003: route to O0002
-00005         O0002: process, no child succ, return false
+00005         O0002: process begin
+00005         O0002: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null
 00006         O0002: route to A0001
-00007     A0001: process, child O0002 false, return false
+00007     A0001: process begin
+00007     A0001: process end, rst=false, status=COMPLETE, child=1/1, fail-child=O0002
 00008     A0001: route to O0000
-00009 O0000: process, no child succ, return false
+00009 O0000: process begin
+00009 O0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null
+00010 O0000: has stmt, stmt='(c p1 d), rst=false
+00010 O0000: complete end, rst=false
 
 ;eof
 

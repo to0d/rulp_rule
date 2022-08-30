@@ -9,9 +9,7 @@
 
 (back-search m (or (and '(a p b) '(a p d)) '(a p c)) explain)
 ;err:
-Can't convert to bool: '(a p b)
-at (and '(a p b) '(a p d)) ; main-2
-at (or (and '(a p b) '(a p d)) '(a p c)) ; main-2
+not support stmt: (or (and '(a p b) '(a p d)) '(a p c))
 at (back-search m (or (and '(a p b) '(a p d)) '(a p c)) explain) ; main-2
 ;eof
 

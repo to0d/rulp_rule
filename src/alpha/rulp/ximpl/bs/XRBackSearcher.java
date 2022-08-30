@@ -1,5 +1,7 @@
-package alpha.rulp.ximpl.model;
+package alpha.rulp.ximpl.bs;
 
+import static alpha.rulp.lang.Constant.F_B_AND;
+import static alpha.rulp.lang.Constant.F_B_OR;
 import static alpha.rulp.rule.Constant.A_BS_TRACE;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -17,6 +20,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
@@ -26,16 +30,19 @@ import alpha.rulp.ximpl.action.IActionSimpleStmt;
 import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.entry.IREntryQueueUniq;
 import alpha.rulp.ximpl.entry.IRReteEntry;
+import alpha.rulp.ximpl.model.XRModel;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.SourceNode;
 
 public class XRBackSearcher {
 
-	abstract class BSNode {
+	abstract class AbsBSNode implements IRBSNode {
 
-		protected ArrayList<BSNode> childNodes;
+		protected ArrayList<AbsBSNode> childNodes;
 
-		protected int curChildIndex = 0;
+//		protected int curChildIndex = 0;
+
+		protected int indexInParent = -1;
 
 		protected int level = -1;
 
@@ -43,41 +50,44 @@ public class XRBackSearcher {
 
 		protected String nodeName;
 
-		protected BSNode parentNode;
+		protected AbsBSNode parentNode;
 
 		protected BSStats status;
 
-		public BSNode(int nodeId, String nodeName) {
+		public AbsBSNode(int nodeId, String nodeName) {
 			super();
 			this.nodeId = nodeId;
 			this.nodeName = nodeName;
 		}
 
-		protected void _outln(String line) {
-			interpreter.out(String.format("%05d %s%s: %s\n", getBscOpLoop(), RulpUtil.getSpaceLine(getLevel()),
-					this.nodeName, line));
-		}
-
-		public void addChild(BSNode child) {
+		public void addChild(AbsBSNode child) {
 
 			if (trace) {
-				_outln(String.format("add child, type=%s, name=%s", child.getType(), child.nodeName));
+				_outln(this, String.format("add child, type=%s, name=%s", child.getType(), child.nodeName));
 			}
 
 			if (this.childNodes == null) {
 				this.childNodes = new ArrayList<>();
 			}
 
-			this.childNodes.add(child);
 			child.parentNode = this;
+			child.indexInParent = this.getChildCount();
+
+			this.childNodes.add(child);
 		}
 
-		public abstract IRList buildResultTree(boolean explain) throws RException;
-
-		public abstract void complete() throws RException;
+		@Override
+		public IRBSNode getChild(int index) {
+			return this.childNodes == null || index < 0 || index >= this.childNodes.size() ? null
+					: this.childNodes.get(index);
+		}
 
 		public int getChildCount() {
 			return this.childNodes == null ? 0 : this.childNodes.size();
+		}
+
+		public int getIndexInParent() {
+			return indexInParent;
 		}
 
 		public int getLevel() {
@@ -93,19 +103,29 @@ public class XRBackSearcher {
 			return level;
 		}
 
-		public abstract BSType getType();
+		public String getNodeName() {
+			return nodeName;
+		}
 
-		public abstract BSNode init() throws RException;
+		public IRBSNode getParentNode() {
+			return parentNode;
+		}
 
-		public abstract boolean isSucc();
+		public BSStats getStatus() {
+			return status;
+		}
 
-		public abstract BSNode process() throws RException;
+		public void setStatus(BSStats status) {
+			this.status = status;
+		}
 
 	}
 
-	class BSNodeAnd extends BSNode {
+	class BSNodeAnd extends AbsBSNode {
 
 		protected IAction action;
+
+		protected IRBSNode failChild = null;
 
 		protected boolean rst;
 
@@ -131,7 +151,7 @@ public class XRBackSearcher {
 			treeList.add(RulpFactory.createString(sourceNode.rule.getRuleName()));
 
 			if (childNodes != null) {
-				for (BSNode child : childNodes) {
+				for (AbsBSNode child : childNodes) {
 					treeList.add(child.buildResultTree(explain));
 				}
 			}
@@ -141,45 +161,29 @@ public class XRBackSearcher {
 
 		public void complete() throws RException {
 
-			// no need process
-			if (!this.rst) {
+			// need trigger all related rete-node
+			if (execute(listAllChildAndStmts())) {
+				this.rst = true;
 				return;
 			}
 
-			try {
+			AbsBSNode lastChild = this.childNodes.get(childNodes.size() - 1);
+			if (lastChild.getType() == BSType.QUERY) {
 
-				// need trigger all related rete-node
-				if (execute(listAllChildAndStmts())) {
-					this.rst = true;
-					return;
-				}
-
-				BSNode lastChild = this.childNodes.get(childNodes.size() - 1);
-				if (lastChild.getType() == BSType.QUERY) {
-
-					boolean hasMore = ((BSNodeQuery) lastChild).hasMore();
-
-					if (trace) {
-						_outln(String.format("complete-query, hasMore=%s", "" + hasMore));
-					}
-
-					if (!hasMore) {
-						this.rst = false;
-						return;
-					}
-				}
-
-				this.sourceNode.rule.start(-1, -1);
-				this.rst = _hasStmt(this.stmt);
-				return;
-
-			} finally {
+				boolean hasMore = ((BSNodeQuery) lastChild).hasMore();
 
 				if (trace) {
-					_outln(String.format("complete return, rst=%s", this.rst));
+					_outln(this, String.format("complete-query, hasMore=%s", "" + hasMore));
+				}
+
+				if (!hasMore) {
+					this.rst = false;
+					return;
 				}
 			}
 
+			this.sourceNode.rule.start(-1, -1);
+			this.rst = _hasStmt(this, this.stmt);
 		}
 
 		public boolean execute(List<IRList> childStmts) throws RException {
@@ -244,7 +248,11 @@ public class XRBackSearcher {
 				}
 			}
 
-			return _hasStmt(this.stmt);
+			return _hasStmt(this, this.stmt);
+		}
+
+		public String getStatusString() {
+			return String.format("fail-child=%s", failChild == null ? "null" : failChild.getNodeName());
 		}
 
 		@Override
@@ -252,12 +260,7 @@ public class XRBackSearcher {
 			return BSType.AND;
 		}
 
-		public BSNode init() throws RException {
-
-			if (trace) {
-				_outln(String.format("init, stmt=%s, rule=%s, action=%s(%d)", stmt, sourceNode.rule, action.toString(),
-						action.getIndex()));
-			}
+		public void init() throws RException {
 
 			IActionSimpleStmt addAction = (IActionSimpleStmt) action;
 			int[] inheritIndexs = addAction.getInheritIndexs();
@@ -295,13 +298,14 @@ public class XRBackSearcher {
 						if (_isCircularProof(newStmt)) {
 
 							if (trace) {
-								_outln(String.format("circular proof found, stmt=%s, return false", newStmt));
+								_outln(this, String.format("circular proof found, stmt=%s, return false", newStmt));
 							}
 
 							this.status = BSStats.COMPLETE;
 							this.rst = false;
 							bscCircularProof++;
-							return this;
+
+							return;
 						}
 
 						this.addChild(_newOrNode(newStmt));
@@ -326,17 +330,16 @@ public class XRBackSearcher {
 			if (this.getChildCount() == 0) {
 
 				if (trace) {
-					_outln("not child, return false");
+					_outln(this, "not child, return false");
 				}
 
 				this.status = BSStats.COMPLETE;
 				this.rst = false;
-				return this;
+				return;
 			}
 
 			this.status = BSStats.PROCESS;
-			this.curChildIndex = 0;
-			return this.childNodes.get(0);
+
 		}
 
 		@Override
@@ -348,7 +351,7 @@ public class XRBackSearcher {
 
 			List<IRList> stmts = null;
 
-			for (BSNode childNode : childNodes) {
+			for (AbsBSNode childNode : childNodes) {
 				if (childNode.getType() == BSType.OR) {
 
 					BSNodeOr orNode = (BSNodeOr) childNode;
@@ -366,50 +369,38 @@ public class XRBackSearcher {
 			return stmts;
 		}
 
-		public BSNode process() throws RException {
-
-			BSNode child = this.childNodes.get(curChildIndex);
+		public void process(IRBSNode lastNode) throws RException {
 
 			// (and false xx xx) ==> false
-			if (!child.isSucc()) {
-
-				if (trace) {
-					_outln(String.format("process, child %s false, return false", child.nodeName));
-				}
-
+			if (!lastNode.isSucc()) {
+				this.failChild = lastNode;
 				this.status = BSStats.COMPLETE;
 				this.rst = false;
-				return this;
-			}
-
-			// Scan next if have more brother nodes
-			this.curChildIndex++;
-			if (this.curChildIndex < this.getChildCount()) {
-				return this.childNodes.get(this.curChildIndex);
-			}
-
-			if (trace) {
-				_outln("process, no child fail, return true");
+				return;
 			}
 
 			// No child need update, mark the parent's result is true
-			this.status = BSStats.COMPLETE;
-			this.rst = true;
-			return this;
+			if ((lastNode.getIndexInParent() + 1) >= getChildCount()) {
+				this.status = BSStats.COMPLETE;
+				this.rst = true;
+				return;
+			}
 		}
 
 		public String toString() {
-			return String.format("stmt=%s, type=%s, status=%s", "" + stmt, "" + this.getType(), "" + this.status);
+			return String.format("stmt=%s, rule=%s, action=%s(%d), type=%s, status=%s", stmt, sourceNode.rule,
+					action.toString(), action.getIndex(), "" + this.getType(), "" + this.status);
 		}
+
 	}
 
-	class BSNodeOr extends BSNode {
+	class BSNodeOr extends AbsBSNode {
 
 		protected boolean rst;
 
 		protected IRList stmt;
 
-		protected BSNode succChild = null;
+		protected IRBSNode succChild = null;
 
 		public BSNodeOr(int nodeId, String nodeName) {
 			super(nodeId, nodeName);
@@ -430,25 +421,14 @@ public class XRBackSearcher {
 
 		public void complete() throws RException {
 
-			// no need process
-			if (!this.rst) {
-				return;
+			// re-check statement in case it was deleted
+			if (!_hasStmt(this, this.stmt)) {
+				this.rst = false;
 			}
+		}
 
-			try {
-
-				// re-check statement in case it was deleted
-				if (!_hasStmt(this.stmt)) {
-					this.rst = false;
-				}
-
-			} finally {
-
-				if (trace) {
-					_outln(String.format("complete return, rst=%s", this.rst));
-				}
-			}
-
+		public String getStatusString() {
+			return String.format("succ-child=%s", succChild == null ? "null" : succChild.getNodeName());
 		}
 
 		public IRList getStmt() {
@@ -460,21 +440,12 @@ public class XRBackSearcher {
 			return BSType.OR;
 		}
 
-		public BSNode init() throws RException {
+		public void init() throws RException {
 
-			if (trace) {
-				_outln(String.format("init, stmt=%s", stmt));
-			}
-
-			if (_hasStmt(this.stmt)) {
-
-				if (trace) {
-					_outln("has-stmt, " + this.stmt);
-				}
-
+			if (_hasStmt(this, this.stmt)) {
 				this.status = BSStats.COMPLETE;
 				this.rst = true;
-				return this;
+				return;
 			}
 
 			ArrayList<SourceNode> sourceNodes = new ArrayList<>(graph.listSourceNodes(stmt));
@@ -498,17 +469,16 @@ public class XRBackSearcher {
 			if (this.getChildCount() == 0) {
 
 				if (trace) {
-					_outln("not child, return false");
+					_outln(this, "not child, return false");
 				}
 
 				this.status = BSStats.COMPLETE;
 				this.rst = false;
-				return this;
+				return;
 			}
 
 			this.status = BSStats.PROCESS;
-			this.curChildIndex = 0;
-			return this.childNodes.get(0);
+
 		}
 
 		@Override
@@ -516,37 +486,21 @@ public class XRBackSearcher {
 			return this.rst;
 		}
 
-		public BSNode process() throws RException {
-
-			BSNode child = this.childNodes.get(curChildIndex);
+		public void process(IRBSNode lastNode) throws RException {
 
 			// (or true xx xx) ==> (true)
-			if (child.isSucc()) {
-
-				if (trace) {
-					_outln(String.format("process, child %s succ, return true", child.nodeName));
-				}
-
-				this.succChild = child;
+			if (lastNode.isSucc()) {
+				this.succChild = lastNode;
 				this.status = BSStats.COMPLETE;
 				this.rst = true;
-				return this;
+				return;
 			}
 
-			// Scan next if have more brother nodes
-			this.curChildIndex++;
-			if (this.curChildIndex < this.getChildCount()) {
-				return this.childNodes.get(this.curChildIndex);
+			if ((lastNode.getIndexInParent() + 1) >= getChildCount()) {
+				this.status = BSStats.COMPLETE;
+				this.rst = false;
+				return;
 			}
-
-			if (trace) {
-				_outln("process, no child succ, return false");
-			}
-
-			// No child need update, mark the parent's result is true
-			this.status = BSStats.COMPLETE;
-			this.rst = false;
-			return this;
 		}
 
 		public String toString() {
@@ -555,7 +509,7 @@ public class XRBackSearcher {
 
 	}
 
-	class BSNodeQuery extends BSNode implements IREntryAction {
+	class BSNodeQuery extends AbsBSNode implements IREntryAction {
 
 		protected boolean queryBackward = false;
 
@@ -565,7 +519,7 @@ public class XRBackSearcher {
 
 		protected IRList queryReteNodeTree;
 
-		protected List<IRList> queryStmtList;
+//		protected List<IRList> queryStmtList;
 
 		public BSNodeQuery(int nodeId, String nodeName) {
 			super(nodeId, nodeName);
@@ -590,6 +544,11 @@ public class XRBackSearcher {
 
 		}
 
+		public String getStatusString() {
+			return String.format("forward=%s, backward=%s, query=%d", queryForward, queryBackward,
+					queryResultEntrySet.size());
+		}
+
 		@Override
 		public BSType getType() {
 			return BSType.QUERY;
@@ -609,15 +568,14 @@ public class XRBackSearcher {
 		}
 
 		@Override
-		public BSNode init() throws RException {
+		public void init() throws RException {
 
-			if (trace) {
-				_outln(String.format("init, stmt-list=%s", queryStmtList));
-			}
+//			if (trace) {
+//				_outln(this, String.format("init, stmt-list=%s", queryStmtList));
+//			}
 
-			queryReteNodeTree = RulpFactory.createList(queryStmtList);
+//			queryReteNodeTree = RulpFactory.createList(queryStmtList);
 			this.status = BSStats.PROCESS;
-			return this;
 		}
 
 		@Override
@@ -626,7 +584,7 @@ public class XRBackSearcher {
 		}
 
 		@Override
-		public BSNode process() throws RException {
+		public void process(IRBSNode lastNode) throws RException {
 
 			if (!queryForward) {
 
@@ -643,26 +601,12 @@ public class XRBackSearcher {
 			}
 
 			this.status = BSStats.COMPLETE;
-
-			if (trace) {
-				_outln(String.format("process, forward=%s, backward=%s, result=%d", queryForward, queryBackward,
-						queryResultEntrySet.size()));
-			}
-
-			return this.parentNode;
-
 		}
 
 		public String toString() {
-
-			return String.format("type=%s, status=%s, stmt=%s", "" + this.getType(), "" + this.status,
-					"" + queryStmtList);
+			return String.format("tree=%s, type=%s, status=%s", "" + queryReteNodeTree, "" + this.getType(),
+					"" + this.status);
 		}
-
-	}
-
-	static enum BSStats {
-		COMPLETE, INIT, PROCESS
 	}
 
 	static class BSStmtIndexs {
@@ -681,12 +625,76 @@ public class XRBackSearcher {
 		}
 	}
 
-	static enum BSType {
-		AND, OR, QUERY
+	abstract interface IRBSNode {
+
+		public IRList buildResultTree(boolean explain) throws RException;
+
+		public void complete() throws RException;
+
+		public IRBSNode getChild(int index);
+
+		public int getChildCount();
+
+		public int getIndexInParent();
+
+		public int getLevel();
+
+		public String getNodeName();
+
+		public IRBSNode getParentNode();
+
+		public BSStats getStatus();
+
+		public String getStatusString();
+
+		public BSType getType();
+
+		public void init() throws RException;
+
+		public boolean isSucc();
+
+		public void process(IRBSNode lastNode) throws RException;
+
 	}
 
 	public static boolean isBSTrace(IRFrame frame) throws RException {
 		return RulpUtil.asBoolean(RulpUtil.getVarValue(frame, A_BS_TRACE)).asBoolean();
+	}
+
+	public static boolean isBSTree(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+			return ReteUtil.isReteStmt(obj);
+
+		case EXPR:
+
+			IRExpr expr = (IRExpr) obj;
+			if (expr.size() < 2) {
+				return false;
+			}
+
+			switch (expr.get(0).asString()) {
+			case F_B_AND:
+			case F_B_OR:
+				break;
+			default:
+				return false;
+			}
+
+			IRIterator<? extends IRObject> it = expr.listIterator(1);
+			while (it.hasNext()) {
+				if (!isBSTree(it.next())) {
+					return false;
+				}
+			}
+
+			return true;
+
+		default:
+			return false;
+		}
+
 	}
 
 	protected int bscCircularProof = 0;
@@ -717,15 +725,15 @@ public class XRBackSearcher {
 
 	protected int nodeId = 0;
 
-	protected Map<String, BSNode> nodeMap = new HashMap<>();
+	protected Map<String, IRBSNode> nodeMap = new HashMap<>();
 
-	protected ArrayList<BSNode> queryStack = new ArrayList<>();
+	protected ArrayList<IRBSNode> queryStack = new ArrayList<>();
 
-	protected BSNode rootNode;
+	protected IRBSNode rootNode;
 
 	protected boolean trace = false;
 
-	protected Map<String, BSNode> visitingOrNodeMap = new HashMap<>();
+	protected Map<String, AbsBSNode> visitingOrNodeMap = new HashMap<>();
 
 	public XRBackSearcher(XRModel model) {
 		super();
@@ -734,15 +742,21 @@ public class XRBackSearcher {
 		this.interpreter = model.getInterpreter();
 	}
 
-	boolean _hasStmt(IRList stmt) throws RException {
-		return model._findRootEntry(stmt, 0) != null;
+	protected boolean _hasStmt(IRBSNode node, IRList stmt) throws RException {
+
+		boolean rc = model.hasStatement(stmt);
+		if (trace) {
+			_outln(node, "has stmt, stmt=" + stmt + ", rst=" + rc);
+		}
+
+		return rc;
 	}
 
 	protected boolean _isCircularProof(IRList stmt) throws RException {
 		return visitingOrNodeMap.containsKey(ReteUtil.uniqName(stmt));
 	}
 
-	protected BSNode _newAndNode(IRList stmt, SourceNode sourceNode, IAction action) {
+	protected AbsBSNode _newAndNode(IRList stmt, SourceNode sourceNode, IAction action) {
 
 		int nodeId = _nextNodeId();
 
@@ -757,7 +771,7 @@ public class XRBackSearcher {
 		return node;
 	}
 
-	protected BSNode _newOrNode(IRList stmt) throws RException {
+	protected AbsBSNode _newOrNode(IRList stmt) throws RException {
 
 		int nodeId = _nextNodeId();
 
@@ -772,12 +786,12 @@ public class XRBackSearcher {
 		return node;
 	}
 
-	protected BSNode _newQueryNode(List<IRList> stmtList) throws RException {
+	protected AbsBSNode _newQueryNode(List<IRList> stmtList) throws RException {
 
 		int nodeId = _nextNodeId();
 
 		BSNodeQuery node = new BSNodeQuery(nodeId, String.format("Q%04d", nodeId));
-		node.queryStmtList = stmtList;
+		node.queryReteNodeTree = RulpFactory.createList(stmtList);
 		node.status = BSStats.INIT;
 		this.bscNodeQuery++;
 
@@ -786,6 +800,16 @@ public class XRBackSearcher {
 
 	protected int _nextNodeId() {
 		return nodeId++;
+	}
+
+	protected void _outln(IRBSNode node, String line) {
+		_outln(String.format("%05d %s%s: %s", getBscOpLoop(), RulpUtil.getSpaceLine(node.getLevel()),
+				node.getNodeName(), line));
+	}
+
+	protected void _outln(String line) {
+//		System.out.println(line);
+		interpreter.out(line + "\n");
 	}
 
 	public int getBscCircularProof() {
@@ -828,67 +852,130 @@ public class XRBackSearcher {
 		return bscStatusProcess;
 	}
 
-	public IRList search(IRList stmt, boolean explain) throws RException {
+//	protected BSNode _buildTree(IRList tree) throws RException {
+//
+//	}
 
-		trace = isBSTrace(model.getFrame());
-		rootNode = _newOrNode(stmt);
+	public IRList search(IRList tree, boolean explain) throws RException {
 
-		if (trace) {
-			rootNode._outln("create, stmt=" + stmt);
+		if (!isBSTree(tree)) {
+			throw new RException("invalid bs tree: " + tree);
 		}
 
-		BSNode curNode = rootNode;
+		trace = isBSTrace(model.getFrame());
+		rootNode = _newOrNode(tree);
+
+		if (trace) {
+			_outln(rootNode, "create_root, " + rootNode.toString());
+		}
+
+		IRBSNode curNode = rootNode;
+		IRBSNode lastNode = null;
 
 		this.bscOpSearch++;
 
-		while (rootNode.status != BSStats.COMPLETE) {
+		while (rootNode.getStatus() != BSStats.COMPLETE) {
 
-			BSNode oldNode = curNode;
-			BSStats oldStatus = curNode.status;
+			IRBSNode oldNode = curNode;
+			BSStats oldStatus = curNode.getStatus();
 
-			switch (curNode.status) {
+			switch (oldStatus) {
 
 			case INIT:
 				this.bscStatusInit++;
 
-				curNode = curNode.init();
+				if (trace) {
+					_outln(curNode, "init begin, " + curNode.toString());
+				}
+
+				try {
+					curNode.init();
+				} finally {
+					if (trace) {
+						_outln(curNode, String.format("init end, rst=%s, status=%s, %s", "" + curNode.isSucc(),
+								curNode.getStatus(), curNode.getStatusString()));
+					}
+				}
+
+				if (curNode.getStatus() == BSStats.PROCESS && curNode.getChildCount() > 0) {
+					curNode = curNode.getChild(0);
+				}
+
 				break;
 
 			case PROCESS:
 				this.bscStatusProcess++;
 
-				curNode = curNode.process();
+				if (lastNode != curNode && lastNode.getParentNode() != curNode) {
+					throw new RException(
+							String.format("%s is not child of %s", lastNode.getNodeName(), curNode.getNodeName()));
+				}
+
+				if (trace) {
+					_outln(curNode, "process begin");
+				}
+
+				int nextChildIndex = lastNode.getIndexInParent() + 1;
+
+				try {
+					curNode.process(lastNode);
+				} finally {
+					if (trace) {
+						_outln(curNode,
+								String.format("process end, rst=%s, status=%s, child=%d/%d, %s", "" + curNode.isSucc(),
+										curNode.getStatus(), nextChildIndex, curNode.getChildCount(),
+										curNode.getStatusString()));
+					}
+				}
+
+				// Process next node if have more child
+				if (curNode.getStatus() == BSStats.PROCESS && nextChildIndex < curNode.getChildCount()) {
+					curNode = curNode.getChild(nextChildIndex);
+				}
+
 				break;
 
 			case COMPLETE:
 				this.bscStatusComplete++;
 
-				curNode.complete();
+				// re-check
+				if (curNode.isSucc()) {
+
+					if (trace) {
+						_outln(curNode, "complete begin");
+					}
+
+					try {
+						curNode.complete();
+					} finally {
+						if (trace) {
+							_outln(curNode, String.format("complete end, rst=%s", "" + curNode.isSucc()));
+						}
+					}
+				}
+
 				if (curNode == rootNode) {
 					break;
 				}
 
-				BSNode parent = curNode.parentNode;
-				if (parent.childNodes.get(parent.curChildIndex) != curNode) {
-					throw new RException("Invalid child: " + parent.curChildIndex);
-				}
-
-				curNode = parent;
+				curNode = curNode.getParentNode();
 				break;
 
 			default:
-				throw new RException("unknown status: " + curNode.status);
+				throw new RException("unknown status: " + curNode.getStatus());
 
 			}
 
-			if (curNode == oldNode && curNode.status == oldStatus) {
+			if (curNode == oldNode && curNode.getStatus() == oldStatus) {
 				throw new RException("dead loop found: " + curNode);
 
 			} else {
 
+				lastNode = oldNode;
+
 				if (trace) {
 					if (curNode != oldNode) {
-						oldNode._outln("route to " + curNode.nodeName);
+						_outln(oldNode, "route to " + curNode.getNodeName());
 					}
 				}
 			}
@@ -897,6 +984,10 @@ public class XRBackSearcher {
 		}
 
 		rootNode.complete();
+		if (trace) {
+			_outln(rootNode, String.format("complete end, rst=%s", "" + rootNode.isSucc()));
+		}
+
 		if (!rootNode.isSucc()) {
 			return RulpFactory.emptyConstList();
 		}

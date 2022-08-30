@@ -11,31 +11,49 @@
 (back-search m '(a p c) explain)
 ;=>'('(a p c) ("RU001" '('(a p ?b) '(?b p c))))
 ;out:
-00000 O0000: create, stmt='(a p c)
-00000 O0000: init, stmt='(a p c)
+00000 O0000: create_root, stmt='(a p c), type=OR, status=INIT
+00000 O0000: init begin, stmt='(a p c), type=OR, status=INIT
+00000 O0000: has stmt, stmt='(a p c), rst=false
 00000 O0000: add child, type=AND, name=A0001
 00000 O0000: add child, type=AND, name=A0002
+00000 O0000: init end, rst=false, status=PROCESS, succ-child=null
 00000 O0000: route to A0001
-00001     A0001: init, stmt='(a p c), rule=RU000: RU000, action='(?0, p, ?2)(0)
+00001     A0001: init begin, stmt='(a p c), rule=RU000: RU000, action='(?0, p, ?2)(0), type=AND, status=INIT
 00001     A0001: add child, type=OR, name=O0003
+00001     A0001: init end, rst=false, status=PROCESS, fail-child=null
 00001     A0001: route to O0003
-00002         O0003: init, stmt='(a p2 c)
+00002         O0003: init begin, stmt='(a p2 c), type=OR, status=INIT
+00002         O0003: has stmt, stmt='(a p2 c), rst=false
 00002         O0003: not child, return false
+00002         O0003: init end, rst=false, status=COMPLETE, succ-child=null
 00003         O0003: route to A0001
-00004     A0001: process, child O0003 false, return false
+00004     A0001: process begin
+00004     A0001: process end, rst=false, status=COMPLETE, child=1/1, fail-child=O0003
 00005     A0001: route to O0000
+00006 O0000: process begin
+00006 O0000: process end, rst=false, status=PROCESS, child=1/2, succ-child=null
 00006 O0000: route to A0002
-00007     A0002: init, stmt='(a p c), rule=RU001: RU001, action='(?0, p, ?2)(0)
+00007     A0002: init begin, stmt='(a p c), rule=RU001: RU001, action='(?0, p, ?2)(0), type=AND, status=INIT
 00007     A0002: add child, type=QUERY, name=Q0004
+00007     A0002: init end, rst=false, status=PROCESS, fail-child=null
 00007     A0002: route to Q0004
-00008         Q0004: init, stmt-list=['(a p ?b), '(?b p c)]
-00009         Q0004: process, forward=true, backward=true, result=1
-00009         Q0004: route to A0002
-00010     A0002: process, no child fail, return true
-00011     A0002: complete return, rst=true
-00011     A0002: route to O0000
-00012 O0000: process, child A0002 succ, return true
-00013 O0000: complete return, rst=true
+00008         Q0004: init begin, tree='('(a p ?b) '(?b p c)), type=QUERY, status=INIT
+00008         Q0004: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
+00009         Q0004: process begin
+00009         Q0004: process end, rst=true, status=COMPLETE, child=1/0, forward=true, backward=true, query=1
+00010         Q0004: complete begin
+00010         Q0004: complete end, rst=true
+00010         Q0004: route to A0002
+00011     A0002: process begin
+00011     A0002: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00012     A0002: complete begin
+00012     A0002: has stmt, stmt='(a p c), rst=true
+00012     A0002: complete end, rst=true
+00012     A0002: route to O0000
+00013 O0000: process begin
+00013 O0000: process end, rst=true, status=COMPLETE, child=2/2, succ-child=A0002
+00014 O0000: has stmt, stmt='(a p c), rst=true
+00014 O0000: complete end, rst=true
 
 ;eof
 

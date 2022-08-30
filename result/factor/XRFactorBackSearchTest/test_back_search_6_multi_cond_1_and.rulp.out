@@ -8,9 +8,18 @@
 ;=>&?bs-trace
 
 (back-search m (and '(a p c) '(a p b)) explain)
-;err:
-Can't convert to bool: '(a p c)
-at (and '(a p c) '(a p b)) ; main-2
-at (back-search m (and '(a p c) '(a p b)) explain) ; main-2
+;=>'()
+;out:
+00000 O0000: create_root, stmt=(and '(a p c) '(a p b)), type=OR, status=INIT
+00000 O0000: init begin, stmt=(and '(a p c) '(a p b)), type=OR, status=INIT
+00000 O0000: has stmt, stmt=(and '(a p c) '(a p b)), rst=false
+00000 O0000: not child, return false
+00000 O0000: init end, rst=false, status=COMPLETE, succ-child=null
+00001 O0000: has stmt, stmt=(and '(a p c) '(a p b)), rst=false
+00001 O0000: complete end, rst=false
+
 ;eof
+
+(list-stmt m)
+;=>'('(a p b) '(b p c))
 

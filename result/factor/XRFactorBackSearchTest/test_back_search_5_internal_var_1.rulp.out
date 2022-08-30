@@ -10,21 +10,33 @@
 (back-search m '(a p c) explain)
 ;=>'('(a p c) ("RU000" '('(a p ?b) '(?b p c))))
 ;out:
-00000 O0000: create, stmt='(a p c)
-00000 O0000: init, stmt='(a p c)
+00000 O0000: create_root, stmt='(a p c), type=OR, status=INIT
+00000 O0000: init begin, stmt='(a p c), type=OR, status=INIT
+00000 O0000: has stmt, stmt='(a p c), rst=false
 00000 O0000: add child, type=AND, name=A0001
+00000 O0000: init end, rst=false, status=PROCESS, succ-child=null
 00000 O0000: route to A0001
-00001     A0001: init, stmt='(a p c), rule=RU000: RU000, action='(?0, p, ?2)(0)
+00001     A0001: init begin, stmt='(a p c), rule=RU000: RU000, action='(?0, p, ?2)(0), type=AND, status=INIT
 00001     A0001: add child, type=QUERY, name=Q0002
+00001     A0001: init end, rst=false, status=PROCESS, fail-child=null
 00001     A0001: route to Q0002
-00002         Q0002: init, stmt-list=['(a p ?b), '(?b p c)]
-00003         Q0002: process, forward=true, backward=false, result=1
-00003         Q0002: route to A0001
-00004     A0001: process, no child fail, return true
-00005     A0001: complete return, rst=true
-00005     A0001: route to O0000
-00006 O0000: process, child A0001 succ, return true
-00007 O0000: complete return, rst=true
+00002         Q0002: init begin, tree='('(a p ?b) '(?b p c)), type=QUERY, status=INIT
+00002         Q0002: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
+00003         Q0002: process begin
+00003         Q0002: process end, rst=true, status=COMPLETE, child=1/0, forward=true, backward=false, query=1
+00004         Q0002: complete begin
+00004         Q0002: complete end, rst=true
+00004         Q0002: route to A0001
+00005     A0001: process begin
+00005     A0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00006     A0001: complete begin
+00006     A0001: has stmt, stmt='(a p c), rst=true
+00006     A0001: complete end, rst=true
+00006     A0001: route to O0000
+00007 O0000: process begin
+00007 O0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=A0001
+00008 O0000: has stmt, stmt='(a p c), rst=true
+00008 O0000: complete end, rst=true
 
 ;eof
 

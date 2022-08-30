@@ -101,6 +101,7 @@ model-addRule                         1
 model-addStatement                    5
 model-addUpdateNode                   5
 model-execute                         5
+model-hasStatement-1                  7
 model-listStatements                  1
 model-backSearch                      1
 bsc-node-and                          1

@@ -127,6 +127,7 @@ model-addRule                         1
 model-addStatement                    3
 model-addUpdateNode                   9
 model-execute                        10
+model-hasStatement-1                  3
 model-listStatements                  1
 model-query                           1
 model-backSearch                      1
@@ -135,8 +136,8 @@ bsc-node-or                           1
 bsc-node-query                        1
 bsc-status-init                       3
 bsc-status-process                    3
-bsc-status-complete                   1
-bsc-op-loop                           7
+bsc-status-complete                   2
+bsc-op-loop                           8
 bsc-op-search                         1
 graph-addConstraint                   4
 graph-createNodeByTree                1
