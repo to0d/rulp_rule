@@ -16,7 +16,7 @@
 00000 SO0000: not child, return false
 00000 SO0000: init end, rst=false, status=COMPLETE, succ-child=null
 00001 SO0000: has stmt, stmt=(or '(a p c) '(a p d)), rst=false
-00001 SO0000: complete end, rst=false
+00001 SO0000: return, rst=false
 
 ;eof
 

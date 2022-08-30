@@ -40,7 +40,7 @@
 00008         SQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=STMT_QUERY, status=INIT
 00008         SQ0004: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
 00009         SQ0004: process begin
-00009         SQ0004: process end, rst=true, status=COMPLETE, child=1/0, forward=true, backward=true, query=1
+00009         SQ0004: process end, rst=true, status=COMPLETE, forward=true, backward=true, query=1
 00010         SQ0004: complete begin
 00010         SQ0004: complete end, rst=true
 00010         SQ0004: route to SA0002
@@ -53,7 +53,7 @@
 00013 SO0000: process begin
 00013 SO0000: process end, rst=true, status=COMPLETE, child=2/2, succ-child=SA0002
 00014 SO0000: has stmt, stmt='(a p c), rst=true
-00014 SO0000: complete end, rst=true
+00014 SO0000: return, rst=true
 
 ;eof
 

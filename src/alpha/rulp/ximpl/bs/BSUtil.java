@@ -18,6 +18,17 @@ public class BSUtil {
 		return RulpUtil.asBoolean(RulpUtil.getVarValue(frame, A_BS_TRACE)).asBoolean();
 	}
 
+	public static boolean isAndNode(BSType type) {
+
+		switch (type) {
+		case LOGIC_AND:
+		case STMT_AND:
+			return true;
+		default:
+			return false;
+		}
+	}
+
 	public static String getBSNodeName(BSType type, int nodeId) {
 
 		switch (type) {

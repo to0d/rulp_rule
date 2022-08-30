@@ -82,6 +82,7 @@ public abstract class AbsBSNode implements IRBSNode {
 		return status;
 	}
 
+	@Override
 	public void setStatus(BSStats status) {
 		this.status = status;
 	}

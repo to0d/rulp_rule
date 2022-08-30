@@ -38,7 +38,7 @@
 00009 SO0000: process begin
 00009 SO0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null
 00010 SO0000: has stmt, stmt='(c p1 d), rst=false
-00010 SO0000: complete end, rst=false
+00010 SO0000: return, rst=false
 
 ;eof
 

@@ -102,6 +102,11 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 		return this.rst;
 	}
 
+	@Override
+	public boolean needComplete() {
+		return true;
+	}
+
 	public void process(IRBSNode lastNode) throws RException {
 
 		// (or true xx xx) ==> (true)
@@ -112,11 +117,11 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 			return;
 		}
 
-		if ((lastNode.getIndexInParent() + 1) >= getChildCount()) {
-			this.status = BSStats.COMPLETE;
-			this.rst = false;
-			return;
-		}
+	}
+
+	@Override
+	public void setSucc(boolean succ) {
+		this.rst = succ;
 	}
 
 	public String toString() {

@@ -37,7 +37,7 @@
 00006 SO0000: process begin
 00006 SO0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0001
 00007 SO0000: has stmt, stmt='(a p2 b), rst=true
-00007 SO0000: complete end, rst=true
+00007 SO0000: return, rst=true
 
 ;eof
 

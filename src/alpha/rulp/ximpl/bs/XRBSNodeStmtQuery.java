@@ -82,6 +82,10 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 	}
 
 	@Override
+	public boolean needComplete() {
+		return false;
+	}
+
 	public void process(IRBSNode lastNode) throws RException {
 
 		if (!queryForward) {
@@ -99,6 +103,11 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 		}
 
 		this.status = BSStats.COMPLETE;
+	}
+
+	@Override
+	public void setSucc(boolean succ) throws RException {
+		throw new RException("invalid operation");
 	}
 
 	public String toString() {

@@ -29,7 +29,7 @@ public class XRBackSearcher {
 	protected int bscNodeLogicAnd = 0;
 
 	protected int bscNodeLogicOr = 0;
-	
+
 	protected int bscNodeStmtAnd = 0;
 
 	protected int bscNodeStmtOr = 0;
@@ -109,19 +109,20 @@ public class XRBackSearcher {
 
 			IRExpr expr = (IRExpr) tree;
 
-			ArrayList<IRList> elements = new ArrayList<>();
+			ArrayList<IRList> stmtList = new ArrayList<>();
 			IRIterator<? extends IRObject> it = expr.listIterator(1);
 			while (it.hasNext()) {
-				elements.add((IRList) it.next());
+				stmtList.add((IRList) it.next());
 			}
 
 			switch (expr.get(0).asString()) {
 			case F_B_AND:
+				return _newNodeLogicAnd(stmtList);
 
 			case F_B_OR:
-				break;
+				return _newNodeLogicOr(stmtList);
+
 			default:
-				throw new RException("invalid bs tree: " + tree);
 			}
 
 			break;
@@ -160,6 +161,30 @@ public class XRBackSearcher {
 		this.bscNodeStmtOr++;
 
 		visitingOrNodeMap.put(ReteUtil.uniqName(stmt), node);
+
+		return node;
+	}
+
+	protected AbsBSNode _newNodeLogicAnd(List<IRList> stmtList) throws RException {
+
+		int nodeId = _nextNodeId();
+		String nodeName = BSUtil.getBSNodeName(BSType.LOGIC_AND, nodeId);
+
+		XRBSNodeLogicAnd node = new XRBSNodeLogicAnd(this, nodeId, nodeName, stmtList);
+		node.status = BSStats.INIT;
+		this.bscNodeLogicAnd++;
+
+		return node;
+	}
+
+	protected AbsBSNode _newNodeLogicOr(List<IRList> stmtList) throws RException {
+
+		int nodeId = _nextNodeId();
+		String nodeName = BSUtil.getBSNodeName(BSType.LOGIC_OR, nodeId);
+
+		XRBSNodeLogicOr node = new XRBSNodeLogicOr(this, nodeId, nodeName, stmtList);
+		node.status = BSStats.INIT;
+		this.bscNodeLogicOr++;
 
 		return node;
 	}
@@ -287,38 +312,67 @@ public class XRBackSearcher {
 				break;
 
 			case PROCESS:
-				this.bscStatusProcess++;
 
-				if (lastNode != curNode && lastNode.getParentNode() != curNode) {
-					throw new RException(
-							String.format("%s is not child of %s", lastNode.getNodeName(), curNode.getNodeName()));
-				}
+				this.bscStatusProcess++;
 
 				if (trace) {
 					_outln(curNode, "process begin");
 				}
 
-				int nextChildIndex = lastNode.getIndexInParent() + 1;
+				boolean hasChild = curNode.getChildCount() > 0;
 
-				try {
-					curNode.process(lastNode);
-				} finally {
-					if (trace) {
-						_outln(curNode,
-								String.format("process end, rst=%s, status=%s, child=%d/%d, %s", "" + curNode.isSucc(),
-										curNode.getStatus(), nextChildIndex, curNode.getChildCount(),
-										curNode.getStatusString()));
+				if (hasChild) {
+					if (lastNode.getParentNode() != curNode) {
+						throw new RException(
+								String.format("%s is not child of %s", lastNode.getNodeName(), curNode.getNodeName()));
+					}
+				} else {
+					if (lastNode != curNode) {
+						throw new RException(String.format("node match: last=%s,cur=%s", lastNode.getNodeName(),
+								curNode.getNodeName()));
 					}
 				}
 
-				// Process next node if have more child
-				if (curNode.getStatus() == BSStats.PROCESS && nextChildIndex < curNode.getChildCount()) {
-					curNode = curNode.getChild(nextChildIndex);
+				int nextChildIndex = lastNode.getIndexInParent() + 1;
+
+				try {
+
+					curNode.process(lastNode);
+
+					// No child need update, mark the parent's result is true
+					if (curNode.getStatus() == BSStats.PROCESS && curNode.getChildCount() > 0
+							&& nextChildIndex >= curNode.getChildCount()) {
+						curNode.setStatus(BSStats.COMPLETE);
+						curNode.setSucc(BSUtil.isAndNode(curNode.getType()));
+					}
+
+				} finally {
+
+					if (trace) {
+
+						if (curNode.getChildCount() > 0) {
+							_outln(curNode,
+									String.format("process end, rst=%s, status=%s, child=%d/%d, %s",
+											"" + curNode.isSucc(), curNode.getStatus(), nextChildIndex,
+											curNode.getChildCount(), curNode.getStatusString()));
+						} else {
+							_outln(curNode, String.format("process end, rst=%s, status=%s, %s", "" + curNode.isSucc(),
+									curNode.getStatus(), curNode.getStatusString()));
+						}
+					}
+				}
+
+				if (curNode.getChildCount() > 0) {
+					// Process next node if have more child
+					if (curNode.getStatus() == BSStats.PROCESS && nextChildIndex < curNode.getChildCount()) {
+						curNode = curNode.getChild(nextChildIndex);
+					}
 				}
 
 				break;
 
 			case COMPLETE:
+
 				this.bscStatusComplete++;
 
 				// re-check
@@ -368,7 +422,7 @@ public class XRBackSearcher {
 
 		rootNode.complete();
 		if (trace) {
-			_outln(rootNode, String.format("complete end, rst=%s", "" + rootNode.isSucc()));
+			_outln(rootNode, String.format("return %s", "" + rootNode.isSucc()));
 		}
 
 		if (!rootNode.isSucc()) {
