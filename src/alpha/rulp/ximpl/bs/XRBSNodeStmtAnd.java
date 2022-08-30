@@ -303,6 +303,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 		this.rst = succ;
 	}
 
+	@Override
 	public String toString() {
 		return String.format("stmt=%s, rule=%s, action=%s(%d), type=%s, status=%s", stmt, sourceNode.rule,
 				action.toString(), action.getIndex(), "" + this.getType(), "" + this.status);

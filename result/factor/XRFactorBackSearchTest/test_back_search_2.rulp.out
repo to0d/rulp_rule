@@ -15,7 +15,7 @@
 00000 SO0000: init begin, stmt='(a p2 b), type=STMT_OR, status=INIT
 00000 SO0000: has stmt, stmt='(a p2 b), rst=false
 00000 SO0000: add child, type=STMT_AND, name=SA0001
-00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null
+00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
 00000 SO0000: route to SA0001
 00001     SA0001: init begin, stmt='(a p2 b), rule=RU000: RU000, action='(?0, p2, ?2)(0), type=STMT_AND, status=INIT
 00001     SA0001: add child, type=STMT_OR, name=SO0002
@@ -23,10 +23,7 @@
 00001     SA0001: route to SO0002
 00002         SO0002: init begin, stmt='(a p1 b), type=STMT_OR, status=INIT
 00002         SO0002: has stmt, stmt='(a p1 b), rst=true
-00002         SO0002: init end, rst=true, status=COMPLETE, succ-child=null
-00003         SO0002: complete begin
-00003         SO0002: has stmt, stmt='(a p1 b), rst=true
-00003         SO0002: complete end, rst=true
+00002         SO0002: init end, rst=true, status=COMPLETE, succ-child=null, needComplete=false
 00003         SO0002: route to SA0001
 00004     SA0001: process begin
 00004     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
@@ -35,9 +32,9 @@
 00005     SA0001: complete end, rst=true
 00005     SA0001: route to SO0000
 00006 SO0000: process begin
-00006 SO0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0001
+00006 SO0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0001, needComplete=true
 00007 SO0000: has stmt, stmt='(a p2 b), rst=true
-00007 SO0000: return, rst=true
+00007 SO0000: return true
 
 ;eof
 

@@ -47,7 +47,7 @@ name                              count
 model-addStatement                    1
 model-addUpdateNode                   1
 model-hasStatement-1                  2
-model-backSearch                      3
+model-backSearch                      2
 bsc-node-stmt-or                      1
 bsc-status-init                       1
 bsc-op-loop                           1

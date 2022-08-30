@@ -43,8 +43,11 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 		}
 	}
 
+	protected boolean needComplete = true;
+
 	public String getStatusString() {
-		return String.format("succ-child=%s", succChild == null ? "null" : succChild.getNodeName());
+		return String.format("succ-child=%s, needComplete=%s", succChild == null ? "null" : succChild.getNodeName(),
+				"" + needComplete);
 	}
 
 	public IRList getStmt() {
@@ -61,6 +64,7 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 		if (bs._hasStmt(this, this.stmt)) {
 			this.status = BSStats.COMPLETE;
 			this.rst = true;
+			this.needComplete = false;
 			return;
 		}
 
@@ -104,7 +108,7 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 
 	@Override
 	public boolean needComplete() {
-		return true;
+		return needComplete;
 	}
 
 	public void process(IRBSNode lastNode) throws RException {

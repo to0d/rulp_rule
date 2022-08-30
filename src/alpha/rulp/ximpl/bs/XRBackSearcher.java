@@ -271,7 +271,7 @@ public class XRBackSearcher {
 		}
 
 		trace = BSUtil.isBSTrace(model.getFrame());
-		rootNode = _newNodeStmtOr(tree);
+		rootNode = _newNode(tree);
 
 		if (trace) {
 			_outln(rootNode, "create_root, " + rootNode.toString());
@@ -376,7 +376,7 @@ public class XRBackSearcher {
 				this.bscStatusComplete++;
 
 				// re-check
-				if (curNode.isSucc()) {
+				if (curNode.isSucc() && curNode.needComplete()) {
 
 					if (trace) {
 						_outln(curNode, "complete begin");

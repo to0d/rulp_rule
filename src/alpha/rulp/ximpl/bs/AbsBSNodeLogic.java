@@ -1,13 +1,9 @@
 package alpha.rulp.ximpl.bs;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRList;
-import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.utils.RulpFactory;
 
 public abstract class AbsBSNodeLogic extends AbsBSNode {
 
@@ -21,30 +17,9 @@ public abstract class AbsBSNodeLogic extends AbsBSNode {
 	}
 
 	@Override
-	public IRList buildResultTree(boolean explain) throws RException {
-
-		if (!this.isSucc()) {
-			return RulpFactory.emptyConstList();
-		}
-
-		ArrayList<IRObject> treeList = new ArrayList<>();
-		treeList.add(getLogicAtom());
-
-		if (childNodes != null) {
-			for (AbsBSNode child : childNodes) {
-				treeList.add(child.buildResultTree(explain));
-			}
-		}
-
-		return RulpFactory.createExpression(treeList);
-	}
-
-	@Override
 	public void complete() throws RException {
 
 	}
-
-	protected abstract IRAtom getLogicAtom();
 
 	@Override
 	public void init() throws RException {
@@ -69,5 +44,10 @@ public abstract class AbsBSNodeLogic extends AbsBSNode {
 	@Override
 	public void setSucc(boolean succ) {
 		this.rst = succ;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("stmt-list=%s, type=%s, status=%s", stmtList, "" + this.getType(), "" + this.status);
 	}
 }

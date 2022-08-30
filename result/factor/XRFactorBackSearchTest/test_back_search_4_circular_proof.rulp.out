@@ -14,7 +14,7 @@
 00000 SO0000: init begin, stmt='(c p1 d), type=STMT_OR, status=INIT
 00000 SO0000: has stmt, stmt='(c p1 d), rst=false
 00000 SO0000: add child, type=STMT_AND, name=SA0001
-00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null
+00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
 00000 SO0000: route to SA0001
 00001     SA0001: init begin, stmt='(c p1 d), rule=RU001: RU001, action='(?0, p1, ?2)(0), type=STMT_AND, status=INIT
 00001     SA0001: add child, type=STMT_OR, name=SO0002
@@ -23,22 +23,22 @@
 00002         SO0002: init begin, stmt='(c p2 d), type=STMT_OR, status=INIT
 00002         SO0002: has stmt, stmt='(c p2 d), rst=false
 00002         SO0002: add child, type=STMT_AND, name=SA0003
-00002         SO0002: init end, rst=false, status=PROCESS, succ-child=null
+00002         SO0002: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
 00002         SO0002: route to SA0003
 00003             SA0003: init begin, stmt='(c p2 d), rule=RU000: RU000, action='(?0, p2, ?2)(0), type=STMT_AND, status=INIT
 00003             SA0003: circular proof found, stmt='(c p1 d), return false
 00003             SA0003: init end, rst=false, status=COMPLETE, fail-child=null
 00004             SA0003: route to SO0002
 00005         SO0002: process begin
-00005         SO0002: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null
+00005         SO0002: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true
 00006         SO0002: route to SA0001
 00007     SA0001: process begin
 00007     SA0001: process end, rst=false, status=COMPLETE, child=1/1, fail-child=SO0002
 00008     SA0001: route to SO0000
 00009 SO0000: process begin
-00009 SO0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null
+00009 SO0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true
 00010 SO0000: has stmt, stmt='(c p1 d), rst=false
-00010 SO0000: return, rst=false
+00010 SO0000: return false
 
 ;eof
 

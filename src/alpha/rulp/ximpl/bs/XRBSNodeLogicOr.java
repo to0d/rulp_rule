@@ -1,12 +1,10 @@
 package alpha.rulp.ximpl.bs;
 
-import static alpha.rulp.lang.Constant.O_B_OR;
-
 import java.util.List;
 
-import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.RulpFactory;
 
 public class XRBSNodeLogicOr extends AbsBSNodeLogic {
 
@@ -17,8 +15,13 @@ public class XRBSNodeLogicOr extends AbsBSNodeLogic {
 	}
 
 	@Override
-	protected IRAtom getLogicAtom() {
-		return O_B_OR;
+	public IRList buildResultTree(boolean explain) throws RException {
+
+		if (!this.isSucc() || succChild == null) {
+			return RulpFactory.emptyConstList();
+		}
+
+		return succChild.buildResultTree(explain);
 	}
 
 	@Override

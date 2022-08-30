@@ -1610,13 +1610,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("not support null");
 		}
 
-		if (!ReteUtil.isReteStmtNoVar(filter)) {
-			throw new RException("not support stmt: " + filter);
-		}
-
-		// Check root node for root statement
-		if (_findRootEntry(filter, 0) != null) {
-			return RulpFactory.createList(filter);
+		if (ReteUtil.isReteStmtNoVar(filter)) {
+			// Check root node for root statement
+			if (_findRootEntry(filter, 0) != null) {
+				return RulpFactory.createList(filter);
+			}
 		}
 
 		XRBackSearcher bs = new XRBackSearcher(this);

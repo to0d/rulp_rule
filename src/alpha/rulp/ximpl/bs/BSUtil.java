@@ -6,6 +6,7 @@ import static alpha.rulp.rule.Constant.A_BS_TRACE;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRFrame;
+import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
@@ -56,7 +57,7 @@ public class BSUtil {
 
 		switch (obj.getType()) {
 		case LIST:
-			return ReteUtil.isReteStmt(obj);
+			return ReteUtil.isReteStmtNoVar((IRList) obj);
 
 		case EXPR:
 
