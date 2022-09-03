@@ -103,7 +103,7 @@ class XRFactorBackSearchTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
+
 	@Test
 	void test_back_search_8_rhs_expr_1_b() {
 
@@ -112,4 +112,5 @@ class XRFactorBackSearchTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
+
 }
