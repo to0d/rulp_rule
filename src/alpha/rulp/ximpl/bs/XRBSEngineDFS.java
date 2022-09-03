@@ -26,7 +26,7 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 
 			// The and should fail once circular proof be found
 			if (visitingOrNodeMap.containsKey(uniqName)) {
-				this.bscCircularProof++;
+				BSFactory.incBscCircularProof();
 				throw new RException(String.format("circular proof found, stmt=%s, return false", stmt));
 			}
 
@@ -49,7 +49,7 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 		IRBSNode curNode = rootNode;
 		IRBSNode lastNode = null;
 
-		this.bscOpSearch++;
+		++bscOpSearch;
 
 		while (rootNode.getStatus() != BSStats.COMPLETE) {
 
@@ -59,7 +59,8 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 			switch (oldStatus) {
 
 			case INIT:
-				this.bscStatusInit++;
+
+				++bscStatusInit;
 
 				if (trace) {
 					trace_outln(curNode, "init begin, " + curNode.toString());
@@ -92,7 +93,7 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 
 			case PROCESS:
 
-				this.bscStatusProcess++;
+				++bscStatusProcess;
 
 				if (trace) {
 					trace_outln(curNode, "process begin");
@@ -152,7 +153,7 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 
 			case COMPLETE:
 
-				this.bscStatusComplete++;
+				++bscStatusComplete;
 
 				// re-check
 				if (curNode.isSucc() && curNode.needComplete()) {
@@ -196,7 +197,7 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 				}
 			}
 
-			this.bscOpLoop++;
+			bscOpLoop++;
 		}
 
 		rootNode.complete();

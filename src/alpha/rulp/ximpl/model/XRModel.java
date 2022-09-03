@@ -64,9 +64,6 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
-import alpha.rulp.ximpl.bs.AbsBSEngine;
-import alpha.rulp.ximpl.bs.BSFactory;
-import alpha.rulp.ximpl.bs.BSSearchType;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
@@ -1596,51 +1593,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			removeStatement(stmt);
 			this.assuemeStatmentLevel--;
 			return false;
-		}
-	}
-
-	@Override
-	public IRList backSearch(IRList filter, BSSearchType st, boolean explain) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> backSearch: filter=" + filter + ", search=" + st + ", explain=" + explain);
-		}
-
-		counter.mcBackSearch++;
-
-		if (filter == null) {
-			throw new RException("not support null");
-		}
-
-		if (ReteUtil.isReteStmtNoVar(filter)) {
-			// Check root node for root statement
-			if (_findRootEntry(filter, 0) != null) {
-				return RulpFactory.createList(filter);
-			}
-		}
-
-		AbsBSEngine bs = BSFactory.createEngine(this, st);
-
-		try {
-			return bs.search(filter, explain);
-
-		} finally {
-
-			counter.bscNodeStmtAnd += bs.getBscNodeStmtAnd();
-			counter.bscNodeStmtOr += bs.getBscNodeStmtOr();
-			counter.bscNodeStmtQuery += bs.getBscNodeStmtQuery();
-
-			counter.bscNodeLogicAnd += bs.getBscNodeLogicAnd();
-			counter.bscNodeLogicOr += bs.getBscNodeLogicOr();
-
-			counter.bscStatusInit += bs.getBscStatusInit();
-			counter.bscStatusProcess += bs.getBscStatusProcess();
-			counter.bscStatusComplete += bs.getBscStatusComplete();
-			counter.bscOpRelocate += bs.getBscOpRelocate();
-			counter.bscOpSearch += bs.getBscOpSearch();
-			counter.bscOpLoop += bs.getBscOpLoop();
-			counter.bscCircularProof += bs.getBscCircularProof();
-
 		}
 	}
 

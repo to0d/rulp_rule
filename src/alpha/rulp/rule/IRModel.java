@@ -10,7 +10,6 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.OrderEntry;
-import alpha.rulp.ximpl.bs.BSSearchType;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
@@ -53,8 +52,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public void addUpdateNode(IRReteNode node) throws RException;
 
 	public boolean assumeStatement(IRList stmt) throws RException;
-
-	public IRList backSearch(IRList filter, BSSearchType st, boolean explain) throws RException;
 
 	public IRIterator<? extends IRList> buildStatementIterator(IRList filter) throws RException;
 

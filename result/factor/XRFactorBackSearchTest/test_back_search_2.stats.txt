@@ -89,9 +89,12 @@ model-addRule                         1
 model-addStatement                    4
 model-addUpdateNode                   4
 model-execute                         3
-model-hasStatement-1                  4
+model-hasStatement-1                  5
 model-listStatements                  1
-model-backSearch                      1
+graph-addConstraint                   1
+graph-createNodeRoot                 10
+graph-createNodeRule                  1
+graph-listSourceNodes                 8
 bsc-node-stmt-and                     1
 bsc-node-stmt-or                      2
 bsc-status-init                       3
@@ -100,10 +103,6 @@ bsc-status-complete                   2
 bsc-op-loop                           7
 bsc-op-relocate                       1
 bsc-op-search                         1
-graph-addConstraint                   1
-graph-createNodeRoot                 10
-graph-createNodeRule                  1
-graph-listSourceNodes                 8
 ===============================================================================================================================================================================
 
 

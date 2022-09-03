@@ -1,12 +1,10 @@
 package beta.test.manners;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import beta.test.manners.MannerUtil.GuessData;
-import beta.test.manners.TestSearchMannerTree.SearchResult;
 
 public class TestPrintMannerData {
 

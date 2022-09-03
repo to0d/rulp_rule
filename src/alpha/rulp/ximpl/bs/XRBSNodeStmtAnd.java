@@ -144,7 +144,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 			}
 
 			if (si.relocatedStmtIndexs != null) {
-				engine.incBscOpRelocate(si.relocatedStmtIndexs.size());
+				BSFactory.incBscOpRelocate(si.relocatedStmtIndexs.size());
 				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
 			}
 		}

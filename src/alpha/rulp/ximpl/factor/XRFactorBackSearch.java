@@ -84,7 +84,7 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 			}
 		}
 
-		return model.backSearch((IRList) obj, st, explain);
+		return BSUtil.backSearch(model, (IRList) obj, st, explain);
 	}
 
 }

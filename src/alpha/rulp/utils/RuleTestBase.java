@@ -10,6 +10,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.SystemUtil.OSType;
+import alpha.rulp.ximpl.bs.BSFactory;
 import alpha.rulp.ximpl.entry.XREntryTable;
 
 public class RuleTestBase extends RulpTestBase {
@@ -142,10 +143,13 @@ public class RuleTestBase extends RulpTestBase {
 
 	@Override
 	protected void _setup() {
+
 		super._setup();
+
 		XREntryTable.TRACE = false;
 		traceModel = null;
 		RuleUtil.reset();
+		BSFactory.reset();
 	}
 
 	protected void _statsInfo(String modelName) {

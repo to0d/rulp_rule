@@ -4,6 +4,7 @@ import static alpha.rulp.lang.Constant.F_B_AND;
 import static alpha.rulp.lang.Constant.F_B_OR;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
@@ -17,6 +18,124 @@ import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.SourceNode;
 
 public class BSFactory {
+
+	protected static int bscCircularProof = 0;
+
+	protected static int bscNodeLogicAnd = 0;
+
+	protected static int bscNodeLogicOr = 0;
+
+	protected static int bscNodeStmtAnd = 0;
+
+	protected static int bscNodeStmtOr = 0;
+
+	protected static int bscNodeStmtQuery = 0;
+
+	protected static int bscOpLoop = 0;
+
+	protected static int bscOpRelocate = 0;
+
+	protected static int bscOpSearch = 0;
+
+	protected static int bscStatusComplete = 0;
+
+	protected static int bscStatusInit = 0;
+
+	protected static int bscStatusProcess = 0;
+
+	static List<String> bsCountKeyList = new ArrayList<>();
+
+	public static final String CK_BSC_CIRCULAR_PROOF = "bsc-circular-proof";
+
+	public static final String CK_BSC_NODE_LOGIC_AND = "bsc-node-logic-and";
+
+	public static final String CK_BSC_NODE_LOGIC_OR = "bsc-node-logic-or";
+
+	public static final String CK_BSC_NODE_STMT_AND = "bsc-node-stmt-and";
+
+	public static final String CK_BSC_NODE_STMT_OR = "bsc-node-stmt-or";
+
+	public static final String CK_BSC_NODE_STMT_QUERY = "bsc-node-stmt-query";
+
+	public static final String CK_BSC_OP_LOOP = "bsc-op-loop";
+
+	public static final String CK_BSC_OP_RELOCATE = "bsc-op-relocate";
+
+	public static final String CK_BSC_OP_SEARCH = "bsc-op-search";
+
+	public static final String CK_BSC_STATUS_COMPLETE = "bsc-status-complete";
+
+	public static final String CK_BSC_STATUS_INIT = "bsc-status-init";
+
+	public static final String CK_BSC_STATUS_PROCESS = "bsc-status-process";
+
+	static {
+
+		bsCountKeyList.add(CK_BSC_NODE_STMT_AND);
+		bsCountKeyList.add(CK_BSC_NODE_STMT_OR);
+		bsCountKeyList.add(CK_BSC_NODE_STMT_QUERY);
+		bsCountKeyList.add(CK_BSC_NODE_LOGIC_AND);
+		bsCountKeyList.add(CK_BSC_NODE_LOGIC_OR);
+		bsCountKeyList.add(CK_BSC_STATUS_INIT);
+		bsCountKeyList.add(CK_BSC_STATUS_PROCESS);
+		bsCountKeyList.add(CK_BSC_STATUS_COMPLETE);
+		bsCountKeyList.add(CK_BSC_OP_LOOP);
+		bsCountKeyList.add(CK_BSC_OP_RELOCATE);
+		bsCountKeyList.add(CK_BSC_OP_SEARCH);
+		bsCountKeyList.add(CK_BSC_CIRCULAR_PROOF);
+
+		bsCountKeyList = Collections.unmodifiableList(bsCountKeyList);
+	}
+
+	public static List<String> getCounterKeyList() {
+		return bsCountKeyList;
+	}
+
+	public static long getCounterValue(String countkey) {
+
+		switch (countkey) {
+
+		case CK_BSC_NODE_STMT_AND:
+			return bscNodeStmtAnd;
+
+		case CK_BSC_NODE_STMT_OR:
+			return bscNodeStmtOr;
+
+		case CK_BSC_NODE_STMT_QUERY:
+			return bscNodeStmtQuery;
+
+		case CK_BSC_NODE_LOGIC_AND:
+			return bscNodeLogicAnd;
+
+		case CK_BSC_NODE_LOGIC_OR:
+			return bscNodeLogicOr;
+
+		case CK_BSC_STATUS_INIT:
+			return bscStatusInit;
+
+		case CK_BSC_STATUS_PROCESS:
+			return bscStatusProcess;
+
+		case CK_BSC_STATUS_COMPLETE:
+			return bscStatusComplete;
+
+		case CK_BSC_OP_LOOP:
+			return bscOpLoop;
+
+		case CK_BSC_OP_RELOCATE:
+			return bscOpRelocate;
+
+		case CK_BSC_CIRCULAR_PROOF:
+			return bscCircularProof;
+
+		case CK_BSC_OP_SEARCH:
+			return bscOpSearch;
+
+		default:
+			return 0;
+
+		}
+	}
 
 	public static void addChild(IRBSEngine engine, AbsBSNode parent, AbsBSNode child) throws RException {
 
@@ -76,6 +195,8 @@ public class BSFactory {
 		node.stmtList = stmtList;
 		engine.addNode(node);
 
+		bscNodeLogicAnd++;
+
 		return node;
 	}
 
@@ -84,6 +205,8 @@ public class BSFactory {
 		XRBSNodeLogicOr node = new XRBSNodeLogicOr();
 		node.stmtList = stmtList;
 		engine.addNode(node);
+
+		bscNodeLogicOr++;
 
 		return node;
 	}
@@ -97,6 +220,8 @@ public class BSFactory {
 		node.action = action;
 		engine.addNode(node);
 
+		bscNodeStmtAnd++;
+
 		return node;
 	}
 
@@ -105,6 +230,8 @@ public class BSFactory {
 		XRBSNodeStmtOr node = new XRBSNodeStmtOr();
 		node.stmt = stmt;
 		engine.addNode(node);
+
+		bscNodeStmtOr++;
 
 		return node;
 	}
@@ -115,6 +242,100 @@ public class BSFactory {
 		node.queryReteNodeTree = RulpFactory.createList(stmtList);
 		engine.addNode(node);
 
+		bscNodeStmtQuery++;
+
 		return node;
+	}
+
+	public static int getBscCircularProof() {
+		return bscCircularProof;
+	}
+
+	public static int getBscNodeLogicAnd() {
+		return bscNodeLogicAnd;
+	}
+
+	public static int getBscNodeLogicOr() {
+		return bscNodeLogicOr;
+	}
+
+	public static int getBscNodeStmtAnd() {
+		return bscNodeStmtAnd;
+	}
+
+	public static int getBscNodeStmtOr() {
+		return bscNodeStmtOr;
+	}
+
+	public static int getBscNodeStmtQuery() {
+		return bscNodeStmtQuery;
+	}
+
+	public static int getBscOpLoop() {
+		return bscOpLoop;
+	}
+
+	public static int getBscOpRelocate() {
+		return bscOpRelocate;
+	}
+
+	public static int getBscOpSearch() {
+		return bscOpSearch;
+	}
+
+	public static int getBscStatusComplete() {
+		return bscStatusComplete;
+	}
+
+	public static int getBscStatusInit() {
+		return bscStatusInit;
+	}
+
+	public static int getBscStatusProcess() {
+		return bscStatusProcess;
+	}
+
+	public static void incBscCircularProof() {
+		++bscCircularProof;
+	}
+
+	public static void incBscOpLoop(int count) {
+		bscOpLoop += count;
+	}
+
+	public static void incBscOpRelocate(int count) {
+		bscOpRelocate += count;
+	}
+
+	public static void incBscOpSearch(int count) {
+		bscOpSearch += count;
+	}
+
+	public static void incBscStatusComplete(int count) {
+		bscStatusComplete += count;
+	}
+
+	public static void incBscStatusInit(int count) {
+		bscStatusInit += count;
+	}
+
+	public static void incBscStatusProcess(int count) {
+		bscStatusProcess += count;
+	}
+
+	public static void reset() {
+
+		bscCircularProof = 0;
+		bscNodeLogicAnd = 0;
+		bscNodeLogicOr = 0;
+		bscNodeStmtAnd = 0;
+		bscNodeStmtOr = 0;
+		bscNodeStmtQuery = 0;
+		bscOpLoop = 0;
+		bscOpRelocate = 0;
+		bscOpSearch = 0;
+		bscStatusComplete = 0;
+		bscStatusInit = 0;
+		bscStatusProcess = 0;
 	}
 }

@@ -127,10 +127,15 @@ model-addRule                         1
 model-addStatement                    3
 model-addUpdateNode                   9
 model-execute                        10
-model-hasStatement-1                  4
+model-hasStatement-1                  5
 model-listStatements                  1
 model-query                           1
-model-backSearch                      1
+graph-addConstraint                   4
+graph-createNodeByTree                1
+graph-createNodeRoot                  9
+graph-createNodeRule                  1
+graph-createSubGraphForQueryNodeForward        1
+graph-listSourceNodes                17
 bsc-node-stmt-and                     1
 bsc-node-stmt-or                      2
 bsc-node-stmt-query                   1
@@ -140,12 +145,6 @@ bsc-status-process                    5
 bsc-status-complete                   4
 bsc-op-loop                          14
 bsc-op-search                         1
-graph-addConstraint                   4
-graph-createNodeByTree                1
-graph-createNodeRoot                  9
-graph-createNodeRule                  1
-graph-createSubGraphForQueryNodeForward        1
-graph-listSourceNodes                17
 ===============================================================================================================================================================================
 
 

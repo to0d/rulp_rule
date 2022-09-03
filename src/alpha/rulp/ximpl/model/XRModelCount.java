@@ -26,32 +26,6 @@ public class XRModelCount {
 
 	public static final String CK_ASSUME_STMT = "model-assumeStatement";
 
-	public static final String CK_BACK_SEARCH = "model-backSearch";
-
-	public static final String CK_BSC_CIRCULAR_PROOF = "bsc-circular-proof";
-
-	public static final String CK_BSC_NODE_LOGIC_AND = "bsc-node-logic-and";
-
-	public static final String CK_BSC_NODE_LOGIC_OR = "bsc-node-logic-or";
-
-	public static final String CK_BSC_NODE_STMT_AND = "bsc-node-stmt-and";
-
-	public static final String CK_BSC_NODE_STMT_OR = "bsc-node-stmt-or";
-
-	public static final String CK_BSC_NODE_STMT_QUERY = "bsc-node-stmt-query";
-
-	public static final String CK_BSC_OP_LOOP = "bsc-op-loop";
-
-	public static final String CK_BSC_OP_RELOCATE = "bsc-op-relocate";
-
-	public static final String CK_BSC_OP_SEARCH = "bsc-op-search";
-
-	public static final String CK_BSC_STATUS_COMPLETE = "bsc-status-complete";
-
-	public static final String CK_BSC_STATUS_INIT = "bsc-status-init";
-
-	public static final String CK_BSC_STATUS_PROCESS = "bsc-status-process";
-
 	public static final String CK_DO_GC = "model-doGC";
 
 	public static final String CK_EXEC = "model-execute";
@@ -127,19 +101,6 @@ public class XRModelCount {
 		modelCountKeyList.add(CK_SET_NODE_SAVER);
 		modelCountKeyList.add(CK_START);
 		modelCountKeyList.add(CK_TRY_ADD_STMT);
-		modelCountKeyList.add(CK_BACK_SEARCH);
-		modelCountKeyList.add(CK_BSC_NODE_STMT_AND);
-		modelCountKeyList.add(CK_BSC_NODE_STMT_OR);
-		modelCountKeyList.add(CK_BSC_NODE_STMT_QUERY);
-		modelCountKeyList.add(CK_BSC_NODE_LOGIC_AND);
-		modelCountKeyList.add(CK_BSC_NODE_LOGIC_OR);
-		modelCountKeyList.add(CK_BSC_STATUS_INIT);
-		modelCountKeyList.add(CK_BSC_STATUS_PROCESS);
-		modelCountKeyList.add(CK_BSC_STATUS_COMPLETE);
-		modelCountKeyList.add(CK_BSC_OP_LOOP);
-		modelCountKeyList.add(CK_BSC_OP_RELOCATE);
-		modelCountKeyList.add(CK_BSC_OP_SEARCH);
-		modelCountKeyList.add(CK_BSC_CIRCULAR_PROOF);
 
 		modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
 	}
@@ -147,30 +108,6 @@ public class XRModelCount {
 	public static List<String> getCounterKeyList() {
 		return modelCountKeyList;
 	}
-
-	public int bscCircularProof = 0;
-
-	public int bscNodeLogicAnd = 0;
-
-	public int bscNodeLogicOr = 0;
-
-	public int bscNodeStmtAnd = 0;
-
-	public int bscNodeStmtOr = 0;
-
-	public int bscNodeStmtQuery = 0;
-
-	public int bscOpLoop = 0;
-
-	public int bscOpRelocate = 0;
-
-	public int bscOpSearch = 0;
-
-	public int bscStatusComplete = 0;
-
-	public int bscStatusInit = 0;
-
-	public int bscStatusProcess = 0;
 
 	public long gcCount = 0;
 
@@ -197,8 +134,6 @@ public class XRModelCount {
 	public long mcAddUpdateNode = 0;
 
 	public long mcAssumeStatement = 0;
-
-	public long mcBackSearch = 0;
 
 	public long mcDoGC = 0;
 
@@ -323,45 +258,6 @@ public class XRModelCount {
 
 		case CK_TRY_ADD_STMT:
 			return mcTryAddStatement;
-
-		case CK_BACK_SEARCH:
-			return mcBackSearch;
-
-		case CK_BSC_NODE_STMT_AND:
-			return bscNodeStmtAnd;
-
-		case CK_BSC_NODE_STMT_OR:
-			return bscNodeStmtOr;
-
-		case CK_BSC_NODE_STMT_QUERY:
-			return bscNodeStmtQuery;
-
-		case CK_BSC_NODE_LOGIC_AND:
-			return bscNodeLogicAnd;
-
-		case CK_BSC_NODE_LOGIC_OR:
-			return bscNodeLogicOr;
-
-		case CK_BSC_STATUS_INIT:
-			return bscStatusInit;
-
-		case CK_BSC_STATUS_PROCESS:
-			return bscStatusProcess;
-
-		case CK_BSC_STATUS_COMPLETE:
-			return bscStatusComplete;
-
-		case CK_BSC_OP_LOOP:
-			return bscOpLoop;
-
-		case CK_BSC_OP_RELOCATE:
-			return bscOpRelocate;
-
-		case CK_BSC_CIRCULAR_PROOF:
-			return bscCircularProof;
-
-		case CK_BSC_OP_SEARCH:
-			return bscOpSearch;
 
 		}
 

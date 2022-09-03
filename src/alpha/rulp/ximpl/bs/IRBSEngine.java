@@ -15,8 +15,6 @@ public interface IRBSEngine {
 
 	public boolean hasStmt(IRBSNode node, IRList stmt) throws RException;
 
-	public void incBscOpRelocate(int count);
-
 	public boolean isTrace();
 
 	public IRList search(IRList tree, boolean explain) throws RException;

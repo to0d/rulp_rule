@@ -9,21 +9,7 @@ import alpha.rulp.ximpl.node.IRNodeGraph;
 
 public abstract class AbsBSEngine implements IRBSEngine {
 
-	protected int bscCircularProof = 0;
-
-	protected int bscNodeLogicAnd = 0;
-
-	protected int bscNodeLogicOr = 0;
-
-	protected int bscNodeStmtAnd = 0;
-
-	protected int bscNodeStmtOr = 0;
-
-	protected int bscNodeStmtQuery = 0;
-
 	protected int bscOpLoop = 0;
-
-	protected int bscOpRelocate = 0;
 
 	protected int bscOpSearch = 0;
 
@@ -67,31 +53,6 @@ public abstract class AbsBSEngine implements IRBSEngine {
 
 		_addNode(node);
 
-		switch (node.getType()) {
-		case LOGIC_AND:
-			this.bscNodeLogicAnd++;
-			break;
-
-		case LOGIC_OR:
-			this.bscNodeLogicOr++;
-			break;
-
-		case STMT_AND:
-			this.bscNodeStmtAnd++;
-			break;
-
-		case STMT_OR:
-			this.bscNodeStmtOr++;
-			break;
-
-		case STMT_QUERY:
-			this.bscNodeStmtQuery++;
-			break;
-
-		default:
-			break;
-		}
-
 		int nodeId = _nextNodeId();
 		String nodeName = BSUtil.getBSNodeName(node.getType(), nodeId);
 
@@ -99,55 +60,6 @@ public abstract class AbsBSEngine implements IRBSEngine {
 		node.setNodeName(nodeName);
 		node.setStatus(BSStats.INIT);
 		node.setEngine(this);
-
-	}
-
-	public int getBscCircularProof() {
-		return bscCircularProof;
-	}
-
-	public int getBscNodeLogicAnd() {
-		return bscNodeLogicAnd;
-	}
-
-	public int getBscNodeLogicOr() {
-		return bscNodeLogicOr;
-	}
-
-	public int getBscNodeStmtAnd() {
-		return bscNodeStmtAnd;
-	}
-
-	public int getBscNodeStmtOr() {
-		return bscNodeStmtOr;
-	}
-
-	public int getBscNodeStmtQuery() {
-		return bscNodeStmtQuery;
-	}
-
-	public int getBscOpLoop() {
-		return bscOpLoop;
-	}
-
-	public int getBscOpRelocate() {
-		return bscOpRelocate;
-	}
-
-	public int getBscOpSearch() {
-		return bscOpSearch;
-	}
-
-	public int getBscStatusComplete() {
-		return bscStatusComplete;
-	}
-
-	public int getBscStatusInit() {
-		return bscStatusInit;
-	}
-
-	public int getBscStatusProcess() {
-		return bscStatusProcess;
 	}
 
 	@Override
@@ -172,11 +84,6 @@ public abstract class AbsBSEngine implements IRBSEngine {
 	}
 
 	@Override
-	public void incBscOpRelocate(int count) {
-		this.bscOpRelocate += count;
-	}
-
-	@Override
 	public boolean isTrace() {
 		return trace;
 	}
@@ -187,14 +94,29 @@ public abstract class AbsBSEngine implements IRBSEngine {
 			throw new RException("invalid bs tree: " + tree);
 		}
 
-		this.trace = BSUtil.isBSTrace(model.getFrame());
+		this.bscOpLoop = 0;
+		this.bscOpSearch = 0;
+		this.bscStatusInit = 0;
+		this.bscStatusProcess = 0;
+		this.bscStatusComplete = 0;
 
-		return _search(tree, explain);
+		try {
+			this.trace = BSUtil.isBSTrace(model.getFrame());
+			return _search(tree, explain);
+
+		} finally {
+
+			BSFactory.incBscOpLoop(bscOpLoop);
+			BSFactory.incBscOpSearch(bscOpSearch);
+			BSFactory.incBscStatusInit(bscStatusInit);
+			BSFactory.incBscStatusProcess(bscStatusProcess);
+			BSFactory.incBscStatusComplete(bscStatusComplete);
+		}
 	}
 
 	@Override
 	public void trace_outln(IRBSNode node, String line) {
-		_outln(String.format("%05d %s%s: %s", getBscOpLoop(), RulpUtil.getSpaceLine(node.getLevel()),
-				node.getNodeName(), line));
+		_outln(String.format("%05d %s%s: %s", bscOpLoop, RulpUtil.getSpaceLine(node.getLevel()), node.getNodeName(),
+				line));
 	}
 }

@@ -9,8 +9,11 @@ import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 
 public class BSUtil {
@@ -89,4 +92,24 @@ public class BSUtil {
 
 	}
 
+	public static IRList backSearch(IRModel model, IRList tree, BSSearchType st, boolean explain) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> backSearch: tree=" + tree + ", search=" + st + ", explain=" + explain);
+		}
+
+		if (tree == null) {
+			throw new RException("not support null");
+		}
+
+		if (ReteUtil.isReteStmtNoVar(tree)) {
+
+			// Check root node for root statement
+			if (model.hasStatement(tree)) {
+				return RulpFactory.createList(tree);
+			}
+		}
+
+		return BSFactory.createEngine(model, st).search(tree, explain);
+	}
 }
