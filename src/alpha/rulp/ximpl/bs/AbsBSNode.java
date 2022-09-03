@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class AbsBSNode implements IRBSNode {
 
-	protected XRBackSearcher bs;
+	protected IRBSEngine engine;
 
 	protected ArrayList<AbsBSNode> childNodes;
 
@@ -12,7 +12,7 @@ public abstract class AbsBSNode implements IRBSNode {
 
 	protected int level = -1;
 
-	protected int nodeId;
+	protected int nodeId = -1;
 
 	protected String nodeName;
 
@@ -20,18 +20,7 @@ public abstract class AbsBSNode implements IRBSNode {
 
 	protected BSStats status;
 
-	public AbsBSNode(XRBackSearcher bs, int nodeId, String nodeName) {
-		super();
-		this.nodeId = nodeId;
-		this.nodeName = nodeName;
-		this.bs = bs;
-	}
-
 	public void addChild(AbsBSNode child) {
-
-		if (bs._isTrace()) {
-			bs._outln(this, String.format("add child, type=%s, name=%s", child.getType(), child.nodeName));
-		}
 
 		if (this.childNodes == null) {
 			this.childNodes = new ArrayList<>();
@@ -70,6 +59,10 @@ public abstract class AbsBSNode implements IRBSNode {
 		return level;
 	}
 
+	public int getNodeId() {
+		return nodeId;
+	}
+
 	public String getNodeName() {
 		return nodeName;
 	}
@@ -80,6 +73,18 @@ public abstract class AbsBSNode implements IRBSNode {
 
 	public BSStats getStatus() {
 		return status;
+	}
+
+	public void setEngine(IRBSEngine bs) {
+		this.engine = bs;
+	}
+
+	public void setNodeId(int nodeId) {
+		this.nodeId = nodeId;
+	}
+
+	public void setNodeName(String nodeName) {
+		this.nodeName = nodeName;
 	}
 
 	@Override

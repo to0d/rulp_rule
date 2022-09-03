@@ -32,6 +32,8 @@ public interface Constant {
 	String A_Dup = "dup";
 
 	String A_Forward = "forward";
+	
+	String A_DEEP_FIRST = "deep-first";
 
 	String A_Backward = "backward";
 

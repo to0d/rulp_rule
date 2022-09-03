@@ -11,11 +11,6 @@ public abstract class AbsBSNodeLogic extends AbsBSNode {
 
 	protected List<IRList> stmtList;
 
-	public AbsBSNodeLogic(XRBackSearcher bs, int nodeId, String nodeName, List<IRList> stmtList) {
-		super(bs, nodeId, nodeName);
-		this.stmtList = stmtList;
-	}
-
 	@Override
 	public void complete() throws RException {
 
@@ -25,7 +20,7 @@ public abstract class AbsBSNodeLogic extends AbsBSNode {
 	public void init() throws RException {
 
 		for (IRList stmt : stmtList) {
-			this.addChild(bs._newNode(stmt));
+			BSFactory.addChild(engine, this, BSFactory.createNode(engine, stmt));
 		}
 
 		this.status = BSStats.PROCESS;

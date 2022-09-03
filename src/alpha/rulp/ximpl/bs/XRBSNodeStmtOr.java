@@ -10,17 +10,15 @@ import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.node.SourceNode;
 
-public class XRBSNodeStmtOr extends AbsBSNode {
+public class XRBSNodeStmtOr extends AbsBSNode implements IRBSNodeStmt {
+
+	protected boolean needComplete = true;
 
 	protected boolean rst;
 
 	protected IRList stmt;
 
 	protected IRBSNode succChild = null;
-
-	public XRBSNodeStmtOr(XRBackSearcher bs, int nodeId, String nodeName) {
-		super(bs, nodeId, nodeName);
-	}
 
 	public IRList buildResultTree(boolean explain) throws RException {
 
@@ -38,37 +36,36 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 	public void complete() throws RException {
 
 		// re-check statement in case it was deleted
-		if (!bs._hasStmt(this, this.stmt)) {
+		if (!engine.hasStmt(this, this.stmt)) {
 			this.rst = false;
 		}
 	}
-
-	protected boolean needComplete = true;
 
 	public String getStatusString() {
 		return String.format("succ-child=%s, needComplete=%s", succChild == null ? "null" : succChild.getNodeName(),
 				"" + needComplete);
 	}
 
+	@Override
 	public IRList getStmt() {
 		return stmt;
 	}
 
 	@Override
-	public BSType getType() {
-		return BSType.STMT_OR;
+	public BSNodeType getType() {
+		return BSNodeType.STMT_OR;
 	}
 
 	public void init() throws RException {
 
-		if (bs._hasStmt(this, this.stmt)) {
+		if (engine.hasStmt(this, this.stmt)) {
 			this.status = BSStats.COMPLETE;
 			this.rst = true;
 			this.needComplete = false;
 			return;
 		}
 
-		ArrayList<SourceNode> sourceNodes = new ArrayList<>(bs.graph.listSourceNodes(stmt));
+		ArrayList<SourceNode> sourceNodes = new ArrayList<>(engine.getGraph().listSourceNodes(stmt));
 		Collections.sort(sourceNodes, (s1, s2) -> {
 			return s1.rule.getRuleName().compareTo(s2.rule.getRuleName());
 		});
@@ -81,15 +78,15 @@ public class XRBSNodeStmtOr extends AbsBSNode {
 					continue;
 				}
 
-				this.addChild(bs._newNodeStmtAnd(stmt, sn, action));
+				BSFactory.addChild(engine, this, BSFactory.createNodeStmtAnd(engine, stmt, sn, action));
 			}
 		}
 
 		// no child
 		if (this.getChildCount() == 0) {
 
-			if (bs._isTrace()) {
-				bs._outln(this, "not child, return false");
+			if (engine.isTrace()) {
+				engine.trace_outln(this, "not child, return false");
 			}
 
 			this.status = BSStats.COMPLETE;

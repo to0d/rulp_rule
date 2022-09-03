@@ -1,7 +1,5 @@
 package alpha.rulp.ximpl.bs;
 
-import java.util.List;
-
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.RulpFactory;
@@ -9,10 +7,6 @@ import alpha.rulp.utils.RulpFactory;
 public class XRBSNodeLogicOr extends AbsBSNodeLogic {
 
 	protected IRBSNode succChild = null;
-
-	public XRBSNodeLogicOr(XRBackSearcher bs, int nodeId, String nodeName, List<IRList> stmtList) {
-		super(bs, nodeId, nodeName, stmtList);
-	}
 
 	@Override
 	public IRList buildResultTree(boolean explain) throws RException {
@@ -30,8 +24,8 @@ public class XRBSNodeLogicOr extends AbsBSNodeLogic {
 	}
 
 	@Override
-	public BSType getType() {
-		return BSType.LOGIC_OR;
+	public BSNodeType getType() {
+		return BSNodeType.LOGIC_OR;
 	}
 
 	@Override

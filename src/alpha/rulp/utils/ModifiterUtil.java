@@ -6,6 +6,7 @@ import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_Backward;
+import static alpha.rulp.rule.Constant.A_DEEP_FIRST;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Explain;
 import static alpha.rulp.rule.Constant.A_Forward;
@@ -297,6 +298,7 @@ public class ModifiterUtil {
 		modifierMap.put(A_Forward, new XModifier0(A_Forward));
 		modifierMap.put(A_Backward, new XModifier0(A_Backward));
 		modifierMap.put(A_Explain, new XModifier0(A_Explain));
+		modifierMap.put(A_DEEP_FIRST, new XModifier0(A_DEEP_FIRST));
 	}
 
 	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {

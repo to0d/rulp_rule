@@ -47,10 +47,6 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 
 	protected IRList stmt;
 
-	public XRBSNodeStmtAnd(XRBackSearcher bs, int nodeId, String nodeName) {
-		super(bs, nodeId, nodeName);
-	}
-
 	public IRList buildResultTree(boolean explain) throws RException {
 
 		if (!this.isSucc()) {
@@ -82,12 +78,12 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 		}
 
 		AbsBSNode lastChild = this.childNodes.get(childNodes.size() - 1);
-		if (lastChild.getType() == BSType.STMT_QUERY) {
+		if (lastChild.getType() == BSNodeType.STMT_QUERY) {
 
 			boolean hasMore = ((XRBSNodeStmtQuery) lastChild).hasMore();
 
-			if (bs._isTrace()) {
-				bs._outln(this, String.format("complete-query, hasMore=%s", "" + hasMore));
+			if (engine.isTrace()) {
+				engine.trace_outln(this, String.format("complete-query, hasMore=%s", "" + hasMore));
 			}
 
 			if (!hasMore) {
@@ -97,7 +93,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 		}
 
 		this.sourceNode.rule.start(-1, -1);
-		this.rst = bs._hasStmt(this, this.stmt);
+		this.rst = engine.hasStmt(this, this.stmt);
 	}
 
 	public boolean execute(List<IRList> childStmts) throws RException {
@@ -109,7 +105,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 
 		for (IRList childStmt : childStmts) {
 
-			IRReteNode rootNode = bs._getGraph().findRootNode(childStmt.getNamedName(), childStmt.size());
+			IRReteNode rootNode = engine.getGraph().findRootNode(childStmt.getNamedName(), childStmt.size());
 			if (!rootNodes.contains(rootNode)) {
 				rootNodes.add(rootNode);
 			}
@@ -148,7 +144,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 			}
 
 			if (si.relocatedStmtIndexs != null) {
-				bs.bscOpRelocate += si.relocatedStmtIndexs.size();
+				engine.incBscOpRelocate(si.relocatedStmtIndexs.size());
 				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
 			}
 		}
@@ -161,7 +157,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 			}
 		}
 
-		return bs._hasStmt(this, this.stmt);
+		return engine.hasStmt(this, this.stmt);
 	}
 
 	public String getStatusString() {
@@ -169,8 +165,8 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 	}
 
 	@Override
-	public BSType getType() {
-		return BSType.STMT_AND;
+	public BSNodeType getType() {
+		return BSNodeType.STMT_AND;
 	}
 
 	public void init() throws RException {
@@ -206,22 +202,8 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 				IRList newStmt = (IRList) RuntimeUtil.rebuild(list, varValueMap);
 
 				if (ReteUtil.isReteStmtNoVar(newStmt)) {
-
 					// The and should fail once circular proof be found
-					if (bs._isCircularProof(newStmt)) {
-
-						if (bs._isTrace()) {
-							bs._outln(this, String.format("circular proof found, stmt=%s, return false", newStmt));
-						}
-
-						this.status = BSStats.COMPLETE;
-						this.rst = false;
-						bs.bscCircularProof++;
-
-						return;
-					}
-
-					this.addChild(bs._newNodeStmtOr(newStmt));
+					BSFactory.addChild(engine, this, BSFactory.createNodeStmtOr(engine, newStmt));
 				}
 				// '(?a p b) should be used in query node
 				else {
@@ -236,14 +218,14 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 		}
 
 		if (queryStmtList != null) {
-			this.addChild(bs._newNodeStmtQuery(queryStmtList));
+			BSFactory.addChild(engine, this, BSFactory.createNodeStmtQuery(engine, queryStmtList));
 		}
 
 		// no child
 		if (this.getChildCount() == 0) {
 
-			if (bs._isTrace()) {
-				bs._outln(this, "not child, return false");
+			if (engine.isTrace()) {
+				engine.trace_outln(this, "not child, return false");
 			}
 
 			this.status = BSStats.COMPLETE;
@@ -265,7 +247,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 		List<IRList> stmts = null;
 
 		for (AbsBSNode childNode : childNodes) {
-			if (childNode.getType() == BSType.STMT_OR) {
+			if (childNode.getType() == BSNodeType.STMT_OR) {
 
 				XRBSNodeStmtOr orNode = (XRBSNodeStmtOr) childNode;
 				if (stmts == null) {

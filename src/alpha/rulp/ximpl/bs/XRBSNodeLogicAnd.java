@@ -3,7 +3,6 @@ package alpha.rulp.ximpl.bs;
 import static alpha.rulp.lang.Constant.O_B_AND;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -13,15 +12,6 @@ import alpha.rulp.utils.RulpFactory;
 public class XRBSNodeLogicAnd extends AbsBSNodeLogic {
 
 	protected IRBSNode failChild = null;
-
-	public XRBSNodeLogicAnd(XRBackSearcher bs, int nodeId, String nodeName, List<IRList> stmtList) {
-		super(bs, nodeId, nodeName, stmtList);
-	}
-
-	@Override
-	public String getStatusString() {
-		return String.format("fail-child=%s", failChild == null ? "null" : failChild.getNodeName());
-	}
 
 	@Override
 	public IRList buildResultTree(boolean explain) throws RException {
@@ -43,8 +33,13 @@ public class XRBSNodeLogicAnd extends AbsBSNodeLogic {
 	}
 
 	@Override
-	public BSType getType() {
-		return BSType.LOGIC_AND;
+	public String getStatusString() {
+		return String.format("fail-child=%s", failChild == null ? "null" : failChild.getNodeName());
+	}
+
+	@Override
+	public BSNodeType getType() {
+		return BSNodeType.LOGIC_AND;
 	}
 
 	@Override

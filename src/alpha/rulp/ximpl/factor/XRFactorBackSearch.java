@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
+import static alpha.rulp.rule.Constant.A_DEEP_FIRST;
 import static alpha.rulp.rule.Constant.A_Explain;
 
 import alpha.rulp.lang.IRFrame;
@@ -11,6 +12,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.ximpl.bs.BSSearchType;
 import alpha.rulp.ximpl.bs.BSUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
@@ -60,6 +62,7 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 		argIndex++;
 
 		boolean explain = false;
+		BSSearchType st = null;
 
 		/********************************************/
 		// Check modifier
@@ -72,12 +75,16 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 				explain = true;
 				break;
 
+			case A_DEEP_FIRST:
+				st = BSSearchType.DFS;
+				break;
+
 			default:
 				throw new RException("unsupport modifier: " + modifier.name);
 			}
 		}
 
-		return model.backSearch((IRList) obj, explain);
+		return model.backSearch((IRList) obj, st, explain);
 	}
 
 }

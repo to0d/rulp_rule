@@ -19,10 +19,6 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 
 	protected IRList queryReteNodeTree;
 
-	public XRBSNodeStmtQuery(XRBackSearcher bs, int nodeId, String nodeName) {
-		super(bs, nodeId, nodeName);
-	}
-
 	@Override
 	public boolean addEntry(IRReteEntry entry) throws RException {
 
@@ -48,8 +44,8 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 	}
 
 	@Override
-	public BSType getType() {
-		return BSType.STMT_QUERY;
+	public BSNodeType getType() {
+		return BSNodeType.STMT_QUERY;
 	}
 
 	public boolean hasMore() throws RException {
@@ -59,7 +55,7 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 		}
 
 		int oldSize = queryResultEntrySet.size();
-		bs.model.query(this, queryReteNodeTree, -1, true);
+		engine.getModel().query(this, queryReteNodeTree, -1, true);
 		queryBackward = true;
 
 		return queryResultEntrySet.size() > oldSize;
@@ -91,14 +87,14 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 		if (!queryForward) {
 
 			// query forward
-			bs.model.query(this, queryReteNodeTree, -1, false);
+			engine.getModel().query(this, queryReteNodeTree, -1, false);
 			queryForward = true;
 		}
 
 		if (!queryBackward && !isSucc()) {
 
 			// query forward
-			bs.model.query(this, queryReteNodeTree, -1, true);
+			engine.getModel().query(this, queryReteNodeTree, -1, true);
 			queryBackward = true;
 		}
 

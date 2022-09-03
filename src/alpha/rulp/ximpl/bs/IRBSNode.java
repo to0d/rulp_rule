@@ -17,8 +17,6 @@ public interface IRBSNode {
 
 	public int getLevel();
 
-	public boolean needComplete();
-
 	public String getNodeName();
 
 	public IRBSNode getParentNode();
@@ -27,11 +25,13 @@ public interface IRBSNode {
 
 	public String getStatusString();
 
-	public BSType getType();
+	public BSNodeType getType();
 
 	public void init() throws RException;
 
 	public boolean isSucc();
+
+	public boolean needComplete();
 
 	public void process(IRBSNode lastNode) throws RException;
 
