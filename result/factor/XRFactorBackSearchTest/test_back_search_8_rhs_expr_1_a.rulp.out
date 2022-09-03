@@ -1,0 +1,17 @@
+(new model m)
+(add-rule m if n1:'(?x) (< ?x 3) do (-> n1:'((+ ?x 1))))
+(add-stmt m n1:'(1))
+;=>m RU000 true
+
+(start m)
+;=>8
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(back-search m n1:'(3))
+;=>'(n1:'(3))
+
+(list-stmt m)
+;=>'(n1:'(1) n1:'(2) n1:'(3))
+
