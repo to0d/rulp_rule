@@ -7,8 +7,20 @@
 (setq ?bs-trace true)
 ;=>
 
+(dump-status m (+ ?script-path ".status.1.txt"))
+;=>
+
 (back-search m '(a p c) explain)
 ;=>
 
 (list-stmt m)
+;=>
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>
+
+(gc-model m)
+;=>
+
+(dump-status m (+ ?script-path ".status.3.txt"))
 ;=>

@@ -7,6 +7,9 @@
 (setq ?bs-trace true)
 ;=>&?bs-trace
 
+(dump-status m (+ ?script-path ".status.1.txt"))
+;=>nil
+
 (back-search m '(a p c) explain)
 ;=>'('(a p c) ("RU000" '('(a p ?b) '(?b p c))))
 ;out:
@@ -40,4 +43,13 @@
 
 (list-stmt m)
 ;=>'('(a p b) '(b p c) '(a p c))
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>nil
+
+(gc-model m)
+;=>0
+
+(dump-status m (+ ?script-path ".status.3.txt"))
+;=>nil
 
