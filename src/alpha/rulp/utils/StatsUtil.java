@@ -89,12 +89,12 @@ import alpha.rulp.ximpl.node.SourceNode;
 
 public class StatsUtil {
 
-	public static final OutputType ALL_OUT_TYPE[] = { new OutputType(RReteType.ALPH0, RCountType.DefinedCount),
-			new OutputType(RReteType.BETA0, RCountType.DefinedCount),
+	public static final OutputType ALL_OUT_TYPE[] = { new OutputType(RReteType.ALPH0, RCountType.EntryDefinedCount),
+			new OutputType(RReteType.BETA0, RCountType.EntryDefinedCount),
 			new OutputType(RReteType.BETA0, RCountType.MatchCount),
-			new OutputType(RReteType.BETA2, RCountType.DefinedCount),
+			new OutputType(RReteType.BETA2, RCountType.EntryDefinedCount),
 			new OutputType(RReteType.BETA2, RCountType.MatchCount),
-			new OutputType(RReteType.BETA3, RCountType.DefinedCount),
+			new OutputType(RReteType.BETA3, RCountType.EntryDefinedCount),
 			new OutputType(RReteType.BETA3, RCountType.MatchCount),
 			new OutputType(RReteType.RULE, RCountType.ExecCount),
 			new OutputType(RReteType.RULE, RCountType.UpdateCount) };
@@ -241,18 +241,18 @@ public class StatsUtil {
 		case FailedCount:
 			return 4;
 
-		case DropCount:
-		case NullCount:
-		case NodeCount:
+		case EntryDropCount:
+		case EntryNullCount:
+		case NodeExistCount:
 		case ExecCount:
 		case IdleCount:
-		case FixedCount:
-		case TempCount:
-		case RemoveCount:
+		case EntryFixedCount:
+		case EntryTempCount:
+		case EntryRemoveCount:
 			return 5;
 
-		case CreateEntry:
-		case DeleteEntry:
+		case EntryCreateCount:
+		case EntryDeleteCount:
 			return 6;
 
 		default:
@@ -263,28 +263,28 @@ public class StatsUtil {
 	private static String _getCountTypeName(RCountType type) {
 
 		switch (type) {
-		case AssumeCount:
+		case EntryAssumeCount:
 			return "Assume";
 
-		case BindFromCount:
+		case NodeBindFromCount:
 			return "BindFr";
 
-		case BindToCount:
+		case NodeBindToCount:
 			return "BindTo";
 
-		case DefinedCount:
+		case EntryDefinedCount:
 			return "Define";
 
-		case FixedCount:
+		case EntryFixedCount:
 			return "Fixed";
 
-		case RemoveCount:
+		case EntryRemoveCount:
 			return "Remove";
 
-		case TempCount:
+		case EntryTempCount:
 			return "Temp";
 
-		case DropCount:
+		case EntryDropCount:
 			return "Drop";
 
 		case ExecCount:
@@ -311,13 +311,13 @@ public class StatsUtil {
 		case MinPriority:
 			return "MinP";
 
-		case NodeCount:
+		case NodeExistCount:
 			return "Node";
 
-		case SourceCount:
+		case NodeSourceCount:
 			return "Source";
 
-		case NullCount:
+		case EntryNullCount:
 			return "Null";
 
 		case QueryFetch:
@@ -326,7 +326,7 @@ public class StatsUtil {
 		case QueryMatch:
 			return "QMatch";
 
-		case ReasonCount:
+		case EntryReasonCount:
 			return "Reason";
 
 		case UpdateCount:
@@ -335,10 +335,10 @@ public class StatsUtil {
 		case RedundantCount:
 			return "Redunt";
 
-		case CreateEntry:
+		case EntryCreateCount:
 			return "Create";
 
-		case DeleteEntry:
+		case EntryDeleteCount:
 			return "Delete";
 
 		default:
@@ -1260,7 +1260,7 @@ public class StatsUtil {
 		boolean hasNode = false;
 		for (RReteType reteType : RReteType.ALL_RETE_TYPE) {
 
-			if (RReteType.isRootType(reteType) || modelCounter.getCount(reteType, RCountType.NodeCount) == 0) {
+			if (RReteType.isRootType(reteType) || modelCounter.getCount(reteType, RCountType.NodeExistCount) == 0) {
 				continue;
 			}
 
@@ -1284,7 +1284,7 @@ public class StatsUtil {
 
 		for (RReteType reteType : RReteType.ALL_RETE_TYPE) {
 
-			if (RReteType.isRootType(reteType) || modelCounter.getCount(reteType, RCountType.NodeCount) == 0) {
+			if (RReteType.isRootType(reteType) || modelCounter.getCount(reteType, RCountType.NodeExistCount) == 0) {
 				continue;
 			}
 
@@ -1827,7 +1827,7 @@ public class StatsUtil {
 
 			for (RReteType reteType : RReteType.ALL_RETE_TYPE) {
 
-				if (reteCounter.getCount(reteType, RCountType.NodeCount) == 0) {
+				if (reteCounter.getCount(reteType, RCountType.NodeExistCount) == 0) {
 					continue;
 				}
 
@@ -2240,24 +2240,24 @@ public class StatsUtil {
 		// root0 node
 		{
 			String count = String.format("%d,%d,%d,%d,%d,%d,%d,%d,%d",
-					reteCounter.getCount(RReteType.ROOT0, RCountType.FixedCount),
-					reteCounter.getCount(RReteType.ROOT0, RCountType.DefinedCount),
-					reteCounter.getCount(RReteType.ROOT0, RCountType.ReasonCount),
-					reteCounter.getCount(RReteType.ROOT0, RCountType.DropCount),
-					reteCounter.getCount(RReteType.ROOT0, RCountType.RemoveCount),
-					reteCounter.getCount(RReteType.ROOT0, RCountType.TempCount),
-					reteCounter.getCount(RReteType.ROOT0, RCountType.AssumeCount),
-					reteCounter.getCount(RReteType.ROOT0, RCountType.NullCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryFixedCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryDefinedCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryReasonCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryDropCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryRemoveCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryTempCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryAssumeCount),
+					reteCounter.getCount(RReteType.ROOT0, RCountType.EntryNullCount),
 					reteCounter.getCount(RReteType.ROOT0, RCountType.RedundantCount));
 			count = _simpleCountStr(count);
 			out += String.format("sc=[%s],", count);
 		}
 
 		// table node
-		if (reteCounter.getCount(RReteType.NAME0, RCountType.NodeCount) > 0) {
-			String count = String.format("%d,%d,%d,%d,%d", reteCounter.getCount(RReteType.NAME0, RCountType.FixedCount),
-					reteCounter.getCount(RReteType.NAME0, RCountType.NodeCount),
-					reteCounter.getCount(RReteType.NAME0, RCountType.DefinedCount),
+		if (reteCounter.getCount(RReteType.NAME0, RCountType.NodeExistCount) > 0) {
+			String count = String.format("%d,%d,%d,%d,%d", reteCounter.getCount(RReteType.NAME0, RCountType.EntryFixedCount),
+					reteCounter.getCount(RReteType.NAME0, RCountType.NodeExistCount),
+					reteCounter.getCount(RReteType.NAME0, RCountType.EntryDefinedCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.ExecCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.IdleCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.UpdateCount));
@@ -2266,12 +2266,12 @@ public class StatsUtil {
 		}
 
 		// var node
-		if (reteCounter.getCount(RReteType.VAR, RCountType.NodeCount) > 0) {
+		if (reteCounter.getCount(RReteType.VAR, RCountType.NodeExistCount) > 0) {
 
 			String count = String.format("%d, %d, %d, %d, %d",
-					reteCounter.getCount(RReteType.VAR, RCountType.NodeCount),
-					reteCounter.getCount(RReteType.VAR, RCountType.FixedCount),
-					reteCounter.getCount(RReteType.VAR, RCountType.DefinedCount),
+					reteCounter.getCount(RReteType.VAR, RCountType.NodeExistCount),
+					reteCounter.getCount(RReteType.VAR, RCountType.EntryFixedCount),
+					reteCounter.getCount(RReteType.VAR, RCountType.EntryDefinedCount),
 					reteCounter.getCount(RReteType.VAR, RCountType.ExecCount),
 					reteCounter.getCount(RReteType.VAR, RCountType.IdleCount),
 					reteCounter.getCount(RReteType.VAR, RCountType.UpdateCount));
@@ -2281,13 +2281,13 @@ public class StatsUtil {
 
 		for (RReteType rtype : DETAIL_RETE_TYPES) {
 
-			if (reteCounter.getCount(rtype, RCountType.NodeCount) > 0) {
+			if (reteCounter.getCount(rtype, RCountType.NodeExistCount) > 0) {
 
 				String name = _getReteTypeShortName(rtype);
 
 				String count1 = String.format("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",
-						reteCounter.getCount(rtype, RCountType.NodeCount),
-						reteCounter.getCount(rtype, RCountType.SourceCount),
+						reteCounter.getCount(rtype, RCountType.NodeExistCount),
+						reteCounter.getCount(rtype, RCountType.NodeSourceCount),
 						reteCounter.getCount(rtype, RCountType.MaxLevel),
 						reteCounter.getCount(rtype, RCountType.MaxPriority),
 						reteCounter.getCount(rtype, RCountType.ExecCount),
@@ -2298,18 +2298,18 @@ public class StatsUtil {
 						reteCounter.getCount(rtype, RCountType.RedundantCount),
 						reteCounter.getCount(rtype, RCountType.QueryFetch),
 						reteCounter.getCount(rtype, RCountType.QueryMatch),
-						reteCounter.getCount(rtype, RCountType.BindFromCount),
-						reteCounter.getCount(rtype, RCountType.BindToCount));
+						reteCounter.getCount(rtype, RCountType.NodeBindFromCount),
+						reteCounter.getCount(rtype, RCountType.NodeBindToCount));
 
 				String count2 = String.format("%d,%d,%d,%d,%d,%d,%d,%d",
-						reteCounter.getCount(rtype, RCountType.FixedCount),
-						reteCounter.getCount(rtype, RCountType.DefinedCount),
-						reteCounter.getCount(rtype, RCountType.ReasonCount),
-						reteCounter.getCount(rtype, RCountType.DropCount),
-						reteCounter.getCount(rtype, RCountType.RemoveCount),
-						reteCounter.getCount(rtype, RCountType.TempCount),
-						reteCounter.getCount(rtype, RCountType.AssumeCount),
-						reteCounter.getCount(rtype, RCountType.NullCount));
+						reteCounter.getCount(rtype, RCountType.EntryFixedCount),
+						reteCounter.getCount(rtype, RCountType.EntryDefinedCount),
+						reteCounter.getCount(rtype, RCountType.EntryReasonCount),
+						reteCounter.getCount(rtype, RCountType.EntryDropCount),
+						reteCounter.getCount(rtype, RCountType.EntryRemoveCount),
+						reteCounter.getCount(rtype, RCountType.EntryTempCount),
+						reteCounter.getCount(rtype, RCountType.EntryAssumeCount),
+						reteCounter.getCount(rtype, RCountType.EntryNullCount));
 
 				count1 = _simpleCountStr(count1);
 				count2 = _simpleCountStr(count2);

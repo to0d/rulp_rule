@@ -2,20 +2,20 @@ package alpha.rulp.rule;
 
 public enum RCountType {
 
-	CreateEntry(0), //
-	DeleteEntry(1), //
-	FixedCount(2), //
-	DefinedCount(3), //
-	ReasonCount(4), //
-	AssumeCount(5), //
-	DropCount(6), //
-	RemoveCount(7), //
-	TempCount(8), //
-	NullCount(9), //
-	BindFromCount(10), //
-	BindToCount(11), //
-	NodeCount(12), //
-	SourceCount(13), //
+	EntryCreateCount(0), //
+	EntryDeleteCount(1), //
+	EntryFixedCount(2), //
+	EntryDefinedCount(3), //
+	EntryReasonCount(4), //
+	EntryAssumeCount(5), //
+	EntryDropCount(6), //
+	EntryRemoveCount(7), //
+	EntryTempCount(8), //
+	EntryNullCount(9), //
+	NodeBindFromCount(10), //
+	NodeBindToCount(11), //
+	NodeExistCount(12), //
+	NodeSourceCount(13), //
 	ExecCount(14), //
 	IdleCount(15), //
 	FailedCount(16), //
@@ -31,10 +31,11 @@ public enum RCountType {
 
 	public static final int COUNT_TYPE_NUM = 26;
 
-	public static final RCountType ALL_COUNT_TYPE[] = { CreateEntry, DeleteEntry, FixedCount, DefinedCount, ReasonCount,
-			AssumeCount, DropCount, RemoveCount, TempCount, NullCount, BindFromCount, BindToCount, NodeCount,
-			SourceCount, ExecCount, IdleCount, FailedCount, MatchCount, UpdateCount, RedundantCount, MinLevel, MaxLevel,
-			MinPriority, MaxPriority, QueryMatch, QueryFetch };
+	public static final RCountType ALL_COUNT_TYPE[] = { EntryCreateCount, EntryDeleteCount, EntryFixedCount,
+			EntryDefinedCount, EntryReasonCount, EntryAssumeCount, EntryDropCount, EntryRemoveCount, EntryTempCount,
+			EntryNullCount, NodeBindFromCount, NodeBindToCount, NodeExistCount, NodeSourceCount, ExecCount, IdleCount,
+			FailedCount, MatchCount, UpdateCount, RedundantCount, MinLevel, MaxLevel, MinPriority, MaxPriority,
+			QueryMatch, QueryFetch };
 
 	private int index;
 

@@ -52,49 +52,49 @@ public class XRReteCounter implements IRReteNodeCounter {
 			value = 0;
 
 			switch (countType) {
-			case DefinedCount:
+			case EntryDefinedCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryCount(DEFINE);
 				}
 				break;
 
-			case FixedCount:
+			case EntryFixedCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryCount(FIXED_);
 				}
 				break;
 
-			case AssumeCount:
+			case EntryAssumeCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryCount(ASSUME);
 				}
 				break;
 
-			case ReasonCount:
+			case EntryReasonCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryCount(REASON);
 				}
 				break;
 
-			case DropCount:
+			case EntryDropCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryCount(null);
 				}
 				break;
 
-			case RemoveCount:
+			case EntryRemoveCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryCount(REMOVE);
 				}
 				break;
 
-			case TempCount:
+			case EntryTempCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryCount(TEMP__);
 				}
 				break;
 
-			case NullCount:
+			case EntryNullCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryQueue().getEntryCounter().getEntryNullCount();
 				}
@@ -106,23 +106,23 @@ public class XRReteCounter implements IRReteNodeCounter {
 				}
 				break;
 
-			case BindFromCount:
+			case NodeBindFromCount:
 				for (IRReteNode node : nodeList) {
 					value += model.getNodeGraph().listBindFromNodes(node).size();
 				}
 				break;
 
-			case BindToCount:
+			case NodeBindToCount:
 				for (IRReteNode node : nodeList) {
 					value += model.getNodeGraph().listBindToNodes(node).size();
 				}
 				break;
 
-			case NodeCount:
+			case NodeExistCount:
 				value = nodeList.size();
 				break;
 
-			case SourceCount:
+			case NodeSourceCount:
 				for (IRReteNode node : nodeList) {
 					value += RuleUtil.listSource(reteNodeMatrix.getModel(), node).size();
 				}
@@ -228,14 +228,14 @@ public class XRReteCounter implements IRReteNodeCounter {
 
 				break;
 
-			case CreateEntry:
+			case EntryCreateCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryCreateCount();
 				}
 
 				break;
 
-			case DeleteEntry:
+			case EntryDeleteCount:
 				for (IRReteNode node : nodeList) {
 					value += node.getEntryDeleteCount();
 				}
