@@ -1,9 +1,9 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0         3      0     0      3      0      0     0     0     0     0      0      0     1      0     1     0    0        0      3      0    0    0    0    0      0       3
-EXPR0         0      0     0      2      0      0     0     0     0     0      0      0     1      0     2     1    0        3      2      0    1    1    0    0      0       2
+NAME0         3      0     0      3      0      0     0     0     0     0      0      0     1    1      0     1     0    0        0      3      0    0    0    0    0      0       3
+EXPR0         0      0     0      2      0      0     0     0     0     0      0      0     1    1      0     2     1    0        3      2      0    1    1    0    0      0       2
 ===============================================================================================================================================================================
 
 node info:
@@ -78,9 +78,9 @@ graph-listSourceNodes                 4
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0                                                                                                                                                                       
+EXPR0                                                                                                                                                                            
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

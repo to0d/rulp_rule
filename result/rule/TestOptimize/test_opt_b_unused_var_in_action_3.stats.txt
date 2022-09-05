@@ -1,12 +1,12 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0         4      0     0      4      0      0     0     0     0     0      0      0     1      0     1     0    0        0      4      0    0    0  900  900      0       8
-ALPH0         0      0     0      4      0      0     0     0     0     0      0      0     1      0     1     0    0        4      4      0    1    1   99   99      0      20
-BETA0        16      0     0      0     16      0     0     0     0     0      0      0     1      0     1     0    0       16     16      0    2    2   99   99      0      16
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    4    4   99   99      0       0
-INHER         1      0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        0     16     15    3    3   99   99      0       1
+ROOT0         4      0     0      4      0      0     0     0     0     0      0      0     1    1      0     1     0    0        0      4      0    0    0  900  900      0       8
+ALPH0         0      0     0      4      0      0     0     0     0     0      0      0     1    1      0     1     0    0        4      4      0    1    1   99   99      0      20
+BETA0        16      0     0      0     16      0     0     0     0     0      0      0     1    1      0     1     0    0       16     16      0    2    2   99   99      0      16
+RULE          0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     1     0    0        0      1      0    4    4   99   99      0       0
+INHER         1      0     0      0      1      0     0     0     0     0      0      0     1    1      0     1     0    0        0     16     15    3    3   99   99      0       1
 ===============================================================================================================================================================================
 
 node info:
@@ -103,12 +103,12 @@ graph-listSourceNodes                 8
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if '(?a p ?b) '(?a p ?c) do (println (+ "R1: " ?a)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      4      0      0     0     0     0     0      0      0     1      0     1     0    0        4      4      0    1    1   99   99      0      20
-BETA0        16      0     0      0     16      0     0     0     0     0      0      0     1      0     1     0    0       16     16      0    2    2   99   99      0      16
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    4    4   99   99      0       0
-INHER         1      0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        0     16     15    3    3   99   99      0       1
+ALPH0         0      0     0      4      0      0     0     0     0     0      0      0    1      0     1     0    0        4      4      0    1    1   99   99      0      20
+BETA0        16      0     0      0     16      0     0     0     0     0      0      0    1      0     1     0    0       16     16      0    2    2   99   99      0      16
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    4    4   99   99      0       0
+INHER         1      0     0      0      1      0     0     0     0     0      0      0    1      0     1     0    0        0     16     15    3    3   99   99      0       1
 ===============================================================================================================================================================================
 
 node info:
@@ -137,12 +137,12 @@ RU000     :          4         0        16         0         0         0        
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0                          0                                                         0            0                   0      0           0    0    0    0              0
-BETA0      0                          0                                                  0            0                   0      0           0    0    0    0              0
- RULE                                                                                    0            0                          0           0    0    0    0               
-INHER      0                          0                                                  0            0                          0      0    0    0    0    0              0
+ALPH0                          0                                                              0            0                   0      0           0    0    0    0              0
+BETA0      0                          0                                                       0            0                   0      0           0    0    0    0              0
+ RULE                                                                                         0            0                          0           0    0    0    0               
+INHER      0                          0                                                       0            0                          0      0    0    0    0    0              0
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

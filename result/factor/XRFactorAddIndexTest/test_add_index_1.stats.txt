@@ -1,11 +1,11 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    0    0  900  900      0       0
-NAME0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    0    0    0    0      0       0
-ALPH0         0      0     0      0      0      0     0     0     0     0      0      0     3      0     0     0    0        0      0      0    1    2    0    0      0       0
-INDEX         0      0     0      0      0      0     0     0     0     0      0      0     4      0     0     0    0        0      0      0    1    3    0    0      0       0
+ROOT0         0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     0     0    0        0      0      0    0    0  900  900      0       0
+NAME0         0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     0     0    0        0      0      0    0    0    0    0      0       0
+ALPH0         0      0     0      0      0      0     0     0     0     0      0      0     3    3      0     0     0    0        0      0      0    1    2    0    0      0       0
+INDEX         0      0     0      0      0      0     0     0     0     0      0      0     4    4      0     0     0    0        0      0      0    1    3    0    0      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -102,10 +102,10 @@ graph-listSourceNodes                18
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0                                                                                                                                                                       
-INDEX                                                                                                                                                                       
+ALPH0                                                                                                                                                                            
+INDEX                                                                                                                                                                            
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

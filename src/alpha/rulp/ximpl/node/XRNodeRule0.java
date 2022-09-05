@@ -64,6 +64,11 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		}
 
 		@Override
+		public int getNodeCreateType(RReteType reteType) {
+			return 0;
+		}
+
+		@Override
 		public List<? extends IRReteNode> getNodeList(RReteType reteType) {
 
 			if (nodeListMap == null) {
@@ -329,7 +334,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 	public IRList getLastValues() {
 		return lastValueEntry;
 	}
-	
+
 	@Override
 	public LinkedList<IRList> getMatchStmtList() {
 		return matchStmtList;

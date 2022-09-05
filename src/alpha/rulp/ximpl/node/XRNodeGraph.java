@@ -14,29 +14,29 @@ import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
 import static alpha.rulp.rule.Constant.STMT_MAX_LEN;
 import static alpha.rulp.rule.RCountType.EntryAssumeCount;
-import static alpha.rulp.rule.RCountType.NodeBindFromCount;
-import static alpha.rulp.rule.RCountType.NodeBindToCount;
 import static alpha.rulp.rule.RCountType.EntryCreateCount;
 import static alpha.rulp.rule.RCountType.EntryDefinedCount;
 import static alpha.rulp.rule.RCountType.EntryDeleteCount;
 import static alpha.rulp.rule.RCountType.EntryDropCount;
+import static alpha.rulp.rule.RCountType.EntryFixedCount;
+import static alpha.rulp.rule.RCountType.EntryNullCount;
+import static alpha.rulp.rule.RCountType.EntryReasonCount;
+import static alpha.rulp.rule.RCountType.EntryRemoveCount;
+import static alpha.rulp.rule.RCountType.EntryTempCount;
 import static alpha.rulp.rule.RCountType.ExecCount;
 import static alpha.rulp.rule.RCountType.FailedCount;
-import static alpha.rulp.rule.RCountType.EntryFixedCount;
 import static alpha.rulp.rule.RCountType.IdleCount;
 import static alpha.rulp.rule.RCountType.MatchCount;
 import static alpha.rulp.rule.RCountType.MaxLevel;
 import static alpha.rulp.rule.RCountType.MaxPriority;
 import static alpha.rulp.rule.RCountType.MinPriority;
+import static alpha.rulp.rule.RCountType.NodeBindFromCount;
+import static alpha.rulp.rule.RCountType.NodeBindToCount;
 import static alpha.rulp.rule.RCountType.NodeExistCount;
-import static alpha.rulp.rule.RCountType.EntryNullCount;
+import static alpha.rulp.rule.RCountType.NodeSourceCount;
 import static alpha.rulp.rule.RCountType.QueryFetch;
 import static alpha.rulp.rule.RCountType.QueryMatch;
-import static alpha.rulp.rule.RCountType.EntryReasonCount;
 import static alpha.rulp.rule.RCountType.RedundantCount;
-import static alpha.rulp.rule.RCountType.EntryRemoveCount;
-import static alpha.rulp.rule.RCountType.NodeSourceCount;
-import static alpha.rulp.rule.RCountType.EntryTempCount;
 import static alpha.rulp.rule.RCountType.UpdateCount;
 import static alpha.rulp.rule.RReteStatus.ASSUME;
 import static alpha.rulp.rule.RReteStatus.DEFINE;
@@ -229,6 +229,8 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected final Map<String, AbsReteNode> namedNodeMap = new HashMap<>();
 
+	protected int nodeCreateCountArray[] = new int[RReteType.RETE_TYPE_NUM];
+
 	protected ArrayList<IRReteNode> nodeInfoArray = new ArrayList<>();
 
 	protected final ReteNodeList[] nodeListArray = new ReteNodeList[RReteType.RETE_TYPE_NUM];
@@ -254,11 +256,13 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		for (int i = 0; i < RReteType.RETE_TYPE_NUM; ++i) {
 			this.nodeListArray[i] = new ReteNodeList();
+			this.nodeCreateCountArray[i] = 0;
 		}
 
 		for (int i = 0; i < RCountType.COUNT_TYPE_NUM; ++i) {
 			this.gcRemoveNodeCountArray[i] = 0;
 		}
+
 	}
 
 	protected void _addNode(AbsReteNode node) throws RException {
@@ -301,6 +305,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			this.nodeInfoArray.add(null);
 		}
 		this.nodeInfoArray.set(nodeId, node);
+		this.nodeCreateCountArray[reteType.getIndex()]++;
 
 		_graphChanged();
 
@@ -1447,12 +1452,14 @@ public class XRNodeGraph implements IRNodeGraph {
 					.getEntryCount(ASSUME);
 			gcRemoveNodeCountArray[EntryReasonCount.getIndex()] += node.getEntryQueue().getEntryCounter()
 					.getEntryCount(REASON);
-			gcRemoveNodeCountArray[EntryDropCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryCount(null);
+			gcRemoveNodeCountArray[EntryDropCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryCount(null);
 			gcRemoveNodeCountArray[EntryRemoveCount.getIndex()] += node.getEntryQueue().getEntryCounter()
 					.getEntryCount(REMOVE);
 			gcRemoveNodeCountArray[EntryTempCount.getIndex()] += node.getEntryQueue().getEntryCounter()
 					.getEntryCount(TEMP__);
-			gcRemoveNodeCountArray[EntryNullCount.getIndex()] += node.getEntryQueue().getEntryCounter().getEntryNullCount();
+			gcRemoveNodeCountArray[EntryNullCount.getIndex()] += node.getEntryQueue().getEntryCounter()
+					.getEntryNullCount();
 			gcRemoveNodeCountArray[RedundantCount.getIndex()] += node.getEntryQueue().getRedundantCount();
 			gcRemoveNodeCountArray[NodeBindFromCount.getIndex()] += model.getNodeGraph().listBindFromNodes(node).size();
 			gcRemoveNodeCountArray[NodeBindToCount.getIndex()] += model.getNodeGraph().listBindToNodes(node).size();
@@ -2155,6 +2162,10 @@ public class XRNodeGraph implements IRNodeGraph {
 		return maxRootStmtLen;
 	}
 
+	public int getNodeCreateType(RReteType reteType) {
+		return this.nodeCreateCountArray[reteType.getIndex()];
+	}
+
 	@Override
 	public IReteNodeMatrix getNodeMatrix() {
 
@@ -2175,6 +2186,11 @@ public class XRNodeGraph implements IRNodeGraph {
 			@Override
 			public IRModel getModel() {
 				return model;
+			}
+
+			@Override
+			public int getNodeCreateType(RReteType reteType) {
+				return XRNodeGraph.this.getNodeCreateType(reteType);
 			}
 
 			@Override

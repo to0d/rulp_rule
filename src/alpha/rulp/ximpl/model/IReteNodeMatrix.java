@@ -8,9 +8,11 @@ import alpha.rulp.ximpl.node.RReteType;
 
 public interface IReteNodeMatrix {
 
-	public List<? extends IRReteNode> getNodeList(RReteType reteType);
-
 	public List<? extends IRReteNode> getAllNodes();
 
 	public IRModel getModel();
+
+	public int getNodeCreateType(RReteType reteType);
+
+	public List<? extends IRReteNode> getNodeList(RReteType reteType);
 }

@@ -1,13 +1,13 @@
 Model<mm> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0        14      0     0     10      4      0     0     0     0     0      0      0     2      2     3     0    0        0     14      4    0    0  900  900      0      52
-ALPH0         0      0     0     12      4      0     0     0     0     0      0      0     6      6     9     0    0       42     16      0    1    2   99   99      0      73
-BETA0        14      0     0      0     14      0     0     0     0     0      0      0     2      0     2     0    0       40     14      0    2    3   99   99      0      18
-BETA2         0      0     0      0      6      0     0     0     0     0      0      0     1      0     2     1    0       21      6      0    3    3   99   99      0       6
-BETA3         4      0     0      0      2      0     0     0     0     0      0      0     1      0     1     0    0        4      2      0    4    4   99   99      0       2
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        0      8      4    4    5   99   99      0       0
+ROOT0        14      0     0     10      4      0     0     0     0     0      0      0     2    2      2     3     0    0        0     14      4    0    0  900  900      0      52
+ALPH0         0      0     0     12      4      0     0     0     0     0      0      0     6    6      6     9     0    0       42     16      0    1    2   99   99      0      73
+BETA0        14      0     0      0     14      0     0     0     0     0      0      0     2    2      0     2     0    0       40     14      0    2    3   99   99      0      18
+BETA2         0      0     0      0      6      0     0     0     0     0      0      0     1    1      0     2     1    0       21      6      0    3    3   99   99      0       6
+BETA3         4      0     0      0      2      0     0     0     0     0      0      0     1    1      0     1     0    0        4      2      0    4    4   99   99      0       2
+RULE          0      0     0      0      0      0     0     0     0     0      0      0     2    2      0     2     0    0        0      8      4    4    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -185,12 +185,12 @@ graph-listSourceNodes                25
 
 Rule<RU000> stats: priority=099, expr=(add-rule mm if '(?g1 typeof guess) '(?g2 typeof guess) '(?g1 has-sex ?s1) '(?g2 has-sex ?s2) (not (equal ?g1 ?g2)) do (if (equal ?s1 ?s2) (-> '(canBeCouple ?g1 ?g2 false)) (-> '(canBeCouple ?g1 ?g2 true))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      6      0      0     0     0     0     0      0      0     3      3     5     0    0       26      6      0    1    2   99   99      0       8
-BETA0         2      0     0      0      2      0     0     0     0     0      0      0     1      0     1     0    0        4      2      0    3    3   99   99      0       6
-BETA3         4      0     0      0      2      0     0     0     0     0      0      0     1      0     1     0    0        4      2      0    4    4   99   99      0       2
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    5    5   99   99      0       0
+ALPH0         0      0     0      6      0      0     0     0     0     0      0      0    3      3     5     0    0       26      6      0    1    2   99   99      0       8
+BETA0         2      0     0      0      2      0     0     0     0     0      0      0    1      0     1     0    0        4      2      0    3    3   99   99      0       6
+BETA3         4      0     0      0      2      0     0     0     0     0      0      0    1      0     1     0    0        4      2      0    4    4   99   99      0       2
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      2      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -214,12 +214,12 @@ Priority        ALPH0 BETA0 BETA3  RULE
 
 Rule<RU001> stats: priority=099, expr=(add-rule mm if '(canBeCouple ?g1 ?g2 true) '(?g1 has-hobby ?h) '(?g2 has-hobby ?h) do (-> '(canSitTogether ?g1 ?g2)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      6      4      0     0     0     0     0      0      0     3      3     4     0    0       16     10      0    1    2   99   99      0      65
-BETA0        12      0     0      0     12      0     0     0     0     0      0      0     1      0     1     0    0       36     12      0    2    2   99   99      0      12
-BETA2         0      0     0      0      6      0     0     0     0     0      0      0     1      0     2     1    0       21      6      0    3    3   99   99      0       6
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      6      4    4    4   99   99      0       0
+ALPH0         0      0     0      6      4      0     0     0     0     0      0      0    3      3     4     0    0       16     10      0    1    2   99   99      0      65
+BETA0        12      0     0      0     12      0     0     0     0     0      0      0    1      0     1     0    0       36     12      0    2    2   99   99      0      12
+BETA2         0      0     0      0      6      0     0     0     0     0      0      0    1      0     2     1    0       21      6      0    3    3   99   99      0       6
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      6      4    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -251,13 +251,13 @@ RU001     :          6         0        36         0        21         0        
 
 Model<mm> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0                          0      0                                                  0      0     0                   0      0         500  500  500  500              0
-BETA0      0                          0                                                  0            0                   0      0         600  399  500  500              0
-BETA2                                 0                                                  0            0     0             0      0           0    0    0    0              0
-BETA3      0                          0                                                  0            0                   0      0           0    0    0    0              0
- RULE                                                                                    0            0                          0      0  555  444  500  500               
+ALPH0                          0      0                                                       0      0     0                   0      0         500  500  500  500              0
+BETA0      0                          0                                                       0            0                   0      0         600  399  500  500              0
+BETA2                                 0                                                       0            0     0             0      0           0    0    0    0              0
+BETA3      0                          0                                                       0            0                   0      0           0    0    0    0              0
+ RULE                                                                                         0            0                          0      0  555  444  500  500               
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

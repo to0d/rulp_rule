@@ -239,16 +239,17 @@ public class StatsUtil {
 		case MinPriority:
 		case MaxPriority:
 		case FailedCount:
+		case NodeExistCount:
 			return 4;
 
 		case EntryDropCount:
 		case EntryNullCount:
-		case NodeExistCount:
 		case ExecCount:
 		case IdleCount:
 		case EntryFixedCount:
 		case EntryTempCount:
 		case EntryRemoveCount:
+		case NodeTotalCount:
 			return 5;
 
 		case EntryCreateCount:
@@ -313,6 +314,9 @@ public class StatsUtil {
 
 		case NodeExistCount:
 			return "Node";
+
+		case NodeTotalCount:
+			return "Total";
 
 		case NodeSourceCount:
 			return "Source";
@@ -1820,6 +1824,11 @@ public class StatsUtil {
 			sb.append(SEP_LINE1);
 			sb.append(String.format("%-7s", "NODE"));
 			for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
+
+				if (isRule && countType == RCountType.NodeTotalCount) {
+					continue;
+				}
+
 				sb.append(String.format(" %" + _getCountTypeLength(countType) + "s", _getCountTypeName(countType)));
 			}
 			sb.append("\n");
@@ -1837,6 +1846,11 @@ public class StatsUtil {
 
 				sb.append(String.format("%-8s", "" + reteType));
 				for (RCountType countType : RCountType.ALL_COUNT_TYPE) {
+
+					if (isRule && countType == RCountType.NodeTotalCount) {
+						continue;
+					}
+
 					sb.append(String.format(" %" + _getCountTypeLength(countType) + "d",
 							reteCounter.getCount(reteType, countType)));
 				}
@@ -2255,7 +2269,8 @@ public class StatsUtil {
 
 		// table node
 		if (reteCounter.getCount(RReteType.NAME0, RCountType.NodeExistCount) > 0) {
-			String count = String.format("%d,%d,%d,%d,%d", reteCounter.getCount(RReteType.NAME0, RCountType.EntryFixedCount),
+			String count = String.format("%d,%d,%d,%d,%d",
+					reteCounter.getCount(RReteType.NAME0, RCountType.EntryFixedCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.NodeExistCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.EntryDefinedCount),
 					reteCounter.getCount(RReteType.NAME0, RCountType.ExecCount),

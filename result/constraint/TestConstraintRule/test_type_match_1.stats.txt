@@ -1,11 +1,11 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0         4      1     0      1      0      0     2     1     0     0      0      0     2      1     4     2    0        0      4      0    0    0    0    0      0       9
-EXPR1         0      0     0      0      0      0     2     0     0     0      0      0     1      0     2     1    0        4      2      0    2    2    0    0      0       2
-BETA0         4      0     0      0      1      0     3     0     0     0      0      0     1      0     2     1    0        4      4      0    1    1    0    0      0       4
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        0      2      0    3    3    0    0      0       0
+NAME0         4      1     0      1      0      0     2     1     0     0      0      0     2    2      1     4     2    0        0      4      0    0    0    0    0      0       9
+EXPR1         0      0     0      0      0      0     2     0     0     0      0      0     1    1      0     2     1    0        4      2      0    2    2    0    0      0       2
+BETA0         4      0     0      0      1      0     3     0     0     0      0      0     1    1      0     2     1    0        4      4      0    1    1    0    0      0       4
+RULE          0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     2     1    0        0      2      0    3    3    0    0      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -113,11 +113,11 @@ graph-setRulePriority                 1
 
 Rule<RU000> stats: priority=000, expr=(add-rule m::$cst$ if $cst_type$:'(?node ?index ?type1) $cst_type$:'(?node ?index ?type2) (not (equal ?type1 ?type2)) do (-> $cst_conflict_constraint$:'(?node ?index ?type1 ?type2)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1         0      0     0      0      0      0     2     0     0     0      0      0     1      0     2     1    0        4      2      0    2    2    0    0      0       2
-BETA0         4      0     0      0      1      0     3     0     0     0      0      0     1      0     2     1    0        4      4      0    1    1    0    0      0       4
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        0      2      0    3    3    0    0      0       0
+EXPR1         0      0     0      0      0      0     2     0     0     0      0      0    1      0     2     1    0        4      2      0    2    2    0    0      0       2
+BETA0         4      0     0      0      1      0     3     0     0     0      0      0    1      0     2     1    0        4      4      0    1    1    0    0      0       4
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     1    0        0      2      0    3    3    0    0      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -145,11 +145,11 @@ RU000     :          0         0         4         0         0         0        
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1                                              0                                     0            0     0             0      0           0    0                        0
-BETA0      0                          0            0                                     0            0     0             0      0           0    0                        0
- RULE                                                                                    0            0     0                    0           0    0                         
+EXPR1                                              0                                          0            0     0             0      0           0    0                        0
+BETA0      0                          0            0                                          0            0     0             0      0           0    0                        0
+ RULE                                                                                         0            0     0                    0           0    0                         
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

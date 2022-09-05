@@ -14,28 +14,29 @@ public enum RCountType {
 	EntryNullCount(9), //
 	NodeBindFromCount(10), //
 	NodeBindToCount(11), //
-	NodeExistCount(12), //
-	NodeSourceCount(13), //
-	ExecCount(14), //
-	IdleCount(15), //
-	FailedCount(16), //
-	MatchCount(17), //
-	UpdateCount(18), //
-	RedundantCount(19), //
-	MinLevel(20), //
-	MaxLevel(21), //
-	MinPriority(22), //
-	MaxPriority(23), //
-	QueryMatch(24), //
-	QueryFetch(25); //
+	NodeTotalCount(12), //
+	NodeExistCount(13), //
+	NodeSourceCount(14), //
+	ExecCount(15), //
+	IdleCount(16), //
+	FailedCount(17), //
+	MatchCount(18), //
+	UpdateCount(19), //
+	RedundantCount(20), //
+	MinLevel(21), //
+	MaxLevel(22), //
+	MinPriority(23), //
+	MaxPriority(24), //
+	QueryMatch(25), //
+	QueryFetch(26); //
 
-	public static final int COUNT_TYPE_NUM = 26;
+	public static final int COUNT_TYPE_NUM = 27;
 
 	public static final RCountType ALL_COUNT_TYPE[] = { EntryCreateCount, EntryDeleteCount, EntryFixedCount,
 			EntryDefinedCount, EntryReasonCount, EntryAssumeCount, EntryDropCount, EntryRemoveCount, EntryTempCount,
-			EntryNullCount, NodeBindFromCount, NodeBindToCount, NodeExistCount, NodeSourceCount, ExecCount, IdleCount,
-			FailedCount, MatchCount, UpdateCount, RedundantCount, MinLevel, MaxLevel, MinPriority, MaxPriority,
-			QueryMatch, QueryFetch };
+			EntryNullCount, NodeBindFromCount, NodeBindToCount, NodeTotalCount, NodeExistCount, NodeSourceCount,
+			ExecCount, IdleCount, FailedCount, MatchCount, UpdateCount, RedundantCount, MinLevel, MaxLevel, MinPriority,
+			MaxPriority, QueryMatch, QueryFetch };
 
 	private int index;
 

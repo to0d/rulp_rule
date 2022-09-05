@@ -1,12 +1,12 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0         5      0     0      5      0      0     0     0     0     0      0      0     1      0     1     0    0        0      5      0    0    0  900  900      0      20
-ALPH0         0      0     0      4      0      0     0     0     0     0      0      0     2      0     2     0    0        7      4      0    1    2   99   99      0      11
-EXPR1         0      0     0      5      0      0     0     0     0     0      0      0     1      0     1     0    0        5      5      0    1    1   99   99      0      15
-BETA2         0      0     0      3      0      0     0     0     0     0      0      0     2      0     4     2    0       24      3      0    3    4   99   99      0       3
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
+ROOT0         5      0     0      5      0      0     0     0     0     0      0      0     1    1      0     1     0    0        0      5      0    0    0  900  900      0      20
+ALPH0         0      0     0      4      0      0     0     0     0     0      0      0     2    2      0     2     0    0        7      4      0    1    2   99   99      0      11
+EXPR1         0      0     0      5      0      0     0     0     0     0      0      0     1    1      0     1     0    0        5      5      0    1    1   99   99      0      15
+BETA2         0      0     0      3      0      0     0     0     0     0      0      0     2    2      0     4     2    0       24      3      0    3    4   99   99      0       3
+RULE          0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     0     0    0        0      0      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -116,12 +116,12 @@ graph-listSourceNodes                11
 
 Rule<C7> stats: priority=099, expr=(add-rule "C7" m if '(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) '(?b ?p ?a) (not (equal ?a ?b)) do (error '("Circle found" ?1 ?2)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      4      0      0     0     0     0     0      0      0     2      0     2     0    0        7      4      0    1    2   99   99      0      11
-EXPR1         0      0     0      5      0      0     0     0     0     0      0      0     1      0     1     0    0        5      5      0    1    1   99   99      0      15
-BETA2         0      0     0      3      0      0     0     0     0     0      0      0     2      0     4     2    0       24      3      0    3    4   99   99      0       3
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
+ALPH0         0      0     0      4      0      0     0     0     0     0      0      0    2      0     2     0    0        7      4      0    1    2   99   99      0      11
+EXPR1         0      0     0      5      0      0     0     0     0     0      0      0    1      0     1     0    0        5      5      0    1    1   99   99      0      15
+BETA2         0      0     0      3      0      0     0     0     0     0      0      0    2      0     4     2    0       24      3      0    3    4   99   99      0       3
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -152,12 +152,12 @@ C7        :          4         0         0         3        24         0        
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0                          0                                                         0            0                   0      0           0    0    0    0              0
-EXPR1                          0                                                         0            0                   0      0           0    0    0    0              0
-BETA2                          0                                                         0            0     0             0      0           0    0    0    0              0
- RULE                                                                                    0                                                   0    0    0    0               
+ALPH0                          0                                                              0            0                   0      0           0    0    0    0              0
+EXPR1                          0                                                              0            0                   0      0           0    0    0    0              0
+BETA2                          0                                                              0            0     0             0      0           0    0    0    0              0
+ RULE                                                                                         0                                                   0    0    0    0               
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

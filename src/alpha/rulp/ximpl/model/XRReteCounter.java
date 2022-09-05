@@ -122,6 +122,10 @@ public class XRReteCounter implements IRReteNodeCounter {
 				value = nodeList.size();
 				break;
 
+			case NodeTotalCount:
+				value = reteNodeMatrix.getNodeCreateType(reteType);
+				break;
+
 			case NodeSourceCount:
 				for (IRReteNode node : nodeList) {
 					value += RuleUtil.listSource(reteNodeMatrix.getModel(), node).size();

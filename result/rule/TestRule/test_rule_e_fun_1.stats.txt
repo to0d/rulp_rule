@@ -1,10 +1,10 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0         2      1     0      1      0      0     0     1     0     0      0      0     1      1     1     0    0        0      2      0    0    0   99   99      0       8
-BETA3         4      0     0      0      0      0     1     0     0     0      0      0     1      0     1     0    0        4      1      0    1    1   99   99      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+NAME0         2      1     0      1      0      0     0     1     0     0      0      0     1    1      1     1     0    0        0      2      0    0    0   99   99      0       8
+BETA3         4      0     0      0      0      0     1     0     0     0      0      0     1    1      0     1     0    0        4      1      0    1    1   99   99      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -101,10 +101,10 @@ graph-listSourceNodes                 4
 
 Rule<RU000> stats: priority=099, expr=(add-rule m if n1:'(?x ?t1) n1:'(?y ?t2) (day-is-bigger-than ?t1 ?t2) do (remove-stmt ?0))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-BETA3         4      0     0      0      0      0     1     0     0     0      0      0     1      0     1     0    0        4      1      0    1    1   99   99      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+BETA3         4      0     0      0      0      0     1     0     0     0      0      0    1      0     1     0    0        4      1      0    1    1   99   99      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -131,10 +131,10 @@ RU000     :          0         0         0         0         0         0        
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-BETA3      0                                       0                                     0            0                   0      0           0    0    0    0              0
- RULE                                                                                    0            0                          0           0    0    0    0               
+BETA3      0                                       0                                          0            0                   0      0           0    0    0    0              0
+ RULE                                                                                         0            0                          0           0    0    0    0               
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

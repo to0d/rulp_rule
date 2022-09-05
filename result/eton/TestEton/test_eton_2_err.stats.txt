@@ -1,13 +1,13 @@
 Model<em> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0         3      0     0      2      1      0     0     0     0     0      0      0     5      2     5     2    0        0      3      0    0    0    0  199      0      11
-EXPR0         0      0     0      0      0      0     0     0     0     0      0      0     2      0     1     0    0        1      0      0    2    2  197  198      0       0
-EXPR1         0      0     0      0      0      0     0     0     0     0      0      0     2      0     2     0    0        2      0      0    2    2  195  196      0       0
-BETA0         4      0     0      0      4      0     0     0     0     0      0      0     5      0     5     1    0        4      4      0    1    1    0  198      0       4
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     5      0     1     0    0        0      1      0    1    4  195  199      0       0
-INHER         0      0     0      0      0      0     0     0     0     0      0      0     2      0     0     0    0        0      0      0    3    3  197  198      0       0
+NAME0         3      0     0      2      1      0     0     0     0     0      0      0     5    5      2     5     2    0        0      3      0    0    0    0  199      0      11
+EXPR0         0      0     0      0      0      0     0     0     0     0      0      0     2    2      0     1     0    0        1      0      0    2    2  197  198      0       0
+EXPR1         0      0     0      0      0      0     0     0     0     0      0      0     2    2      0     2     0    0        2      0      0    2    2  195  196      0       0
+BETA0         4      0     0      0      4      0     0     0     0     0      0      0     5    5      0     5     1    0        4      4      0    1    1    0  198      0       4
+RULE          0      0     0      0      0      0     0     0     0     0      0      0     5    5      0     1     0    0        0      1      0    1    4  195  199      0       0
+INHER         0      0     0      0      0      0     0     0     0     0      0      0     2    2      0     0     0    0        0      0      0    3    3  197  198      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -212,9 +212,9 @@ graph-setRulePriority                 5
 
 Rule<R1> stats: priority=199, expr=(add-rule "R1" if eton_daily_task1:'(?task ?arg0) do (add_working_task ?task ?arg0))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    1    1  199  199      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    1    1  199  199      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -233,12 +233,12 @@ Priority         RULE
 
 Rule<R2> stats: priority=198, expr=(add-rule "R2" if eton_working_task1:'(?day1 ?task ?arg0) eton_working_task1:'(?day2 ?task ?arg0) (day-is-bigger-than ?day1 ?day2) do (trace "R2:remove-stmt: " ?1) (remove-stmt ?1))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  198  198      0       0
-BETA0         1      0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1  198  198      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4  198  198      0       0
-INHER         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  198  198      0       0
+EXPR0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        1      0      0    2    2  198  198      0       0
+BETA0         1      0     0      0      1      0     0     0     0     0      0      0    1      0     1     0    0        1      1      0    1    1  198  198      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    4    4  198  198      0       0
+INHER         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3  198  198      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -260,12 +260,12 @@ Priority        EXPR0 BETA0  RULE INHER
 
 Rule<R3> stats: priority=197, expr=(add-rule "R3" if eton_working_task1:'(?day1 ?task ?arg0) eton_completed_task1:'(?day2 ?task ?arg0) (not (day-is-bigger-than ?day1 ?day2)) do (trace "R3:remove-stmt: " ?0) (remove-stmt ?0))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    2    2  197  197      0       0
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     1    0        0      0      0    1    1  197  197      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4  197  197      0       0
-INHER         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  197  197      0       0
+EXPR0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    2    2  197  197      0       0
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     1    0        0      0      0    1    1  197  197      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    4    4  197  197      0       0
+INHER         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3  197  197      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -287,11 +287,11 @@ Priority        EXPR0 BETA0  RULE INHER
 
 Rule<R4> stats: priority=196, expr=(add-rule "R4" if task_func:'(?t1 ?f1) task_func:'(?t1 ?f2) (!= ?f1 ?f2) do (throw bad-rule (+ "duplicated task func: name=" ?t1 ", f1=" ?f1 ", f2=" ?f2)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  196  196      0       0
-BETA0         1      0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1  196  196      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  196  196      0       0
+EXPR1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        1      0      0    2    2  196  196      0       0
+BETA0         1      0     0      0      1      0     0     0     0     0      0      0    1      0     1     0    0        1      1      0    1    1  196  196      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3  196  196      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -312,11 +312,11 @@ Priority        EXPR1 BETA0  RULE
 
 Rule<R5> stats: priority=195, expr=(add-rule "R5" if task_func:'(?t1 ?f1) task_func:'(?t2 ?f1) (!= ?t1 ?t2) do (throw bad-rule (+ "duplicated task name: n1=" ?t1 ", n2=" ?t2 ", func=" ?f1)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2  195  195      0       0
-BETA0         1      0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    1    1  195  195      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3  195  195      0       0
+EXPR1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        1      0      0    2    2  195  195      0       0
+BETA0         1      0     0      0      1      0     0     0     0     0      0      0    1      0     1     0    0        1      1      0    1    1  195  195      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3  195  195      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -348,13 +348,13 @@ R5        :          0         0         1         0         0         0        
 
 Model<em> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0                                                                                    0            0                   0                500  500  501  498               
-EXPR1                                                                                    0            0                   0                500  500  501  498               
-BETA0   -333                       -333                                               -250         -250     0          -333   -333         750  750 1000  748           -333
- RULE                                                                                    0            0                          0         933  733  802  797               
-INHER                                                                                    0                                                 500  500  501  498               
+EXPR0                                                                                         0            0                   0                500  500  501  498               
+EXPR1                                                                                         0            0                   0                500  500  501  498               
+BETA0   -333                       -333                                                    -250         -250     0          -333   -333         750  750 1000  748           -333
+ RULE                                                                                         0            0                          0         933  733  802  797               
+INHER                                                                                         0                                                 500  500  501  498               
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

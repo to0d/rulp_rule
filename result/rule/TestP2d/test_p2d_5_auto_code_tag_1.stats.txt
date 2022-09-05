@@ -1,18 +1,18 @@
 Model<p2d> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0       187      2   157      3     25      0     0     2   157     0      0      0     1     37    25     1    0        0    187     93    0    0  900  900      0    6773
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0   271      4     33      0     0     2   271     0      0      0    35    255   344     0    0     5387    310      0    1    2    0   99      0    3157
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR0         0      0     0      1      1      0     0     0     0     0      0      0     4      0    13     0    0       19      2      0    3    3   99   99      0       3
-EXPR1         0      0   628     12    101      0     0     6   628     0      0      0     7      0    53     0    0      749    747      0    1    5   99   99      0     605
-EXPR2         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
-BETA0        37      0    22      0     15      0     0     0    22     0      0      0    20      0    82    57    0      394     37      0    2    4   99   99      0      37
-BETA1        22      0     0      0     22      0     0     0     0     0      0      0     9      0    31    23    0       22     22      0    3    5   99   99      0      24
-BETA2         0      0    26      8     59      0     0     6    26     0      0      0    10      0    99    15    0     1380     99      0    3    4   99   99      0     107
-RULE          0      0     0      0      0      0     0     0     0     0      0      0    41      0    51     0    0        0    176     93    2    6   99   99      0       0
+ROOT0       187      2   157      3     25      0     0     2   157     0      0      0     1    1     37    25     1    0        0    187     93    0    0  900  900      0    6773
+VAR           4      0     0      0      0      0     0     0     1     0      0      0     1    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0   271      4     33      0     0     2   271     0      0      0    35   35    255   344     0    0     5387    310      0    1    2    0   99      0    3157
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR0         0      0     0      1      1      0     0     0     0     0      0      0     4    4      0    13     0    0       19      2      0    3    3   99   99      0       3
+EXPR1         0      0   628     12    101      0     0     6   628     0      0      0     7    7      0    53     0    0      749    747      0    1    5   99   99      0     605
+EXPR2         0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     0     0    0        0      0      0    3    3   99   99      0       0
+BETA0        37      0    22      0     15      0     0     0    22     0      0      0    20   20      0    82    57    0      394     37      0    2    4   99   99      0      37
+BETA1        22      0     0      0     22      0     0     0     0     0      0      0     9    9      0    31    23    0       22     22      0    3    5   99   99      0      24
+BETA2         0      0    26      8     59      0     0     6    26     0      0      0    10   10      0    99    15    0     1380     99      0    3    4   99   99      0     107
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    41   41      0    51     0    0        0    176     93    2    6   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1207,14 +1207,14 @@ graph-listSourceNodes               109
 
 Rule<TV1> stats: priority=099, expr=(add-rule "TV1" p2d if (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?tag)) do (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion)))))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      2     10      0     0     0     6     0      0      0     2     16    17     0    0      199     18      0    1    2   99   99      0      68
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     4     0    0        6      0      0    3    3   99   99      0       0
-BETA1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     2    0        0      0      0    4    4   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      2     10      0     0     0     6     0      0      0    2     16    17     0    0      199     18      0    1    2   99   99      0      68
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     4     0    0        6      0      0    3    3   99   99      0       0
+BETA1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     2    0        0      0      0    4    4   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1239,10 +1239,10 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA1  RULE
 
 Rule<TC1> stats: priority=099, expr=(add-rule "TC1" p2d if '(?ti nm:beInstanceTagOf ?tc) do (-> '(?tc nm:beDefinedByTag nt:$TClass)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     1      4    13     0    0      187      1      0    1    1   99   99      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+ALPH0         0      0     0      0      1      0     0     0     0     0      0      0    1      4    13     0    0      187      1      0    1    1   99   99      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1262,11 +1262,11 @@ Priority        ALPH0  RULE
 
 Rule<CC1> stats: priority=099, expr=(add-rule "CC1" p2d if '(?a nm:hasSubCollection ?b) '(?b nm:beParentTagOf ?c) do (-> '(?a nm:beParentTagOf ?c)) (-> '(?a nm:beDefinedByTag nt:$TCollection)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     2     13    26     0    0      374      1      0    1    1   99   99      0       4
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     1    0        0      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      1      0     0     0     0     0      0      0    2     13    26     0    0      374      1      0    1    1   99   99      0       4
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     1    0        0      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1288,10 +1288,10 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<TG1> stats: priority=099, expr=(add-rule "TG1" p2d if '(?c nm:beParentTagOf ?cc) do (-> '(?c nm:hasGroupChild ?cc)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     1      8    13     0    0      187      1      0    1    1   99   99      0       4
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+ALPH0         0      0     0      0      1      0     0     0     0     0      0      0    1      8    13     0    0      187      1      0    1    1   99   99      0       4
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1311,10 +1311,10 @@ Priority        ALPH0  RULE
 
 Rule<TG3> stats: priority=099, expr=(add-rule "TG3" p2d if '(?x nm:hasGroupParent ?p) do (-> '(nt:$TGROUP nm:hasRelatedTag ?p)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     1      4    13     0    0      187      1      0    1    1   99   99      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+ALPH0         0      0     0      0      1      0     0     0     0     0      0      0    1      4    13     0    0      187      1      0    1    1   99   99      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1334,11 +1334,11 @@ Priority        ALPH0  RULE
 
 Rule<C1> stats: priority=099, expr=(add-rule "C1" p2d if '(?p1 nm:inverseProperty ?p2) '(?t1 ?p1 ?t2) do (-> '(?t2 ?p2 ?t1)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0    26      0      0      0     0     0    26     0      0      0     1      6    13     0    0      187     26      0    1    1   99   99      0     481
-BETA0        14      0     0      0     14      0     0     0     0     0      0      0     1      0    13     1    0      321     14      0    2    2   99   99      0      14
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     7     0    0        0     14      7    3    3   99   99      0       0
+ALPH0         0      0    26      0      0      0     0     0    26     0      0      0    1      6    13     0    0      187     26      0    1    1   99   99      0     481
+BETA0        14      0     0      0     14      0     0     0     0     0      0      0    1      0    13     1    0      321     14      0    2    2   99   99      0      14
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     7     0    0        0     14      7    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1359,11 +1359,11 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<C2> stats: priority=099, expr=(add-rule "C2" p2d if '(?a ?p ?a) '(?p nm:propertyOf nm:nonSelfDefine) do (println "a=" ?a ", p=" ?p) (throw p2d-conflict ?0))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   138      0      0      0     0     0   138     0      0      0     3     51    29     0    0      486    138      0    1    2   99   99      0     672
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     1    0        0      0      0    3    3   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
+ALPH0         0      0   138      0      0      0     0     0   138     0      0      0    3     51    29     0    0      486    138      0    1    2   99   99      0     672
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     1    0        0      0      0    3    3   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1386,11 +1386,11 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<C3> stats: priority=099, expr=(add-rule "C3" p2d if '(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty) do (-> '(?a nm:typeOf nm:tag)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   138      0      0      0     0     0   138     0      0      0     2     13    16     0    0      299    138      0    1    2   99   99      0     964
-BETA2         0      0     0      2     14      0     0     2     0     0      0      0     1      0    14     1    0      210     18      0    3    3   99   99      0      18
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     7     0    0        0     18     17    4    4   99   99      0       0
+ALPH0         0      0   138      0      0      0     0     0   138     0      0      0    2     13    16     0    0      299    138      0    1    2   99   99      0     964
+BETA2         0      0     0      2     14      0     0     2     0     0      0      0    1      0    14     1    0      210     18      0    3    3   99   99      0      18
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     7     0    0        0     18     17    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1412,13 +1412,13 @@ Priority        ALPH0 BETA2  RULE
 
 Rule<C4> stats: priority=099, expr=(add-rule "C4" p2d if '(?a ?p ?b) '(?a ?p ?c) '(?p nm:propertyOf nm:singlePropery) (not (equal ?b ?c)) do (throw p2d-conflict '(?0 ?1)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   113      0      0      0     0     0   113     0      0      0     2     12    16     0    0      299    113      0    1    2   99   99      0     737
-EXPR1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0    13    13    0        0      0      0    4    4   99   99      0       0
-BETA2         0      0     0      0      0      0     0     0     0     0      0      0     1      0    13     1    0       64      0      0    3    3   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    6    6   99   99      0       0
+ALPH0         0      0   113      0      0      0     0     0   113     0      0      0    2     12    16     0    0      299    113      0    1    2   99   99      0     737
+EXPR1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    5    5   99   99      0       0
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0    13    13    0        0      0      0    4    4   99   99      0       0
+BETA2         0      0     0      0      0      0     0     0     0     0      0      0    1      0    13     1    0       64      0      0    3    3   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    6    6   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1442,11 +1442,11 @@ Priority        ALPH0 EXPR1 BETA0 BETA2  RULE
 
 Rule<C5> stats: priority=099, expr=(add-rule "C5" p2d if '(?a ?p ?b) '(?p nm:propertyOf nm:symmetricProperty) do (-> '(?b ?p ?a)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   116      0      0      0     0     0   116     0      0      0     2     12    16     0    0      299    116      0    1    2   99   99      0     796
-BETA2         0      0    26      0      2      0     0     2    26     0      0      0     1      0    13     1    0      116     30      0    3    3   99   99      0      30
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     6     0    0        0     30     15    4    4   99   99      0       0
+ALPH0         0      0   116      0      0      0     0     0   116     0      0      0    2     12    16     0    0      299    116      0    1    2   99   99      0     796
+BETA2         0      0    26      0      2      0     0     2    26     0      0      0    1      0    13     1    0      116     30      0    3    3   99   99      0      30
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     6     0    0        0     30     15    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1468,11 +1468,11 @@ Priority        ALPH0 BETA2  RULE
 
 Rule<C6> stats: priority=099, expr=(add-rule "C6" p2d if '(?a nm:typeOf ?c1) '(?c1 nm:classOf ?c2) do (-> '(?a nm:typeOf ?c2)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     6      1      5      0     0     0     6     0      0      0     2     12    26     0    0      374     12      0    1    1   99   99      0      36
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     4     4    0        0      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     6      1      5      0     0     0     6     0      0      0    2     12    26     0    0      374     12      0    1    1   99   99      0      36
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     4     4    0        0      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1494,15 +1494,15 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<C7> stats: priority=099, expr=(add-rule "C7" p2d if (var-changed ?model-state running completed) '(?p nm:propertyOf nm:nonCircleProperty) '(?a ?p ?b) (not (equal ?a ?b)) do (if (has-stmt p2d '(?b ?p ?a)) (throw '("Circle found" '(?a ?p ?b) '(?b ?p ?a)))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0   138      0      0      0     0     0   138     0      0      0     2     14    16     0    0      299    138      0    1    2   99   99      0    1046
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR1         0      0   157      3     25      0     0     2   157     0      0      0     1      0    13     0    0      187    187      0    1    1   99   99      0     196
-BETA1        14      0     0      0     14      0     0     0     0     0      0      0     1      0     9     7    0       14     14      0    4    4   99   99      0      14
-BETA2         0      0     0      2     12      0     0     0     0     0      0      0     1      0    13     1    0      244     14      0    3    3   99   99      0      14
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     0    0        0     14      0    5    5   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0   138      0      0      0     0     0   138     0      0      0    2     14    16     0    0      299    138      0    1    2   99   99      0    1046
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR1         0      0   157      3     25      0     0     2   157     0      0      0    1      0    13     0    0      187    187      0    1    1   99   99      0     196
+BETA1        14      0     0      0     14      0     0     0     0     0      0      0    1      0     9     7    0       14     14      0    4    4   99   99      0      14
+BETA2         0      0     0      2     12      0     0     0     0     0      0      0    1      0    13     1    0      244     14      0    3    3   99   99      0      14
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     0    0        0     14      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1528,11 +1528,11 @@ Priority          VAR ALPH0 ALPH1 EXPR1 BETA1 BETA2  RULE
 
 Rule<C8> stats: priority=099, expr=(add-rule "C8" p2d if '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) do (-> '(?a nm:typeOf nm:tag)) (-> '(?b nm:typeOf nm:tag)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   137      0      0      0     0     0   137     0      0      0     2     14    16     0    0      299    137      0    1    2   99   99      0    1676
-BETA2         0      0     0      2     14      0     0     2     0     0      0      0     1      0    14     1    0      314     18      0    3    3   99   99      0      18
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     9     0    0        0     18     32    4    4   99   99      0       0
+ALPH0         0      0   137      0      0      0     0     0   137     0      0      0    2     14    16     0    0      299    137      0    1    2   99   99      0    1676
+BETA2         0      0     0      2     14      0     0     2     0     0      0      0    1      0    14     1    0      314     18      0    3    3   99   99      0      18
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     9     0    0        0     18     32    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1554,11 +1554,11 @@ Priority        ALPH0 BETA2  RULE
 
 Rule<T1> stats: priority=099, expr=(add-rule "T1" p2d if '(?a nm:beAliasTo ?b) '(?b nm:beAliasTo ?c) do (throw p2d-conflict '("Can't alias to alias tag" ?0 1)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      0      0     0     0     0     0      0      0     1      4    13     0    0      187      0      0    1    1   99   99      0       0
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      0      0     0     0     0     0      0      0    1      4    13     0    0      187      0      0    1    1   99   99      0       0
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1579,12 +1579,12 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<T2> stats: priority=099, expr=(add-rule "T2" p2d if '(?a nm:beAliasTo ?b) '(?a ?p ?c) (not (equal nm:beAliasTo ?p)) (not (equal nm:hasAliasTag ?p)) do (-> '(?b ?p ?c)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      0      0     0     0     0     0      0      0     1      4    13     0    0      187      0      0    1    1   99   99      0       0
-EXPR1         0      0   314      6     50      0     0     4   314     0      0      0     2      0    26     0    0      374    374      0    1    2   99   99      0     187
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0    13    13    0        0      0      0    3    3   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
+ALPH0         0      0     0      0      0      0     0     0     0     0      0      0    1      4    13     0    0      187      0      0    1    1   99   99      0       0
+EXPR1         0      0   314      6     50      0     0     4   314     0      0      0    2      0    26     0    0      374    374      0    1    2   99   99      0     187
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0    13    13    0        0      0      0    3    3   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1607,12 +1607,12 @@ Priority        ALPH0 EXPR1 BETA0  RULE
 
 Rule<T3> stats: priority=099, expr=(add-rule "T3" p2d if '(?a nm:beAliasTo ?b) '(?c ?p ?a) (not (equal nm:beAliasTo ?p)) (not (equal nm:hasAliasTag ?p)) do (-> '(?c ?p ?b)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      0      0     0     0     0     0      0      0     1      4    13     0    0      187      0      0    1    1   99   99      0       0
-EXPR1         0      0   314      6     50      0     0     4   314     0      0      0     2      0    26     0    0      374    374      0    1    2   99   99      0     187
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0    13    13    0        0      0      0    3    3   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
+ALPH0         0      0     0      0      0      0     0     0     0     0      0      0    1      4    13     0    0      187      0      0    1    1   99   99      0       0
+EXPR1         0      0   314      6     50      0     0     4   314     0      0      0    2      0    26     0    0      374    374      0    1    2   99   99      0     187
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0    13    13    0        0      0      0    3    3   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1635,10 +1635,10 @@ Priority        ALPH0 EXPR1 BETA0  RULE
 
 Rule<T4> stats: priority=099, expr=(add-rule "T4" p2d if '(?p nm:propertyOf nm:tagRelation) do (-> '(?p nm:propertyOf nm:tagProperty)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   137      0      0      0     0     0   137     0      0      0     2     14    16     0    0      299    137      0    1    2   99   99      0    1676
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     0    0        0     25      0    3    3   99   99      0       0
+ALPH0         0      0   137      0      0      0     0     0   137     0      0      0    2     14    16     0    0      299    137      0    1    2   99   99      0    1676
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     0    0        0     25      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1659,11 +1659,11 @@ Priority        ALPH0  RULE
 
 Rule<T5> stats: priority=099, expr=(add-rule "T5" p2d if '(?p1 nm:propertyOf nm:tagRelation) '(?p1 nm:inverseProperty ?p2) do (-> '(?p2 nm:propertyOf nm:tagRelation)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   163      0      0      0     0     0   163     0      0      0     3     20    29     0    0      486    163      0    1    2   99   99      0    2157
-BETA0        22      0    22      0      0      0     0     0    22     0      0      0     1      0     3     1    0       61     22      0    3    3   99   99      0      22
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0     22     22    4    4   99   99      0       0
+ALPH0         0      0   163      0      0      0     0     0   163     0      0      0    3     20    29     0    0      486    163      0    1    2   99   99      0    2157
+BETA0        22      0    22      0      0      0     0     0    22     0      0      0    1      0     3     1    0       61     22      0    3    3   99   99      0      22
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0     22     22    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1686,10 +1686,10 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<T8> stats: priority=099, expr=(add-rule "T8" p2d if '(?p1 nm:inverseSimpleTagProperty ?p2) do (-> '(?p1 nm:propertyOf nm:nonSelfDefine)) (-> '(?p2 nm:propertyOf nm:nonSelfDefine)) (-> '(?p1 nm:propertyOf nm:nonCircleProperty)) (-> '(?p2 nm:propertyOf nm:nonCircleProperty)) (-> '(?p1 nm:propertyOf nm:tagRelation)) (-> '(?p2 nm:propertyOf nm:tagRelation)) (-> '(?p1 nm:inverseProperty ?p2)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0    11      0      0      0     0     0    11     0      0      0     1      4    13     0    0      187     11      0    1    1   99   99      0      11
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0     11      0    2    2   99   99      0       0
+ALPH0         0      0    11      0      0      0     0     0    11     0      0      0    1      4    13     0    0      187     11      0    1    1   99   99      0      11
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0     11      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1709,11 +1709,11 @@ Priority        ALPH0  RULE
 
 Rule<TA5> stats: priority=099, expr=(add-rule "TA5" p2d if '(?a nm:hasTagAttr ?t) '(?a nm:typeOf nm:tagAttr) do (-> '(?a nm:typeOf nm:tag)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0    12      1      5      0     0     0    12     0      0      0     3     17    30     0    0      386     18      0    1    2   99   99      0      36
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     1    0        0      0      0    3    3   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
+ALPH0         0      0    12      1      5      0     0     0    12     0      0      0    3     17    30     0    0      386     18      0    1    2   99   99      0      36
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     1    0        0      0      0    3    3   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1736,10 +1736,10 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<D1> stats: priority=099, expr=(add-rule "D1" p2d if '(?p1 nm:inverseSimpleDomainProperty ?p2) do (-> '(?p1 nm:propertyOf nm:nonSelfDefine)) (-> '(?p2 nm:propertyOf nm:nonSelfDefine)) (-> '(?p1 nm:propertyOf nm:nonCircleProperty)) (-> '(?p2 nm:propertyOf nm:nonCircleProperty)) (-> '(?p1 nm:propertyOf nm:domainRelation)) (-> '(?p2 nm:propertyOf nm:domainRelation)) (-> '(?p1 nm:inverseProperty ?p2)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     2      0      0      0     0     0     2     0      0      0     1      4    13     0    0      187      2      0    1    1   99   99      0       2
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    2    2   99   99      0       0
+ALPH0         0      0     2      0      0      0     0     0     2     0      0      0    1      4    13     0    0      187      2      0    1    1   99   99      0       2
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      2      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1759,10 +1759,10 @@ Priority        ALPH0  RULE
 
 Rule<D2> stats: priority=099, expr=(add-rule "D2" p2d if '(?a nm:beParentDomainOf ?b) do (-> '(?a nm:beAncestorDomainOf ?b)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      0      0     0     0     0     0      0      0     1      5    13     0    0      187      0      0    1    1   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    2    2   99   99      0       0
+ALPH0         0      0     0      0      0      0     0     0     0     0      0      0    1      5    13     0    0      187      0      0    1    1   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1782,11 +1782,11 @@ Priority        ALPH0  RULE
 
 Rule<D3> stats: priority=099, expr=(add-rule "D3" p2d if '(?a nm:beAncestorDomainOf ?b) '(?b nm:beAncestorDomainOf ?c) do (-> '(?a nm:beAncestorDomainOf ?c)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      0      0     0     0     0     0      0      0     1      6    13     0    0      187      0      0    1    1   99   99      0       0
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      0      0     0     0     0     0      0      0    1      6    13     0    0      187      0      0    1    1   99   99      0       0
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1807,11 +1807,11 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<D4> stats: priority=099, expr=(add-rule "D4" p2d if '(?da nm:beAncestorDomainOf ?db) '(?db nm:hasTag ?t) do (-> '(?da nm:hasTag ?t)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      6      0     0     0     0     0      0      0     2     12    26     0    0      374      6      0    1    1   99   99      0       0
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     4     4    0        0      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      6      0     0     0     0     0      0      0    2     12    26     0    0      374      6      0    1    1   99   99      0       0
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     4     4    0        0      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1833,10 +1833,10 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<D5> stats: priority=099, expr=(add-rule "D5" p2d if '(?t nm:typeOf nm:tag) do (-> '(nd:Global nm:hasTag ?t)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     6      2     10      0     0     0     6     0      0      0     2     16    17     0    0      199     18      0    1    2   99   99      0      68
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     4     0    0        0      6      0    3    3   99   99      0       0
+ALPH0         0      0     6      2     10      0     0     0     6     0      0      0    2     16    17     0    0      199     18      0    1    2   99   99      0      68
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     4     0    0        0      6      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1857,15 +1857,15 @@ Priority        ALPH0  RULE
 
 Rule<DC1> stats: priority=099, expr=(add-rule "DC1" p2d if (var-changed ?model-state running completed) '(?d nm:typeOf nm:domain) (not (equal ?d nd:Global)) (not (has-stmt p2d '(?x nm:beParentDomainOf ?d))) do (-> p2d '(nd:Global nm:beParentDomainOf ?d)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      1      5      0     0     0     6     0      0      0     2     13    17     0    0      199     12      0    1    2   99   99      0      36
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    4    4   99   99      0       0
-EXPR2         0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
-BETA1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     2    0        0      0      0    5    5   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    6    6   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      1      5      0     0     0     6     0      0      0    2     13    17     0    0      199     12      0    1    2   99   99      0      36
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    4    4   99   99      0       0
+EXPR2         0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
+BETA1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     2    0        0      0      0    5    5   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    6    6   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1891,10 +1891,10 @@ Priority          VAR ALPH0 ALPH1 EXPR1 EXPR2 BETA1  RULE
 
 Rule<RR1> stats: priority=099, expr=(add-rule "RR1" p2d if '(?a nm:beParentTagOf ?b) do (-> '(?a nm:hasDescendant ?b)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     1      8    13     0    0      187      1      0    1    1   99   99      0       4
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    2    2   99   99      0       0
+ALPH0         0      0     0      0      1      0     0     0     0     0      0      0    1      8    13     0    0      187      1      0    1    1   99   99      0       4
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    2    2   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1914,11 +1914,11 @@ Priority        ALPH0  RULE
 
 Rule<RR2> stats: priority=099, expr=(add-rule "RR2" p2d if '(?a nm:hasDescendant ?b) '(?b nm:hasDescendant ?c) do (-> '(?a nm:hasDescendant ?c)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     1      6    13     0    0      187      1      0    1    1   99   99      0       6
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      1      0     0     0     0     0      0      0    1      6    13     0    0      187      1      0    1    1   99   99      0       6
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        1      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1939,11 +1939,11 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<RR3> stats: priority=099, expr=(add-rule "RR3" p2d if '(?a nm:hasRelatedTag ?b) '(?a nm:hasDescendant ?b) do (remove-stmt ?0))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      3      0     0     0     0     0      0      0     2     14    26     0    0      374      3      0    1    1   99   99      0      10
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     3     1    0        2      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      3      0     0     0     0     0      0      0    2     14    26     0    0      374      3      0    1    1   99   99      0      10
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     3     1    0        2      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1965,11 +1965,11 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<RR4> stats: priority=099, expr=(add-rule "RR4" p2d if '(?a nm:hasRelatedTag ?b) '(?a nm:hasAncestors ?b) do (remove-stmt ?0))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      3      0     0     0     0     0      0      0     2     12    26     0    0      374      3      0    1    1   99   99      0       6
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     3     1    0        2      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      3      0     0     0     0     0      0      0    2     12    26     0    0      374      3      0    1    1   99   99      0       6
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     3     1    0        2      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -1991,12 +1991,12 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<RR5> stats: priority=099, expr=(add-rule "RR5" p2d if '(?a nm:hasAutoRelatedTag ?b) '(?a ?p ?b) '(?p nm:propertyOf nm:tagRelation) (not (equal nm:hasAutoRelatedTag ?p)) do (remove-stmt ?0))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0   137      0      0      0     0     2   137     0      0      0     3     20    29     0    0      486    139      0    1    2   99   99      0    1707
-EXPR1         0      0   157      3     25      0     0     0   157     0      0      0     1      0    13     0    0      187    185      0    1    1   99   99      0     220
-BETA2         0      0     0      2     16      0     0     0     0     0      0      0     2      0    22     4    0      430     18      0    3    4   99   99      0      26
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      2      0    5    5   99   99      0       0
+ALPH0         0      0   137      0      0      0     0     2   137     0      0      0    3     20    29     0    0      486    139      0    1    2   99   99      0    1707
+EXPR1         0      0   157      3     25      0     0     0   157     0      0      0    1      0    13     0    0      187    185      0    1    1   99   99      0     220
+BETA2         0      0     0      2     16      0     0     0     0     0      0      0    2      0    22     4    0      430     18      0    3    4   99   99      0      26
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      2      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2021,11 +2021,11 @@ Priority        ALPH0 EXPR1 BETA2  RULE
 
 Rule<RR6> stats: priority=099, expr=(add-rule "RR6" p2d if '(?a nm:hasDescendant ?b) '(?a nm:defineTag ?b) do (remove-stmt ?1))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      2      0     0     0     0     0      0      0     2     11    26     0    0      374      2      0    1    1   99   99      0       7
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        1      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      2      0     0     0     0     0      0      0    2     11    26     0    0      374      2      0    1    1   99   99      0       7
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     1    0        1      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2047,11 +2047,11 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<RR7> stats: priority=099, expr=(add-rule "RR7" p2d if '(?a nm:hasDescendant ?b) '(?b nm:beDefinedByTag ?a) do (remove-stmt ?1))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0         0      0     0      0      2      0     0     0     0     0      0      0     2     15    26     0    0      374      2      0    1    1   99   99      0       7
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        1      0      0    2    2   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    3    3   99   99      0       0
+ALPH0         0      0     0      0      2      0     0     0     0     0      0      0    2     15    26     0    0      374      2      0    1    1   99   99      0       7
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     1    0        1      0      0    2    2   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2073,16 +2073,16 @@ Priority        ALPH0 BETA0  RULE
 
 Rule<AC1> stats: priority=099, expr=(add-rule "AC1" p2d if (var-changed ?model-state running completed) '(?a nm:beParentTagOf ?b) '(?b nm:beParentTagOf ?c) '(?a nm:beParentTagOf ?c) (not (equal ?a ?b)) (not (equal ?b ?c)) (not (equal ?a ?c)) do (remove-stmt '(?a nm:beParentTagOf ?c)) (remove-stmt '(?c nm:beChildTagOf ?a)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     1      8    13     0    0      187      1      0    1    1   99   99      0       4
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR1         0      0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    2    2   99   99      0       2
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        1      0      0    3    3   99   99      0       0
-BETA1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     2    0        0      0      0    5    5   99   99      0       0
-BETA2         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     1    0        0      0      0    4    4   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    6    6   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     0      0      1      0     0     0     0     0      0      0    1      8    13     0    0      187      1      0    1    1   99   99      0       4
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR1         0      0     0      0      1      0     0     0     0     0      0      0    1      0     1     0    0        1      1      0    2    2   99   99      0       2
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        1      0      0    3    3   99   99      0       0
+BETA1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     2    0        0      0      0    5    5   99   99      0       0
+BETA2         0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     1    0        0      0      0    4    4   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    6    6   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2108,13 +2108,13 @@ Priority          VAR ALPH0 ALPH1 EXPR1 BETA0 BETA1 BETA2  RULE
 
 Rule<AC2> stats: priority=099, expr=(add-rule "AC2" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) do (if (str-match "%?-%?" (to-string ?t) '((ref ?t1) (ref ?t2))) (if (has-stmt p2d '((to-atom ?t1) nm:typeOf nm:tag)) (-> p2d '(?t nm:hasAutoRelatedTag (to-atom ?t1))))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      2     10      0     0     0     6     0      0      0     2     16    17     0    0      199     18      0    1    2   99   99      0      68
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-BETA1         6      0     0      0      6      0     0     0     0     0      0      0     1      0     6     4    0        6      6      0    3    3   99   99      0       6
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     0    0        0      6      0    4    4   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      2     10      0     0     0     6     0      0      0    2     16    17     0    0      199     18      0    1    2   99   99      0      68
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+BETA1         6      0     0      0      6      0     0     0     0     0      0      0    1      0     6     4    0        6      6      0    3    3   99   99      0       6
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     0    0        0      6      0    4    4   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2138,15 +2138,15 @@ Priority          VAR ALPH0 ALPH1 BETA1  RULE
 
 Rule<AC3> stats: priority=099, expr=(add-rule "AC3" p2d if (var-changed ?model-state running completed) '(?a nm:typeOf nm:tag) '(?a nm:hasFieldTag ?f) '(?a nm:beParentTagOf ?c) do (let (?cf (to-atom (+ (to-string ?c) "-" (p2d_get_field_name (p2d_get_uri_name ?f))))) (if (has-stmt p2d '(?cf nm:typeOf nm:tag)) (do (-> '(?f nm:hasSubCollection ?cf)) (-> '(?cf nm:beFieldTagOf ?c))))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      3     12      0     0     0     6     0      0      0     4     29    43     0    0      573     21      0    1    2   99   99      0      76
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-BETA0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     1    0        2      0      0    2    2   99   99      0       0
-BETA1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     2    0        0      0      0    4    4   99   99      0       0
-BETA2         0      0     0      0      0      0     0     0     0     0      0      0     1      0     4     4    0        0      0      0    3    3   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      3     12      0     0     0     6     0      0      0    4     29    43     0    0      573     21      0    1    2   99   99      0      76
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+BETA0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     1    0        2      0      0    2    2   99   99      0       0
+BETA1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     2    0        0      0      0    4    4   99   99      0       0
+BETA2         0      0     0      0      0      0     0     0     0     0      0      0    1      0     4     4    0        0      0      0    3    3   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2174,16 +2174,16 @@ Priority          VAR ALPH0 ALPH1 BETA0 BETA1 BETA2  RULE
 
 Rule<AC4> stats: priority=099, expr=(add-rule "AC4" p2d if (var-changed ?model-state running completed) '(?c nm:typeOf nm:tag) '(?c nm:hasFieldTag ?f) '(?c nm:beClassTagOf ?ins) (has-stmt p2d '((to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f))) nm:typeOf nm:tag)) do (-> '(?ins nm:hasFieldTag (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f))))) (-> '(?f nm:beParentTagOf (to-atom (strcat (to-string ?ins) "-" (p2d_get_uri_name ?f))))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      4     11      0     0     0     6     0      0      0     4     25    43     0    0      573     21      0    1    2   99   99      0      74
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR0         0      0     0      0      1      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    3    3   99   99      0       2
-BETA0         1      0     0      0      1      0     0     0     0     0      0      0     1      0     2     0    0        2      1      0    2    2   99   99      0       1
-BETA1         1      0     0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    5    5   99   99      0       1
-BETA2         0      0     0      0      1      0     0     0     0     0      0      0     1      0     5     1    0        2      1      0    4    4   99   99      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    6    6   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      4     11      0     0     0     6     0      0      0    4     25    43     0    0      573     21      0    1    2   99   99      0      74
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR0         0      0     0      0      1      0     0     0     0     0      0      0    1      0     1     0    0        1      1      0    3    3   99   99      0       2
+BETA0         1      0     0      0      1      0     0     0     0     0      0      0    1      0     2     0    0        2      1      0    2    2   99   99      0       1
+BETA1         1      0     0      0      1      0     0     0     0     0      0      0    1      0     3     1    0        1      1      0    5    5   99   99      0       1
+BETA2         0      0     0      0      1      0     0     0     0     0      0      0    1      0     5     1    0        2      1      0    4    4   99   99      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    6    6   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2212,14 +2212,14 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA0 BETA1 BETA2  RULE
 
 Rule<AC5> stats: priority=099, expr=(add-rule "AC5" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (str-end-with (p2d_get_uri_name ?t) "-Beginner") do (-> '(?t nm:beChildTagOf nt:$BEGINNER)) (-> '(?t nm:beDefinedByTag nt:$TOPIC)) (let (?tn (to-string ?t)) (let (?dn (to-atom (str-substr ?tn 0 (- (length-of ?tn) 9)))) (if (has-stmt p2d '(?dn nm:typeOf nm:tag)) (-> '(?t nm:beDefinedByTag ?dn))))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      2     10      0     0     0     6     0      0      0     2     16    17     0    0      199     18      0    1    2   99   99      0      68
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR0         0      0     0      0      0      0     0     0     0     0      0      0     1      0     4     0    0        6      0      0    3    3   99   99      0       0
-BETA1         0      0     0      0      0      0     0     0     0     0      0      0     1      0     2     2    0        0      0      0    4    4   99   99      0       0
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     0     0    0        0      0      0    5    5   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      2     10      0     0     0     6     0      0      0    2     16    17     0    0      199     18      0    1    2   99   99      0      68
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR0         0      0     0      0      0      0     0     0     0     0      0      0    1      0     4     0    0        6      0      0    3    3   99   99      0       0
+BETA1         0      0     0      0      0      0     0     0     0     0      0      0    1      0     2     2    0        0      0      0    4    4   99   99      0       0
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     0     0    0        0      0      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2244,14 +2244,14 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA1  RULE
 
 Rule<AC6> stats: priority=099, expr=(add-rule "AC6" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?t) "-") 0) do (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:commonTag)) (has-stmt p2d '((to-atom (strcat #ns_domain ?xx)) nm:typeOf nm:domain))) (-> p2d '(?t nm:hasRelatedTag (to-atom (strcat #ns_tag ?yy))))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      2     10      0     0     0     6     0      0      0     2     16    17     0    0      199     18      0    1    2   99   99      0      68
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR0         0      0     0      1      0      0     0     0     0     0      0      0     1      0     4     0    0        6      1      0    3    3   99   99      0       1
-BETA1         1      0     0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    4    4   99   99      0       3
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    5    5   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      2     10      0     0     0     6     0      0      0    2     16    17     0    0      199     18      0    1    2   99   99      0      68
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR0         0      0     0      1      0      0     0     0     0     0      0      0    1      0     4     0    0        6      1      0    3    3   99   99      0       1
+BETA1         1      0     0      0      1      0     0     0     0     0      0      0    1      0     3     1    0        1      1      0    4    4   99   99      0       3
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2276,14 +2276,14 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA1  RULE
 
 Rule<AC7> stats: priority=099, expr=(add-rule "AC7" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?t) "-") 0) do (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasTagAttr nm:groupTag))) (-> p2d '((to-atom (strcat #ns_tag ?yy)) nm:hasGroupChild ?t))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      2     10      0     0     0     6     0      0      0     2     16    17     0    0      199     18      0    1    2   99   99      0      68
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR0         0      0     0      1      0      0     0     0     0     0      0      0     1      0     4     0    0        6      1      0    3    3   99   99      0       1
-BETA1         1      0     0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    4    4   99   99      0       3
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    5    5   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      2     10      0     0     0     6     0      0      0    2     16    17     0    0      199     18      0    1    2   99   99      0      68
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR0         0      0     0      1      0      0     0     0     0     0      0      0    1      0     4     0    0        6      1      0    3    3   99   99      0       1
+BETA1         1      0     0      0      1      0     0     0     0     0      0      0    1      0     3     1    0        1      1      0    4    4   99   99      0       3
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2308,14 +2308,14 @@ Priority          VAR ALPH0 ALPH1 EXPR0 BETA1  RULE
 
 Rule<AC8> stats: priority=099, expr=(add-rule "AC8" p2d if (var-changed ?model-state running completed) '(?t nm:typeOf nm:tag) (> (str-index-of (p2d_get_uri_name ?t) "-") 0) do (if (and (str-match "%?-%?" (p2d_get_uri_name ?t) '((ref ?xx) (ref ?yy))) (has-stmt p2d '((to-atom (strcat #ns_tag ?xx)) nm:hasTagAttr nm:itemTag))) (-> p2d '((to-atom (strcat #ns_tag ?xx)) nm:beParentTagOf ?t))))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           4      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      4      0    0    0   99   99      0       4
-ALPH0         0      0     6      2     10      0     0     0     6     0      0      0     2     16    17     0    0      199     18      0    1    2   99   99      0      68
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0      18
-EXPR0         0      0     0      1      0      0     0     0     0     0      0      0     1      0     4     0    0        6      1      0    3    3   99   99      0       1
-BETA1         1      0     0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    4    4   99   99      0       3
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    5    5   99   99      0       0
+VAR           4      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      4      0    0    0   99   99      0       4
+ALPH0         0      0     6      2     10      0     0     0     6     0      0      0    2     16    17     0    0      199     18      0    1    2   99   99      0      68
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0      18
+EXPR0         0      0     0      1      0      0     0     0     0     0      0      0    1      0     4     0    0        6      1      0    3    3   99   99      0       1
+BETA1         1      0     0      0      1      0     0     0     0     0      0      0    1      0     3     1    0        1      1      0    4    4   99   99      0       3
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    5    5   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -2387,18 +2387,18 @@ TV1       :          2         0         0         0         0         0        
 
 Model<p2d> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  VAR    909                                                 909                       909          909                        909                   909  909            909
-ALPH0                 796    833    748                  0   796                       539    518   569                 536    792         975  967 1000  975            751
-ALPH1                                                        909                       909          909                 909    909         909  909  909  909            909
-EXPR0                        666      0                                                333          380                 387    500         833  833  833  833            399
-EXPR1                 333    333    331                399   333                       222          329                 333    333         933  705  857  857            236
-EXPR2                                                                                    0                                                   0    0    0    0               
-BETA0      0            0             0                        0                         0            0     0             0      0         958  916  950  950              0
-BETA1     83                         83                                                181          162    79            83     83         934  891  909  909            199
-BETA2                   0      0      0                  0     0                         0            0     0             0      0         896  866  888  888              0
- RULE                                                                                    0            0                          0      0  986  960  975  975               
+  VAR    909                                                 909                            909          909                        909                   909  909            909
+ALPH0                 796    833    748                  0   796                            539    518   569                 536    792         975  967 1000  975            751
+ALPH1                                                        909                            909          909                 909    909         909  909  909  909            909
+EXPR0                        666      0                                                     333          380                 387    500         833  833  833  833            399
+EXPR1                 333    333    331                399   333                            222          329                 333    333         933  705  857  857            236
+EXPR2                                                                                         0                                                   0    0    0    0               
+BETA0      0            0             0                        0                              0            0     0             0      0         958  916  950  950              0
+BETA1     83                         83                                                     181          162    79            83     83         934  891  909  909            199
+BETA2                   0      0      0                  0     0                              0            0     0             0      0         896  866  888  888              0
+ RULE                                                                                         0            0                          0      0  986  960  975  975               
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

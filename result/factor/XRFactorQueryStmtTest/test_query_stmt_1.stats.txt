@@ -1,10 +1,10 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0         4      0     0      4      0      0     0     0     0     0      0      0     1      0     4     3    0        0      4      0    0    0  900  900      0       8
-ALPH0         0      0     0      6      0      0     0     0     0     0      0      0     3      0     9     6    0       10      6      0    1    2    0    0      0      12
-BETA0         2      0     0      0      2      0     0     0     0     0      0      0     1      0     3     2    0        4      2      0    3    3    0    0      0       4
+ROOT0         4      0     0      4      0      0     0     0     0     0      0      0     1    1      0     4     3    0        0      4      0    0    0  900  900      0       8
+ALPH0         0      0     0      6      0      0     0     0     0     0      0      0     3    3      0     9     6    0       10      6      0    1    2    0    0      0      12
+BETA0         2      0     0      0      2      0     0     0     0     0      0      0     1    1      0     3     2    0        4      2      0    3    3    0    0      0       4
 ===============================================================================================================================================================================
 
 node info:
@@ -97,10 +97,10 @@ graph-listSourceNodes                19
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ALPH0                                                                                                                                                                       
-BETA0                                                                                                                                                                       
+ALPH0                                                                                                                                                                            
+BETA0                                                                                                                                                                            
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3

@@ -1,16 +1,16 @@
 Model<m> stats info:
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROOT0         2      0     0      1      1      0     0     0     0     0      0      0     1      1     3     1    0        0      2      0    0    0  900  900      0       5
-VAR           5      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      5      0    0    0   99   99      0       5
-ALPH0         0      0     0      2      0      0     0     0     0     0      0      0     3      1     4     0    0        4      2      0    1    2    0   99      0       2
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0       2
-EXPR1         0      0     0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    4    4   99   99      0       1
-EXPR2         0      0     0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    3    3   99   99      0       1
-BETA1         1      0     0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    5    5   99   99      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    6    6   99   99      0       0
-INDEX         0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     1    0        0      0      0    2    2    0    0      0       0
+ROOT0         2      0     0      1      1      0     0     0     0     0      0      0     1    1      1     3     1    0        0      2      0    0    0  900  900      0       5
+VAR           5      0     0      0      0      0     0     0     1     0      0      0     1    1      0     4     0    0        0      5      0    0    0   99   99      0       5
+ALPH0         0      0     0      2      0      0     0     0     0     0      0      0     3    3      1     4     0    0        4      2      0    1    2    0   99      0       2
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1    1      0     4     0    0        4      2      0    1    1   99   99      0       2
+EXPR1         0      0     0      1      0      0     0     0     0     0      0      0     1    1      0     1     0    0        1      1      0    4    4   99   99      0       1
+EXPR2         0      0     0      1      0      0     0     0     0     0      0      0     1    1      0     1     0    0        1      1      0    3    3   99   99      0       1
+BETA1         1      0     0      0      1      0     0     0     0     0      0      0     1    1      0     3     1    0        1      1      0    5    5   99   99      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     1     0    0        0      1      0    6    6   99   99      0       0
+INDEX         0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     1     1    0        0      0      0    2    2    0    0      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -157,15 +157,15 @@ graph-listSourceNodes                13
 
 Rule<DC1> stats: priority=099, expr=(add-rule "DC1" m if (var-changed ?model-state running completed) '(?d nm:typeOf nm:domain) (not (equal ?d nd:Global)) (not (has-stmt '(?x nm:beParentDomainOf ?d))) do (-> '(nd:Global nm:beParentDomainOf ?d)))
 ===============================================================================================================================================================================
-NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VAR           5      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        0      5      0    0    0   99   99      0       5
-ALPH0         0      0     0      2      0      0     0     0     0     0      0      0     2      0     3     0    0        3      2      0    1    2   99   99      0       2
-ALPH1         0      0     0      0      0      0     0     0     1     0      0      0     1      0     4     0    0        4      2      0    1    1   99   99      0       2
-EXPR1         0      0     0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    4    4   99   99      0       1
-EXPR2         0      0     0      1      0      0     0     0     0     0      0      0     1      0     1     0    0        1      1      0    3    3   99   99      0       1
-BETA1         1      0     0      0      1      0     0     0     0     0      0      0     1      0     3     1    0        1      1      0    5    5   99   99      0       1
-RULE          0      0     0      0      0      0     0     0     0     0      0      0     1      0     1     0    0        0      1      0    6    6   99   99      0       0
+VAR           5      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        0      5      0    0    0   99   99      0       5
+ALPH0         0      0     0      2      0      0     0     0     0     0      0      0    2      0     3     0    0        3      2      0    1    2   99   99      0       2
+ALPH1         0      0     0      0      0      0     0     0     1     0      0      0    1      0     4     0    0        4      2      0    1    1   99   99      0       2
+EXPR1         0      0     0      1      0      0     0     0     0     0      0      0    1      0     1     0    0        1      1      0    4    4   99   99      0       1
+EXPR2         0      0     0      1      0      0     0     0     0     0      0      0    1      0     1     0    0        1      1      0    3    3   99   99      0       1
+BETA1         1      0     0      0      1      0     0     0     0     0      0      0    1      0     3     1    0        1      1      0    5    5   99   99      0       1
+RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     1     0    0        0      1      0    6    6   99   99      0       0
 ===============================================================================================================================================================================
 
 node info:
@@ -198,16 +198,16 @@ DC1       :          2         0         0         0         0         0        
 
 Model<m> share index:
 ===============================================================================================================================================================================
- NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo  Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
+ NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  VAR      0                                                   0                         0            0                          0                     0    0              0
-ALPH0                          0                                                      -500         -333                -333      0           0    0 1000    0              0
-ALPH1                                                          0                         0            0                   0      0           0    0    0    0              0
-EXPR1                          0                                                         0            0                   0      0           0    0    0    0              0
-EXPR2                          0                                                         0            0                   0      0           0    0    0    0              0
-BETA1      0                          0                                                  0            0     0             0      0           0    0    0    0              0
- RULE                                                                                    0            0                          0           0    0    0    0               
-INDEX                                                                                                                                                                       
+  VAR      0                                                   0                              0            0                          0                     0    0              0
+ALPH0                          0                                                           -500         -333                -333      0           0    0 1000    0              0
+ALPH1                                                          0                              0            0                   0      0           0    0    0    0              0
+EXPR1                          0                                                              0            0                   0      0           0    0    0    0              0
+EXPR2                          0                                                              0            0                   0      0           0    0    0    0              0
+BETA1      0                          0                                                       0            0     0             0      0           0    0    0    0              0
+ RULE                                                                                         0            0                          0           0    0    0    0               
+INDEX                                                                                                                                                                            
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3
