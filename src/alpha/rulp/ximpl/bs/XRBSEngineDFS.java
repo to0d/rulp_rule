@@ -11,31 +11,40 @@ import alpha.rulp.utils.RulpFactory;
 
 public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 
-	protected Map<String, AbsBSNode> visitingOrNodeMap = new HashMap<>();
+	protected Map<String, IRBSNode> workingStmtOrNodeMap = new HashMap<>();
 
 	public XRBSEngineDFS(IRModel model) {
 		super(model);
 	}
 
-	protected void _addNode(AbsBSNode node) throws RException {
+	protected boolean _isCircularProof(IRList stmt) throws RException {
+		return workingStmtOrNodeMap.containsKey(ReteUtil.uniqName(stmt));
+	}
+
+	protected void _addNode(IRBSNode node) throws RException {
 
 		if (node.getType() == BSNodeType.STMT_OR) {
 
 			IRList stmt = ((IRBSNodeStmt) node).getStmt();
 			String uniqName = ReteUtil.uniqName(stmt);
 
+			IRBSNode oldNode = workingStmtOrNodeMap.get(uniqName);
+			if (oldNode == null) {
+				workingStmtOrNodeMap.put(uniqName, node);
+				return;
+			}
+
 			// The and should fail once circular proof be found
-			if (visitingOrNodeMap.containsKey(uniqName)) {
+			if (oldNode.getStatus() != BSStats.COMPLETE) {
 				BSFactory.incBscCircularProof();
 				throw new RException(String.format("circular proof found, stmt=%s, return false", stmt));
 			}
 
-			visitingOrNodeMap.put(uniqName, node);
+			// Use old result
+			node.setStatus(BSStats.DUPLICATE);
+			node.setSucc(oldNode.isSucc());
+			BSFactory.incBscCacheResult();
 		}
-	}
-
-	protected boolean _isCircularProof(IRList stmt) throws RException {
-		return visitingOrNodeMap.containsKey(ReteUtil.uniqName(stmt));
 	}
 
 	protected IRList _search(IRList tree, boolean explain) throws RException {
@@ -67,7 +76,9 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 				}
 
 				try {
+
 					curNode.init();
+
 				} catch (RException e) {
 
 					if (trace) {
@@ -176,6 +187,19 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 				}
 
 				curNode = curNode.getParentNode();
+
+				break;
+
+			case DUPLICATE:
+
+				++bscStatusDuplicate;
+
+				if (trace) {
+					trace_outln(curNode, "duplicate, return to parent");
+				}
+
+				curNode = curNode.getParentNode();
+
 				break;
 
 			default:

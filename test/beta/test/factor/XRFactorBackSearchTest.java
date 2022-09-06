@@ -78,6 +78,15 @@ class XRFactorBackSearchTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_back_search_6_multi_cond_3_duplicate_and() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+
+	@Test
 	void test_back_search_6_multi_cond_3_tree() {
 
 		_setup();

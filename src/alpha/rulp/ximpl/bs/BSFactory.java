@@ -19,6 +19,12 @@ import alpha.rulp.ximpl.node.SourceNode;
 
 public class BSFactory {
 
+	protected static int bscCacheResult = 0;
+
+	public static int getBscCacheResult() {
+		return bscCacheResult;
+	}
+
 	protected static int bscCircularProof = 0;
 
 	protected static int bscNodeLogicAnd = 0;
@@ -38,6 +44,12 @@ public class BSFactory {
 	protected static int bscOpSearch = 0;
 
 	protected static int bscStatusComplete = 0;
+
+	protected static int bscStatusDuplicate = 0;
+
+	public static int getBscStatusDuplicate() {
+		return bscStatusDuplicate;
+	}
 
 	protected static int bscStatusInit = 0;
 
@@ -65,9 +77,13 @@ public class BSFactory {
 
 	public static final String CK_BSC_STATUS_COMPLETE = "bsc-status-complete";
 
+	public static final String CK_BSC_STATUS_DUPLICATE = "bsc-status-Duplicate";
+
 	public static final String CK_BSC_STATUS_INIT = "bsc-status-init";
 
 	public static final String CK_BSC_STATUS_PROCESS = "bsc-status-process";
+
+	public static final String CK_BSC_CACHE_RESULT = "bsc-cache-result";
 
 	static {
 
@@ -79,10 +95,12 @@ public class BSFactory {
 		bsCountKeyList.add(CK_BSC_STATUS_INIT);
 		bsCountKeyList.add(CK_BSC_STATUS_PROCESS);
 		bsCountKeyList.add(CK_BSC_STATUS_COMPLETE);
+		bsCountKeyList.add(CK_BSC_STATUS_DUPLICATE);
 		bsCountKeyList.add(CK_BSC_OP_LOOP);
 		bsCountKeyList.add(CK_BSC_OP_RELOCATE);
 		bsCountKeyList.add(CK_BSC_OP_SEARCH);
 		bsCountKeyList.add(CK_BSC_CIRCULAR_PROOF);
+		bsCountKeyList.add(CK_BSC_CACHE_RESULT);
 
 		bsCountKeyList = Collections.unmodifiableList(bsCountKeyList);
 	}
@@ -119,6 +137,9 @@ public class BSFactory {
 		case CK_BSC_STATUS_COMPLETE:
 			return bscStatusComplete;
 
+		case CK_BSC_STATUS_DUPLICATE:
+			return bscStatusDuplicate;
+
 		case CK_BSC_OP_LOOP:
 			return bscOpLoop;
 
@@ -130,6 +151,9 @@ public class BSFactory {
 
 		case CK_BSC_OP_SEARCH:
 			return bscOpSearch;
+
+		case CK_BSC_CACHE_RESULT:
+			return bscCacheResult;
 
 		default:
 			return 0;
@@ -299,6 +323,10 @@ public class BSFactory {
 		++bscCircularProof;
 	}
 
+	public static void incBscCacheResult() {
+		++bscCacheResult;
+	}
+
 	public static void incBscOpLoop(int count) {
 		bscOpLoop += count;
 	}
@@ -313,6 +341,10 @@ public class BSFactory {
 
 	public static void incBscStatusComplete(int count) {
 		bscStatusComplete += count;
+	}
+
+	public static void incBscStatusDuplicate(int count) {
+		bscStatusDuplicate += count;
 	}
 
 	public static void incBscStatusInit(int count) {
@@ -337,5 +369,7 @@ public class BSFactory {
 		bscStatusComplete = 0;
 		bscStatusInit = 0;
 		bscStatusProcess = 0;
+		bscStatusDuplicate = 0;
+		bscCacheResult = 0;
 	}
 }

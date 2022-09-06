@@ -15,6 +15,8 @@ public abstract class AbsBSEngine implements IRBSEngine {
 
 	protected int bscStatusComplete = 0;
 
+	protected int bscStatusDuplicate = 0;
+
 	protected int bscStatusInit = 0;
 
 	protected int bscStatusProcess = 0;
@@ -36,7 +38,7 @@ public abstract class AbsBSEngine implements IRBSEngine {
 		this.interpreter = model.getInterpreter();
 	}
 
-	protected abstract void _addNode(AbsBSNode node) throws RException;
+	protected abstract void _addNode(IRBSNode node) throws RException;
 
 	protected int _nextNodeId() {
 		return nodeId++;
@@ -51,8 +53,6 @@ public abstract class AbsBSEngine implements IRBSEngine {
 
 	public void addNode(AbsBSNode node) throws RException {
 
-		_addNode(node);
-
 		int nodeId = _nextNodeId();
 		String nodeName = BSUtil.getBSNodeName(node.getType(), nodeId);
 
@@ -60,6 +60,8 @@ public abstract class AbsBSEngine implements IRBSEngine {
 		node.setNodeName(nodeName);
 		node.setStatus(BSStats.INIT);
 		node.setEngine(this);
+
+		_addNode(node);
 	}
 
 	@Override
@@ -99,8 +101,10 @@ public abstract class AbsBSEngine implements IRBSEngine {
 		this.bscStatusInit = 0;
 		this.bscStatusProcess = 0;
 		this.bscStatusComplete = 0;
+		this.bscStatusDuplicate = 0;
 
 		try {
+
 			this.trace = BSUtil.isBSTrace(model.getFrame());
 			return _search(tree, explain);
 
@@ -111,6 +115,7 @@ public abstract class AbsBSEngine implements IRBSEngine {
 			BSFactory.incBscStatusInit(bscStatusInit);
 			BSFactory.incBscStatusProcess(bscStatusProcess);
 			BSFactory.incBscStatusComplete(bscStatusComplete);
+			BSFactory.incBscStatusDuplicate(bscStatusDuplicate);
 		}
 	}
 

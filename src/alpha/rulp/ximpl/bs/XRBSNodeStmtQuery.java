@@ -63,12 +63,6 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 
 	@Override
 	public void init() throws RException {
-
-//		if (trace) {
-//			_outln(this, String.format("init, stmt-list=%s", queryStmtList));
-//		}
-
-//		queryReteNodeTree = RulpFactory.createList(queryStmtList);
 		this.status = BSStats.PROCESS;
 	}
 
