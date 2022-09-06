@@ -113,4 +113,27 @@ class XRFactorBackSearchTest extends RuleTestBase {
 		_dumpEntryTable("m");
 	}
 
+	@Test
+	void test_back_search_9_query_var_1() {
+
+		_setup();
+		_run_script();
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_back_search_9_query_var_2() {
+
+		_setup();
+		_run_script();
+		_dumpEntryTable("m");
+	}
+
+	@Test
+	void test_back_search_9_query_var_3_limit() {
+
+		_setup();
+		_run_script();
+		_dumpEntryTable("m");
+	}
 }

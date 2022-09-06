@@ -1,0 +1,21 @@
+(new model m)
+(add-rule m if '(?x p1 ?y) do (-> m '(?x p2 ?y)))
+(add-stmt m '(a p1 b1))
+(add-stmt m '(x p1 y1))
+(add-stmt m '(x p1 y2))
+(add-stmt m '(a p1 b2))
+(add-stmt m '(a p1 b3))
+;=>m RU000 true true true true true
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(dump-status m (+ ?script-path ".status.1.txt"))
+;=>nil
+
+(back-search m '(a p2 ?x) explain)
+;err:
+Invalid parameters: (back-search m '(a p2 ?x) explain)
+at (back-search m '(a p2 ?x) explain) ; main-2
+;eof
+

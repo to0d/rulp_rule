@@ -99,7 +99,7 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		return leftIndex < leftBeginIndex || leftUsedIndexSet.contains(leftIndex);
 	}
 
-	private boolean _isSameInherit() {
+	protected boolean _isSameInherit() {
 
 		if (sameInherit == null) {
 			sameInherit = ReteUtil.isSameInheritIndex(inheritIndexs);

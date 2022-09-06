@@ -1,0 +1,23 @@
+(new model m)
+(add-rule m if '(?a p1 ?b) '(?a p2 ?c) do (-> m '(?a p3 ?b)))
+(add-stmt m '(a1 p1 b1))
+(add-stmt m '(x p1 y1))
+(add-stmt m '(x p1 y2))
+(add-stmt m '(a1 p2 c1))
+(add-stmt m '(a1 p2 c2))
+;=>
+
+(setq ?bs-trace true)
+;=>
+
+(dump-status m (+ ?script-path ".status.1.txt"))
+;=>
+
+(back-search m '(a1 p3 b1) explain)
+;=>
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>
+
+(list-stmt m)
+;=>

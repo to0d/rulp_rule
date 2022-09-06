@@ -149,7 +149,10 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 			}
 		}
 
-		this.sourceNode.rule.start(-1, -1);
+		int rc = this.sourceNode.rule.start(-1, -1);
+		if (engine.isTrace()) {
+			engine.trace_outln(this, String.format("execute rule: %s, rc=%d", this.sourceNode.rule.getRuleName(), rc));
+		}
 
 		for (BSStmtIndexs si : BSStmtIndexsList) {
 			if (si.relocatedStmtIndexs != null) {

@@ -31,6 +31,7 @@
 00005     SA0001: process begin
 00005     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
 00006     SA0001: complete begin
+00006     SA0001: execute rule: RU000, rc=4
 00006     SA0001: has stmt, stmt='(a p c), rst=true
 00006     SA0001: complete end, rst=true
 00006     SA0001: route to SO0000

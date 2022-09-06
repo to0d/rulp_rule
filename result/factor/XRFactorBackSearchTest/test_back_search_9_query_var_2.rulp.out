@@ -1,0 +1,61 @@
+(new model m)
+(add-rule m if '(?a p1 ?b) '(?a p2 ?c) do (-> m '(?a p3 ?b)))
+(add-stmt m '(a1 p1 b1))
+(add-stmt m '(x p1 y1))
+(add-stmt m '(x p1 y2))
+(add-stmt m '(a1 p2 c1))
+(add-stmt m '(a1 p2 c2))
+;=>m RU000 true true true true true
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(dump-status m (+ ?script-path ".status.1.txt"))
+;=>nil
+
+(back-search m '(a1 p3 b1) explain)
+;=>'('(a1 p3 b1) ("RU000" '('(a1 p1 b1)) '('(a1 p2 ?c))))
+;out:
+00000 SO0000: create_root, stmt='(a1 p3 b1), type=STMT_OR, status=INIT
+00000 SO0000: init begin, stmt='(a1 p3 b1), type=STMT_OR, status=INIT
+00000 SO0000: has stmt, stmt='(a1 p3 b1), rst=false
+00000 SO0000: add child, type=STMT_AND, name=SA0001
+00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
+00000 SO0000: route to SA0001
+00001     SA0001: init begin, stmt='(a1 p3 b1), rule=RU000: RU000, action='(?0, p3, ?1)(0), type=STMT_AND, status=INIT
+00001     SA0001: add child, type=STMT_OR, name=SO0002
+00001     SA0001: add child, type=STMT_QUERY, name=SQ0003
+00001     SA0001: init end, rst=false, status=PROCESS, fail-child=null
+00001     SA0001: route to SO0002
+00002         SO0002: init begin, stmt='(a1 p1 b1), type=STMT_OR, status=INIT
+00002         SO0002: has stmt, stmt='(a1 p1 b1), rst=true
+00002         SO0002: init end, rst=true, status=COMPLETE, succ-child=null, needComplete=false
+00003         SO0002: route to SA0001
+00004     SA0001: process begin
+00004     SA0001: process end, rst=false, status=PROCESS, child=1/2, fail-child=null
+00004     SA0001: route to SQ0003
+00005         SQ0003: init begin, tree='('(a1 p2 ?c)), type=STMT_QUERY, status=INIT
+00005         SQ0003: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
+00006         SQ0003: process begin
+00006         SQ0003: process end, rst=true, status=COMPLETE, forward=true, backward=false, query=2
+00007         SQ0003: route to SA0001
+00008     SA0001: process begin
+00008     SA0001: process end, rst=true, status=COMPLETE, child=2/2, fail-child=null
+00009     SA0001: complete begin
+00009     SA0001: execute rule: RU000, rc=5
+00009     SA0001: has stmt, stmt='(a1 p3 b1), rst=true
+00009     SA0001: complete end, rst=true
+00009     SA0001: route to SO0000
+00010 SO0000: process begin
+00010 SO0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0001, needComplete=true
+00011 SO0000: has stmt, stmt='(a1 p3 b1), rst=true
+00011 SO0000: return true
+
+;eof
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>nil
+
+(list-stmt m)
+;=>'('(a1 p1 b1) '(x p1 y1) '(x p1 y2) '(a1 p2 c1) '(a1 p2 c2) '(a1 p3 b1))
+
