@@ -7,7 +7,13 @@ import java.util.Set;
 
 import alpha.rulp.lang.RException;
 
-public class AndOrTreeUtil {
+/**
+ * AndOrTree
+ * 
+ * @author 921511672
+ *
+ */
+public class AOTreeUtil {
 
 	public static class DLRVisitNode<T> {
 
@@ -105,6 +111,9 @@ public class AndOrTreeUtil {
 	}
 
 	public static <T> DLRVisitNode<T> getDLRVisitFirstTree(IAOTreeNode<T> aoTree) throws RException {
+
+		// DLR: Preorder Traversal
+
 		DLRVisitNode<T> root = new DLRVisitNode<T>(aoTree);
 		_expend(root);
 		return root;
@@ -123,6 +132,7 @@ public class AndOrTreeUtil {
 			while (visitTree.lastUpdateIndex < size) {
 
 				DLRVisitNode<T> child = visitTree.childNodes.get(visitTree.lastUpdateIndex);
+
 				if (update(child)) {
 
 					// Rebuild left nodes

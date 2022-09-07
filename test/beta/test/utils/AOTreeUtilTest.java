@@ -13,13 +13,13 @@ import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.utils.AndOrTreeUtil;
-import alpha.rulp.utils.AndOrTreeUtil.DLRVisitNode;
-import alpha.rulp.utils.AndOrTreeUtil.IAOTreeNode;
+import alpha.rulp.utils.AOTreeUtil;
+import alpha.rulp.utils.AOTreeUtil.DLRVisitNode;
+import alpha.rulp.utils.AOTreeUtil.IAOTreeNode;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.RulpFactory;
 
-class AndOrTreeUtilTest extends RuleTestBase {
+class AOTreeUtilTest extends RuleTestBase {
 
 	static class XAtomAOTreeNode implements IAOTreeNode<IRAtom> {
 
@@ -141,10 +141,10 @@ class AndOrTreeUtilTest extends RuleTestBase {
 			IAOTreeNode<IRAtom> aoTree = _createAONode(objs.get(0));
 
 			ArrayList<String> visitPaths = new ArrayList<>();
-			DLRVisitNode<IRAtom> vistTree = AndOrTreeUtil.getDLRVisitFirstTree(aoTree);
+			DLRVisitNode<IRAtom> vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
 
 			{
-				List<IRAtom> vistAtoms = AndOrTreeUtil.visit(vistTree);
+				List<IRAtom> vistAtoms = AOTreeUtil.visit(vistTree);
 				Collections.sort(vistAtoms, (o1, o2) -> {
 					return o1.toString().compareTo(o2.toString());
 				});
@@ -152,12 +152,13 @@ class AndOrTreeUtilTest extends RuleTestBase {
 				visitPaths.add(visitPath);
 			}
 
-			while (AndOrTreeUtil.update(vistTree)) {
+			while (AOTreeUtil.update(vistTree)) {
 
-				List<IRAtom> vistAtoms = AndOrTreeUtil.visit(vistTree);
+				List<IRAtom> vistAtoms = AOTreeUtil.visit(vistTree);
 				Collections.sort(vistAtoms, (o1, o2) -> {
 					return o1.toString().compareTo(o2.toString());
 				});
+
 				String visitPath = RulpFactory.createExpression(vistAtoms).asString();
 
 				if (!visitPaths.contains(visitPath)) {
@@ -177,6 +178,7 @@ class AndOrTreeUtilTest extends RuleTestBase {
 
 	@Test
 	void test() {
+	
 		_setup();
 		_test_all("(and A B)", "[(A B)]");
 		_test_all("(and (or A B) C)", "[(A C), (B C)]");

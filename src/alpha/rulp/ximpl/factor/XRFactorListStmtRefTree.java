@@ -22,9 +22,9 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
-import alpha.rulp.utils.AndOrTreeUtil;
-import alpha.rulp.utils.AndOrTreeUtil.DLRVisitNode;
-import alpha.rulp.utils.AndOrTreeUtil.IAOTreeNode;
+import alpha.rulp.utils.AOTreeUtil;
+import alpha.rulp.utils.AOTreeUtil.DLRVisitNode;
+import alpha.rulp.utils.AOTreeUtil.IAOTreeNode;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
@@ -89,7 +89,7 @@ public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRF
 
 			public static ProveEntry toProveEntry(DLRVisitNode<IRReteEntry> vistTree) throws RException {
 
-				List<IRReteEntry> vistEntries = AndOrTreeUtil.visit(vistTree);
+				List<IRReteEntry> vistEntries = AOTreeUtil.visit(vistTree);
 				Collections.sort(vistEntries, (o1, o2) -> {
 					return o1.toString().compareTo(o2.toString());
 				});
@@ -125,7 +125,7 @@ public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRF
 					proveEntryList = new ArrayList<>();
 
 					IAOTreeNode<IRReteEntry> aoTree = new XEntryAOTreeNode(stmtEntry, true);
-					vistTree = AndOrTreeUtil.getDLRVisitFirstTree(aoTree);
+					vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
 
 					proveEntryList.add(toProveEntry(vistTree));
 				}
@@ -175,6 +175,7 @@ public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRF
 							proveNode.isVisitCompleted = true;
 						}
 					}
+
 				} else if (entry.getStatus() == RReteStatus.REASON) {
 					// we should find rule node
 				} else {
