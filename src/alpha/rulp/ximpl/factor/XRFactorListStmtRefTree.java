@@ -33,7 +33,7 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.RReteType;
 
-public class XRFactorListStmtGenerateTree extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	static class StmtProveUtil {
 
@@ -357,7 +357,7 @@ public class XRFactorListStmtGenerateTree extends AbsAtomFactorAdapter implement
 
 	}
 
-	public XRFactorListStmtGenerateTree(String factorName) {
+	public XRFactorListStmtRefTree(String factorName) {
 		super(factorName);
 	}
 

@@ -58,7 +58,7 @@
 
 ;eof
 
-(list-stmt-generate-tree m '(a p c))
+(list-stmt-ref-tree m '(a p c))
 ;=>nil
 ;out:
 '(a p c) : RU001 '(a p b) '(b p c)

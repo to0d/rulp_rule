@@ -167,7 +167,7 @@ public interface Constant {
 
 	String F_LIST_STMT = "list-stmt";
 
-	String F_LIST_STMT_GENERATE_TREE = "list-stmt-generate-tree";
+	String F_LIST_STMT_REF_TREE = "list-stmt-ref-tree";
 
 	String F_LOAD_STMT = "load-stmt";
 

@@ -13,8 +13,8 @@
 (list-stmt m)
 ;=>
 
-(list-stmt-generate-tree m '(c a b))
+(list-stmt-ref-tree m '(c a b))
 ;=>
 
-(list-stmt-generate-tree m '(c b a))
+(list-stmt-ref-tree m '(c b a))
 ;=>

@@ -13,7 +13,7 @@
 (back-search m '(a p c) explain)
 ;=>
 
-(list-stmt-generate-tree m '(a p c))
+(list-stmt-ref-tree m '(a p c))
 ;=>
 
 (list-stmt m)
