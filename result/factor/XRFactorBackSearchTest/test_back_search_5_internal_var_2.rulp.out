@@ -3,7 +3,9 @@
 (add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p ?c)))
 (add-stmt m '(a p2 b))
 (add-stmt m '(b p2 c))
-;=>m RU000 RU001 true true
+(add-stmt m '(a p2 b2))
+(add-stmt m '(b2 p2 c))
+;=>m RU000 RU001 true true true true
 
 (setq ?bs-trace true)
 ;=>&?bs-trace
@@ -40,7 +42,7 @@
 00008         SQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=STMT_QUERY, status=INIT
 00008         SQ0004: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
 00009         SQ0004: process begin
-00009         SQ0004: process end, rst=true, status=COMPLETE, forward=true, backward=true, query=1
+00009         SQ0004: process end, rst=true, status=COMPLETE, forward=true, backward=true, query=2
 00010         SQ0004: route to SA0002
 00011     SA0002: process begin
 00011     SA0002: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
@@ -56,6 +58,17 @@
 
 ;eof
 
+(list-stmt-generate-tree m '(a p c))
+;=>nil
+;out:
+'(a p c) : RU001 '(a p b) '(b p c)
+'(a p b) : RU000 '(a p2 b)
+'(b p c) : RU000 '(b p2 c)
+'(a p2 b) : define
+'(b p2 c) : define
+
+;eof
+
 (list-stmt m)
-;=>'('(a p2 b) '(b p2 c) '(a p b) '(b p c) '(a p c))
+;=>'('(a p2 b) '(b p2 c) '(a p2 b2) '(b2 p2 c) '(a p b) '(b p c) '(a p b2) '(b2 p c) '(a p c))
 

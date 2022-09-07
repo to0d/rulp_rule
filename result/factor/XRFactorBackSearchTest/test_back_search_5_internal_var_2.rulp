@@ -3,12 +3,17 @@
 (add-rule m if '(?a p ?b) '(?b p ?c) do (-> m '(?a p ?c)))
 (add-stmt m '(a p2 b))
 (add-stmt m '(b p2 c))
+(add-stmt m '(a p2 b2))
+(add-stmt m '(b2 p2 c))
 ;=>
 
 (setq ?bs-trace true)
 ;=>
 
 (back-search m '(a p c) explain)
+;=>
+
+(list-stmt-generate-tree m '(a p c))
 ;=>
 
 (list-stmt m)
