@@ -11,6 +11,10 @@ public interface Constant {
 
 	String A_BackSearch = "back-search";
 
+	String A_Backward = "backward";
+
+	String A_BS_TRACE = "?bs-trace";
+
 	String A_CMP_ENTRY_INDEX = "cmp-entry-index";
 
 	String A_CMP_ENTRY_VALUE = "cmp-entry-value";
@@ -23,6 +27,8 @@ public interface Constant {
 
 	String A_Completed = "completed";
 
+	String A_DEEP_FIRST = "deep-first";
+
 	String A_DEFAULT_MODEL = "default_model";
 
 	String A_Defined = "defined";
@@ -31,23 +37,19 @@ public interface Constant {
 
 	String A_Dup = "dup";
 
-	String A_Forward = "forward";
-	
-	String A_DEEP_FIRST = "deep-first";
-
-	String A_Backward = "backward";
-
 	String A_ENTRY = "entry";
 
 	String A_ENTRY_LEN = "entry-len";
 
 	String A_ENTRY_ORDER = "entry-order";
 
+	String A_Explain = "explain";
+
 	String A_Failed = "failed";
 
+	String A_Forward = "forward";
+
 	String A_Halting = "halting";
-	
-	String A_Explain = "explain";
 
 	String A_Index = "index";
 
@@ -56,8 +58,6 @@ public interface Constant {
 	String A_Limit = "limit";
 
 	String A_M_TRACE = "?model-trace";
-
-	String A_BS_TRACE = "?bs-trace";
 
 	String A_Max = "max";
 
@@ -163,13 +163,13 @@ public interface Constant {
 
 	String F_LIST_SOURCE_NODE = "list-source-node";
 
-	String F_LIST_SUBGRAPH_FOR_QUERY = "list-subgraph-for-query";
-
 	String F_LIST_STMT = "list-stmt";
 
-	String F_LIST_STMT_REF_TREE = "list-stmt-ref-tree";
+	String F_LIST_SUBGRAPH_FOR_QUERY = "list-subgraph-for-query";
 
 	String F_LOAD_STMT = "load-stmt";
+
+	String F_MAKE_REF_TREE = "make-ref-tree";
 
 	String F_MBR_RULE_GROUP_NAMES = "$RG-names$";
 
@@ -182,6 +182,8 @@ public interface Constant {
 	String F_PRINT_MODEL_STATUS = "print-model-status";
 
 	String F_PRINT_RUNNABLE_COUNTER = "print-runnable-counter";
+
+	String F_PRINT_TREE = "print-tree";
 
 	String F_PRIORITY_OF = "priority-of";
 

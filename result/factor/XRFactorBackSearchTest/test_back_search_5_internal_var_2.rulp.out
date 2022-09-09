@@ -58,14 +58,25 @@
 
 ;eof
 
-(list-stmt-ref-tree m '(a p c))
+(defvar ?tree (make-ref-tree m '(a p c)))
+;=>&?tree
+
+?tree
+;=>'('(a p c) (RU001 '('(a p b) (RU000 '('(a p2 b) defined))) '('(b p c) (RU000 '('(b p2 c) defined)))))
+
+(print-ref-tree ?tree)
 ;=>nil
 ;out:
-'(a p c) : RU001 '(a p b) '(b p c)
-'(a p b) : RU000 '(a p2 b)
-'(b p c) : RU000 '(b p2 c)
-'(a p2 b) : define
-'(b p2 c) : define
+'(a p c)
+`-RU001 (expr)
+  |-'(a p b)
+  | `-RU000 (expr)
+  |   `-'(a p2 b)
+  |     `-defined
+  `-'(b p c)
+    `-RU000 (expr)
+      `-'(b p2 c)
+        `-defined
 
 ;eof
 

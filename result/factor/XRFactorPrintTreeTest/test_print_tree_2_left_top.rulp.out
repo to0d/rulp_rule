@@ -1,0 +1,12 @@
+(print-tree '('(c a b) (RU000 '('(b c a) (RU000 '('(a b c) defined))))) true)
+;=>nil
+;out:
+'(c a b)
+`-RU000 (expr)
+  `-'(b c a)
+    `-RU000 (expr)
+      `-'(a b c)
+        `-defined
+
+;eof
+

@@ -1,0 +1,20 @@
+(print-tree '(a b c))
+;=>
+
+(print-tree '('(a b c) '(d e f)))
+;=>
+
+(print-tree ('('(a b c) '(d e f)) '('(x y z) '(m))))
+;=>
+
+(print-tree ('('('('(a) '(b))) '(b)) '('(c) '(d))))
+;=>
+
+(print-tree '('() '(d e f)))
+;=>
+
+(print-tree '('() xxx:'(d e f)))
+;=>
+
+(print-tree '('() xxx:'('(a) e f)))
+;=>

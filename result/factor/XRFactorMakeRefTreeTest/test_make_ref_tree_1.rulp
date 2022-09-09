@@ -13,8 +13,14 @@
 (list-stmt m)
 ;=>
 
-(list-stmt-ref-tree m '(c a b))
+(make-ref-tree m '(c b a))
 ;=>
 
-(list-stmt-ref-tree m '(c b a))
+(defvar ?tree (make-ref-tree m '(c a b)))
+;=>
+
+?tree
+;=>
+
+(print-ref-tree ?tree)
 ;=>

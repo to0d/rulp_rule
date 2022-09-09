@@ -1,0 +1,75 @@
+(print-tree '(a b c))
+;=>nil
+;out:
+'(a b c)
+
+;eof
+
+(print-tree '('(a b c) '(d e f)))
+;=>nil
+;out:
+L0
+|-'(a b c)
+`-'(d e f)
+
+;eof
+
+(print-tree ('('(a b c) '(d e f)) '('(x y z) '(m))))
+;=>nil
+;out:
+E0
+|-L1
+| |-'(a b c)
+| `-'(d e f)
+`-L2
+  |-'(x y z)
+  `-'(m)
+
+;eof
+
+(print-tree ('('('('(a) '(b))) '(b)) '('(c) '(d))))
+;=>nil
+;out:
+E0
+|-L1
+| |-L2
+| | `-L3
+| |   |-'(a)
+| |   `-'(b)
+| `-'(b)
+`-L4
+  |-'(c)
+  `-'(d)
+
+;eof
+
+(print-tree '('() '(d e f)))
+;=>nil
+;out:
+L0
+|-'()
+`-'(d e f)
+
+;eof
+
+(print-tree '('() xxx:'(d e f)))
+;=>nil
+;out:
+L0
+|-'()
+`-xxx:'(d e f)
+
+;eof
+
+(print-tree '('() xxx:'('(a) e f)))
+;=>nil
+;out:
+L0
+|-'()
+`-L1 (xxx:)
+  |-'(a)
+  |-e
+  `-f
+
+;eof
+

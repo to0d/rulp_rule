@@ -3,7 +3,12 @@
 ; Common utilies
 ;****************************************************
 (alias add-stmt ->)
+
 (defun size-of ((?m model)) (return (size-of-model ?m)))
+
+(defun print-ref-tree ((?tree list))
+    (print-tree ?tree true)
+)
 
 ;****************************************************
 ; Constraint utilies

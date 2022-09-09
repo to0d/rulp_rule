@@ -1,0 +1,8 @@
+INP: (and (or A B) C)
+INP: (and A B)
+INP: (and (or A B) (or C D))
+INP: (and (or A B) (or C D) (or E F))
+INP: (and (or (and (or A B) C) D) (or E F))
+INP: (and (or A B) (or B A B))
+INP: (and (or A B) (or D D))
+INP: (or A B)

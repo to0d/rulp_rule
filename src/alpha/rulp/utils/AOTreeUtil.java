@@ -23,6 +23,10 @@ public class AOTreeUtil {
 
 		public boolean expend = false;
 
+		public String toString() {
+			return "" + aoNode;
+		}
+
 		public ArrayList<DLRVisitNode<T>> childNodes = null;
 
 		public DLRVisitNode(IAOTreeNode<T> aoNode) {

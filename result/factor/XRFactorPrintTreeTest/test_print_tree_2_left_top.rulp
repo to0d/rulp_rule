@@ -1,0 +1,2 @@
+(print-tree '('(c a b) (RU000 '('(b c a) (RU000 '('(a b c) defined))))) true)
+;=>

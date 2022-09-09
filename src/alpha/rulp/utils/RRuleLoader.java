@@ -21,13 +21,14 @@ import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.rule.Constant.F_LIST_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_LIST_SOURCE_NODE;
 import static alpha.rulp.rule.Constant.F_LIST_STMT;
-import static alpha.rulp.rule.Constant.F_LIST_STMT_REF_TREE;
 import static alpha.rulp.rule.Constant.F_LIST_SUBGRAPH_FOR_QUERY;
 import static alpha.rulp.rule.Constant.F_LOAD_STMT;
+import static alpha.rulp.rule.Constant.F_MAKE_REF_TREE;
 import static alpha.rulp.rule.Constant.F_MODEL_OF;
 import static alpha.rulp.rule.Constant.F_OPT_MODEL;
 import static alpha.rulp.rule.Constant.F_PRINT_MODEL_STATUS;
 import static alpha.rulp.rule.Constant.F_PRINT_RUNNABLE_COUNTER;
+import static alpha.rulp.rule.Constant.F_PRINT_TREE;
 import static alpha.rulp.rule.Constant.F_PRIORITY_OF;
 import static alpha.rulp.rule.Constant.F_QUERY_STMT;
 import static alpha.rulp.rule.Constant.F_REMOVE_CONSTRAINT;
@@ -87,13 +88,14 @@ import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.factor.XRFactorListConstraint;
 import alpha.rulp.ximpl.factor.XRFactorListSourceNode;
 import alpha.rulp.ximpl.factor.XRFactorListStmt;
-import alpha.rulp.ximpl.factor.XRFactorListStmtRefTree;
 import alpha.rulp.ximpl.factor.XRFactorListSubGraphForQuery;
 import alpha.rulp.ximpl.factor.XRFactorLoadStmt;
+import alpha.rulp.ximpl.factor.XRFactorMakeRefTree;
 import alpha.rulp.ximpl.factor.XRFactorModelOf;
 import alpha.rulp.ximpl.factor.XRFactorOptModel;
 import alpha.rulp.ximpl.factor.XRFactorPrintModelStatus;
 import alpha.rulp.ximpl.factor.XRFactorPrintRunnableCounter;
+import alpha.rulp.ximpl.factor.XRFactorPrintTree;
 import alpha.rulp.ximpl.factor.XRFactorPriorityOf;
 import alpha.rulp.ximpl.factor.XRFactorQueryStmt;
 import alpha.rulp.ximpl.factor.XRFactorRemoveConstraint;
@@ -162,7 +164,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorPrintModelStatus(F_PRINT_MODEL_STATUS));
 		RulpUtil.addFrameObject(frame, new XRFactorPrintRunnableCounter(F_PRINT_RUNNABLE_COUNTER));
 		RulpUtil.addFrameObject(frame, new XRFactorOptModel(F_OPT_MODEL));
-		RulpUtil.addFrameObject(frame, new XRFactorListStmtRefTree(F_LIST_STMT_REF_TREE));
+		RulpUtil.addFrameObject(frame, new XRFactorMakeRefTree(F_MAKE_REF_TREE));
 		RulpUtil.addFrameObject(frame, new XRFactorSizeOfModel(F_SIZE_OF_MODEL));
 //		RulpUtil.addFrameObject(frame, new XRFactorGetRule(F_GET_RULE));
 		RulpUtil.addFrameObject(frame, new XRFactorPriorityOf(F_PRIORITY_OF));
@@ -182,6 +184,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorAddIndex(F_ADD_INDEX));
 		RulpUtil.addFrameObject(frame, new XRFactorBackSearch(A_BackSearch));
 		RulpUtil.addFrameObject(frame, new XRFactorListSubGraphForQuery(F_LIST_SUBGRAPH_FOR_QUERY));
+		RulpUtil.addFrameObject(frame, new XRFactorPrintTree(F_PRINT_TREE));
 
 		// Constraint
 		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

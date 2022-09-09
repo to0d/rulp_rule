@@ -331,7 +331,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      250
+           Interpreter call id:      251
     Interpreter call level/max:        0       10
                Frame max level:        8
                   Frame max id:        9
@@ -352,21 +352,21 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      295
+    factor:      296
       func:        3
 ==========================================================================================================================
 
-Callable stats info: callId=250, row=26, column=63(4), value-max=23, value-unit=2^x
+Callable stats info: callId=251, row=26, column=63(4), value-max=21, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333336336 max=28, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333333636 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
-    root   factor     68    0 defun                                                                        3333 3333313362  
+    root   factor     69    0 defun                                                                        3333 33333133361 
     root   factor      7    0 alias                          33                                                       1     
     root   factor      5    0 defvar                                                                           3         1  
-    root   factor      5    0 defmacro                                                                                  31  
+    root   factor      5    0 defmacro                                                                                   4  
     root   factor      4    0 make-list                                                                        3            
-  system   factor      4    0 add-stmt                                                                                    22
+  system   factor      4    0 add-stmt                                                                                    13
   system   factor      4    0 add-rule                                                                                     3
     root   factor      3    0 deftemplate                                                                            3      
     root   factor      2    0 return                                                                                       2
@@ -377,7 +377,7 @@ Callable stats info: callId=250, row=26, column=63(4), value-max=23, value-unit=
     root   factor      1    0 setq                                                                                         1
   system   factor      1    0 query-stmt                                                                                   1
     root   factor      1    0 new                                                                                         1 
-    root   factor      1    0 load                                                                                      1   
+    root   factor      1    0 load                                                                                       1  
   system   factor      1    0 list-stmt                                                                                    1
   system     func      1    1 (init_cst_rule type#model)                                                                   1
     root   factor      1    0 if                                                                                           1
@@ -392,18 +392,18 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2201            0         2201
+        atom:         2207            0         2207
       string:           81            0           81
         list:          157            6          151
-        expr:          916            3          913
+        expr:          920            3          917
          var:           31            8           23
-        func:           85            0           85
+        func:           86            0           86
     template:            1            0            1
        macro:            5            0            5
       member:           20            0           20
        frame:            7            6            1
  interpreter:            1            0
-  frameEntry:          341            0
+  frameEntry:          343            0
       lambda:            0            0
 ==========================================================================================================================
 

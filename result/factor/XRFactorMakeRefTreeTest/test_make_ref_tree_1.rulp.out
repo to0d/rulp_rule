@@ -1,0 +1,36 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x ?y ?z) do (-> m '(?y ?z ?x)))
+;=>RU000
+
+(add-stmt m '(a b c))
+;=>true
+
+(start m)
+;=>6
+
+(list-stmt m)
+;=>'('(a b c) '(b c a) '(c a b))
+
+(make-ref-tree m '(c b a))
+;=>'()
+
+(defvar ?tree (make-ref-tree m '(c a b)))
+;=>&?tree
+
+?tree
+;=>'('(c a b) (RU000 '('(b c a) (RU000 '('(a b c) defined)))))
+
+(print-ref-tree ?tree)
+;=>nil
+;out:
+'(c a b)
+`-RU000 (expr)
+  `-'(b c a)
+    `-RU000 (expr)
+      `-'(a b c)
+        `-defined
+
+;eof
+

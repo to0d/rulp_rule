@@ -1,0 +1,8 @@
+OUT: [(A C), (B C)]
+OUT: [(A B)]
+OUT: [(A C), (A D), (B C), (B D)]
+OUT: [(A C E), (A C F), (A D E), (A D F), (B C E), (B C F), (B D E), (B D F)]
+OUT: [(A C E), (A C F), (B C E), (B C F), (D E), (D F)]
+OUT: [(A B), (A), (B)]
+OUT: [(A D), (B D)]
+OUT: [(A), (B)]

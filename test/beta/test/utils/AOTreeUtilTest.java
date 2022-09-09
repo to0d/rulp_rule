@@ -1,7 +1,6 @@
 package beta.test.utils;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,8 +30,8 @@ class AOTreeUtilTest extends RuleTestBase {
 		}
 
 		@Override
-		public boolean isAnd() throws RException {
-			return false;
+		public IAOTreeNode<IRAtom> getChild(int index) {
+			return null;
 		}
 
 		@Override
@@ -41,8 +40,13 @@ class AOTreeUtilTest extends RuleTestBase {
 		}
 
 		@Override
-		public IAOTreeNode<IRAtom> getChild(int index) {
-			return null;
+		public IRAtom getObj() {
+			return atom;
+		}
+
+		@Override
+		public boolean isAnd() throws RException {
+			return false;
 		}
 
 		@Override
@@ -50,20 +54,34 @@ class AOTreeUtilTest extends RuleTestBase {
 			return true;
 		}
 
-		@Override
-		public IRAtom getObj() {
-			return atom;
+		public String toString() {
+			return "" + atom;
 		}
 
 	}
 
 	static class XListAOTreeNode implements IAOTreeNode<IRAtom> {
 
+		private ArrayList<IAOTreeNode<IRAtom>> childs = null;
+
 		private IRExpr expr;
 
 		private Boolean isAnd = null;
 
-		private ArrayList<IAOTreeNode<IRAtom>> childs = null;
+		public XListAOTreeNode(IRExpr expr) {
+			super();
+			this.expr = expr;
+		}
+
+		@Override
+		public IAOTreeNode<IRAtom> getChild(int index) throws RException {
+			return getChilds().get(index);
+		}
+
+		@Override
+		public int getChildCount() throws RException {
+			return getChilds().size();
+		}
 
 		public ArrayList<IAOTreeNode<IRAtom>> getChilds() throws RException {
 
@@ -80,9 +98,9 @@ class AOTreeUtilTest extends RuleTestBase {
 			return childs;
 		}
 
-		public XListAOTreeNode(IRExpr expr) {
-			super();
-			this.expr = expr;
+		@Override
+		public IRAtom getObj() {
+			return null;
 		}
 
 		@Override
@@ -96,23 +114,12 @@ class AOTreeUtilTest extends RuleTestBase {
 		}
 
 		@Override
-		public int getChildCount() throws RException {
-			return getChilds().size();
-		}
-
-		@Override
-		public IAOTreeNode<IRAtom> getChild(int index) throws RException {
-			return getChilds().get(index);
-		}
-
-		@Override
 		public boolean isLeaf() throws RException {
 			return false;
 		}
 
-		@Override
-		public IRAtom getObj() {
-			return null;
+		public String toString() {
+			return "" + expr;
 		}
 
 	}
@@ -131,63 +138,52 @@ class AOTreeUtilTest extends RuleTestBase {
 		}
 	}
 
-	protected void _test_all(String inputTreeExpr, String expectResult) {
+	protected String _expand_and_or_tree(String input) throws RException {
 
-		try {
+		List<IRObject> objs = this._getParser().parse(input);
+		assertEquals(objs.size(), 1);
 
-			List<IRObject> objs = this._getParser().parse(inputTreeExpr);
-			assertEquals(objs.size(), 1);
+		IAOTreeNode<IRAtom> aoTree = _createAONode(objs.get(0));
 
-			IAOTreeNode<IRAtom> aoTree = _createAONode(objs.get(0));
+		ArrayList<String> visitPaths = new ArrayList<>();
+		DLRVisitNode<IRAtom> vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
 
-			ArrayList<String> visitPaths = new ArrayList<>();
-			DLRVisitNode<IRAtom> vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
+		{
+			List<IRAtom> vistAtoms = AOTreeUtil.visit(vistTree);
+			Collections.sort(vistAtoms, (o1, o2) -> {
+				return o1.toString().compareTo(o2.toString());
+			});
+			String visitPath = RulpFactory.createExpression(vistAtoms).asString();
+			visitPaths.add(visitPath);
+		}
 
-			{
-				List<IRAtom> vistAtoms = AOTreeUtil.visit(vistTree);
-				Collections.sort(vistAtoms, (o1, o2) -> {
-					return o1.toString().compareTo(o2.toString());
-				});
-				String visitPath = RulpFactory.createExpression(vistAtoms).asString();
+		while (AOTreeUtil.update(vistTree)) {
+
+			List<IRAtom> vistAtoms = AOTreeUtil.visit(vistTree);
+			Collections.sort(vistAtoms, (o1, o2) -> {
+				return o1.toString().compareTo(o2.toString());
+			});
+
+			String visitPath = RulpFactory.createExpression(vistAtoms).asString();
+
+			if (!visitPaths.contains(visitPath)) {
 				visitPaths.add(visitPath);
 			}
-
-			while (AOTreeUtil.update(vistTree)) {
-
-				List<IRAtom> vistAtoms = AOTreeUtil.visit(vistTree);
-				Collections.sort(vistAtoms, (o1, o2) -> {
-					return o1.toString().compareTo(o2.toString());
-				});
-
-				String visitPath = RulpFactory.createExpression(vistAtoms).asString();
-
-				if (!visitPaths.contains(visitPath)) {
-					visitPaths.add(visitPath);
-				}
-			}
-
-			Collections.sort(visitPaths);
-
-			assertEquals(expectResult, visitPaths.toString());
-
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
 		}
+
+		Collections.sort(visitPaths);
+
+		return visitPaths.toString();
 	}
 
 	@Test
-	void test() {
-	
+	void test_expand_and_or_tree_1() {
+
 		_setup();
-		_test_all("(and A B)", "[(A B)]");
-		_test_all("(and (or A B) C)", "[(A C), (B C)]");
-		_test_all("(and (or A B) (or C D))", "[(A C), (A D), (B C), (B D)]");
-		_test_all("(and (or A B) (or C D) (or E F))",
-				"[(A C E), (A C F), (A D E), (A D F), (B C E), (B C F), (B D E), (B D F)]");
-		_test_all("(and (or (and (or A B) C) D) (or E F))", "[(A C E), (A C F), (B C E), (B C F), (D E), (D F)]");
-		_test_all("(and (or A B) (or B A B))", "[(A B), (A), (B)]");
-		_test_all("(and (or A B) (or D D))", "[(A D), (B D)]");
+
+		_test((input) -> {
+			return _expand_and_or_tree(input);
+		});
 	}
 
 }

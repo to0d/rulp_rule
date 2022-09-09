@@ -1,16 +1,12 @@
 package alpha.rulp.ximpl.factor;
 
-import static alpha.rulp.lang.Constant.O_Nil;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 import alpha.rulp.lang.IRFrame;
@@ -27,13 +23,14 @@ import alpha.rulp.utils.AOTreeUtil.DLRVisitNode;
 import alpha.rulp.utils.AOTreeUtil.IAOTreeNode;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReference;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.RReteType;
 
-public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
+public class XRFactorMakeRefTree extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
 	static class StmtProveUtil {
 
@@ -188,60 +185,119 @@ public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRF
 			return proveNode;
 		}
 
-		public String proveStmt(IRList stmt) throws RException {
+		private Set<String> visitStmtSet = new HashSet<>();
+
+		public IRList prove(ProveEntry proveEntry) throws RException {
+
+			ArrayList<IRObject> proveList = new ArrayList<>();
+
+			proveList.add(proveEntry.node);
+
+			for (IRReteEntry factEntry : proveEntry.factEntryList) {
+				proveList.add(prove(factEntry));
+			}
+
+			return RulpFactory.createExpression(proveList);
+		}
+
+		public IRList prove(IRReteEntry entry) throws RException {
+
+			String uniqName = ReteUtil.uniqName(entry);
+			if (visitStmtSet.contains(uniqName)) {
+				return RulpFactory.createList(entry);
+			}
+
+			visitStmtSet.add(uniqName);
+
+			ProveNode proveNode = getProveNode(entry);
+			if (proveNode.isDefinedStmt) {
+				return RulpFactory.createList(entry, RReteStatus.toObject(entry.getStatus()));
+			}
+
+			ArrayList<IRObject> proveList = new ArrayList<>();
+			proveList.add(entry);
+
+			ProveEntry proveEntry = proveNode.getFirstProve();
+			proveList.add(prove(proveEntry));
+
+			return RulpFactory.createList(proveList);
+		}
+
+		public IRList proveStmt(IRList stmt) throws RException {
 
 			/****************************************************/
 			// Find root node
 			/****************************************************/
 			IRReteNode rootNode = model.getNodeGraph().findRootNode(stmt.getNamedName(), stmt.size());
 			if (rootNode == null) {
-				return String.format("==> %s: node not found\n", stmt);
+				throw new RException("root node not found: " + stmt);
 			}
 
-			StringBuilder sb = new StringBuilder();
-			Queue<IRReteEntry> needProveStmt = new LinkedList<>();
-			Set<String> provedStmt = new HashSet<>();
-
-			{
-				IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
-				if (entry == null) {
-					return String.format("%s: not found\n", stmt);
-				}
-
-				needProveStmt.add(entry);
+			/****************************************************/
+			// Find entry
+			/****************************************************/
+			IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
+			if (entry == null) {
+				return RulpFactory.createList();
 			}
 
-			while (!needProveStmt.isEmpty()) {
-
-				IRReteEntry entry = needProveStmt.remove();
-				if (provedStmt.contains(entry.toString())) {
-					continue;
-				}
-
-				provedStmt.add(entry.toString());
-
-				ProveNode proveNode = getProveNode(entry);
-				if (proveNode.isDefinedStmt) {
-					sb.append(String.format("%s : %s\n", entry.toString(), entry.getStatus()));
-
-				} else {
-
-					ProveEntry proveEntry = proveNode.getFirstProve();
-
-					sb.append(String.format("%s : %s", entry.toString(), proveEntry.node.getNodeName()));
-					for (IRReteEntry factEntry : proveEntry.factEntryList) {
-						needProveStmt.add(factEntry);
-						sb.append(" " + factEntry.toString());
-					}
-					sb.append("\n");
-				}
-
-			}
-
-//			printEntry(sb, entry.getEntryId(), 0);
-
-			return sb.toString();
+			return prove(entry);
 		}
+
+//		public String proveStmt(IRList stmt) throws RException {
+//
+//			/****************************************************/
+//			// Find root node
+//			/****************************************************/
+//			IRReteNode rootNode = model.getNodeGraph().findRootNode(stmt.getNamedName(), stmt.size());
+//			if (rootNode == null) {
+//				return String.format("==> %s: node not found\n", stmt);
+//			}
+//
+//			StringBuilder sb = new StringBuilder();
+//			Queue<IRReteEntry> needProveStmt = new LinkedList<>();
+//			Set<String> provedStmt = new HashSet<>();
+//
+//			{
+//				IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
+//				if (entry == null) {
+//					return String.format("%s: not found\n", stmt);
+//				}
+//
+//				needProveStmt.add(entry);
+//			}
+//
+//			while (!needProveStmt.isEmpty()) {
+//
+//				IRReteEntry entry = needProveStmt.remove();
+//				if (provedStmt.contains(entry.toString())) {
+//					continue;
+//				}
+//
+//				provedStmt.add(entry.toString());
+//
+//				ProveNode proveNode = getProveNode(entry);
+//				if (proveNode.isDefinedStmt) {
+//					sb.append(String.format("%s : %s\n", entry.toString(), entry.getStatus()));
+//
+//				} else {
+//
+//					ProveEntry proveEntry = proveNode.getFirstProve();
+//
+//					sb.append(String.format("%s : %s", entry.toString(), proveEntry.node.getNodeName()));
+//					for (IRReteEntry factEntry : proveEntry.factEntryList) {
+//						needProveStmt.add(factEntry);
+//						sb.append(" " + factEntry.toString());
+//					}
+//					sb.append("\n");
+//				}
+//
+//			}
+//
+////			printEntry(sb, entry.getEntryId(), 0);
+//
+//			return sb.toString();
+//		}
 	}
 
 	static class XEntryAOTreeNode implements IAOTreeNode<IRReteEntry> {
@@ -358,7 +414,7 @@ public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRF
 
 	}
 
-	public XRFactorListStmtRefTree(String factorName) {
+	public XRFactorMakeRefTree(String factorName) {
 		super(factorName);
 	}
 
@@ -371,8 +427,7 @@ public class XRFactorListStmtRefTree extends AbsAtomFactorAdapter implements IRF
 
 		IRModel model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
 		IRList stmt = RulpUtil.asList(interpreter.compute(frame, args.get(2)));
-		interpreter.getOut().out(new StmtProveUtil(model).proveStmt(stmt));
 
-		return O_Nil;
+		return new StmtProveUtil(model).proveStmt(stmt);
 	}
 }

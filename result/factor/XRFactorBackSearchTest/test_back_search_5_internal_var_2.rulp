@@ -13,7 +13,13 @@
 (back-search m '(a p c) explain)
 ;=>
 
-(list-stmt-ref-tree m '(a p c))
+(defvar ?tree (make-ref-tree m '(a p c)))
+;=>
+
+?tree
+;=>
+
+(print-ref-tree ?tree)
 ;=>
 
 (list-stmt m)
