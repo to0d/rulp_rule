@@ -2,6 +2,7 @@
 ;=>
 
 (add-rule m if '(?x ?y ?z) do (-> m '(?y ?z ?x)))
+(add-rule m if '(?x a ?y) do (-> m '(?y a ?x)))
 ;=>
 
 (add-stmt m '(a b c))
@@ -13,14 +14,37 @@
 (list-stmt m)
 ;=>
 
-(make-ref-tree m '(c b a))
+(do
+    (defvar ?tree (make-ref-tree m '(c b a)))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>
 
-(defvar ?tree (make-ref-tree m '(c a b)))
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) -1 0))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>
 
-?tree
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) -1 1))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>
 
-(print-ref-tree ?tree)
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) 0 -1))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>
+
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) 1 -1))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>

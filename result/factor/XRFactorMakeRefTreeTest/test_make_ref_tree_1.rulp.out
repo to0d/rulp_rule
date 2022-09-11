@@ -2,35 +2,105 @@
 ;=>m
 
 (add-rule m if '(?x ?y ?z) do (-> m '(?y ?z ?x)))
-;=>RU000
+(add-rule m if '(?x a ?y) do (-> m '(?y a ?x)))
+;=>RU000 RU001
 
 (add-stmt m '(a b c))
 ;=>true
 
 (start m)
-;=>6
+;=>18
 
 (list-stmt m)
-;=>'('(a b c) '(b c a) '(c a b))
+;=>'('(a b c) '(b c a) '(c a b) '(b a c) '(a c b) '(c b a))
 
-(make-ref-tree m '(c b a))
-;=>'()
-
-(defvar ?tree (make-ref-tree m '(c a b)))
-;=>&?tree
-
-?tree
-;=>'('(c a b) (RU000 '('(b c a) (RU000 '('(a b c) defined)))))
-
-(print-ref-tree ?tree)
+(do
+    (defvar ?tree (make-ref-tree m '(c b a)))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>nil
 ;out:
-'(c a b)
+'('(c b a) (RU000 '('(a c b) (RU000 '('(b a c) (RU001 '('(c a b) (RU000 '('(b c a) (RU000 '('(a b c) defined)))) (RU000 '('(b a c))))) (RU001 '('(c b a))))))))
+'(c b a)
 `-RU000 (expr)
-  `-'(b c a)
+  `-'(a c b)
     `-RU000 (expr)
-      `-'(a b c)
-        `-defined
+      `-'(b a c)
+        |-RU001 (expr)
+        | `-'(c a b)
+        |   |-RU000 (expr)
+        |   | `-'(b c a)
+        |   |   `-RU000 (expr)
+        |   |     `-'(a b c)
+        |   |       `-defined
+        |   `-RU000 (expr)
+        |     `-'(b a c)
+        `-RU001 (expr)
+          `-'(c b a)
+
+;eof
+
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) -1 0))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>nil
+;out:
+'('(c b a) reasoned)
+'(c b a)
+`-reasoned
+
+;eof
+
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) -1 1))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>nil
+;out:
+'('(c b a) (RU000 '('(a c b) reasoned)))
+'(c b a)
+`-RU000 (expr)
+  `-'(a c b)
+    `-reasoned
+
+;eof
+
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) 0 -1))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>nil
+;out:
+'('(c b a))
+'(c b a)
+
+;eof
+
+(do
+    (defvar ?tree (make-ref-tree m '(c b a) 1 -1))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>nil
+;out:
+'('(c b a) (RU000 '('(a c b) (RU000 '('(b a c) (RU001 '('(c a b) (RU000 '('(b c a) (RU000 '('(a b c) defined)))))))))))
+'(c b a)
+`-RU000 (expr)
+  `-'(a c b)
+    `-RU000 (expr)
+      `-'(b a c)
+        `-RU001 (expr)
+          `-'(c a b)
+            `-RU000 (expr)
+              `-'(b c a)
+                `-RU000 (expr)
+                  `-'(a b c)
+                    `-defined
 
 ;eof
 

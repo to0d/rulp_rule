@@ -62,20 +62,29 @@
 ;=>&?tree
 
 ?tree
-;=>'('(a p c) (RU001 '('(a p b) (RU000 '('(a p2 b) defined))) '('(b p c) (RU000 '('(b p2 c) defined)))))
+;=>'('(a p c) (RU001 '('(a p b) (RU000 '('(a p2 b) defined))) '('(b p c) (RU000 '('(b p2 c) defined)))) (RU001 '('(a p b2) (RU000 '('(a p2 b2) defined))) '('(b2 p c) (RU000 '('(b2 p2 c) defined)))))
 
 (print-ref-tree ?tree)
 ;=>nil
 ;out:
 '(a p c)
+|-RU001 (expr)
+| |-'(a p b)
+| | `-RU000 (expr)
+| |   `-'(a p2 b)
+| |     `-defined
+| `-'(b p c)
+|   `-RU000 (expr)
+|     `-'(b p2 c)
+|       `-defined
 `-RU001 (expr)
-  |-'(a p b)
+  |-'(a p b2)
   | `-RU000 (expr)
-  |   `-'(a p2 b)
+  |   `-'(a p2 b2)
   |     `-defined
-  `-'(b p c)
+  `-'(b2 p c)
     `-RU000 (expr)
-      `-'(b p2 c)
+      `-'(b2 p2 c)
         `-defined
 
 ;eof

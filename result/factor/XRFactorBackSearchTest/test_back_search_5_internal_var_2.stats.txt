@@ -374,8 +374,8 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         2309            0         2309
       string:           78            0           78
-        list:          179            5          174
-        expr:          916            2          914
+        list:          183            5          178
+        expr:          919            2          917
          var:           23            1           22
         func:           86            0           86
     template:            1            0            1
@@ -433,7 +433,7 @@ _ginfo               : 23       2        2    funcList   '((_ginfo string) (_gin
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
 m                    : 25       2        2    instance   model@m             
-?tree                : 26       2        1    var        '('(a p c) (RU001 '('(a p b) (RU000 '('(a p2 b) defined))) '('(b p c) (RU000 '('(b p2 c) defined))))) : type=list
+?tree                : 26       2        1    var        '('(a p c) (RU001 '('(a p b) (RU000 '('(a p2 b) defined))) '('(b p c) (RU000 '('(b p2 c) defined)))) (RU001 '('(a p b2) (RU000 '('(a p2 b2) defined))) '('(b2 p c) (RU000 '('(b2 p2 c) defined))))) : type=list
 ==========================================================================================================================
 
 
