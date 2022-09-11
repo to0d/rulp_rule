@@ -51,22 +51,6 @@ public class RefTreeUtil {
 
 	static class ProveNode {
 
-		public static ProveEntry toProveEntry(DLRVisitNode<IRReteEntry> vistTree) throws RException {
-
-			List<IRReteEntry> vistEntries = AOTreeUtil.visit(vistTree);
-			Collections.sort(vistEntries, (o1, o2) -> {
-				return o1.toString().compareTo(o2.toString());
-			});
-
-			ProveEntry proveEntry = new ProveEntry();
-			proveEntry.factEntryList = vistEntries;
-
-			XRefAOTreeNode refChild = (XRefAOTreeNode) vistTree.aoNode.getChild(0);
-			proveEntry.node = refChild.ref.getNode();
-
-			return proveEntry;
-		}
-
 		public boolean hasMore = true;
 
 		public boolean isDefinedStmt = false;
@@ -92,7 +76,7 @@ public class RefTreeUtil {
 
 				IAOTreeNode<IRReteEntry> aoTree = new XEntryAOTreeNode(stmtEntry, true);
 				vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
-				return toProveEntry(vistTree);
+				return _toProveEntry(vistTree);
 			}
 
 			if (!AOTreeUtil.update(vistTree)) {
@@ -100,7 +84,7 @@ public class RefTreeUtil {
 				return null;
 			}
 
-			return toProveEntry(vistTree);
+			return _toProveEntry(vistTree);
 		}
 
 	}
@@ -219,15 +203,31 @@ public class RefTreeUtil {
 
 	}
 
+	private static ProveEntry _toProveEntry(DLRVisitNode<IRReteEntry> vistTree) throws RException {
+
+		List<IRReteEntry> vistEntries = AOTreeUtil.visit(vistTree);
+		Collections.sort(vistEntries, (o1, o2) -> {
+			return o1.toString().compareTo(o2.toString());
+		});
+
+		ProveEntry proveEntry = new ProveEntry();
+		proveEntry.factEntryList = vistEntries;
+
+		XRefAOTreeNode refChild = (XRefAOTreeNode) vistTree.aoNode.getChild(0);
+		proveEntry.node = refChild.ref.getNode();
+
+		return proveEntry;
+	}
+
 	private int maxDeep = -1;
+
+	private int maxWidth = -1;
 
 	private IRModel model;
 
 	private Map<String, ProveNode> proveMap = new HashMap<>();
 
 	private Set<String> visitStmtSet = new HashSet<>();
-
-	private int maxWidth = -1;
 
 	public RefTreeUtil(IRModel model) {
 		super();
@@ -324,7 +324,32 @@ public class RefTreeUtil {
 		return proveNode;
 	}
 
-	public IRList build(IRList stmt) throws RException {
+	private IRList _buildReteEntryRefTree(IRReteEntry entry) throws RException {
+
+		ArrayList<IRObject> refTree = new ArrayList<>();
+
+		IAOTreeNode<IRReteEntry> aoTree = new XEntryAOTreeNode(entry, false);
+		DLRVisitNode<IRReteEntry> vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
+		ProveEntry provEntry = _toProveEntry(vistTree);
+		refTree.add(RulpFactory.createList(provEntry.factEntryList));
+
+		while (AOTreeUtil.update(vistTree)) {
+			provEntry = _toProveEntry(vistTree);
+			refTree.add(RulpFactory.createList(provEntry.factEntryList));
+		}
+
+		return RulpFactory.createList(refTree);
+	}
+
+	public static IRList buildReteEntryRefTree(IRModel model, IRReteEntry entry) throws RException {
+		return new RefTreeUtil(model)._buildReteEntryRefTree(entry);
+	}
+
+	public static IRList buildStmtRefTree(IRList stmt, IRModel model, int maxWidth, int maxDeep) throws RException {
+		return new RefTreeUtil(model, maxWidth, maxDeep)._buildStmtRefTree(stmt);
+	}
+
+	private IRList _buildStmtRefTree(IRList stmt) throws RException {
 
 		/****************************************************/
 		// Find root node

@@ -8,7 +8,7 @@
 ;=>&?bs-trace
 
 (back-search m (and '(a p c) '(a p b)) explain)
-;=>(and '('(a p c) ("RU000" '('(a p ?b) '(?b p c)))) '('(a p b)))
+;=>(and '('(a p c) ("RU000" (query-stmt '(a p b) '(b p c)))) '('(a p b)))
 ;out:
 00000 LA0000: create_root, stmt-list=['(a p c), '(a p b)], type=LOGIC_AND, status=INIT
 00000 LA0000: init begin, stmt-list=['(a p c), '(a p b)], type=LOGIC_AND, status=INIT

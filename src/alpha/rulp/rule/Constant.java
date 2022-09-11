@@ -236,6 +236,8 @@ public interface Constant {
 	IRAtom O_Defined = RulpFactory.createAtom(A_Defined);
 
 	IRAtom O_Failed = RulpFactory.createAtom(A_Failed);
+	
+	IRAtom O_QUERY_STMT = RulpFactory.createAtom(F_QUERY_STMT);
 
 	IRAtom O_Halting = RulpFactory.createAtom(A_Halting);
 

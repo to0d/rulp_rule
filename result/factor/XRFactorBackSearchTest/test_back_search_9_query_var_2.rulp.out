@@ -14,7 +14,7 @@
 ;=>nil
 
 (back-search m '(a1 p3 b1) explain)
-;=>'('(a1 p3 b1) ("RU000" '('(a1 p1 b1)) '('(a1 p2 ?c))))
+;=>'('(a1 p3 b1) ("RU000" '('(a1 p1 b1)) (query-stmt '(a1 p2 c1))))
 ;out:
 00000 SO0000: create_root, stmt='(a1 p3 b1), type=STMT_OR, status=INIT
 00000 SO0000: init begin, stmt='(a1 p3 b1), type=STMT_OR, status=INIT

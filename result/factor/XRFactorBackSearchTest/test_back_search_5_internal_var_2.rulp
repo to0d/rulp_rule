@@ -10,16 +10,18 @@
 (setq ?bs-trace true)
 ;=>
 
-(back-search m '(a p c) explain)
+(do
+    (defvar ?tree (back-search m '(a p c) explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>
 
-(defvar ?tree (make-ref-tree m '(a p c)))
-;=>
-
-?tree
-;=>
-
-(print-ref-tree ?tree)
+(do
+    (defvar ?tree (make-ref-tree m '(a p c)))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>
 
 (list-stmt m)

@@ -19,7 +19,7 @@ import alpha.rulp.ximpl.action.IActionSimpleStmt;
 import alpha.rulp.ximpl.entry.IREntryQueueUniq;
 import alpha.rulp.ximpl.node.SourceNode;
 
-public class XRBSNodeStmtAnd extends AbsBSNode {
+public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 
 	static class BSStmtIndexs {
 
@@ -44,6 +44,10 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 	protected boolean rst;
 
 	protected SourceNode sourceNode;
+
+	public SourceNode getSourceNode() {
+		return sourceNode;
+	}
 
 	protected IRList stmt;
 
@@ -165,6 +169,10 @@ public class XRBSNodeStmtAnd extends AbsBSNode {
 
 	public String getStatusString() {
 		return String.format("fail-child=%s", failChild == null ? "null" : failChild.getNodeName());
+	}
+
+	public IRList getStmt() {
+		return stmt;
 	}
 
 	@Override

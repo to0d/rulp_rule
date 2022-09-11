@@ -10,8 +10,12 @@
 (setq ?bs-trace true)
 ;=>&?bs-trace
 
-(back-search m '(a p c) explain)
-;=>'('(a p c) ("RU001" '('(a p ?b) '(?b p c))))
+(do
+    (defvar ?tree (back-search m '(a p c) explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>nil
 ;out:
 00000 SO0000: create_root, stmt='(a p c), type=STMT_OR, status=INIT
 00000 SO0000: init begin, stmt='(a p c), type=STMT_OR, status=INIT
@@ -55,18 +59,23 @@
 00013 SO0000: process end, rst=true, status=COMPLETE, child=2/2, succ-child=SA0002, needComplete=true
 00014 SO0000: has stmt, stmt='(a p c), rst=true
 00014 SO0000: return true
+'('(a p c) (RU001 (query-stmt '(a p b) '(b p c))))
+'(a p c)
+`-"RU001" (expr)
+  `-query-stmt (expr)
+    |-'(a p b)
+    `-'(b p c)
 
 ;eof
 
-(defvar ?tree (make-ref-tree m '(a p c)))
-;=>&?tree
-
-?tree
-;=>'('(a p c) (RU001 '('(a p b) (RU000 '('(a p2 b) defined))) '('(b p c) (RU000 '('(b p2 c) defined)))) (RU001 '('(a p b2) (RU000 '('(a p2 b2) defined))) '('(b2 p c) (RU000 '('(b2 p2 c) defined)))))
-
-(print-ref-tree ?tree)
+(do
+    (defvar ?tree (make-ref-tree m '(a p c)))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;=>nil
 ;out:
+'('(a p c) (RU001 '('(a p b) (RU000 '('(a p2 b) defined))) '('(b p c) (RU000 '('(b p2 c) defined)))) (RU001 '('(a p b2) (RU000 '('(a p2 b2) defined))) '('(b2 p c) (RU000 '('(b2 p2 c) defined)))))
 '(a p c)
 |-RU001 (expr)
 | |-'(a p b)

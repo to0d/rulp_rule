@@ -39,6 +39,6 @@ public class XRFactorMakeRefTree extends AbsAtomFactorAdapter implements IRFacto
 			deep = RulpUtil.asInteger(interpreter.compute(frame, args.get(4))).asInteger();
 		}
 
-		return new RefTreeUtil(model, width, deep).build(stmt);
+		return RefTreeUtil.buildStmtRefTree(stmt, model, width, deep);
 	}
 }
