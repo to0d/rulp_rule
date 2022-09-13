@@ -1,0 +1,21 @@
+(new model m)
+(add-stmt m v1:'(38))
+(add-rule m if v1:'(?x) (> ?x 37) (< ?x 40) do (-> v1:'((+ ?x 2))))
+(add-rule m if v1:'(?x) (= (% ?x 2) 0) do (-> v2:'(?x)))
+;=>m true RU000 RU001
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(do
+    (defvar ?tree (back-search m v2:'(?x) explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;err:
+Invalid parameters: (back-search m v2:'(?x) explain)
+at (back-search m v2:'(?x) explain) ; do-4
+at (defvar ?tree (back-search m v2:'(?x) explain)) ; do-4
+at (do (defvar ?tree (back-search m v2:'(?x) explain)) (println ?tree) (print-re... ; main-2
+;eof
+

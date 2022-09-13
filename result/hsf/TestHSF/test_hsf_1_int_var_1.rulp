@@ -1,0 +1,15 @@
+(new model m)
+(add-stmt m v1:'(38))
+(add-rule m if v1:'(?x) (> ?x 37) (< ?x 40) do (-> v1:'((+ ?x 2))))
+(add-rule m if v1:'(?x) (= (% ?x 2) 0) do (-> v2:'(?x)))
+;=>
+
+(setq ?bs-trace true)
+;=>
+
+(do
+    (defvar ?tree (back-search m v2:'(?x) explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>
