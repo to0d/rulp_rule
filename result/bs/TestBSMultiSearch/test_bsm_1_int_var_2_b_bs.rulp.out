@@ -1,0 +1,21 @@
+(new model m)
+;=>m
+
+(add-constraint m v1:'(?x) (max 10 on ?x))
+(add-constraint m v2:'(?x) (max 10 on ?x))
+(add-constraint m v3:'(?x) (max 10 on ?x))
+(add-rule m if v1:'(?x) do (-> v1:'((+ ?x 1))))
+(add-rule m if v2:'(?x) do (-> v2:'((+ ?x 1))))
+(add-rule m if v3:'(?x) do (-> v3:'((+ ?x 1))))
+(add-stmt m v1:'(1))
+(add-stmt m v2:'(1))
+(add-stmt m v3:'(1))
+;=>true true true RU000 RU001 RU002 true true true
+
+(add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))
+;err:
+unlink expression: [(= (+ (power ?x 2) (power ?y 2)) (power ?z 2))]
+fail to add rule<(add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))>
+at (add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (p... ; main-2
+;eof
+

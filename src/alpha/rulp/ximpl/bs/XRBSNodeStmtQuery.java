@@ -1,11 +1,12 @@
 package alpha.rulp.ximpl.bs;
 
+import static alpha.rulp.rule.Constant.O_QUERY_STMT;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import static alpha.rulp.rule.Constant.*;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
