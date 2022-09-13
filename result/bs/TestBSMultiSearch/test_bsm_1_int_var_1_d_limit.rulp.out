@@ -1,0 +1,21 @@
+(new model m)
+(add-stmt m v1:'(38))
+(add-constraint m v1:'(?x) (max 40 on ?x))
+(add-rule m if v1:'(?x) do (-> v1:'((+ ?x 2))))
+;=>m true true RU000
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(do
+    (defvar ?tree (back-search m v1:'(?x) limit 1 explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;err:
+Invalid parameters: (back-search m v1:'(?x) limit 1 explain)
+at (back-search m v1:'(?x) limit 1 explain) ; do-7
+at (defvar ?tree (back-search m v1:'(?x) limit 1 explain)) ; do-7
+at (do (defvar ?tree (back-search m v1:'(?x) limit 1 explain)) (println ?tree) (... ; main-2
+;eof
+

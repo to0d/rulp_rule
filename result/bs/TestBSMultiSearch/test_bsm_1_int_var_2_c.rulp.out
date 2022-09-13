@@ -1,0 +1,32 @@
+(new model m)
+;=>m
+
+(add-constraint m v1:'(?x) (max 10 on ?x))
+(add-constraint m v2:'(?x) (max 10 on ?x))
+(add-constraint m v3:'(?x) (max 10 on ?x))
+(add-rule m if v1:'(?x) do (-> v1:'((+ ?x 1))))
+(add-rule m if v2:'(?x) do (-> v2:'((+ ?x 1))))
+(add-rule m if v3:'(?x) do (-> v3:'((+ ?x 1))))
+(add-stmt m v1:'(1))
+(add-stmt m v2:'(1))
+(add-stmt m v3:'(1))
+;=>true true true RU000 RU001 RU002 true true true
+
+(add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (>= ?y ?x) (>= ?z ?y) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))
+;=>RU003
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(do
+    (defvar ?tree (back-search m v4:'(?x ?y ?z) explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;err:
+Invalid parameters: (back-search m v4:'(?x ?y ?z) explain)
+at (back-search m v4:'(?x ?y ?z) explain) ; do-6
+at (defvar ?tree (back-search m v4:'(?x ?y ?z) explain)) ; do-6
+at (do (defvar ?tree (back-search m v4:'(?x ?y ?z) explain)) (println ?tree) (pr... ; main-2
+;eof
+

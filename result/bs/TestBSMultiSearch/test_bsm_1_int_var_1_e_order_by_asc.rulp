@@ -1,0 +1,15 @@
+(new model m)
+(add-stmt m v1:'(38))
+(add-constraint m v1:'(?x) (max 40 on ?x))
+(add-rule m if v1:'(?x) do (-> v1:'((+ ?x 2))))
+;=>
+
+(setq ?bs-trace true)
+;=>
+
+(do
+    (defvar ?tree (back-search m v1:'(?x) order by ?x asc explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>
