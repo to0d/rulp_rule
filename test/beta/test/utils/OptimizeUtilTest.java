@@ -65,6 +65,19 @@ class OptimizeUtilTest extends RulpTestBase {
 		return RulpUtil.toString(RulpFactory.createList(rst.getKey(), rst.getValue()));
 	}
 
+	String _optimize_unused_condition(String inputExpr) throws RException {
+
+		List<IRObject> input = RulpFactory.createParser().parse(inputExpr);
+		assertEquals(2, input.size());
+
+		IRList condList = RulpUtil.asList(input.get(0));
+		IRList actionList = RulpUtil.asList(input.get(1));
+
+		IRList optConditionList = OptimizeUtil.optimizeRuleRemoveUnusedCondition(condList, actionList);
+
+		return RulpUtil.toString(optConditionList);
+	}
+
 	@Test
 	void test_optimize_expr() {
 
@@ -94,6 +107,17 @@ class OptimizeUtilTest extends RulpTestBase {
 
 		_test((input) -> {
 			return _optimize_rule_has_stmt(input);
+		});
+
+	}
+
+	@Test
+	void test_optimize_unused_condition() {
+
+		_setup();
+
+		_test((input) -> {
+			return _optimize_unused_condition(input);
 		});
 
 	}

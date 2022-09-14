@@ -19,12 +19,13 @@ public enum RReteType {
 	BETA1(12), //
 	BETA2(13), //
 	BETA3(14), //
-	RULE(15), //
-	WORK(16), //
-	INDEX(17), //
-	INHER(18), // inherit
-	OR0(19), //
-	DUP(20); //
+	BETAX(15), //
+	RULE(16), //
+	WORK(17), //
+	INDEX(18), //
+	INHER(19), // inherit
+	OR0(20), //
+	DUP(21); //
 
 	static final int RRT_ROOT0 = 0;
 	static final int RRT_NAME0 = 1;
@@ -41,17 +42,18 @@ public enum RReteType {
 	static final int RRT_BETA1 = 12;
 	static final int RRT_BETA2 = 13;
 	static final int RRT_BETA3 = 14;
-	static final int RRT_RULE = 15;
-	static final int RRT_WORK = 16;
-	static final int RRT_INDEX = 17;
-	static final int RRT_INHER = 18;
-	static final int RRT_OR0 = 19;
-	static final int RRT_DUP = 20;
+	static final int RRT_BETAX = 15;
+	static final int RRT_RULE = 16;
+	static final int RRT_WORK = 17;
+	static final int RRT_INDEX = 18;
+	static final int RRT_INHER = 19;
+	static final int RRT_OR0 = 20;
+	static final int RRT_DUP = 21;
 
 	public static final RReteType ALL_RETE_TYPE[] = { ROOT0, NAME0, VAR, CONST, ALPH0, ALPH1, EXPR0, EXPR1, EXPR2,
-			EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, RULE, WORK, INDEX, INHER, OR0, DUP };
+			EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, BETAX, RULE, WORK, INDEX, INHER, OR0, DUP };
 
-	public static final int RETE_TYPE_NUM = 21;
+	public static final int RETE_TYPE_NUM = 22;
 
 	public static boolean isAlphaType(RReteType type) {
 
@@ -111,6 +113,9 @@ public enum RReteType {
 
 		case RRT_BETA3:
 			return BETA3;
+
+		case RRT_BETAX:
+			return BETAX;
 
 		case RRT_RULE:
 			return RULE;

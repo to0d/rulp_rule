@@ -422,6 +422,9 @@ public class StatsUtil {
 
 		case BETA3:
 			return "b3";
+			
+		case BETAX:
+			return "bx";
 
 		case RULE:
 			return "ru";

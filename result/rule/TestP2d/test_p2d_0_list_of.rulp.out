@@ -387,6 +387,7 @@ mbr=RRT_BETA0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=cons
 mbr=RRT_BETA1, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_BETA2, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_BETA3, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_BETAX, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_CONST, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_DUP, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_EXPR0, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()

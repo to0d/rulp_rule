@@ -26,6 +26,7 @@ import static alpha.rulp.ximpl.node.RReteType.BETA0;
 import static alpha.rulp.ximpl.node.RReteType.BETA1;
 import static alpha.rulp.ximpl.node.RReteType.BETA2;
 import static alpha.rulp.ximpl.node.RReteType.BETA3;
+import static alpha.rulp.ximpl.node.RReteType.BETAX;
 import static alpha.rulp.ximpl.node.RReteType.EXPR0;
 import static alpha.rulp.ximpl.node.RReteType.EXPR1;
 import static alpha.rulp.ximpl.node.RReteType.EXPR2;
@@ -103,7 +104,8 @@ public class OptimizeUtil {
 
 	public static boolean OPT_RULE_HAS_STMT = false;
 
-	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2, BETA3 };
+	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2, BETA3,
+			BETAX };
 
 	protected static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
 
@@ -807,6 +809,10 @@ public class OptimizeUtil {
 		}
 
 		return (IRList) _buildOptimizeMatchTree(matchTree);
+	}
+
+	public static IRList optimizeRuleRemoveUnusedCondition(IRList condList, IRList actionList) throws RException {
+		return condList;
 	}
 
 	public static IRList optimizeRuleActionIndexVar(IRList condList, IRList actionList) throws RException {

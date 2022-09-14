@@ -568,6 +568,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			case BETA1:
 			case BETA2:
 			case BETA3:
+			case BETAX:
 				betaGcCount += gcCount;
 				break;
 
