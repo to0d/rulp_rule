@@ -1,0 +1,2 @@
+INP: '('(?a ?p ?b) '(?p nm:propertyOf nm:tagProperty)) '((-> '(?a nm:typeOf nm:tag)))
+INP: '('(?a ?p ?b) (has-stmt (?b p c))) '((-> '(?a p2 d)))

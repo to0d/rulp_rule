@@ -151,7 +151,7 @@ class MatchTreeTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_build_match_tree_d_special() {
+	void test_build_match_tree_d_betax() {
 		_setup();
 		_test_buildMatchTree();
 	}
@@ -161,4 +161,5 @@ class MatchTreeTest extends RuleTestBase {
 		_setup();
 		_test_buildMatchTree();
 	}
+
 }

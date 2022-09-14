@@ -1,0 +1,5 @@
+OUT: ()
+OUT: (a b c)
+OUT: (not a)
+OUT: (equal a b)
+OUT: (not-equal a b)

@@ -1,0 +1,5 @@
+INP: ()
+INP: (a b c)
+INP: (not a)
+INP: (equal a b)
+INP: (not (equal a b))

@@ -1,0 +1,2 @@
+OUT: '((remove-stmt '(?x p ?y)))
+OUT: '((remove-stmt '(?x p ?y)))

@@ -1,0 +1,2 @@
+INP: '('(?x p ?y) '(?y p ?z)) '((remove-stmt ?0))
+INP: '('(?x p ?y) '(?y p ?z)) '((remove-stmt '(?x p ?y)))

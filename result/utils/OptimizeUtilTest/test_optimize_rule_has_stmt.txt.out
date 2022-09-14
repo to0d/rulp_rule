@@ -1,0 +1,2 @@
+OUT: '('('(?a ?p ?b)) '((if (has-stmt '(?p nm:propertyOf nm:tagProperty)) do (-> '(?a nm:typeOf nm:tag)))))
+OUT: '('('(?a ?p ?b)) '((if (has-stmt (?b p c)) do (-> '(?a p2 d)))))
