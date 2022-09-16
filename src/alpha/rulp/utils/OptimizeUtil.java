@@ -812,6 +812,11 @@ public class OptimizeUtil {
 	}
 
 	public static IRList optimizeRuleRemoveUnusedCondition(IRList condList, IRList actionList) throws RException {
+
+//		Set<String> actionVars = new HashSet<>();
+//
+//		ReteUtil.fillVarList(actionList, actionVars);
+
 		return condList;
 	}
 

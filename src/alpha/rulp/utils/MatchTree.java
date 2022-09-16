@@ -502,11 +502,19 @@ public class MatchTree {
 			if (treeList.size() == 1) {
 				tree = treeList.get(0).tree;
 
-			} else if (treeList.size() == 2) {
-				tree = RulpFactory.createList(treeList.get(0).tree, treeList.get(1).tree);
+			} else if (treeList.size() >= 2) {
+//				tree = RulpFactory.createList(treeList.get(0).tree, treeList.get(1).tree);
+//
+//			} else {
 
-			} else if (treeList.size() > 2) {
-				throw new RException("too many tree node: " + treeList);
+				ArrayList<IRList> list = new ArrayList<>();
+				for (MTreeNode tn : treeList) {
+					list.add(tn.tree);
+				}
+				
+				tree = RulpFactory.createList(list);
+
+//				throw new RException("too many tree node: " + treeList);
 			}
 
 			if (!unLinkVarExprList.isEmpty()) {
