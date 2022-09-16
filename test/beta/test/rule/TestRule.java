@@ -380,4 +380,36 @@ public class TestRule extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_rule_g_unused_var_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_rule_g_unused_var_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_rule_g_unused_var_3() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_rule_g_unused_var_4() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

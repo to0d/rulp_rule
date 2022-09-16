@@ -1,0 +1,13 @@
+(new model m)
+(add-rule m if '(?a p ?b) '(?b p ?c) '(?c p ?d) do (-> '(?a p ?c)))
+(-> m '(a p b))
+(-> m '(b p c))
+(-> m '(c p d1))
+(-> m '(c p d2))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>

@@ -1,0 +1,14 @@
+(new model m)
+(add-rule m if '(?a p ?b) '(?b p ?c) '(?d) do (-> '(?a p ?c)))
+(-> m '(a p b))
+(-> m '(b p c))
+(-> m '(d1))
+(-> m '(d2))
+;=>m RU000 true true true true
+
+(start m)
+;=>10
+
+(list-stmt m)
+;=>'('(a p b) '(b p c) '(a p c) '(d1) '(d2))
+
