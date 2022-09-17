@@ -26,11 +26,11 @@ import static alpha.rulp.ximpl.node.RReteType.BETA0;
 import static alpha.rulp.ximpl.node.RReteType.BETA1;
 import static alpha.rulp.ximpl.node.RReteType.BETA2;
 import static alpha.rulp.ximpl.node.RReteType.BETA3;
-import static alpha.rulp.ximpl.node.RReteType.BETAX;
 import static alpha.rulp.ximpl.node.RReteType.EXPR0;
 import static alpha.rulp.ximpl.node.RReteType.EXPR1;
 import static alpha.rulp.ximpl.node.RReteType.EXPR2;
 import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_NUM;
+import static alpha.rulp.ximpl.node.RReteType.ZETA0;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -105,7 +105,7 @@ public class OptimizeUtil {
 	public static boolean OPT_RULE_HAS_STMT = false;
 
 	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2, BETA3,
-			BETAX };
+			ZETA0 };
 
 	protected static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
 

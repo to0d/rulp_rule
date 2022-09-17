@@ -1193,8 +1193,8 @@ public class ReteUtil {
 		case BETA3:
 			return String.format("B3%04d", nodeId);
 
-		case BETAX:
-			return String.format("BX%04d", nodeId);
+		case ZETA0:
+			return String.format("Z0%04d", nodeId);
 
 		case EXPR0:
 			return String.format("E0%04d", nodeId);

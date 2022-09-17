@@ -7,13 +7,13 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRNodeBetax extends AbsReteNode {
+public class XRNodeZeta0 extends AbsReteNode {
 
 	protected boolean nodeFresh = true;
 
 	protected int[] parentVisitIndexs;
 
-	public XRNodeBetax(String instanceName) {
+	public XRNodeZeta0(String instanceName) {
 		super(instanceName);
 	}
 

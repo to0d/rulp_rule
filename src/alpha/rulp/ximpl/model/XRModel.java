@@ -552,6 +552,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		int betaGcCount = 0;
 		int exprGcCount = 0;
 		int ruleGcCount = 0;
+		int zetaGcCount = 0;
 
 		for (IRReteNode node : ReteUtil.getAllNodes(this.getNodeGraph())) {
 
@@ -568,8 +569,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 			case BETA1:
 			case BETA2:
 			case BETA3:
-			case BETAX:
 				betaGcCount += gcCount;
+				break;
+
+			case ZETA0:
+				zetaGcCount += gcCount;
 				break;
 
 			case ROOT0:
@@ -597,8 +601,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println(String.format("==> GC: rs=%d, ra=%d, rb=%d, re=%d, rr=%d", smtGcCount, alpahGcCount,
-					betaGcCount, exprGcCount, ruleGcCount));
+			System.out.println(String.format("==> GC: rs=%d, ra=%d, rb=%d, rz=%d, re=%d, rr=%d", smtGcCount,
+					alpahGcCount, betaGcCount, zetaGcCount, exprGcCount, ruleGcCount));
 		}
 
 		this.counter.gcCount++;

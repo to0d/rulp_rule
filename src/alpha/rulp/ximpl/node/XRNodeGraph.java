@@ -446,76 +446,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
-	protected AbsReteNode _buildBetaxNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
-
-		// Check no common vars
-
-		int size = reteTree.size();
-
-		IRReteNode[] parentNodes = new IRReteNode[size];
-		ArrayList<Map<String, Integer>> subTreeVarMapList = new ArrayList<>();
-
-		{
-			HashSet<String> allVarNames = new HashSet<>();
-			for (int i = 0; i < size; ++i) {
-
-				IRList subTree = RulpUtil.asList(reteTree.get(i));
-				IRReteNode parentNode = _findReteNode(subTree, tmpVarBuilder);
-				parentNodes[i] = parentNode;
-
-				Map<String, Integer> subTreeVarIndexMap = new HashMap<>();
-				ReteUtil.buildTreeVarList(subTree, subTreeVarIndexMap);
-
-				for (String var : subTreeVarIndexMap.keySet()) {
-					if (allVarNames.contains(var)) {
-						throw new RException("invalid betex tree: " + reteTree);
-					}
-				}
-
-				subTreeVarMapList.add(subTreeVarIndexMap);
-				allVarNames.addAll(subTreeVarIndexMap.keySet());
-			}
-		}
-
-		/*********************************************/
-		// Build Inherit & Join index
-		/*********************************************/
-		ArrayList<IRObject> thisVarList = ReteUtil.buildTreeVarList(reteTree);
-		int beteEntryLen = thisVarList.size();
-		if (beteEntryLen == 0) {
-			throw new RException("Invalid beta entry length found: " + reteTree);
-		}
-
-		InheritIndex[] inheritIndexs = new InheritIndex[beteEntryLen];
-
-		{
-			for (int i = 0; i < beteEntryLen; ++i) {
-
-				IRObject thisVar = thisVarList.get(i);
-				String thisVarNamne = RulpUtil.asAtom(thisVar).getName();
-
-				for (int j = 0; j < size; ++j) {
-
-					Integer varIndex = subTreeVarMapList.get(j).get(thisVarNamne);
-					if (varIndex != null) {
-						inheritIndexs[i] = new InheritIndex(j, varIndex);
-						break;
-					}
-				}
-
-				if (inheritIndexs[i] == null) {
-					throw new RException(String.format("var<%s> was not found in both left and right: %s",
-							thisVar.toString(), reteTree.toString()));
-				}
-			}
-		}
-		
-		IRObject[] varEntry = ReteUtil._varEntry(thisVarList);
-		
-		return RNodeFactory.createBetaxNode(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-				parentNodes, varEntry, inheritIndexs);
-	}
-
 	protected AbsReteNode _buildBetaNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
 
 		IRObject e0 = reteTree.get(0);
@@ -998,7 +928,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
 		if (ReteUtil.isBetaxTree(reteTree, treeSize)) {
-			return _buildBetaxNode(reteTree, tmpVarBuilder);
+			return _buildZetaNode(reteTree, tmpVarBuilder);
 		}
 
 		throw new RException("Invalid tree found: " + reteTree);
@@ -1126,6 +1056,34 @@ public class XRNodeGraph implements IRNodeGraph {
 		return subGraph;
 	}
 
+	protected AbsReteNode _buildVarChangeNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
+
+		String varName = RulpUtil.asAtom(reteTree.get(1)).getName();
+
+		// the e1 must be a var name format
+		if (!RulpUtil.isVarName(varName)) {
+			throw new RException("the 2nd element must be a var name format: " + varName);
+		}
+
+		switch (reteTree.size()) {
+		case 4:
+			/*****************************************************/
+			// (var-changed ?varName old-value new-value)
+			/*****************************************************/
+			return _buildVarChangeNode4(varName, reteTree, tmpVarBuilder);
+
+//		case 3:
+//			/*****************************************************/
+//			// (var-changed ?varName new-value)
+//			/*****************************************************/
+//			return _buildVarChangeNode3(varName, reteTree, tmpVarBuilder);
+
+		default:
+			throw new RException("invalid tree: " + reteTree);
+		}
+
+	}
+
 //	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
 //			throws RException {
 //
@@ -1174,34 +1132,6 @@ public class XRNodeGraph implements IRNodeGraph {
 //		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
 //		return alph0Node;
 //	}
-
-	protected AbsReteNode _buildVarChangeNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
-
-		String varName = RulpUtil.asAtom(reteTree.get(1)).getName();
-
-		// the e1 must be a var name format
-		if (!RulpUtil.isVarName(varName)) {
-			throw new RException("the 2nd element must be a var name format: " + varName);
-		}
-
-		switch (reteTree.size()) {
-		case 4:
-			/*****************************************************/
-			// (var-changed ?varName old-value new-value)
-			/*****************************************************/
-			return _buildVarChangeNode4(varName, reteTree, tmpVarBuilder);
-
-//		case 3:
-//			/*****************************************************/
-//			// (var-changed ?varName new-value)
-//			/*****************************************************/
-//			return _buildVarChangeNode3(varName, reteTree, tmpVarBuilder);
-
-		default:
-			throw new RException("invalid tree: " + reteTree);
-		}
-
-	}
 
 	protected AbsReteNode _buildVarChangeNode4(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
 			throws RException {
@@ -1330,6 +1260,76 @@ public class XRNodeGraph implements IRNodeGraph {
 		default:
 			throw new RException("factor not support: " + e0);
 		}
+	}
+
+	protected AbsReteNode _buildZetaNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
+
+		// Check no common vars
+
+		int size = reteTree.size();
+
+		IRReteNode[] parentNodes = new IRReteNode[size];
+		ArrayList<Map<String, Integer>> subTreeVarMapList = new ArrayList<>();
+
+		{
+			HashSet<String> allVarNames = new HashSet<>();
+			for (int i = 0; i < size; ++i) {
+
+				IRList subTree = RulpUtil.asList(reteTree.get(i));
+				IRReteNode parentNode = _findReteNode(subTree, tmpVarBuilder);
+				parentNodes[i] = parentNode;
+
+				Map<String, Integer> subTreeVarIndexMap = new HashMap<>();
+				ReteUtil.buildTreeVarList(subTree, subTreeVarIndexMap);
+
+				for (String var : subTreeVarIndexMap.keySet()) {
+					if (allVarNames.contains(var)) {
+						throw new RException("invalid betex tree: " + reteTree);
+					}
+				}
+
+				subTreeVarMapList.add(subTreeVarIndexMap);
+				allVarNames.addAll(subTreeVarIndexMap.keySet());
+			}
+		}
+
+		/*********************************************/
+		// Build Inherit & Join index
+		/*********************************************/
+		ArrayList<IRObject> thisVarList = ReteUtil.buildTreeVarList(reteTree);
+		int beteEntryLen = thisVarList.size();
+		if (beteEntryLen == 0) {
+			throw new RException("Invalid beta entry length found: " + reteTree);
+		}
+
+		InheritIndex[] inheritIndexs = new InheritIndex[beteEntryLen];
+
+		{
+			for (int i = 0; i < beteEntryLen; ++i) {
+
+				IRObject thisVar = thisVarList.get(i);
+				String thisVarNamne = RulpUtil.asAtom(thisVar).getName();
+
+				for (int j = 0; j < size; ++j) {
+
+					Integer varIndex = subTreeVarMapList.get(j).get(thisVarNamne);
+					if (varIndex != null) {
+						inheritIndexs[i] = new InheritIndex(j, varIndex);
+						break;
+					}
+				}
+
+				if (inheritIndexs[i] == null) {
+					throw new RException(String.format("var<%s> was not found in both left and right: %s",
+							thisVar.toString(), reteTree.toString()));
+				}
+			}
+		}
+		
+		IRObject[] varEntry = ReteUtil._varEntry(thisVarList);
+		
+		return RNodeFactory.createZeta0Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
+				parentNodes, varEntry, inheritIndexs);
 	}
 
 	protected IRNodeSubGraph _createSubGraphForQueryNodeBackward(IRReteNode queryNode) throws RException {

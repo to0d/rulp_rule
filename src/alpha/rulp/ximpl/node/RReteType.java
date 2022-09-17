@@ -19,7 +19,7 @@ public enum RReteType {
 	BETA1(12), //
 	BETA2(13), //
 	BETA3(14), //
-	BETAX(15), //
+	ZETA0(15), //
 	RULE(16), //
 	WORK(17), //
 	INDEX(18), //
@@ -42,7 +42,7 @@ public enum RReteType {
 	static final int RRT_BETA1 = 12;
 	static final int RRT_BETA2 = 13;
 	static final int RRT_BETA3 = 14;
-	static final int RRT_BETAX = 15;
+	static final int RRT_ZETA0 = 15;
 	static final int RRT_RULE = 16;
 	static final int RRT_WORK = 17;
 	static final int RRT_INDEX = 18;
@@ -51,7 +51,7 @@ public enum RReteType {
 	static final int RRT_DUP = 21;
 
 	public static final RReteType ALL_RETE_TYPE[] = { ROOT0, NAME0, VAR, CONST, ALPH0, ALPH1, EXPR0, EXPR1, EXPR2,
-			EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, BETAX, RULE, WORK, INDEX, INHER, OR0, DUP };
+			EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, ZETA0, RULE, WORK, INDEX, INHER, OR0, DUP };
 
 	public static final int RETE_TYPE_NUM = 22;
 
@@ -114,8 +114,8 @@ public enum RReteType {
 		case RRT_BETA3:
 			return BETA3;
 
-		case RRT_BETAX:
-			return BETAX;
+		case RRT_ZETA0:
+			return ZETA0;
 
 		case RRT_RULE:
 			return RULE;

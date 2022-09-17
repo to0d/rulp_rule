@@ -315,10 +315,10 @@ public class RNodeFactory {
 		return node;
 	}
 
-	public static AbsReteNode createBetaxNode(IRModel model, int nodeId, String uniqName, int entryLength,
+	public static AbsReteNode createZeta0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode[] parentNodes, IRObject[] varEntry, InheritIndex[] inheritIndexs) throws RException {
 
-		XRNodeBetax node = new XRNodeBetax(ReteUtil.getNodeName(RReteType.BETAX, nodeId));
+		XRNodeZeta0 node = new XRNodeZeta0(ReteUtil.getNodeName(RReteType.ZETA0, nodeId));
 
 		// Model
 		node.setModel(model);
@@ -327,7 +327,7 @@ public class RNodeFactory {
 		node.setNodeId(nodeId);
 
 		// Node type
-		node.setReteType(RReteType.BETAX);
+		node.setReteType(RReteType.ZETA0);
 
 		// Uniq name
 		node.setUniqName(uniqName);
