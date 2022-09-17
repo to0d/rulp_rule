@@ -159,6 +159,15 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_query_stmt_8_limit_2_zeta() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
 	void test_query_stmt_9_order_by_1() {
 
 		_setup();
@@ -207,4 +216,5 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
 }
