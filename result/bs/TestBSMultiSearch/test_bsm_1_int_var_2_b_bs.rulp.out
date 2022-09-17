@@ -13,9 +13,20 @@
 ;=>true true true RU000 RU001 RU002 true true true
 
 (add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))
+;=>RU003
+
+(setq ?bs-trace true)
+;=>&?bs-trace
+
+(do
+    (defvar ?tree (back-search m v4:'(?x ?y ?z) explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
 ;err:
-Invalid tree found: '(v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)))
-fail to add rule<(add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))>
-at (add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (p... ; main-2
+Invalid parameters: (back-search m v4:'(?x ?y ?z) explain)
+at (back-search m v4:'(?x ?y ?z) explain) ; do-6
+at (defvar ?tree (back-search m v4:'(?x ?y ?z) explain)) ; do-6
+at (do (defvar ?tree (back-search m v4:'(?x ?y ?z) explain)) (println ?tree) (pr... ; main-2
 ;eof
 

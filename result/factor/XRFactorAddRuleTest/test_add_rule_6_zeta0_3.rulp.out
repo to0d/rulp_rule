@@ -2,12 +2,14 @@
 ;=>nil
 
 (new model m)
-(add-rule m if n1:'(?a) (< ?a 10) do (-> n1:'((+ ?x 1))))
+(add-rule m if n1:'(?a) (< ?a 10) do (-> n1:'((+ ?a 1))))
 (add-rule m if n1:'(?a) n1:'(?b) n1:'(?c) (= (+ (power ?a 2) (power ?b 2)) (power ?c 2)) do  (-> n2:'(?a ?b ?c)))
 (add-stmt m n1:'(1))
-;err:
-Invalid tree found: '(n1:'(?a) n1:'(?b) n1:'(?c) (= (+ (power ?a 2) (power ?b 2)) (power ?c 2)))
-fail to add rule<(add-rule m if n1:'(?a) n1:'(?b) n1:'(?c) (= (+ (power ?a 2) (power ?b 2)) (power ?c 2)) do (-> n2:'(?a ?b ?c)))>
-at (add-rule m if n1:'(?a) n1:'(?b) n1:'(?c) (= (+ (power ?a 2) (power ?b 2)) (p... ; main-2
-;eof
+;=>m RU000 RU001 true
+
+(start m)
+;=>41
+
+(list-stmt m)
+;=>'(n1:'(1) n1:'(2) n1:'(3) n1:'(4) n1:'(5) n1:'(6) n1:'(7) n1:'(8) n1:'(9) n1:'(10) n2:'(4 3 5) n2:'(3 4 5) n2:'(8 6 10) n2:'(6 8 10))
 

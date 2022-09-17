@@ -417,6 +417,10 @@ public class ConstraintFactory {
 		return new XRConstraint1Expr4(expr, matchStmtList);
 	}
 
+	public static IRConstraintX exprx(IRExpr expr, List<IRObject[]> varEntryList) throws RException {
+		return new XRConstraintXExpr0(expr, varEntryList);
+	}
+
 	public static IRConstraint1Func func(IRFunction func, String funcName) throws RException {
 		return new XRConstraint1Func(func, funcName);
 	}

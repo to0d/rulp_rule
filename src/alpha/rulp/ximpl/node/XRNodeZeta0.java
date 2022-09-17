@@ -7,7 +7,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRNodeZeta0 extends AbsReteNode {
+public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 
 	protected boolean nodeFresh = true;
 
@@ -62,7 +62,7 @@ public class XRNodeZeta0 extends AbsReteNode {
 			int entryCount = parentEntryCount[i];
 			IREntryQueue queue = parentNodes[i].getEntryQueue();
 
-			for (int j = 0; i < entryCount; ++i) {
+			for (int j = 0; j < entryCount; ++j) {
 
 				IRReteEntry entry = queue.getEntryAt(j);
 				if (entry == null || entry.isDroped()) {
@@ -233,4 +233,5 @@ public class XRNodeZeta0 extends AbsReteNode {
 
 		return updateCount;
 	}
+
 }

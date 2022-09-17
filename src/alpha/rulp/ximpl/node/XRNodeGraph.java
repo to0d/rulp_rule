@@ -927,7 +927,7 @@ public class XRNodeGraph implements IRNodeGraph {
 //		}
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
-		if (ReteUtil.isBetaxTree(reteTree, treeSize)) {
+		if (ReteUtil.isZetaTree(reteTree, treeSize)) {
 			return _buildZetaNode(reteTree, tmpVarBuilder);
 		}
 
@@ -1264,16 +1264,23 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected AbsReteNode _buildZetaNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
 
-		// Check no common vars
+		IRExpr zetaExpr = null;
 
-		int size = reteTree.size();
+		int zetaSize = reteTree.size();
 
-		IRReteNode[] parentNodes = new IRReteNode[size];
+		IRObject ez = reteTree.get(zetaSize - 1);
+		if (ez.getType() == RType.EXPR) {
+			zetaExpr = (IRExpr) ez;
+			zetaSize--;
+		}
+
+		IRReteNode[] parentNodes = new IRReteNode[zetaSize];
 		ArrayList<Map<String, Integer>> subTreeVarMapList = new ArrayList<>();
+		HashSet<String> allVarNames = new HashSet<>();
 
 		{
-			HashSet<String> allVarNames = new HashSet<>();
-			for (int i = 0; i < size; ++i) {
+
+			for (int i = 0; i < zetaSize; ++i) {
 
 				IRList subTree = RulpUtil.asList(reteTree.get(i));
 				IRReteNode parentNode = _findReteNode(subTree, tmpVarBuilder);
@@ -1310,7 +1317,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				IRObject thisVar = thisVarList.get(i);
 				String thisVarNamne = RulpUtil.asAtom(thisVar).getName();
 
-				for (int j = 0; j < size; ++j) {
+				for (int j = 0; j < zetaSize; ++j) {
 
 					Integer varIndex = subTreeVarMapList.get(j).get(thisVarNamne);
 					if (varIndex != null) {
@@ -1325,11 +1332,32 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 			}
 		}
-		
+
 		IRObject[] varEntry = ReteUtil._varEntry(thisVarList);
-		
-		return RNodeFactory.createZeta0Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), beteEntryLen,
-				parentNodes, varEntry, inheritIndexs);
+		AbsReteNode node = RNodeFactory.createZeta0Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+				beteEntryLen, parentNodes, varEntry, inheritIndexs);
+
+		if (zetaExpr != null) {
+
+//			Map<String, Integer> exprVarIndexMap = new HashMap<>();
+//			ReteUtil.buildTreeVarList(zetaExpr, exprVarIndexMap);
+//			if (!allVarNames.containsAll(exprVarIndexMap.keySet())) {
+//				throw new RException(String.format("expr var was not found in tree: %s", reteTree));
+//			}
+//
+//			List<IRObject[]> varEntryList = new ArrayList<>();
+//			for (int i = 0; i < zetaSize; ++i) {
+//				ArrayList<IRObject> subVarList = ReteUtil.buildTreeVarList(RulpUtil.asList(reteTree.get(i)));
+//				varEntryList.add(ReteUtil._varEntry(subVarList));
+//			}
+//
+//			IRConstraintX constraintx = ConstraintFactory.exprx(zetaExpr, varEntryList);
+
+			IRConstraint1 constraint = ConstraintFactory.expr0(zetaExpr, varEntry, this.model.getFrame());
+			node.addConstraint1(constraint);
+		}
+
+		return node;
 	}
 
 	protected IRNodeSubGraph _createSubGraphForQueryNodeBackward(IRReteNode queryNode) throws RException {

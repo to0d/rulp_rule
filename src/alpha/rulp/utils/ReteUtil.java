@@ -733,12 +733,15 @@ public class ReteUtil {
 			return vars;
 		}
 
-		if (ReteUtil.isBetaxTree(reteTree, size)) {
+		if (ReteUtil.isZetaTree(reteTree, size)) {
 			ArrayList<IRObject> vars = new ArrayList<>();
 			for (int i = 0; i < size; ++i) {
-				for (IRObject v : buildTreeVarList((IRList) reteTree.get(i), new HashMap<>())) {
-					if (_tryPutVarIndex(indexMap, v, vars.size())) {
-						vars.add(v);
+				IRObject ex = reteTree.get(i);
+				if (ex.getType() == RType.LIST) {
+					for (IRObject v : buildTreeVarList((IRList) ex, new HashMap<>())) {
+						if (_tryPutVarIndex(indexMap, v, vars.size())) {
+							vars.add(v);
+						}
 					}
 				}
 			}
@@ -1374,21 +1377,6 @@ public class ReteUtil {
 				&& reteTree.get(1).getType() == RType.LIST;
 	}
 
-	public static boolean isBetaxTree(IRList reteTree, int treeSize) throws RException {
-
-		if (treeSize <= 2 || reteTree.getType() != RType.LIST) {
-			return false;
-		}
-
-		for (int i = 0; i < treeSize; ++i) {
-			if (reteTree.get(i).getType() != RType.LIST) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public static boolean isCond(IRList cond) throws RException {
 
 		if (!ReteUtil.isReteStmt(cond)) {
@@ -1785,6 +1773,23 @@ public class ReteUtil {
 		}
 
 		return false;
+	}
+
+	public static boolean isZetaTree(IRList reteTree, int treeSize) throws RException {
+
+		if (treeSize <= 2 || reteTree.getType() != RType.LIST) {
+			return false;
+		}
+
+		for (int i = 0; i < treeSize - 1; ++i) {
+			if (reteTree.get(i).getType() != RType.LIST) {
+				return false;
+			}
+		}
+
+		RType lastType = reteTree.get(treeSize - 1).getType();
+
+		return lastType == RType.LIST || lastType == RType.EXPR;
 	}
 
 	public static IRReteNode matchChildNode(IRReteNode node, RReteType type, String childUniqName) {

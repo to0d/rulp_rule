@@ -13,9 +13,8 @@
 ;=>true true true RU000 RU001 RU002 true true true
 
 (add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))
-;err:
-Invalid tree found: '(v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)))
-fail to add rule<(add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))>
-at (add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (p... ; main-2
-;eof
+;=>RU003
+
+(query-stmt m '(?x ?y ?z) from v4:'(?x ?y ?z))
+;=>'('(4 3 5) '(3 4 5) '(8 6 10) '(6 8 10))
 
