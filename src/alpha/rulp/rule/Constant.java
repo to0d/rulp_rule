@@ -236,7 +236,7 @@ public interface Constant {
 	IRAtom O_Defined = RulpFactory.createAtom(A_Defined);
 
 	IRAtom O_Failed = RulpFactory.createAtom(A_Failed);
-	
+
 	IRAtom O_QUERY_STMT = RulpFactory.createAtom(F_QUERY_STMT);
 
 	IRAtom O_Halting = RulpFactory.createAtom(A_Halting);
@@ -270,6 +270,8 @@ public interface Constant {
 	int RETE_PRIORITY_DEFAULT = 99;
 
 	int RETE_PRIORITY_DISABLED = -9;
+
+	int RETE_PRIORITY_QUERY = 199;
 
 //	int RETE_PRIORITY_GROUP_MAX = 699;
 //

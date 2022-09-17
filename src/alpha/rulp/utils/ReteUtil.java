@@ -70,6 +70,16 @@ import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
 
+	public static boolean supportUpdateIncrementally(IRReteNode node) {
+		switch (node.getReteType()) {
+		case ZETA0:
+			return true;
+
+		default:
+			return false;
+		}
+	}
+
 	static class ReplaceMap implements Map<String, IRObject> {
 
 		private Map<String, String> nameMap;

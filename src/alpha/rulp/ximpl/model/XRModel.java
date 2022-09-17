@@ -1,7 +1,7 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_Nil;
-import static alpha.rulp.rule.Constant.A_MODEL;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
 import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
@@ -1077,10 +1077,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.activeUpdate++;
 		this._setRunState(RRunState.Running);
 
+		int oldPriority = modelPriority;
+		this.modelPriority = RETE_PRIORITY_QUERY;
+
 		/********************************************/
 		// Activate sub group
 		/********************************************/
-		subGraph.activate(this.getPriority());
+		subGraph.activate(RETE_PRIORITY_QUERY + 1);
+
+		/********************************************/
+		// Lower priority for nodes that can run incrementally
+		/********************************************/
+		if (limit > 0) {
+			for (IRReteNode node : subGraph.getNodes()) {
+				if (ReteUtil.supportUpdateIncrementally(node)) {
+					node.setPriority(RETE_PRIORITY_QUERY);
+				}
+			}
+		}
 
 		try {
 
@@ -1095,13 +1109,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 					case Running:
 
 						int execLimit = -1;
-						switch (node.getReteType()) {
-						case ZETA0:
+						if (limit > 0 && ReteUtil.supportUpdateIncrementally(node)) {
 							execLimit = 1;
-							break;
-
-						default:
-							break;
 						}
 
 						int update = execute(node, execLimit);
@@ -1146,6 +1155,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			this.processingLevel--;
 			this._setRunState(RRunState.Partial);
+			this.modelPriority = oldPriority;
+
 			subGraph.rollback();
 		}
 	}
@@ -1677,14 +1688,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 		_checkCache(node);
 
 		int oldQueryMatchCount = modelCounter.getQueryMatchCount();
-
 		modelCounter.incNodeExecCount();
 
 		int update = node.update(limit);
+		boolean pushBack = false;
 
 		// may need more process
 		if (limit > 0 && update > 0) {
-			updateQueue.push(node);
+			pushBack = true;
 		} else {
 			node.setReteStage(RReteStage.InActive);
 			node.clean();
@@ -1744,6 +1755,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		int newQueryMatchCount = modelCounter.getQueryMatchCount();
 		if (newQueryMatchCount > oldQueryMatchCount) {
 			node.addQueryMatchCount(newQueryMatchCount - oldQueryMatchCount);
+		}
+
+		if (pushBack) {
+			updateQueue.push(node);
 		}
 
 		return update;

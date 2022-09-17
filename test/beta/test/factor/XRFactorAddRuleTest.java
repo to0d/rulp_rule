@@ -97,7 +97,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_add_rule_6_zeta0_1() {
 
@@ -106,7 +106,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
+
 	@Test
 	void test_add_rule_6_zeta0_2() {
 
@@ -115,7 +115,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
+
 	@Test
 	void test_add_rule_6_zeta0_3() {
 
@@ -124,7 +124,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
+
 	@Test
 	void test_add_rule_6_zeta0_4() {
 
@@ -133,4 +133,5 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
+
 }

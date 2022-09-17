@@ -1,0 +1,11 @@
+(new model m)
+(add-rule m if n1:'(?a) n1:'(?b) n1:'(?c) (> ?a ?b) (= (+ (power ?a 2) (power ?b 2)) (power ?c 2)) do  (-> n2:'(?a ?b ?c)))
+;=>
+
+(loop for ?x from 1 to 10 do
+    (add-stmt m n1:'(?x))
+)
+;=>
+
+(query-stmt m '(?a ?b ?c) from n2:'(?a ?b ?c) limit 1)
+;=>

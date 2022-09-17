@@ -2,7 +2,6 @@ package alpha.rulp.ximpl.node;
 
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -11,10 +10,21 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 
 	protected boolean nodeFresh = true;
 
-	protected int[] parentVisitIndexs;
+	protected final int[] parentVisitIndexs;
 
-	public XRNodeZeta0(String instanceName) {
+	protected final int nodeCount;
+
+	public XRNodeZeta0(String instanceName, int nodeCount) {
 		super(instanceName);
+		this.nodeCount = nodeCount;
+		this.parentVisitIndexs = new int[nodeCount];
+		for (int i = 0; i < nodeCount; ++i) {
+			this.parentVisitIndexs[i] = 0;
+		}
+	}
+
+	public int getNodeCount() {
+		return nodeCount;
 	}
 
 	protected boolean _addNewEntry(IRReteEntry[] entryList) throws RException {
@@ -178,7 +188,7 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 			}
 		}
 
-		parentVisitIndexs = parentEntryCountList;
+		_updateParentVisitIndexs(parentEntryCountList);
 		nodeFresh = false;
 		return updateCount;
 	}
@@ -191,16 +201,6 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 	@Override
 	public boolean isNodeFresh() {
 		return nodeFresh;
-	}
-
-	public void setParentNodes(IRReteNode[] parentNodes) throws RException {
-
-		super.setParentNodes(parentNodes);
-
-		this.parentVisitIndexs = new int[parentCount];
-		for (int i = 0; i < parentCount; ++i) {
-			this.parentVisitIndexs[i] = 0;
-		}
 	}
 
 	@Override
@@ -266,11 +266,18 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 
 				updateCount += uc;
 			}
+
+			_updateParentVisitIndexs(parentEntryCountList2);
 		}
 
-		parentVisitIndexs = parentEntryCountList2;
 		nodeFresh = false;
 		return updateCount;
+	}
+
+	protected void _updateParentVisitIndexs(int indexs[]) {
+		for (int i = 0; i < parentCount; ++i) {
+			parentVisitIndexs[i] = indexs[i];
+		}
 	}
 
 }

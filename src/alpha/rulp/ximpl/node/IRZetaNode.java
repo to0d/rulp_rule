@@ -10,4 +10,6 @@ public interface IRZetaNode extends IRReteNode {
 //
 //	public List<IRConstraintX> getConstraintXList();
 
+	public int getNodeCount();
+
 }

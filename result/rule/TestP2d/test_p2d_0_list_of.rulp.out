@@ -77,6 +77,7 @@ mbr=file-exist, mbr-property='(public), mbr-attribute='(), obj=file-exist, obj-t
 mbr=file-is-folder, mbr-property='(public), mbr-attribute='(), obj=file-is-folder, obj-type=factor, obj-attribute='()
 mbr=file-list, mbr-property='(public), mbr-attribute='(), obj=file-list, obj-type=factor, obj-attribute='()
 mbr=file-mkdirs, mbr-property='(public), mbr-attribute='(), obj=file-mkdirs, obj-type=factor, obj-attribute='()
+mbr=file-parent, mbr-property='(public), mbr-attribute='(), obj=file-parent, obj-type=factor, obj-attribute='()
 mbr=final, mbr-property='(public), mbr-attribute='(), obj=final, obj-type=atom, obj-attribute='()
 mbr=float, mbr-property='(public), mbr-attribute='(), obj=float, obj-type=atom, obj-attribute='()
 mbr=foreach, mbr-property='(public), mbr-attribute='(), obj=foreach, obj-type=factor, obj-attribute='(stable)

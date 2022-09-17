@@ -27,11 +27,23 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 
 	protected boolean queryForward = false;
 
-	protected Set<String> queryResultEntrySet = new HashSet<>();
-
 	protected List<IRReteEntry> queryResultEntryList = new ArrayList<>();
 
+	protected Set<String> queryResultEntrySet = new HashSet<>();
+
 	protected IRList queryReteNodeTree;
+
+	protected List<IRList> _rebuildProveStmtList(IRReteEntry entry) throws RException {
+
+		List<IRList> stmtList = new ArrayList<>();
+
+		IRIterator<? extends IRObject> it = RefTreeUtil.buildReteEntryRefTree(this.engine.getModel(), entry).iterator();
+		while (it.hasNext()) {
+			stmtList.add(RulpUtil.asList(it.next()));
+		}
+
+		return stmtList;
+	}
 
 	@Override
 	public boolean addEntry(IRReteEntry entry) throws RException {
@@ -45,18 +57,6 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 		}
 
 		return true;
-	}
-
-	public List<IRList> rebuildProveStmtList(IRReteEntry entry) throws RException {
-
-		List<IRList> stmtList = new ArrayList<>();
-
-		IRIterator<? extends IRObject> it = RefTreeUtil.buildReteEntryRefTree(this.engine.getModel(), entry).iterator();
-		while (it.hasNext()) {
-			stmtList.add(RulpUtil.asList(it.next()));
-		}
-
-		return stmtList;
 	}
 
 	public IRList buildResultTree(boolean explain) throws RException {
@@ -161,7 +161,7 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 
 					if (i >= queryStmtListUniqNames.size()) {
 
-						IRList list = rebuildProveStmtList(queryResultEntryList.get(i)).get(0);
+						IRList list = _rebuildProveStmtList(queryResultEntryList.get(i)).get(0);
 						List<String> listNameList = new ArrayList<>();
 						for (IRObject obj2 : RulpUtil.toArray(list)) {
 							listNameList.add(ReteUtil.uniqName(RulpUtil.asList(obj2)));
@@ -198,10 +198,6 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 
 		return RulpFactory.createExpression(list);
 	}
-
-//	public List<IRList> buildResultTree(XRBSNodeStmtAnd andParent, boolean explain) throws RException {
-//		return queryReteNodeTree;
-//	}
 
 	@Override
 	public void complete() throws RException {

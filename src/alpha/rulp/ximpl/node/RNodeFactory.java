@@ -318,7 +318,7 @@ public class RNodeFactory {
 	public static AbsReteNode createZeta0Node(IRModel model, int nodeId, String uniqName, int entryLength,
 			IRReteNode[] parentNodes, IRObject[] varEntry, InheritIndex[] inheritIndexs) throws RException {
 
-		XRNodeZeta0 node = new XRNodeZeta0(ReteUtil.getNodeName(RReteType.ZETA0, nodeId));
+		XRNodeZeta0 node = new XRNodeZeta0(ReteUtil.getNodeName(RReteType.ZETA0, nodeId), parentNodes.length);
 
 		// Model
 		node.setModel(model);
