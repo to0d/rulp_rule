@@ -14,7 +14,7 @@
 
 (add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))
 ;err:
-unlink expression: [(= (+ (power ?x 2) (power ?y 2)) (power ?z 2))]
+Invalid tree found: '(v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)))
 fail to add rule<(add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2)) do (-> v4:'(?x ?y ?z)))>
 at (add-rule m if v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (p... ; main-2
 ;eof

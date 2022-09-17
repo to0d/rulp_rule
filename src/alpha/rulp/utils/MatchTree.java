@@ -1,6 +1,7 @@
 package alpha.rulp.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -178,6 +179,34 @@ public class MatchTree {
 			n1.tree = null;
 			n2.tree = null;
 			n3.tree = null;
+			return node;
+		}
+
+		public static MTreeNode buildBetex(List<MTreeNode> nodeList, MTreeNode exprNode) throws RException {
+
+			Collections.sort(nodeList, (n1, n2) -> {
+				return MTreeNode.compare(n1, n2);
+			});
+
+			MTreeNode node = new MTreeNode();
+			List<String> varList = new ArrayList<>();
+			int level = exprNode.level;
+
+			ArrayList<IRList> list = new ArrayList<>();
+			for (MTreeNode tn : nodeList) {
+				list.add(tn.tree);
+				varList = _unionAll(varList, tn.varList);
+				level = Math.max(level, tn.level);
+				tn.tree = null;
+			}
+
+			list.add(exprNode.tree);
+			exprNode.tree = null;
+
+			node.tree = RulpFactory.createList(list);
+			node.varList = _unionAll(varList, exprNode.varList);
+			node.varCount = node.varList.size();
+			node.level = level + 1;
 			return node;
 		}
 
@@ -469,27 +498,46 @@ public class MatchTree {
 							}
 						}
 
-						int commonSize = commonVarNodeList.size();
-						if (commonSize >= 2) {
+						List<MTreeNode> findList = new ArrayList<>();
 
-							for (int i = 0; i < commonSize - 1; ++i) {
+						if (_findMatchNodeList(commonVarNodeList, 0, findList, unLinkExprNode.varList,
+								new ArrayList<>())) {
 
-								MTreeNode aNode = commonVarNodeList.get(i);
+							if (findList.size() == 2) {
+								nodeList.add(MTreeNode.buildBete3(findList.get(0), findList.get(1), unLinkExprNode));
+								_cleanTreeNode(nodeList);
+								continue MATCH;
 
-								for (int j = i + 1; j < commonSize; ++j) {
+							} else if (findList.size() > 2) {
 
-									MTreeNode bNode = commonVarNodeList.get(j);
+								nodeList.add(MTreeNode.buildBetex(findList, unLinkExprNode));
+								_cleanTreeNode(nodeList);
+								continue MATCH;
 
-									List<String> allVars = _unionAll(aNode.varList, bNode.varList);
-									if (allVars.containsAll(unLinkExprNode.varList)) {
-
-										nodeList.add(MTreeNode.buildBete3(aNode, bNode, unLinkExprNode));
-										_cleanTreeNode(nodeList);
-										continue MATCH;
-									}
-								}
 							}
 						}
+
+//						int commonSize = commonVarNodeList.size();
+//						if (commonSize >= 2) {
+//
+//							for (int i = 0; i < commonSize - 1; ++i) {
+//
+//								MTreeNode aNode = commonVarNodeList.get(i);
+//
+//								for (int j = i + 1; j < commonSize; ++j) {
+//
+//									MTreeNode bNode = commonVarNodeList.get(j);
+//
+//									List<String> allVars = _unionAll(aNode.varList, bNode.varList);
+//									if (allVars.containsAll(unLinkExprNode.varList)) {
+//
+//										nodeList.add(MTreeNode.buildBete3(aNode, bNode, unLinkExprNode));
+//										_cleanTreeNode(nodeList);
+//										continue MATCH;
+//									}
+//								}
+//							}
+//						}
 
 					}
 
@@ -511,7 +559,7 @@ public class MatchTree {
 				for (MTreeNode tn : treeList) {
 					list.add(tn.tree);
 				}
-				
+
 				tree = RulpFactory.createList(list);
 
 //				throw new RException("too many tree node: " + treeList);
@@ -531,6 +579,27 @@ public class MatchTree {
 			// No beta join node here
 			return tree;
 		}
+	}
+
+	static boolean _findMatchNodeList(List<MTreeNode> nodeList, int curIndex, List<MTreeNode> findList,
+			List<String> allVars, List<String> matchedVars) {
+
+		if (curIndex >= nodeList.size()) {
+			return false;
+		}
+
+		MTreeNode node = nodeList.get(curIndex);
+		if (!hasCommonElement(node.varList, allVars)) {
+			return _findMatchNodeList(nodeList, curIndex + 1, findList, allVars, matchedVars);
+		}
+
+		matchedVars = _unionAll(matchedVars, node.varList);
+		findList.add(node);
+		if (matchedVars.containsAll(allVars)) {
+			return true;
+		}
+
+		return _findMatchNodeList(nodeList, curIndex + 1, findList, allVars, matchedVars);
 	}
 
 	static void _cleanLinkNode(ArrayList<MLinkNode> linkList) throws RException {
@@ -609,14 +678,20 @@ public class MatchTree {
 		return LINK_XTYPE[_getType(t1)][_getType(t2)];
 	}
 
-	private static boolean _hasCommonSet(Set<String> s1, Set<String> s2) throws RException {
+	public static <T> boolean hasCommonElement(Collection<T> a, Collection<T> b) {
 
-		if (s1 == null || s2 == null) {
+		if (a == null || b == null || a.isEmpty() || b.isEmpty()) {
 			return false;
 		}
 
-		for (String n1 : s2) {
-			if (s2.contains(n1)) {
+		if (a instanceof Set && !(b instanceof Set)) {
+			Collection<T> c = a;
+			a = b;
+			b = c;
+		}
+
+		for (T x : a) {
+			if (b.contains(x)) {
 				return true;
 			}
 		}
