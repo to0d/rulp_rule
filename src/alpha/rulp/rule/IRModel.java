@@ -57,7 +57,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public int doGC() throws RException;
 
-	public int execute(IRReteNode node) throws RException;
+	public int execute(IRReteNode node, int limit) throws RException;
 
 	public IRReteNode findNode(IRList condList) throws RException;
 

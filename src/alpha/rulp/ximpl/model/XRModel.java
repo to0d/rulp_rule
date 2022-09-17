@@ -473,7 +473,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			XCount xcount = new XCount();
 
 			RuleUtil.travelReteParentNodeByPostorder(indexNode, (node) -> {
-				if (execute(node) > 0) {
+				if (execute(node, -1) > 0) {
 					xcount.count++;
 				}
 				return false;
@@ -930,7 +930,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
-				int update = execute(node);
+				int update = execute(node, -1);
 				if (update > 0) {
 					modelCounter.incQueryMatchCount();
 				}
@@ -948,7 +948,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
-				int update = execute(node);
+				int update = execute(node, -1);
 				if (update > 0) {
 					modelCounter.incQueryMatchCount();
 				}
@@ -992,7 +992,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			RuleUtil.travelReteParentNodeByPostorder(matchedNode, (node) -> {
 
-				int update = execute(node);
+				int update = execute(node, -1);
 				if (update > 0) {
 					modelCounter.incQueryMatchCount();
 				}
@@ -1094,7 +1094,18 @@ public class XRModel extends AbsRInstance implements IRModel {
 					case Runnable:
 					case Running:
 
-						int update = execute(node);
+						int execLimit = -1;
+						switch (node.getReteType()) {
+						case ZETA0:
+							execLimit = 1;
+							break;
+
+						default:
+							break;
+						}
+
+						int update = execute(node, execLimit);
+
 						if (node == queryNode && update > 0) {
 
 							IREntryQueue queue = queryNode.getEntryQueue();
@@ -1260,7 +1271,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				case Runnable:
 				case Running:
 					++execTimes;
-					execute(node);
+					execute(node, -1);
 					break;
 
 				// don't process 'Failed' or 'Halting' node
@@ -1350,7 +1361,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		RuleUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
 			for (IRReteNode loader : nodeGraph.listBindFromNodes(node)) {
 				if (loader.getPriority() >= 0) {
-					int c = execute(loader);
+					int c = execute(loader, -1);
 					if (c > 0) {
 						count.addAndGet(c);
 					}
@@ -1363,7 +1374,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// update node
 		/******************************************************/
 		RuleUtil.travelReteParentNodeByPostorder(updateNode, (node) -> {
-			int c = execute(node);
+			int c = execute(node, -1);
 			if (c > 0) {
 				count.addAndGet(c);
 			}
@@ -1655,10 +1666,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public int execute(IRReteNode node) throws RException {
+	public int execute(IRReteNode node, int limit) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> execute: " + node);
+			System.out.println("==> execute: " + node + ", limit=" + limit);
 		}
 
 		counter.mcExecute++;
@@ -1669,10 +1680,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		modelCounter.incNodeExecCount();
 
-		int update = node.update(-1);
+		int update = node.update(limit);
 
-		node.setReteStage(RReteStage.InActive);
-		node.clean();
+		// may need more process
+		if (limit > 0 && update > 0) {
+			updateQueue.push(node);
+		} else {
+			node.setReteStage(RReteStage.InActive);
+			node.clean();
+		}
 
 		if (node.getReteType() == RReteType.RULE) {
 

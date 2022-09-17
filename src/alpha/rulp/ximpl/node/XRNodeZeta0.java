@@ -47,7 +47,7 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 		return entryTable.createEntry(null, newElements, ReteUtil.getChildStatus(entryList), false);
 	}
 
-	public int _update(int[] parentEntryCount, int middleParentIndex) throws RException {
+	protected int _update(int[] parentEntryCountList, int middleParentIndex) throws RException {
 
 		int[] lowIndexs = new int[parentCount];
 		int[] highIndexs = new int[parentCount];
@@ -59,7 +59,7 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 		for (int i = 0; i < parentCount; ++i) {
 
 			int lowIndex = -1;
-			int entryCount = parentEntryCount[i];
+			int entryCount = parentEntryCountList[i];
 			IREntryQueue queue = parentNodes[i].getEntryQueue();
 
 			for (int j = 0; j < entryCount; ++j) {
@@ -153,6 +153,36 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 		return updateCount;
 	}
 
+	protected int _update_all(int[] parentEntryCountList) throws RException {
+
+		int updateCount = 0;
+
+		if (nodeFresh) {
+
+			int uc = _update(parentEntryCountList, parentCount - 1);
+			if (uc == -1) {
+				throw new RException("invalid update count");
+			}
+
+			updateCount += uc;
+
+		} else {
+
+			for (int i = 0; i < parentCount; ++i) {
+				int uc = _update(parentEntryCountList, i);
+				if (uc == -1) {
+					throw new RException("invalid update count");
+				}
+
+				updateCount += uc;
+			}
+		}
+
+		parentVisitIndexs = parentEntryCountList;
+		nodeFresh = false;
+		return updateCount;
+	}
+
 	@Override
 	public int getParentVisitIndex(int index) {
 		return this.parentVisitIndexs[index];
@@ -184,7 +214,7 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 
 		int updatedParentCount = 0;
 
-		int[] parentEntryCount = new int[parentCount];
+		int[] parentEntryCountList = new int[parentCount];
 		for (int i = 0; i < parentCount; ++i) {
 
 			int count = parentNodes[i].getEntryQueue().size();
@@ -197,7 +227,7 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 				updatedParentCount++;
 			}
 
-			parentEntryCount[i] = count;
+			parentEntryCountList[i] = count;
 		}
 
 		if (updatedParentCount == 0) {
@@ -205,21 +235,31 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 			return 0;
 		}
 
+		/*************************************************/
+		// update all
+		/*************************************************/
+		if (limit <= 0) {
+			return _update_all(parentEntryCountList);
+		}
+
+		int maxParentEntryAddCount = -1;
+		int[] parentEntryCountList2 = new int[parentCount];
+
+		for (int i = 0; i < parentCount; ++i) {
+			maxParentEntryAddCount = Math.max(maxParentEntryAddCount, parentEntryCountList[i] - parentVisitIndexs[i]);
+			parentEntryCountList2[i] = parentVisitIndexs[i];
+		}
+
 		int updateCount = 0;
 
-		if (nodeFresh) {
-
-			int uc = _update(parentEntryCount, parentCount - 1);
-			if (uc == -1) {
-				throw new RException("invalid update count");
-			}
-
-			updateCount += uc;
-
-		} else {
+		for (int j = 1; j <= maxParentEntryAddCount && updateCount < limit; ++j) {
 
 			for (int i = 0; i < parentCount; ++i) {
-				int uc = _update(parentEntryCount, i);
+				parentEntryCountList2[i] = Math.min(parentEntryCountList2[i] + 1, parentEntryCountList[i]);
+			}
+
+			for (int i = 0; i < parentCount; ++i) {
+				int uc = _update(parentEntryCountList2, i);
 				if (uc == -1) {
 					throw new RException("invalid update count");
 				}
@@ -228,9 +268,8 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 			}
 		}
 
-		parentVisitIndexs = parentEntryCount;
+		parentVisitIndexs = parentEntryCountList2;
 		nodeFresh = false;
-
 		return updateCount;
 	}
 

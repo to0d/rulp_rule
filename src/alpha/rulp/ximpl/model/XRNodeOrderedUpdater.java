@@ -53,7 +53,7 @@ public class XRNodeOrderedUpdater {
 			case Completed:
 			case Runnable:
 			case Running:
-				model.execute(node);
+				model.execute(node, -1);
 				break;
 
 			// don't process 'Failed' or 'Halting' node

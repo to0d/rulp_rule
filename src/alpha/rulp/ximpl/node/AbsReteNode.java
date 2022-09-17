@@ -222,8 +222,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			nodeFrame.release();
 			RulpUtil.decRef(nodeFrame);
 			nodeFrame = null;
-		}
 
+		}
 	}
 
 	@Override
