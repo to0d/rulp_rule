@@ -99,7 +99,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	}
 	
 	@Test
-	void test_add_rule_6_betax_1() {
+	void test_add_rule_6_zeta0_1() {
 
 		_setup();
 		_run_script();
@@ -108,7 +108,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	}
 	
 	@Test
-	void test_add_rule_6_betax_2() {
+	void test_add_rule_6_zeta0_2() {
 
 		_setup();
 		_run_script();
@@ -117,7 +117,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	}
 	
 	@Test
-	void test_add_rule_6_betax_3() {
+	void test_add_rule_6_zeta0_3() {
 
 		_setup();
 		_run_script();

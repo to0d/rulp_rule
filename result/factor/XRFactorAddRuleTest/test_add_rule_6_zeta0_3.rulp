@@ -1,0 +1,15 @@
+(load "rule")
+;=>
+
+(new model m)
+(add-rule m if n1:'(?a) (< ?a 10) do (-> n1:'((+ ?x 1))))
+(add-rule m if n1:'(?a) n1:'(?b) n1:'(?c) (= (+ (power ?a 2) (power ?b 2)) (power ?c 2)) do  (-> n2:'(?a ?b ?c)))
+(add-stmt m n1:'(1))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>
+
