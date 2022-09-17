@@ -61,7 +61,7 @@ public class XRNodeConst extends XRNodeRete0 implements IRListener1<IRReteEntry>
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 		return _process();
 	}
 

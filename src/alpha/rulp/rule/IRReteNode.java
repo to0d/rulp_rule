@@ -162,6 +162,6 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public void setUniqName(String uniqName);
 
-	public int update() throws RException;
+	public int update(int limit) throws RException;
 
 }

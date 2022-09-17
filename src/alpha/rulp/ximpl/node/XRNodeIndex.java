@@ -25,9 +25,9 @@ public class XRNodeIndex extends XRNodeRete1 implements IRIndexNode {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
-		int update = super.update();
+		int update = super.update(limit);
 		if (update > 0) {
 			((XREntryQueueOrder) getEntryQueue()).rebuildOrder();
 		}

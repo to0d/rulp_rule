@@ -54,7 +54,7 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 
 	protected abstract boolean _match(IRReteEntry leftEntry, IRReteEntry rightEntry) throws RException;
 
-	protected int _update_no_primary() throws RException {
+	protected int _update_no_primary(int limit) throws RException {
 
 		int leftParentEntryCount = parentNodes[0].getEntryQueue().size();
 		int rightParentEntryCount = parentNodes[1].getEntryQueue().size();
@@ -159,7 +159,7 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
 		if (this.isTrace()) {
 			System.out.println("update: " + this);
@@ -189,6 +189,6 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 		/*********************************************/
 		// Process
 		/*********************************************/
-		return _update_no_primary();
+		return _update_no_primary(limit);
 	}
 }

@@ -174,7 +174,7 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
 		if (this.isTrace()) {
 			System.out.println("update: " + this);

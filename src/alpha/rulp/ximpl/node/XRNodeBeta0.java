@@ -99,7 +99,7 @@ public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 		return true;
 	}
 
-	protected int _update_primary() throws RException {
+	protected int _update_primary(int limit) throws RException {
 
 		int leftParentEntryCount = parentNodes[0].getEntryQueue().size();
 		int rightParentEntryCount = parentNodes[1].getEntryQueue().size();
@@ -218,7 +218,7 @@ public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
 		if (this.isTrace()) {
 			System.out.println("update: " + this);
@@ -249,9 +249,9 @@ public class XRNodeBeta0 extends XRNodeRete2 implements IRBetaNode {
 		// Process
 		/*********************************************/
 		if (_useMapMatch()) {
-			return _update_primary();
+			return _update_primary(limit);
 		} else {
-			return _update_no_primary();
+			return _update_no_primary(limit);
 		}
 	}
 

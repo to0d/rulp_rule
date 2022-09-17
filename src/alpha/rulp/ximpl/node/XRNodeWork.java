@@ -20,7 +20,7 @@ public class XRNodeWork extends XRNodeRete0 {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
 		nodeExecCount++;
 

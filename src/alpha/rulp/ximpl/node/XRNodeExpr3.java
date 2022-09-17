@@ -55,7 +55,7 @@ public class XRNodeExpr3 extends XRNodeRete1 {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
 		if (this.isTrace()) {
 			System.out.println("update: " + this);

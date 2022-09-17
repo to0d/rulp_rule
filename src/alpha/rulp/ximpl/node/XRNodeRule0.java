@@ -473,7 +473,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
 		if (this.isTrace()) {
 			System.out.println("update: " + this);

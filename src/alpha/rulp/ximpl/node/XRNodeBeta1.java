@@ -14,7 +14,7 @@ public class XRNodeBeta1 extends XRNodeBeta0 {
 	}
 
 	@Override
-	public int update() throws RException {
+	public int update(int limit) throws RException {
 
 		if (this.isTrace()) {
 			System.out.println("update: " + this);

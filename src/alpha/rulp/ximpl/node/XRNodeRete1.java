@@ -24,11 +24,11 @@ public class XRNodeRete1 extends AbsReteNode {
 	}
 
 	@Override
-	public int update() throws RException {
-		return update(0);
+	public int update(int limit) throws RException {
+		return _update(0);
 	}
 
-	public int update(int maxParentCount) throws RException {
+	public int _update(int maxParentCount) throws RException {
 
 		if (this.isTrace()) {
 			System.out.println("update: " + this + ", max=" + maxParentCount);
