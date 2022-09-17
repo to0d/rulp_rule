@@ -1,0 +1,16 @@
+(load "rule")
+;=>nil
+
+(new model m)
+(add-rule m if n1:'(?a) n1:'(?b) n1:'(?c) do (-> '(?a ?b ?c)))
+(add-stmt m n1:'(a))
+(add-stmt m n1:'(b))
+(add-stmt m n1:'(c))
+;=>m RU000 true true true
+
+(start m)
+;=>4
+
+(list-stmt m)
+;=>'('(a a a) '(b a a) '(c a a) '(a b a) '(b b a) '(c b a) '(a c a) '(b c a) '(c c a) '(a a b) '(b a b) '(c a b) '(a b b) '(b b b) '(c b b) '(a c b) '(b c b) '(c c b) '(a a c) '(b a c) '(c a c) '(a b c) '(b b c) '(c b c) '(a c c) '(b c c) '(c c c) n1:'(a) n1:'(b) n1:'(c))
+

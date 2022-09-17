@@ -563,6 +563,8 @@ public class ReteUtil {
 	public static ArrayList<IRObject> buildTreeVarList(IRList reteTree, Map<String, Integer> indexMap)
 			throws RException {
 
+		int size = reteTree.size();
+
 		if (ReteUtil.isVarChangeExpr(reteTree)) {
 
 			IRObject e0 = reteTree.get(0);
@@ -577,7 +579,7 @@ public class ReteUtil {
 			case F_VAR_CHANGED:
 
 				ArrayList<IRObject> vars = new ArrayList<>();
-				for (int i = 1; i < reteTree.size(); ++i) {
+				for (int i = 1; i < size; ++i) {
 
 					IRObject ei = reteTree.get(i);
 
@@ -599,7 +601,7 @@ public class ReteUtil {
 		if (ReteUtil.isReteStmt(reteTree)) {
 
 			ArrayList<IRObject> objs = new ArrayList<>();
-			for (int i = 0; i < reteTree.size(); ++i) {
+			for (int i = 0; i < size; ++i) {
 
 				IRObject obj = reteTree.get(i);
 
@@ -614,8 +616,7 @@ public class ReteUtil {
 		}
 
 		// Expr node
-		if (reteTree.size() == 2 && reteTree.get(0).getType() == RType.LIST
-				&& reteTree.get(1).getType() == RType.EXPR) {
+		if (size == 2 && reteTree.get(0).getType() == RType.LIST && reteTree.get(1).getType() == RType.EXPR) {
 
 			IRExpr expr1 = (IRExpr) reteTree.get(1);
 
@@ -654,7 +655,7 @@ public class ReteUtil {
 		}
 
 		// Beta node
-		if (isBetaTree(reteTree, reteTree.size())) {
+		if (isBetaTree(reteTree, size)) {
 
 			ArrayList<IRObject> vars = new ArrayList<>();
 			for (IRObject v : buildTreeVarList((IRList) reteTree.get(0), new HashMap<>())) {
@@ -673,7 +674,7 @@ public class ReteUtil {
 		}
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
-		if (isBeta3Tree(reteTree, reteTree.size())) {
+		if (isBeta3Tree(reteTree, size)) {
 
 			ArrayList<IRObject> vars = new ArrayList<>();
 			for (IRObject v : buildTreeVarList((IRList) reteTree.get(0), new HashMap<>())) {
@@ -698,8 +699,7 @@ public class ReteUtil {
 		}
 
 		// beta: '((var-changed ?x ?xv) (var-changed ?y ?yv))
-		if (reteTree.size() == 2 && ReteUtil.isVarChangeExpr(reteTree.get(0))
-				&& ReteUtil.isVarChangeExpr(reteTree.get(1))) {
+		if (size == 2 && ReteUtil.isVarChangeExpr(reteTree.get(0)) && ReteUtil.isVarChangeExpr(reteTree.get(1))) {
 
 			ArrayList<IRObject> vars = new ArrayList<>();
 			for (IRObject v : buildTreeVarList((IRList) reteTree.get(0), new HashMap<>())) {
@@ -722,8 +722,21 @@ public class ReteUtil {
 
 			ArrayList<IRObject> vars = new ArrayList<>();
 
-			for (int index = 0; index < reteTree.size() - ModifierCount; ++index) {
+			for (int index = 0; index < size - ModifierCount; ++index) {
 				for (IRObject v : buildTreeVarList((IRList) reteTree.get(index), new HashMap<>())) {
+					if (_tryPutVarIndex(indexMap, v, vars.size())) {
+						vars.add(v);
+					}
+				}
+			}
+
+			return vars;
+		}
+
+		if (ReteUtil.isBetaxTree(reteTree, size)) {
+			ArrayList<IRObject> vars = new ArrayList<>();
+			for (int i = 0; i < size; ++i) {
+				for (IRObject v : buildTreeVarList((IRList) reteTree.get(i), new HashMap<>())) {
 					if (_tryPutVarIndex(indexMap, v, vars.size())) {
 						vars.add(v);
 					}
@@ -1179,7 +1192,7 @@ public class ReteUtil {
 
 		case BETA3:
 			return String.format("B3%04d", nodeId);
-			
+
 		case BETAX:
 			return String.format("BX%04d", nodeId);
 
@@ -1359,6 +1372,21 @@ public class ReteUtil {
 	public static boolean isBetaTree(IRList reteTree, int treeSize) throws RException {
 		return treeSize == 2 && reteTree.getType() == RType.LIST && reteTree.get(0).getType() == RType.LIST
 				&& reteTree.get(1).getType() == RType.LIST;
+	}
+
+	public static boolean isBetaxTree(IRList reteTree, int treeSize) throws RException {
+
+		if (treeSize <= 2 || reteTree.getType() != RType.LIST) {
+			return false;
+		}
+
+		for (int i = 0; i < treeSize; ++i) {
+			if (reteTree.get(i).getType() != RType.LIST) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public static boolean isCond(IRList cond) throws RException {

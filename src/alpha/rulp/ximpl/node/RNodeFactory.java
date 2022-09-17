@@ -315,6 +315,44 @@ public class RNodeFactory {
 		return node;
 	}
 
+	public static AbsReteNode createBetaxNode(IRModel model, int nodeId, String uniqName, int entryLength,
+			IRReteNode[] parentNodes, IRObject[] varEntry, InheritIndex[] inheritIndexs) throws RException {
+
+		XRNodeBetax node = new XRNodeBetax(ReteUtil.getNodeName(RReteType.BETAX, nodeId));
+
+		// Model
+		node.setModel(model);
+
+		// Node id
+		node.setNodeId(nodeId);
+
+		// Node type
+		node.setReteType(RReteType.BETAX);
+
+		// Uniq name
+		node.setUniqName(uniqName);
+
+		// Entry length
+		node.setEntryLength(entryLength);
+
+		// Entry table
+		node.setEntryTable(model.getEntryTable());
+
+		// Entry queue
+		node.setEntryQueue(REntryFactory.createQueue(REntryQueueType.MULTI, node));
+
+		// Parent node
+		ReteUtil.setParentNodes(node, parentNodes);
+
+		// var entry
+		node.setVarEntry(varEntry);
+
+		// Inherit Index
+		node.setInheritIndexs(inheritIndexs);
+
+		return node;
+	}
+
 	public static AbsReteNode createConstNode(IRModel model, int nodeId, IRList constStmt, IREntryTable entryTable,
 			IRReteNode parentNode) throws RException {
 

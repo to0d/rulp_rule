@@ -97,4 +97,12 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_add_rule_6_betax_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
