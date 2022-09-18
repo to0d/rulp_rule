@@ -1,11 +1,12 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_Nil;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
 import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_QUERY;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
 import static alpha.rulp.rule.Constant.V_M_GC_CAPACITY;
 import static alpha.rulp.rule.Constant.V_M_GC_INACTIVE_LEAF;

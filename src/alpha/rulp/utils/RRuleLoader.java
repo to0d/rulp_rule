@@ -14,6 +14,7 @@ import static alpha.rulp.rule.Constant.F_ASSUME_STMT;
 import static alpha.rulp.rule.Constant.F_DUMP_ENTRY_INFO;
 import static alpha.rulp.rule.Constant.F_DUMP_NODE_INFO;
 import static alpha.rulp.rule.Constant.F_DUMP_STATUS;
+import static alpha.rulp.rule.Constant.F_EXEC_RULE;
 import static alpha.rulp.rule.Constant.F_FIX_STMT;
 import static alpha.rulp.rule.Constant.F_GC_MODEL;
 import static alpha.rulp.rule.Constant.F_GET_RETE_ENTRY;
@@ -81,6 +82,7 @@ import alpha.rulp.ximpl.factor.XRFactorBackSearch;
 import alpha.rulp.ximpl.factor.XRFactorDumpEntryInfo;
 import alpha.rulp.ximpl.factor.XRFactorDumpNodeInfo;
 import alpha.rulp.ximpl.factor.XRFactorDumpStatus;
+import alpha.rulp.ximpl.factor.XRFactorExecuteRule;
 import alpha.rulp.ximpl.factor.XRFactorFixStmt;
 import alpha.rulp.ximpl.factor.XRFactorGcModel;
 import alpha.rulp.ximpl.factor.XRFactorGetReteEntry;
@@ -185,6 +187,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorBackSearch(A_BackSearch));
 		RulpUtil.addFrameObject(frame, new XRFactorListSubGraphForQuery(F_LIST_SUBGRAPH_FOR_QUERY));
 		RulpUtil.addFrameObject(frame, new XRFactorPrintTree(F_PRINT_TREE));
+		RulpUtil.addFrameObject(frame, new XRFactorExecuteRule(F_EXEC_RULE));
 
 		// Constraint
 		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

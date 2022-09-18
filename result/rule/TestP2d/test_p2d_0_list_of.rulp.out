@@ -252,6 +252,7 @@ mbr=dump-entry-info, mbr-property='(public), mbr-attribute='(), obj=dump-entry-i
 mbr=dump-node-info, mbr-property='(public), mbr-attribute='(), obj=dump-node-info, obj-type=factor, obj-attribute='()
 mbr=dump-status, mbr-property='(public), mbr-attribute='(), obj=dump-status, obj-type=factor, obj-attribute='()
 mbr=equal, mbr-property='(public), mbr-attribute='(), obj='((equal nil nil) (equal string string)), obj-type=func, obj-attribute='()
+mbr=execute-rule, mbr-property='(public), mbr-attribute='(), obj=execute-rule, obj-type=factor, obj-attribute='()
 mbr=failed, mbr-property='(public), mbr-attribute='(), obj=failed, obj-type=atom, obj-attribute='()
 mbr=fix-stmt, mbr-property='(public), mbr-attribute='(), obj=fix-stmt, obj-type=factor, obj-attribute='()
 mbr=gc-model, mbr-property='(public), mbr-attribute='(), obj=gc-model, obj-type=factor, obj-attribute='()

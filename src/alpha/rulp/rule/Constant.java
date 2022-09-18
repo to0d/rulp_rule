@@ -149,6 +149,8 @@ public interface Constant {
 
 	String F_DUMP_STATUS = "dump-status";
 
+	String F_EXEC_RULE = "execute-rule";
+
 	String F_FIX_STMT = "fix-stmt";
 
 	String F_GC_MODEL = "gc-model";
@@ -237,8 +239,6 @@ public interface Constant {
 
 	IRAtom O_Failed = RulpFactory.createAtom(A_Failed);
 
-	IRAtom O_QUERY_STMT = RulpFactory.createAtom(F_QUERY_STMT);
-
 	IRAtom O_Halting = RulpFactory.createAtom(A_Halting);
 
 	IRAtom O_Limit = RulpFactory.createAtom(A_Limit);
@@ -248,6 +248,8 @@ public interface Constant {
 	IRAtom O_Partial = RulpFactory.createAtom(A_Partial);
 
 	IRAtom O_Priority = RulpFactory.createAtom(A_Priority);
+
+	IRAtom O_QUERY_STMT = RulpFactory.createAtom(F_QUERY_STMT);
 
 	IRAtom O_Reasoned = RulpFactory.createAtom(A_Reasoned);
 
@@ -271,19 +273,19 @@ public interface Constant {
 
 	int RETE_PRIORITY_DISABLED = -9;
 
-	int RETE_PRIORITY_QUERY = 199;
+	int RETE_PRIORITY_INACTIVE = 0;
 
 //	int RETE_PRIORITY_GROUP_MAX = 699;
 //
 //	int RETE_PRIORITY_GROUP_MIN = 600;
-
-	int RETE_PRIORITY_INACTIVE = 0;
 
 	int RETE_PRIORITY_MAXIMUM = 499; // maximum
 
 	int RETE_PRIORITY_PARTIAL_MAX = 599;
 
 	int RETE_PRIORITY_PARTIAL_MIN = 500;
+
+	int RETE_PRIORITY_QUERY = 199;
 
 	int RETE_PRIORITY_ROOT = 900;
 
