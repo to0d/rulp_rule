@@ -13,7 +13,7 @@
     (print-ref-tree ?tree)
 )
 ;err:
-Invalid parameters: (back-search m v1:'(?x) explain order by ?x desc)
+unsupport modifier: order by
 at (back-search m v1:'(?x) explain order by ?x desc) ; do-7
 at (defvar ?tree (back-search m v1:'(?x) explain order by ?x desc)) ; do-7
 at (do (defvar ?tree (back-search m v1:'(?x) explain order by ?x desc)) (println... ; main-2

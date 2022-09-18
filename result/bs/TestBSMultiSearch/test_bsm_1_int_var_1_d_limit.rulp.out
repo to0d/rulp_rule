@@ -13,7 +13,7 @@
     (print-ref-tree ?tree)
 )
 ;err:
-Invalid parameters: (back-search m v1:'(?x) limit 1 explain)
+unsupport modifier: limit
 at (back-search m v1:'(?x) limit 1 explain) ; do-7
 at (defvar ?tree (back-search m v1:'(?x) limit 1 explain)) ; do-7
 at (do (defvar ?tree (back-search m v1:'(?x) limit 1 explain)) (println ?tree) (... ; main-2

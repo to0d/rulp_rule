@@ -60,3 +60,14 @@
 (add-stmt mm hobby:'(15 3))
 (add-stmt mm hobby:'(16 2))
 (add-stmt mm hobby:'(16 3))
+
+(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2) do 
+    (if (= ?s1 ?s2) 
+        (-> canBeCouple:'(?g1 ?g2 false)) 
+        (-> canBeCouple:'(?g1 ?g2 true))
+    )
+)
+             
+(add-rule mm if hobby:'(?g1 ?h) hobby:'(?g2 ?h) (!= ?g1 ?g2) canBeCouple:'(?g1 ?g2 ?v) do 
+    (-> canSitTogether:'(?g1 ?g2 ?v))
+)

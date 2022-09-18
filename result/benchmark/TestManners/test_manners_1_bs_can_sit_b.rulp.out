@@ -11,14 +11,21 @@
 (add-rule mm if hobby:'(?g1 ?h) hobby:'(?g2 ?h) (!= ?g1 ?g2) canBeCouple:'(?g1 ?g2 ?v) do 
     (-> canSitTogether:'(?g1 ?g2 ?v))
 )
-;=>RU000 RU001
+;=>RU002 RU003
 
 (setq ?bs-trace true)
 ;=>&?bs-trace
 
 (back-search mm canBeCouple:'(1 2 ?v) explain)
-;err:
-Invalid parameters: (back-search mm canBeCouple:'(1 2 ?v) explain)
-at (back-search mm canBeCouple:'(1 2 ?v) explain) ; main-2
+;=>'()
+;out:
+00000 SO0000: create_root, stmt=canBeCouple:'(1 2 ?v), type=STMT_OR, status=INIT
+00000 SO0000: init begin, stmt=canBeCouple:'(1 2 ?v), type=STMT_OR, status=INIT
+00000 SO0000: has stmt, stmt=canBeCouple:'(1 2 ?v), rst=false
+00000 SO0000: not child, return false
+00000 SO0000: init end, rst=false, status=COMPLETE, succ-child=null, needComplete=true
+00001 SO0000: has stmt, stmt=canBeCouple:'(1 2 ?v), rst=false
+00001 SO0000: return false
+
 ;eof
 

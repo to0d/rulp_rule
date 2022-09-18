@@ -15,7 +15,7 @@
 
 (back-search m '(a p2 ?x) limit 1 explain)
 ;err:
-Invalid parameters: (back-search m '(a p2 ?x) limit 1 explain)
+unsupport modifier: limit
 at (back-search m '(a p2 ?x) limit 1 explain) ; main-2
 ;eof
 

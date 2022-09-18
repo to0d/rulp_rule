@@ -13,6 +13,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.SourceNode;
@@ -183,7 +184,9 @@ public class BSFactory {
 
 		switch (tree.getType()) {
 		case LIST:
-			return createNodeStmtOr(engine, tree);
+//			if (ReteUtil.isReteStmtNoVar(tree)) {
+				return createNodeStmtOr(engine, tree);
+//			}
 
 		case EXPR:
 

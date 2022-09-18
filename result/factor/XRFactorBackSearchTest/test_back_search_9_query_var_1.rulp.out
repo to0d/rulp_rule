@@ -14,8 +14,40 @@
 ;=>nil
 
 (back-search m '(a p2 ?x) explain)
-;err:
-Invalid parameters: (back-search m '(a p2 ?x) explain)
-at (back-search m '(a p2 ?x) explain) ; main-2
+;=>'('(a p2 ?x) ("RU000" (query-stmt '(a p1 ?x))))
+;out:
+00000 SO0000: create_root, stmt='(a p2 ?x), type=STMT_OR, status=INIT
+00000 SO0000: init begin, stmt='(a p2 ?x), type=STMT_OR, status=INIT
+00000 SO0000: has stmt, stmt='(a p2 ?x), rst=false
+00000 SO0000: add child, type=STMT_AND, name=SA0001
+00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
+00000 SO0000: route to SA0001
+00001     SA0001: init begin, stmt='(a p2 ?x), rule=RU000: RU000, action='(?0, p2, ?2)(0), type=STMT_AND, status=INIT
+00001     SA0001: add child, type=STMT_QUERY, name=SQ0002
+00001     SA0001: init end, rst=false, status=PROCESS, fail-child=null
+00001     SA0001: route to SQ0002
+00002         SQ0002: init begin, tree='('(a p1 ?x)), type=STMT_QUERY, status=INIT
+00002         SQ0002: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
+00003         SQ0002: process begin
+00003         SQ0002: process end, rst=true, status=COMPLETE, forward=true, backward=false, query=3
+00004         SQ0002: route to SA0001
+00005     SA0001: process begin
+00005     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00006     SA0001: complete begin
+00006     SA0001: execute rule: RU000, rc=3
+00006     SA0001: has stmt, stmt='(a p2 ?x), rst=true
+00006     SA0001: complete end, rst=true
+00006     SA0001: route to SO0000
+00007 SO0000: process begin
+00007 SO0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0001, needComplete=true
+00008 SO0000: has stmt, stmt='(a p2 ?x), rst=true
+00008 SO0000: return true
+
 ;eof
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>nil
+
+(list-stmt m)
+;=>'('(a p1 b1) '(x p1 y1) '(x p1 y2) '(a p1 b2) '(a p1 b3) '(a p2 b1) '(x p2 y1) '(x p2 y2) '(a p2 b2) '(a p2 b3))
 

@@ -1,0 +1,6 @@
+(load (+ (file-parent ?script-path) "manners_16.rulp"))
+;=>nil
+
+(query-stmt mm ?v from canBeCouple:'(1 2 ?v))
+;=>'(true)
+

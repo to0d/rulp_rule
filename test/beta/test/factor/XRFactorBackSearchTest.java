@@ -145,4 +145,5 @@ class XRFactorBackSearchTest extends RuleTestBase {
 		_run_script();
 		_dumpEntryTable("m");
 	}
+
 }

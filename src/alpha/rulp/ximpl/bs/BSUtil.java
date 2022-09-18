@@ -60,7 +60,7 @@ public class BSUtil {
 
 		switch (obj.getType()) {
 		case LIST:
-			return ReteUtil.isReteStmtNoVar((IRList) obj);
+			return ReteUtil.isReteStmt((IRList) obj);
 
 		case EXPR:
 
