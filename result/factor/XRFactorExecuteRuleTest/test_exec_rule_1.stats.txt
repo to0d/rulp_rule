@@ -153,7 +153,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      252
+           Interpreter call id:      253
     Interpreter call level/max:        0        9
                Frame max level:        5
                   Frame max id:        7
@@ -174,58 +174,58 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      351
+    factor:      352
       func:        3
 ==========================================================================================================================
 
-Callable stats info: callId=252, row=24, column=64(4), value-max=46, value-unit=2^x
+Callable stats info: callId=253, row=24, column=64(4), value-max=46, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333336851 max=66, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333336835 max=66, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
-    root   factor     80    0 defun                                                                        3333 33333133365  
+    root   factor     81    0 defun                                                                        3333 33333223365  
     root   factor     46    0 defconst                                                                                    7  
     root   factor      8    0 defmacro                                                                                   43  
     root   factor      7    0 alias                          33                                                       1      
-    root   factor      6    0 defvar                                                                           3         1 1 
+    root   factor      6    0 defvar                                                                           3         1  1
     root   factor      4    0 make-list                                                                        3             
-    root   factor      3    0 return                                                                                       3 
+    root   factor      3    0 return                                                                                        3
     root   factor      3    0 load                                                                                       12  
-    root   factor      3    0 deftemplate                                                                            3       
+    root   factor      3    0 deftemplate                                                                            21      
   system   factor      3    0 add-stmt                                                                                     3 
-    root   factor      1    0 size-of-list                                                                                 1 
-  system funcList      1    1 size-of                                                                                      1 
-  system   factor      1    0 rete-node-of                                                                                 1 
+    root   factor      1    0 size-of-list                                                                                  1
+  system funcList      1    1 size-of                                                                                       1
+  system   factor      1    0 rete-node-of                                                                                  1
     root   factor      1    0 new                                                                                         1  
     root   factor      1    0 load-class                                                                                  1  
   system   factor      1    0 list-stmt                                                                                     1
-    main     func      1    2 (get-rule type#model string)                                                                 1 
-    root   factor      1    0 get-of-list                                                                                  1 
-  system funcList      1    1 get                                                                                          1 
-  system   factor      1    0 execute-rule                                                                                 1 
-    root   factor      1    0 do                                                                                           1 
-    root   factor      1    0 case                                                                                         1 
-  system   factor      1    0 add-rule                                                                                    1  
+    main     func      1    2 (get-rule type#model string)                                                                  1
+    root   factor      1    0 get-of-list                                                                                   1
+  system funcList      1    1 get                                                                                           1
+  system   factor      1    0 execute-rule                                                                                  1
+    root   factor      1    0 do                                                                                            1
+    root   factor      1    0 case                                                                                          1
+  system   factor      1    0 add-rule                                                                                     1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2403            0         2403
+        atom:         2424            0         2424
          int:            2            0            2
       string:           93            0           93
         list:           80            2           78
-        expr:         1107            3         1104
+        expr:         1122            3         1119
          var:           29            7           22
     constant:           46            0           46
-        func:           97            0           97
+        func:           98            0           98
     template:            1            0            1
        macro:            8            0            8
       member:           22            0           22
        frame:            5            4            1
  interpreter:            1            0
-  frameEntry:          403            0
+  frameEntry:          407            0
       lambda:            0            0
 ==========================================================================================================================
 

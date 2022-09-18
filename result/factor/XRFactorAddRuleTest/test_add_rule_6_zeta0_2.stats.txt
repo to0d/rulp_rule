@@ -232,7 +232,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      252
+           Interpreter call id:      253
     Interpreter call level/max:        0        5
                Frame max level:        6
                   Frame max id:        7
@@ -253,52 +253,52 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     4071
+    factor:     4072
 ==========================================================================================================================
 
-Callable stats info: callId=252, row=19, column=64(4), value-max=729, value-unit=2^x
+Callable stats info: callId=253, row=19, column=64(4), value-max=729, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         2333333333333333333333333333333333333333333333333333333333335591 max=3733, unit=3^x
+   Frame    RType  Count  Ref Object                         2333333333333333333333333333333333333333333333333333333333335539 max=3731, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    734    0 defvar                                                                           3         1 X 
-    root   factor    729    0 if                                                                                           X 
-    root   factor    729    0 do                                                                                           X 
-    root   factor    729    0 <                                                                                            X 
-    root   factor    729    0 +                                                                                            X 
+    root   factor    734    0 defvar                                                                           3         1  X
+    root   factor    729    0 if                                                                                            X
+    root   factor    729    0 do                                                                                            X
+    root   factor    729    0 <                                                                                             X
+    root   factor    729    0 +                                                                                             X
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
-  system   factor     87    0 add-stmt                                                                                     8 
-    root   factor     80    0 defun                                                                        3333 33333133365  
+  system   factor     87    0 add-stmt                                                                                     38
+    root   factor     81    0 defun                                                                        3333 33333223365  
     root   factor     46    0 defconst                                                                                    7  
     root   factor      8    0 defmacro                                                                                   43  
     root   factor      7    0 alias                          33                                                       1      
     root   factor      4    0 make-list                                                                        3             
     root   factor      3    0 load                                                                                       12  
-    root   factor      3    0 deftemplate                                                                            3       
-  system   factor      1    0 start                                                                                        1 
+    root   factor      3    0 deftemplate                                                                            21      
+  system   factor      1    0 start                                                                                         1
     root   factor      1    0 new                                                                                         1  
     root   factor      1    0 load-class                                                                                  1  
   system   factor      1    0 list-stmt                                                                                     1
-  system   factor      1    0 add-rule                                                                                    1  
+  system   factor      1    0 add-rule                                                                                     1 
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2410            0         2410
+        atom:         2431            0         2431
          int:            2            0            2
       string:           91            0           91
         list:          166            1          165
-        expr:         1109            0         1109
+        expr:         1124            0         1124
          var:          753          729           24
     constant:           46            0           46
-        func:           97            0           97
+        func:           98            0           98
     template:            1            0            1
        macro:            8            0            8
       member:           22            0           22
        frame:         1460         1458            2
  interpreter:            1            0
-  frameEntry:         1128            0
+  frameEntry:         1132            0
       lambda:            0            0
 ==========================================================================================================================
 

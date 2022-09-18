@@ -22,8 +22,8 @@ mbr=?os.name, mbr-property='(public), mbr-attribute='(), obj=?os.name, obj-type=
 mbr=?os.version, mbr-property='(public), mbr-attribute='(), obj=?os.version, obj-type=var, obj-attribute='(), var-value="10.0"
 mbr=?path.separator, mbr-property='(public), mbr-attribute='(), obj=?path.separator, obj-type=var, obj-attribute='(), var-value=";"
 mbr=?user.dir, mbr-property='(public), mbr-attribute='(), obj=?user.dir, obj-type=var, obj-attribute='(), var-value="C:\data\itoolulp_rule"
-mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\to0d"
-mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="to0d"
+mbr=?user.home, mbr-property='(public), mbr-attribute='(), obj=?user.home, obj-type=var, obj-attribute='(), var-value="C:\Users\YANLIU"
+mbr=?user.name, mbr-property='(public), mbr-attribute='(), obj=?user.name, obj-type=var, obj-attribute='(), var-value="921511672"
 mbr=^, mbr-property='(public), mbr-attribute='(), obj=^, obj-type=factor, obj-attribute='(atom stable)
 mbr=access, mbr-property='(public), mbr-attribute='(), obj=access, obj-type=factor, obj-attribute='(stable)
 mbr=add-array-to-list, mbr-property='(public), mbr-attribute='(), obj=add-array-to-list, obj-type=factor, obj-attribute='(stable)
@@ -90,6 +90,7 @@ mbr=get-attribute, mbr-property='(public), mbr-attribute='(), obj=get-attribute,
 mbr=get-of-array, mbr-property='(public), mbr-attribute='(), obj=get-of-array, obj-type=factor, obj-attribute='(stable)
 mbr=get-of-list, mbr-property='(public), mbr-attribute='(), obj=get-of-list, obj-type=factor, obj-attribute='(stable)
 mbr=has-member, mbr-property='(public), mbr-attribute='(), obj=has-member, obj-type=factor, obj-attribute='(stable)
+mbr=has-next, mbr-property='(public), mbr-attribute='(), obj=has-next, obj-type=factor, obj-attribute='()
 mbr=if, mbr-property='(public), mbr-attribute='(), obj=if, obj-type=factor, obj-attribute='(stable)
 mbr=instance, mbr-property='(public), mbr-attribute='(), obj=instance, obj-type=atom, obj-attribute='()
 mbr=int, mbr-property='(public), mbr-attribute='(), obj=int, obj-type=atom, obj-attribute='()
@@ -98,6 +99,7 @@ mbr=is-debug-active, mbr-property='(public), mbr-attribute='(), obj=is-debug-act
 mbr=is-recursive, mbr-property='(public), mbr-attribute='(), obj=is-recursive, obj-type=factor, obj-attribute='()
 mbr=is-stable, mbr-property='(public), mbr-attribute='(), obj=is-stable, obj-type=factor, obj-attribute='()
 mbr=is-thread-safe, mbr-property='(public), mbr-attribute='(), obj=is-thread-safe, obj-type=factor, obj-attribute='()
+mbr=iterator, mbr-property='(public), mbr-attribute='(), obj=iterator, obj-type=atom, obj-attribute='()
 mbr=join, mbr-property='(public), mbr-attribute='(), obj=join, obj-type=factor, obj-attribute='(stable)
 mbr=lambda, mbr-property='(public), mbr-attribute='(), obj=lambda, obj-type=factor, obj-attribute='(stable)
 mbr=let, mbr-property='(public), mbr-attribute='(), obj=let, obj-type=factor, obj-attribute='(stable)
@@ -112,6 +114,7 @@ mbr=macro, mbr-property='(public), mbr-attribute='(), obj=macro, obj-type=atom, 
 mbr=make-array, mbr-property='(public), mbr-attribute='(), obj=make-array, obj-type=factor, obj-attribute='(stable)
 mbr=make-blob, mbr-property='(public), mbr-attribute='(), obj=make-blob, obj-type=factor, obj-attribute='(stable)
 mbr=make-list, mbr-property='(public), mbr-attribute='(), obj=make-list, obj-type=factor, obj-attribute='(stable)
+mbr=make-list-Iterator, mbr-property='(public), mbr-attribute='(), obj=make-list-Iterator, obj-type=factor, obj-attribute='()
 mbr=make-string, mbr-property='(public), mbr-attribute='(), obj=make-string, obj-type=factor, obj-attribute='(stable)
 mbr=member, mbr-property='(public), mbr-attribute='(), obj=member, obj-type=atom, obj-attribute='()
 mbr=name-of, mbr-property='(public), mbr-attribute='(), obj=name-of, obj-type=factor, obj-attribute='(stable)
@@ -119,6 +122,7 @@ mbr=namespace, mbr-property='(public), mbr-attribute='(), obj=namespace, obj-typ
 mbr=nan, mbr-property='(public), mbr-attribute='(), obj=nan, obj-type=atom, obj-attribute='()
 mbr=native, mbr-property='(public), mbr-attribute='(), obj=native, obj-type=atom, obj-attribute='()
 mbr=new, mbr-property='(public), mbr-attribute='(), obj=new, obj-type=factor, obj-attribute='(stable)
+mbr=next, mbr-property='(public), mbr-attribute='(), obj=next, obj-type=factor, obj-attribute='()
 mbr=nil, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=nil, obj-attribute='()
 mbr=noclass, mbr-property='(public), mbr-attribute='(), obj=noclass, obj-type=class, obj-attribute='(), class-property='(final)
 mbr=not, mbr-property='(public), mbr-attribute='(), obj=not, obj-type=factor, obj-attribute='(atom '(return-type bool) stable)
@@ -313,7 +317,7 @@ mbr=state, mbr-property='(public), mbr-attribute='(), obj=state, obj-type=atom, 
 mbr=state-of, mbr-property='(public), mbr-attribute='(), obj=state-of, obj-type=factor, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
 mbr=to-array, mbr-property='(public), mbr-attribute='(), obj=(to-array list), obj-type=func, obj-attribute='()
-mbr=to-list, mbr-property='(public), mbr-attribute='(), obj='((to-list array) (to-list list)), obj-type=func, obj-attribute='()
+mbr=to-list, mbr-property='(public), mbr-attribute='(), obj='((to-list array) (to-list iterator) (to-list list)), obj-type=func, obj-attribute='()
 mbr=trace-rule, mbr-property='(public), mbr-attribute='(), obj=trace-rule, obj-type=factor, obj-attribute='()
 mbr=try-add-stmt, mbr-property='(public), mbr-attribute='(), obj=try-add-stmt, obj-type=factor, obj-attribute='()
 mbr=type, mbr-property='(public), mbr-attribute='(), obj=type, obj-type=atom, obj-attribute='()
@@ -472,7 +476,7 @@ mbr=size-of, mbr-property='(public), mbr-attribute='(), obj='((size-of array int
 mbr=sort, mbr-property='(public), mbr-attribute='(), obj='((sort array func) (sort array) (sort list func) (sort list)), obj-type=func, obj-attribute='()
 mbr=str-split-line, mbr-property='(public), mbr-attribute='(), obj=(str-split-line string), obj-type=func, obj-attribute='()
 mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=frame, obj-attribute='()
-mbr=to-list, mbr-property='(public), mbr-attribute='(), obj='((to-list array) (to-list list) (to-list type#set)), obj-type=func, obj-attribute='()
+mbr=to-list, mbr-property='(public), mbr-attribute='(), obj='((to-list array) (to-list iterator) (to-list list) (to-list type#set)), obj-type=func, obj-attribute='()
 mbr=to-one-line, mbr-property='(public), mbr-attribute='(), obj=(to-one-line list), obj-type=func, obj-attribute='()
 mbr=to-valid-path, mbr-property='(public), mbr-attribute='(), obj=(to-valid-path string), obj-type=func, obj-attribute='()
 mbr=type#map, mbr-property='(public), mbr-attribute='(), obj=type#map, obj-type=atom, obj-attribute='()

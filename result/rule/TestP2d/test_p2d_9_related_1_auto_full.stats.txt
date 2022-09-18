@@ -2556,7 +2556,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      253
+           Interpreter call id:      254
     Interpreter call level/max:        0       11
                Frame max level:        8
                   Frame max id:       15
@@ -2577,24 +2577,24 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1039
+    factor:     1040
       func:       89
      macro:        2
 ==========================================================================================================================
 
-Callable stats info: callId=253, row=46, column=64(4), value-max=56, value-unit=2^x
+Callable stats info: callId=254, row=46, column=64(4), value-max=56, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333369XX max=366, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
-    root   factor    102    0 defun                                                                        3333 33333133367  
+    root   factor    103    0 defun                                                                        3333 33333223367  
     root   factor     89    0 return                                                                                      277
     root   factor     78    0 if                                                                                           77
     root   factor     62    0 equal_def                                                                                    67
   system funcList     62    1 equal                                                                                        67
     root   factor     56    0 defconst                                                                                    7  
     root   factor     47    0 defvar                                                                           3         1 7 
-  system   factor     42    0 state-of                                                                                     17
+  system   factor     42    0 state-of                                                                                      7
     root   factor     41    0 not                                                                                           7
     root   factor     41    0 continue                                                                                      7
   system   factor     41    0 add-rule                                                                                    7  
@@ -2612,7 +2612,7 @@ Callable stats info: callId=253, row=46, column=64(4), value-max=56, value-unit=
     root   factor      9    0 defmacro                                                                                   43  
     root   factor      9    0 and                                                                                          5 
     root   factor      7    0 alias                          33                                                       1      
-  system   factor      7    0 add-stmt                                                                                    24 
+  system   factor      7    0 add-stmt                                                                                    14 
     root   factor      4    0 str-last-index-of                                                                            3 
     root   factor      4    0 str-end-with                                                                                 3 
     main     func      4    2 (p2d_get_version_number nil)                                                                 3 
@@ -2621,7 +2621,7 @@ Callable stats info: callId=253, row=46, column=64(4), value-max=56, value-unit=
     root   factor      4    0 can-cast                                                                                     3 
     root   factor      4    0 >                                                                                            3 
     root   factor      3    0 load-class                                                                                  3  
-    root   factor      3    0 deftemplate                                                                            3       
+    root   factor      3    0 deftemplate                                                                            21      
     root   factor      3    0 defclass                                                                                    3  
     root   factor      2    0 str-length                                                                                  2  
   system funcList      2    1 length-of                                                                                   2  
@@ -2638,21 +2638,21 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         6773            0         6773
+        atom:         6794            0         6794
          int:            3            0            3
       string:          264            0          264
         list:         1540            3         1537
-        expr:         2133           89         2044
+        expr:         2148           89         2059
          var:          340          298           42
     constant:           56            0           56
-        func:          141            0          141
+        func:          142            0          142
     template:            1            0            1
        macro:            9            0            9
        class:            3            0            3
       member:           89            0           89
        frame:          173          165            8
  interpreter:            1            0
-  frameEntry:          748            0
+  frameEntry:          752            0
       lambda:            1            0
 ==========================================================================================================================
 
@@ -2777,9 +2777,10 @@ clear                : 87       2        2    funcList   '((clear type#map) (cle
                                          1    func       (clear type#set) : frame=frame@main
 set                  : 88       2        2    class      set                 
 type#set             : 89       2        0    atom       type#set            
-to-list              : 90       2        2    funcList   '((to-list array) (to-list list) (to-list type#set)) : frame=null, type=list
+to-list              : 90       2        2    funcList   '((to-list array) (to-list iterator) (to-list list) (to-list type#set)) : frame=null, type=list
                                          2    func       (to-list list) : frame=frame@system
                                          2    func       (to-list array) : frame=frame@system
+                                         2    func       (to-list iterator) : frame=frame@system
                                          1    func       (to-list type#set) : frame=frame@main
 p2d                  : 92       2        7    instance   model@p2d           
 #ns_tag              : 93       2        2    constant   #ns_tag:"nt:"       
