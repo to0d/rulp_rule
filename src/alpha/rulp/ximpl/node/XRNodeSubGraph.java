@@ -86,7 +86,7 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 			activateMap.put(node, info);
 		}
 
-		node.setPriority(priority);
+		graph.setNodePriority(node, priority);
 	}
 
 	public boolean containNode(IRReteNode node) {
@@ -118,7 +118,7 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 				continue;
 			}
 
-			changeInfo.node.setPriority(changeInfo.oldPriority);
+			graph.setNodePriority(changeInfo.node, changeInfo.oldPriority);
 		}
 
 		activateMap = null;

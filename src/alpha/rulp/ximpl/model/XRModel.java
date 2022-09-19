@@ -1093,14 +1093,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 			/********************************************/
 			for (IRReteNode node : subGraph.getNodes()) {
 				if (ReteUtil.supportUpdateIncrementally(node)) {
-					node.setPriority(RETE_PRIORITY_QUERY);
+					this.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY);
 				}
 			}
 
 			RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
-
 				if (!ReteUtil.supportUpdateIncrementally(node) && !RReteType.isRootType(node.getReteType())) {
-					node.setPriority(RETE_PRIORITY_QUERY + 2);
+					this.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY + 2);
 				}
 
 				return false;

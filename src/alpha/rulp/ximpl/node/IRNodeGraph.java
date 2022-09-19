@@ -88,6 +88,8 @@ public interface IRNodeGraph {
 
 	public boolean removeNode(IRReteNode node) throws RException;
 
+	public void setNodePriority(IRReteNode node, int priority) throws RException;
+
 	public void setRulePriority(IRRule rule, int priority) throws RException;
 
 }

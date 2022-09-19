@@ -1606,14 +1606,14 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	}
 
-	protected void _setNodePriority(IRReteNode node, int priority) throws RException {
+	public void setNodePriority(IRReteNode node, int priority) throws RException {
 
 		if (node.getPriority() == priority) {
 			return;
 		}
 
 		node.setPriority(priority);
-		_graphChanged();
+//		_graphChanged();
 	}
 
 	protected boolean _supportInheritOpt(IRReteNode parentNode, IRObject[] ruleVarEntry, List<IRExpr> indexExprList,
@@ -1930,7 +1930,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				parentNode.getEntryLength(), parentNode, ruleVarEntry, actionStmtList);
 
 		ruleNode.setMatchStmtList(actualMatchStmtList);
-		_setNodePriority(ruleNode, priority);
+		setNodePriority(ruleNode, priority);
 
 		for (IRExpr expr : indexExprList) {
 			addConstraint(ruleNode, ConstraintFactory.expr4(expr, actualMatchStmtList));
@@ -1949,7 +1949,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				}
 
 				if (node.getPriority() < priority) {
-					_setNodePriority(node, priority);
+					setNodePriority(node, priority);
 				}
 			}
 			return false;
@@ -2196,11 +2196,11 @@ public class XRNodeGraph implements IRNodeGraph {
 
 				// Update priority
 				if (exprParent1.getPriority() > exprChild1.getPriority()) {
-					_setNodePriority(exprChild1, exprParent1.getPriority());
+					setNodePriority(exprChild1, exprParent1.getPriority());
 				}
 
 				// disable parent node
-				_setNodePriority(exprParent1, 0);
+				setNodePriority(exprParent1, 0);
 
 				++optCount;
 
@@ -2522,7 +2522,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			return;
 		}
 
-		_setNodePriority(rule, priority);
+		setNodePriority(rule, priority);
 
 		/******************************************************/
 		// Update all rule node priority
@@ -2532,7 +2532,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			RuleUtil.travelReteParentNodeByPostorder(rule, (_node) -> {
 				if (_node.getReteType() != RReteType.ROOT0 && _node != rule) {
 					int newPriority = RuleUtil.recalcuatePriority(model, _node);
-					_setNodePriority(_node, newPriority);
+					setNodePriority(_node, newPriority);
 				}
 				return false;
 			});
