@@ -19,6 +19,7 @@ import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.node.IRNodeGraph;
+import alpha.rulp.ximpl.node.IRNodeUpdateQueue;
 
 public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
@@ -68,15 +69,17 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IRModelCounter getCounter();
 
-	public long getCounterValue(String countkey);
-
 	public List<String> getCounterKeyList();
+
+	public long getCounterValue(String countkey);
 
 	public IREntryTable getEntryTable();
 
 	public String getModelName();
 
 	public IRNodeGraph getNodeGraph();
+
+	public IRNodeUpdateQueue getNodeUpdateQueue();
 
 	public IRVar getVar(String name) throws RException;
 
@@ -112,5 +115,4 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public void setNodeSaver(IRReteNode node, IRStmtSaver saver) throws RException;
 
 	public boolean tryAddStatement(IRList stmt) throws RException;
-
 }

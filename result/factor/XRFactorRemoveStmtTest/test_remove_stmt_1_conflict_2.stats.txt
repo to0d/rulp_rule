@@ -128,6 +128,7 @@ graph-createNodeByTree                1
 graph-createNodeRoot                 34
 graph-createNodeRule                  2
 graph-listSourceNodes                 7
+graph-setNodePriority                 6
 ===============================================================================================================================================================================
 
 

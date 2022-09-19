@@ -81,6 +81,7 @@ model-addRule                         8
 graph-createNodeRoot                  1
 graph-createNodeRule                  8
 graph-listSourceNodes                 4
+graph-setNodePriority                 3
 ===============================================================================================================================================================================
 
 

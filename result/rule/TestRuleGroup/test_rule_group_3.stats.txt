@@ -110,6 +110,7 @@ graph-createNodeRule                  2
 graph-createSubGraphForRuleGroup        1
 graph-listSourceNodes                 7
 graph-setRulePriority                 1
+graph-setNodePriority                13
 ===============================================================================================================================================================================
 
 

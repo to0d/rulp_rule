@@ -95,6 +95,7 @@ model-start                           1
 graph-createNodeRoot                  7
 graph-createNodeRule                  2
 graph-listSourceNodes                 8
+graph-setNodePriority                 4
 ===============================================================================================================================================================================
 
 

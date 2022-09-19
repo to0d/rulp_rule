@@ -107,6 +107,7 @@ graph-addConstraint                   1
 graph-createNodeRoot                  6
 graph-createNodeRule                  1
 graph-listSourceNodes                11
+graph-setNodePriority                 3
 ===============================================================================================================================================================================
 
 

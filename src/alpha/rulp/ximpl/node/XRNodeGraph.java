@@ -1608,6 +1608,12 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	public void setNodePriority(IRReteNode node, int priority) throws RException {
 
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> setNodePriority: " + node + ", old=" + node.getPriority() + ", new=" + priority);
+		}
+
+		counter.setNodePriority++;
+
 		if (node.getPriority() == priority) {
 			return;
 		}

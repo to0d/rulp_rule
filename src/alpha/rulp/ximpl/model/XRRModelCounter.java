@@ -64,7 +64,7 @@ public class XRRModelCounter implements IRModelCounter {
 
 	@Override
 	public int getProcessQueueMaxNodeCount() {
-		return model.updateQueue.getMaxNodeCount();
+		return model.getNodeUpdateQueue().getMaxNodeCount();
 	}
 
 	@Override

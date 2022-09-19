@@ -6,9 +6,23 @@ import java.util.List;
 
 public class XRGraphCount {
 
-	public static final String CK_GC_addConstraint = "graph-addConstraint";
+	public static final String CK_F_addConstraint = "graph-addConstraint";
 
-	public static final String CK_GC_bindNode = "graph-bindNode";
+	public static final String CK_F_bindNode = "graph-bindNode";
+
+	public static final String CK_F_createSubGraphForQueryNodeForward = "graph-createSubGraphForQueryNodeForward";
+
+	public static final String CK_F_createSubGraphForRuleGroup = "graph-createSubGraphForRuleGroup";
+
+	public static final String CK_F_createWorkNode = "graph-createWorkNode";
+
+	public static final String CK_F_DO_OPT = "graph-doOptimize";
+
+	public static final String CK_F_removeNode = "graph-removeNode";
+
+	public static final String CK_F_setNodePriority = "graph-setNodePriority";
+
+	public static final String CK_F_setRulePriority = "graph-setRulePriority";
 
 	public static final String CK_GC_CACHE = "graph-gc-cache";
 
@@ -24,15 +38,7 @@ public class XRGraphCount {
 
 	public static final String CK_GC_createSubGraphForQueryNodeBackward = "graph-createSubGraphForQueryNodeBackward";
 
-	public static final String CK_GC_createSubGraphForQueryNodeForward = "graph-createSubGraphForQueryNodeForward";
-
-	public static final String CK_GC_createSubGraphForRuleGroup = "graph-createSubGraphForRuleGroup";
-
-	public static final String CK_GC_createWorkNode = "graph-createWorkNode";
-
 	public static final String CK_GC_DO_GC = "graph-doGc";
-
-	public static final String CK_GC_DO_OPT = "graph-doOptimize";
 
 	public static final String CK_GC_INACTIVE_LEAF = "graph-gc-inactive-leaf";
 
@@ -44,37 +50,38 @@ public class XRGraphCount {
 
 	public static final String CK_GC_removeConstraint = "graph-removeConstraint";
 
-	public static final String CK_GC_removeNode = "graph-removeNode";
-
-	public static final String CK_GC_setRulePriority = "graph-setRulePriority";
-
 	public static List<String> graphCountKeyList = new ArrayList<>();
 
 	static {
 
 		graphCountKeyList.add(CK_GC_DO_GC);
-		graphCountKeyList.add(CK_GC_DO_OPT);
+		graphCountKeyList.add(CK_F_DO_OPT);
 		graphCountKeyList.add(CK_GC_NODE_REMOVE);
 		graphCountKeyList.add(CK_GC_NODE_CLEAN);
 		graphCountKeyList.add(CK_GC_INACTIVE_LEAF);
 		graphCountKeyList.add(CK_GC_CACHE);
-		graphCountKeyList.add(CK_GC_addConstraint);
-		graphCountKeyList.add(CK_GC_bindNode);
+		graphCountKeyList.add(CK_F_addConstraint);
+		graphCountKeyList.add(CK_F_bindNode);
 		graphCountKeyList.add(CK_GC_createNodeByTree);
 		graphCountKeyList.add(CK_GC_createNodeIndex);
 		graphCountKeyList.add(CK_GC_createNodeRoot);
 		graphCountKeyList.add(CK_GC_createNodeRule);
 		graphCountKeyList.add(CK_GC_createSubGraphForConstraintCheck);
 		graphCountKeyList.add(CK_GC_createSubGraphForQueryNodeBackward);
-		graphCountKeyList.add(CK_GC_createSubGraphForQueryNodeForward);
-		graphCountKeyList.add(CK_GC_createSubGraphForRuleGroup);
-		graphCountKeyList.add(CK_GC_createWorkNode);
+		graphCountKeyList.add(CK_F_createSubGraphForQueryNodeForward);
+		graphCountKeyList.add(CK_F_createSubGraphForRuleGroup);
+		graphCountKeyList.add(CK_F_createWorkNode);
 		graphCountKeyList.add(CK_GC_listSourceNodes);
 		graphCountKeyList.add(CK_GC_removeConstraint);
-		graphCountKeyList.add(CK_GC_removeNode);
-		graphCountKeyList.add(CK_GC_setRulePriority);
+		graphCountKeyList.add(CK_F_removeNode);
+		graphCountKeyList.add(CK_F_setRulePriority);
+		graphCountKeyList.add(CK_F_setNodePriority);
 
 		graphCountKeyList = Collections.unmodifiableList(graphCountKeyList);
+	}
+
+	public static List<String> getCounterKeyList() {
+		return graphCountKeyList;
 	}
 
 	public int addConstraint = 0;
@@ -117,11 +124,9 @@ public class XRGraphCount {
 
 	public int removeNode = 0;
 
-	public int setRulePriority = 0;
+	public int setNodePriority = 0;
 
-	public static List<String> getCounterKeyList() {
-		return graphCountKeyList;
-	}
+	public int setRulePriority = 0;
 
 	public long getCounterValue(String countkey) {
 
@@ -129,7 +134,7 @@ public class XRGraphCount {
 		case CK_GC_DO_GC:
 			return doGc;
 
-		case CK_GC_DO_OPT:
+		case CK_F_DO_OPT:
 			return doOptimize;
 
 		case CK_GC_NODE_REMOVE:
@@ -144,10 +149,10 @@ public class XRGraphCount {
 		case CK_GC_CACHE:
 			return gcCacheCount;
 
-		case CK_GC_addConstraint:
+		case CK_F_addConstraint:
 			return addConstraint;
 
-		case CK_GC_bindNode:
+		case CK_F_bindNode:
 			return bindNode;
 
 		case CK_GC_createNodeByTree:
@@ -168,13 +173,13 @@ public class XRGraphCount {
 		case CK_GC_createSubGraphForQueryNodeBackward:
 			return createSubGraphForQueryNodeBackward;
 
-		case CK_GC_createSubGraphForQueryNodeForward:
+		case CK_F_createSubGraphForQueryNodeForward:
 			return createSubGraphForQueryNodeForward;
 
-		case CK_GC_createSubGraphForRuleGroup:
+		case CK_F_createSubGraphForRuleGroup:
 			return createSubGraphForRuleGroup;
 
-		case CK_GC_createWorkNode:
+		case CK_F_createWorkNode:
 			return createWorkNode;
 
 		case CK_GC_listSourceNodes:
@@ -183,11 +188,14 @@ public class XRGraphCount {
 		case CK_GC_removeConstraint:
 			return removeConstraint;
 
-		case CK_GC_removeNode:
+		case CK_F_removeNode:
 			return removeNode;
 
-		case CK_GC_setRulePriority:
+		case CK_F_setRulePriority:
 			return setRulePriority;
+
+		case CK_F_setNodePriority:
+			return setNodePriority;
 		}
 
 		return 0;

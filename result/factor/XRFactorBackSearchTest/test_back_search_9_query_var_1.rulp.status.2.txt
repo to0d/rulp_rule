@@ -121,6 +121,7 @@ graph-createNodeRoot                 11
 graph-createNodeRule                  1
 graph-createSubGraphForQueryNodeForward        1
 graph-listSourceNodes                27
+graph-setNodePriority                 6
 bsc-node-stmt-and                     1
 bsc-node-stmt-or                      1
 bsc-node-stmt-query                   1

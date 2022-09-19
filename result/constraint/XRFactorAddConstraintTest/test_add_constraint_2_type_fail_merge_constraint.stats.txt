@@ -149,6 +149,7 @@ graph-createSubGraphForQueryNodeBackward        3
 graph-createSubGraphForRuleGroup        3
 graph-listSourceNodes                27
 graph-setRulePriority                 4
+graph-setNodePriority               104
 ===============================================================================================================================================================================
 
 

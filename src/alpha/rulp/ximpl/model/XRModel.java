@@ -83,10 +83,12 @@ import alpha.rulp.ximpl.entry.XREntryQueueOrder;
 import alpha.rulp.ximpl.entry.XREntryTable;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
+import alpha.rulp.ximpl.node.IRNodeUpdateQueue;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.SourceNode;
 import alpha.rulp.ximpl.node.XRNodeGraph;
+import alpha.rulp.ximpl.node.XRNodeUpdateQueue;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 import alpha.rulp.ximpl.rclass.AbsRInstance;
 
@@ -198,7 +200,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected int tryRemoveConstraintLevel = 0;
 
-	protected final XRUpdateQueue updateQueue = new XRUpdateQueue();
+	protected final IRNodeUpdateQueue updateQueue = new XRNodeUpdateQueue();
 
 	public XRModel(String modelName, IRClass rclass, IRFrame frame) throws RException {
 		super(rclass, modelName, frame);
@@ -1868,6 +1870,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 	@Override
 	public IRNodeGraph getNodeGraph() {
 		return nodeGraph;
+	}
+
+	@Override
+	public IRNodeUpdateQueue getNodeUpdateQueue() {
+		return updateQueue;
 	}
 
 	@Override

@@ -75,6 +75,7 @@ graph-createNodeRoot                  4
 graph-createNodeRule                  1
 graph-createSubGraphForConstraintCheck        1
 graph-listSourceNodes                 4
+graph-setNodePriority                 2
 ===============================================================================================================================================================================
 
 

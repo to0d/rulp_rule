@@ -94,6 +94,7 @@ graph-createNodeRoot                  4
 graph-createSubGraphForQueryNodeBackward        3
 graph-createWorkNode                  1
 graph-listSourceNodes                13
+graph-setNodePriority                18
 ===============================================================================================================================================================================
 
 

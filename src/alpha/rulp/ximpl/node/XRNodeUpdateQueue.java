@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.model;
+package alpha.rulp.ximpl.node;
 
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_INACTIVE;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_SYSTEM;
@@ -7,9 +7,8 @@ import java.util.LinkedList;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.ximpl.node.RReteStage;
 
-public class XRUpdateQueue {
+public class XRNodeUpdateQueue implements IRNodeUpdateQueue {
 
 	static class PriorityQueue {
 
@@ -62,7 +61,7 @@ public class XRUpdateQueue {
 
 	private final PriorityQueue systemQueue;
 
-	public XRUpdateQueue() {
+	public XRNodeUpdateQueue() {
 		super();
 
 		systemQueue = new PriorityQueue(RETE_PRIORITY_SYSTEM);
@@ -98,14 +97,17 @@ public class XRUpdateQueue {
 		curPriority = queue.getPriority();
 	}
 
+	@Override
 	public int getMaxNodeCount() {
 		return maxNodeCount;
 	}
 
+	@Override
 	public boolean hasNext() {
 		return nodeCount > 0;
 	}
 
+	@Override
 	public IRReteNode pop() throws RException {
 
 		if (nodeCount <= 0) {
@@ -133,6 +135,7 @@ public class XRUpdateQueue {
 		return node;
 	}
 
+	@Override
 	public void push(IRReteNode node) throws RException {
 
 		if (node.getReteStage() == RReteStage.InQueue) {
@@ -177,5 +180,11 @@ public class XRUpdateQueue {
 		if (priority > curPriority) {
 			_setCurrentQueue(queue);
 		}
+	}
+
+	@Override
+	public void updateNodePriority(IRReteNode node, int oldPriority, int newPriority) throws RException {
+		// TODO Auto-generated method stub
+
 	}
 }

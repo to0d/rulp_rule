@@ -110,6 +110,7 @@ graph-addConstraint                   2
 graph-createNodeRoot                  6
 graph-createNodeRule                  2
 graph-listSourceNodes                12
+graph-setNodePriority                 4
 bsc-node-stmt-and                     2
 bsc-node-stmt-or                      2
 bsc-status-init                       4
