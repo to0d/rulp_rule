@@ -15,5 +15,5 @@
 ;=>'('(a1 b c))
 
 (list-stmt m)
-;=>'('(b p c) '(a1 p b) '(a2 p b) n1:'(a1 p b) n2:'(a2 p b))
+;=>'('(b p c) '(a1 p b) n1:'(a1 p b) n2:'(a2 p b))
 

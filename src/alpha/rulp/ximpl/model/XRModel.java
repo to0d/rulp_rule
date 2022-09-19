@@ -1097,14 +1097,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 				}
 			}
 
-//			RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
-//
-//				if (!ReteUtil.supportUpdateIncrementally(node)) {
-//					node.setPriority(RETE_PRIORITY_QUERY + 2);
-//				}
-//
-//				return false;
-//			});
+			RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+
+				if (!ReteUtil.supportUpdateIncrementally(node) && !RReteType.isRootType(node.getReteType())) {
+					node.setPriority(RETE_PRIORITY_QUERY + 2);
+				}
+
+				return false;
+			});
 
 		}
 
