@@ -167,6 +167,17 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_dumpEntryTable("m");
 	}
 	
+	
+	@Test
+	void test_query_stmt_8_limit_3_fast_return() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+
+	}
+	
 	@Test
 	void test_query_stmt_8_limit_2_zeta_b() {
 
