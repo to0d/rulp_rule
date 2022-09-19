@@ -3,15 +3,17 @@
 (add-rule m if n2:'(?a p ?b) do  (-> '(?a p ?b)))
 (add-stmt m n1:'(a1 p b))
 (add-stmt m n2:'(a2 p b))
-(add-stmt m n1:'(b p c))
+(add-stmt m '(b p c))
 ;=>m RU000 RU001 true true true
 
 (list-stmt m)
-;=>'(n1:'(a1 p b) n1:'(b p c) n2:'(a2 p b))
+;=>'('(b p c) n1:'(a1 p b) n2:'(a2 p b))
+
+;(setq ?model-trace true)
 
 (query-stmt m '(?a ?b ?c) from '(?a p ?b) '(?b p ?c) limit 1)
 ;=>'('(a1 b c))
 
 (list-stmt m)
-;=>'('(a1 p b) '(b p c) '(a2 p b) n1:'(a1 p b) n1:'(b p c) n2:'(a2 p b))
+;=>'('(b p c) '(a1 p b) '(a2 p b) n1:'(a1 p b) n2:'(a2 p b))
 

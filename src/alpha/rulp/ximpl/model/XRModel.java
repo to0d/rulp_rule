@@ -1086,15 +1086,26 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/********************************************/
 		subGraph.activate(RETE_PRIORITY_QUERY + 1);
 
-		/********************************************/
-		// Lower priority for nodes that can run incrementally
-		/********************************************/
 		if (limit > 0) {
+
+			/********************************************/
+			// Lower priority for nodes that can run incrementally and parallelly
+			/********************************************/
 			for (IRReteNode node : subGraph.getNodes()) {
 				if (ReteUtil.supportUpdateIncrementally(node)) {
 					node.setPriority(RETE_PRIORITY_QUERY);
 				}
 			}
+
+//			RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+//
+//				if (!ReteUtil.supportUpdateIncrementally(node)) {
+//					node.setPriority(RETE_PRIORITY_QUERY + 2);
+//				}
+//
+//				return false;
+//			});
+
 		}
 
 		try {
@@ -1110,8 +1121,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 					case Running:
 
 						int execLimit = -1;
-						if (limit > 0 && ReteUtil.supportUpdateIncrementally(node)) {
-							execLimit = 1;
+						if (limit > 0) {
+
+							if (ReteUtil.supportUpdateIncrementally(node)) {
+								execLimit = 1;
+
+							} else if (node == queryNode) {
+								execLimit = limit - resultCount;
+							}
 						}
 
 						int update = execute(node, execLimit);

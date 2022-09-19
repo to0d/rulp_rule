@@ -3,11 +3,13 @@
 (add-rule m if n2:'(?a p ?b) do  (-> '(?a p ?b)))
 (add-stmt m n1:'(a1 p b))
 (add-stmt m n2:'(a2 p b))
-(add-stmt m n1:'(b p c))
+(add-stmt m '(b p c))
 ;=>
 
 (list-stmt m)
 ;=>
+
+;(setq ?model-trace true)
 
 (query-stmt m '(?a ?b ?c) from '(?a p ?b) '(?b p ?c) limit 1)
 ;=>
