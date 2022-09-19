@@ -131,7 +131,7 @@ Object create count:
       member:           25            0           25
        frame:            2            0            2
  interpreter:            1            0
-  frameEntry:          340            0
+  frameEntry:          341            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -221,19 +221,6 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=1/1, parent=model, final=false, mbrs=7, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-?cst-init                      : DEFAULT                      0    1    var        false : type=bool
-?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
-?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
-?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
-?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
-?model-state                   : DEFAULT                      0    1    var        completed : type=atom
-this                           : DEFAULT                      0    1    instance   model@m
-==========================================================================================================================
-
 name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=7, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
@@ -245,6 +232,19 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
 this                           : DEFAULT                      0    2    instance   model@m
+==========================================================================================================================
+
+name=m, string=model@m, lvl=1, ref=1/1, parent=model, final=false, mbrs=7, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?cst-init                      : DEFAULT                      0    1    var        false : type=bool
+?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
+?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
+?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
+?model-state                   : DEFAULT                      0    1    var        completed : type=atom
+this                           : DEFAULT                      0    1    instance   model@m
 ==========================================================================================================================
 
 

@@ -288,6 +288,7 @@ mbr=println, mbr-property='(public), mbr-attribute='(), obj='((println nil nil n
 mbr=priority, mbr-property='(public), mbr-attribute='(), obj=priority, obj-type=atom, obj-attribute='()
 mbr=priority-of, mbr-property='(public), mbr-attribute='(), obj=priority-of, obj-type=factor, obj-attribute='()
 mbr=query-stmt, mbr-property='(public), mbr-attribute='(), obj=query-stmt, obj-type=factor, obj-attribute='()
+mbr=query-stmt-iterator, mbr-property='(public), mbr-attribute='(), obj=query-stmt-iterator, obj-type=factor, obj-attribute='()
 mbr=reasoned, mbr-property='(public), mbr-attribute='(), obj=reasoned, obj-type=atom, obj-attribute='()
 mbr=remove, mbr-property='(public), mbr-attribute='(), obj=(remove list nil), obj-type=func, obj-attribute='()
 mbr=remove-all, mbr-property='(public), mbr-attribute='(), obj=(remove-all list list), obj-type=func, obj-attribute='()

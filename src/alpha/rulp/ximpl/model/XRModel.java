@@ -2107,6 +2107,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public Iterator<? extends IRObject> query(IRList condList, int limit, boolean backward) throws RException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException {
 
 		if (RuleUtil.isModelTrace()) {

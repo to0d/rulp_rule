@@ -191,6 +191,8 @@ public interface Constant {
 
 	String F_QUERY_STMT = "query-stmt";
 
+	String F_QUERY_STMT_ITERATOR = "query-stmt-iterator";
+
 	String F_REMOVE_CONSTRAINT = "remove-constraint";
 
 	String F_REMOVE_STMT = "remove-stmt";

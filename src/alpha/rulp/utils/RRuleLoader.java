@@ -32,6 +32,7 @@ import static alpha.rulp.rule.Constant.F_PRINT_RUNNABLE_COUNTER;
 import static alpha.rulp.rule.Constant.F_PRINT_TREE;
 import static alpha.rulp.rule.Constant.F_PRIORITY_OF;
 import static alpha.rulp.rule.Constant.F_QUERY_STMT;
+import static alpha.rulp.rule.Constant.F_QUERY_STMT_ITERATOR;
 import static alpha.rulp.rule.Constant.F_REMOVE_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_REMOVE_STMT;
 import static alpha.rulp.rule.Constant.F_RETE_ENTRY_COUNT_OF;
@@ -100,6 +101,7 @@ import alpha.rulp.ximpl.factor.XRFactorPrintRunnableCounter;
 import alpha.rulp.ximpl.factor.XRFactorPrintTree;
 import alpha.rulp.ximpl.factor.XRFactorPriorityOf;
 import alpha.rulp.ximpl.factor.XRFactorQueryStmt;
+import alpha.rulp.ximpl.factor.XRFactorQueryStmtIterator;
 import alpha.rulp.ximpl.factor.XRFactorRemoveConstraint;
 import alpha.rulp.ximpl.factor.XRFactorRemoveStmt;
 import alpha.rulp.ximpl.factor.XRFactorReteEntryCountOf;
@@ -188,6 +190,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorListSubGraphForQuery(F_LIST_SUBGRAPH_FOR_QUERY));
 		RulpUtil.addFrameObject(frame, new XRFactorPrintTree(F_PRINT_TREE));
 		RulpUtil.addFrameObject(frame, new XRFactorExecuteRule(F_EXEC_RULE));
+		RulpUtil.addFrameObject(frame, new XRFactorQueryStmtIterator(F_QUERY_STMT_ITERATOR));
 
 		// Constraint
 		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

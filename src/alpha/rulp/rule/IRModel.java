@@ -1,5 +1,6 @@
 package alpha.rulp.rule;
 
+import java.util.Iterator;
 import java.util.List;
 
 import alpha.rulp.lang.IRInstance;
@@ -91,6 +92,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 			IREntryAction action) throws RException;
 
 	public void query(IREntryAction result, IRList condList, int limit, boolean backward) throws RException;
+
+	public Iterator<? extends IRObject> query(IRList condList, int limit, boolean backward) throws RException;
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
