@@ -1606,22 +1606,6 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	}
 
-	public void setNodePriority(IRReteNode node, int priority) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> setNodePriority: " + node + ", old=" + node.getPriority() + ", new=" + priority);
-		}
-
-		counter.setNodePriority++;
-
-		if (node.getPriority() == priority) {
-			return;
-		}
-
-		node.setPriority(priority);
-//		_graphChanged();
-	}
-
 	protected boolean _supportInheritOpt(IRReteNode parentNode, IRObject[] ruleVarEntry, List<IRExpr> indexExprList,
 			List<IRExpr> actionStmtList) throws RException {
 
@@ -2513,6 +2497,30 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	public void setGcMaxInactiveLeafCount(int gcMaxInactiveLeafCount) {
 		this.gcMaxInactiveLeafCount = gcMaxInactiveLeafCount;
+	}
+
+	public void setNodePriority(IRReteNode node, int newPriority) throws RException {
+
+		int oldPriority = node.getPriority();
+		if (oldPriority == newPriority) {
+			return;
+		}
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> setNodePriority: " + node + ", old=" + oldPriority + ", new=" + newPriority);
+		}
+
+		counter.setNodePriority++;
+
+		node.setPriority(newPriority);
+
+		// need do this? - 2022/09/19
+		// if (node.getReteStage() == RReteStage.InQueue) {
+		// model.getNodeUpdateQueue().updateNodePriority(node, oldPriority,
+		// newPriority);
+		// }
+
+//		_graphChanged();
 	}
 
 	@Override
