@@ -94,6 +94,117 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
+	static class RQueryIterator implements IRIterator<IRObject> {
+
+		RQueryHelper helper;
+
+		int resultCount = 0;
+
+		int queryEntryIndex = 0;
+
+		int queryEntrySize = -1;
+
+		boolean prepare = false;
+
+		boolean loadResult = false;
+
+		boolean buildSubGraph = false;
+
+		boolean completed = false;
+
+		IREntryQueue queryQueue;
+
+		IRReteEntry nextEntry;
+
+		int limit;
+
+		public RQueryIterator(RQueryHelper helper) throws RException {
+			super();
+			this.helper = helper;
+			this.queryQueue = helper.queryNode.getEntryQueue();
+			this.limit = helper.limit;
+		}
+
+//		public boolean move() {
+//
+//			if (completed) {
+//				return true;
+//			}
+//
+//		}
+
+		@Override
+		public boolean hasNext() throws RException {
+
+			if (nextEntry != null) {
+				return true;
+			}
+
+			if (queryEntrySize == -1) {
+				helper.prepare();
+				queryEntrySize = queryQueue.size();
+			}
+
+			boolean find = false;
+			while (!find) {
+
+				if (queryEntryIndex >= queryEntrySize) {
+
+					if (!buildSubGraph) {
+						helper.buildSubGraph();
+						buildSubGraph = true;
+					}
+
+					if (!completed) {
+
+					}
+
+					while ((limit <= 0 || limit > resultCount) && helper.hasNext(limit - resultCount)) {
+
+						while (queryEntryIndex < queryQueue.size()) {
+
+							IRReteEntry entry = queryQueue.getEntryAt(queryEntryIndex++);
+//							if (!action.addEntry(entry)) {
+//								continue;
+//							}
+
+							resultCount++;
+
+							// limit <= 0 means query all
+//							if (limit > 0 && resultCount >= limit) {
+//								return;
+//							}
+						}
+					}
+
+				}
+
+			}
+
+//			while (queryEntryIndex < queryEntrySize) {
+//
+//			}
+//
+//			IRReteEntry entry = queryNodeQueue.getEntryAt(queryEntryIndex);
+
+			return false;
+		}
+
+		@Override
+		public IRObject next() throws RException {
+
+			if (nextEntry == null && !hasNext()) {
+				return null;
+			}
+			
+			IRReteEntry rt = nextEntry;
+			nextEntry = null;
+
+			return rt;
+		}
+
+	}
+
 	static class RQueryHelper {
 
 		protected final boolean backward;
@@ -242,17 +353,19 @@ public class XRModel extends AbsRInstance implements IRModel {
 			prepare();
 
 			int resultCount = 0;
+
 			int queryEntryIndex = 0;
+
+			IREntryQueue queryQueue = queryNode.getEntryQueue();
 
 			/******************************************************/
 			// Load results
 			/******************************************************/
 			{
-				IREntryQueue queryNodeQueue = queryNode.getEntryQueue();
 
-				while (queryEntryIndex < queryNodeQueue.size()) {
+				while (queryEntryIndex < queryQueue.size()) {
 
-					IRReteEntry entry = queryNodeQueue.getEntryAt(queryEntryIndex++);
+					IRReteEntry entry = queryQueue.getEntryAt(queryEntryIndex++);
 					if (!action.addEntry(entry)) {
 						continue;
 					}
@@ -275,11 +388,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 				while ((limit <= 0 || limit > resultCount) && hasNext(limit - resultCount)) {
 
-					IREntryQueue queue = queryNode.getEntryQueue();
+					while (queryEntryIndex < queryQueue.size()) {
 
-					while (queryEntryIndex < queue.size()) {
-
-						IRReteEntry entry = queue.getEntryAt(queryEntryIndex++);
+						IRReteEntry entry = queryQueue.getEntryAt(queryEntryIndex++);
 						if (!action.addEntry(entry)) {
 							continue;
 						}

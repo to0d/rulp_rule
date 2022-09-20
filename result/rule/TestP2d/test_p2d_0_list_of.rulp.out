@@ -46,6 +46,7 @@ mbr=cc, mbr-property='(public), mbr-attribute='(), obj=cc, obj-type=factor, obj-
 mbr=class, mbr-property='(public), mbr-attribute='(), obj=class, obj-type=atom, obj-attribute='()
 mbr=class-of, mbr-property='(public), mbr-attribute='(), obj=class-of, obj-type=factor, obj-attribute='(stable)
 mbr=clone, mbr-property='(public), mbr-attribute='(), obj=clone, obj-type=factor, obj-attribute='()
+mbr=close, mbr-property='(public), mbr-attribute='(), obj=close, obj-type=factor, obj-attribute='()
 mbr=cmp_def, mbr-property='(public), mbr-attribute='(), obj=cmp_def, obj-type=factor, obj-attribute='(stable)
 mbr=compute, mbr-property='(public), mbr-attribute='(), obj=compute, obj-type=factor, obj-attribute='(stable)
 mbr=constant, mbr-property='(public), mbr-attribute='(), obj=constant, obj-type=atom, obj-attribute='()
