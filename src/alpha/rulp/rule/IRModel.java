@@ -5,7 +5,6 @@ import java.util.List;
 import alpha.rulp.lang.IRInstance;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
-import alpha.rulp.lang.IRObjectIterator;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
@@ -96,7 +95,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void query(IREntryAction result, IRList condList, int limit, boolean backward) throws RException;
 
-	public IRObjectIterator query(IRList condList, int limit, boolean backward) throws RException;
+	public IRIterator<IRObject> query(IRList condList, int limit, boolean backward) throws RException;
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 

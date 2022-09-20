@@ -41,7 +41,6 @@ import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
-import alpha.rulp.lang.IRObjectIterator;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
@@ -82,7 +81,6 @@ import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.entry.XREntryQueueOrder;
 import alpha.rulp.ximpl.entry.XREntryTable;
-import alpha.rulp.ximpl.iterator.AbsRefObjectIterator;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.IRNodeUpdateQueue;
@@ -344,7 +342,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-	static class RQueryIterator extends AbsRefObjectIterator implements IRObjectIterator {
+	static class RQueryIterator implements IRIterator<IRObject> {
 
 		boolean buildSubGraph = false;
 
@@ -377,22 +375,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.limit = helper.limit;
 		}
 
-//		public boolean move() {
-//
-//			if (completed) {
-//				return true;
-//			}
-//
-//		}
-
-		@Override
-		protected void _close() throws RException {
-			// TODO Auto-generated method stub
-
+		boolean _reachEnded() {
+			return limit > 0 && resultCount >= limit;
 		}
 
 		@Override
-		protected boolean _hasNext() throws RException {
+		public boolean hasNext() throws RException {
 
 			if (nextEntry != null) {
 				return true;
@@ -460,7 +448,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		@Override
-		protected IRObject _next() throws RException {
+		public IRObject next() throws RException {
 
 			if (nextEntry == null && !hasNext()) {
 				return null;
@@ -470,16 +458,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 			nextEntry = null;
 
 			return rt;
-		}
-
-		@Override
-		protected IRObject _peek() throws RException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		boolean _reachEnded() {
-			return limit > 0 && resultCount >= limit;
 		}
 
 	}
@@ -2354,7 +2332,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public IRObjectIterator query(IRList condList, int limit, boolean backward) throws RException {
+	public IRIterator<IRObject> query(IRList condList, int limit, boolean backward) throws RException {
 		// TODO Auto-generated method stub
 		return null;
 	}
