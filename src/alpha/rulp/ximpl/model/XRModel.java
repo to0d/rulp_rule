@@ -94,6 +94,218 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
+	static class RQueryHelper {
+
+		protected final boolean backward;
+
+		protected final int limit;
+
+		protected final XRModel model;
+
+		protected int oldModelPriority = -1;
+
+		protected final IRReteNode queryNode;
+
+		protected IRNodeSubGraph subGraph;
+
+		public RQueryHelper(XRModel model, IRReteNode queryNode, int limit, boolean backward) {
+			super();
+			this.model = model;
+			this.queryNode = queryNode;
+			this.limit = limit;
+			this.backward = backward;
+		}
+
+		public void buildSubGraph() throws RException {
+
+			/******************************************************/
+			// Build subgraph
+			/******************************************************/
+			subGraph = model.nodeGraph.createSubGraphForQueryNode(queryNode, backward);
+
+			/******************************************************/
+			// Invoke running
+			/******************************************************/
+			model.processingLevel++;
+			model.activeUpdate++;
+			model._setRunState(RRunState.Running);
+
+			oldModelPriority = model.modelPriority;
+			model.modelPriority = RETE_PRIORITY_QUERY;
+
+			/********************************************/
+			// Activate sub group
+			/********************************************/
+			subGraph.activate(RETE_PRIORITY_QUERY + 1);
+
+			if (limit > 0) {
+
+				/********************************************/
+				// Lower priority for nodes that can run incrementally and parallelly
+				/********************************************/
+				for (IRReteNode node : subGraph.getNodes()) {
+					if (ReteUtil.supportUpdateIncrementally(node)) {
+						model.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY);
+					}
+				}
+
+				RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+					if (!ReteUtil.supportUpdateIncrementally(node) && !RReteType.isRootType(node.getReteType())) {
+						model.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY + 2);
+					}
+
+					return false;
+				});
+
+			}
+
+		}
+
+		public void closeSubGraph() throws RException {
+
+			if (subGraph != null) {
+
+				model.processingLevel--;
+				model._setRunState(RRunState.Partial);
+
+				if (oldModelPriority != -1) {
+					model.modelPriority = oldModelPriority;
+				}
+
+				subGraph.rollback();
+
+			}
+		}
+
+		public boolean hasNext(int maxLimit) throws RException {
+
+			while (model._hasUpdateNode()) {
+
+				IRReteNode node = model._nextUpdateNode();
+				if (node != null) {
+
+					switch (node.getRunState()) {
+					case Completed:
+					case Runnable:
+					case Running:
+
+						int execLimit = -1;
+						if (limit > 0) {
+
+							if (ReteUtil.supportUpdateIncrementally(node)) {
+								execLimit = 1;
+
+							} else if (node == queryNode) {
+								execLimit = maxLimit;
+							}
+						}
+
+						int update = model.execute(node, execLimit);
+
+						if (node == queryNode && update > 0) {
+							return true;
+						}
+
+						break;
+
+					// don't process 'Failed' or 'Halting' node
+					case Failed:
+					case Halting:
+						continue;
+
+					default:
+						throw new RException("unknown state: " + node.getRunState());
+					}
+				}
+
+			}
+
+			return false;
+		}
+
+		public void prepare() throws RException {
+
+			/******************************************************/
+			// Update cache
+			/******************************************************/
+			if (model.isCacheEnable()) {
+				for (SourceNode sn : RuleUtil.listSource(model, queryNode)) {
+					model._checkCache(sn.rule);
+				}
+				model._checkCache(queryNode);
+			}
+
+		}
+
+		public void query(IREntryAction action) throws RException {
+
+			prepare();
+
+			int resultCount = 0;
+			int queryEntryIndex = 0;
+
+			/******************************************************/
+			// Load results
+			/******************************************************/
+			{
+				IREntryQueue queryNodeQueue = queryNode.getEntryQueue();
+
+				while (queryEntryIndex < queryNodeQueue.size()) {
+
+					IRReteEntry entry = queryNodeQueue.getEntryAt(queryEntryIndex++);
+					if (!action.addEntry(entry)) {
+						continue;
+					}
+
+					resultCount++;
+
+					// limit <= 0 means query all
+					if (limit > 0 && resultCount >= limit) {
+						return;
+					}
+				}
+			}
+
+			/******************************************************/
+			// Build SubGraph
+			/******************************************************/
+			buildSubGraph();
+
+			try {
+
+				while ((limit <= 0 || limit > resultCount) && hasNext(limit - resultCount)) {
+
+					IREntryQueue queue = queryNode.getEntryQueue();
+
+					while (queryEntryIndex < queue.size()) {
+
+						IRReteEntry entry = queue.getEntryAt(queryEntryIndex++);
+						if (!action.addEntry(entry)) {
+							continue;
+						}
+
+						resultCount++;
+
+						// limit <= 0 means query all
+						if (limit > 0 && resultCount >= limit) {
+							return;
+						}
+					}
+				}
+
+				return;
+
+			} finally {
+
+				/******************************************************/
+				// Close SubGraph
+				/******************************************************/
+				closeSubGraph();
+			}
+		}
+
+	}
+
 	static enum RUpdateResult {
 
 		CHANGE, INVALID, NEW, NOCHANGE;
@@ -2108,7 +2320,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Can't query, the model is running");
 		}
 
-		_queryCond(action, findNode(condList), limit, backward);
+		new RQueryHelper(this, findNode(condList), limit, backward).query(action);
 		_gc(false);
 	}
 
