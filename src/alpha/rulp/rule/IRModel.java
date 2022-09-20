@@ -95,7 +95,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void query(IREntryAction result, IRList condList, int limit, boolean backward) throws RException;
 
-	public IRIterator<IRObject> query(IRList condList, int limit, boolean backward) throws RException;
+	public IRIterator<IRObject> query(IRObject rstExpr, IRList condList, int limit, boolean backward) throws RException;
 
 	public IRObject removeConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
