@@ -52,6 +52,8 @@ public class XRModelCount {
 
 	public static final String CK_QUERY = "model-query";
 
+	public static final String CK_QUERY_ITERATOR = "model-query-iterator";
+
 	public static final String CK_RMV_CONSTRAINT = "model-removeConstraint";
 
 	public static final String CK_RMV_STMT = "model-removeStatement";
@@ -93,6 +95,7 @@ public class XRModelCount {
 		modelCountKeyList.add(CK_HAS_STMT_2);
 		modelCountKeyList.add(CK_LIST_STMT);
 		modelCountKeyList.add(CK_QUERY);
+		modelCountKeyList.add(CK_QUERY_ITERATOR);
 		modelCountKeyList.add(CK_RMV_CONSTRAINT);
 		modelCountKeyList.add(CK_RMV_STMT);
 		modelCountKeyList.add(CK_SAVE);
@@ -152,6 +155,8 @@ public class XRModelCount {
 	public long mcListStatements = 0;
 
 	public long mcQuery = 0;
+
+	public long mcQueryIterator = 0;
 
 	public long mcRemoveConstraint = 0;
 
@@ -234,6 +239,9 @@ public class XRModelCount {
 
 		case CK_QUERY:
 			return mcQuery;
+
+		case CK_QUERY_ITERATOR:
+			return mcQueryIterator;
 
 		case CK_RMV_CONSTRAINT:
 			return mcRemoveConstraint;

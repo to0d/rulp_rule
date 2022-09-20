@@ -7,7 +7,6 @@ import static alpha.rulp.rule.Constant.A_Limit;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
-import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
@@ -16,13 +15,10 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
-import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRNodeSubGraph;
 
 public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 
@@ -35,7 +31,7 @@ public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements I
 
 		/********************************************/
 		// Check parameters
-		// - (query-stmt m '(?x) from '(stmt) limit 1)
+		// - (query-stmt m from '(stmt) limit 1)
 		/********************************************/
 		int argSize = args.size();
 		if (argSize < 4) {
@@ -47,18 +43,10 @@ public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements I
 		/**************************************************/
 		int argIndex = 1;
 		IRModel model = null;
-		String ruleGroupName = null;
 
 		{
 			IRObject argObj = args.get(argIndex);
-
-			if (argObj.getType() == RType.MEMBER) {
-				IRMember mbr = RulpUtil.asMember(argObj);
-				model = RuleUtil.asModel(interpreter.compute(frame, mbr.getSubject()));
-				ruleGroupName = mbr.getName();
-				++argIndex;
-
-			} else if (argObj.getType() != RType.LIST) {
+			if (argObj.getType() != RType.LIST) {
 
 				IRObject obj = interpreter.compute(frame, argObj);
 				if (obj instanceof IRModel) {
@@ -73,11 +61,6 @@ public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements I
 			if (model == null) {
 				throw new RException("no model be specified");
 			}
-		}
-
-		IRObject rstExpr = args.get(argIndex++);
-		if (rstExpr.getType() != RType.EXPR && rstExpr.getType() != RType.LIST && !RulpUtil.isVarAtom(rstExpr)) {
-			throw new RException("unsupport rstExpr: " + rstExpr);
 		}
 
 		IRList condList = null;
@@ -131,44 +114,7 @@ public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements I
 			backward = true;
 		}
 
-		/********************************************/
-		// Run as rule group
-		/********************************************/
-		IRNodeSubGraph subGraph = null;
-		if (ruleGroupName != null) {
-			subGraph = model.getNodeGraph().createSubGraphForRuleGroup(ruleGroupName);
-		}
-
-		/********************************************/
-		// Build result queue
-		/********************************************/
-		IRResultQueue resultQueue = ReteUtil.createResultQueue(model, rstExpr, condList);
-
-		try {
-
-			/********************************************/
-			// Activate sub group
-			/********************************************/
-			if (subGraph != null) {
-				subGraph.setGraphPriority(model.getPriority());
-				subGraph.activate();
-			}
-
-			model.query(resultQueue, condList, limit, backward);
-
-			return RulpFactory.createList(resultQueue.getResultList());
-
-		} finally {
-
-			/********************************************/
-			// Recovery sub group
-			/********************************************/
-			if (subGraph != null) {
-				subGraph.rollback();
-			}
-
-			resultQueue.close();
-		}
+		return RulpFactory.createObjectIterator(model.query(condList, limit, backward));
 	}
 
 }

@@ -1,6 +1,5 @@
 package alpha.rulp.ximpl.model;
 
-import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
@@ -361,22 +360,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		private int resultCount = 0;
 
-		private IRObject rstExpr;
-
-		private boolean rebuildResult = false;
-
-		protected IRVar[] _vars;
-
-		public RQueryIterator(RQueryHelper helper, IRObject rstExpr) throws RException {
+		public RQueryIterator(RQueryHelper helper) throws RException {
 			super();
 			this.helper = helper;
 			this.queryQueue = helper.queryNode.getEntryQueue();
 			this.limit = helper.limit;
-			this.rstExpr = rstExpr;
 
-			if (!RulpUtil.isAtom(rstExpr, A_QUESTION_LIST)) {
-				this.rebuildResult = true;
-			}
 		}
 
 		public boolean _reachEnded() {
@@ -493,9 +482,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 			IRReteEntry rt = nextEntry;
 			nextEntry = null;
 
-			if (!rebuildResult) {
-				return rt;
-			}
+//			if (!rebuildResult) {
+//				return rt;
+//			}
 
 			/******************************************************/
 			// Update variable value
@@ -2376,10 +2365,25 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public IRIterator<IRObject> query(IRObject rstExpr, IRList condList, int limit, boolean backward)
-			throws RException {
-		// TODO Auto-generated method stub
-		return null;
+	public IRIterator<IRObject> query(IRList condList, int limit, boolean backward) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> query-iterator: cond=" + condList + ", limit=" + limit + ", backward=" + backward);
+		}
+
+		counter.mcQueryIterator++;
+
+		/*****************************************************/
+		// Does not support query when running
+		/*****************************************************/
+		if (processingLevel > 0) {
+			throw new RException("Can't query, the model is running");
+		}
+
+		IRObject[] varEntry = ReteUtil.buildVarEntry(this, condList);
+		IRReteNode queryNode = findNode(condList);
+
+		return new RQueryIterator(new RQueryHelper(this, findNode(condList), limit, backward));
 	}
 
 	@Override
