@@ -16,17 +16,6 @@ import alpha.rulp.ximpl.model.IReteNodeMatrix;
 
 public interface IRNodeGraph {
 
-	public interface IRNodeSubGraph {
-
-		public void activate(int priority) throws RException;
-
-		public List<IRReteNode> getNodes();
-
-		public boolean isEmpty();
-
-		public void rollback() throws RException;
-	}
-
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;

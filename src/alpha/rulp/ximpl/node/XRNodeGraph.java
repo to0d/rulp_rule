@@ -95,11 +95,6 @@ import alpha.rulp.ximpl.model.XRUniqObjBuilder;
 
 public class XRNodeGraph implements IRNodeGraph {
 
-	static class ActivateInfo {
-		public IRReteNode node;
-		public int oldPriority = -1;
-	}
-
 	static class ReteNodeList {
 		public ArrayList<AbsReteNode> nodes = new ArrayList<>();
 	}

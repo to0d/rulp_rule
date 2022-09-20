@@ -41,6 +41,7 @@ import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRMember;
 import alpha.rulp.lang.IRObject;
+import alpha.rulp.lang.IRObjectIterator;
 import alpha.rulp.lang.IRVar;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
@@ -81,8 +82,9 @@ import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.entry.XREntryQueueOrder;
 import alpha.rulp.ximpl.entry.XREntryTable;
+import alpha.rulp.ximpl.iterator.AbsRefObjectIterator;
 import alpha.rulp.ximpl.node.IRNodeGraph;
-import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
+import alpha.rulp.ximpl.node.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.IRNodeUpdateQueue;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
@@ -94,7 +96,7 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
-	static class RQueryIterator implements IRIterator<IRObject> {
+	static class RQueryIterator extends AbsRefObjectIterator implements IRObjectIterator {
 
 		RQueryHelper helper;
 
@@ -111,6 +113,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		boolean buildSubGraph = false;
 
 		boolean completed = false;
+
+		boolean ended = false;
 
 		IREntryQueue queryQueue;
 
@@ -134,10 +138,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 //		}
 
 		@Override
-		public boolean hasNext() throws RException {
+		protected void _close() throws RException {
+			// TODO Auto-generated method stub
+
+		}
+
+		boolean _reachEnded() {
+			return limit > 0 && resultCount >= limit;
+		}
+
+		@Override
+		protected boolean _hasNext() throws RException {
 
 			if (nextEntry != null) {
 				return true;
+			}
+
+			if (ended) {
+				return false;
 			}
 
 			if (queryEntrySize == -1) {
@@ -145,62 +163,75 @@ public class XRModel extends AbsRInstance implements IRModel {
 				queryEntrySize = queryQueue.size();
 			}
 
-			boolean find = false;
-			while (!find) {
+			if (_reachEnded()) {
+				ended = true;
+				return false;
+			}
 
-				if (queryEntryIndex >= queryEntrySize) {
+			while (nextEntry == null) {
+
+				/************************************/
+				// expand
+				/************************************/
+				if (queryEntryIndex >= queryEntrySize && !completed) {
 
 					if (!buildSubGraph) {
 						helper.buildSubGraph();
 						buildSubGraph = true;
 					}
 
-					if (!completed) {
+					boolean expend = false;
 
-					}
-
-					while ((limit <= 0 || limit > resultCount) && helper.hasNext(limit - resultCount)) {
-
-						while (queryEntryIndex < queryQueue.size()) {
-
-							IRReteEntry entry = queryQueue.getEntryAt(queryEntryIndex++);
-//							if (!action.addEntry(entry)) {
-//								continue;
-//							}
-
-							resultCount++;
-
-							// limit <= 0 means query all
-//							if (limit > 0 && resultCount >= limit) {
-//								return;
-//							}
+					while (!_reachEnded() && helper.hasNext(limit - resultCount)) {
+						if (queryQueue.size() > queryEntrySize) {
+							queryEntrySize = queryQueue.size();
+							expend = true;
+							break;
 						}
 					}
 
+					if (!expend) {
+						completed = true;
+					}
 				}
 
-			}
+				// no more
+				if (queryEntryIndex >= queryEntrySize) {
+					ended = true;
+					return false;
+				}
 
-//			while (queryEntryIndex < queryEntrySize) {
-//
-//			}
-//
-//			IRReteEntry entry = queryNodeQueue.getEntryAt(queryEntryIndex);
+				IRReteEntry entry = queryQueue.getEntryAt(queryEntryIndex++);
+				if (entry == null || entry.isDroped()) {
+					continue;
+				}
+
+				nextEntry = entry;
+				resultCount++;
+				return true;
+
+			}
 
 			return false;
 		}
 
 		@Override
-		public IRObject next() throws RException {
+		protected IRObject _next() throws RException {
 
 			if (nextEntry == null && !hasNext()) {
 				return null;
 			}
-			
+
 			IRReteEntry rt = nextEntry;
 			nextEntry = null;
 
 			return rt;
+		}
+
+		@Override
+		protected IRObject _peek() throws RException {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}
@@ -2436,7 +2467,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public Iterator<? extends IRObject> query(IRList condList, int limit, boolean backward) throws RException {
+	public IRObjectIterator query(IRList condList, int limit, boolean backward) throws RException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -18,7 +18,7 @@ import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
+import alpha.rulp.ximpl.node.IRNodeSubGraph;
 
 public class XRFactorStart extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 

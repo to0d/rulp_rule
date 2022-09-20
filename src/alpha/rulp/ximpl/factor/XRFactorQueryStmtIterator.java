@@ -22,7 +22,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.model.IRuleFactor;
-import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
+import alpha.rulp.ximpl.node.IRNodeSubGraph;
 
 public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
 

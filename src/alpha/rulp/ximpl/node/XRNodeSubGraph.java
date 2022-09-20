@@ -12,10 +12,17 @@ import java.util.Set;
 
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
-import alpha.rulp.ximpl.node.IRNodeGraph.IRNodeSubGraph;
-import alpha.rulp.ximpl.node.XRNodeGraph.ActivateInfo;
 
 public class XRNodeSubGraph implements IRNodeSubGraph {
+
+	static class ActivateInfo {
+
+		public int newPriority = -1;
+
+		public IRReteNode node;
+
+		public int oldPriority = -1;
+	}
 
 	private Map<IRReteNode, ActivateInfo> activateMap = null;
 
