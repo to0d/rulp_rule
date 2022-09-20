@@ -74,7 +74,7 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addRule                         1
 model-addStatement                    3
-model-addUpdateNode                   4
+model-addUpdateNode                   3
 model-execute                         4
 model-query                           1
 graph-createNodeByTree                1

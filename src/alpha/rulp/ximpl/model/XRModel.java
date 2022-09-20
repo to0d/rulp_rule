@@ -96,147 +96,9 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
-	static class RQueryIterator extends AbsRefObjectIterator implements IRObjectIterator {
-
-		RQueryHelper helper;
-
-		int resultCount = 0;
-
-		int queryEntryIndex = 0;
-
-		int queryEntrySize = -1;
-
-		boolean prepare = false;
-
-		boolean loadResult = false;
-
-		boolean buildSubGraph = false;
-
-		boolean completed = false;
-
-		boolean ended = false;
-
-		IREntryQueue queryQueue;
-
-		IRReteEntry nextEntry;
-
-		int limit;
-
-		public RQueryIterator(RQueryHelper helper) throws RException {
-			super();
-			this.helper = helper;
-			this.queryQueue = helper.queryNode.getEntryQueue();
-			this.limit = helper.limit;
-		}
-
-//		public boolean move() {
-//
-//			if (completed) {
-//				return true;
-//			}
-//
-//		}
-
-		@Override
-		protected void _close() throws RException {
-			// TODO Auto-generated method stub
-
-		}
-
-		boolean _reachEnded() {
-			return limit > 0 && resultCount >= limit;
-		}
-
-		@Override
-		protected boolean _hasNext() throws RException {
-
-			if (nextEntry != null) {
-				return true;
-			}
-
-			if (ended) {
-				return false;
-			}
-
-			if (queryEntrySize == -1) {
-				helper.prepare();
-				queryEntrySize = queryQueue.size();
-			}
-
-			if (_reachEnded()) {
-				ended = true;
-				return false;
-			}
-
-			while (nextEntry == null) {
-
-				/************************************/
-				// expand
-				/************************************/
-				if (queryEntryIndex >= queryEntrySize && !completed) {
-
-					if (!buildSubGraph) {
-						helper.buildSubGraph();
-						buildSubGraph = true;
-					}
-
-					boolean expend = false;
-
-					while (!_reachEnded() && helper.hasNext(limit - resultCount)) {
-						if (queryQueue.size() > queryEntrySize) {
-							queryEntrySize = queryQueue.size();
-							expend = true;
-							break;
-						}
-					}
-
-					if (!expend) {
-						completed = true;
-					}
-				}
-
-				// no more
-				if (queryEntryIndex >= queryEntrySize) {
-					ended = true;
-					return false;
-				}
-
-				IRReteEntry entry = queryQueue.getEntryAt(queryEntryIndex++);
-				if (entry == null || entry.isDroped()) {
-					continue;
-				}
-
-				nextEntry = entry;
-				resultCount++;
-				return true;
-
-			}
-
-			return false;
-		}
-
-		@Override
-		protected IRObject _next() throws RException {
-
-			if (nextEntry == null && !hasNext()) {
-				return null;
-			}
-
-			IRReteEntry rt = nextEntry;
-			nextEntry = null;
-
-			return rt;
-		}
-
-		@Override
-		protected IRObject _peek() throws RException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-	}
-
 	static class RQueryHelper {
+
+		protected boolean activate = false;
 
 		protected final boolean backward;
 
@@ -258,12 +120,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 			this.backward = backward;
 		}
 
-		public void buildSubGraph() throws RException {
+		public void activateSubGraph() throws RException {
 
-			/******************************************************/
-			// Build subgraph
-			/******************************************************/
-			subGraph = model.nodeGraph.createSubGraphForQueryNode(queryNode, backward);
+			if (activate) {
+				return;
+			}
 
 			/******************************************************/
 			// Invoke running
@@ -275,10 +136,27 @@ public class XRModel extends AbsRInstance implements IRModel {
 			oldModelPriority = model.modelPriority;
 			model.modelPriority = RETE_PRIORITY_QUERY;
 
+			/******************************************************/
+			// Active subgraph
+			/******************************************************/
+			if (subGraph != null) {
+				subGraph.activate();
+			}
+
+			activate = true;
+		}
+
+		public void buildSubGraph() throws RException {
+
+			/******************************************************/
+			// Build subgraph
+			/******************************************************/
+			subGraph = model.nodeGraph.createSubGraphForQueryNode(queryNode, backward);
+
 			/********************************************/
 			// Activate sub group
 			/********************************************/
-			subGraph.activate(RETE_PRIORITY_QUERY + 1);
+			subGraph.setGraphPriority(RETE_PRIORITY_QUERY + 1);
 
 			if (limit > 0) {
 
@@ -287,13 +165,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 				/********************************************/
 				for (IRReteNode node : subGraph.getNodes()) {
 					if (ReteUtil.supportUpdateIncrementally(node)) {
-						model.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY);
+						subGraph.setNodePriority(node, RETE_PRIORITY_QUERY);
 					}
 				}
 
 				RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
 					if (!ReteUtil.supportUpdateIncrementally(node) && !RReteType.isRootType(node.getReteType())) {
-						model.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY + 2);
+						subGraph.setNodePriority(node, RETE_PRIORITY_QUERY + 2);
 					}
 
 					return false;
@@ -305,18 +183,28 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		public void closeSubGraph() throws RException {
 
-			if (subGraph != null) {
-
-				model.processingLevel--;
-				model._setRunState(RRunState.Partial);
-
-				if (oldModelPriority != -1) {
-					model.modelPriority = oldModelPriority;
-				}
-
-				subGraph.rollback();
-
+			if (!activate) {
+				return;
 			}
+
+			/******************************************************/
+			// Stop model running
+			/******************************************************/
+			model.processingLevel--;
+			model._setRunState(RRunState.Partial);
+
+			if (oldModelPriority != -1) {
+				model.modelPriority = oldModelPriority;
+			}
+
+			/******************************************************/
+			// rollback subgraph
+			/******************************************************/
+			if (subGraph != null) {
+				subGraph.rollback();
+			}
+
+			activate = false;
 		}
 
 		public boolean hasNext(int maxLimit) throws RException {
@@ -415,6 +303,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 			/******************************************************/
 			buildSubGraph();
 
+			/******************************************************/
+			// Build SubGraph
+			/******************************************************/
+			activateSubGraph();
+
+			/******************************************************/
+			// Search
+			/******************************************************/
 			try {
 
 				while ((limit <= 0 || limit > resultCount) && hasNext(limit - resultCount)) {
@@ -444,6 +340,146 @@ public class XRModel extends AbsRInstance implements IRModel {
 				/******************************************************/
 				closeSubGraph();
 			}
+		}
+
+	}
+
+	static class RQueryIterator extends AbsRefObjectIterator implements IRObjectIterator {
+
+		boolean buildSubGraph = false;
+
+		boolean completed = false;
+
+		boolean ended = false;
+
+		RQueryHelper helper;
+
+		int limit;
+
+		boolean loadResult = false;
+
+		IRReteEntry nextEntry;
+
+		boolean prepare = false;
+
+		int queryEntryIndex = 0;
+
+		int queryEntrySize = -1;
+
+		IREntryQueue queryQueue;
+
+		int resultCount = 0;
+
+		public RQueryIterator(RQueryHelper helper) throws RException {
+			super();
+			this.helper = helper;
+			this.queryQueue = helper.queryNode.getEntryQueue();
+			this.limit = helper.limit;
+		}
+
+//		public boolean move() {
+//
+//			if (completed) {
+//				return true;
+//			}
+//
+//		}
+
+		@Override
+		protected void _close() throws RException {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		protected boolean _hasNext() throws RException {
+
+			if (nextEntry != null) {
+				return true;
+			}
+
+			if (ended) {
+				return false;
+			}
+
+			if (queryEntrySize == -1) {
+				helper.prepare();
+				queryEntrySize = queryQueue.size();
+			}
+
+			if (_reachEnded()) {
+				ended = true;
+				return false;
+			}
+
+			while (nextEntry == null) {
+
+				/************************************/
+				// expand
+				/************************************/
+				if (queryEntryIndex >= queryEntrySize && !completed) {
+
+					if (!buildSubGraph) {
+						helper.buildSubGraph();
+						buildSubGraph = true;
+					}
+
+					boolean expend = false;
+
+					while (!_reachEnded() && helper.hasNext(limit - resultCount)) {
+						if (queryQueue.size() > queryEntrySize) {
+							queryEntrySize = queryQueue.size();
+							expend = true;
+							break;
+						}
+					}
+
+					if (!expend) {
+						completed = true;
+					}
+				}
+
+				// no more
+				if (queryEntryIndex >= queryEntrySize) {
+					ended = true;
+					return false;
+				}
+
+				IRReteEntry entry = queryQueue.getEntryAt(queryEntryIndex++);
+				if (entry == null || entry.isDroped()) {
+					continue;
+				}
+
+				nextEntry = entry;
+				resultCount++;
+				return true;
+
+			}
+
+			return false;
+		}
+
+		@Override
+		protected IRObject _next() throws RException {
+
+			if (nextEntry == null && !hasNext()) {
+				return null;
+			}
+
+			IRReteEntry rt = nextEntry;
+			nextEntry = null;
+
+			return rt;
+		}
+
+		@Override
+		protected IRObject _peek() throws RException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		boolean _reachEnded() {
+			return limit > 0 && resultCount >= limit;
 		}
 
 	}
@@ -772,7 +808,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/********************************************/
 		// Activate sub group
 		/********************************************/
-		subGraph.activate(this.getPriority());
+		subGraph.setGraphPriority(this.getPriority());
+		subGraph.activate();
 
 		this.processingLevel++;
 
@@ -1382,156 +1419,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected IRReteNode _nextUpdateNode() throws RException {
 		_checkActiveNode();
 		return updateQueue.pop();
-	}
-
-	protected void _queryCond(IREntryAction action, IRReteNode queryNode, final int limit, boolean backward)
-			throws RException {
-
-		int queryEntryIndex = 0;
-		int resultCount = 0;
-
-		/******************************************************/
-		// Update cache
-		/******************************************************/
-		if (isCacheEnable()) {
-			for (SourceNode sn : RuleUtil.listSource(this, queryNode)) {
-				_checkCache(sn.rule);
-			}
-			_checkCache(queryNode);
-		}
-
-		/******************************************************/
-		// Load results
-		/******************************************************/
-		{
-			IREntryQueue queryNodeQueue = queryNode.getEntryQueue();
-
-			while (queryEntryIndex < queryNodeQueue.size()) {
-
-				IRReteEntry entry = queryNodeQueue.getEntryAt(queryEntryIndex++);
-				if (!action.addEntry(entry)) {
-					continue;
-				}
-
-				resultCount++;
-
-				// limit <= 0 means query all
-				if (limit > 0 && resultCount >= limit) {
-					return;
-				}
-			}
-		}
-
-		/******************************************************/
-		// Build subgraph
-		/******************************************************/
-		IRNodeSubGraph subGraph = this.nodeGraph.createSubGraphForQueryNode(queryNode, backward);
-
-		/******************************************************/
-		// Invoke running
-		/******************************************************/
-		this.processingLevel++;
-		this.activeUpdate++;
-		this._setRunState(RRunState.Running);
-
-		int oldPriority = modelPriority;
-		this.modelPriority = RETE_PRIORITY_QUERY;
-
-		/********************************************/
-		// Activate sub group
-		/********************************************/
-		subGraph.activate(RETE_PRIORITY_QUERY + 1);
-
-		if (limit > 0) {
-
-			/********************************************/
-			// Lower priority for nodes that can run incrementally and parallelly
-			/********************************************/
-			for (IRReteNode node : subGraph.getNodes()) {
-				if (ReteUtil.supportUpdateIncrementally(node)) {
-					this.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY);
-				}
-			}
-
-			RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
-				if (!ReteUtil.supportUpdateIncrementally(node) && !RReteType.isRootType(node.getReteType())) {
-					this.nodeGraph.setNodePriority(node, RETE_PRIORITY_QUERY + 2);
-				}
-
-				return false;
-			});
-
-		}
-
-		try {
-
-			while (_hasUpdateNode()) {
-
-				IRReteNode node = _nextUpdateNode();
-				if (node != null) {
-
-					switch (node.getRunState()) {
-					case Completed:
-					case Runnable:
-					case Running:
-
-						int execLimit = -1;
-						if (limit > 0) {
-
-							if (ReteUtil.supportUpdateIncrementally(node)) {
-								execLimit = 1;
-
-							} else if (node == queryNode) {
-								execLimit = limit - resultCount;
-							}
-						}
-
-						int update = execute(node, execLimit);
-
-						if (node == queryNode && update > 0) {
-
-							IREntryQueue queue = queryNode.getEntryQueue();
-
-							while (queryEntryIndex < queue.size()) {
-
-								IRReteEntry entry = queue.getEntryAt(queryEntryIndex++);
-								if (!action.addEntry(entry)) {
-									continue;
-								}
-
-								resultCount++;
-
-								// limit <= 0 means query all
-								if (limit > 0 && resultCount >= limit) {
-									return;
-								}
-							}
-						}
-
-						break;
-
-					// don't process 'Failed' or 'Halting' node
-					case Failed:
-					case Halting:
-						continue;
-
-					default:
-						throw new RException("unknown state: " + node.getRunState());
-					}
-				}
-
-			}
-
-			return;
-
-		} finally {
-
-			this.processingLevel--;
-			this._setRunState(RRunState.Partial);
-			this.modelPriority = oldPriority;
-
-			subGraph.rollback();
-		}
 	}
 
 	protected IRList _rebuild(IRList list) throws RException {

@@ -17,14 +17,20 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 
 	static class ActivateInfo {
 
-		public int newPriority = -1;
+		public int newPriority = RETE_PRIORITY_DEAD;
 
 		public IRReteNode node;
 
-		public int oldPriority = -1;
+		public int oldPriority = RETE_PRIORITY_DEAD;
+
+		public boolean update = false;
 	}
 
+	private boolean activate = false;
+
 	private Map<IRReteNode, ActivateInfo> activateMap = null;
+
+	private List<ActivateInfo> activeInfoList = new LinkedList<>();
 
 	private XRNodeGraph graph;
 
@@ -38,64 +44,40 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 	}
 
 	@Override
-	public void activate(int priority) throws RException {
+	public void activate() throws RException {
 
-		// Disable other nodes
-		for (IRReteNode node : graph.getNodeMatrix().getAllNodes()) {
-
-			if (RReteType.isRootType(node.getReteType())) {
-				continue;
-			}
-
-			if (containNode(node)) {
-				continue;
-			}
-
-			if (node.getPriority() < priority) {
-				continue;
-			}
-
-			changeNodePriority(node, RETE_PRIORITY_DISABLED);
+		if (activate) {
+			return;
 		}
 
-		for (IRReteNode node : getNodes()) {
+		for (ActivateInfo info : activeInfoList) {
 
-			if (node.getPriority() <= RETE_PRIORITY_DISABLED) {
+			if (info.node.getPriority() == RETE_PRIORITY_DEAD) {
 				continue;
 			}
 
-			if (node.getPriority() < priority) {
-				changeNodePriority(node, priority);
-			}
+			info.oldPriority = info.node.getPriority();
+			graph.setNodePriority(info.node, info.newPriority);
+			info.update = true;
 
-			graph.model.addUpdateNode(node);
+			if (info.newPriority >= graph.model.getPriority()) {
+				graph.model.addUpdateNode(info.node);
+			}
 		}
+
+		activate = true;
 	}
 
+	@Override
 	public void addNode(IRReteNode node) throws RException {
+
 		if (!subNodeSet.contains(node)) {
 			subNodeSet.add(node);
 			subNodeList.add(node);
 		}
 	}
 
-	public void changeNodePriority(IRReteNode node, int priority) throws RException {
-
-		if (activateMap == null) {
-			activateMap = new HashMap<>();
-		}
-
-		ActivateInfo info = activateMap.get(node);
-		if (info == null) {
-			info = new ActivateInfo();
-			info.node = node;
-			info.oldPriority = node.getPriority();
-			activateMap.put(node, info);
-		}
-
-		graph.setNodePriority(node, priority);
-	}
-
+	@Override
 	public boolean containNode(IRReteNode node) {
 		return subNodeSet.contains(node);
 	}
@@ -113,21 +95,77 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 	@Override
 	public void rollback() throws RException {
 
-		if (activateMap == null) {
+		if (!activate) {
 			return;
 		}
 
 		// recovery old priority
-		for (ActivateInfo changeInfo : activateMap.values()) {
+		for (ActivateInfo info : activeInfoList) {
 
 			// ignore dead node
-			if (changeInfo.node.getPriority() == RETE_PRIORITY_DEAD) {
+			if (!info.update || info.node.getPriority() == RETE_PRIORITY_DEAD) {
 				continue;
 			}
 
-			graph.setNodePriority(changeInfo.node, changeInfo.oldPriority);
+			if (info.node.getPriority() != info.oldPriority) {
+				graph.setNodePriority(info.node, info.oldPriority);
+				info.oldPriority = RETE_PRIORITY_DEAD;
+			}
+
+			info.update = false;
 		}
 
-		activateMap = null;
+		activate = false;
+	}
+
+	@Override
+	public void setGraphPriority(int newPriority) throws RException {
+
+		// Disable other nodes
+		for (IRReteNode node : graph.getNodeMatrix().getAllNodes()) {
+
+			if (RReteType.isRootType(node.getReteType())) {
+				continue;
+			}
+
+			if (containNode(node)) {
+				continue;
+			}
+
+			if (node.getPriority() < newPriority) {
+				continue;
+			}
+
+			setNodePriority(node, RETE_PRIORITY_DISABLED);
+		}
+
+		for (IRReteNode node : getNodes()) {
+
+			if (node.getPriority() <= RETE_PRIORITY_DISABLED) {
+				continue;
+			}
+
+			if (node.getPriority() < newPriority) {
+				setNodePriority(node, newPriority);
+			}
+		}
+	}
+
+	@Override
+	public void setNodePriority(IRReteNode node, int newPriority) throws RException {
+
+		if (activateMap == null) {
+			activateMap = new HashMap<>();
+		}
+
+		ActivateInfo info = activateMap.get(node);
+		if (info == null) {
+			info = new ActivateInfo();
+			info.node = node;
+			activateMap.put(node, info);
+			activeInfoList.add(info);
+		}
+
+		info.newPriority = newPriority;
 	}
 }

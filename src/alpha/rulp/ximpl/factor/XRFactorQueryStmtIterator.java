@@ -150,7 +150,8 @@ public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements I
 			// Activate sub group
 			/********************************************/
 			if (subGraph != null) {
-				subGraph.activate(model.getPriority());
+				subGraph.setGraphPriority(model.getPriority());
+				subGraph.activate();
 			}
 
 			model.query(resultQueue, condList, limit, backward);

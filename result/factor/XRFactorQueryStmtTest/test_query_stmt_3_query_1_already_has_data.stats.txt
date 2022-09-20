@@ -72,7 +72,7 @@ model count info:
 name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addStatement                    1
-model-addUpdateNode                   4
+model-addUpdateNode                   3
 model-execute                         4
 model-query                           1
 graph-addConstraint                   2
@@ -80,7 +80,7 @@ graph-createNodeByTree                1
 graph-createNodeRoot                  1
 graph-createSubGraphForQueryNodeBackward        1
 graph-listSourceNodes                13
-graph-setNodePriority                 6
+graph-setNodePriority                 4
 ===============================================================================================================================================================================
 
 

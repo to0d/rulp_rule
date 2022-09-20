@@ -95,7 +95,7 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addRule                         1
 model-addStatement                    2
-model-addUpdateNode                   4
+model-addUpdateNode                   3
 model-execute                         2
 model-query                           1
 graph-addConstraint                   1

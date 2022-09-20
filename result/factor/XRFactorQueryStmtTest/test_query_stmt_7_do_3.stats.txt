@@ -45,7 +45,7 @@ model count info:
 name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addStatement                    2
-model-addUpdateNode                   3
+model-addUpdateNode                   2
 model-execute                         1
 model-listStatements                  1
 model-query                           1

@@ -107,7 +107,8 @@ public class XRFactorStart extends AbsAtomFactorAdapter implements IRFactor, IRu
 			// Activate sub group
 			/********************************************/
 			if (subGraph != null) {
-				subGraph.activate(runObj.getPriority());
+				subGraph.setGraphPriority(runObj.getPriority());
+				subGraph.activate();
 			}
 
 			int step = runObj.start(priority, limit);

@@ -1181,7 +1181,7 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addRule                        41
 model-addStatement                   84
-model-addUpdateNode                 302
+model-addUpdateNode                 301
 model-execute                       153
 model-getVar                          1
 model-query                           1
@@ -1191,7 +1191,7 @@ graph-createNodeRoot                112
 graph-createNodeRule                 41
 graph-createSubGraphForQueryNodeBackward        1
 graph-listSourceNodes               140
-graph-setNodePriority               355
+graph-setNodePriority               353
 ===============================================================================================================================================================================
 
 

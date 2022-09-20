@@ -7,11 +7,19 @@ import alpha.rulp.rule.IRReteNode;
 
 public interface IRNodeSubGraph {
 
-	public void activate(int priority) throws RException;
+	public void activate() throws RException;
 
 	public List<IRReteNode> getNodes();
 
 	public boolean isEmpty();
 
 	public void rollback() throws RException;
+
+	public void setGraphPriority(int newPriority) throws RException;
+
+	public void setNodePriority(IRReteNode node, int newPriority) throws RException;
+
+	public boolean containNode(IRReteNode node);
+
+	public void addNode(IRReteNode node) throws RException;
 }

@@ -80,7 +80,7 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addRule                         1
 model-addStatement                    6
-model-addUpdateNode                   7
+model-addUpdateNode                   6
 model-execute                         7
 model-query                           1
 graph-createNodeByTree                1

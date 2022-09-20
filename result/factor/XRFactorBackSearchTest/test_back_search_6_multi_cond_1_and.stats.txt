@@ -125,7 +125,7 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addRule                         1
 model-addStatement                    3
-model-addUpdateNode                   9
+model-addUpdateNode                   8
 model-execute                        10
 model-hasStatement-1                  5
 model-listStatements                  1
