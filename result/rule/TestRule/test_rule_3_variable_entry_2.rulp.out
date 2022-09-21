@@ -1,14 +1,10 @@
 (new model m)
-;=>m
-
+(add-stmt m '(m1 m2 m3 m4))
 (add-stmt m '(t1 t2 t3 t4))
-;=>true
-
+(add-stmt m '(n1 n2 n3 n4))
 (add-stmt m '(t1 p t2))
-;=>true
-
 (add-stmt m '(t2 p t3))
-;=>true
+;=>m true true true true true
 
 (add-rule m if '(?a ?b ?c ?d) '(?a p ?b) do (-> m '(?b ?c ?d ?a)) )
 ;=>RU000
@@ -17,5 +13,5 @@
 ;=>10
 
 (list-stmt m from '(?x1 ?x2 ?x3 ?x4))
-;=>'('(t1 t2 t3 t4) '(t2 t3 t4 t1) '(t3 t4 t1 t2))
+;=>'('(m1 m2 m3 m4) '(t1 t2 t3 t4) '(n1 n2 n3 n4) '(t2 t3 t4 t1) '(t3 t4 t1 t2))
 
