@@ -2,7 +2,6 @@ package alpha.rulp.ximpl.node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,9 +17,9 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeBeta2 extends XRNodeBeta0 {
 
-	protected int leftBeginIndex = 0;
+	protected int lastLeftUnMatchEntryCount = 0;
 
-	protected Set<Integer> leftUsedIndexSet = new HashSet<>();
+	protected ArrayList<IRReteEntry> leftUnMatchEntryList = new ArrayList<>();
 
 	protected Boolean sameInherit = null;
 
@@ -29,16 +28,11 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 	}
 
 	protected Map<String, List<Integer>> _buildPrimaryIndexMap(IREntryQueue entryQueue, int begin, int end,
-			int primayIndex, Set<String> supportKeys, List<String> keysList, boolean isLeft) throws RException {
+			int primayIndex, Set<String> supportKeys) throws RException {
 
 		Map<String, List<Integer>> primaryMap = new HashMap<>();
 
 		for (int i = begin; i <= end; ++i) {
-
-			// ignore used main inherit entry
-			if (isLeft && _isIgnoreLeftIndex(i)) {
-				continue;
-			}
 
 			IRReteEntry entry = entryQueue.getEntryAt(i);
 			if (entry == null || entry.isDroped()) {
@@ -51,6 +45,33 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 			if (supportKeys != null && !supportKeys.contains(primaryKey)) {
 				continue;
 			}
+
+			List<Integer> list = primaryMap.get(primaryKey);
+			if (list == null) {
+				list = new LinkedList<>();
+				primaryMap.put(primaryKey, list);
+			}
+
+			list.add(i);
+		}
+
+		return primaryMap;
+	}
+
+	protected Map<String, List<Integer>> _buildPrimaryIndexMap(List<IRReteEntry> entryQueue, int begin, int end,
+			int primayIndex, List<String> keysList) throws RException {
+
+		Map<String, List<Integer>> primaryMap = new HashMap<>();
+
+		for (int i = begin; i <= end; ++i) {
+
+			IRReteEntry entry = entryQueue.get(i);
+			if (entry == null || entry.isDroped()) {
+				continue;
+			}
+
+			IRObject primayObj = entry.get(primayIndex);
+			String primaryKey = RulpUtil.toUniqString(primayObj);
 
 			List<Integer> list = primaryMap.get(primaryKey);
 			if (list == null) {
@@ -77,28 +98,6 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		return leftEntry;
 	}
 
-	protected void _ignoreLeftIndex(int leftIndex) {
-
-//		if (this.getNodeName().equals("B20035")) {
-//			System.out.println("ignore index: " + leftIndex);
-//		}
-
-		if (leftIndex == leftBeginIndex) {
-
-			do {
-				++leftBeginIndex;
-			} while (leftUsedIndexSet.remove(leftBeginIndex));
-
-		} else {
-
-			leftUsedIndexSet.add(leftIndex);
-		}
-	}
-
-	protected boolean _isIgnoreLeftIndex(int leftIndex) {
-		return leftIndex < leftBeginIndex || leftUsedIndexSet.contains(leftIndex);
-	}
-
 	protected boolean _isSameInherit() {
 
 		if (sameInherit == null) {
@@ -108,9 +107,9 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		return sameInherit;
 	}
 
-	protected int _update_no_primary() throws RException {
+	protected int _update_no_primary(int limit) throws RException {
 
-		int leftParentEntryCount = parentNodes[0].getEntryQueue().size();
+		int leftParentEntryCount = leftUnMatchEntryList.size();
 		int rightParentEntryCount = parentNodes[1].getEntryQueue().size();
 
 		int updateCount = 0;
@@ -122,15 +121,16 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		/*****************************************************/
 		// Ax*(B+Bx)
 		/*****************************************************/
-		updateCount += _update_no_primary(lastLeftEntryCount, leftParentEntryCount - 1, 0, rightParentEntryCount - 1);
+		updateCount += _update_no_primary(lastLeftUnMatchEntryCount, leftParentEntryCount - 1, 0,
+				rightParentEntryCount - 1);
 
 		/*****************************************************/
 		// A*Bx
 		/*****************************************************/
-		updateCount += _update_no_primary(leftBeginIndex, lastLeftEntryCount - 1, lastRightEntryCount,
+		updateCount += _update_no_primary(0, lastLeftUnMatchEntryCount - 1, lastRightEntryCount,
 				rightParentEntryCount - 1);
 
-		lastLeftEntryCount = leftParentEntryCount;
+		lastLeftUnMatchEntryCount = leftParentEntryCount;
 		lastRightEntryCount = rightParentEntryCount;
 
 		return updateCount;
@@ -147,18 +147,12 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 			return 0;
 		}
 
-		IREntryQueue leftQueue = parentNodes[0].getEntryQueue();
 		IREntryQueue rightQueue = parentNodes[1].getEntryQueue();
 		int updateCount = 0;
 
 		NEXT_LEFT: for (int leftIndex = leftBegin; leftIndex <= leftEnd; ++leftIndex) {
 
-			// ignore used main inherit entry
-			if (_isIgnoreLeftIndex(leftIndex)) {
-				continue;
-			}
-
-			IRReteEntry leftEntry = leftQueue.getEntryAt(leftIndex);
+			IRReteEntry leftEntry = leftUnMatchEntryList.get(leftIndex);
 			if (leftEntry == null || leftEntry.isDroped()) {
 				continue;
 			}
@@ -177,7 +171,7 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 
 					// The main inherit entry will generate one child entry
 					// ignore other right entry
-					_ignoreLeftIndex(leftIndex);
+					leftUnMatchEntryList.set(leftIndex, null);
 					continue NEXT_LEFT;
 				}
 			}
@@ -186,9 +180,9 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		return updateCount;
 	}
 
-	protected int _update_primary() throws RException {
+	protected int _update_primary(int limit) throws RException {
 
-		int leftParentEntryCount = parentNodes[0].getEntryQueue().size();
+		int leftParentEntryCount = leftUnMatchEntryList.size();
 		int rightParentEntryCount = parentNodes[1].getEntryQueue().size();
 		int updateCount = 0;
 
@@ -199,15 +193,16 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		/*****************************************************/
 		// Ax*(B+Bx)
 		/*****************************************************/
-		updateCount += _update_primary(lastLeftEntryCount, leftParentEntryCount - 1, 0, rightParentEntryCount - 1);
+		updateCount += _update_primary(lastLeftUnMatchEntryCount, leftParentEntryCount - 1, 0,
+				rightParentEntryCount - 1);
 
 		/*****************************************************/
 		// A*Bx
 		/*****************************************************/
-		updateCount += _update_primary(leftBeginIndex, lastLeftEntryCount - 1, lastRightEntryCount,
+		updateCount += _update_primary(0, lastLeftUnMatchEntryCount - 1, lastRightEntryCount,
 				rightParentEntryCount - 1);
 
-		lastLeftEntryCount = leftParentEntryCount;
+		lastLeftUnMatchEntryCount = leftParentEntryCount;
 		lastRightEntryCount = rightParentEntryCount;
 		return updateCount;
 
@@ -225,19 +220,18 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 
 		ArrayList<String> keysList = new ArrayList<>();
 
-		Map<String, List<Integer>> leftPrimaryMap = _buildPrimaryIndexMap(parentNodes[0].getEntryQueue(), leftBegin,
-				leftEnd, _getPrimaryJoinIndex().leftIndex, null, keysList, true);
+		Map<String, List<Integer>> leftPrimaryMap = _buildPrimaryIndexMap(leftUnMatchEntryList, leftBegin, leftEnd,
+				_getPrimaryJoinIndex().leftIndex, keysList);
 		if (leftPrimaryMap.isEmpty()) {
 			return 0;
 		}
 
 		Map<String, List<Integer>> rightPrimaryMap = _buildPrimaryIndexMap(parentNodes[1].getEntryQueue(), rightBegin,
-				rightEnd, _getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet(), null, false);
+				rightEnd, _getPrimaryJoinIndex().rightIndex, leftPrimaryMap.keySet());
 		if (rightPrimaryMap.isEmpty()) {
 			return 0;
 		}
 
-		IREntryQueue leftQueue = parentNodes[0].getEntryQueue();
 		IREntryQueue rightQueue = parentNodes[1].getEntryQueue();
 		int updateCount = 0;
 
@@ -255,12 +249,10 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 
 				int leftIndex = leftIter.next();
 
-				// ignore used main inherit entry
-				if (_isIgnoreLeftIndex(leftIndex)) {
+				IRReteEntry leftEntry = leftUnMatchEntryList.get(leftIndex);
+				if (leftEntry == null || leftEntry.isDroped()) {
 					continue NEXT_LEFT;
 				}
-
-				IRReteEntry leftEntry = leftQueue.getEntryAt(leftIndex);
 
 				Iterator<Integer> rightIter = rightList.iterator();
 
@@ -275,7 +267,7 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 
 						// The main inherit entry will generate one child entry
 						// ignore other right entry
-						_ignoreLeftIndex(leftIndex);
+						leftUnMatchEntryList.set(leftIndex, null);
 						continue NEXT_LEFT;
 					}
 				}
@@ -286,14 +278,125 @@ public class XRNodeBeta2 extends XRNodeBeta0 {
 		return updateCount;
 	}
 
+	protected boolean _useMapMatch() {
+
+		if (!RETE_BETA_HASHMAP_MATCH_MODE) {
+			return false;
+		}
+
+		if (_getPrimaryJoinIndex() == null) {
+			return false;
+		}
+
+		int leftParentEntryCount = leftUnMatchEntryList.size();
+		int rightParentEntryCount = parentNodes[1].getEntryQueue().size();
+
+		/*****************************************************/
+		// (A+Ax)*(B+Bx) - A*B ==> Ax*B + A*Bx + Ax*Bx
+		/*****************************************************/
+
+		/*****************************************************/
+		// Ax*B + Ax*Bx
+		/*****************************************************/
+		int maxUpdateCount = leftParentEntryCount * rightParentEntryCount
+				- lastLeftUnMatchEntryCount * lastRightEntryCount;
+
+		return maxUpdateCount > MAP_MATCH_MIN_COUNT;
+	}
+
 	@Override
 	public String getCacheInfo() {
 
-		if (leftUsedIndexSet == null || leftUsedIndexSet.isEmpty()) {
+		if (leftUnMatchEntryList.isEmpty()) {
 			return super.getCacheInfo();
 		}
 
-		return ReteUtil.combine(super.getCacheInfo(), "leftUsedIndexSet: size=" + leftUsedIndexSet.size());
+		return ReteUtil.combine(super.getCacheInfo(), "leftUnMatchEntryList: size=" + leftUnMatchEntryList.size());
+	}
+
+	@Override
+	public int update(int limit) throws RException {
+
+		if (this.isTrace()) {
+			System.out.println("update: " + this);
+		}
+
+		++nodeExecCount;
+
+		/*********************************************/
+		// idle
+		/*********************************************/
+		int leftParentEntryCount = parentNodes[0].getEntryQueue().size();
+		if (leftParentEntryCount == 0) {
+			++nodeIdleCount;
+			return 0;
+		}
+		int rightParentEntryCount = parentNodes[1].getEntryQueue().size();
+		if (rightParentEntryCount == 0) {
+			++nodeIdleCount;
+			return 0;
+		}
+
+		/*********************************************/
+		// Update leftUnMatchEntry
+		/*********************************************/
+		IREntryQueue leftQueue = parentNodes[0].getEntryQueue();
+		for (; lastLeftEntryCount < leftParentEntryCount; ++lastLeftEntryCount) {
+
+			IRReteEntry leftEntry = leftQueue.getEntryAt(lastLeftEntryCount);
+			if (leftEntry == null || leftEntry.isDroped()) {
+				continue;
+			}
+
+			leftUnMatchEntryList.add(leftEntry);
+		}
+
+		if (lastLeftUnMatchEntryCount == leftUnMatchEntryList.size() && lastRightEntryCount == rightParentEntryCount) {
+			++nodeIdleCount;
+			return 0;
+		}
+
+		/*********************************************/
+		// Process
+		/*********************************************/
+		int updateCount = 0;
+		if (_useMapMatch()) {
+			updateCount = _update_primary(limit);
+		} else {
+			updateCount = _update_no_primary(limit);
+		}
+
+		/*********************************************/
+		// Clean null entries
+		/*********************************************/
+		if (updateCount > 0) {
+
+			int size = 0;
+
+			for (int i = 0; i < lastLeftUnMatchEntryCount; ++i) {
+				IRReteEntry entry = leftUnMatchEntryList.get(i);
+				if (entry != null) {
+					if (i != size) {
+						leftUnMatchEntryList.set(size, entry);
+					}
+					++size;
+				}
+			}
+
+			if (size == 0) {
+
+				leftUnMatchEntryList.clear();
+				lastLeftUnMatchEntryCount = 0;
+
+			} else {
+
+				while (lastLeftUnMatchEntryCount > size) {
+					leftUnMatchEntryList.remove(--lastLeftUnMatchEntryCount);
+				}
+			}
+		}
+
+		return updateCount;
 	}
 
 }
