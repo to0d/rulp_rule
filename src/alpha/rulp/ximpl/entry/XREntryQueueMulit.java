@@ -250,8 +250,16 @@ public class XREntryQueueMulit implements IREntryQueue {
 	public IRReteEntry getStmt(String uniqName) throws RException {
 
 		if (entryList != null) {
+
 			for (IRReteEntry entry : entryList) {
-				if (entry != null && !entry.isDroped() && ReteUtil.uniqName(entry).equals(uniqName)) {
+
+				++queryFetchCount;
+
+				if (entry == null || entry.isDroped()) {
+					continue;
+				}
+
+				if (ReteUtil.uniqName(entry).equals(uniqName)) {
 					return entry;
 				}
 			}
