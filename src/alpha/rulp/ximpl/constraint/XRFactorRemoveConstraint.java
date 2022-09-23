@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.constraint;
 
+import static alpha.rulp.rule.Constant.A_Uniq;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,6 +56,12 @@ public class XRFactorRemoveConstraint extends AbsAtomFactorAdapter implements IR
 		// Check constraint expression
 		/**************************************************/
 		IRExpr constraintExpr = RulpUtil.asExpression(args.get(args.size() - 1));
+
+		// Can't remove uniq constraint
+		if (constraintExpr.size() > 0 && RulpUtil.isAtom(constraintExpr.get(0), A_Uniq)) {
+			throw new RException(node + ": can't remove constraint: " + constraintExpr);
+		}
+
 		List<IRConstraint1> constraintList = new ConstraintBuilder(
 				ReteUtil._varEntry(ReteUtil.buildTreeVarList(namedList))).match(node, constraintExpr, interpreter,
 						frame);
@@ -68,6 +75,11 @@ public class XRFactorRemoveConstraint extends AbsAtomFactorAdapter implements IR
 		// Remove matched Constraint
 		/********************************************/
 		for (IRConstraint1 constraint : constraintList) {
+
+			// Can't remove uniq constraint
+			if (constraint.getConstraintName().equals(A_Uniq)) {
+				continue;
+			}
 
 			IRObject removedObj = model.removeConstraint(node, constraint);
 			if (removedObj == null) {

@@ -44,11 +44,11 @@ at (add-stmt m name1:'(x y 3)) ; main-2
 ;eof
 
 (remove-constraint m name1:'(3) (? on ?))
-;=>'((uniq on '(?0 ?1)))
+;=>'()
 
-(add-stmt m name1:'(x y 3))
-;=>true
-
-(list-stmt m)
-;=>'(name1:'(a b 1) name1:'(x y dup) name1:'(x y 3))
+(remove-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
+;err:
+N00001: name1:'(?_0 ?_1 ?_2): can't remove constraint: (uniq on '(?x ?y))
+at (remove-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y))) ; main-2
+;eof
 

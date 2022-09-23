@@ -37,8 +37,5 @@
 (remove-constraint m name1:'(3) (? on ?))
 ;=>
 
-(add-stmt m name1:'(x y 3))
-;=>
-
-(list-stmt m)
-;=>
+(remove-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
+;err

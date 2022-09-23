@@ -11,10 +11,13 @@
 ;=>true
 
 (remove-constraint m name1:'(3) (uniq on '(? ?1)))
-;=>'((uniq on '(?0 ?1)) (uniq on '(?1 ?2)))
+;err:
+N00001: name1:'(?_0 ?_1 ?_2): can't remove constraint: (uniq on '(? ?1))
+at (remove-constraint m name1:'(3) (uniq on '(? ?1))) ; main-2
+;eof
 
 (list-constraint m name1:'(?...))
-;=>'()
+;=>'((uniq on '(?0 ?1)) (uniq on '(?1 ?2)))
 
 (list-stmt m from $cst_node$:'(?...))
 ;=>'()
