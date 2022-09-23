@@ -1,0 +1,9 @@
+(new model m)
+;=>m
+
+(add-constraint m name1:'(?x ?y ?z) (uniq on '(?x ?y)))
+;=>true
+
+(add-constraint m name1:'(?x ?y ?z) (uniq on '(?x ?z)))
+;=>true
+

@@ -23,6 +23,38 @@ public class TestUniqConstraint extends RuleTestBase {
 	}
 
 	@Test
+	void test_uniq_constraint_1_add_3_conflict_a() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_uniq_constraint_1_add_3_conflict_b() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_uniq_constraint_1_add_3_conflict_c() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_uniq_constraint_1_add_3_conflict_d() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
 	void test_uniq_constraint_2_remove_1() {
 
 		_setup();
