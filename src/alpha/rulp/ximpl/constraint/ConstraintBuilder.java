@@ -189,6 +189,55 @@ public class ConstraintBuilder {
 		return null;
 	}
 
+	public static boolean hasPartIndexs(int[] mainIndexs, int[] partIndexs) throws RException {
+
+		if (partIndexs.length == 0 || mainIndexs.length < partIndexs.length) {
+			return false;
+		}
+
+		// All parent indexs should be in asc order
+		{
+			int lastIdx = -2;
+			for (int idx : mainIndexs) {
+				if (idx < 0 || idx <= lastIdx) {
+					throw new RException("invalid parent index: " + idx);
+				}
+				lastIdx = idx;
+			}
+		}
+
+		// All sub indexs should be in asc order
+		{
+			int lastIdx = -2;
+			for (int idx : partIndexs) {
+				if (idx < 0 || idx <= lastIdx) {
+					throw new RException("invalid sub index: " + idx);
+				}
+				lastIdx = idx;
+			}
+		}
+
+		int pos1 = 0;
+		int pos2 = 0;
+
+		while (pos1 < mainIndexs.length && pos2 < partIndexs.length) {
+
+			int v1 = mainIndexs[pos1];
+			int v2 = partIndexs[pos2];
+
+			if (v1 == v2) {
+				pos1++;
+				pos2++;
+			} else if (v1 < v2) {
+				pos1++;
+			} else {
+				return false;
+			}
+		}
+
+		return pos2 == partIndexs.length;
+	}
+
 	public static boolean matchIndexs(int[] idx1, int[] idx2) throws RException {
 
 		if (idx1.length != idx2.length) {

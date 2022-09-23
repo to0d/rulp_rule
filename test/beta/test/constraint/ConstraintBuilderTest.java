@@ -14,7 +14,7 @@ import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 
 class ConstraintBuilderTest extends RuleTestBase {
 
-	int[] toIndx(String idxStr) {
+	int[] _toIndx(String idxStr) {
 
 		List<String> idxStrs = StringUtil.splitStringByChar(idxStr, ',');
 
@@ -29,8 +29,8 @@ class ConstraintBuilderTest extends RuleTestBase {
 
 	void _test_match_indexs(String idxStr1, String idxStr2, boolean expectMatch) {
 
-		int[] idx1 = toIndx(idxStr1);
-		int[] idx2 = toIndx(idxStr2);
+		int[] idx1 = _toIndx(idxStr1);
+		int[] idx2 = _toIndx(idxStr2);
 
 		try {
 
@@ -42,9 +42,40 @@ class ConstraintBuilderTest extends RuleTestBase {
 		}
 	}
 
+	void _test_has_part_indexs(String idxStr1, String idxStr2, boolean expectMatch) {
+
+		int[] idx1 = _toIndx(idxStr1);
+		int[] idx2 = _toIndx(idxStr2);
+
+		try {
+
+			boolean match = ConstraintBuilder.hasPartIndexs(idx1, idx2);
+			assertEquals(expectMatch, match);
+		} catch (RException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+
 	@Test
-	void test() {
+	void test_has_part_indexs_1() {
+
 		_setup();
+
+		_test_has_part_indexs("", "", false);
+		_test_has_part_indexs("1", "1", true);
+		_test_has_part_indexs("0,1", "1", true);
+		_test_has_part_indexs("0,1", "0,1", true);
+		_test_has_part_indexs("0", "0,1", false);
+		_test_has_part_indexs("1,2,3", "1,3", true);
+		_test_has_part_indexs("0,2", "2,3", false);
+	}
+
+	@Test
+	void test_match_indexs_1() {
+
+		_setup();
+
 		_test_match_indexs("", "", true);
 		_test_match_indexs("1", "1", true);
 		_test_match_indexs("1", "1,1", false);
@@ -54,6 +85,6 @@ class ConstraintBuilderTest extends RuleTestBase {
 		_test_match_indexs("1,2,3", "-1,1,3", true);
 		_test_match_indexs("1,2,3", "-1,1,2", true);
 		_test_match_indexs("1,2,3", "-1,-1,1", true);
-	}
 
+	}
 }

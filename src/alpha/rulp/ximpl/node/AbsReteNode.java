@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.node;
 
+import static alpha.rulp.rule.Constant.A_Uniq;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEAD;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import alpha.rulp.utils.DeCounter;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
@@ -153,21 +155,51 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public boolean addConstraint1(IRConstraint1 constraint) throws RException {
 
+		IRConstraint1 removeOldConstraint = null;
+
 		/***********************************************/
 		// Check constraint list
 		/***********************************************/
 		if (getConstraint1Count() != 0) {
 
-			// Duplicate constraint
-			if (constraintExprMap.containsKey(constraint.getConstraintExpression())) {
-				return true;
-			}
+			if (constraint.getConstraintName().equals(A_Uniq)) {
 
-			/***********************************************/
-			// Check conflict uniq constraint
-			// - (uniq ?x ?y) add (uniq ?x) => (uniq ?x)
-			// - (uniq ?x) add (uniq ?x ?y) => (uniq ?x) no change
-			/***********************************************/
+				/***********************************************/
+				// Check conflict uniq constraint
+				/***********************************************/
+				int[] newUniqIndexs = constraint.getConstraintIndex();
+
+				for (IRConstraint1 oldCons : constraint1List) {
+					if (!oldCons.getConstraintName().equals(A_Uniq)) {
+						continue;
+					}
+
+					int[] oldUniqIndexs = oldCons.getConstraintIndex();
+
+					if (ConstraintBuilder.hasPartIndexs(oldUniqIndexs, newUniqIndexs)) {
+
+						// (uniq ?x ?y) add (uniq ?x ?y) => (uniq ?x ?y)
+						if (oldUniqIndexs.length == newUniqIndexs.length) {
+							return true;
+						}
+						// (uniq ?x ?y) add (uniq ?x) => (uniq ?x)
+						else {
+							removeOldConstraint = oldCons;
+						}
+					}
+					// (uniq ?x) add (uniq ?x ?y) => (uniq ?x) no change
+					else if (ConstraintBuilder.hasPartIndexs(newUniqIndexs, oldUniqIndexs)) {
+						return true;
+					}
+				}
+
+			} else {
+
+				// Duplicate constraint
+				if (constraintExprMap.containsKey(constraint.getConstraintExpression())) {
+					return true;
+				}
+			}
 
 		}
 
@@ -195,6 +227,15 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 		constraint1List.add(constraint);
 		constraintExprMap.put(constraint.getConstraintExpression(), constraint);
+
+		/***********************************************/
+		// Remove old constraint
+		/***********************************************/
+		if (removeOldConstraint != null) {
+			constraint1List.remove(removeOldConstraint);
+			constraintExprMap.remove(removeOldConstraint.getConstraintExpression());
+		}
+
 		return true;
 	}
 
