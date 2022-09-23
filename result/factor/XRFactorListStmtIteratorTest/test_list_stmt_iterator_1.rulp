@@ -1,0 +1,37 @@
+(new model m)
+;=>
+
+(add-stmt m '(a1 p1 b1))
+(add-stmt m '(a1 p1 b2))
+(add-stmt m '(a1 p1 b3))
+(add-stmt m '(a2 p1 b1))
+(add-stmt m '(a2 p1 b2))
+(add-stmt m '(a3 p2 b1))
+(add-stmt m '(a3 p2 b2))
+(add-stmt m '(a3 p3 b3))
+;=>
+
+(to-list (list-stmt-iterator m))
+;=>
+
+(size-of m)
+;=>
+
+(to-list (list-stmt-iterator m from '(a1 ?x ?y)))
+;=>
+
+(to-list (list-stmt-iterator m from '(a ?x ?y)))
+;=>
+
+(to-list (list-stmt-iterator m from '(?x p1 ?y)))
+;=>
+
+(to-list (list-stmt-iterator m from '(?x p ?y)))
+;=>
+
+(to-list (list-stmt-iterator m from '(?x ?y b3)))
+;=>
+
+(to-list (list-stmt-iterator m from '(?x ?y b)))
+;=>
+

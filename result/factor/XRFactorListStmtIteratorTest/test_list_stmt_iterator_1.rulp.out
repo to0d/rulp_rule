@@ -1,0 +1,20 @@
+(new model m)
+;=>m
+
+(add-stmt m '(a1 p1 b1))
+(add-stmt m '(a1 p1 b2))
+(add-stmt m '(a1 p1 b3))
+(add-stmt m '(a2 p1 b1))
+(add-stmt m '(a2 p1 b2))
+(add-stmt m '(a3 p2 b1))
+(add-stmt m '(a3 p2 b2))
+(add-stmt m '(a3 p3 b3))
+;=>true true true true true true true true
+
+(to-list (list-stmt-iterator m))
+;err:
+not support
+at (list-stmt-iterator m) ; main-2
+at (to-list (list-stmt-iterator m)) ; main-2
+;eof
+

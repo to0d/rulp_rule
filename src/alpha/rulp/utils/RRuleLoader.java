@@ -22,6 +22,7 @@ import static alpha.rulp.rule.Constant.F_HAS_STMT;
 import static alpha.rulp.rule.Constant.F_LIST_CONSTRAINT;
 import static alpha.rulp.rule.Constant.F_LIST_SOURCE_NODE;
 import static alpha.rulp.rule.Constant.F_LIST_STMT;
+import static alpha.rulp.rule.Constant.F_LIST_STMT_ITERATOR;
 import static alpha.rulp.rule.Constant.F_LIST_SUBGRAPH_FOR_QUERY;
 import static alpha.rulp.rule.Constant.F_LOAD_STMT;
 import static alpha.rulp.rule.Constant.F_MAKE_REF_TREE;
@@ -91,6 +92,7 @@ import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.factor.XRFactorListConstraint;
 import alpha.rulp.ximpl.factor.XRFactorListSourceNode;
 import alpha.rulp.ximpl.factor.XRFactorListStmt;
+import alpha.rulp.ximpl.factor.XRFactorListStmtIterator;
 import alpha.rulp.ximpl.factor.XRFactorListSubGraphForQuery;
 import alpha.rulp.ximpl.factor.XRFactorLoadStmt;
 import alpha.rulp.ximpl.factor.XRFactorMakeRefTree;
@@ -191,6 +193,7 @@ public class RRuleLoader implements IRObjectLoader {
 		RulpUtil.addFrameObject(frame, new XRFactorPrintTree(F_PRINT_TREE));
 		RulpUtil.addFrameObject(frame, new XRFactorExecuteRule(F_EXEC_RULE));
 		RulpUtil.addFrameObject(frame, new XRFactorQueryStmtIterator(F_QUERY_STMT_ITERATOR));
+		RulpUtil.addFrameObject(frame, new XRFactorListStmtIterator(F_LIST_STMT_ITERATOR));
 
 		// Constraint
 		RulpUtil.addFrameObject(frame, new XRFactorAddConstraint(F_ADD_CONSTRAINT));

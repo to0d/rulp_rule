@@ -272,6 +272,7 @@ mbr=limit, mbr-property='(public), mbr-attribute='(), obj=limit, obj-type=atom, 
 mbr=list-constraint, mbr-property='(public), mbr-attribute='(), obj=list-constraint, obj-type=factor, obj-attribute='()
 mbr=list-source-node, mbr-property='(public), mbr-attribute='(), obj=list-source-node, obj-type=factor, obj-attribute='()
 mbr=list-stmt, mbr-property='(public), mbr-attribute='(), obj=list-stmt, obj-type=factor, obj-attribute='()
+mbr=list-stmt-iterator, mbr-property='(public), mbr-attribute='(), obj=list-stmt-iterator, obj-type=factor, obj-attribute='()
 mbr=list-subgraph-for-query, mbr-property='(public), mbr-attribute='(), obj=list-subgraph-for-query, obj-type=factor, obj-attribute='()
 mbr=load-stmt, mbr-property='(public), mbr-attribute='(), obj=load-stmt, obj-type=factor, obj-attribute='()
 mbr=make-ref-tree, mbr-property='(public), mbr-attribute='(), obj=make-ref-tree, obj-type=factor, obj-attribute='()
