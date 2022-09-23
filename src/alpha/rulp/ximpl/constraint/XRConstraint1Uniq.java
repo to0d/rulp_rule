@@ -46,7 +46,6 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 
 		}
 
 		uniqEntryMap.put(uniqName, entry);
-//		entry.addEntryRemovedListener(this);
 
 		return true;
 	}
@@ -62,15 +61,6 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 
 
 	@Override
 	public void close() {
-
-//		if (uniqEntryMap == null) {
-//			return;
-//		}
-//
-//		for (IRReteEntry entry : uniqEntryMap.values()) {
-//			entry.removeEntryRemovedListener(this);
-//		}
-
 		uniqEntryMap = null;
 	}
 
@@ -82,16 +72,6 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 
 
 		return ReteUtil.combine(super.getCacheInfo(), "uniqEntryMap: size=" + uniqEntryMap.size());
 	}
-
-//	@Override
-//	public void doAction(IRReteEntry obj) throws RException {
-//
-//		if (uniqEntryMap == null) {
-//			return;
-//		}
-//
-//		uniqEntryMap.remove(_getUniqString(obj));
-//	}
 
 	@Override
 	public String getConstraintExpression() {

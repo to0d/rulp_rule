@@ -11,6 +11,7 @@ public class XRNodeNamed extends XRNodeRete0 implements IRNamedNode {
 		super(instanceName);
 	}
 
+	@Override
 	public void cleanCache() throws RException {
 
 		if (cache == null) {

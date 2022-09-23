@@ -2069,10 +2069,9 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			counter.gcCacheCount++;
 
-			HeapStack<AbsReteNode> nodeHeap = new HeapStack<>(new Comparator<AbsReteNode>() {
-
+			HeapStack<IRNamedNode> nodeHeap = new HeapStack<>(new Comparator<IRNamedNode>() {
 				@Override
-				public int compare(AbsReteNode n1, AbsReteNode n2) {
+				public int compare(IRNamedNode n1, IRNamedNode n2) {
 					return ((XRGraphInfo) n2.getGraphInfo()).getUseCount()
 							- ((XRGraphInfo) n1.getGraphInfo()).getUseCount();
 				}
@@ -2097,7 +2096,7 @@ public class XRNodeGraph implements IRNodeGraph {
 					continue;
 				}
 
-				nodeHeap.push(node);
+				nodeHeap.push((IRNamedNode) node);
 			}
 
 			if (nodeHeap.size() > gcMaxCacheNodeCount) {
@@ -2105,7 +2104,7 @@ public class XRNodeGraph implements IRNodeGraph {
 				counter.gcInactiveLeafCount++;
 
 				while (nodeHeap.size() > gcMaxCacheNodeCount) {
-					IRNamedNode node = (IRNamedNode) nodeHeap.pop();
+					IRNamedNode node = nodeHeap.pop();
 					node.cleanCache();
 					counter.gcCleanNodeCount++;
 				}
