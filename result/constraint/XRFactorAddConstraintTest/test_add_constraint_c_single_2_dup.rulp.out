@@ -5,7 +5,7 @@
 ;=>true
 
 (add-constraint m n1:'(?...) (single))
-;=>false
+;=>true
 
 (add-stmt m n1:'(a b))
 ;=>true

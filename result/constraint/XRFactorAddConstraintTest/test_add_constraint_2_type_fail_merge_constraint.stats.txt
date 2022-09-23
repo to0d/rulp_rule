@@ -147,7 +147,7 @@ graph-createNodeRoot                 12
 graph-createNodeRule                  4
 graph-createSubGraphForQueryNodeBackward        3
 graph-createSubGraphForRuleGroup        3
-graph-listSourceNodes                27
+graph-listSourceNodes                29
 graph-setRulePriority                 4
 graph-setNodePriority               104
 ===============================================================================================================================================================================
@@ -315,7 +315,7 @@ Model<m> frame:id=3, name=model, lvl=3, ref=2/4, entry=2, pid=2(main), subject=m
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 24       3        9    instance   model@m             
-?rv                  : 36       3        1    var        false : type=bool   
+?rv                  : 36       3        1    var        true : type=bool    
 ==========================================================================================================================
 
 Node<CST01> frame:id=6, name=NF-CST01, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-CST01
@@ -412,9 +412,9 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2237            0         2237
+        atom:         2245            0         2245
       string:           96            0           96
-        list:          172            6          166
+        list:          176            6          170
         expr:          950            9          941
          var:           54           26           28
         func:           87            0           87
@@ -481,7 +481,7 @@ id=3, name=model, lvl=3, ref=2/4, entry=2, pid=2(main), subject=model
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 default_model        : 24       3        9    instance   model@m             
-?rv                  : 36       3        1    var        false : type=bool   
+?rv                  : 36       3        1    var        true : type=bool    
 ==========================================================================================================================
 
 id=6, name=NF-CST01, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-CST01

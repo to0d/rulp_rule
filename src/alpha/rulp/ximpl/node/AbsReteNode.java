@@ -160,8 +160,15 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 			// Duplicate constraint
 			if (constraintExprMap.containsKey(constraint.getConstraintExpression())) {
-				return false;
+				return true;
 			}
+
+			/***********************************************/
+			// Check conflict uniq constraint
+			// - (uniq ?x ?y) add (uniq ?x) => (uniq ?x)
+			// - (uniq ?x) add (uniq ?x ?y) => (uniq ?x) no change
+			/***********************************************/
+
 		}
 
 		/***********************************************/

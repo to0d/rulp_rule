@@ -8,7 +8,7 @@
 ;=>true
 
 (add-constraint m name1:'(? ? ?x) (type int on ?x))
-;=>false
+;=>true
 
 (add-constraint m name1:'(? ? ?x) (type float on ?x))
 ;err:

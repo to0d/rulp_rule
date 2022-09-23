@@ -5,5 +5,5 @@
 ;=>true
 
 (add-constraint m name1:'(?x ?y ?z) (uniq on '(?y ?x)))
-;=>false
+;=>true
 
