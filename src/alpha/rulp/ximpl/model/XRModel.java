@@ -2225,6 +2225,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _findRootEntry(filter, 0) != null;
 		}
 
+		// Check cache statement
 		if (_hasCacheStatement(filter)) {
 			++counter.hasStmtHitCount;
 			return true;
@@ -2259,6 +2260,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _findRootEntry(filter, 0) != null;
 		}
 
+		// Check cache statement
 		if (_hasCacheStatement(filter)) {
 			++counter.hasStmtHitCount;
 			return true;
@@ -2379,9 +2381,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (processingLevel > 0) {
 			throw new RException("Can't query, the model is running");
 		}
-
-		IRObject[] varEntry = ReteUtil.buildVarEntry(this, condList);
-		IRReteNode queryNode = findNode(condList);
 
 		return new RQueryIterator(new RQueryHelper(this, findNode(condList), limit, backward));
 	}

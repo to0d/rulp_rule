@@ -9,6 +9,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.utils.DeCounter;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
@@ -63,6 +64,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 	public int doGC();
 
 	public int getAddEntryFailCount();
+
+	public List<IRConstraint1Uniq> getAllUniqConstraints();
 
 	public String getCacheInfo();
 

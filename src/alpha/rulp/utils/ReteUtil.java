@@ -56,6 +56,7 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRFunction;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -1298,6 +1299,14 @@ public class ReteUtil {
 	}
 
 	public static IRReteEntry getStmt(IRReteNode rootNode, IRList stmt) throws RException {
+
+		// Named Root node which has uniq constraint, its entry queue is mulit
+		// Check whether there is any uniq constraint that can match the stmt
+		if (rootNode.getReteType() == RReteType.NAME0 && !rootNode.getAllUniqConstraints().isEmpty()) {
+			IRConstraint1Uniq cons = rootNode.getAllUniqConstraints().get(0);
+			return cons.getReteEntry(cons.getUniqString(stmt));
+		}
+
 		return getStmt(rootNode, ReteUtil.uniqName(stmt));
 	}
 

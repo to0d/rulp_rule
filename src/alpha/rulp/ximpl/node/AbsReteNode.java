@@ -25,6 +25,7 @@ import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
@@ -36,6 +37,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	public static int MAX_EXEC_COUNTER_SIZE = 128;
 
 	protected int _reteLevel = -1;
+
+	protected List<IRConstraint1Uniq> _uniqConstraints = null;
 
 	protected int addEntryFailCount = 0;
 
@@ -156,6 +159,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	public boolean addConstraint1(IRConstraint1 constraint) throws RException {
 
 		IRConstraint1 removeOldConstraint = null;
+		boolean isUniqConstraint = false;
 
 		/***********************************************/
 		// Check constraint list
@@ -164,15 +168,14 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 			if (constraint.getConstraintName().equals(A_Uniq)) {
 
+				isUniqConstraint = true;
+
 				/***********************************************/
 				// Check conflict uniq constraint
 				/***********************************************/
 				int[] newUniqIndexs = constraint.getConstraintIndex();
 
-				for (IRConstraint1 oldCons : constraint1List) {
-					if (!oldCons.getConstraintName().equals(A_Uniq)) {
-						continue;
-					}
+				for (IRConstraint1 oldCons : getAllUniqConstraints()) {
 
 					int[] oldUniqIndexs = oldCons.getConstraintIndex();
 
@@ -220,13 +223,24 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			}
 		}
 
+		/***********************************************/
+		// Add new constraint
+		/***********************************************/
+
+		if (constraintExprMap == null) {
+			constraintExprMap = new HashMap<>();
+		}
+		constraintExprMap.put(constraint.getConstraintExpression(), constraint);
+
 		if (constraint1List == null) {
 			constraint1List = new ArrayList<>();
-			constraintExprMap = new HashMap<>();
 		}
 
 		constraint1List.add(constraint);
-		constraintExprMap.put(constraint.getConstraintExpression(), constraint);
+
+		if (isUniqConstraint) {
+			_uniqConstraints = null;
+		}
 
 		/***********************************************/
 		// Remove old constraint
@@ -303,6 +317,29 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public int getAddEntryFailCount() {
 		return addEntryFailCount;
+	}
+
+	@Override
+	public List<IRConstraint1Uniq> getAllUniqConstraints() {
+
+		if (_uniqConstraints == null) {
+			if (constraint1List != null) {
+				for (IRConstraint1 oldCons : constraint1List) {
+					if (oldCons.getConstraintName().equals(A_Uniq)) {
+						if (_uniqConstraints == null) {
+							_uniqConstraints = new ArrayList<>();
+						}
+						_uniqConstraints.add((IRConstraint1Uniq) oldCons);
+					}
+				}
+			}
+
+			if (_uniqConstraints == null) {
+				_uniqConstraints = Collections.emptyList();
+			}
+		}
+
+		return _uniqConstraints;
 	}
 
 	public String getCacheInfo() {

@@ -12,10 +12,10 @@ node info:
 NODE[n]      Create Delete  Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001[3]         4      0      0      4      0      0      0      0     0     0   0/0      0      4      0    1    0           0   0 900   0     2 InActive            
-A00002[3]         0      0      0      2      0      0      0      0     0     0   0/0      4      2      0    6    5           0   1   0   0     5 InActive           4
+A00002[3]         0      0      0      2      0      0      0      0     0     0   0/0      4      2      0    6    5           0   1   0   0     3 InActive           4
 A00003[3]         0      0      0      2      0      0      0      0     0     0   0/0      4      2      0    3    2           0   1   0   0     1 InActive           4
 A00004[3]         0      0      0      2      0      0      0      0     0     0   0/0      2      2      0    4    3           0   2   0   0     1 InActive           2
-B00005[2]         2      0      0      0      2      0      0      0     0     0   0/0      4      2      0    4    3           0   3   0   0     4 InActive         2/2
+B00005[2]         2      0      0      0      2      0      0      0     0     0   0/0      4      2      0    4    3           0   3   0   0     2 InActive         2/2
 ===============================================================================================================================================================================
 
 node info2:
@@ -88,7 +88,7 @@ model-addUpdateNode                  19
 model-execute                        18
 model-query-iterator                  4
 graph-addConstraint                   3
-graph-createNodeByTree                8
+graph-createNodeByTree                4
 graph-createNodeRoot                  4
 graph-createSubGraphForQueryNodeBackward        4
 graph-listSourceNodes                19
@@ -241,7 +241,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         2201            0         2201
       string:           77            0           77
-        list:          143            3          140
+        list:          133            3          130
         expr:          938           16          922
        array:            4            4            0
          var:           62           40           22

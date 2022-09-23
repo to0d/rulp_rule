@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
@@ -13,7 +14,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 {
+public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1Uniq {
 
 	private String _constraintExpression = null;
 
@@ -32,31 +33,17 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 
 	@Override
 	protected boolean _addEntry(IRReteEntry entry, IRContext context) throws RException {
 
-		String uniqName = _getUniqString(entry);
+		String uniqName = getUniqString(entry);
 
-		if (uniqEntryMap != null) {
-			IRReteEntry oldEntry = uniqEntryMap.get(uniqName);
-			if (oldEntry != null && !oldEntry.isDroped()) {
-				return false;
-			}
+		if (getReteEntry(uniqName) != null) {
+			return false;
 		}
 
 		if (uniqEntryMap == null) {
 			uniqEntryMap = new HashMap<>();
 		}
-
 		uniqEntryMap.put(uniqName, entry);
-
 		return true;
-	}
-
-	protected String _getUniqString(IRReteEntry entry) throws RException {
-
-		for (int i = 0; i < uniqEntry.length; ++i) {
-			uniqEntry[i] = entry.get(uniqColumnIndexs[i]);
-		}
-
-		return ReteUtil.uniqName(uniqEntry);
 	}
 
 	@Override
@@ -111,11 +98,34 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1 
 		return A_Uniq;
 	}
 
+	@Override
+	public IRReteEntry getReteEntry(String uniqName) throws RException {
+
+		if (uniqEntryMap != null) {
+			IRReteEntry oldEntry = uniqEntryMap.get(uniqName);
+			if (oldEntry != null && !oldEntry.isDroped()) {
+				return oldEntry;
+			}
+		}
+
+		return null;
+	}
+
 	public int[] getUniqColumnIndexs() {
 		return uniqColumnIndexs;
 	}
 
 	public int getUniqIndexCount() {
 		return uniqColumnIndexs.length;
+	}
+
+	@Override
+	public String getUniqString(IRList stmt) throws RException {
+
+		for (int i = 0; i < uniqEntry.length; ++i) {
+			uniqEntry[i] = stmt.get(uniqColumnIndexs[i]);
+		}
+
+		return ReteUtil.uniqName(uniqEntry);
 	}
 }
