@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.factor;
+package alpha.rulp.ximpl.bs;
 
 import static alpha.rulp.rule.Constant.A_DEEP_FIRST;
 import static alpha.rulp.rule.Constant.A_Explain;
@@ -12,8 +12,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.ximpl.bs.BSSearchType;
-import alpha.rulp.ximpl.bs.BSUtil;
+import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFactor {

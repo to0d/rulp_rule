@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.factor;
+package alpha.rulp.ximpl.status;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -11,6 +11,7 @@ import alpha.rulp.utils.RuleFactory;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.StatsUtil;
+import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 

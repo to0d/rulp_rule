@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.factor;
+package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.lang.Constant.A_LAMBDA;
 import static alpha.rulp.lang.Constant.O_False;
@@ -18,9 +18,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
-import alpha.rulp.ximpl.constraint.ConstraintBuilder;
-import alpha.rulp.ximpl.constraint.ConstraintFactory;
-import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorAddConstraint extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {

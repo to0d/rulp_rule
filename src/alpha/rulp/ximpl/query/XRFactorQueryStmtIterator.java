@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.factor;
+package alpha.rulp.ximpl.query;
 
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.rule.Constant.A_Backward;
@@ -18,6 +18,7 @@ import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorQueryStmtIterator extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {

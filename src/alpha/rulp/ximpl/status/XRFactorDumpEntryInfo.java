@@ -1,4 +1,4 @@
-package alpha.rulp.ximpl.factor;
+package alpha.rulp.ximpl.status;
 
 import static alpha.rulp.lang.Constant.O_Nil;
 
@@ -16,6 +16,7 @@ import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StatsUtil;
+import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorDumpEntryInfo extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
