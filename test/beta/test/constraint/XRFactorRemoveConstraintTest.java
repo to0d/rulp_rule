@@ -48,32 +48,4 @@ class XRFactorRemoveConstraintTest extends RuleTestBase {
 		_run_script();
 	}
 
-	@Test
-	void test_remove_constraint_3_uniq_1() {
-
-		_setup();
-		_run_script();
-	}
-
-	@Test
-	void test_remove_constraint_3_uniq_2() {
-
-		_setup();
-		_run_script();
-	}
-
-	@Test
-	void test_remove_constraint_3_uniq_3() {
-
-		_setup();
-		_run_script();
-	}
-
-	@Test
-	void test_remove_constraint_3_uniq_4() {
-
-		_setup();
-		_run_script();
-	}
-
 }

@@ -1539,6 +1539,10 @@ public class ReteUtil {
 		return obj.getType() == RType.LIST && isReteStmt((IRList) obj);
 	}
 
+//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
+//
+//	}
+
 	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
 
 		if (!isValidStmtLen(stmt.size())) {

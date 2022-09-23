@@ -41,22 +41,6 @@ class XRFactorAddConstraintTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_add_constraint_3_uniq_1() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
-	void test_add_constraint_3_uniq_2() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
 	void test_add_constraint_4_not_nil_1() {
 
 		_setup();

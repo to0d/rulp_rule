@@ -1,6 +1,7 @@
 package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.rule.Constant.A_Uniq;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,14 +1,13 @@
-
 (new model m)
 ;;;
 
 (add-node m name1:'(3))
 ;;;
 
-(add-constraint m name1:'(?x ?y ?) (uniq on '(?y ?x)))
+(add-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
 ;;;
 
-(remove-constraint m name1:'(3) (uniq on '(?0 ?1)))
+(remove-constraint m name1:'(?x ?y ?) (uniq on '(?x ?y)))
 ;;;
 
 (list-constraint m name1:'(?...))
