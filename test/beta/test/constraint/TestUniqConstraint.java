@@ -97,4 +97,20 @@ public class TestUniqConstraint extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_uniq_constraint_3_has_stmt_3_order_by_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_uniq_constraint_3_has_stmt_3_order_by_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

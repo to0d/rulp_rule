@@ -2224,6 +2224,35 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
+	protected Pair<Boolean, IRReteEntry> _findStatement(IRList filter) throws RException {
+
+		// Check root node for root statement
+		if (ReteUtil.isReteStmtNoVar(filter)) {
+			return new Pair<>(true, _findRootEntry(filter, 0));
+		}
+
+		// Check whether there is any uniq constraint that match the filter
+		if (filter.getNamedName() != null && ReteUtil.indexOfVarArgStmt(filter) == -1) {
+
+			IRReteNode namedRootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
+			if (namedRootNode == null) {
+				return new Pair<>(false, null);
+			}
+
+			for (IRConstraint1Uniq uniqCons : namedRootNode.listUniqConstraints()) {
+
+				String uniqName = uniqCons.getUniqString(filter);
+
+				// constraint match
+				if (uniqName != null) {
+					return new Pair<>(true, uniqCons.getReteEntry(uniqName));
+				}
+			}
+		}
+
+		return new Pair<>(false, null);
+	}
+
 	@Override
 	public boolean hasStatement(IRList filter) throws RException {
 
@@ -2238,27 +2267,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _hasAnyStatement();
 		}
 
-		// Check root node for root statement
-		if (ReteUtil.isReteStmtNoVar(filter)) {
-			return _findRootEntry(filter, 0) != null;
-		}
-		// Check whether there is any uniq constraint that match the filter
-		else if (filter.getNamedName() != null && ReteUtil.indexOfVarArgStmt(filter) == -1) {
-
-			IRReteNode namedRootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
-			if (namedRootNode == null) {
-				return false;
-			}
-
-			for (IRConstraint1Uniq uniqCons : namedRootNode.listUniqConstraints()) {
-
-				String uniqName = uniqCons.getUniqString(filter);
-
-				// constraint match
-				if (uniqName != null) {
-					return uniqCons.getReteEntry(uniqName) != null;
-				}
-			}
+		// Find statement
+		Pair<Boolean, IRReteEntry> rst = _findStatement(filter);
+		if (rst.getKey()) {
+			return rst.getValue() != null;
 		}
 
 		// Check cache statement
@@ -2291,9 +2303,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _hasAnyStatement();
 		}
 
-		// Check root node for root statement
-		if (ReteUtil.isReteStmtNoVar(filter)) {
-			return _findRootEntry(filter, 0) != null;
+		// Find statement
+		Pair<Boolean, IRReteEntry> rst = _findStatement(filter);
+		if (rst.getKey()) {
+			return rst.getValue() != null;
 		}
 
 		// Check cache statement
