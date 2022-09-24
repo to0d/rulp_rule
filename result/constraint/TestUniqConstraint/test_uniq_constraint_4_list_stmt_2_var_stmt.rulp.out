@@ -1,0 +1,14 @@
+(new model m)
+;=>m
+
+(add-constraint m n1:'(?x ?y ?) (uniq on '(?x ?y)))
+;=>true
+
+(add-stmt m n1:'(a1 b1 1))
+(add-stmt m n1:'(a1 b2 1))
+(add-stmt m n1:'(a2 b2 1))
+;=>true true true
+
+(list-stmt m from n1:'(a1 b2 ?x))
+;=>'(n1:'(a1 b2 1))
+
