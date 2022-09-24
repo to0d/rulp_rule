@@ -10,7 +10,7 @@ node info:
 NODE[n]      Create Delete  Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 N00001[3]         3      0      0      3      0      0      0      0     0     0   0/0      3      3      0    1    0           0   0   0   0     1 InActive            
-N00002[3]         2      1      0      1      0      0      0      0     0     0   0/0      2      1      0    0    0      *    0   0   0   0     1 InActive            
+N00002[3]         2      1      0      1      0      0      0      0     0     0   0/0      2      1      0    0    0      *    0   0   0   0     0 InActive            
 ===============================================================================================================================================================================
 
 node info3:
@@ -64,7 +64,7 @@ model-execute                         1
 model-listStatements                  2
 model-setModelCachePath               1
 graph-addConstraint                   2
-graph-createNodeByTree                2
+graph-createNodeByTree                1
 graph-createNodeRoot                  2
 graph-listSourceNodes                 6
 ===============================================================================================================================================================================

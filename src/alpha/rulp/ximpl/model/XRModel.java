@@ -907,20 +907,33 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return oldEntry;
 	}
 
-	protected IRReteNode _getRootNode(String namedName, int stmtLen, boolean create) throws RException {
+	protected Pair<Boolean, IRReteEntry> _findUniqStatement(IRList filter) throws RException {
 
-		IRReteNode node;
-		if (create) {
-			node = nodeGraph.createNodeRoot(namedName, stmtLen);
-		} else {
-			node = nodeGraph.findRootNode(namedName, stmtLen);
+		// Check root node for root statement
+		if (ReteUtil.isReteStmtNoVar(filter)) {
+			return new Pair<>(true, _findRootEntry(filter, 0));
 		}
 
-		if (node != null) {
-			_checkCache(node);
+		// Check whether there is any uniq constraint that match the filter
+		if (filter.getNamedName() != null && ReteUtil.indexOfVarArgStmt(filter) == -1) {
+
+			IRReteNode namedRootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
+			if (namedRootNode == null) {
+				return new Pair<>(false, null);
+			}
+
+			for (IRConstraint1Uniq uniqCons : namedRootNode.listUniqConstraints()) {
+
+				String uniqName = uniqCons.getUniqString(filter);
+
+				// constraint match
+				if (uniqName != null) {
+					return new Pair<>(true, uniqCons.getReteEntry(uniqName));
+				}
+			}
 		}
 
-		return node;
+		return new Pair<>(false, null);
 	}
 
 //	protected IRReteNode _getRootNode(String namedName, int stmtLen) throws RException {
@@ -1079,6 +1092,22 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return ReteUtil.getChildStatus(nodeContext.currentEntry);
+	}
+
+	protected IRReteNode _getRootNode(String namedName, int stmtLen, boolean create) throws RException {
+
+		IRReteNode node;
+		if (create) {
+			node = nodeGraph.createNodeRoot(namedName, stmtLen);
+		} else {
+			node = nodeGraph.findRootNode(namedName, stmtLen);
+		}
+
+		if (node != null) {
+			_checkCache(node);
+		}
+
+		return node;
 	}
 
 	protected boolean _hasAnyStatement() throws RException {
@@ -1321,11 +1350,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		/******************************************************/
-		// Query uniq stmt
+		// Find uniq statement
 		/******************************************************/
-		if (ReteUtil.getStmtVarCount(filter) == 0) {
+		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
+		if (rst.getKey()) {
 
-			IRReteEntry oldEntry = _findRootEntry(filter, statusMask);
+			IRReteEntry oldEntry = rst.getValue();
 			if (oldEntry == null) {
 				return 0;
 			}
@@ -1335,10 +1365,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			size++;
-
 			return size;
 		}
 
+		/******************************************************/
+		//
+		/******************************************************/
 		IRReteNode matchedNode = nodeGraph.createNodeByTree(filter);
 		if (!RReteType.isRootType(matchedNode.getReteType()) && matchedNode.getReteType() != RReteType.ALPH0) {
 			throw new RException("Invalid list node: " + matchedNode);
@@ -2224,35 +2256,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 	}
 
-	protected Pair<Boolean, IRReteEntry> _findStatement(IRList filter) throws RException {
-
-		// Check root node for root statement
-		if (ReteUtil.isReteStmtNoVar(filter)) {
-			return new Pair<>(true, _findRootEntry(filter, 0));
-		}
-
-		// Check whether there is any uniq constraint that match the filter
-		if (filter.getNamedName() != null && ReteUtil.indexOfVarArgStmt(filter) == -1) {
-
-			IRReteNode namedRootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
-			if (namedRootNode == null) {
-				return new Pair<>(false, null);
-			}
-
-			for (IRConstraint1Uniq uniqCons : namedRootNode.listUniqConstraints()) {
-
-				String uniqName = uniqCons.getUniqString(filter);
-
-				// constraint match
-				if (uniqName != null) {
-					return new Pair<>(true, uniqCons.getReteEntry(uniqName));
-				}
-			}
-		}
-
-		return new Pair<>(false, null);
-	}
-
 	@Override
 	public boolean hasStatement(IRList filter) throws RException {
 
@@ -2267,8 +2270,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _hasAnyStatement();
 		}
 
-		// Find statement
-		Pair<Boolean, IRReteEntry> rst = _findStatement(filter);
+		// Find uniq statement
+		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
 		if (rst.getKey()) {
 			return rst.getValue() != null;
 		}
@@ -2303,8 +2306,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return _hasAnyStatement();
 		}
 
-		// Find statement
-		Pair<Boolean, IRReteEntry> rst = _findStatement(filter);
+		// Find uniq statement
+		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
 		if (rst.getKey()) {
 			return rst.getValue() != null;
 		}
