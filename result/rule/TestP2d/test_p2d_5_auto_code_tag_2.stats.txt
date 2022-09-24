@@ -1310,7 +1310,7 @@ model-start                           1
 graph-addConstraint                  53
 graph-createNodeByTree                2
 graph-createNodeIndex                 1
-graph-createNodeRoot                320
+graph-createNodeRoot                295
 graph-createNodeRule                 41
 graph-createSubGraphForQueryNodeBackward        1
 graph-listSourceNodes               152

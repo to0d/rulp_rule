@@ -90,4 +90,11 @@ public class TestUniqConstraint extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_uniq_constraint_3_has_stmt_2_var_stmt() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

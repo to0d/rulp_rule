@@ -12,6 +12,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1Uniq {
@@ -123,7 +124,13 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1U
 	public String getUniqString(IRList stmt) throws RException {
 
 		for (int i = 0; i < uniqEntry.length; ++i) {
-			uniqEntry[i] = stmt.get(uniqColumnIndexs[i]);
+
+			IRObject obj = stmt.get(uniqColumnIndexs[i]);
+			if (RulpUtil.isVarAtom(obj)) {
+				return null;
+			}
+
+			uniqEntry[i] = obj;
 		}
 
 		return ReteUtil.uniqName(uniqEntry);

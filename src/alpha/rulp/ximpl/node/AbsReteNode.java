@@ -175,7 +175,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 				/***********************************************/
 				int[] newUniqIndexs = constraint.getConstraintIndex();
 
-				for (IRConstraint1 oldCons : getAllUniqConstraints()) {
+				for (IRConstraint1 oldCons : listUniqConstraints()) {
 
 					int[] oldUniqIndexs = oldCons.getConstraintIndex();
 
@@ -320,7 +320,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public List<IRConstraint1Uniq> getAllUniqConstraints() {
+	public List<IRConstraint1Uniq> listUniqConstraints() {
 
 		if (_uniqConstraints == null) {
 			if (constraint1List != null) {

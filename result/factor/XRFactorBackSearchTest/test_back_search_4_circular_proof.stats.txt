@@ -107,7 +107,7 @@ model-addUpdateNode                   1
 model-hasStatement-1                  4
 model-listStatements                  1
 graph-addConstraint                   2
-graph-createNodeRoot                  6
+graph-createNodeRoot                  2
 graph-createNodeRule                  2
 graph-listSourceNodes                12
 graph-setNodePriority                 4

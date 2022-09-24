@@ -71,6 +71,7 @@ import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.constraint.RConstraintConflict;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -620,8 +621,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("not support stmt: " + stmt);
 		}
 
-		IRReteNode rootNode = _findRootNode(stmt.getNamedName(), stmt.size());
-		_checkCache(rootNode);
+		IRReteNode rootNode = _getRootNode(stmt.getNamedName(), stmt.size(), true);
 
 		int oldSize = 0;
 		if (this.nodeContext != null) {
@@ -894,8 +894,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected IRReteEntry _findRootEntry(IRList filter, int statusMask) throws RException {
 
-		IRReteNode rootNode = _findRootNode(filter.getNamedName(), filter.size());
-		_checkCache(rootNode);
+		IRReteNode rootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
+		if (rootNode == null) {
+			return null;
+		}
 
 		IRReteEntry oldEntry = ReteUtil.getStmt(rootNode, filter);
 		if (oldEntry == null || !ReteUtil.matchReteStatus(oldEntry, statusMask)) {
@@ -905,9 +907,25 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return oldEntry;
 	}
 
-	protected IRReteNode _findRootNode(String namedName, int stmtLen) throws RException {
-		return nodeGraph.createNodeRoot(namedName, stmtLen);
+	protected IRReteNode _getRootNode(String namedName, int stmtLen, boolean create) throws RException {
+
+		IRReteNode node;
+		if (create) {
+			node = nodeGraph.createNodeRoot(namedName, stmtLen);
+		} else {
+			node = nodeGraph.findRootNode(namedName, stmtLen);
+		}
+
+		if (node != null) {
+			_checkCache(node);
+		}
+
+		return node;
 	}
+
+//	protected IRReteNode _getRootNode(String namedName, int stmtLen) throws RException {
+//		 nodeGraph.createNodeRoot(namedName, stmtLen);
+//	}
 
 	protected void _fireLoadNodeAction(IRReteNode node) throws RException {
 
@@ -1882,7 +1900,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			}
 
 			// verify
-			_checkConstraintConflict(_findRootNode(stmt.getNamedName(), stmt.size()));
+			_checkConstraintConflict(nodeGraph.createNodeRoot(stmt.getNamedName(), stmt.size()));
 
 			stmtListenUpdater.update(this);
 			return true;
@@ -2224,6 +2242,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (ReteUtil.isReteStmtNoVar(filter)) {
 			return _findRootEntry(filter, 0) != null;
 		}
+		// Check whether there is any uniq constraint that match the filter
+		else if (filter.getNamedName() != null && ReteUtil.indexOfVarArgStmt(filter) == -1) {
+
+			IRReteNode namedRootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
+			if (namedRootNode == null) {
+				return false;
+			}
+
+			for (IRConstraint1Uniq uniqCons : namedRootNode.listUniqConstraints()) {
+
+				String uniqName = uniqCons.getUniqString(filter);
+
+				// constraint match
+				if (uniqName != null) {
+					return uniqCons.getReteEntry(uniqName) != null;
+				}
+			}
+		}
 
 		// Check cache statement
 		if (_hasCacheStatement(filter)) {
@@ -2427,8 +2463,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Invalid stmt: " + stmt);
 		}
 
-		IRReteNode rootNode = _findRootNode(stmt.getNamedName(), stmt.size());
-		_checkCache(rootNode);
+		IRReteNode rootNode = _getRootNode(stmt.getNamedName(), stmt.size(), false);
+		if (rootNode == null) {
+			return false;
+		}
 
 		IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
 		if (entry == null || entry.isDroped()) {
@@ -2544,7 +2582,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				nodeName = null;
 			}
 
-			IRReteNode node = _findRootNode(nodeName, stmtLen);
+			IRReteNode node = nodeGraph.createNodeRoot(nodeName, stmtLen);
 			// cache has been created
 			if (node.getCacheWorker() != null) {
 				continue;

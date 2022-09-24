@@ -120,7 +120,7 @@ model-hasStatement-1                  5
 model-query                           1
 graph-addConstraint                   4
 graph-createNodeByTree                1
-graph-createNodeRoot                 13
+graph-createNodeRoot                  8
 graph-createNodeRule                  1
 graph-createSubGraphForQueryNodeForward        1
 graph-listSourceNodes                33

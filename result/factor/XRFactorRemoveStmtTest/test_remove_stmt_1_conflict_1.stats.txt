@@ -106,7 +106,7 @@ model-start                           1
 graph-doGc                            1
 graph-addConstraint                   1
 graph-createNodeByTree                2
-graph-createNodeRoot                  4
+graph-createNodeRoot                  3
 graph-createNodeRule                  1
 graph-listSourceNodes                 7
 graph-setNodePriority                 3

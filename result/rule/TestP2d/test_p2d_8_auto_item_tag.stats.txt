@@ -1200,7 +1200,7 @@ model-removeStatement                 4
 model-start                           1
 graph-addConstraint                  49
 graph-createNodeByTree                1
-graph-createNodeRoot                257
+graph-createNodeRoot                243
 graph-createNodeRule                 41
 graph-listSourceNodes               109
 graph-setNodePriority               127

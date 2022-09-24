@@ -1139,7 +1139,7 @@ model-getVar                          1
 model-hasStatement-1                  4
 model-start                           1
 graph-addConstraint                  47
-graph-createNodeRoot                221
+graph-createNodeRoot                217
 graph-createNodeRule                 41
 graph-listSourceNodes               103
 graph-setNodePriority               127

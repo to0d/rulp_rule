@@ -1302,8 +1302,8 @@ public class ReteUtil {
 
 		// Named Root node which has uniq constraint, its entry queue is mulit
 		// Check whether there is any uniq constraint that can match the stmt
-		if (rootNode.getReteType() == RReteType.NAME0 && !rootNode.getAllUniqConstraints().isEmpty()) {
-			IRConstraint1Uniq cons = rootNode.getAllUniqConstraints().get(0);
+		if (rootNode.getReteType() == RReteType.NAME0 && !rootNode.listUniqConstraints().isEmpty()) {
+			IRConstraint1Uniq cons = rootNode.listUniqConstraints().get(0);
 			return cons.getReteEntry(cons.getUniqString(stmt));
 		}
 

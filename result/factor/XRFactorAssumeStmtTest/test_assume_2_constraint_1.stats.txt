@@ -145,7 +145,7 @@ model-query                           1
 model-removeStatement                 1
 graph-addConstraint                   2
 graph-createNodeByTree                2
-graph-createNodeRoot                 14
+graph-createNodeRoot                 13
 graph-createNodeRule                  4
 graph-createSubGraphForConstraintCheck        2
 graph-createSubGraphForQueryNodeBackward        1

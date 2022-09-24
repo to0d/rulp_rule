@@ -125,7 +125,7 @@ model-removeStatement                 2
 model-start                           1
 graph-doGc                            1
 graph-addConstraint                   2
-graph-createNodeRoot                  9
+graph-createNodeRoot                  7
 graph-createNodeRule                  2
 graph-listSourceNodes                 7
 graph-setNodePriority                 6

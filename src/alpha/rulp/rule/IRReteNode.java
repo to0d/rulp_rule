@@ -65,7 +65,7 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public int getAddEntryFailCount();
 
-	public List<IRConstraint1Uniq> getAllUniqConstraints();
+	public List<IRConstraint1Uniq> listUniqConstraints();
 
 	public String getCacheInfo();
 
