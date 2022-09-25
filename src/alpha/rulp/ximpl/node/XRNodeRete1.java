@@ -1,5 +1,8 @@
 package alpha.rulp.ximpl.node;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -27,6 +30,27 @@ public class XRNodeRete1 extends AbsReteNode {
 	public int update(int limit) throws RException {
 		return _update(0);
 	}
+
+//	@Override
+//	protected List<RUniqInfo> _rebuildUniqInfoList() {
+//
+//		List<RUniqInfo> superUniqList = super._rebuildUniqInfoList();
+//
+//		List<RUniqInfo> parentUniqList = parentNodes[0].listUniqInfos();
+//		if (parentUniqList.isEmpty()) {
+//			return superUniqList;
+//		}
+//
+//		if (superUniqList.isEmpty()) {
+//			return parentUniqList;
+//		}
+//
+//		ArrayList<RUniqInfo> uniqList = new ArrayList<>();
+//		uniqList.addAll(superUniqList);
+//		uniqList.addAll(parentUniqList);
+//
+//		return uniqList;
+//	}
 
 	public int _update(int maxParentCount) throws RException {
 

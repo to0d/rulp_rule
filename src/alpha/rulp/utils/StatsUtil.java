@@ -1639,9 +1639,9 @@ public class StatsUtil {
 
 				if (i++ == 0) {
 					sb.append(String.format("%-12s '(%s)\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
-							RuleUtil.formatIndexs(info.uniqIndexs)));
+							IndexUtil.formatIndexs(info.uniqIndexs)));
 				} else {
-					sb.append(String.format("%-12s '(%s)\n", "", RuleUtil.formatIndexs(info.uniqIndexs)));
+					sb.append(String.format("%-12s '(%s)\n", "", IndexUtil.formatIndexs(info.uniqIndexs)));
 				}
 			}
 

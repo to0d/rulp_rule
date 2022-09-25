@@ -9,8 +9,8 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
+import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -64,7 +64,7 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1U
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-			_constraintExpression = String.format("(%s on '(%s))", A_Uniq, RuleUtil.formatIndexs(uniqColumnIndexs));
+			_constraintExpression = String.format("(%s on '(%s))", A_Uniq, IndexUtil.formatIndexs(uniqColumnIndexs));
 		}
 
 		return _constraintExpression;

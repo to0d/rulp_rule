@@ -219,6 +219,14 @@ public class RefTreeUtil {
 		return proveEntry;
 	}
 
+	public static IRList buildReteEntryRefTree(IRModel model, IRReteEntry entry) throws RException {
+		return new RefTreeUtil(model)._buildReteEntryRefTree(entry);
+	}
+
+	public static IRList buildStmtRefTree(IRList stmt, IRModel model, int maxWidth, int maxDeep) throws RException {
+		return new RefTreeUtil(model, maxWidth, maxDeep)._buildStmtRefTree(stmt);
+	}
+
 	private int maxDeep = -1;
 
 	private int maxWidth = -1;
@@ -283,6 +291,44 @@ public class RefTreeUtil {
 		return RulpFactory.createExpression(proveList);
 	}
 
+	private IRList _buildReteEntryRefTree(IRReteEntry entry) throws RException {
+
+		ArrayList<IRObject> refTree = new ArrayList<>();
+
+		IAOTreeNode<IRReteEntry> aoTree = new XEntryAOTreeNode(entry, false);
+		DLRVisitNode<IRReteEntry> vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
+		ProveEntry provEntry = _toProveEntry(vistTree);
+		refTree.add(RulpFactory.createList(provEntry.factEntryList));
+
+		while (AOTreeUtil.update(vistTree)) {
+			provEntry = _toProveEntry(vistTree);
+			refTree.add(RulpFactory.createList(provEntry.factEntryList));
+		}
+
+		return RulpFactory.createList(refTree);
+	}
+
+	private IRList _buildStmtRefTree(IRList stmt) throws RException {
+
+		/****************************************************/
+		// Find root node
+		/****************************************************/
+		IRReteNode rootNode = model.getNodeGraph().findRootNode(stmt.getNamedName(), stmt.size());
+		if (rootNode == null) {
+			throw new RException("root node not found: " + stmt);
+		}
+
+		/****************************************************/
+		// Find entry
+		/****************************************************/
+		IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
+		if (entry == null) {
+			return RulpFactory.createList();
+		}
+
+		return _build(entry, 0);
+	}
+
 	private ProveNode _getProveNode(IRReteEntry entry) throws RException {
 
 		String uniqName = entry.toString();
@@ -322,52 +368,6 @@ public class RefTreeUtil {
 		}
 
 		return proveNode;
-	}
-
-	private IRList _buildReteEntryRefTree(IRReteEntry entry) throws RException {
-
-		ArrayList<IRObject> refTree = new ArrayList<>();
-
-		IAOTreeNode<IRReteEntry> aoTree = new XEntryAOTreeNode(entry, false);
-		DLRVisitNode<IRReteEntry> vistTree = AOTreeUtil.getDLRVisitFirstTree(aoTree);
-		ProveEntry provEntry = _toProveEntry(vistTree);
-		refTree.add(RulpFactory.createList(provEntry.factEntryList));
-
-		while (AOTreeUtil.update(vistTree)) {
-			provEntry = _toProveEntry(vistTree);
-			refTree.add(RulpFactory.createList(provEntry.factEntryList));
-		}
-
-		return RulpFactory.createList(refTree);
-	}
-
-	public static IRList buildReteEntryRefTree(IRModel model, IRReteEntry entry) throws RException {
-		return new RefTreeUtil(model)._buildReteEntryRefTree(entry);
-	}
-
-	public static IRList buildStmtRefTree(IRList stmt, IRModel model, int maxWidth, int maxDeep) throws RException {
-		return new RefTreeUtil(model, maxWidth, maxDeep)._buildStmtRefTree(stmt);
-	}
-
-	private IRList _buildStmtRefTree(IRList stmt) throws RException {
-
-		/****************************************************/
-		// Find root node
-		/****************************************************/
-		IRReteNode rootNode = model.getNodeGraph().findRootNode(stmt.getNamedName(), stmt.size());
-		if (rootNode == null) {
-			throw new RException("root node not found: " + stmt);
-		}
-
-		/****************************************************/
-		// Find entry
-		/****************************************************/
-		IRReteEntry entry = ReteUtil.getStmt(rootNode, stmt);
-		if (entry == null) {
-			return RulpFactory.createList();
-		}
-
-		return _build(entry, 0);
 	}
 
 }

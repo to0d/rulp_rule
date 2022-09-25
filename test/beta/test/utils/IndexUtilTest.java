@@ -1,4 +1,4 @@
-package beta.test.constraint;
+package beta.test.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -8,11 +8,11 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.utils.RuleTestBase;
 import alpha.rulp.utils.StringUtil;
-import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 
-class ConstraintBuilderTest extends RuleTestBase {
+class IndexUtilTest extends RuleTestBase {
 
 	int[] _toIndx(String idxStr) {
 
@@ -34,7 +34,7 @@ class ConstraintBuilderTest extends RuleTestBase {
 
 		try {
 
-			boolean match = ConstraintBuilder.matchIndexs(idx1, idx2);
+			boolean match = IndexUtil.matchIndexs(idx1, idx2);
 			assertEquals(expectMatch, match);
 		} catch (RException e) {
 			e.printStackTrace();
@@ -49,7 +49,7 @@ class ConstraintBuilderTest extends RuleTestBase {
 
 		try {
 
-			boolean match = ConstraintBuilder.hasPartIndexs(idx1, idx2);
+			boolean match = IndexUtil.hasPartIndexs(idx1, idx2);
 			assertEquals(expectMatch, match);
 		} catch (RException e) {
 			e.printStackTrace();

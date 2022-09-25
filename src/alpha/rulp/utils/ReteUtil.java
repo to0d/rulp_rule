@@ -71,16 +71,6 @@ import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ReteUtil {
 
-	public static boolean supportUpdateIncrementally(IRReteNode node) {
-		switch (node.getReteType()) {
-		case ZETA0:
-			return true;
-
-		default:
-			return false;
-		}
-	}
-
 	static class ReplaceMap implements Map<String, IRObject> {
 
 		private Map<String, String> nameMap;
@@ -938,10 +928,6 @@ public class ReteUtil {
 		return childMaxVisitIndex;
 	}
 
-//	public static IRReteNode findDupNode(IRReteNode node) {
-//		return matchChildNode(node, RReteType.DUP, null);
-//	}
-
 	public static IRReteNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 
 		String namedName = filter.getNamedName();
@@ -985,6 +971,10 @@ public class ReteUtil {
 
 		return namedNode;
 	}
+
+//	public static IRReteNode findDupNode(IRReteNode node) {
+//		return matchChildNode(node, RReteType.DUP, null);
+//	}
 
 	public static List<IRReteEntry> getAllEntries(IREntryQueue queue) {
 
@@ -1548,10 +1538,6 @@ public class ReteUtil {
 		return obj.getType() == RType.LIST && isReteStmt((IRList) obj);
 	}
 
-//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
-//
-//	}
-
 	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
 
 		if (!isValidStmtLen(stmt.size())) {
@@ -1603,6 +1589,10 @@ public class ReteUtil {
 
 		return true;
 	}
+
+//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
+//
+//	}
 
 	public static boolean isReteTree(IRObject tree) throws RException {
 
@@ -2005,6 +1995,16 @@ public class ReteUtil {
 		}
 
 		return true;
+	}
+
+	public static boolean supportUpdateIncrementally(IRReteNode node) {
+		switch (node.getReteType()) {
+		case ZETA0:
+			return true;
+
+		default:
+			return false;
+		}
 	}
 
 	public static List<IRList> toCondList(IRList condList, IRNodeGraph graph) throws RException {

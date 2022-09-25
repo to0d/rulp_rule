@@ -20,10 +20,10 @@ import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.rule.RRunState;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.DeCounter;
+import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.cache.IRCacheWorker;
-import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -212,7 +212,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 					int[] oldUniqIndexs = oldCons.getConstraintIndex();
 
-					if (ConstraintBuilder.hasPartIndexs(oldUniqIndexs, newUniqIndexs)) {
+					if (IndexUtil.hasPartIndexs(oldUniqIndexs, newUniqIndexs)) {
 
 						// (uniq ?x ?y) add (uniq ?x ?y) => (uniq ?x ?y)
 						if (oldUniqIndexs.length == newUniqIndexs.length) {
@@ -224,7 +224,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 						}
 					}
 					// (uniq ?x) add (uniq ?x ?y) => (uniq ?x) no change
-					else if (ConstraintBuilder.hasPartIndexs(newUniqIndexs, oldUniqIndexs)) {
+					else if (IndexUtil.hasPartIndexs(newUniqIndexs, oldUniqIndexs)) {
 						return true;
 					}
 				}

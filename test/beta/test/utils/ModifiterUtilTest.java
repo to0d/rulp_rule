@@ -1,7 +1,6 @@
 package beta.test.utils;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,46 +18,40 @@ import alpha.rulp.utils.RulpTestBase;
 
 class ModifiterUtilTest extends RulpTestBase {
 
-	void _test_modifiter_list(String inputList, String expectResult) {
+	String _modifiter_list(String inputList) throws RException, IOException {
 
-		try {
+		List<IRObject> list = RulpFactory.createParser().parse(inputList);
+		assertEquals(1, list.size());
+		assertEquals(RType.LIST, list.get(0).getType());
 
-			List<IRObject> list = RulpFactory.createParser().parse(inputList);
-			assertEquals(1, list.size());
-			assertEquals(RType.LIST, list.get(0).getType());
+		IRList modifiterList = (IRList) list.get(0);
 
-			IRList modifiterList = (IRList) list.get(0);
+		List<Modifier> ml = ModifiterUtil.parseModifiterList(modifiterList.iterator(),
+				_getInterpreter().getMainFrame());
 
-			List<Modifier> ml = ModifiterUtil.parseModifiterList(modifiterList.iterator(),
-					_getInterpreter().getMainFrame());
+		return ml.toString();
 
-//			String asString = modifiterData.asString();
-
-			assertEquals(expectResult, ml.toString());
-
-		} catch (RException | IOException e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
 	}
 
 	@Test
-	void test_1() {
+	void test_parse_modifiter_list_1() {
+
 		_setup();
-		_test_modifiter_list("'(type atom)", "[(type atom)]");
-		_test_modifiter_list("'(from '(a b))", "[(from '('(a b)))]");
-		_test_modifiter_list("'(limit 1)", "[(limit 1)]");
-		_test_modifiter_list("'(state defined)", "[(state 1)]");
-		_test_modifiter_list("'(do (a b))", "[(do '((a b)))]");
-		_test_modifiter_list("'(order by ?x)", "[(order by '('(?x nil)))]");
-		_test_modifiter_list("'(order by ?x desc)", "[(order by '('(?x desc)))]");
-		_test_modifiter_list("'(order by '(?x ?y))", "[(order by '('('(?x ?y) nil)))]");
-		_test_modifiter_list("'(order by ?x desc '(?x ?y))", "[(order by '('(?x desc) '('(?x ?y) nil)))]");
+
+		_test((input) -> {
+			return _modifiter_list(input);
+		});
+
 	}
 
 	@Test
-	void test_2() {
+	void test_parse_modifiter_list_2() {
+
 		_setup();
-		_test_modifiter_list("'(limit 1 type atom state defined)", "[(limit 1), (type atom), (state 1)]");
+
+		_test((input) -> {
+			return _modifiter_list(input);
+		});
+
 	}
 }

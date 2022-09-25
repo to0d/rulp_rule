@@ -35,6 +35,7 @@ import alpha.rulp.lang.RRelationalOperator;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
@@ -189,122 +190,6 @@ public class ConstraintBuilder {
 		return null;
 	}
 
-	public static boolean hasPartIndexs(int[] mainIndexs, int[] partIndexs) throws RException {
-
-		if (partIndexs.length == 0 || mainIndexs.length < partIndexs.length) {
-			return false;
-		}
-
-		// All parent indexs should be in asc order
-		{
-			int lastIdx = -2;
-			for (int idx : mainIndexs) {
-				if (idx < 0 || idx <= lastIdx) {
-					throw new RException("invalid parent index: " + idx);
-				}
-				lastIdx = idx;
-			}
-		}
-
-		// All sub indexs should be in asc order
-		{
-			int lastIdx = -2;
-			for (int idx : partIndexs) {
-				if (idx < 0 || idx <= lastIdx) {
-					throw new RException("invalid sub index: " + idx);
-				}
-				lastIdx = idx;
-			}
-		}
-
-		int pos1 = 0;
-		int pos2 = 0;
-
-		while (pos1 < mainIndexs.length && pos2 < partIndexs.length) {
-
-			int v1 = mainIndexs[pos1];
-			int v2 = partIndexs[pos2];
-
-			if (v1 == v2) {
-				pos1++;
-				pos2++;
-			} else if (v1 < v2) {
-				pos1++;
-			} else {
-				return false;
-			}
-		}
-
-		return pos2 == partIndexs.length;
-	}
-
-	public static boolean matchIndexs(int[] idx1, int[] idx2) throws RException {
-
-		if (idx1.length != idx2.length) {
-			return false;
-		}
-
-		if (idx1.length == 0) {
-			return true;
-		}
-
-		// All index1 should be actual index number
-		{
-			int lastIdx = -2;
-			for (int idx : idx1) {
-				if (idx < 0 || idx == lastIdx) {
-					throw new RException("invalid index1: " + idx);
-				}
-				lastIdx = idx;
-			}
-		}
-
-		// All index2 should be in order
-		int anyIdx2Count = 0;
-		{
-			int lastIdx = -2;
-			for (int idx : idx2) {
-
-				if (idx < lastIdx || (idx >= 0 && idx == lastIdx)) {
-					throw new RException("invalid index2: " + idx);
-				}
-
-				if (idx == -1) {
-					anyIdx2Count++;
-				}
-
-				lastIdx = idx;
-			}
-		}
-
-		final int len = idx1.length;
-
-		// match index one by one
-		if (anyIdx2Count == 0) {
-
-			for (int i = 0; i < len; ++i) {
-				if (idx1[i] != idx2[i]) {
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		int i = 0;
-		NEXT: for (int j = anyIdx2Count; j < len; ++j) {
-			int idx = idx2[j];
-			while (i < len) {
-				if (idx1[i++] == idx) {
-					continue NEXT;
-				}
-			}
-			return false;
-		}
-
-		return true;
-	}
-
 	private IRObject[] varEntry;
 
 	private Map<String, Integer> varIndexMap = new HashMap<>();
@@ -440,7 +325,7 @@ public class ConstraintBuilder {
 				continue;
 			}
 
-			if (columnIndexs != null && !matchIndexs(constraint.getConstraintIndex(), columnIndexs)) {
+			if (columnIndexs != null && !IndexUtil.matchIndexs(constraint.getConstraintIndex(), columnIndexs)) {
 				continue;
 			}
 

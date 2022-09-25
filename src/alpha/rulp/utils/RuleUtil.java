@@ -356,23 +356,6 @@ public class RuleUtil {
 		return b != null && a.equals(b);
 	}
 
-	public static String formatIndexs(int[] indexs) {
-
-		StringBuffer sb = new StringBuffer();
-
-		for (int i = 0; i < indexs.length; ++i) {
-
-			if (i != 0) {
-				sb.append(' ');
-			}
-
-			sb.append('?');
-			sb.append(indexs[i]);
-		}
-
-		return sb.toString();
-	}
-
 	public static List<IRReteNode> getAllParentNodes(IRReteNode node) throws RException {
 
 		List<IRReteNode> nodes = new ArrayList<>();
