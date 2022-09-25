@@ -85,6 +85,7 @@ import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
+import alpha.rulp.ximpl.node.RUniqInfo;
 import alpha.rulp.ximpl.node.SourceNode;
 
 public class StatsUtil {
@@ -1613,20 +1614,43 @@ public class StatsUtil {
 
 	private static void _printNodeInfo7(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
 
-		sb.append("node info7:\n");
-		sb.append(SEP_LINE1);
-
-		sb.append(String.format("%-12s %s\n", "NODE[n]", "UniqIndexs"));
-		sb.append(SEP_LINE2);
+		boolean outputHead = false;
 
 		for (IRReteNode node : nodes) {
-			sb.append(String.format("%-12s %s", node.getNodeName() + "[" + node.getEntryLength() + "]",
-					node.getUniqName()));
-			sb.append("\n");
+
+			List<RUniqInfo> uniqInfoList = node.getUniqInfo();
+			if (uniqInfoList.isEmpty()) {
+				continue;
+			}
+
+			if (!outputHead) {
+
+				sb.append("node info7:\n");
+				sb.append(SEP_LINE1);
+
+				sb.append(String.format("%-12s %s\n", "NODE[n]", "UniqIndexs"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
+			}
+
+			int i = 0;
+			for (RUniqInfo info : uniqInfoList) {
+
+				if (i++ == 0) {
+					sb.append(String.format("%-12s '(%s)\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+							RuleUtil.formatIndexs(info.uniqIndexs)));
+				} else {
+					sb.append(String.format("%-12s '(%s)\n", "", RuleUtil.formatIndexs(info.uniqIndexs)));
+				}
+			}
+
 		}
 
-		sb.append(SEP_LINE1);
-		sb.append("\n");
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
 	}
 
 	private static void _printNodeSource(StringBuffer sb, IReteNodeMatrix nodeMatrix, List<IRReteNode> nodes)
@@ -1910,6 +1934,7 @@ public class StatsUtil {
 			printNodeInfo4(sb, model, nodes);
 			_printNodeInfo5Action(sb, model, nodes);
 			_printNodeInfo6(sb, model, nodes);
+			_printNodeInfo7(sb, model, nodes);
 			_printCacheInfo(sb, model, nodes);
 		}
 
