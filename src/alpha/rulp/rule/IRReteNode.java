@@ -66,8 +66,6 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public int getAddEntryFailCount();
 
-	public List<IRConstraint1Uniq> listUniqConstraints();
-
 	public String getCacheInfo();
 
 	public IRCacheWorker getCacheWorker();
@@ -126,8 +124,6 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public RReteType getReteType();
 
-	public List<RUniqInfo> getUniqInfo();
-
 	public String getUniqName();
 
 	public DeCounter getUpdateCounter();
@@ -145,6 +141,10 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 	public void incNodeMatchCount();
 
 	public boolean isNodeFresh();
+
+	public List<IRConstraint1Uniq> listUniqConstraints();
+
+	public List<RUniqInfo> listUniqInfos();
 
 	public void removeChildNode(IRReteNode child);
 

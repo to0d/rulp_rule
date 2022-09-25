@@ -1618,7 +1618,7 @@ public class StatsUtil {
 
 		for (IRReteNode node : nodes) {
 
-			List<RUniqInfo> uniqInfoList = node.getUniqInfo();
+			List<RUniqInfo> uniqInfoList = node.listUniqInfos();
 			if (uniqInfoList.isEmpty()) {
 				continue;
 			}

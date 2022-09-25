@@ -118,6 +118,28 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return RNodeFactory.createNodeFrame(this);
 	}
 
+	protected List<RUniqInfo> _rebuildUniqInfoList() {
+
+		List<RUniqInfo> uniqInfoList;
+
+		List<IRConstraint1Uniq> uniqConstraints = listUniqConstraints();
+
+		if (uniqConstraints.isEmpty()) {
+			uniqInfoList = Collections.emptyList();
+
+		} else {
+
+			uniqInfoList = new ArrayList<>();
+			for (IRConstraint1Uniq cons : uniqConstraints) {
+				RUniqInfo uniqInfo = new RUniqInfo();
+				uniqInfo.uniqIndexs = cons.getConstraintIndex();
+				uniqInfoList.add(uniqInfo);
+			}
+		}
+
+		return uniqInfoList;
+	}
+
 	protected boolean _testConstraint1(IRReteEntry entry) throws RException {
 
 		if (constraint1List == null) {
@@ -529,30 +551,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public List<RUniqInfo> getUniqInfo() {
-
-		if (_uniqInfoList == null) {
-
-			List<IRConstraint1Uniq> uniqConstraints = listUniqConstraints();
-			if (uniqConstraints.isEmpty()) {
-				_uniqInfoList = Collections.emptyList();
-
-			} else {
-				
-				_uniqInfoList = new ArrayList<>();
-				for (IRConstraint1Uniq cons : uniqConstraints) {
-					RUniqInfo uniqInfo = new RUniqInfo();
-					uniqInfo.uniqIndexs = cons.getConstraintIndex();
-					_uniqInfoList.add(uniqInfo);
-				}
-			}
-
-		}
-
-		return _uniqInfoList;
-	}
-
-	@Override
 	public String getUniqName() {
 		return uniqName;
 	}
@@ -628,6 +626,16 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		return _uniqConstraints;
+	}
+
+	@Override
+	public List<RUniqInfo> listUniqInfos() {
+
+		if (_uniqInfoList == null) {
+			_uniqInfoList = _rebuildUniqInfoList();
+		}
+
+		return _uniqInfoList;
 	}
 
 //	public void removeChild(IRReteNode child) {

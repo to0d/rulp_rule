@@ -283,4 +283,13 @@ public class TestOptimize extends RuleTestBase {
 		_statsInfo("m");
 
 	}
+
+	@Test
+	void test_opt_e_beta2_uniq_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
 }
