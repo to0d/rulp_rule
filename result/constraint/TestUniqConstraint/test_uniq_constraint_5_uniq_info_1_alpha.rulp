@@ -1,0 +1,11 @@
+(new model m)
+;=>
+
+(add-constraint m n1:'(?x ?y ?) (uniq on '(?x ?y)))
+;=>
+
+(add-rule m if n1:'(?x p1 ?x) do (-> n1:'(?x p3 ?x)))
+;=>
+
+(add-rule m if n2:'(?x p1 ?y) do (-> n2:'(?x p3 ?y)))
+;=>
