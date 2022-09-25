@@ -114,6 +114,15 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		super(null, instanceName, null);
 	}
 
+	protected void _cleanUniqInfoList() {
+
+		_uniqInfoList = null;
+
+		for (IRReteNode child : getChildNodes()) {
+			((AbsReteNode) child)._cleanUniqInfoList();
+		}
+	}
+
 	protected IRFrame _createNodeFrame() throws RException {
 		return RNodeFactory.createNodeFrame(this);
 	}
@@ -264,7 +273,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 		if (isUniqConstraint) {
 			_uniqConstraints = null;
-			_uniqInfoList = null;
+			_cleanUniqInfoList();
 		}
 
 		/***********************************************/
