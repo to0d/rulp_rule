@@ -15,6 +15,7 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IGraphInfo;
 import alpha.rulp.ximpl.node.RReteStage;
 import alpha.rulp.ximpl.node.RReteType;
+import alpha.rulp.ximpl.node.RUniqInfo;
 
 public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
@@ -124,6 +125,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 	public IRList getReteTree();
 
 	public RReteType getReteType();
+
+	public List<RUniqInfo> getUniqInfo();
 
 	public String getUniqName();
 

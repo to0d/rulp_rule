@@ -289,6 +289,18 @@ public class RuleUtil {
 		return (IRRule) obj;
 	}
 
+	public static IRVar createModelVar(IRModel model, String varName, IRObject value) throws RException {
+
+		IRVar var = RulpFactory.createVar(varName);
+		if (value != null) {
+			var.setValue(value);
+		}
+
+		RulpUtil.setMember(model, varName, var);
+
+		return var;
+	}
+
 //	public static List<IRObject> compute(IRModel model, String input) throws RException {
 //
 //		IRInterpreter interpreter = model.getInterpreter();
@@ -335,18 +347,6 @@ public class RuleUtil {
 //		}
 //	}
 
-	public static IRVar createModelVar(IRModel model, String varName, IRObject value) throws RException {
-
-		IRVar var = RulpFactory.createVar(varName);
-		if (value != null) {
-			var.setValue(value);
-		}
-
-		RulpUtil.setMember(model, varName, var);
-
-		return var;
-	}
-
 	public static boolean equal(String a, String b) throws RException {
 
 		if (a == null) {
@@ -354,6 +354,23 @@ public class RuleUtil {
 		}
 
 		return b != null && a.equals(b);
+	}
+
+	public static String formatIndexs(int[] indexs) {
+
+		StringBuffer sb = new StringBuffer();
+
+		for (int i = 0; i < indexs.length; ++i) {
+
+			if (i != 0) {
+				sb.append(' ');
+			}
+
+			sb.append('?');
+			sb.append(indexs[i]);
+		}
+
+		return sb.toString();
 	}
 
 	public static List<IRReteNode> getAllParentNodes(IRReteNode node) throws RException {

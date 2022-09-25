@@ -40,6 +40,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected List<IRConstraint1Uniq> _uniqConstraints = null;
 
+	protected List<RUniqInfo> _uniqInfoList = null;
+
 	protected int addEntryFailCount = 0;
 
 	protected List<IRReteNode> allChildNodes = null;
@@ -240,6 +242,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 		if (isUniqConstraint) {
 			_uniqConstraints = null;
+			_uniqInfoList = null;
 		}
 
 		/***********************************************/
@@ -317,29 +320,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public int getAddEntryFailCount() {
 		return addEntryFailCount;
-	}
-
-	@Override
-	public List<IRConstraint1Uniq> listUniqConstraints() {
-
-		if (_uniqConstraints == null) {
-			if (constraint1List != null) {
-				for (IRConstraint1 oldCons : constraint1List) {
-					if (oldCons.getConstraintName().equals(A_Uniq)) {
-						if (_uniqConstraints == null) {
-							_uniqConstraints = new ArrayList<>();
-						}
-						_uniqConstraints.add((IRConstraint1Uniq) oldCons);
-					}
-				}
-			}
-
-			if (_uniqConstraints == null) {
-				_uniqConstraints = Collections.emptyList();
-			}
-		}
-
-		return _uniqConstraints;
 	}
 
 	public String getCacheInfo() {
@@ -549,6 +529,30 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
+	public List<RUniqInfo> getUniqInfo() {
+
+		if (_uniqInfoList == null) {
+
+			List<IRConstraint1Uniq> uniqConstraints = listUniqConstraints();
+			if (uniqConstraints.isEmpty()) {
+				_uniqInfoList = Collections.emptyList();
+
+			} else {
+				
+				_uniqInfoList = new ArrayList<>();
+				for (IRConstraint1Uniq cons : uniqConstraints) {
+					RUniqInfo uniqInfo = new RUniqInfo();
+					uniqInfo.uniqIndexs = cons.getConstraintIndex();
+					_uniqInfoList.add(uniqInfo);
+				}
+			}
+
+		}
+
+		return _uniqInfoList;
+	}
+
+	@Override
 	public String getUniqName() {
 		return uniqName;
 	}
@@ -601,6 +605,29 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	public boolean isTrace() {
 		return trace;
+	}
+
+	@Override
+	public List<IRConstraint1Uniq> listUniqConstraints() {
+
+		if (_uniqConstraints == null) {
+			if (constraint1List != null) {
+				for (IRConstraint1 oldCons : constraint1List) {
+					if (oldCons.getConstraintName().equals(A_Uniq)) {
+						if (_uniqConstraints == null) {
+							_uniqConstraints = new ArrayList<>();
+						}
+						_uniqConstraints.add((IRConstraint1Uniq) oldCons);
+					}
+				}
+			}
+
+			if (_uniqConstraints == null) {
+				_uniqConstraints = Collections.emptyList();
+			}
+		}
+
+		return _uniqConstraints;
 	}
 
 //	public void removeChild(IRReteNode child) {

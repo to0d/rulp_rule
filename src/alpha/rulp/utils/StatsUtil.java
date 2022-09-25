@@ -422,7 +422,7 @@ public class StatsUtil {
 
 		case BETA3:
 			return "b3";
-			
+
 		case ZETA0:
 			return "z0";
 
@@ -1604,6 +1604,24 @@ public class StatsUtil {
 					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount,
 					node.getConstraint1Count(), constraint2Count, node.getPriority(), varEntry));
 
+			sb.append("\n");
+		}
+
+		sb.append(SEP_LINE1);
+		sb.append("\n");
+	}
+
+	private static void _printNodeInfo7(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		sb.append("node info7:\n");
+		sb.append(SEP_LINE1);
+
+		sb.append(String.format("%-12s %s\n", "NODE[n]", "UniqIndexs"));
+		sb.append(SEP_LINE2);
+
+		for (IRReteNode node : nodes) {
+			sb.append(String.format("%-12s %s", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					node.getUniqName()));
 			sb.append("\n");
 		}
 

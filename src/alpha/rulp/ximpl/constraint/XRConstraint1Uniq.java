@@ -2,7 +2,6 @@ package alpha.rulp.ximpl.constraint;
 
 import static alpha.rulp.rule.Constant.A_Uniq;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +10,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RulpFactory;
+import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -65,25 +64,7 @@ public class XRConstraint1Uniq extends AbsRConstraint1 implements IRConstraint1U
 	public String getConstraintExpression() {
 
 		if (_constraintExpression == null) {
-
-			if (uniqColumnIndexs.length == 1) {
-				_constraintExpression = String.format("(%s on ?%d)", getConstraintName(), uniqColumnIndexs[0]);
-
-			} else {
-
-				ArrayList<IRObject> indexs = new ArrayList<>();
-				for (int i : uniqColumnIndexs) {
-					indexs.add(RulpFactory.createAtom("?" + i));
-				}
-
-				try {
-					_constraintExpression = String.format("(%s on %s)", getConstraintName(),
-							RulpFactory.createNativeList(indexs));
-				} catch (RException e) {
-					e.printStackTrace();
-				}
-			}
-
+			_constraintExpression = String.format("(%s on '(%s))", A_Uniq, RuleUtil.formatIndexs(uniqColumnIndexs));
 		}
 
 		return _constraintExpression;

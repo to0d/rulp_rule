@@ -14,7 +14,7 @@
 ;=>'((type int on ?0))
 
 (list-constraint m name1:'(?...))
-;=>'((uniq on ?1))
+;=>'((uniq on '(?1)))
 
 (list-stmt m from $cst_node$:'(?...))
 ;=>'()
