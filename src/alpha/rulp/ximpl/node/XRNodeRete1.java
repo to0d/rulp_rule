@@ -31,12 +31,25 @@ public class XRNodeRete1 extends AbsReteNode {
 		return _update(0);
 	}
 
+	protected List<RUniqInfo> _rebuildParentUniqInfoList() {
+
+		List<RUniqInfo> parentUniqList = parentNodes[0].listUniqInfos();
+		for (RUniqInfo info : parentUniqList) {
+			for (int i = 0; i < info.uniqIndexs.length; ++i) {
+				int index = info.uniqIndexs[i];
+//				if(this.varEntry)
+			}
+		}
+
+		return parentUniqList;
+	}
+
 	@Override
 	protected List<RUniqInfo> _rebuildUniqInfoList() {
 
 		List<RUniqInfo> superUniqList = super._rebuildUniqInfoList();
 
-		List<RUniqInfo> parentUniqList = parentNodes[0].listUniqInfos();
+		List<RUniqInfo> parentUniqList = _rebuildParentUniqInfoList();
 		if (parentUniqList.isEmpty()) {
 			return superUniqList;
 		}

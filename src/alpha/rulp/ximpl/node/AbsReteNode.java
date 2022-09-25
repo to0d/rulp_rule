@@ -129,21 +129,29 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected List<RUniqInfo> _rebuildUniqInfoList() {
 
-		List<RUniqInfo> uniqInfoList;
-
 		List<IRConstraint1Uniq> uniqConstraints = listUniqConstraints();
-
 		if (uniqConstraints.isEmpty()) {
-			uniqInfoList = Collections.emptyList();
 
-		} else {
-
-			uniqInfoList = new ArrayList<>();
-			for (IRConstraint1Uniq cons : uniqConstraints) {
-				RUniqInfo uniqInfo = new RUniqInfo();
-				uniqInfo.uniqIndexs = cons.getConstraintIndex();
-				uniqInfoList.add(uniqInfo);
+			if (!RReteType.isRootType(getReteType())) {
+				return Collections.emptyList();
 			}
+
+			List<RUniqInfo> uniqInfoList = new ArrayList<>();
+
+			RUniqInfo info = new RUniqInfo();
+			info.uniqIndexs = IndexUtil.buildFullIndexs(getEntryLength());
+
+			uniqInfoList.add(info);
+
+			return uniqInfoList;
+
+		}
+
+		List<RUniqInfo> uniqInfoList = new ArrayList<>();
+		for (IRConstraint1Uniq cons : uniqConstraints) {
+			RUniqInfo uniqInfo = new RUniqInfo();
+			uniqInfo.uniqIndexs = cons.getConstraintIndex();
+			uniqInfoList.add(uniqInfo);
 		}
 
 		IndexUtil.sort(uniqInfoList);

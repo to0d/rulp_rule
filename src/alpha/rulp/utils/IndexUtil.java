@@ -9,6 +9,16 @@ import alpha.rulp.ximpl.node.RUniqInfo;
 
 public class IndexUtil {
 
+	public static int[] buildFullIndexs(int len) {
+
+		int[] indexs = new int[len];
+		for (int i = 0; i < len; ++i) {
+			indexs[i] = i;
+		}
+
+		return indexs;
+	}
+
 	public static int compareIndexs(int[] indexs1, int[] indexs2) {
 
 		int d = indexs1.length - indexs2.length;
@@ -159,14 +169,6 @@ public class IndexUtil {
 		return true;
 	}
 
-	public static void sort(List<RUniqInfo> uniqInfoList) {
-
-		Collections.sort(uniqInfoList, (u1, u2) -> {
-			return IndexUtil.compareIndexs(u1.uniqIndexs, u2.uniqIndexs);
-		});
-
-	}
-
 	public static List<RUniqInfo> merge(List<RUniqInfo> list1, List<RUniqInfo> list2) {
 
 		ArrayList<RUniqInfo> uniqList = new ArrayList<>();
@@ -176,5 +178,13 @@ public class IndexUtil {
 		IndexUtil.sort(uniqList);
 
 		return uniqList;
+	}
+
+	public static void sort(List<RUniqInfo> uniqInfoList) {
+
+		Collections.sort(uniqInfoList, (u1, u2) -> {
+			return IndexUtil.compareIndexs(u1.uniqIndexs, u2.uniqIndexs);
+		});
+
 	}
 }
