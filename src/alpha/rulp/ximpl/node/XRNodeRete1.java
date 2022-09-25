@@ -1,7 +1,10 @@
 package alpha.rulp.ximpl.node;
 
+import java.util.List;
+
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
+import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
@@ -28,26 +31,22 @@ public class XRNodeRete1 extends AbsReteNode {
 		return _update(0);
 	}
 
-//	@Override
-//	protected List<RUniqInfo> _rebuildUniqInfoList() {
-//
-//		List<RUniqInfo> superUniqList = super._rebuildUniqInfoList();
-//
-//		List<RUniqInfo> parentUniqList = parentNodes[0].listUniqInfos();
-//		if (parentUniqList.isEmpty()) {
-//			return superUniqList;
-//		}
-//
-//		if (superUniqList.isEmpty()) {
-//			return parentUniqList;
-//		}
-//
-//		ArrayList<RUniqInfo> uniqList = new ArrayList<>();
-//		uniqList.addAll(superUniqList);
-//		uniqList.addAll(parentUniqList);
-//
-//		return uniqList;
-//	}
+	@Override
+	protected List<RUniqInfo> _rebuildUniqInfoList() {
+
+		List<RUniqInfo> superUniqList = super._rebuildUniqInfoList();
+
+		List<RUniqInfo> parentUniqList = parentNodes[0].listUniqInfos();
+		if (parentUniqList.isEmpty()) {
+			return superUniqList;
+		}
+
+		if (superUniqList.isEmpty()) {
+			return parentUniqList;
+		}
+
+		return IndexUtil.merge(superUniqList, parentUniqList);
+	}
 
 	public int _update(int maxParentCount) throws RException {
 

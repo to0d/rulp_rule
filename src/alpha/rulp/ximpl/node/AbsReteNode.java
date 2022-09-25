@@ -146,6 +146,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			}
 		}
 
+		IndexUtil.sort(uniqInfoList);
+
 		return uniqInfoList;
 	}
 

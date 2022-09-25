@@ -1,6 +1,11 @@
 package alpha.rulp.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import alpha.rulp.lang.RException;
+import alpha.rulp.ximpl.node.RUniqInfo;
 
 public class IndexUtil {
 
@@ -152,5 +157,24 @@ public class IndexUtil {
 		}
 
 		return true;
+	}
+
+	public static void sort(List<RUniqInfo> uniqInfoList) {
+
+		Collections.sort(uniqInfoList, (u1, u2) -> {
+			return IndexUtil.compareIndexs(u1.uniqIndexs, u2.uniqIndexs);
+		});
+
+	}
+
+	public static List<RUniqInfo> merge(List<RUniqInfo> list1, List<RUniqInfo> list2) {
+
+		ArrayList<RUniqInfo> uniqList = new ArrayList<>();
+		uniqList.addAll(list1);
+		uniqList.addAll(list2);
+
+		IndexUtil.sort(uniqList);
+
+		return uniqList;
 	}
 }
