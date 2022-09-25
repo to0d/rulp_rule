@@ -1,8 +1,5 @@
 package alpha.rulp.ximpl.node;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.RReteStatus;
 import alpha.rulp.ximpl.entry.IREntryQueue;

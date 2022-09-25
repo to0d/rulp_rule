@@ -3,8 +3,8 @@ package alpha.rulp.utils;
 import alpha.rulp.lang.RException;
 
 public class IndexUtil {
-	
-	public static int compare(int[] indexs1, int[] indexs2) {
+
+	public static int compareIndexs(int[] indexs1, int[] indexs2) {
 
 		int d = indexs1.length - indexs2.length;
 		if (d != 0) {

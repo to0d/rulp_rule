@@ -1,8 +1,7 @@
 package beta.test.utils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,44 @@ import alpha.rulp.utils.StringUtil;
 
 class IndexUtilTest extends RuleTestBase {
 
+	String _compare_indexs(String idxStr) throws RException {
+
+		List<int[]> idxStrs = _toIndxList(idxStr);
+		int[] idx1 = idxStrs.get(0);
+		int[] idx2 = idxStrs.size() > 1 ? idxStrs.get(1) : new int[0];
+
+		return "" + IndexUtil.compareIndexs(idx1, idx2);
+	}
+
+	String _format_indexs(String inputList) throws RException, IOException {
+
+		int[] idx1 = _toIndx(inputList);
+		return IndexUtil.formatIndexs(idx1);
+	}
+
+	String _has_part_indexs(String idxStr) throws RException {
+
+		List<int[]> idxStrs = _toIndxList(idxStr);
+		int[] idx1 = idxStrs.get(0);
+		int[] idx2 = idxStrs.size() > 1 ? idxStrs.get(1) : new int[0];
+
+		return "" + IndexUtil.hasPartIndexs(idx1, idx2);
+	}
+
+	String _match_indexs(String idxStr) throws RException {
+
+		List<int[]> idxStrs = _toIndxList(idxStr);
+		int[] idx1 = idxStrs.get(0);
+		int[] idx2 = idxStrs.size() > 1 ? idxStrs.get(1) : new int[0];
+
+		return "" + IndexUtil.matchIndexs(idx1, idx2);
+	}
+
 	int[] _toIndx(String idxStr) {
+
+		if (idxStr.trim().isEmpty()) {
+			return new int[0];
+		}
 
 		List<String> idxStrs = StringUtil.splitStringByChar(idxStr, ',');
 
@@ -27,34 +63,36 @@ class IndexUtilTest extends RuleTestBase {
 
 	}
 
-	void _test_match_indexs(String idxStr1, String idxStr2, boolean expectMatch) {
+	List<int[]> _toIndxList(String idxStr) {
 
-		int[] idx1 = _toIndx(idxStr1);
-		int[] idx2 = _toIndx(idxStr2);
-
-		try {
-
-			boolean match = IndexUtil.matchIndexs(idx1, idx2);
-			assertEquals(expectMatch, match);
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
+		List<int[]> idxStrs = new ArrayList<>();
+		for (String str : StringUtil.splitStringByChar(idxStr, ';')) {
+			idxStrs.add(_toIndx(str));
 		}
+
+		return idxStrs;
 	}
 
-	void _test_has_part_indexs(String idxStr1, String idxStr2, boolean expectMatch) {
+	@Test
+	void test_compare_indexs_1() {
 
-		int[] idx1 = _toIndx(idxStr1);
-		int[] idx2 = _toIndx(idxStr2);
+		_setup();
 
-		try {
+		_test((input) -> {
+			return _compare_indexs(input);
+		});
 
-			boolean match = IndexUtil.hasPartIndexs(idx1, idx2);
-			assertEquals(expectMatch, match);
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
+	}
+
+	@Test
+	void test_format_indexs() {
+
+		_setup();
+
+		_test((input) -> {
+			return _format_indexs(input);
+		});
+
 	}
 
 	@Test
@@ -62,29 +100,20 @@ class IndexUtilTest extends RuleTestBase {
 
 		_setup();
 
-		_test_has_part_indexs("", "", false);
-		_test_has_part_indexs("1", "1", true);
-		_test_has_part_indexs("0,1", "1", true);
-		_test_has_part_indexs("0,1", "0,1", true);
-		_test_has_part_indexs("0", "0,1", false);
-		_test_has_part_indexs("1,2,3", "1,3", true);
-		_test_has_part_indexs("0,2", "2,3", false);
-	}
+		_test((input) -> {
+			return _has_part_indexs(input);
+		});
 
+	}
+	
 	@Test
 	void test_match_indexs_1() {
 
 		_setup();
 
-		_test_match_indexs("", "", true);
-		_test_match_indexs("1", "1", true);
-		_test_match_indexs("1", "1,1", false);
-		_test_match_indexs("1,2,3", "1,2,3", true);
-		_test_match_indexs("1,2,3", "-1,2,3", true);
-		_test_match_indexs("1,2,3", "-1,-1,3", true);
-		_test_match_indexs("1,2,3", "-1,1,3", true);
-		_test_match_indexs("1,2,3", "-1,1,2", true);
-		_test_match_indexs("1,2,3", "-1,-1,1", true);
+		_test((input) -> {
+			return _match_indexs(input);
+		});
 
 	}
 }
