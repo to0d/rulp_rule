@@ -19,7 +19,7 @@ public class XRNodeRete1 extends AbsReteNode {
 
 	protected List<RUniqInfo> _rebuildParentUniqInfoList() throws RException {
 
-		List<RUniqInfo> parentUniqList = new ArrayList<>(parentNodes[0].listUniqInfos());
+		List<RUniqInfo> parentUniqList = IndexUtil.clone(parentNodes[0].listUniqInfos());
 		int size = parentUniqList.size();
 
 		for (int pos = 0; pos < size; ++pos) {

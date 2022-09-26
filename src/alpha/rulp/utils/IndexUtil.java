@@ -1,5 +1,6 @@
 package alpha.rulp.utils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,14 +9,33 @@ import alpha.rulp.ximpl.node.RUniqInfo;
 
 public class IndexUtil {
 
-	public static int[] buildFullIndexs(int len) {
+	public static int[] clone(int[] indexs) {
 
-		int[] indexs = new int[len];
-		for (int i = 0; i < len; ++i) {
-			indexs[i] = i;
+		int[] newIndexs = new int[indexs.length];
+
+		for (int i = 0; i < indexs.length; ++i) {
+			newIndexs[i] = indexs[i];
 		}
 
-		return indexs;
+		return newIndexs;
+	}
+
+	public static List<RUniqInfo> clone(List<RUniqInfo> infoList) {
+
+		List<RUniqInfo> newInfoList = new ArrayList<>();
+		for (RUniqInfo info : infoList) {
+			newInfoList.add(clone(info));
+		}
+
+		return newInfoList;
+	}
+
+	public static RUniqInfo clone(RUniqInfo info) {
+
+		RUniqInfo newInfo = new RUniqInfo();
+		newInfo.uniqIndexs = clone(info.uniqIndexs);
+
+		return newInfo;
 	}
 
 	public static int compareIndexs(int[] indexs1, int[] indexs2) {
@@ -101,6 +121,16 @@ public class IndexUtil {
 		return pos2 == partIndexs.length;
 	}
 
+	public static int[] makeFullIndexs(int len) {
+
+		int[] indexs = new int[len];
+		for (int i = 0; i < len; ++i) {
+			indexs[i] = i;
+		}
+
+		return indexs;
+	}
+
 	public static boolean matchIndexs(int[] idx1, int[] idx2) throws RException {
 
 		if (idx1.length != idx2.length) {
@@ -168,29 +198,6 @@ public class IndexUtil {
 		return true;
 	}
 
-	public static RUniqInfo unify(RUniqInfo info) {
-
-		RUniqInfo newInfo = new RUniqInfo();
-
-		int uniqCount = 0;
-		for (int i = 0; i < info.uniqIndexs.length; ++i) {
-			if (info.uniqIndexs[i] != -1) {
-				uniqCount++;
-			}
-		}
-
-		newInfo.uniqIndexs = new int[uniqCount];
-		int pos = 0;
-		
-		for (int i = 0; i < info.uniqIndexs.length; ++i) {
-			if (info.uniqIndexs[i] != -1) {
-				newInfo.uniqIndexs[pos++] = info.uniqIndexs[i];
-			}
-		}
-
-		return newInfo;
-	}
-
 	public static void unify(List<RUniqInfo> list) {
 
 		if (list.size() < 2) {
@@ -228,5 +235,28 @@ public class IndexUtil {
 			list.remove(pos);
 		}
 
+	}
+
+	public static RUniqInfo unify(RUniqInfo info) {
+
+		RUniqInfo newInfo = new RUniqInfo();
+
+		int uniqCount = 0;
+		for (int i = 0; i < info.uniqIndexs.length; ++i) {
+			if (info.uniqIndexs[i] != -1) {
+				uniqCount++;
+			}
+		}
+
+		newInfo.uniqIndexs = new int[uniqCount];
+		int pos = 0;
+
+		for (int i = 0; i < info.uniqIndexs.length; ++i) {
+			if (info.uniqIndexs[i] != -1) {
+				newInfo.uniqIndexs[pos++] = info.uniqIndexs[i];
+			}
+		}
+
+		return newInfo;
 	}
 }

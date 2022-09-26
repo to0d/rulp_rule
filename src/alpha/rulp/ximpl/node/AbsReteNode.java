@@ -139,7 +139,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 			List<RUniqInfo> uniqInfoList = new ArrayList<>();
 
 			RUniqInfo info = new RUniqInfo();
-			info.uniqIndexs = IndexUtil.buildFullIndexs(getEntryLength());
+			info.uniqIndexs = IndexUtil.makeFullIndexs(getEntryLength());
 
 			uniqInfoList.add(info);
 
