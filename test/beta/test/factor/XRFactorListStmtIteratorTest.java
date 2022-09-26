@@ -9,6 +9,8 @@ class XRFactorListStmtIteratorTest extends RuleTestBase {
 	@Test
 	void test_list_stmt_iterator_1() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");

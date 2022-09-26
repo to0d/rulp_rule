@@ -9,6 +9,8 @@ class XRFactorBackSearchTest extends RuleTestBase {
 	@Test
 	void test_back_search_1() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");
@@ -116,6 +118,8 @@ class XRFactorBackSearchTest extends RuleTestBase {
 	@Test
 	void test_back_search_8_rhs_expr_1_b() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");
@@ -140,6 +144,8 @@ class XRFactorBackSearchTest extends RuleTestBase {
 
 	@Test
 	void test_back_search_9_query_var_3_limit() {
+
+		// Should fail
 
 		_setup();
 		_run_script();

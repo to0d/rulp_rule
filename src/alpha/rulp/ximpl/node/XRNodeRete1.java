@@ -17,28 +17,29 @@ public class XRNodeRete1 extends AbsReteNode {
 		super(instanceName);
 	}
 
-	@Override
-	public int getParentVisitIndex(int index) {
-		return index == 0 ? lastParentVisitIndex : -1;
-	}
+	protected List<RUniqInfo> _rebuildParentUniqInfoList() throws RException {
 
-	@Override
-	public boolean isNodeFresh() {
-		return lastParentVisitIndex == 0;
-	}
+		List<RUniqInfo> parentUniqList = new ArrayList<>(parentNodes[0].listUniqInfos());
+		int size = parentUniqList.size();
 
-	@Override
-	public int update(int limit) throws RException {
-		return _update(0);
-	}
+		for (int pos = 0; pos < size; ++pos) {
 
-	protected List<RUniqInfo> _rebuildParentUniqInfoList() {
+			RUniqInfo info = parentUniqList.get(pos);
 
-		List<RUniqInfo> parentUniqList = parentNodes[0].listUniqInfos();
-		for (RUniqInfo info : parentUniqList) {
+			boolean update = false;
+
 			for (int i = 0; i < info.uniqIndexs.length; ++i) {
 				int index = info.uniqIndexs[i];
-//				if(this.varEntry)
+				// fixed element
+				if (index != -1 && this.getVarEntry()[index] == null) {
+					info.uniqIndexs[i] = -1;
+					update = true;
+				}
+			}
+
+			if (update) {
+				info = IndexUtil.unify(info);
+				parentUniqList.set(pos, info);
 			}
 		}
 
@@ -46,7 +47,7 @@ public class XRNodeRete1 extends AbsReteNode {
 	}
 
 	@Override
-	protected List<RUniqInfo> _rebuildUniqInfoList() {
+	protected List<RUniqInfo> _rebuildUniqInfoList() throws RException {
 
 		List<RUniqInfo> superUniqList = super._rebuildUniqInfoList();
 
@@ -108,6 +109,21 @@ public class XRNodeRete1 extends AbsReteNode {
 
 		return updateCount;
 
+	}
+
+	@Override
+	public int getParentVisitIndex(int index) {
+		return index == 0 ? lastParentVisitIndex : -1;
+	}
+
+	@Override
+	public boolean isNodeFresh() {
+		return lastParentVisitIndex == 0;
+	}
+
+	@Override
+	public int update(int limit) throws RException {
+		return _update(0);
 	}
 
 }

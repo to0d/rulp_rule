@@ -144,7 +144,7 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public List<IRConstraint1Uniq> listUniqConstraints();
 
-	public List<RUniqInfo> listUniqInfos();
+	public List<RUniqInfo> listUniqInfos() throws RException;
 
 	public void removeChildNode(IRReteNode child);
 

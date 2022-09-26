@@ -19,6 +19,8 @@ public class TestManners extends RuleTestBase {
 	@Test
 	void test_manners_1_bs_can_sit_b() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("mm");

@@ -127,7 +127,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return RNodeFactory.createNodeFrame(this);
 	}
 
-	protected List<RUniqInfo> _rebuildUniqInfoList() {
+	protected List<RUniqInfo> _rebuildUniqInfoList() throws RException {
 
 		List<IRConstraint1Uniq> uniqConstraints = listUniqConstraints();
 		if (uniqConstraints.isEmpty()) {
@@ -648,7 +648,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public List<RUniqInfo> listUniqInfos() {
+	public List<RUniqInfo> listUniqInfos() throws RException {
 
 		if (_uniqInfoList == null) {
 			_uniqInfoList = _rebuildUniqInfoList();

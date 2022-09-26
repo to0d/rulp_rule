@@ -20,7 +20,6 @@ public class XRNodeIndex extends XRNodeRete1 implements IRIndexNode {
 	}
 
 	public void setOrderList(List<OrderEntry> orderList) {
-
 		this.orderList = orderList;
 	}
 

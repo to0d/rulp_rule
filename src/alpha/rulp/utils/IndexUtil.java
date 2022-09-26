@@ -1,6 +1,5 @@
 package alpha.rulp.utils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -167,6 +166,29 @@ public class IndexUtil {
 		}
 
 		return true;
+	}
+
+	public static RUniqInfo unify(RUniqInfo info) {
+
+		RUniqInfo newInfo = new RUniqInfo();
+
+		int uniqCount = 0;
+		for (int i = 0; i < info.uniqIndexs.length; ++i) {
+			if (info.uniqIndexs[i] != -1) {
+				uniqCount++;
+			}
+		}
+
+		newInfo.uniqIndexs = new int[uniqCount];
+		int pos = 0;
+		
+		for (int i = 0; i < info.uniqIndexs.length; ++i) {
+			if (info.uniqIndexs[i] != -1) {
+				newInfo.uniqIndexs[pos++] = info.uniqIndexs[i];
+			}
+		}
+
+		return newInfo;
 	}
 
 	public static void unify(List<RUniqInfo> list) {
