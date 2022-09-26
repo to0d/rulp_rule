@@ -1,5 +1,6 @@
 package alpha.rulp.ximpl.node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import alpha.rulp.lang.RException;
@@ -58,7 +59,13 @@ public class XRNodeRete1 extends AbsReteNode {
 			return parentUniqList;
 		}
 
-		return IndexUtil.merge(superUniqList, parentUniqList);
+		ArrayList<RUniqInfo> uniqList = new ArrayList<>();
+		uniqList.addAll(superUniqList);
+		uniqList.addAll(parentUniqList);
+
+		IndexUtil.unify(uniqList);
+
+		return uniqList;
 	}
 
 	public int _update(int maxParentCount) throws RException {

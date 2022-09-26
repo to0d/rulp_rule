@@ -169,22 +169,42 @@ public class IndexUtil {
 		return true;
 	}
 
-	public static List<RUniqInfo> merge(List<RUniqInfo> list1, List<RUniqInfo> list2) {
+	public static void unify(List<RUniqInfo> list) {
 
-		ArrayList<RUniqInfo> uniqList = new ArrayList<>();
-		uniqList.addAll(list1);
-		uniqList.addAll(list2);
+		if (list.size() < 2) {
+			return;
+		}
 
-		IndexUtil.sort(uniqList);
-
-		return uniqList;
-	}
-
-	public static void sort(List<RUniqInfo> uniqInfoList) {
-
-		Collections.sort(uniqInfoList, (u1, u2) -> {
+		Collections.sort(list, (u1, u2) -> {
 			return IndexUtil.compareIndexs(u1.uniqIndexs, u2.uniqIndexs);
 		});
+
+		int size = list.size();
+		RUniqInfo last = list.get(0);
+		int pos = 1;
+
+		for (int i = 1; i < size; ++i) {
+
+			RUniqInfo info = list.get(i);
+
+			// Duplicated uniq indexs
+			if (IndexUtil.compareIndexs(last.uniqIndexs, info.uniqIndexs) == 0) {
+				continue;
+			}
+
+			// does not move
+			if (pos == i) {
+				++pos;
+			} else {
+				list.set(pos++, info);
+			}
+
+			last = info;
+		}
+
+		while (list.size() > pos) {
+			list.remove(pos);
+		}
 
 	}
 }
