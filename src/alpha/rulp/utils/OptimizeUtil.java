@@ -35,6 +35,7 @@ import static alpha.rulp.ximpl.node.RReteType.ZETA0;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRExpr;
@@ -52,6 +53,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
+import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.optimize.EROUtil;
@@ -820,10 +822,143 @@ public class OptimizeUtil {
 		return condList;
 	}
 
+	static boolean _equal(Set<String> a, Set<String> b) throws RException {
+
+		if (a.size() != b.size()) {
+			return false;
+		}
+
+		for (String x : a) {
+			if (!b.contains(x)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	static Set<String> _join(Set<String> a, Set<String> b) throws RException {
+
+		HashSet<String> c = new HashSet<>(a);
+		c.retainAll(b);
+
+		return c;
+	}
+
+//	public static IRList _optimizeMatchTreeUnusedVar(IRList reteTree, Set<String> actionVarSet) throws RException {
+//
+//		Set<String> treeVarSet = _toVarSet(reteTree);
+//		Set<String> joinVarSet = _join(treeVarSet, actionVarSet);
+//
+//		if (_equal(treeVarSet, joinVarSet)) {
+//			return reteTree;
+//		}
+//
+//		RType treeType = reteTree.getType();
+//		int treeSize = reteTree.size();
+//		IRObject e0 = reteTree.get(0);
+//
+//		RType e0Type = reteTree.get(0).getType();
+//		RType e1Type = treeSize >= 2 ? reteTree.get(1).getType() : null;
+//
+//		// alpha node: '(a b c)
+//		if (treeType == RType.LIST && ReteUtil.isEntryValueType(e0Type)) {
+//
+//			return _buildAlphaNode(reteTree, tmpVarBuilder);
+//		}
+//
+//		// Beta0: '('(a b c) '(x y z))
+//		if (ReteUtil.isBetaTree(reteTree, treeSize)) {
+//			return _buildBetaNode(reteTree, tmpVarBuilder);
+//		}
+//
+//		// Beta1 or Expr
+//		if (treeSize == 2 && treeType == RType.LIST && e0Type == RType.LIST && e1Type == RType.EXPR) {
+//
+//			IRList l1 = (IRList) reteTree.get(1);
+//
+//			// Build beta1 node:
+//			// - beta1 node: '('(a b ?v) (var-changed ?var v1 ?v)) // have join vars
+//			// - beta1 node: '('(a b c) (var-changed ?var v1 v2)) // no join vars
+//			if (ReteUtil.isVarChangeExpr(l1)) {
+//				return _buildBetaNode(reteTree, tmpVarBuilder);
+//			}
+//
+//			// Build expr node: '('(a b c) (x y z))
+//			return _buildExprNode(reteTree, tmpVarBuilder);
+//		}
+//
+//		// (var-changed)
+//		if (ReteUtil.isVarChangeExpr(reteTree)) {
+//
+//			// (var-changed ?State Running Completed)
+//			if (e0Type == RType.ATOM) {
+//				return _buildVarNode(reteTree, tmpVarBuilder);
+//			}
+//
+//			// ((var-changed ?s1 ?v1 v2) (not-equal ?v1 a))
+//			if (ReteUtil.isVarChangeExpr(e0) && treeSize == 2 && e1Type == RType.EXPR) {
+//				return _buildExprNode(reteTree, tmpVarBuilder);
+//			}
+//		}
+//
+//		// (inherit '(?a ?b ?c) 0)
+//		if (ReteUtil.isInheritExpr(reteTree)) {
+//			return _buildInheritNode(reteTree, tmpVarBuilder);
+//		}
+//
+//		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
+//		if (ReteUtil.isBeta3Tree(reteTree, treeSize)) {
+//			return _buildBetaNode(reteTree, tmpVarBuilder);
+//		}
+//
+//		// beta:'((var-changed ?x ?xv) (var-changed ?y ?yv))
+//		if (treeSize == 2 && treeType == RType.LIST && ReteUtil.isVarChangeExpr(e0)
+//				&& ReteUtil.isVarChangeExpr(reteTree.get(1))) {
+//			return _buildBetaNode(reteTree, tmpVarBuilder);
+//		}
+//
+//		int ModifierCount = ReteUtil.getReteTreeModifierCount(reteTree);
+//		if (ModifierCount > 0 && treeSize > ModifierCount) {
+//
+//			ArrayList<IRObject> newReteTreeList = new ArrayList<>();
+//			int newSize = treeSize - ModifierCount;
+//			for (int i = 0; i < newSize; ++i) {
+//				newReteTreeList.add(reteTree.get(i));
+//			}
+//
+//			AbsReteNode processNode = _buildReteNode(RulpFactory.createList(newReteTreeList), tmpVarBuilder);
+//			for (int i = newSize; i < treeSize; ++i) {
+//				processNode = _processNodeModifier(processNode, RulpUtil.asAtom(reteTree.get(i)).asString());
+//			}
+//
+//			processNode.setUniqName(ReteUtil.uniqName(reteTree));
+//
+//			return processNode;
+//		}
+//
+////		// beta:((var-changed ?x ?xv) url-entry:'(?url-name ?url))
+////		if (treeSize == 2 && treeType == RType.EXPR && ReteUtility.isVarChangeExpr(e0) && e1Type == RType.LIST) {
+////			return _buildBetaNode(reteTree, tmpVarBuilder);
+////		}
+//
+//		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
+//		if (ReteUtil.isZetaTree(reteTree, treeSize)) {
+//			return _buildZetaNode(reteTree, tmpVarBuilder);
+//		}
+//
+//	}
+
+	static Set<String> _toVarSet(IRList list) throws RException {
+		HashSet<String> varNames = new HashSet<>();
+		ReteUtil.buildVarList(list, new ArrayList<>(), varNames);
+		return varNames;
+	}
+
 	public static IRList optimizeMatchTree(IRList matchTree, List<IRExpr> actionExprList) throws RException {
 
 		/***************************************************/
-		// optimize unused condtiion var
+		// optimize unused beta var
 		// before: '('(?a p ?b) '(?a p ?c)) -> (func ?a)
 		// after : '('(?a p ?b) (inherit '(?a p ?c) 0)
 		/***************************************************/
