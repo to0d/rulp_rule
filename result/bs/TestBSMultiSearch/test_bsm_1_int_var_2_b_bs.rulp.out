@@ -32,16 +32,16 @@
 00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
 00000 SO0000: route to SA0001
 00001     SA0001: init begin, stmt=v4:'(?x ?y ?z), rule=RU003: RU003, action=v4:'(?0, ?1, ?2)(0), type=STMT_AND, status=INIT
-00001     SA0001: add child, type=ENTRY_QUERY, name=SQ0002
+00001     SA0001: add child, type=ENTRY_QUERY, name=EQ0002
 00001     SA0001: init end, rst=false, status=PROCESS, fail-child=null
-00001     SA0001: route to SQ0002
-00002         SQ0002: init begin, tree='(v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2))), type=ENTRY_QUERY, status=INIT
-00002         SQ0002: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
-00003         SQ0002: process begin
-00003         SQ0002: process end, rst=false, status=COMPLETE, forward=true, backward=true, query=0
-00004         SQ0002: route to SA0001
+00001     SA0001: route to EQ0002
+00002         EQ0002: init begin, tree='(v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2))), type=ENTRY_QUERY, status=INIT
+00002         EQ0002: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
+00003         EQ0002: process begin
+00003         EQ0002: process end, rst=false, status=COMPLETE, forward=true, backward=true, query=0
+00004         EQ0002: route to SA0001
 00005     SA0001: process begin
-00005     SA0001: process end, rst=false, status=COMPLETE, child=1/1, fail-child=SQ0002
+00005     SA0001: process end, rst=false, status=COMPLETE, child=1/1, fail-child=EQ0002
 00006     SA0001: route to SO0000
 00007 SO0000: process begin
 00007 SO0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true

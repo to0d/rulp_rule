@@ -1,0 +1,19 @@
+(new model m)
+(add-rule m if n1:'(?a p ?b) do  (-> '(?a p ?b)))
+(add-rule m if n2:'(?a p ?b) do  (-> '(?a p ?b)))
+(add-stmt m n1:'(a1 p b))
+(add-stmt m n2:'(a2 p b))
+(add-stmt m '(b p c))
+;=>m RU000 RU001 true true true
+
+(list-stmt m)
+;=>'('(b p c) n1:'(a1 p b) n2:'(a2 p b))
+
+;(setq ?model-trace true)
+
+(query-stmt m '(?a ?b ?c) from '(?a p ?b) '(?b p ?c) limit 1)
+;=>'('(a2 b c))
+
+(list-stmt m)
+;=>'('(b p c) '(a2 p b) n1:'(a1 p b) n2:'(a2 p b))
+
