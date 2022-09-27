@@ -22,10 +22,10 @@
 00001     SO0001: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
 00001     SO0001: route to SA0003
 00002         SA0003: init begin, stmt='(a p c), rule=RU000: RU000, action='(?0, p, ?2)(0), type=STMT_AND, status=INIT
-00002         SA0003: add child, type=STMT_QUERY, name=SQ0004
+00002         SA0003: add child, type=ENTRY_QUERY, name=SQ0004
 00002         SA0003: init end, rst=false, status=PROCESS, fail-child=null
 00002         SA0003: route to SQ0004
-00003             SQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=STMT_QUERY, status=INIT
+00003             SQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=ENTRY_QUERY, status=INIT
 00003             SQ0004: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
 00004             SQ0004: process begin
 00004             SQ0004: process end, rst=true, status=COMPLETE, forward=true, backward=false, query=1

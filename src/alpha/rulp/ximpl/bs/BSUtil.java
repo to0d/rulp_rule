@@ -33,7 +33,7 @@ public class BSUtil {
 		case STMT_OR:
 			return String.format("SO%04d", nodeId);
 
-		case STMT_QUERY:
+		case ENTRY_QUERY:
 			return String.format("SQ%04d", nodeId);
 
 		default:

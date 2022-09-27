@@ -1394,23 +1394,6 @@ public class ReteUtil {
 				&& reteTree.get(2).getType() == RType.EXPR;
 	}
 
-	public static boolean isListTree(IRObject obj) throws RException {
-
-		if (obj.getType() == RType.LIST) {
-			return true;
-		}
-
-		if (obj.getType() == RType.EXPR) {
-
-			IRExpr expr = (IRExpr) obj;
-			if (expr.size() > 0 && RulpUtil.isAtom(expr.get(0), A_Inherit)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	public static boolean isBetaTree(IRList reteTree, int treeSize) throws RException {
 		return treeSize == 2 && reteTree.getType() == RType.LIST && isListTree(reteTree.get(0))
 				&& isListTree(reteTree.get(1));
@@ -1543,6 +1526,23 @@ public class ReteUtil {
 		}
 
 		return true;
+	}
+
+	public static boolean isListTree(IRObject obj) throws RException {
+
+		if (obj.getType() == RType.LIST) {
+			return true;
+		}
+
+		if (obj.getType() == RType.EXPR) {
+
+			IRExpr expr = (IRExpr) obj;
+			if (expr.size() > 0 && RulpUtil.isAtom(expr.get(0), A_Inherit)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public static boolean isRemovedEntry(IRReteEntry entry) throws RException {

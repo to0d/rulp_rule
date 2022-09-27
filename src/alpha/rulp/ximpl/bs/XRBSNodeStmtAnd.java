@@ -9,6 +9,7 @@ import java.util.Map;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -61,9 +62,9 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 		}
 
 		AbsBSNode lastChild = this.childNodes.get(childNodes.size() - 1);
-		if (lastChild.getType() == BSNodeType.STMT_QUERY) {
+		if (lastChild.getType() == BSNodeType.ENTRY_QUERY) {
 
-			boolean hasMore = ((XRBSNodeStmtQuery) lastChild).hasMore();
+			boolean hasMore = ((XRBSNodeBetaQuery) lastChild).hasMore();
 
 			if (engine.isTrace()) {
 				engine.trace_outln(this, String.format("complete-query, hasMore=%s", "" + hasMore));
@@ -155,7 +156,23 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 		}
 
 		if (queryStmtList != null) {
-			BSFactory.addChild(engine, this, BSFactory.createNodeStmtQuery(engine, queryStmtList));
+
+			if (queryStmtList.size() > 1) {
+
+//				IRList queryTree = MatchTree.build(queryStmtList, engine.getModel().getInterpreter(),
+//						engine.getModel().getFrame());
+//
+//				if (ReteUtil.isBetaTree(queryTree, queryTree.size())) {
+
+					BSFactory.addChild(engine, this, BSFactory.createNodeBetaQuery(engine, queryStmtList));
+					queryStmtList = null;
+//				}
+			}
+
+			if (queryStmtList != null) {
+				throw new RException("invalid queryStmtList: " + queryStmtList);
+			}
+
 		}
 
 		// no child

@@ -21,7 +21,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
+public class XRBSNodeBetaQuery extends AbsBSNode implements IREntryAction {
 
 	protected boolean queryBackward = false;
 
@@ -211,7 +211,7 @@ public class XRBSNodeStmtQuery extends AbsBSNode implements IREntryAction {
 
 	@Override
 	public BSNodeType getType() {
-		return BSNodeType.STMT_QUERY;
+		return BSNodeType.ENTRY_QUERY;
 	}
 
 	public boolean hasMore() throws RException {

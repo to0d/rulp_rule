@@ -40,10 +40,10 @@
 00006 SO0000: process end, rst=false, status=PROCESS, child=1/2, succ-child=null, needComplete=true
 00006 SO0000: route to SA0002
 00007     SA0002: init begin, stmt='(a p c), rule=RU001: RU001, action='(?0, p, ?2)(0), type=STMT_AND, status=INIT
-00007     SA0002: add child, type=STMT_QUERY, name=SQ0004
+00007     SA0002: add child, type=ENTRY_QUERY, name=SQ0004
 00007     SA0002: init end, rst=false, status=PROCESS, fail-child=null
 00007     SA0002: route to SQ0004
-00008         SQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=STMT_QUERY, status=INIT
+00008         SQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=ENTRY_QUERY, status=INIT
 00008         SQ0004: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
 00009         SQ0004: process begin
 00009         SQ0004: process end, rst=true, status=COMPLETE, forward=true, backward=true, query=2
