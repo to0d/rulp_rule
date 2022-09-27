@@ -603,9 +603,7 @@ public class ReteUtil {
 
 			ArrayList<IRObject> objs = new ArrayList<>();
 			for (int i = 0; i < size; ++i) {
-
 				IRObject obj = reteTree.get(i);
-
 				if (_tryPutVarIndex(indexMap, obj, i)) {
 					objs.add(obj);
 				} else {
@@ -614,6 +612,25 @@ public class ReteUtil {
 			}
 
 			return objs;
+		}
+
+		// Beta node
+		if (isBetaTree(reteTree, size)) {
+
+			ArrayList<IRObject> vars = new ArrayList<>();
+			for (IRObject v : buildTreeVarList((IRList) reteTree.get(0), new HashMap<>())) {
+				if (_tryPutVarIndex(indexMap, v, vars.size())) {
+					vars.add(v);
+				}
+			}
+
+			for (IRObject v : buildTreeVarList((IRList) reteTree.get(1), new HashMap<>())) {
+				if (_tryPutVarIndex(indexMap, v, vars.size())) {
+					vars.add(v);
+				}
+			}
+
+			return vars;
 		}
 
 		// Expr node
@@ -653,25 +670,6 @@ public class ReteUtil {
 
 				return vars;
 			}
-		}
-
-		// Beta node
-		if (isBetaTree(reteTree, size)) {
-
-			ArrayList<IRObject> vars = new ArrayList<>();
-			for (IRObject v : buildTreeVarList((IRList) reteTree.get(0), new HashMap<>())) {
-				if (_tryPutVarIndex(indexMap, v, vars.size())) {
-					vars.add(v);
-				}
-			}
-
-			for (IRObject v : buildTreeVarList((IRList) reteTree.get(1), new HashMap<>())) {
-				if (_tryPutVarIndex(indexMap, v, vars.size())) {
-					vars.add(v);
-				}
-			}
-
-			return vars;
 		}
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)
@@ -748,6 +746,21 @@ public class ReteUtil {
 			}
 
 			return vars;
+		}
+
+		if (ReteUtil.isInheritExpr2(reteTree)) {
+
+			ArrayList<IRObject> objs = new ArrayList<>();
+			for (int i = 2; i < size; ++i) {
+				IRObject obj = reteTree.get(i);
+				if (_tryPutVarIndex(indexMap, obj, i - 2)) {
+					objs.add(obj);
+				} else {
+					objs.add(null);
+				}
+			}
+
+			return objs;
 		}
 
 		throw new RException("Invalid tree node found: " + reteTree);
@@ -1381,9 +1394,26 @@ public class ReteUtil {
 				&& reteTree.get(2).getType() == RType.EXPR;
 	}
 
+	public static boolean isListTree(IRObject obj) throws RException {
+
+		if (obj.getType() == RType.LIST) {
+			return true;
+		}
+
+		if (obj.getType() == RType.EXPR) {
+
+			IRExpr expr = (IRExpr) obj;
+			if (expr.size() > 0 && RulpUtil.isAtom(expr.get(0), A_Inherit)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static boolean isBetaTree(IRList reteTree, int treeSize) throws RException {
-		return treeSize == 2 && reteTree.getType() == RType.LIST && reteTree.get(0).getType() == RType.LIST
-				&& reteTree.get(1).getType() == RType.LIST;
+		return treeSize == 2 && reteTree.getType() == RType.LIST && isListTree(reteTree.get(0))
+				&& isListTree(reteTree.get(1));
 	}
 
 	public static boolean isCond(IRList cond) throws RException {
@@ -1461,7 +1491,7 @@ public class ReteUtil {
 		return false;
 	}
 
-	public static boolean isInheritExpr(IRObject obj) throws RException {
+	public static boolean isInheritExpr1(IRObject obj) throws RException {
 
 		if (obj.getType() != RType.EXPR || ((IRList) obj).size() < 3) {
 			return false;
@@ -1481,6 +1511,33 @@ public class ReteUtil {
 		IRIterator<? extends IRObject> it = expr.listIterator(2);
 		while (it.hasNext()) {
 			if (it.next().getType() != RType.INT) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean isInheritExpr2(IRObject obj) throws RException {
+
+		if (obj.getType() != RType.EXPR || ((IRList) obj).size() < 3) {
+			return false;
+		}
+
+		IRExpr expr = (IRExpr) obj;
+
+		if (!RulpUtil.isFactor(expr.get(0), A_Inherit)) {
+			return false;
+		}
+
+		IRObject e1 = expr.get(1);
+		if (e1.getType() != RType.EXPR && e1.getType() != RType.LIST) {
+			return false;
+		}
+
+		IRIterator<? extends IRObject> it = expr.listIterator(2);
+		while (it.hasNext()) {
+			if (!RulpUtil.isVarAtom(it.next())) {
 				return false;
 			}
 		}

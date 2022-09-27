@@ -412,4 +412,13 @@ public class TestRule extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_rule_h_inherit_1() {
+		
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		
+	}
 }

@@ -1,0 +1,11 @@
+(new model m)
+(add-rule m if '(?a p ?b) (inherit '(?b p ?c) ?b) do (println "a=" ?a))
+(-> m '(a p b))
+(-> m '(b p c))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>

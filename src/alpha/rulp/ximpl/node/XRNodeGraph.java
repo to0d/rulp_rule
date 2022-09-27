@@ -777,7 +777,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		return node;
 	}
 
-	protected AbsReteNode _buildInheritNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
+	protected AbsReteNode _buildInheritNode1(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
 
 		IRList parentTree = (IRList) reteTree.get(1);
 		IRReteNode parentNode = _findReteNode(parentTree, tmpVarBuilder);
@@ -798,6 +798,60 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			int index = RulpUtil.asInteger(indexObj).asInteger();
+
+			if (index < 0 || index >= parentNode.getEntryLength()) {
+				throw new RException(String.format("invalid index : %d", index));
+			}
+
+			if (index == lastIndex) {
+				throw new RException(String.format("duplicated index : %d", index));
+			}
+
+			IRObject var = parentNode.getVarEntry()[index];
+			if (var == null) {
+				if (!RReteType.isRootType(parentNode.getReteType()) && parentNode.getReteType() != RReteType.EXPR1) {
+					throw new RException(String.format("not var found at index : %d", index));
+				}
+			}
+
+			inheritIndexs[i] = index;
+			inheritVarEntry[i] = var;
+			lastIndex = index;
+			++i;
+		}
+
+		return RNodeFactory.createInheritNode(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), entryLength,
+				parentNode, inheritVarEntry, inheritIndexs);
+	}
+
+	protected AbsReteNode _buildInheritNode2(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
+
+		IRList parentTree = (IRList) reteTree.get(1);
+		IRReteNode parentNode = _findReteNode(parentTree, tmpVarBuilder);
+
+		Map<String, Integer> parentVarIndexMap = new HashMap<>();
+		ReteUtil.buildTreeVarList(parentTree, parentVarIndexMap);
+
+		int entryLength = reteTree.size() - 2;
+		int[] inheritIndexs = new int[entryLength];
+		IRObject[] inheritVarEntry = new IRObject[entryLength];
+
+		int i = 0;
+		int lastIndex = -1;
+
+		IRIterator<? extends IRObject> it = reteTree.listIterator(2);
+		while (it.hasNext()) {
+
+			IRObject varObj = it.next();
+			if (varObj.getType() != RType.ATOM) {
+				throw new RException("invalid var : " + varObj);
+			}
+
+			if (!parentVarIndexMap.containsKey(varObj.asString())) {
+				throw new RException("invalid var : " + varObj);
+			}
+
+			int index = parentVarIndexMap.get(varObj.asString());
 
 			if (index < 0 || index >= parentNode.getEntryLength()) {
 				throw new RException(String.format("invalid index : %d", index));
@@ -882,8 +936,13 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 
 		// (inherit '(?a ?b ?c) 0)
-		if (ReteUtil.isInheritExpr(reteTree)) {
-			return _buildInheritNode(reteTree, tmpVarBuilder);
+		if (ReteUtil.isInheritExpr1(reteTree)) {
+			return _buildInheritNode1(reteTree, tmpVarBuilder);
+		}
+
+		// (inherit '(?a ?b ?c) ?b)
+		if (ReteUtil.isInheritExpr2(reteTree)) {
+			return _buildInheritNode2(reteTree, tmpVarBuilder);
 		}
 
 		// beta3: '(?a b c) '(?x y z) (not-equal ?a ?x)

@@ -1,0 +1,16 @@
+(new model m)
+(add-rule m if '(?a p ?b) (inherit '(?b p ?c) ?b) do (println "a=" ?a))
+(-> m '(a p b))
+(-> m '(b p c))
+;=>m RU000 true true
+
+(start m)
+;=>6
+;out:
+a=a
+
+;eof
+
+(list-stmt m)
+;=>'('(a p b) '(b p c))
+

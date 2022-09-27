@@ -5,3 +5,13 @@
 '((inherit '(?a p ?b) 0) (!= ?a x))
 
 
+'(?a p ?b) (inherit '(?b p ?c) ?b) ; input
+'('(?a p ?b) (inherit '(?b p ?c) ?b)) ; output
+;expr: 
+'('(?a p ?b) (inherit '(?b p ?c) ?b))
+
+
+'(?a p ?b) (inherit '(?b p ?c) ?x) ; input
+;err:invalid var<?x> in stmt: (inherit '(?b p ?c) ?x)
+
+

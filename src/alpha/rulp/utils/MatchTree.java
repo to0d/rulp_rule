@@ -581,27 +581,6 @@ public class MatchTree {
 		}
 	}
 
-	static boolean _findMatchNodeList(List<MTreeNode> nodeList, int curIndex, List<MTreeNode> findList,
-			List<String> allVars, List<String> matchedVars) {
-
-		if (curIndex >= nodeList.size()) {
-			return false;
-		}
-
-		MTreeNode node = nodeList.get(curIndex);
-		if (!hasCommonElement(node.varList, allVars)) {
-			return _findMatchNodeList(nodeList, curIndex + 1, findList, allVars, matchedVars);
-		}
-
-		matchedVars = _unionAll(matchedVars, node.varList);
-		findList.add(node);
-		if (matchedVars.containsAll(allVars)) {
-			return true;
-		}
-
-		return _findMatchNodeList(nodeList, curIndex + 1, findList, allVars, matchedVars);
-	}
-
 	static void _cleanLinkNode(ArrayList<MLinkNode> linkList) throws RException {
 
 		Iterator<MLinkNode> it = linkList.iterator();
@@ -635,6 +614,27 @@ public class MatchTree {
 		Collections.sort(nodeList, (n1, n2) -> {
 			return MTreeNode.compare(n1, n2);
 		});
+	}
+
+	static boolean _findMatchNodeList(List<MTreeNode> nodeList, int curIndex, List<MTreeNode> findList,
+			List<String> allVars, List<String> matchedVars) {
+
+		if (curIndex >= nodeList.size()) {
+			return false;
+		}
+
+		MTreeNode node = nodeList.get(curIndex);
+		if (!hasCommonElement(node.varList, allVars)) {
+			return _findMatchNodeList(nodeList, curIndex + 1, findList, allVars, matchedVars);
+		}
+
+		matchedVars = _unionAll(matchedVars, node.varList);
+		findList.add(node);
+		if (matchedVars.containsAll(allVars)) {
+			return true;
+		}
+
+		return _findMatchNodeList(nodeList, curIndex + 1, findList, allVars, matchedVars);
 	}
 
 	private static ArrayList<String> _getAtomConstNames(IRList stmt) throws RException {
@@ -678,27 +678,6 @@ public class MatchTree {
 		return LINK_XTYPE[_getType(t1)][_getType(t2)];
 	}
 
-	public static <T> boolean hasCommonElement(Collection<T> a, Collection<T> b) {
-
-		if (a == null || b == null || a.isEmpty() || b.isEmpty()) {
-			return false;
-		}
-
-		if (a instanceof Set && !(b instanceof Set)) {
-			Collection<T> c = a;
-			a = b;
-			b = c;
-		}
-
-		for (T x : a) {
-			if (b.contains(x)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	static List<String> _retainAll(List<String> a, List<String> b) {
 
 		HashSet<String> s = new HashSet<>(a);
@@ -720,62 +699,6 @@ public class MatchTree {
 
 		return c;
 	}
-
-//	private static IRList _attachConstStmt(IRList varTree, IRList constStmt, Set<String> constAtomNames)
-//			throws RException {
-//
-//		if (constAtomNames == null) {
-//			constAtomNames = _getAtomConstNames(constStmt);
-//		}
-//
-//		// only one var stmt
-//		if (ReteUtility.isReteStmt(varTree)) {
-//
-//			if (!_hasCommonSet(_getAtomConstNames(varTree), constAtomNames)) {
-//				return varTree;
-//			}
-//
-//			return RulpFactory.createList(varTree, constStmt);
-//		}
-//
-//		IRList attachChildTree = null;
-//		int attachIndex = -1;
-//
-//		int size = varTree.size();
-//		for (int i = 0; i < size; ++i) {
-//
-//			IRObject ex = varTree.get(i);
-//			if (ex.getType() == RType.LIST) {
-//
-//				attachChildTree = _attachConstStmt((IRList) ex, constStmt, constAtomNames);
-//
-//				// attached
-//				if (attachChildTree != ex) {
-//					attachIndex = i;
-//					break;
-//				}
-//			}
-//		}
-//
-//		// no attach found
-//		if (attachIndex == -1) {
-//			return varTree;
-//		}
-//
-//		/**************************************************/
-//		// Create new tree
-//		/**************************************************/
-//		ArrayList<IRObject> newElements = new ArrayList<>();
-//		for (int i = 0; i < size; ++i) {
-//			if (i == attachIndex) {
-//				newElements.add(attachChildTree);
-//			} else {
-//				newElements.add(varTree.get(i));
-//			}
-//		}
-//
-//		return RulpFactory.createList(newElements);
-//	}
 
 	public static IRList build(List<IRList> matchStmtList, IRInterpreter interpreter, IRFrame frame) throws RException {
 
@@ -801,7 +724,24 @@ public class MatchTree {
 				switch (rst.getType()) {
 				case EXPR:
 					stmt = (IRList) rst;
+
+					// Check (inherit '(?b p ?c) ?b)
+					if (ReteUtil.isInheritExpr2(stmt)) {
+
+						List<String> leftVars = ReteUtil.varList((IRList) stmt.get(1));
+
+						IRIterator<? extends IRObject> it = stmt.listIterator(2);
+						while (it.hasNext()) {
+
+							String varName = RulpUtil.asAtom(it.next()).getName();
+							if (!leftVars.contains(varName)) {
+								throw new RException("invalid var<" + varName + "> in stmt: " + stmt);
+							}
+						}
+					}
+
 					break;
+
 				case BOOL:
 					if (RulpUtil.asBoolean(rst).asBoolean()) {
 						continue NEXT;
@@ -951,6 +891,83 @@ public class MatchTree {
 		}
 
 		return mTree;
+	}
+
+//	private static IRList _attachConstStmt(IRList varTree, IRList constStmt, Set<String> constAtomNames)
+//			throws RException {
+//
+//		if (constAtomNames == null) {
+//			constAtomNames = _getAtomConstNames(constStmt);
+//		}
+//
+//		// only one var stmt
+//		if (ReteUtility.isReteStmt(varTree)) {
+//
+//			if (!_hasCommonSet(_getAtomConstNames(varTree), constAtomNames)) {
+//				return varTree;
+//			}
+//
+//			return RulpFactory.createList(varTree, constStmt);
+//		}
+//
+//		IRList attachChildTree = null;
+//		int attachIndex = -1;
+//
+//		int size = varTree.size();
+//		for (int i = 0; i < size; ++i) {
+//
+//			IRObject ex = varTree.get(i);
+//			if (ex.getType() == RType.LIST) {
+//
+//				attachChildTree = _attachConstStmt((IRList) ex, constStmt, constAtomNames);
+//
+//				// attached
+//				if (attachChildTree != ex) {
+//					attachIndex = i;
+//					break;
+//				}
+//			}
+//		}
+//
+//		// no attach found
+//		if (attachIndex == -1) {
+//			return varTree;
+//		}
+//
+//		/**************************************************/
+//		// Create new tree
+//		/**************************************************/
+//		ArrayList<IRObject> newElements = new ArrayList<>();
+//		for (int i = 0; i < size; ++i) {
+//			if (i == attachIndex) {
+//				newElements.add(attachChildTree);
+//			} else {
+//				newElements.add(varTree.get(i));
+//			}
+//		}
+//
+//		return RulpFactory.createList(newElements);
+//	}
+
+	public static <T> boolean hasCommonElement(Collection<T> a, Collection<T> b) {
+
+		if (a == null || b == null || a.isEmpty() || b.isEmpty()) {
+			return false;
+		}
+
+		if (a instanceof Set && !(b instanceof Set)) {
+			Collection<T> c = a;
+			a = b;
+			b = c;
+		}
+
+		for (T x : a) {
+			if (b.contains(x)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
