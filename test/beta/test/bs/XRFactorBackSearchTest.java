@@ -1,4 +1,4 @@
-package beta.test.factor;
+package beta.test.bs;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,6 +54,15 @@ class XRFactorBackSearchTest extends RuleTestBase {
 
 	@Test
 	void test_back_search_5_internal_var_2() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+	
+	@Test
+	void test_back_search_5_internal_var_3() {
 
 		_setup();
 		_run_script();

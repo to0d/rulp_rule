@@ -1,0 +1,28 @@
+(new model m)
+(add-rule m if '(?a p2 ?b) do (-> m '(?a p ?b)))
+(add-rule m if '(?a p ?b) '(?b p ?c) do (-> m n2:'(?b)))
+(add-stmt m '(a p2 b))
+(add-stmt m '(b p2 c))
+(add-stmt m '(a p2 b2))
+(add-stmt m '(b2 p2 c))
+;=>
+
+(setq ?bs-trace true)
+;=>
+
+(do
+    (defvar ?tree (back-search m n2:'(b) explain))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>
+
+(do
+    (defvar ?tree (make-ref-tree m n2:'(b)))
+    (println ?tree)
+    (print-ref-tree ?tree)
+)
+;=>
+
+(list-stmt m)
+;=>

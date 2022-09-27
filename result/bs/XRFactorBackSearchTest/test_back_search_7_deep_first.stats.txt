@@ -222,7 +222,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      253
+           Interpreter call id:      252
     Interpreter call level/max:        0        3
                Frame max level:        2
                   Frame max id:        4
@@ -243,12 +243,12 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      281
+    factor:      280
 ==========================================================================================================================
 
-Callable stats info: callId=253, row=14, column=64(4), value-max=21, value-unit=2^x
+Callable stats info: callId=252, row=13, column=64(4), value-max=21, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333336332 max=28, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333336331 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
     root   factor     70    0 defun                                                                        3333 33333223362  
@@ -258,11 +258,10 @@ Callable stats info: callId=253, row=14, column=64(4), value-max=21, value-unit=
     root   factor      4    0 make-list                                                                        3             
     root   factor      3    0 deftemplate                                                                            21      
   system   factor      3    0 add-stmt                                                                                     3 
-    root   factor      1    0 setq                                                                                         1 
     root   factor      1    0 new                                                                                         1  
     root   factor      1    0 load                                                                                       1   
   system   factor      1    0 list-stmt                                                                                     1
-  system   factor      1    0 back-search                                                                                   1
+  system   factor      1    0 back-search                                                                                  1 
   system   factor      1    0 add-rule                                                                                    1  
 ==========================================================================================================================
 
@@ -270,10 +269,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2134            0         2134
-      string:           78            0           78
-        list:           94            4           90
-        expr:          920            1          919
+        atom:         2132            0         2132
+      string:           77            0           77
+        list:           93            2           91
+        expr:          918            0          918
          var:           21            0           21
         func:           87            0           87
     template:            1            0            1
@@ -325,7 +324,7 @@ print-list           : 17       2        3    funcList   '((print-list list) (pr
 to-valid-path        : 18       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 19       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 20       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 21       2        2    var        result\factor\XRFactorBackSearchTest\test_back_search_2.rulp : type=string
+?script-path         : 21       2        2    var        result\bs\XRFactorBackSearchTest\test_back_search_7_deep_first.rulp : type=string
 script_out           : 22       2        2    macro      script_out          
 _ginfo               : 23       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
@@ -345,7 +344,7 @@ Root var list: total=7
 ==========================================================================================================================
 Var                  : Value
 --------------------------------------------------------------------------------------------------------------------------
-?bs-trace            : true
+?bs-trace            : false
 ?load-class          : '("alpha.rulp.utils.RRuleLoader")
 ?load-jar            : '()
 ?load-script         : '("C:\\data\\rs\\load\\tool.rulp" "C:\\data\\rs\\load\\test/itest.rulp")
