@@ -820,6 +820,21 @@ public class OptimizeUtil {
 		return condList;
 	}
 
+	public static IRList optimizeMatchTree(IRList matchTree, List<IRExpr> actionExprList) throws RException {
+
+		/***************************************************/
+		// optimize unused condtiion var
+		// before: '('(?a p ?b) '(?a p ?c)) -> (func ?a)
+		// after : '('(?a p ?b) (inherit '(?a p ?c) 0)
+		/***************************************************/
+		HashSet<String> actionVarSet = new HashSet<>();
+		for (IRObject var : ReteUtil.buildVarList(actionExprList)) {
+			actionVarSet.add(var.asString());
+		}
+
+		return matchTree;
+	}
+
 	public static IRList optimizeRuleActionIndexVar(IRList condList, IRList actionList) throws RException {
 
 		ArrayList<IRObject> newList = null;

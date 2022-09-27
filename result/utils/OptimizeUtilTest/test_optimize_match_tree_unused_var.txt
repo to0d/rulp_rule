@@ -1,0 +1,1 @@
+INP: '('(?a p ?b) '(?a p ?c)) '((println (+ "R1: a=" ?a)))
