@@ -1,0 +1,35 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?a p ?b) '(?a p ?c) do (println (+ "R1: a=" ?a ", b=" ?b ", c=" ?c)))
+(add-stmt m '(a p b1))
+(add-stmt m '(a p b2))
+(add-stmt m '(a p b3))
+(add-stmt m '(a p c))
+;=>RU000 true true true true
+
+(start m)
+;=>4
+;out:
+R1: a=a, b=b1, c=b1
+R1: a=a, b=b1, c=b2
+R1: a=a, b=b1, c=b3
+R1: a=a, b=b1, c=c
+R1: a=a, b=b2, c=b1
+R1: a=a, b=b2, c=b2
+R1: a=a, b=b2, c=b3
+R1: a=a, b=b2, c=c
+R1: a=a, b=b3, c=b1
+R1: a=a, b=b3, c=b2
+R1: a=a, b=b3, c=b3
+R1: a=a, b=b3, c=c
+R1: a=a, b=c, c=b1
+R1: a=a, b=c, c=b2
+R1: a=a, b=c, c=b3
+R1: a=a, b=c, c=c
+
+;eof
+
+(list-stmt m)
+;=>'('(a p b1) '(a p b2) '(a p b3) '(a p c))
+

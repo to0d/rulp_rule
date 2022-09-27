@@ -57,32 +57,9 @@ public class XRNodeInher extends XRNodeRete1 {
 			for (int i = 0; i < uniqIndexs.size(); ++i) {
 				newInfo.uniqIndexs[i] = uniqIndexs.get(i);
 			}
-			
+
 			parentUniqList.add(newInfo);
 		}
-
-//		int size = parentUniqList.size();
-//
-//		for (int pos = 0; pos < size; ++pos) {
-//
-//			RUniqInfo info = parentUniqList.get(pos);
-//
-//			boolean update = false;
-//
-//			for (int i = 0; i < info.uniqIndexs.length; ++i) {
-//				int index = info.uniqIndexs[i];
-//				// fixed element
-//				if (index != -1 && this.getVarEntry()[index] == null) {
-//					info.uniqIndexs[i] = -1;
-//					update = true;
-//				}
-//			}
-//
-//			if (update) {
-//				info = IndexUtil.unify(info);
-//				parentUniqList.set(pos, info);
-//			}
-//		}
 
 		return parentUniqList;
 	}
@@ -124,6 +101,16 @@ public class XRNodeInher extends XRNodeRete1 {
 		entryTable.addReference(newEntry, this, entry);
 		uniqEntryMap.put(uniqName, newEntry);
 		return true;
+	}
+
+	@Override
+	public String getCacheInfo() {
+
+		if (uniqEntryMap.isEmpty()) {
+			return super.getCacheInfo();
+		}
+
+		return ReteUtil.combine(super.getCacheInfo(), "uniqEntryMap: size=" + uniqEntryMap.size());
 	}
 
 	public void setInheritIndexs(int[] inheritIndexs) {
