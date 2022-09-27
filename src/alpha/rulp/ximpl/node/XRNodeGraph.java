@@ -1987,7 +1987,6 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			if (node.getReteType() != RReteType.ROOT0) {
 
-				ruleNode.addNode(node);
 				if (node != ruleNode) {
 					((XRGraphInfo) node.getGraphInfo()).addRule(ruleNode);
 				}
@@ -1996,6 +1995,9 @@ public class XRNodeGraph implements IRNodeGraph {
 					setNodePriority(node, priority);
 				}
 			}
+
+			ruleNode.addNode(node);
+
 			return false;
 		});
 

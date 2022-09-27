@@ -1,7 +1,6 @@
 package alpha.rulp.ximpl.factor;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -20,10 +19,6 @@ public class XRFactorExecuteRule extends AbsAtomFactorAdapter implements IRuleFa
 		super(factorName);
 	}
 
-	public static int executeRule(IRRule rule, List<IRList> stmtList) {
-		return 0;
-	}
-
 	@Override
 	public IRObject compute(IRList args, IRInterpreter interpreter, IRFrame frame) throws RException {
 
@@ -39,7 +34,7 @@ public class XRFactorExecuteRule extends AbsAtomFactorAdapter implements IRuleFa
 		ArrayList<IRList> stmtList = new ArrayList<>();
 		RulpUtil.addAll(stmtList, RuleUtil.toStmtList(RulpUtil.asList(interpreter.compute(frame, args.get(2)))));
 
-		return RulpFactory.createInteger(executeRule(rule, stmtList));
+		return RulpFactory.createInteger(RuleUtil.executeRule(rule, stmtList));
 	}
 
 }

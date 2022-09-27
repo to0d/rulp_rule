@@ -11,10 +11,12 @@ import static alpha.rulp.rule.Constant.F_MBR_RULE_GROUP_PRE;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -34,7 +36,9 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener3;
 import alpha.rulp.runtime.IRParser;
+import alpha.rulp.ximpl.bs.BSFactory;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
+import alpha.rulp.ximpl.entry.IREntryQueueUniq;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
@@ -98,6 +102,22 @@ public class RuleUtil {
 			return rt;
 		}
 
+	}
+
+	static class RelocatedStmtIndexs {
+
+		public int maxStmtIndex = -1;
+
+		public ArrayList<Integer> relocatedStmtIndexs = null;
+
+		public IRReteNode rootNode;
+
+		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
+
+		public void addIndex(int index) {
+			stmtIndexs.add(index);
+			maxStmtIndex = Math.max(maxStmtIndex, index);
+		}
 	}
 
 	static class RuleActionFactor extends AbsAtomFactorAdapter {
@@ -301,6 +321,15 @@ public class RuleUtil {
 		return var;
 	}
 
+	public static boolean equal(String a, String b) throws RException {
+
+		if (a == null) {
+			return b == null;
+		}
+
+		return b != null && a.equals(b);
+	}
+
 //	public static List<IRObject> compute(IRModel model, String input) throws RException {
 //
 //		IRInterpreter interpreter = model.getInterpreter();
@@ -347,13 +376,74 @@ public class RuleUtil {
 //		}
 //	}
 
-	public static boolean equal(String a, String b) throws RException {
+	public static int executeRule(IRRule rule, List<IRList> stmts) throws RException {
 
-		if (a == null) {
-			return b == null;
+		ArrayList<IRReteNode> rootNodes = new ArrayList<>();
+		ArrayList<RelocatedStmtIndexs> BSStmtIndexsList = new ArrayList<>();
+
+		Map<IRReteNode, RelocatedStmtIndexs> stmtIndexMap = new HashMap<>();
+
+		IRNodeGraph graph = rule.getModel().getNodeGraph();
+
+		for (IRList stmt : stmts) {
+
+			IRReteNode rootNode = graph.findRootNode(stmt.getNamedName(), stmt.size());
+			if (!rule.getAllNodes().contains(rootNode)) {
+				continue;
+			}
+
+			if (!rootNodes.contains(rootNode)) {
+				rootNodes.add(rootNode);
+			}
+
+			IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
+			int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(stmt));
+
+			RelocatedStmtIndexs si = stmtIndexMap.get(rootNode);
+			if (si == null) {
+				si = new RelocatedStmtIndexs();
+				si.rootNode = rootNode;
+				stmtIndexMap.put(rootNode, si);
+				BSStmtIndexsList.add(si);
+			}
+
+			si.addIndex(stmtIndex);
 		}
 
-		return b != null && a.equals(b);
+		for (RelocatedStmtIndexs si : BSStmtIndexsList) {
+
+			// Get the max visit index
+			int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(si.rootNode);
+
+			// All statements are already passed to child nodes
+			if (childMaxVisitIndex > si.maxStmtIndex) {
+				continue;
+			}
+
+			for (int index : si.stmtIndexs) {
+				if (index >= childMaxVisitIndex) {
+					if (si.relocatedStmtIndexs == null) {
+						si.relocatedStmtIndexs = new ArrayList<>();
+					}
+					si.relocatedStmtIndexs.add(index);
+				}
+			}
+
+			if (si.relocatedStmtIndexs != null) {
+				BSFactory.incBscOpRelocate(si.relocatedStmtIndexs.size());
+				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
+			}
+		}
+
+		int rc = rule.start(-1, -1);
+
+		for (RelocatedStmtIndexs si : BSStmtIndexsList) {
+			if (si.relocatedStmtIndexs != null) {
+				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(-1, null);
+			}
+		}
+
+		return rc;
 	}
 
 	public static List<IRReteNode> getAllParentNodes(IRReteNode node) throws RException {

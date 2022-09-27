@@ -9,33 +9,16 @@ import java.util.Map;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.RuntimeUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.IActionSimpleStmt;
-import alpha.rulp.ximpl.entry.IREntryQueueUniq;
 import alpha.rulp.ximpl.node.SourceNode;
 
 public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
-
-	static class BSStmtIndexs {
-
-		public int maxStmtIndex = -1;
-
-		public ArrayList<Integer> relocatedStmtIndexs = null;
-
-		public IRReteNode rootNode;
-
-		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
-
-		public void addIndex(int index) {
-			stmtIndexs.add(index);
-			maxStmtIndex = Math.max(maxStmtIndex, index);
-		}
-	}
 
 	protected IAction action;
 
@@ -44,10 +27,6 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 	protected boolean rst;
 
 	protected SourceNode sourceNode;
-
-	public SourceNode getSourceNode() {
-		return sourceNode;
-	}
 
 	protected IRList stmt;
 
@@ -102,69 +81,16 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 
 	public boolean execute(List<IRList> childStmts) throws RException {
 
-		ArrayList<IRReteNode> rootNodes = new ArrayList<>();
-		ArrayList<BSStmtIndexs> BSStmtIndexsList = new ArrayList<>();
-
-		Map<IRReteNode, BSStmtIndexs> stmtIndexMap = new HashMap<>();
-
-		for (IRList childStmt : childStmts) {
-
-			IRReteNode rootNode = engine.getGraph().findRootNode(childStmt.getNamedName(), childStmt.size());
-			if (!rootNodes.contains(rootNode)) {
-				rootNodes.add(rootNode);
-			}
-
-			IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
-			int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(childStmt));
-
-			BSStmtIndexs si = stmtIndexMap.get(rootNode);
-			if (si == null) {
-				si = new BSStmtIndexs();
-				si.rootNode = rootNode;
-				stmtIndexMap.put(rootNode, si);
-				BSStmtIndexsList.add(si);
-			}
-
-			si.addIndex(stmtIndex);
-		}
-
-		for (BSStmtIndexs si : BSStmtIndexsList) {
-
-			// Get the max visit index
-			int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(si.rootNode);
-
-			// All statements are already passed to child nodes
-			if (childMaxVisitIndex > si.maxStmtIndex) {
-				continue;
-			}
-
-			for (int index : si.stmtIndexs) {
-				if (index >= childMaxVisitIndex) {
-					if (si.relocatedStmtIndexs == null) {
-						si.relocatedStmtIndexs = new ArrayList<>();
-					}
-					si.relocatedStmtIndexs.add(index);
-				}
-			}
-
-			if (si.relocatedStmtIndexs != null) {
-				BSFactory.incBscOpRelocate(si.relocatedStmtIndexs.size());
-				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
-			}
-		}
-
-		int rc = this.sourceNode.rule.start(-1, -1);
+		int rc = RuleUtil.executeRule(this.sourceNode.rule, childStmts);
 		if (engine.isTrace()) {
 			engine.trace_outln(this, String.format("execute rule: %s, rc=%d", this.sourceNode.rule.getRuleName(), rc));
 		}
 
-		for (BSStmtIndexs si : BSStmtIndexsList) {
-			if (si.relocatedStmtIndexs != null) {
-				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(-1, null);
-			}
-		}
-
 		return engine.hasStmt(this, this.stmt);
+	}
+
+	public SourceNode getSourceNode() {
+		return sourceNode;
 	}
 
 	public String getStatusString() {

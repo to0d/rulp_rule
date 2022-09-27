@@ -13,18 +13,14 @@ import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.lang.RType;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.MatchTree;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.Pair;
-import alpha.rulp.utils.ReteUtil;
-import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpTestBase;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.model.XRUniqObjBuilder;
 
 class OptimizeUtilTest extends RulpTestBase {
 

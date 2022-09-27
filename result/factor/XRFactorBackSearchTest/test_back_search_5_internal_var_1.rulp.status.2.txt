@@ -146,7 +146,7 @@ graph-createNodeByTree                1
 graph-createNodeRoot                  4
 graph-createNodeRule                  1
 graph-createSubGraphForQueryNodeForward        1
-graph-listSourceNodes                28
+graph-listSourceNodes                29
 graph-setNodePriority                13
 bsc-node-stmt-and                     1
 bsc-node-stmt-or                      1
@@ -331,9 +331,9 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2290            0         2290
+        atom:         2302            0         2302
       string:           82            0           82
-        list:          157            2          155
+        list:          161            2          159
         expr:          925            2          923
          var:           21            0           21
         func:           87            0           87

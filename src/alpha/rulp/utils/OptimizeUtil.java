@@ -53,7 +53,6 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
-import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.optimize.EROUtil;

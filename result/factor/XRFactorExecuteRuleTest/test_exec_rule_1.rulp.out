@@ -9,8 +9,8 @@
 ;=>m R1 true true true
 
 (execute-rule (get-rule m "R1") '(n1:'(b)))
-;=>0
+;=>2
 
 (list-stmt m)
-;=>'(n1:'(a) n1:'(b) n1:'(c))
+;=>'(n1:'(b) n1:'(a) n1:'(c) n2:'(b))
 
