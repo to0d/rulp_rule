@@ -285,7 +285,16 @@ public class TestOptimize extends RuleTestBase {
 	}
 
 	@Test
-	void test_opt_e_beta2_uniq_1() {
+	void test_opt_e_beta2_uniq_1_a() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_e_beta2_uniq_1_b() {
 
 		_setup();
 		_run_script();
