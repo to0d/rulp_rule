@@ -339,7 +339,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-	static class RQueryIterator implements IRIterator<IRObject> {
+	static class RQueryIterator implements IRIterator<IRReteEntry> {
 
 		private boolean buildSubGraph = false;
 
@@ -474,7 +474,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		@Override
-		public IRObject next() throws RException {
+		public IRReteEntry next() throws RException {
 
 			if (nextEntry == null && !hasNext()) {
 				return null;
@@ -2419,7 +2419,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public IRIterator<IRObject> query(IRList condList, int limit, boolean backward) throws RException {
+	public IRIterator<IRReteEntry> query(IRList condList, int limit, boolean backward) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> query-iterator: cond=" + condList + ", limit=" + limit + ", backward=" + backward);
