@@ -224,11 +224,11 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected final Map<String, AbsReteNode> namedNodeMap = new HashMap<>();
 
-	protected int nodeCreateCountArray[] = new int[RReteType.RETE_TYPE_NUM];
+	protected int nodeCreateCountArray[] = new int[RReteType.RETE_TYPE_TOTAL];
 
 	protected ArrayList<IRReteNode> nodeInfoArray = new ArrayList<>();
 
-	protected final ReteNodeList[] nodeListArray = new ReteNodeList[RReteType.RETE_TYPE_NUM];
+	protected final ReteNodeList[] nodeListArray = new ReteNodeList[RReteType.RETE_TYPE_TOTAL];
 
 	protected final Map<String, AbsReteNode> nodeUniqNameMap = new HashMap<>();
 
@@ -249,7 +249,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		this.model = model;
 		this.entryTable = entryTable;
 
-		for (int i = 0; i < RReteType.RETE_TYPE_NUM; ++i) {
+		for (int i = 0; i < RReteType.RETE_TYPE_TOTAL; ++i) {
 			this.nodeListArray[i] = new ReteNodeList();
 			this.nodeCreateCountArray[i] = 0;
 		}

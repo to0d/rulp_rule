@@ -1,0 +1,13 @@
+(new model m)
+;=>
+
+(add-constraint m n1:'(?x ?y ?) (uniq on '(?x ?y)))
+;=>
+
+(add-stmt m n1:'(a1 b1 1))
+(add-stmt m n1:'(a1 b2 1))
+(add-stmt m n1:'(a2 b2 1))
+;=>
+
+(query-stmt m ?x from n1:'(a1 b2 ?x))
+;=>

@@ -7,7 +7,7 @@ import static alpha.rulp.rule.RReteStatus.FIXED_;
 import static alpha.rulp.rule.RReteStatus.REASON;
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 import static alpha.rulp.rule.RReteStatus.TEMP__;
-import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_NUM;
+import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_TOTAL;
 
 import java.util.List;
 
@@ -29,8 +29,8 @@ public class XRReteCounter implements IRReteNodeCounter {
 
 		super();
 		this.reteNodeMatrix = reteNodeMatrix;
-		this.countMatrix = new long[RETE_TYPE_NUM][COUNT_TYPE_NUM];
-		for (int i = 0; i < RETE_TYPE_NUM; ++i) {
+		this.countMatrix = new long[RETE_TYPE_TOTAL][COUNT_TYPE_NUM];
+		for (int i = 0; i < RETE_TYPE_TOTAL; ++i) {
 			for (int j = 0; j < COUNT_TYPE_NUM; ++j) {
 				this.countMatrix[i][j] = -1;
 			}

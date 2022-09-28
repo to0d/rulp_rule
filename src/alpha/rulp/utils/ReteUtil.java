@@ -1198,6 +1198,9 @@ public class ReteUtil {
 		case ALPH1:
 			return String.format("A1%04d", nodeId);
 
+		case ALPH2:
+			return String.format("A2%04d", nodeId);
+
 		case BETA0:
 			return String.format("B0%04d", nodeId);
 

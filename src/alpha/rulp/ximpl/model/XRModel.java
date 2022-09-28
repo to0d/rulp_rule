@@ -998,6 +998,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			switch (node.getReteType()) {
 			case ALPH0:
 			case ALPH1:
+			case ALPH2:
 				alpahGcCount += gcCount;
 				break;
 

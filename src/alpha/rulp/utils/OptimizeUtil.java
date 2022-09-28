@@ -29,7 +29,7 @@ import static alpha.rulp.ximpl.node.RReteType.BETA3;
 import static alpha.rulp.ximpl.node.RReteType.EXPR0;
 import static alpha.rulp.ximpl.node.RReteType.EXPR1;
 import static alpha.rulp.ximpl.node.RReteType.EXPR2;
-import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_NUM;
+import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_TOTAL;
 import static alpha.rulp.ximpl.node.RReteType.ZETA0;
 
 import java.util.ArrayList;
@@ -85,12 +85,12 @@ public class OptimizeUtil {
 
 	static class RefArray {
 
-		int[] reteRefCount = new int[RETE_TYPE_NUM];
+		int[] reteRefCount = new int[RETE_TYPE_TOTAL];
 
 		int unRefCount = 0;
 
 		public RefArray() {
-			for (int i = 0; i < RETE_TYPE_NUM; ++i) {
+			for (int i = 0; i < RETE_TYPE_TOTAL; ++i) {
 				reteRefCount[i] = 0;
 			}
 		}

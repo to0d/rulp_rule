@@ -31,7 +31,7 @@ import static alpha.rulp.ximpl.node.RReteType.EXPR1;
 import static alpha.rulp.ximpl.node.RReteType.EXPR2;
 import static alpha.rulp.ximpl.node.RReteType.EXPR3;
 import static alpha.rulp.ximpl.node.RReteType.INDEX;
-import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_NUM;
+import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_TOTAL;
 import static alpha.rulp.ximpl.node.RReteType.RULE;
 import static alpha.rulp.ximpl.node.RReteType.WORK;
 
@@ -394,8 +394,8 @@ public class StatsUtil {
 		case ALPH1:
 			return "a1";
 
-//		case ALPH2:
-//			return "a2";
+		case ALPH2:
+			return "a2";
 
 		case EXPR0:
 			return "e0";
@@ -2536,8 +2536,8 @@ public class StatsUtil {
 
 	public static String printStatsInfo(IRModel model) {
 
-		long ruleSummary[][] = new long[RETE_TYPE_NUM][COUNT_TYPE_NUM];
-		for (int i = 0; i < RETE_TYPE_NUM; ++i) {
+		long ruleSummary[][] = new long[RETE_TYPE_TOTAL][COUNT_TYPE_NUM];
+		for (int i = 0; i < RETE_TYPE_TOTAL; ++i) {
 			for (int j = 0; j < COUNT_TYPE_NUM; ++j) {
 				ruleSummary[i][j] = 0;
 			}
