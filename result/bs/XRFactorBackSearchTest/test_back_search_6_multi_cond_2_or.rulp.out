@@ -28,24 +28,24 @@
 00003             EQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=ENTRY_QUERY, status=INIT
 00003             EQ0004: init end, rst=false, status=PROCESS, size=0
 00004             EQ0004: process begin
-00004             EQ0004: process end, rst=true, status=COMPLETE, size=1
-00005             EQ0004: route to SA0003
-00006         SA0003: process begin
-00006         SA0003: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
-00007         SA0003: complete begin
-00007         SA0003: execute rule: RU000, rc=4
-00007         SA0003: has stmt, stmt='(a p c), rst=true
-00007         SA0003: complete end, rst=true
-00007         SA0003: route to SO0001
-00008     SO0001: process begin
-00008     SO0001: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0003, needComplete=true
-00009     SO0001: complete begin
-00009     SO0001: has stmt, stmt='(a p c), rst=true
-00009     SO0001: complete end, rst=true
-00009     SO0001: route to LO0000
-00010 LO0000: process begin
-00010 LO0000: process end, rst=true, status=COMPLETE, child=1/2, succ-child=SO0001
-00011 LO0000: return true
+00004             EQ0004: process end, rst=true, status=PROCESS, size=1
+00004             EQ0004: route to SA0003
+00005         SA0003: process begin
+00005         SA0003: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00006         SA0003: complete begin
+00006         SA0003: execute rule: RU000, rc=4
+00006         SA0003: has stmt, stmt='(a p c), rst=true
+00006         SA0003: complete end, rst=true
+00006         SA0003: route to SO0001
+00007     SO0001: process begin
+00007     SO0001: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0003, needComplete=true
+00008     SO0001: complete begin
+00008     SO0001: has stmt, stmt='(a p c), rst=true
+00008     SO0001: complete end, rst=true
+00008     SO0001: route to LO0000
+00009 LO0000: process begin
+00009 LO0000: process end, rst=true, status=COMPLETE, child=1/2, succ-child=SO0001
+00010 LO0000: return true
 
 ;eof
 

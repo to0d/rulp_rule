@@ -28,31 +28,31 @@
 00003             EQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=ENTRY_QUERY, status=INIT
 00003             EQ0004: init end, rst=false, status=PROCESS, size=0
 00004             EQ0004: process begin
-00004             EQ0004: process end, rst=true, status=COMPLETE, size=1
-00005             EQ0004: route to SA0003
-00006         SA0003: process begin
-00006         SA0003: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
-00007         SA0003: complete begin
-00007         SA0003: execute rule: RU000, rc=4
-00007         SA0003: has stmt, stmt='(a p c), rst=true
-00007         SA0003: complete end, rst=true
-00007         SA0003: route to SO0001
-00008     SO0001: process begin
-00008     SO0001: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0003, needComplete=true
-00009     SO0001: complete begin
-00009     SO0001: has stmt, stmt='(a p c), rst=true
-00009     SO0001: complete end, rst=true
-00009     SO0001: route to LA0000
-00010 LA0000: process begin
-00010 LA0000: process end, rst=false, status=PROCESS, child=1/2, fail-child=null
-00010 LA0000: route to SO0002
-00011     SO0002: init begin, stmt='(a p b), type=STMT_OR, status=INIT
-00011     SO0002: has stmt, stmt='(a p b), rst=true
-00011     SO0002: init end, rst=true, status=COMPLETE, succ-child=null, needComplete=false
-00012     SO0002: route to LA0000
-00013 LA0000: process begin
-00013 LA0000: process end, rst=true, status=COMPLETE, child=2/2, fail-child=null
-00014 LA0000: return true
+00004             EQ0004: process end, rst=true, status=PROCESS, size=1
+00004             EQ0004: route to SA0003
+00005         SA0003: process begin
+00005         SA0003: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00006         SA0003: complete begin
+00006         SA0003: execute rule: RU000, rc=4
+00006         SA0003: has stmt, stmt='(a p c), rst=true
+00006         SA0003: complete end, rst=true
+00006         SA0003: route to SO0001
+00007     SO0001: process begin
+00007     SO0001: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0003, needComplete=true
+00008     SO0001: complete begin
+00008     SO0001: has stmt, stmt='(a p c), rst=true
+00008     SO0001: complete end, rst=true
+00008     SO0001: route to LA0000
+00009 LA0000: process begin
+00009 LA0000: process end, rst=false, status=PROCESS, child=1/2, fail-child=null
+00009 LA0000: route to SO0002
+00010     SO0002: init begin, stmt='(a p b), type=STMT_OR, status=INIT
+00010     SO0002: has stmt, stmt='(a p b), rst=true
+00010     SO0002: init end, rst=true, status=COMPLETE, succ-child=null, needComplete=false
+00011     SO0002: route to LA0000
+00012 LA0000: process begin
+00012 LA0000: process end, rst=true, status=COMPLETE, child=2/2, fail-child=null
+00013 LA0000: return true
 
 ;eof
 

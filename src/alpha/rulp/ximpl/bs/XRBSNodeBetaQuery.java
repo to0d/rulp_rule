@@ -213,25 +213,12 @@ public class XRBSNodeBetaQuery extends AbsBSNode {
 	}
 
 	public boolean hasMore() throws RException {
-
-//		if (queryBackward) {
-//			return false;
-//		}
-//
-//		int oldSize = queryResultEntrySet.size();
-//		engine.getModel().query(this, queryReteNodeTree, -1, true);
-//		queryBackward = true;
-//
-//		return queryResultEntrySet.size() > oldSize;
-
 		return stmtIterator.hasNext();
 	}
 
 	@Override
 	public void init() throws RException {
-
 		stmtIterator = engine.getModel().query(queryReteNodeTree, -1, true);
-
 		this.status = BSStats.PROCESS;
 	}
 
@@ -248,28 +235,10 @@ public class XRBSNodeBetaQuery extends AbsBSNode {
 	public void process(IRBSNode lastNode) throws RException {
 
 		if (stmtIterator.hasNext()) {
-
 			queryResultEntryList.add(stmtIterator.next());
-		}
-
-		if (!stmtIterator.hasNext()) {
+		} else {
 			this.status = BSStats.COMPLETE;
 		}
-
-//		if (!queryForward) {
-//
-//			// query forward
-//			engine.getModel().query(this, queryReteNodeTree, -1, false);
-//			queryForward = true;
-//		}
-//
-//		if (!queryBackward && !isSucc()) {
-//
-//			// query forward
-//			engine.getModel().query(this, queryReteNodeTree, -1, true);
-//			queryBackward = true;
-//		}
-
 	}
 
 	@Override
