@@ -169,9 +169,9 @@ bsc-node-logic-and                    2
 bsc-node-logic-or                     1
 bsc-status-init                      10
 bsc-status-process                   12
-bsc-status-complete                   8
+bsc-status-complete                   9
 bsc-status-Duplicate                  1
-bsc-op-loop                          31
+bsc-op-loop                          32
 bsc-op-search                         1
 bsc-cache-result                      1
 ===============================================================================================================================================================================
@@ -350,7 +350,7 @@ Object create count:
 --------------------------------------------------------------------------------------------------------------------------
         atom:         2313            0         2313
       string:           77            0           77
-        list:          169            3          166
+        list:          171            3          168
         expr:          922            1          921
          var:           21            0           21
         func:           87            0           87

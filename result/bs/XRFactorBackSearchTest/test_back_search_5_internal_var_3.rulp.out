@@ -30,19 +30,20 @@
 00002         EQ0002: init begin, tree='('(?a p b) '(b p ?c)), type=ENTRY_QUERY, status=INIT
 00002         EQ0002: init end, rst=false, status=PROCESS, size=0
 00003         EQ0002: process begin
-00003         EQ0002: process end, rst=true, status=PROCESS, size=1
-00003         EQ0002: route to SA0001
-00004     SA0001: process begin
-00004     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
-00005     SA0001: complete begin
-00005     SA0001: execute rule: RU001, rc=4
-00005     SA0001: has stmt, stmt=n2:'(b), rst=true
-00005     SA0001: complete end, rst=true
-00005     SA0001: route to SO0000
-00006 SO0000: process begin
-00006 SO0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0001, needComplete=true
-00007 SO0000: has stmt, stmt=n2:'(b), rst=true
-00007 SO0000: return true
+00003         EQ0002: process end, rst=true, status=COMPLETE, size=0
+00004         EQ0002: route to SA0001
+00005     SA0001: process begin
+00005     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00006     SA0001: complete begin
+00006     SA0001: query: ['(a p b), '(b p c)]
+00006     SA0001: execute rule: RU001, stmt=['(a p b), '(b p c)], rc=4
+00006     SA0001: has stmt, stmt=n2:'(b), rst=true
+00006     SA0001: complete end, rst=true
+00006     SA0001: route to SO0000
+00007 SO0000: process begin
+00007 SO0000: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0001, needComplete=true
+00008 SO0000: has stmt, stmt=n2:'(b), rst=true
+00008 SO0000: return true
 '(n2:'(b) (RU001 (query-stmt '(a p b) '(b p c))))
 n2:'(b)
 `-"RU001" (expr)

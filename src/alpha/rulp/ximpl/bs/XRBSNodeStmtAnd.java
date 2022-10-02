@@ -1,5 +1,7 @@
 package alpha.rulp.ximpl.bs;
 
+import static alpha.rulp.rule.Constant.O_QUERY_STMT;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,15 +22,186 @@ import alpha.rulp.ximpl.node.SourceNode;
 
 public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 
+	static interface IRBSQueryNodeIterator {
+
+		public boolean hasMore() throws RException;
+
+		public List<IRList> next() throws RException;
+	}
+
+	static class XRBSQueryNodeIterator implements IRBSQueryNodeIterator {
+
+		private boolean completed = false;
+
+		private int resultIndex = 0;
+
+		private List<List<IRList>> resultList = new ArrayList<>();
+
+		private final boolean[] subCompleted;
+
+		private final int subNodeCount;
+
+		private List<List<List<IRList>>> subNodeResultList = null;
+
+		private List<IRBSNodeQuery> subNodes;
+
+		private int subScanIndex = 0;
+
+		private final int[] subVisitIndexs;
+
+		public XRBSQueryNodeIterator(List<IRBSNodeQuery> subNodes) {
+
+			super();
+
+			this.subNodes = subNodes;
+			this.subNodeCount = subNodes.size();
+			this.subCompleted = new boolean[this.subNodeCount];
+			this.subVisitIndexs = new int[this.subNodeCount];
+
+			for (int i = 0; i < this.subNodeCount; ++i) {
+				this.subCompleted[i] = false;
+			}
+
+		}
+
+		public List<List<IRList>> getSubResultList() {
+
+			List<List<IRList>> resultList = new ArrayList<>();
+
+			for (int i = 0; i < this.subNodeCount; ++i) {
+				resultList.add(subNodeResultList.get(i).get(subVisitIndexs[i]));
+			}
+
+			return resultList;
+		}
+
+		public List<IRList> buildResultList() throws RException {
+
+			List<IRList> result = new ArrayList<>();
+
+			for (int i = 0; i < this.subNodeCount; ++i) {
+				result.addAll(subNodeResultList.get(i).get(subVisitIndexs[i]));
+			}
+
+			return result;
+		}
+
+		@Override
+		public boolean hasMore() throws RException {
+
+			if (resultIndex < resultList.size()) {
+				return true;
+			}
+
+			if (completed) {
+				return false;
+			}
+
+			if (subNodeResultList == null) {
+
+				subNodeResultList = new ArrayList<>();
+
+				for (int i = 0; i < this.subNodeCount; ++i) {
+
+					IRBSNodeQuery subNode = subNodes.get(i);
+					if (!subNode.hasMore()) {
+						this.completed = true;
+						return false;
+					}
+
+					List<List<IRList>> subResult = new ArrayList<>();
+					subResult.add(subNode.next());
+					subNodeResultList.add(subResult);
+					subVisitIndexs[i] = 0;
+				}
+
+				subScanIndex = 0;
+				resultList.add(buildResultList());
+				return true;
+			}
+
+			boolean carry = false;
+			boolean found = false;
+
+			while (!found && subScanIndex < subNodeCount) {
+
+				int curIndex = subVisitIndexs[subScanIndex];
+				List<List<IRList>> subResultList = subNodeResultList.get(subScanIndex);
+				if ((curIndex + 1) < subResultList.size()) {
+					found = true;
+					break;
+				}
+
+				if (!subCompleted[subScanIndex]) {
+
+					IRBSNodeQuery subNode = subNodes.get(subScanIndex);
+					if (!subNode.hasMore()) {
+						subCompleted[subScanIndex] = true;
+					} else {
+						found = true;
+						break;
+					}
+				}
+
+				carry = true;
+				subVisitIndexs[subScanIndex++] = 0;
+			}
+
+			if (found) {
+
+				subVisitIndexs[subScanIndex]++;
+				resultList.add(buildResultList());
+
+				if (carry) {
+					subScanIndex = 0;
+				}
+			}
+
+			return found;
+		}
+
+		public List<IRList> next() throws RException {
+
+			if (hasMore()) {
+				return resultList.get(resultIndex++);
+			}
+
+			return null;
+
+		}
+	}
+
 	protected IAction action;
 
 	protected IRBSNode failChild = null;
+
+	protected ArrayList<IRBSNodeQuery> queryNodes;
 
 	protected boolean rst;
 
 	protected SourceNode sourceNode;
 
 	protected IRList stmt;
+
+	protected List<IRList> queryStmts = null;
+
+	public void addChild(AbsBSNode child) {
+
+		super.addChild(child);
+
+		if (_isQueryNode(child)) {
+
+			if (queryNodes == null) {
+				queryNodes = new ArrayList<>();
+			}
+
+			queryNodes.add((IRBSNodeQuery) child);
+		}
+	}
+
+	static boolean _isQueryNode(AbsBSNode node) {
+		return node.getType() == BSNodeType.ENTRY_QUERY;
+	}
 
 	public IRList buildResultTree(boolean explain) throws RException {
 
@@ -44,47 +217,59 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 		treeList.add(RulpFactory.createString(sourceNode.rule.getRuleName()));
 
 		if (childNodes != null) {
+
 			for (AbsBSNode child : childNodes) {
-				treeList.add(child.buildResultTree(explain));
+				if (!_isQueryNode(child)) {
+					treeList.add(child.buildResultTree(explain));
+				}
+			}
+
+			int queryNodeCount = getQueryNodeCount();
+			if (queryNodeCount > 0) {
+				List<List<IRList>> resultlist = subNodeIterator.getSubResultList();
+				for (int i = 0; i < queryNodeCount; ++i) {
+					ArrayList<IRObject> rtList = new ArrayList<>();
+					rtList.add(O_QUERY_STMT);
+					rtList.addAll(resultlist.get(i));
+					treeList.add(RulpFactory.createExpression(rtList));
+				}
 			}
 		}
 
 		return RulpFactory.createExpression(treeList);
 	}
 
+	XRBSQueryNodeIterator subNodeIterator;
+
 	public void complete() throws RException {
 
-		// need trigger all related rete-node
-		if (execute(listAllChildAndStmts())) {
-			this.rst = true;
+		List<IRList> andStmts = listAllChildAndStmts();
+
+		if (getQueryNodeCount() == 0) {
+			// need trigger all related rete-node
+			this.rst = execute(andStmts);
 			return;
 		}
 
-		AbsBSNode lastChild = this.childNodes.get(childNodes.size() - 1);
-		if (lastChild.getType() == BSNodeType.ENTRY_QUERY) {
+		subNodeIterator = new XRBSQueryNodeIterator(queryNodes);
+		while (subNodeIterator.hasMore()) {
 
-			XRBSNodeBetaQuery queryNode = (XRBSNodeBetaQuery) lastChild;
-			while (queryNode.hasMore()) {
-
-				if (engine.isTrace()) {
-					engine.trace_outln(this,
-							String.format("complete-query, more query: ", "" + queryNode.getStatusString()));
-				}
-
-				queryNode.process(queryNode);
-
-				if (execute(listAllChildAndStmts())) {
-					this.rst = true;
-					return;
-				}
+			List<IRList> queryStmts = subNodeIterator.next();
+			if (engine.isTrace()) {
+				engine.trace_outln(this, String.format("query: %s", "" + queryStmts));
 			}
 
-//			boolean hasMore = ((XRBSNodeBetaQuery) lastChild).hasMore();
-//
-//			if (!hasMore) {
-//				this.rst = false;
-//				return;
-//			}
+			List<IRList> execStmts = queryStmts;
+			if (andStmts != null) {
+				execStmts = new ArrayList<>(andStmts);
+				execStmts.addAll(queryStmts);
+			}
+
+			if (execute(execStmts)) {
+				this.rst = true;
+				this.queryStmts = queryStmts;
+				return;
+			}
 		}
 
 		this.rst = false;
@@ -95,10 +280,15 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 
 		int rc = RuleUtil.executeRule(this.sourceNode.rule, childStmts);
 		if (engine.isTrace()) {
-			engine.trace_outln(this, String.format("execute rule: %s, rc=%d", this.sourceNode.rule.getRuleName(), rc));
+			engine.trace_outln(this, String.format("execute rule: %s, stmt=%s, rc=%d",
+					this.sourceNode.rule.getRuleName(), "" + childStmts, rc));
 		}
 
 		return engine.hasStmt(this, this.stmt);
+	}
+
+	public int getQueryNodeCount() {
+		return queryNodes == null ? 0 : queryNodes.size();
 	}
 
 	public SourceNode getSourceNode() {
@@ -175,7 +365,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 //
 //				if (ReteUtil.isBetaTree(queryTree, queryTree.size())) {
 
-				BSFactory.addChild(engine, this, BSFactory.createNodeBetaQuery(engine, queryStmtList));
+				BSFactory.addChild(engine, this, BSFactory.createNodeEntryQuery(engine, queryStmtList));
 				queryStmtList = null;
 //				}
 			}
@@ -212,12 +402,14 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 		List<IRList> stmts = null;
 
 		for (AbsBSNode childNode : childNodes) {
+
 			if (childNode.getType() == BSNodeType.STMT_OR) {
 
 				XRBSNodeStmtOr orNode = (XRBSNodeStmtOr) childNode;
 				if (stmts == null) {
 					stmts = new ArrayList<>();
 				}
+
 				stmts.add(orNode.getStmt());
 			}
 		}

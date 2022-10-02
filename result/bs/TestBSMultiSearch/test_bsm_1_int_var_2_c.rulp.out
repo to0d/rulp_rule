@@ -38,10 +38,12 @@
 00002         EQ0002: init begin, tree='(v1:'(?x) v2:'(?y) v3:'(?z) (>= ?y ?x) (>= ?z ?y) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2))), type=ENTRY_QUERY, status=INIT
 00002         EQ0002: init end, rst=false, status=PROCESS, size=0
 00003         EQ0002: process begin
-00003         EQ0002: process end, rst=false, status=COMPLETE, size=0
+00003         EQ0002: process end, rst=true, status=COMPLETE, size=0
 00004         EQ0002: route to SA0001
 00005     SA0001: process begin
-00005     SA0001: process end, rst=false, status=COMPLETE, child=1/1, fail-child=EQ0002
+00005     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00006     SA0001: complete begin
+00006     SA0001: complete end, rst=false
 00006     SA0001: route to SO0000
 00007 SO0000: process begin
 00007 SO0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true

@@ -8,11 +8,11 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 
+	protected final int nodeCount;
+
 	protected boolean nodeFresh = true;
 
 	protected final int[] parentVisitIndexs;
-
-	protected final int nodeCount;
 
 	public XRNodeZeta0(String instanceName, int nodeCount) {
 		super(instanceName);
@@ -21,10 +21,6 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 		for (int i = 0; i < nodeCount; ++i) {
 			this.parentVisitIndexs[i] = 0;
 		}
-	}
-
-	public int getNodeCount() {
-		return nodeCount;
 	}
 
 	protected boolean _addNewEntry(IRReteEntry[] entryList) throws RException {
@@ -193,6 +189,16 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 		return updateCount;
 	}
 
+	protected void _updateParentVisitIndexs(int indexs[]) {
+		for (int i = 0; i < parentCount; ++i) {
+			parentVisitIndexs[i] = indexs[i];
+		}
+	}
+
+	public int getNodeCount() {
+		return nodeCount;
+	}
+
 	@Override
 	public int getParentVisitIndex(int index) {
 		return this.parentVisitIndexs[index];
@@ -272,12 +278,6 @@ public class XRNodeZeta0 extends AbsReteNode implements IRZetaNode {
 
 		nodeFresh = false;
 		return updateCount;
-	}
-
-	protected void _updateParentVisitIndexs(int indexs[]) {
-		for (int i = 0; i < parentCount; ++i) {
-			parentVisitIndexs[i] = indexs[i];
-		}
 	}
 
 }

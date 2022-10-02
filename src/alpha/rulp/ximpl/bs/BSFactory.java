@@ -13,7 +13,6 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
-import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.SourceNode;
 
@@ -120,7 +119,7 @@ public class BSFactory {
 		switch (tree.getType()) {
 		case LIST:
 //			if (ReteUtil.isReteStmtNoVar(tree)) {
-				return createNodeStmtOr(engine, tree);
+			return createNodeStmtOr(engine, tree);
 //			}
 
 		case EXPR:
@@ -151,10 +150,9 @@ public class BSFactory {
 		throw new RException("invalid bs tree: " + tree);
 	}
 
-	public static AbsBSNode createNodeBetaQuery(IRBSEngine engine, List<IRList> stmtList) throws RException {
+	public static AbsBSNode createNodeEntryQuery(IRBSEngine engine, List<IRList> stmtList) throws RException {
 
-		XRBSNodeBetaQuery node = new XRBSNodeBetaQuery();
-		node.queryReteNodeTree = RulpFactory.createList(stmtList);
+		XRBSNodeEntryQuery node = new XRBSNodeEntryQuery(stmtList);
 		engine.addNode(node);
 
 		bscNodeStmtQuery++;

@@ -33,70 +33,73 @@
 00004                 EQ0006: init begin, tree='('(a p ?b) '(?b p c)), type=ENTRY_QUERY, status=INIT
 00004                 EQ0006: init end, rst=false, status=PROCESS, size=0
 00005                 EQ0006: process begin
-00005                 EQ0006: process end, rst=true, status=PROCESS, size=1
-00005                 EQ0006: route to SA0005
-00006             SA0005: process begin
-00006             SA0005: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
-00007             SA0005: complete begin
-00007             SA0005: execute rule: RU000, rc=4
-00007             SA0005: has stmt, stmt='(a p c), rst=true
-00007             SA0005: complete end, rst=true
-00007             SA0005: route to SO0003
-00008         SO0003: process begin
-00008         SO0003: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0005, needComplete=true
-00009         SO0003: complete begin
-00009         SO0003: has stmt, stmt='(a p c), rst=true
-00009         SO0003: complete end, rst=true
-00009         SO0003: route to LA0001
-00010     LA0001: process begin
-00010     LA0001: process end, rst=false, status=PROCESS, child=1/2, fail-child=null
-00010     LA0001: route to SO0004
-00011         SO0004: init begin, stmt='(a p d), type=STMT_OR, status=INIT
-00011         SO0004: has stmt, stmt='(a p d), rst=false
-00011         SO0004: add child, type=STMT_AND, name=SA0007
-00011         SO0004: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
-00011         SO0004: route to SA0007
-00012             SA0007: init begin, stmt='(a p d), rule=RU000: RU000, action='(?0, p, ?2)(0), type=STMT_AND, status=INIT
-00012             SA0007: add child, type=ENTRY_QUERY, name=EQ0008
-00012             SA0007: init end, rst=false, status=PROCESS, fail-child=null
-00012             SA0007: route to EQ0008
-00013                 EQ0008: init begin, tree='('(a p ?b) '(?b p d)), type=ENTRY_QUERY, status=INIT
-00013                 EQ0008: init end, rst=false, status=PROCESS, size=0
-00014                 EQ0008: process begin
-00014                 EQ0008: process end, rst=false, status=COMPLETE, size=0
-00015                 EQ0008: route to SA0007
-00016             SA0007: process begin
-00016             SA0007: process end, rst=false, status=COMPLETE, child=1/1, fail-child=EQ0008
-00017             SA0007: route to SO0004
-00018         SO0004: process begin
-00018         SO0004: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true
-00019         SO0004: route to LA0001
-00020     LA0001: process begin
-00020     LA0001: process end, rst=false, status=COMPLETE, child=2/2, fail-child=SO0004
-00021     LA0001: route to LO0000
-00022 LO0000: process begin
-00022 LO0000: process end, rst=false, status=PROCESS, child=1/2, succ-child=null
-00022 LO0000: route to LA0002
-00023     LA0002: init begin, stmt-list=['(a p c), '(a p b)], type=LOGIC_AND, status=INIT
-00023     LA0002: add child, type=STMT_OR, name=SO0009
-00023     LA0002: add child, type=STMT_OR, name=SO0010
-00023     LA0002: init end, rst=false, status=PROCESS, fail-child=null
-00023     LA0002: route to SO0009
-00024         SO0009: duplicate, return to parent
-00024         SO0009: route to LA0002
-00025     LA0002: process begin
-00025     LA0002: process end, rst=false, status=PROCESS, child=1/2, fail-child=null
-00025     LA0002: route to SO0010
-00026         SO0010: init begin, stmt='(a p b), type=STMT_OR, status=INIT
-00026         SO0010: has stmt, stmt='(a p b), rst=true
-00026         SO0010: init end, rst=true, status=COMPLETE, succ-child=null, needComplete=false
-00027         SO0010: route to LA0002
-00028     LA0002: process begin
-00028     LA0002: process end, rst=true, status=COMPLETE, child=2/2, fail-child=null
-00029     LA0002: route to LO0000
-00030 LO0000: process begin
-00030 LO0000: process end, rst=true, status=COMPLETE, child=2/2, succ-child=LA0002
-00031 LO0000: return true
+00005                 EQ0006: process end, rst=true, status=COMPLETE, size=0
+00006                 EQ0006: route to SA0005
+00007             SA0005: process begin
+00007             SA0005: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00008             SA0005: complete begin
+00008             SA0005: query: ['(a p b), '(b p c)]
+00008             SA0005: execute rule: RU000, stmt=['(a p b), '(b p c)], rc=4
+00008             SA0005: has stmt, stmt='(a p c), rst=true
+00008             SA0005: complete end, rst=true
+00008             SA0005: route to SO0003
+00009         SO0003: process begin
+00009         SO0003: process end, rst=true, status=COMPLETE, child=1/1, succ-child=SA0005, needComplete=true
+00010         SO0003: complete begin
+00010         SO0003: has stmt, stmt='(a p c), rst=true
+00010         SO0003: complete end, rst=true
+00010         SO0003: route to LA0001
+00011     LA0001: process begin
+00011     LA0001: process end, rst=false, status=PROCESS, child=1/2, fail-child=null
+00011     LA0001: route to SO0004
+00012         SO0004: init begin, stmt='(a p d), type=STMT_OR, status=INIT
+00012         SO0004: has stmt, stmt='(a p d), rst=false
+00012         SO0004: add child, type=STMT_AND, name=SA0007
+00012         SO0004: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
+00012         SO0004: route to SA0007
+00013             SA0007: init begin, stmt='(a p d), rule=RU000: RU000, action='(?0, p, ?2)(0), type=STMT_AND, status=INIT
+00013             SA0007: add child, type=ENTRY_QUERY, name=EQ0008
+00013             SA0007: init end, rst=false, status=PROCESS, fail-child=null
+00013             SA0007: route to EQ0008
+00014                 EQ0008: init begin, tree='('(a p ?b) '(?b p d)), type=ENTRY_QUERY, status=INIT
+00014                 EQ0008: init end, rst=false, status=PROCESS, size=0
+00015                 EQ0008: process begin
+00015                 EQ0008: process end, rst=true, status=COMPLETE, size=0
+00016                 EQ0008: route to SA0007
+00017             SA0007: process begin
+00017             SA0007: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
+00018             SA0007: complete begin
+00018             SA0007: complete end, rst=false
+00018             SA0007: route to SO0004
+00019         SO0004: process begin
+00019         SO0004: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true
+00020         SO0004: route to LA0001
+00021     LA0001: process begin
+00021     LA0001: process end, rst=false, status=COMPLETE, child=2/2, fail-child=SO0004
+00022     LA0001: route to LO0000
+00023 LO0000: process begin
+00023 LO0000: process end, rst=false, status=PROCESS, child=1/2, succ-child=null
+00023 LO0000: route to LA0002
+00024     LA0002: init begin, stmt-list=['(a p c), '(a p b)], type=LOGIC_AND, status=INIT
+00024     LA0002: add child, type=STMT_OR, name=SO0009
+00024     LA0002: add child, type=STMT_OR, name=SO0010
+00024     LA0002: init end, rst=false, status=PROCESS, fail-child=null
+00024     LA0002: route to SO0009
+00025         SO0009: duplicate, return to parent
+00025         SO0009: route to LA0002
+00026     LA0002: process begin
+00026     LA0002: process end, rst=false, status=PROCESS, child=1/2, fail-child=null
+00026     LA0002: route to SO0010
+00027         SO0010: init begin, stmt='(a p b), type=STMT_OR, status=INIT
+00027         SO0010: has stmt, stmt='(a p b), rst=true
+00027         SO0010: init end, rst=true, status=COMPLETE, succ-child=null, needComplete=false
+00028         SO0010: route to LA0002
+00029     LA0002: process begin
+00029     LA0002: process end, rst=true, status=COMPLETE, child=2/2, fail-child=null
+00030     LA0002: route to LO0000
+00031 LO0000: process begin
+00031 LO0000: process end, rst=true, status=COMPLETE, child=2/2, succ-child=LA0002
+00032 LO0000: return true
 
 ;eof
 
