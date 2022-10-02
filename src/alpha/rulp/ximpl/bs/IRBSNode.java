@@ -23,7 +23,7 @@ public interface IRBSNode {
 
 	public BSStats getStatus();
 
-	public String getStatusString();
+	public String getStatusString() throws RException;
 
 	public BSNodeType getType();
 

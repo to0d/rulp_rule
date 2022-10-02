@@ -4,16 +4,13 @@ import static alpha.rulp.rule.Constant.O_QUERY_STMT;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
-import alpha.rulp.rule.IREntryAction;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RefTreeUtil;
 import alpha.rulp.utils.ReteUtil;
@@ -21,17 +18,33 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 
-public class XRBSNodeBetaQuery extends AbsBSNode implements IREntryAction {
+public class XRBSNodeBetaQuery extends AbsBSNode {
 
-	protected boolean queryBackward = false;
-
-	protected boolean queryForward = false;
+//	protected boolean queryBackward = false;
+//
+//	protected boolean queryForward = false;
 
 	protected List<IRReteEntry> queryResultEntryList = new ArrayList<>();
 
-	protected Set<String> queryResultEntrySet = new HashSet<>();
+//	protected Set<String> queryResultEntrySet = new HashSet<>();
 
 	protected IRList queryReteNodeTree;
+
+	protected IRIterator<IRReteEntry> stmtIterator;
+
+//	@Override
+//	public boolean addEntry(IRReteEntry entry) throws RException {
+//
+//		if (entry != null && !entry.isDroped()) {
+//			String uniqName = ReteUtil.uniqName(entry);
+//			if (!queryResultEntrySet.contains(uniqName)) {
+//				queryResultEntrySet.add(uniqName);
+//				queryResultEntryList.add(entry);
+//			}
+//		}
+//
+//		return true;
+//	}
 
 	protected List<IRList> _rebuildProveStmtList(IRReteEntry entry) throws RException {
 
@@ -43,20 +56,6 @@ public class XRBSNodeBetaQuery extends AbsBSNode implements IREntryAction {
 		}
 
 		return stmtList;
-	}
-
-	@Override
-	public boolean addEntry(IRReteEntry entry) throws RException {
-
-		if (entry != null && !entry.isDroped()) {
-			String uniqName = ReteUtil.uniqName(entry);
-			if (!queryResultEntrySet.contains(uniqName)) {
-				queryResultEntrySet.add(uniqName);
-				queryResultEntryList.add(entry);
-			}
-		}
-
-		return true;
 	}
 
 	public IRList buildResultTree(boolean explain) throws RException {
@@ -204,9 +203,8 @@ public class XRBSNodeBetaQuery extends AbsBSNode implements IREntryAction {
 
 	}
 
-	public String getStatusString() {
-		return String.format("forward=%s, backward=%s, query=%d", queryForward, queryBackward,
-				queryResultEntrySet.size());
+	public String getStatusString() throws RException {
+		return String.format("size=%d", queryResultEntryList.size());
 	}
 
 	@Override
@@ -216,25 +214,30 @@ public class XRBSNodeBetaQuery extends AbsBSNode implements IREntryAction {
 
 	public boolean hasMore() throws RException {
 
-		if (queryBackward) {
-			return false;
-		}
+//		if (queryBackward) {
+//			return false;
+//		}
+//
+//		int oldSize = queryResultEntrySet.size();
+//		engine.getModel().query(this, queryReteNodeTree, -1, true);
+//		queryBackward = true;
+//
+//		return queryResultEntrySet.size() > oldSize;
 
-		int oldSize = queryResultEntrySet.size();
-		engine.getModel().query(this, queryReteNodeTree, -1, true);
-		queryBackward = true;
-
-		return queryResultEntrySet.size() > oldSize;
+		return stmtIterator.hasNext();
 	}
 
 	@Override
 	public void init() throws RException {
+
+		stmtIterator = engine.getModel().query(queryReteNodeTree, -1, true);
+
 		this.status = BSStats.PROCESS;
 	}
 
 	@Override
 	public boolean isSucc() {
-		return queryResultEntrySet.size() > 0;
+		return queryResultEntryList.size() > 0;
 	}
 
 	@Override
@@ -244,21 +247,29 @@ public class XRBSNodeBetaQuery extends AbsBSNode implements IREntryAction {
 
 	public void process(IRBSNode lastNode) throws RException {
 
-		if (!queryForward) {
+		if (stmtIterator.hasNext()) {
 
-			// query forward
-			engine.getModel().query(this, queryReteNodeTree, -1, false);
-			queryForward = true;
+			queryResultEntryList.add(stmtIterator.next());
 		}
 
-		if (!queryBackward && !isSucc()) {
-
-			// query forward
-			engine.getModel().query(this, queryReteNodeTree, -1, true);
-			queryBackward = true;
+		if (!stmtIterator.hasNext()) {
+			this.status = BSStats.COMPLETE;
 		}
 
-		this.status = BSStats.COMPLETE;
+//		if (!queryForward) {
+//
+//			// query forward
+//			engine.getModel().query(this, queryReteNodeTree, -1, false);
+//			queryForward = true;
+//		}
+//
+//		if (!queryBackward && !isSucc()) {
+//
+//			// query forward
+//			engine.getModel().query(this, queryReteNodeTree, -1, true);
+//			queryBackward = true;
+//		}
+
 	}
 
 	@Override

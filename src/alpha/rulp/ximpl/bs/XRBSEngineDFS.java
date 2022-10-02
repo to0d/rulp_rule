@@ -160,6 +160,10 @@ public class XRBSEngineDFS extends AbsBSEngine implements IRBSEngine {
 					}
 				}
 
+				if (curNode.getType() == BSNodeType.ENTRY_QUERY && curNode.getStatus() == BSStats.PROCESS) {
+					curNode = curNode.getParentNode();
+				}
+
 				break;
 
 			case COMPLETE:

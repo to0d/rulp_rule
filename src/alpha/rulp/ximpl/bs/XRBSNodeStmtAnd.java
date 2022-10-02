@@ -63,20 +63,32 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 		AbsBSNode lastChild = this.childNodes.get(childNodes.size() - 1);
 		if (lastChild.getType() == BSNodeType.ENTRY_QUERY) {
 
-			boolean hasMore = ((XRBSNodeBetaQuery) lastChild).hasMore();
+			XRBSNodeBetaQuery queryNode = (XRBSNodeBetaQuery) lastChild;
+			while (queryNode.hasMore()) {
 
-			if (engine.isTrace()) {
-				engine.trace_outln(this, String.format("complete-query, hasMore=%s", "" + hasMore));
+				if (engine.isTrace()) {
+					engine.trace_outln(this,
+							String.format("complete-query, more query: ", "" + queryNode.getStatusString()));
+				}
+
+				queryNode.process(queryNode);
+
+				if (execute(listAllChildAndStmts())) {
+					this.rst = true;
+					return;
+				}
 			}
 
-			if (!hasMore) {
-				this.rst = false;
-				return;
-			}
+//			boolean hasMore = ((XRBSNodeBetaQuery) lastChild).hasMore();
+//
+//			if (!hasMore) {
+//				this.rst = false;
+//				return;
+//			}
 		}
 
-		this.sourceNode.rule.start(-1, -1);
-		this.rst = engine.hasStmt(this, this.stmt);
+		this.rst = false;
+		return;
 	}
 
 	public boolean execute(List<IRList> childStmts) throws RException {
@@ -163,8 +175,8 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 //
 //				if (ReteUtil.isBetaTree(queryTree, queryTree.size())) {
 
-					BSFactory.addChild(engine, this, BSFactory.createNodeBetaQuery(engine, queryStmtList));
-					queryStmtList = null;
+				BSFactory.addChild(engine, this, BSFactory.createNodeBetaQuery(engine, queryStmtList));
+				queryStmtList = null;
 //				}
 			}
 

@@ -26,9 +26,9 @@
 00002         SA0003: init end, rst=false, status=PROCESS, fail-child=null
 00002         SA0003: route to EQ0004
 00003             EQ0004: init begin, tree='('(a p ?b) '(?b p c)), type=ENTRY_QUERY, status=INIT
-00003             EQ0004: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
+00003             EQ0004: init end, rst=false, status=PROCESS, size=0
 00004             EQ0004: process begin
-00004             EQ0004: process end, rst=true, status=COMPLETE, forward=true, backward=false, query=1
+00004             EQ0004: process end, rst=true, status=COMPLETE, size=1
 00005             EQ0004: route to SA0003
 00006         SA0003: process begin
 00006         SA0003: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null

@@ -399,7 +399,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 				/********************************************/
 				// expand
 				/********************************************/
-				if (queryEntryIndex >= queryEntrySize && !completed) {
+				if (queryEntryIndex >= queryEntrySize) {
+
+					if (completed) {
+						ended = true;
+						return false;
+					}
 
 					/****************************************/
 					// Build SubGraph

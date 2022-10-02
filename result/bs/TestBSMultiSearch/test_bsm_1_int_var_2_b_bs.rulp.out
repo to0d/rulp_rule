@@ -36,9 +36,9 @@
 00001     SA0001: init end, rst=false, status=PROCESS, fail-child=null
 00001     SA0001: route to EQ0002
 00002         EQ0002: init begin, tree='(v1:'(?x) v2:'(?y) v3:'(?z) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2))), type=ENTRY_QUERY, status=INIT
-00002         EQ0002: init end, rst=false, status=PROCESS, forward=false, backward=false, query=0
+00002         EQ0002: init end, rst=false, status=PROCESS, size=0
 00003         EQ0002: process begin
-00003         EQ0002: process end, rst=false, status=COMPLETE, forward=true, backward=true, query=0
+00003         EQ0002: process end, rst=false, status=COMPLETE, size=0
 00004         EQ0002: route to SA0001
 00005     SA0001: process begin
 00005     SA0001: process end, rst=false, status=COMPLETE, child=1/1, fail-child=EQ0002
