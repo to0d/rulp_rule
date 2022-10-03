@@ -11,7 +11,6 @@ import java.util.Map;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
-import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -205,7 +204,7 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 	}
 
 	static boolean _isQueryNode(AbsBSNode node) {
-		return node.getType() == BSNodeType.ENTRY_QUERY;
+		return node.getType() == BSNodeType.ENTRY_QUERY || node.getType() == BSNodeType.STMT_QUERY;
 	}
 
 	public IRList buildResultTree(boolean explain) throws RException {

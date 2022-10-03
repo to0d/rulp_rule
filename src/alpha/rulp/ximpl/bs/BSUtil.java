@@ -36,6 +36,9 @@ public class BSUtil {
 		case ENTRY_QUERY:
 			return String.format("EQ%04d", nodeId);
 
+		case STMT_QUERY:
+			return String.format("SQ%04d", nodeId);
+
 		default:
 			return String.format("UN%04d", nodeId);
 		}
