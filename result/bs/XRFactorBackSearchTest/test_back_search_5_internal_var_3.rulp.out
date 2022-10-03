@@ -35,7 +35,7 @@
 00005     SA0001: process begin
 00005     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
 00006     SA0001: complete begin
-00006     SA0001: query: ['(a p b), '(b p c)]
+00006     SA0001: query: iterator=[0], result=['(a p b), '(b p c)]
 00006     SA0001: execute rule: RU001, stmt=['(a p b), '(b p c)], rc=4
 00006     SA0001: has stmt, stmt=n2:'(b), rst=true
 00006     SA0001: complete end, rst=true

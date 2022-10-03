@@ -11,6 +11,7 @@ import java.util.Map;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
@@ -48,6 +49,10 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 		private int subScanIndex = 0;
 
 		private final int[] subVisitIndexs;
+
+		public String getVisitIndexs() {
+			return "" + RulpUtil.toArray2(subVisitIndexs);
+		}
 
 		public XRBSQueryNodeIterator(List<IRBSNodeQuery> subNodes) {
 
@@ -256,7 +261,8 @@ public class XRBSNodeStmtAnd extends AbsBSNode implements IRBSNodeStmt {
 
 			List<IRList> queryStmts = subNodeIterator.next();
 			if (engine.isTrace()) {
-				engine.trace_outln(this, String.format("query: %s", "" + queryStmts));
+				engine.trace_outln(this, String.format("query: iterator=%s, result=%s",
+						subNodeIterator.getVisitIndexs(), "" + queryStmts));
 			}
 
 			List<IRList> execStmts = queryStmts;
