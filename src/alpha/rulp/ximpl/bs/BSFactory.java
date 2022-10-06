@@ -11,10 +11,12 @@ import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
+import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.SourceNode;
+import alpha.rulp.utils.*;
 
 public class BSFactory {
 
@@ -118,9 +120,22 @@ public class BSFactory {
 
 		switch (tree.getType()) {
 		case LIST:
-//			if (ReteUtil.isReteStmtNoVar(tree)) {
-			return createNodeStmtOr(engine, tree);
-//			}
+			if (ReteUtil.isReteStmtNoVar(tree)) {
+				return createNodeStmtOr(engine, tree);
+			}
+
+			RType e0Type = tree.get(0).getType();
+			if (ReteUtil.isEntryValueType(e0Type)) {
+
+				int varCount = ReteUtil.getStmtVarCount(tree);
+
+				// Build const node
+				if (varCount == 0) {
+					return createNodeStmtOr(engine, tree);
+				}
+
+				return createNodeEntryQuery(engine, tree);
+			}
 
 		case EXPR:
 
@@ -151,6 +166,19 @@ public class BSFactory {
 	}
 
 	public static AbsBSNode createNodeEntryQuery(IRBSEngine engine, List<IRList> stmtList) throws RException {
+
+		XRBSNodeEntryQuery node = new XRBSNodeEntryQuery(stmtList);
+		engine.addNode(node);
+
+		bscNodeStmtQuery++;
+
+		return node;
+	}
+
+	public static AbsBSNode createNodeEntryQuery(IRBSEngine engine, IRList stmt) throws RException {
+
+		ArrayList<IRList> stmtList = new ArrayList<>();
+		stmtList.add(stmt);
 
 		XRBSNodeEntryQuery node = new XRBSNodeEntryQuery(stmtList);
 		engine.addNode(node);

@@ -39,7 +39,12 @@ public class XRBSNodeEntryQuery extends AbsBSNode implements IRBSNodeQuery {
 
 	@Override
 	public IRList buildResultTree(boolean explain) throws RException {
-		throw new RException("invalid operation");
+
+		if (queryStmtList.size() != 1) {
+			throw new RException("invalid operation");
+		}
+
+		return RulpFactory.createExpression();
 	}
 
 	@Override

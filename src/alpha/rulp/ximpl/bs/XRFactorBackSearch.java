@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.bs;
 
 import static alpha.rulp.rule.Constant.A_DEEP_FIRST;
 import static alpha.rulp.rule.Constant.A_Explain;
+import static alpha.rulp.rule.Constant.A_Limit;
 
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
@@ -12,6 +13,7 @@ import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
+import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
@@ -62,6 +64,7 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 
 		boolean explain = false;
 		BSSearchType st = null;
+		int limit = -1; // 0: all, -1: default
 
 		/********************************************/
 		// Check modifier
@@ -76,6 +79,15 @@ public class XRFactorBackSearch extends AbsAtomFactorAdapter implements IRuleFac
 
 			case A_DEEP_FIRST:
 				st = BSSearchType.DFS;
+				break;
+
+			// limit 1
+			case A_Limit:
+				limit = RulpUtil.asInteger(modifier.obj).asInteger();
+				if (limit <= 0) {
+					throw new RException("invalid value<" + modifier.obj + "> for modifier: " + modifier.name);
+				}
+
 				break;
 
 			default:

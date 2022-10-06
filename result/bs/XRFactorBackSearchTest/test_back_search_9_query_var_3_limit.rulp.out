@@ -14,8 +14,20 @@
 ;=>nil
 
 (back-search m '(a p2 ?x) limit 1 explain)
-;err:
-unsupport modifier: limit
-at (back-search m '(a p2 ?x) limit 1 explain) ; main-2
+;=>()
+;out:
+00000 EQ0000: create_root, tree='('(a p2 ?x)), type=ENTRY_QUERY, status=INIT
+00000 EQ0000: init begin, tree='('(a p2 ?x)), type=ENTRY_QUERY, status=INIT
+00000 EQ0000: init end, rst=false, status=PROCESS, size=0
+00001 EQ0000: process begin
+00001 EQ0000: process end, rst=true, status=COMPLETE, size=0
+00002 EQ0000: return true
+
 ;eof
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>nil
+
+(list-stmt m)
+;=>'('(a p1 b1) '(x p1 y1) '(x p1 y2) '(a p1 b2) '(a p1 b3))
 

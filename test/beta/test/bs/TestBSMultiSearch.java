@@ -29,6 +29,8 @@ public class TestBSMultiSearch extends RuleTestBase {
 	@Test
 	void test_bsm_1_int_var_1_c_bs() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");
@@ -85,6 +87,8 @@ public class TestBSMultiSearch extends RuleTestBase {
 	@Test
 	void test_bsm_1_int_var_2_b_bs() {
 
+		// Should fail
+
 		_setup();
 		_run_script();
 		_statsInfo("m");
@@ -94,6 +98,8 @@ public class TestBSMultiSearch extends RuleTestBase {
 
 	@Test
 	void test_bsm_1_int_var_2_c() {
+
+		// Should fail
 
 		_setup();
 		_run_script();

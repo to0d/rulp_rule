@@ -14,22 +14,14 @@
 ;=>nil
 
 (back-search m '(a p2 ?x) explain)
-;=>'()
+;=>()
 ;out:
-00000 SO0000: create_root, stmt='(a p2 ?x), type=STMT_OR, status=INIT
-00000 SO0000: init begin, stmt='(a p2 ?x), type=STMT_OR, status=INIT
-00000 SO0000: has stmt, stmt='(a p2 ?x), rst=false
-00000 SO0000: add child, type=STMT_AND, name=SA0001
-00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
-00000 SO0000: route to SA0001
-00001     SA0001: init begin, stmt='(a p2 ?x), rule=RU000: RU000, action='(?0, p2, ?2)(0), type=STMT_AND, status=INIT
-00001     SA0001: invalid queryStmtList: ['(a p1 ?x)]
-00001     SA0001: init end, rst=false, status=COMPLETE, fail-child=null
-00002     SA0001: route to SO0000
-00003 SO0000: process begin
-00003 SO0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true
-00004 SO0000: has stmt, stmt='(a p2 ?x), rst=false
-00004 SO0000: return false
+00000 EQ0000: create_root, tree='('(a p2 ?x)), type=ENTRY_QUERY, status=INIT
+00000 EQ0000: init begin, tree='('(a p2 ?x)), type=ENTRY_QUERY, status=INIT
+00000 EQ0000: init end, rst=false, status=PROCESS, size=0
+00001 EQ0000: process begin
+00001 EQ0000: process end, rst=true, status=COMPLETE, size=0
+00002 EQ0000: return true
 
 ;eof
 

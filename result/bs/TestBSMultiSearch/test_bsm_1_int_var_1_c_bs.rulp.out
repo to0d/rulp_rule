@@ -12,16 +12,9 @@
     (println ?tree)
     (print-ref-tree ?tree)
 )
-;=>nil
-;out:
-00000 SO0000: create_root, stmt=v1:'(?x), type=STMT_OR, status=INIT
-00000 SO0000: init begin, stmt=v1:'(?x), type=STMT_OR, status=INIT
-00000 SO0000: has stmt, stmt=v1:'(?x), rst=true
-00000 SO0000: init end, rst=true, status=COMPLETE, succ-child=null, needComplete=false
-00001 SO0000: has stmt, stmt=v1:'(?x), rst=true
-00001 SO0000: return true
-'(v1:'(?x))
-v1:'(?x)
-
+;err:
+the 0 argument<()> not match type <list>
+at (print-ref-tree ?tree) ; do-7
+at (do (defvar ?tree (back-search m v1:'(?x) explain)) (println ?tree) (print-re... ; main-2
 ;eof
 

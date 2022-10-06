@@ -23,34 +23,9 @@
     (println ?tree)
     (print-ref-tree ?tree)
 )
-;=>nil
-;out:
-00000 SO0000: create_root, stmt=v4:'(?x ?y ?z), type=STMT_OR, status=INIT
-00000 SO0000: init begin, stmt=v4:'(?x ?y ?z), type=STMT_OR, status=INIT
-00000 SO0000: has stmt, stmt=v4:'(?x ?y ?z), rst=false
-00000 SO0000: add child, type=STMT_AND, name=SA0001
-00000 SO0000: init end, rst=false, status=PROCESS, succ-child=null, needComplete=true
-00000 SO0000: route to SA0001
-00001     SA0001: init begin, stmt=v4:'(?x ?y ?z), rule=RU003: RU003, action=v4:'(?0, ?1, ?2)(0), type=STMT_AND, status=INIT
-00001     SA0001: add child, type=ENTRY_QUERY, name=EQ0002
-00001     SA0001: init end, rst=false, status=PROCESS, fail-child=null
-00001     SA0001: route to EQ0002
-00002         EQ0002: init begin, tree='(v1:'(?x) v2:'(?y) v3:'(?z) (>= ?y ?x) (>= ?z ?y) (= (+ (power ?x 2) (power ?y 2)) (power ?z 2))), type=ENTRY_QUERY, status=INIT
-00002         EQ0002: init end, rst=false, status=PROCESS, size=0
-00003         EQ0002: process begin
-00003         EQ0002: process end, rst=true, status=COMPLETE, size=0
-00004         EQ0002: route to SA0001
-00005     SA0001: process begin
-00005     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
-00006     SA0001: complete begin
-00006     SA0001: complete end, rst=false
-00006     SA0001: route to SO0000
-00007 SO0000: process begin
-00007 SO0000: process end, rst=false, status=COMPLETE, child=1/1, succ-child=null, needComplete=true
-00008 SO0000: has stmt, stmt=v4:'(?x ?y ?z), rst=false
-00008 SO0000: return false
-'()
-'()
-
+;err:
+the 0 argument<()> not match type <list>
+at (print-ref-tree ?tree) ; do-6
+at (do (defvar ?tree (back-search m v4:'(?x ?y ?z) explain)) (println ?tree) (pr... ; main-2
 ;eof
 
