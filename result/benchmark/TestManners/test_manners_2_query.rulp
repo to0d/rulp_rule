@@ -43,7 +43,7 @@
     (seta ?arr 0 (+ ?m 1))
     (seta ?arr ?m ?g1)
     
-    (add-stmt (to-named-list seat (to-list ?arr)))
+    (add-stmt mm seat ?arr)
 )
 ;=>
 

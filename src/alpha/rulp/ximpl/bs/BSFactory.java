@@ -14,9 +14,9 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
+import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.node.SourceNode;
-import alpha.rulp.utils.*;
 
 public class BSFactory {
 

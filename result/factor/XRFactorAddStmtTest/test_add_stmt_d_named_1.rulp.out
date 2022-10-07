@@ -1,0 +1,16 @@
+(new model m)
+;=>m
+
+(add-stmt m "n1" '(1))
+;=>true
+
+(add-stmt m n2 '(2 3))
+;=>true
+
+(defvar ?x "n3")
+(add-stmt m ?x '(4 5 6))
+;=>&?x true
+
+(list-stmt m)
+;=>'(n1:'(1) n2:'(2 3) n3:'(4 5 6))
+

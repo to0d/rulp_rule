@@ -43,13 +43,13 @@
     (seta ?arr 0 (+ ?m 1))
     (seta ?arr ?m ?g1)
     
-    (add-stmt (to-named-list seat (to-list ?arr)))
+    (add-stmt mm seat ?arr)
 )
 ;=>RU002
 
 (query-stmt mm '(?x...) from seat:'(16 ?x...) limit 1)
 ;err:
-Can't convert to list: (to-named-list seat (to-list ?arr))
+Can't convert to list: seat
 at (query-stmt mm '(?x...) from seat:'(16 ?x...) limit 1) ; main-2
 ;eof
 
