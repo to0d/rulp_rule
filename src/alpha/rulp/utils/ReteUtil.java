@@ -1650,10 +1650,6 @@ public class ReteUtil {
 		return true;
 	}
 
-//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
-//
-//	}
-
 	public static boolean isReteTree(IRObject tree) throws RException {
 
 		if (tree.getType() != RType.LIST) {
@@ -1697,6 +1693,10 @@ public class ReteUtil {
 			return ReteUtil.isReteStmt(list);
 		}
 	}
+
+//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
+//
+//	}
 
 	public static boolean isReteTreeModifierAtom(IRAtom obj) throws RException {
 
@@ -2007,6 +2007,100 @@ public class ReteUtil {
 		}
 
 		return true;
+	}
+
+	public static IRList rebuildCondListAnyVar(IRNodeGraph graph, IRList condList,
+			Map<String, List<IRObject>> anyVarListMap) throws RException {
+
+		ArrayList<IRObject> filterObjs = null;
+
+		int condSize = condList.size();
+
+		for (int i = 0; i < condSize; ++i) {
+
+			IRObject obj = condList.get(i);
+
+			boolean update = false;
+
+			if (obj.getType() == RType.LIST) {
+
+				IRList filter = RulpUtil.asList(obj);
+
+				int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
+				if (anyIndex != -1) {
+
+					String namedName = filter.getNamedName();
+					if (namedName == null) {
+						throw new RException(String.format("need named for any filter: %s", filter));
+					}
+
+					if (anyIndex != (filter.size() - 1)) {
+						throw new RException(String.format("invalid any filter: %s", filter));
+					}
+
+					IRReteNode namedNode = graph.findRootNode(namedName, -1);
+					if (namedNode == null) {
+						throw new RException(String.format("named node not found: %s", filter));
+					}
+
+					String anyVarName = filter.get(anyIndex).asString();
+					List<IRObject> anyVarList = anyVarListMap.get(anyVarName);
+					if (anyVarList == null) {
+
+						if (namedNode.getEntryLength() < filter.size()) {
+							throw new RException(String.format("named node length<%d> not match: %s",
+									namedNode.getEntryLength(), filter));
+						}
+
+						anyVarList = new ArrayList<>();
+						XTempVarBuilder tmpVarBuilder = new XTempVarBuilder(namedName + "_any");
+						for (int j = anyIndex; j < namedNode.getEntryLength(); ++j) {
+							anyVarList.add(tmpVarBuilder.next());
+						}
+
+						anyVarListMap.put(anyVarName, anyVarList);
+					}
+
+					if ((anyIndex + anyVarList.size()) != namedNode.getEntryLength()) {
+						throw new RException(String.format("named node length<%d> not match: %s",
+								namedNode.getEntryLength(), filter));
+					}
+
+					ArrayList<IRObject> newObjList = new ArrayList<>();
+					for (int j = 0; j < anyIndex; ++j) {
+						newObjList.add(filter.get(j));
+					}
+
+					newObjList.addAll(anyVarList);
+					obj = RulpFactory.createNamedList(namedName, newObjList);
+					update = true;
+				}
+			}
+
+			if (update) {
+
+				if (filterObjs == null) {
+					filterObjs = new ArrayList<>();
+					for (int j = 0; j < i; ++j) {
+						filterObjs.add(condList.get(j));
+					}
+				}
+
+				filterObjs.add(obj);
+
+			} else {
+
+				if (filterObjs != null) {
+					filterObjs.add(obj);
+				}
+			}
+		}
+
+		if (filterObjs == null) {
+			return condList;
+		}
+
+		return RulpFactory.createList(filterObjs);
 	}
 
 	public static void setParentNodes(AbsReteNode child, IRReteNode... parents) throws RException {

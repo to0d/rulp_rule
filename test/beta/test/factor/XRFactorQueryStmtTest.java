@@ -96,7 +96,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_query_stmt_6_where_2_uniq_1() {
+	void test_query_stmt_6_where_1_expr_2() {
 
 		_setup();
 		_run_script();
@@ -105,7 +105,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_query_stmt_6_where_1_expr_2() {
+	void test_query_stmt_6_where_2_uniq_1() {
 
 		_setup();
 		_run_script();
@@ -169,6 +169,15 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	
 	
 	@Test
+	void test_query_stmt_8_limit_2_zeta_b() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+	
+	@Test
 	void test_query_stmt_8_limit_3_fast_return() {
 
 		_setup();
@@ -176,15 +185,6 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 
-	}
-	
-	@Test
-	void test_query_stmt_8_limit_2_zeta_b() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-		_dumpEntryTable("m");
 	}
 
 	@Test
@@ -237,4 +237,11 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_query_stmt_e_any_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

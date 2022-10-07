@@ -15,6 +15,7 @@ import static alpha.rulp.rule.Constant.A_Where;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -252,6 +253,17 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		IRNodeSubGraph subGraph = null;
 		if (ruleGroupName != null) {
 			subGraph = model.getNodeGraph().createSubGraphForRuleGroup(ruleGroupName);
+		}
+
+		/********************************************/
+		// Rebuild var cond list (query-stmt m '(?...) from n3:'(?...))
+		/********************************************/
+		{
+			Map<String, List<IRObject>> anyVarListMap = new HashMap<>();
+			IRList newCondList = ReteUtil.rebuildCondListAnyVar(model.getNodeGraph(), condList, anyVarListMap);
+			if (newCondList != condList && !anyVarListMap.isEmpty()) {
+
+			}
 		}
 
 		/********************************************/

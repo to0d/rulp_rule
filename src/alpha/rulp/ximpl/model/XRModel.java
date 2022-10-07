@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -1754,86 +1755,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		loadNodeListener.addListener(listener);
 	}
 
-	protected IRList _rebuldAnyStmt(IRList condList) throws RException {
-
-		ArrayList<IRObject> filterObjs = null;
-
-		int condSize = condList.size();
-
-		for (int i = 0; i < condSize; ++i) {
-
-			IRObject obj = condList.get(i);
-
-			boolean update = false;
-
-			if (obj.getType() == RType.LIST) {
-
-				IRList filter = RulpUtil.asList(obj);
-
-				int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
-				if (anyIndex != -1) {
-
-					String namedName = filter.getNamedName();
-					if (namedName == null) {
-						throw new RException(String.format("need named for any filter: %s", filter));
-					}
-
-					if (anyIndex != (filter.size() - 1)) {
-						throw new RException(String.format("invalid any filter: %s", filter));
-					}
-
-					IRReteNode namedNode = getNodeGraph().findRootNode(namedName, -1);
-					if (namedNode == null) {
-						throw new RException(String.format("named node not found: %s", filter));
-					}
-
-					if (namedNode.getEntryLength() < filter.size()) {
-						throw new RException(String.format("named node length<%d> not match: %s",
-								namedNode.getEntryLength(), filter));
-					}
-
-					XTempVarBuilder tmpVarBuilder = new XTempVarBuilder(namedName + "_any");
-
-					ArrayList<IRObject> newObjList = new ArrayList<>();
-					for (int j = 0; j < anyIndex; ++j) {
-						newObjList.add(filter.get(j));
-					}
-
-					while (newObjList.size() < namedNode.getEntryLength()) {
-						newObjList.add(tmpVarBuilder.next());
-					}
-
-					obj = RulpFactory.createNamedList(namedName, newObjList);
-					update = true;
-				}
-			}
-
-			if (update) {
-
-				if (filterObjs == null) {
-					filterObjs = new ArrayList<>();
-					for (int j = 0; j < i; ++j) {
-						filterObjs.add(condList.get(j));
-					}
-				}
-
-				filterObjs.add(obj);
-
-			} else {
-
-				if (filterObjs != null) {
-					filterObjs.add(obj);
-				}
-			}
-		}
-
-		if (filterObjs == null) {
-			return condList;
-		}
-
-		return RulpFactory.createList(filterObjs);
-	}
-
 	@Override
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList) throws RException {
 
@@ -1846,7 +1767,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// n1:'(a ?...) ==> n1:'(a ?tmp_1 ?tmp_2)
 		/******************************************************/
-		condList = _rebuldAnyStmt(condList);
+		condList = ReteUtil.rebuildCondListAnyVar(nodeGraph, condList, new HashMap<>());
 
 		/******************************************************/
 		// update condition list
