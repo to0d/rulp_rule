@@ -4,3 +4,28 @@
 (query-stmt mm ?v from canBeCouple:'(1 2 ?v))
 ;=>'(true)
 
+(defun canBeCouple (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        return false)
+    (return (get ?rst 0))
+)
+;=>canBeCouple
+
+(canBeCouple 1 2)
+;=>true
+
+(canBeCouple 1 3)
+;=>false
+
+(defun canSitTogether (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canSitTogether:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        return false)
+    (return (get ?rst 0))
+)
+;=>canSitTogether
+
+(canSitTogether 1 2)
+;=>true
+

@@ -28,4 +28,13 @@ public class TestManners extends RuleTestBase {
 
 	}
 
+	@Test
+	void test_manners_2_query() {
+
+		_setup();
+		_run_script();
+		_statsInfo("mm");
+		_dumpEntryTable("mm");
+
+	}
 }

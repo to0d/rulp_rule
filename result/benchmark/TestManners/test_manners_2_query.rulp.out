@@ -1,0 +1,55 @@
+(load (+ (file-parent ?script-path) "manners_16.rulp"))
+;=>nil
+
+(defun canBeCouple (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        return false)
+    (return (get ?rst 0))
+)
+;=>canBeCouple
+
+(defun canSitTogether (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canSitTogether:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        return false)
+    (return (get ?rst 0))
+)
+;=>canSitTogether
+
+(add-rule mm if seat:'(?m ...) guess:'(?g ?s) do 
+
+    (foreach ?i from 1 to ?m do
+        (if (= (get ?0 (- ?i 1)) ?g1) do
+            (return)
+        )
+    )
+    
+    (if (> ?m 0) do
+        (defvar ?x (get ?0 (- ?m 1)))
+        (if (not (canBeCouple ?x ?g1))
+            (return)
+        )
+    )
+    
+    (if (= (+ ?m 1) ?max_guess) do
+        (defvar ?x (get ?0 0))
+        (if (not (canBeCouple ?x ?g1))
+            (return)
+        )
+    )
+    
+    (defvar ?arr (to-array ?0))
+    (seta ?arr 0 (+ ?m 1))
+    (seta ?arr ?m ?g1)
+    
+    (add-stmt (to-named-list seat (to-list ?arr)))
+)
+;=>RU002
+
+(query-stmt mm '(?x...) from seat:'(16 ?x...) limit 1)
+;err:
+Can't convert to list: (to-named-list seat (to-list ?arr))
+at (query-stmt mm '(?x...) from seat:'(16 ?x...) limit 1) ; main-2
+;eof
+
