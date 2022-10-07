@@ -1,0 +1,6 @@
+(new model m)
+;=>
+
+(add-rule m if n3:'(?x ?...) do (-> n1:'(?x)))
+;err
+

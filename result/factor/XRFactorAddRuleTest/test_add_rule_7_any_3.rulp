@@ -1,0 +1,34 @@
+(new model m)
+;=>
+
+(add-node m n3:'(3))
+;=>
+
+(add-rule m if n3:'(?m ?...) n1:'(?x) (< ?m 3) do 
+
+    (loop for ?i from 1 to ?m do
+        (if (= (get ?0 (- ?i 1)) ?x) do
+            (return)
+        )
+    )
+
+    (defvar ?arr (to-array ?0))
+    (seta ?arr 0 (+ ?m 1))
+    (seta ?arr ?m ?x)
+    
+    (add-stmt m n3 ?arr)    
+)
+;=>
+
+(add-stmt m n1:'(a))
+(add-stmt m n1:'(b))
+(add-stmt m n1:'(c))
+(add-stmt m n3:'(0 nil nil))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m )
+;=>
+

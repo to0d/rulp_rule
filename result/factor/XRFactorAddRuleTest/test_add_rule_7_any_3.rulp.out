@@ -1,0 +1,36 @@
+(new model m)
+;=>m
+
+(add-node m n3:'(3))
+;=>true
+
+(add-rule m if n3:'(?m ?...) n1:'(?x) (< ?m 3) do 
+
+    (loop for ?i from 1 to ?m do
+        (if (= (get ?0 (- ?i 1)) ?x) do
+            (return)
+        )
+    )
+
+    (defvar ?arr (to-array ?0))
+    (seta ?arr 0 (+ ?m 1))
+    (seta ?arr ?m ?x)
+    
+    (add-stmt m n3 ?arr)    
+)
+;=>RU000
+
+(add-stmt m n1:'(a))
+(add-stmt m n1:'(b))
+(add-stmt m n1:'(c))
+(add-stmt m n3:'(0 nil nil))
+;=>true true true true
+
+(start m)
+;err:
+not support stmt: n3:'(a ?...)
+at (add-stmt m n3 ?arr) ; do-6
+at (do (loop for ?i from 1 to ?m do (if (= (get n3:'(?m ?...) (- ?i 1)) ?x) do (... ; qf-RU000-5
+at (start m) ; main-2
+;eof
+

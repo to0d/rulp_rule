@@ -134,8 +134,27 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_dumpEntryTable("m");
 	}
 
-//	@Test
-//	void test_add_rule_7_vary_len_1() {
-//
-//	}
+	@Test
+	void test_add_rule_7_any_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_add_rule_7_any_2_err() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_add_rule_7_any_3() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

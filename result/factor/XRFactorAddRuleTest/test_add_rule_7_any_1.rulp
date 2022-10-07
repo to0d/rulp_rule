@@ -1,0 +1,18 @@
+(new model m)
+;=>
+
+(add-node m n3:'(3))
+;=>
+
+(add-rule m if n3:'(?x ?...) do (-> n1:'(?x)))
+;=>
+
+(add-stmt m n3:'(a b c))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m )
+;=>
+
