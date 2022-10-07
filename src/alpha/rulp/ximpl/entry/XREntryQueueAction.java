@@ -15,6 +15,7 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.RActionType;
+import alpha.rulp.ximpl.error.RReturn;
 
 public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueue, IRContext {
 
@@ -84,7 +85,10 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 				action.doAction(entry, this);
 			}
 
-		} finally {
+		} catch (RReturn r) {
+
+		}
+		finally {
 
 			// Update running count from context
 			entryRedundant += context.tryAddStmt - context.actualAddStmt;

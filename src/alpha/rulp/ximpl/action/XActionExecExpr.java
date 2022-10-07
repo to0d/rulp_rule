@@ -13,6 +13,8 @@ public class XActionExecExpr implements IAction {
 
 	private int index = -1;
 
+	protected List<IRExpr> stmtExprList = null;
+
 	public XActionExecExpr(IRExpr expr) {
 		super();
 		this.expr = expr;
@@ -39,18 +41,16 @@ public class XActionExecExpr implements IAction {
 	}
 
 	@Override
-	public void setIndex(int index) {
-		this.index = index;
-	}
-
-	protected List<IRExpr> stmtExprList = null;
-
-	@Override
 	public List<IRExpr> getStmtExprList() throws RException {
 		if (stmtExprList == null) {
 			stmtExprList = ActionUtil.buildRelatedStmtExprList(expr);
 		}
 		return stmtExprList;
+	}
+
+	@Override
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	@Override

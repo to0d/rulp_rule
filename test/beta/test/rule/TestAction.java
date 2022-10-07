@@ -37,4 +37,12 @@ public class TestAction extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_action_3_return() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

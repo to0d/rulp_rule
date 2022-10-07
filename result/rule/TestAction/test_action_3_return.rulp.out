@@ -1,0 +1,20 @@
+(new model m)
+;=>m
+
+(add-rule m if n1:'(?x) do 
+    (if (>= ?x 3) do
+        (return)
+    )
+    (-> n1:'((+ ?x 1)))
+)
+;=>RU000
+
+(add-stmt m n1:'(1))
+;=>true
+
+(start m)
+;=>6
+
+(list-stmt m)
+;=>'(n1:'(1) n1:'(2) n1:'(3))
+

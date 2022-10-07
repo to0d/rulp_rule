@@ -1,0 +1,16 @@
+(new model m)
+;=>
+
+(fix-stmt m "n1" '(1))
+;=>
+
+(fix-stmt m n2 '(2 3))
+;=>
+
+(defvar ?x "n3")
+(fix-stmt m ?x '(4 5 6))
+;=>
+
+(list-stmt m)
+;=>
+

@@ -130,10 +130,7 @@ public class ActionUtil {
 			throws RException {
 
 		switch (factorName) {
-		case F_ADD_STMT:
-		case F_DEFS_S:
-		case F_REMOVE_STMT:
-		case F_FIX_STMT:
+		case F_REMOVE_STMT: {
 			IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
@@ -142,6 +139,34 @@ public class ActionUtil {
 			exprList.add(expr);
 
 			return;
+		}
+
+		case F_ADD_STMT:
+		case F_DEFS_S:
+		case F_FIX_STMT: {
+
+			int argSize = expr.size();
+			IRObject stmtObj = null;
+
+			switch (argSize) {
+			case 2:
+				stmtObj = expr.get(1);
+				break;
+
+			case 3:
+				stmtObj = expr.get(2);
+				break;
+
+			default:
+
+			}
+
+			if (stmtObj != null && stmtObj.getType() == RType.LIST && ReteUtil.isActionEntry((IRList) stmtObj)) {
+				exprList.add(expr);
+			}
+
+			return;
+		}
 
 		case A_DO:
 		case F_IF:

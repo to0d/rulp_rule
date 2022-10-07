@@ -48,8 +48,5 @@
 ;=>RU002
 
 (query-stmt mm '(?x...) from seat:'(16 ?x...) limit 1)
-;err:
-Can't convert to list: seat
-at (query-stmt mm '(?x...) from seat:'(16 ?x...) limit 1) ; main-2
-;eof
+;=>'()
 

@@ -1,0 +1,19 @@
+(new model m)
+;=>
+
+(add-rule m if n1:'(?x) do 
+    (if (>= ?x 3) do
+        (return)
+    )
+    (-> n1:'((+ ?x 1)))
+)
+;=>
+
+(add-stmt m n1:'(1))
+;=>
+
+(start m)
+;=>
+
+(list-stmt m)
+;=>

@@ -47,4 +47,20 @@ class XRFactorFixStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
+
+	@Test
+	void test_fix_stmt_6_named_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_fix_stmt_7_array_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

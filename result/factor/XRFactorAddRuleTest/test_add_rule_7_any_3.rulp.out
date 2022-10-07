@@ -4,17 +4,17 @@
 (add-node m n3:'(3))
 ;=>true
 
-(add-rule m if n3:'(?m ?...) n1:'(?x) (< ?m 3) do 
+(add-rule m if n3:'(?m ?...) n1:'(?x) (< ?m 2) do 
 
     (loop for ?i from 1 to ?m do
-        (if (= (get ?0 (- ?i 1)) ?x) do
+        (if (= (get ?0 ?i) ?x) do
             (return)
         )
     )
 
     (defvar ?arr (to-array ?0))
     (seta ?arr 0 (+ ?m 1))
-    (seta ?arr ?m ?x)
+    (seta ?arr (+ ?m 1) ?x)
     
     (add-stmt m n3 ?arr)    
 )
@@ -22,13 +22,12 @@
 
 (add-stmt m n1:'(a))
 (add-stmt m n1:'(b))
-(add-stmt m n1:'(c))
 (add-stmt m n3:'(0 nil nil))
-;=>true true true true
+;=>true true true
 
 (start m)
-;err:
-Invalid op types: LT a 3
-at (start m) ; main-2
-;eof
+;=>12
+
+(list-stmt m )
+;=>'(n3:'(0 nil nil) n3:'(1 a nil) n3:'(1 b nil) n3:'(2 a b) n3:'(2 b a) n1:'(a) n1:'(b))
 
