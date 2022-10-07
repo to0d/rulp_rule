@@ -214,7 +214,7 @@ N00001[2]    NAME0 Named UNIQ   guess            0     3    2    0    0   0   0 
 N00002[2]    NAME0 Named UNIQ   hobby            0     2    1    0    0   0   0  99 [null, null]
 N00005[3]    NAME0 Named UNIQ   canBeCouple      0     1    1    0    0   0   0  99 [null, null, null]
 N00010[17]   NAME0 Named UNIQ   seat             0     2    1    0    0   0   0  99 [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
-A00015[17]   ALPH0 Rete1 MULTI  seat             1     0    0    0    0   1   0   0 [null, ?_tmp_?_vg__0, ?_tmp_?_vg__1, ?_tmp_?_vg__2, ?_tmp_?_vg__3, ?_tmp_?_vg__4, ?_tmp_?_vg__5, ?_tmp_?_vg__6, ?_tmp_?_vg__7, ?_tmp_?_vg__8, ?_tmp_?_vg__9, ?_tmp_?_vg__10, ?_tmp_?_vg__11, ?_tmp_?_vg__12, ?_tmp_?_vg__13, ?_tmp_?_vg__14, ?_tmp_?_vg__15]
+A00015[17]   ALPH0 Rete1 MULTI  seat             1     0    0    0    0   1   0   0 [null, ?_tmp_seat_any_0, ?_tmp_seat_any_1, ?_tmp_seat_any_2, ?_tmp_seat_any_3, ?_tmp_seat_any_4, ?_tmp_seat_any_5, ?_tmp_seat_any_6, ?_tmp_seat_any_7, ?_tmp_seat_any_8, ?_tmp_seat_any_9, ?_tmp_seat_any_10, ?_tmp_seat_any_11, ?_tmp_seat_any_12, ?_tmp_seat_any_13, ?_tmp_seat_any_14, ?_tmp_seat_any_15]
 E00011[17]   EXPR0 Rete1 MULTI                   1     1    1    0    0   1   0  99 [?m, ?_tmp_seat_any_0, ?_tmp_seat_any_1, ?_tmp_seat_any_2, ?_tmp_seat_any_3, ?_tmp_seat_any_4, ?_tmp_seat_any_5, ?_tmp_seat_any_6, ?_tmp_seat_any_7, ?_tmp_seat_any_8, ?_tmp_seat_any_9, ?_tmp_seat_any_10, ?_tmp_seat_any_11, ?_tmp_seat_any_12, ?_tmp_seat_any_13, ?_tmp_seat_any_14, ?_tmp_seat_any_15]
 E10006[3]    EXPR1 Rete1 MULTI                   1     1    1    0    0   1   0  99 [null, null, null]
 B00007[4]    BETA0 Beta0 MULTI                   2     1    1    4    1   0   0  99 [?g1, ?g2, ?v, ?h]
@@ -528,9 +528,9 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2829            0         2829
+        atom:         2797            0         2797
       string:           81            0           81
-        list:          215            0          215
+        list:          214            0          214
         expr:         1089            2         1087
        array:            1            1            0
          var:           43           21           22
@@ -540,6 +540,7 @@ Object create count:
        macro:            5            0            5
       member:           18            0           18
        frame:           23           22            1
+    iterator:            1            0            1
  interpreter:            1            0
   frameEntry:          369            0
       lambda:            0            0

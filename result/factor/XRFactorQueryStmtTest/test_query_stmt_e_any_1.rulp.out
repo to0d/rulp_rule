@@ -7,5 +7,11 @@
 ;=>true true true
 
 (query-stmt m '(?...) from n3:'(?...))
-;=>'('(?...) '(?...) '(?...))
+;=>'('(3 a b c) '(2 x y 0) '(3 1 2 3))
+
+(query-stmt m '(d ?...) from n3:'(?...))
+;=>'('(d 3 a b c) '(d 2 x y 0) '(d 3 1 2 3))
+
+(query-stmt m '(?...) from n3:'(3 ?...))
+;=>'('(a b c) '(1 2 3))
 

@@ -9,3 +9,8 @@
 (query-stmt m '(?...) from n3:'(?...))
 ;=>
 
+(query-stmt m '(d ?...) from n3:'(?...))
+;=>
+
+(query-stmt m '(?...) from n3:'(3 ?...))
+;=>

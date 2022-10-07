@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import alpha.rulp.lang.IRExpr;
@@ -36,6 +37,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.RuntimeUtil;
 import alpha.rulp.ximpl.constraint.ConstraintBuilder;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
@@ -258,11 +260,23 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		/********************************************/
 		// Rebuild var cond list (query-stmt m '(?...) from n3:'(?...))
 		/********************************************/
-		{
+		if (rstExpr.getType() == RType.LIST && ReteUtil.indexOfVarArgStmt((IRList) rstExpr) != -1) {
+
 			Map<String, List<IRObject>> anyVarListMap = new HashMap<>();
 			IRList newCondList = ReteUtil.rebuildCondListAnyVar(model.getNodeGraph(), condList, anyVarListMap);
 			if (newCondList != condList && !anyVarListMap.isEmpty()) {
 
+				Map<String, IRObject> replaceMap = new HashMap<>();
+				for (Entry<String, List<IRObject>> e : anyVarListMap.entrySet()) {
+					replaceMap.put(e.getKey(), RulpFactory.createObjectIterator(e.getValue().iterator()));
+				}
+
+				IRObject newRstExpr = RuntimeUtil.rebuild(rstExpr, replaceMap);
+				if (newRstExpr != rstExpr) {
+
+					rstExpr = RulpUtil.asList(newRstExpr);
+					condList = newCondList;
+				}
 			}
 		}
 
