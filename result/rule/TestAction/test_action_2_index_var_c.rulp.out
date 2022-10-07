@@ -1,0 +1,20 @@
+(new model m)
+;=>m
+
+(add-node m n3:'(3))
+;=>true
+
+(add-rule m if n3:'(?m ?...) (< ?m 2) do (remove-stmt ?0))
+;=>RU000
+
+(add-stmt m n3:'(1 a b))
+(add-stmt m n3:'(3 x y))
+;=>true true
+
+(start m)
+;err:
+invalid stmt: n3:'(1 ?...)
+at (remove-stmt n3:'(?m ?...)) ; qf-RU000-5
+at (start m) ; main-2
+;eof
+

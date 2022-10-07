@@ -29,4 +29,12 @@ public class TestAction extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_action_2_index_var_c() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
