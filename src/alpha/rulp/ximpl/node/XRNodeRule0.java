@@ -135,7 +135,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		Set<String> indexVarNames = new HashSet<>();
 
 		/***********************************************************/
-		// Check ?1 ?2 variables in action list
+		// Check ?0 ?1 variables in action list
 		/***********************************************************/
 		for (IRExpr expr : this.getActionStmtList()) {
 			for (IRObject varObj : ReteUtil.buildVarList(expr)) {
@@ -147,7 +147,7 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 		}
 
 		/***********************************************************/
-		// Check ?1 ?2 variables in index expression
+		// Check ?0 ?1 variables in index expression
 		/***********************************************************/
 		if (this.getConstraint1Count() > 0) {
 			for (IRConstraint1 constraint : this.constraint1List) {

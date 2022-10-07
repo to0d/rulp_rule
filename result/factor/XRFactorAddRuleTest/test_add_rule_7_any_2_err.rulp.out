@@ -3,7 +3,7 @@
 
 (add-rule m if n3:'(?x ?...) do (-> n1:'(?x)))
 ;err:
-namedNode not found: n3
+named node not found: n3:'(?x ?...)
 fail to add rule<(add-rule m if n3:'(?x ?...) do (-> n1:'(?x)))>
 at (add-rule m if n3:'(?x ?...) do (-> n1:'(?x))) ; main-2
 ;eof

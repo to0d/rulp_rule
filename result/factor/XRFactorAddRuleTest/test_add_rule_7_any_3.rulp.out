@@ -28,9 +28,7 @@
 
 (start m)
 ;err:
-not support stmt: n3:'(a ?...)
-at (add-stmt m n3 ?arr) ; do-6
-at (do (loop for ?i from 1 to ?m do (if (= (get n3:'(?m ?...) (- ?i 1)) ?x) do (... ; qf-RU000-5
+Invalid op types: LT a 3
 at (start m) ; main-2
 ;eof
 

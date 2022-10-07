@@ -1761,6 +1761,74 @@ public class XRModel extends AbsRInstance implements IRModel {
 		counter.mcAddRule++;
 
 		/******************************************************/
+		// n1:'(a ?...) ==> n1:'(a ?tmp_1 ?tmp_2)
+		/******************************************************/
+		{
+			ArrayList<IRObject> filterObjs = null;
+
+			IRIterator<? extends IRObject> it = condList.iterator();
+			while (it.hasNext()) {
+
+				IRObject obj = it.next();
+				boolean update = false;
+
+				if (obj.getType() == RType.LIST) {
+
+					IRList filter = RulpUtil.asList(obj);
+
+					int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
+					if (anyIndex != -1) {
+
+						String namedName = filter.getNamedName();
+						if (namedName == null) {
+							throw new RException(String.format("need named for any filter: %s", filter));
+						}
+
+						if (anyIndex != (filter.size() - 1)) {
+							throw new RException(String.format("invalid any filter: %s", filter));
+						}
+
+						IRReteNode namedNode = getNodeGraph().findRootNode(namedName, -1);
+						if (namedNode == null) {
+							throw new RException(String.format("named node not found: %s", filter));
+						}
+
+						if (namedNode.getEntryLength() < filter.size()) {
+							throw new RException(String.format("named node length<%d> not match: %s",
+									namedNode.getEntryLength(), filter));
+						}
+
+						XTempVarBuilder tmpVarBuilder = new XTempVarBuilder(namedName + "_any");
+
+						ArrayList<IRObject> newObjList = new ArrayList<>();
+						for (int i = 0; i < anyIndex; ++i) {
+							newObjList.add(filter.get(i));
+						}
+
+						while (newObjList.size() < namedNode.getEntryLength()) {
+							newObjList.add(tmpVarBuilder.next());
+						}
+
+						obj = RulpFactory.createNamedList(namedName, newObjList);
+						update = true;
+					}
+				}
+
+				if (update && filterObjs == null) {
+					filterObjs = new ArrayList<>();
+				}
+
+				if (filterObjs != null) {
+					filterObjs.add(obj);
+				}
+			}
+
+			if (filterObjs != null) {
+				condList = RulpFactory.createList(filterObjs);
+			}
+		}
+
+		/******************************************************/
 		// update condition list
 		/******************************************************/
 		condList = _rebuild(condList);

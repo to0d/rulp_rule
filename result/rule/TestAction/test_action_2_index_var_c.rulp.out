@@ -12,9 +12,8 @@
 ;=>true true
 
 (start m)
-;err:
-invalid stmt: n3:'(1 ?...)
-at (remove-stmt n3:'(?m ?...)) ; qf-RU000-5
-at (start m) ; main-2
-;eof
+;=>3
+
+(list-stmt m)
+;=>'(n3:'(3 x y))
 
