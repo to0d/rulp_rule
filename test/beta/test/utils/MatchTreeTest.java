@@ -162,4 +162,9 @@ class MatchTreeTest extends RuleTestBase {
 		_test_buildMatchTree();
 	}
 
+	@Test
+	void test_build_match_tree_f_any() {
+		_setup();
+		_test_buildMatchTree();
+	}
 }

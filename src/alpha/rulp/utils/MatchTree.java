@@ -752,6 +752,18 @@ public class MatchTree {
 				default:
 					throw new RException("Invalid optimize result: " + rst);
 				}
+			}
+
+			int anyIndex = ReteUtil.indexOfVarArgStmt(stmt);
+			if (anyIndex != -1) {
+
+				if (stmt.getNamedName() == null) {
+					throw new RException(String.format("need named for any stmt: %s", stmt));
+				}
+
+				if (anyIndex != (stmt.size() - 1)) {
+					throw new RException(String.format("invalid any stmt: %s", stmt));
+				}
 
 			}
 
