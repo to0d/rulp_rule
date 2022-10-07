@@ -42,7 +42,7 @@ public class XRFactorAddStmt extends AbsAtomFactorAdapter implements IRuleFactor
 		case 4:
 			model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
 			stmt = RulpUtil.toNamedList(interpreter.compute(frame, args.get(2)),
-					RulpUtil.asList(interpreter.compute(frame, args.get(3))), frame);
+					interpreter.compute(frame, args.get(3)), frame);
 			break;
 
 		default:

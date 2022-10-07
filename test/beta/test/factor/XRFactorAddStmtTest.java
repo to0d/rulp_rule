@@ -169,4 +169,12 @@ class XRFactorAddStmtTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_add_stmt_e_array_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
