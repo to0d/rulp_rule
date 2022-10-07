@@ -1494,58 +1494,61 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// '(a ? ?)
 		// update constant
 		/******************************************************/
-		{
-			ArrayList<IRObject> filterObjs = null;
+		ArrayList<IRObject> filterObjs = null;
 
-			IRIterator<? extends IRObject> iter = list.iterator();
-			for (int stmtIndex = 0; iter.hasNext(); stmtIndex++) {
+		IRIterator<? extends IRObject> iter = list.iterator();
+		for (int stmtIndex = 0; iter.hasNext(); stmtIndex++) {
 
-				IRObject obj = iter.next();
-				boolean update = false;
+			IRObject obj = iter.next();
+			boolean update = false;
 
-				if (obj.getType() == RType.LIST) {
+			if (obj.getType() == RType.LIST || obj.getType() == RType.EXPR) {
 
-					IRList newObj = _rebuild((IRList) obj);
-					if (newObj != obj) {
-						obj = newObj;
-						update = true;
-					}
-
-				} else {
-
-					if (!update) {
-						IRObject newObj = RulpUtil.lookup(obj, getInterpreter(), this.getFrame());
-						if (newObj.getType() == RType.CONSTANT) {
-							obj = RulpUtil.asConstant(newObj).getValue();
-							update = true;
-						}
-					}
+				IRList newObj = _rebuild((IRList) obj);
+				if (newObj != obj) {
+					obj = newObj;
+					update = true;
 				}
 
-				if (update) {
+			} else {
 
-					if (filterObjs == null) {
-						filterObjs = new ArrayList<>();
-						for (int i = 0; i < stmtIndex; ++i) {
-							filterObjs.add(list.get(i));
-						}
-					}
-
-					filterObjs.add(obj);
-
-				} else {
-					if (filterObjs != null) {
-						filterObjs.add(obj);
+				if (!update) {
+					IRObject newObj = RulpUtil.lookup(obj, getInterpreter(), this.getFrame());
+					if (newObj.getType() == RType.CONSTANT) {
+						obj = RulpUtil.asConstant(newObj).getValue();
+						update = true;
 					}
 				}
 			}
 
-			if (filterObjs != null) {
-				list = RulpUtil.toList(list.getNamedName(), filterObjs);
+			if (update) {
+
+				if (filterObjs == null) {
+					filterObjs = new ArrayList<>();
+					for (int i = 0; i < stmtIndex; ++i) {
+						filterObjs.add(list.get(i));
+					}
+				}
+
+				filterObjs.add(obj);
+
+			} else {
+
+				if (filterObjs != null) {
+					filterObjs.add(obj);
+				}
 			}
 		}
 
-		return list;
+		if (filterObjs == null) {
+			return list;
+		}
+
+		if (list.getType() == RType.EXPR) {
+			return RulpFactory.createExpression(filterObjs);
+		}
+
+		return RulpUtil.toList(list.getNamedName(), filterObjs);
 	}
 
 	protected int _run(int maxStep) throws RException {
@@ -1751,6 +1754,86 @@ public class XRModel extends AbsRInstance implements IRModel {
 		loadNodeListener.addListener(listener);
 	}
 
+	protected IRList _rebuldAnyStmt(IRList condList) throws RException {
+
+		ArrayList<IRObject> filterObjs = null;
+
+		int condSize = condList.size();
+
+		for (int i = 0; i < condSize; ++i) {
+
+			IRObject obj = condList.get(i);
+
+			boolean update = false;
+
+			if (obj.getType() == RType.LIST) {
+
+				IRList filter = RulpUtil.asList(obj);
+
+				int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
+				if (anyIndex != -1) {
+
+					String namedName = filter.getNamedName();
+					if (namedName == null) {
+						throw new RException(String.format("need named for any filter: %s", filter));
+					}
+
+					if (anyIndex != (filter.size() - 1)) {
+						throw new RException(String.format("invalid any filter: %s", filter));
+					}
+
+					IRReteNode namedNode = getNodeGraph().findRootNode(namedName, -1);
+					if (namedNode == null) {
+						throw new RException(String.format("named node not found: %s", filter));
+					}
+
+					if (namedNode.getEntryLength() < filter.size()) {
+						throw new RException(String.format("named node length<%d> not match: %s",
+								namedNode.getEntryLength(), filter));
+					}
+
+					XTempVarBuilder tmpVarBuilder = new XTempVarBuilder(namedName + "_any");
+
+					ArrayList<IRObject> newObjList = new ArrayList<>();
+					for (int j = 0; j < anyIndex; ++j) {
+						newObjList.add(filter.get(j));
+					}
+
+					while (newObjList.size() < namedNode.getEntryLength()) {
+						newObjList.add(tmpVarBuilder.next());
+					}
+
+					obj = RulpFactory.createNamedList(namedName, newObjList);
+					update = true;
+				}
+			}
+
+			if (update) {
+
+				if (filterObjs == null) {
+					filterObjs = new ArrayList<>();
+					for (int j = 0; j < i; ++j) {
+						filterObjs.add(condList.get(j));
+					}
+				}
+
+				filterObjs.add(obj);
+
+			} else {
+
+				if (filterObjs != null) {
+					filterObjs.add(obj);
+				}
+			}
+		}
+
+		if (filterObjs == null) {
+			return condList;
+		}
+
+		return RulpFactory.createList(filterObjs);
+	}
+
 	@Override
 	public IRRule addRule(String ruleName, IRList condList, IRList actionList) throws RException {
 
@@ -1763,70 +1846,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// n1:'(a ?...) ==> n1:'(a ?tmp_1 ?tmp_2)
 		/******************************************************/
-		{
-			ArrayList<IRObject> filterObjs = null;
-
-			IRIterator<? extends IRObject> it = condList.iterator();
-			while (it.hasNext()) {
-
-				IRObject obj = it.next();
-				boolean update = false;
-
-				if (obj.getType() == RType.LIST) {
-
-					IRList filter = RulpUtil.asList(obj);
-
-					int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
-					if (anyIndex != -1) {
-
-						String namedName = filter.getNamedName();
-						if (namedName == null) {
-							throw new RException(String.format("need named for any filter: %s", filter));
-						}
-
-						if (anyIndex != (filter.size() - 1)) {
-							throw new RException(String.format("invalid any filter: %s", filter));
-						}
-
-						IRReteNode namedNode = getNodeGraph().findRootNode(namedName, -1);
-						if (namedNode == null) {
-							throw new RException(String.format("named node not found: %s", filter));
-						}
-
-						if (namedNode.getEntryLength() < filter.size()) {
-							throw new RException(String.format("named node length<%d> not match: %s",
-									namedNode.getEntryLength(), filter));
-						}
-
-						XTempVarBuilder tmpVarBuilder = new XTempVarBuilder(namedName + "_any");
-
-						ArrayList<IRObject> newObjList = new ArrayList<>();
-						for (int i = 0; i < anyIndex; ++i) {
-							newObjList.add(filter.get(i));
-						}
-
-						while (newObjList.size() < namedNode.getEntryLength()) {
-							newObjList.add(tmpVarBuilder.next());
-						}
-
-						obj = RulpFactory.createNamedList(namedName, newObjList);
-						update = true;
-					}
-				}
-
-				if (update && filterObjs == null) {
-					filterObjs = new ArrayList<>();
-				}
-
-				if (filterObjs != null) {
-					filterObjs.add(obj);
-				}
-			}
-
-			if (filterObjs != null) {
-				condList = RulpFactory.createList(filterObjs);
-			}
-		}
+		condList = _rebuldAnyStmt(condList);
 
 		/******************************************************/
 		// update condition list
@@ -2489,6 +2509,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		new RQueryHelper(this, findNode(condList), limit, backward).query(action);
+
 		_gc(false);
 	}
 

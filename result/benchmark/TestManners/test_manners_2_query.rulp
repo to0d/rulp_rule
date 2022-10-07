@@ -17,7 +17,22 @@
 )
 ;=>
 
-(add-rule mm if seat:'(?m ...) guess:'(?g ?s) do 
+(defun makeList ((?x int) ?y)
+    (defvar ?arr (make-array ?x))
+    (loop for ?x from 0 to (- ?x 1) do
+        (seta ?arr ?x ?y)
+    )
+    (return (to-list ?arr))
+)
+;=>
+
+(defconst ?max_guess 16)
+;=>
+
+(add-node mm seat:'((+ ?max_guess 1)))
+;=>
+
+(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
 
     (foreach ?i from 1 to ?m do
         (if (= (get ?0 (- ?i 1)) ?g1) do
@@ -47,5 +62,8 @@
 )
 ;=>
 
-(query-stmt mm '(?x...) from seat:'(16 ?x...) limit 1)
+(add-stmt mm seat (makeList (+ ?max_guess 1) 0))
+;=>
+
+(query-stmt mm '(?...) from seat:'(16 ?...) limit 1)
 ;=>
