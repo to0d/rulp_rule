@@ -78,3 +78,6 @@
 (list-source-node mm seat:'(?...))
 ;=>
 
+(list-source-node mm seat:'(16 ?...))
+;=>
+

@@ -9,7 +9,6 @@ import static alpha.rulp.rule.RReteStatus.TEMP__;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -60,73 +59,46 @@ class ReteUtilTest extends RuleTestBase {
 
 	}
 
-	protected void _test_isReteStmt(String input, boolean expect) {
+	protected String _test_isReteStmt(String input) throws RException {
 
-		try {
-
-			List<IRObject> stmtList = _getParser().parse(input);
-			assertEquals(1, stmtList.size());
-			boolean rc = ReteUtil.isReteStmt(RulpUtil.asList(stmtList.get(0)));
-			assertEquals(String.format("input=%s", input), expect, rc);
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
-		}
+		List<IRObject> stmtList = _getParser().parse(input);
+		assertEquals(1, stmtList.size());
+		return "" + ReteUtil.isReteStmt(RulpUtil.asList(stmtList.get(0)));
 	}
 
-	protected void _test_isUniqReteStmt(String inputStmt, boolean expect) {
+	protected String _test_isUniqReteStmt(String inputStmt) throws RException {
 
-		try {
-
-			LinkedList<IRList> stmtList = new LinkedList<>();
-			for (IRObject obj : this._getParser().parse(inputStmt)) {
-				stmtList.add(RulpUtil.asList(obj));
-			}
-
-			assertEquals(1, stmtList.size());
-			IRList stmt = stmtList.get(0);
-
-			assertEquals(inputStmt, expect, ReteUtil.isUniqReteStmt(stmt));
-
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
+		LinkedList<IRList> stmtList = new LinkedList<>();
+		for (IRObject obj : this._getParser().parse(inputStmt)) {
+			stmtList.add(RulpUtil.asList(obj));
 		}
+
+		assertEquals(1, stmtList.size());
+		IRList stmt = stmtList.get(0);
+
+		return "" + ReteUtil.isUniqReteStmt(stmt);
 	}
 
-	protected void _test_matchUniqStmt(String inputSrcStmt, String inputDstStmt, boolean match) {
+	protected String _test_matchUniqStmt(String input) throws RException {
 
-		try {
+		IRList srcStmt = null;
+		IRList dstStmt = null;
 
-			IRList srcStmt = null;
-			IRList dstStmt = null;
-
-			{
-				LinkedList<IRList> stmtList = new LinkedList<>();
-				for (IRObject obj : this._getParser().parse(inputSrcStmt)) {
-					stmtList.add(RulpUtil.asList(obj));
-				}
-
-				assertEquals(1, stmtList.size());
-				srcStmt = stmtList.get(0);
-			}
-
-			{
-				LinkedList<IRList> stmtList = new LinkedList<>();
-				for (IRObject obj : this._getParser().parse(inputDstStmt)) {
-					stmtList.add(RulpUtil.asList(obj));
-				}
-
-				assertEquals(1, stmtList.size());
-				dstStmt = stmtList.get(0);
-			}
-
-			assertEquals(match, ReteUtil.matchUniqStmt(srcStmt, dstStmt));
-
-		} catch (RException e) {
-			e.printStackTrace();
-			fail(e.toString());
+		LinkedList<IRList> stmtList = new LinkedList<>();
+		for (IRObject obj : this._getParser().parse(input)) {
+			stmtList.add(RulpUtil.asList(obj));
 		}
+
+		assertEquals(1, stmtList.size());
+
+		IRList tree = stmtList.get(0);
+		assertEquals(2, tree.size());
+
+		srcStmt = RulpUtil.asList(tree.get(0));
+		dstStmt = RulpUtil.asList(tree.get(1));
+
+		return "" + ReteUtil.matchUniqStmt(srcStmt, dstStmt);
+
 	}
 
 	String _test_tree_uniqname(String inputTree) throws RException {
@@ -215,32 +187,10 @@ class ReteUtilTest extends RuleTestBase {
 
 		_setup();
 
-		_test_isReteStmt("'(a b c)", true);
-		_test_isReteStmt("'(a b 1)", true);
-		_test_isReteStmt("'(a b 1.1)", true);
-		_test_isReteStmt("'(a b \"str\")", true);
-		_test_isReteStmt("'(a b 1L)", true);
-		_test_isReteStmt("'(a b 1.1d)", true);
+		_test((input) -> {
+			return _test_isReteStmt(input);
+		});
 
-		_test_isReteStmt("'(a 1 c)", false);
-		_test_isReteStmt("'(a 1.1 c)", false);
-		_test_isReteStmt("'(a \"str\" c)", false);
-		_test_isReteStmt("'(a 1L c)", false);
-		_test_isReteStmt("'(a 1.1d c)", false);
-
-		_test_isReteStmt("'(a b c d)", true);
-		_test_isReteStmt("'(a b c 1)", true);
-		_test_isReteStmt("'(a b c 1.1)", true);
-		_test_isReteStmt("'(a b c \"str\")", true);
-		_test_isReteStmt("'(a b c 1L)", true);
-		_test_isReteStmt("'(a b c 1.1d)", true);
-
-		_test_isReteStmt("'(a b c d e)", true);
-		_test_isReteStmt("'(a b c d 1)", true);
-		_test_isReteStmt("'(a b c d 1.1)", true);
-		_test_isReteStmt("'(a b c d \"str\")", true);
-		_test_isReteStmt("'(a b c d 1L)", true);
-		_test_isReteStmt("'(a b c d 1.1d)", true);
 	}
 
 	@Test
@@ -248,16 +198,10 @@ class ReteUtilTest extends RuleTestBase {
 
 		_setup();
 
-		_test_isUniqReteStmt("'(?_0 ?_1 ?_2)", true);
-		_test_isUniqReteStmt("'(?_0 ?_1 ?_1)", true);
-		_test_isUniqReteStmt("'(?_1 ?_1 ?_1)", false);
-		_test_isUniqReteStmt("'(?_0 ?_0 ?_0)", true);
-		_test_isUniqReteStmt("'(?_0 ?_1 ?_0)", true);
-		_test_isUniqReteStmt("'(?_1 ?_0 ?_1)", false);
-		_test_isUniqReteStmt("'(?_0 a ?_2)", false);
-		_test_isUniqReteStmt("'(?_0 a ?_1)", true);
-		_test_isUniqReteStmt("'(a a ?_1)", false);
-		_test_isUniqReteStmt("'(a a ?_0)", true);
+		_test((input) -> {
+			return _test_isUniqReteStmt(input);
+		});
+
 	}
 
 	@Test
@@ -288,25 +232,25 @@ class ReteUtilTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_matchUniqStmt() {
-		_setup();
-		_test_matchUniqStmt("'(a b c)", "'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("'(a a ?_0)", "'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("'(a ?_0 ?_0)", "'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("'(a ?_0 ?_1)", "'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("'(?_0 b c)", "'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("'(a ?_0 c)", "'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(a b c)", true);
-		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(a ?_0 c)", true);
-		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(a b ?_0)", true);
-		_test_matchUniqStmt("'(?_0 ?_1 ?_2)", "'(?_0 ?_1 c)", true);
-		_test_matchUniqStmt("'(a b c)", "'(?_0 ?_1 c)", true);
-		_test_matchUniqStmt("'(?_0 ?_0 a)", "'(?_0 b ?_0)", true);
-		_test_matchUniqStmt("'(?_0 ?_0 ?_c)", "'(a b ?_0)", false);
+	void test_match_uniq_stmt_1() {
 
-		_test_matchUniqStmt("name1:'(a b c)", "name1:'(?_0 ?_1 ?_2)", true);
-		_test_matchUniqStmt("name1:'(a b c)", "'(?_0 ?_1 ?_2)", false);
+		_setup();
+
+		_test((input) -> {
+			return _test_matchUniqStmt(input);
+		});
+
+	}
+
+	@Test
+	void test_match_uniq_stmt_2_named() {
+
+		_setup();
+
+		_test((input) -> {
+			return _test_matchUniqStmt(input);
+		});
+
 	}
 
 	@Test

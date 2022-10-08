@@ -65,10 +65,14 @@
 (list-source-node mm seat:'(?...))
 ;=>
 
+(list-subgraph-for-query mm '(seat:'(?...)) true)
+;=>
+
 (add-stmt mm seat (makeList (+ ?max_guess 1) 0))
 ;=>
 
 (setq ?model-trace true)
+;=>
 
 (query-stmt mm '(?...) from seat:'(16 ?...) limit 1)
 ;=>

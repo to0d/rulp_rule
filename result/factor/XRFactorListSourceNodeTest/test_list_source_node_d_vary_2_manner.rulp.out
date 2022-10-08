@@ -79,3 +79,6 @@
 (list-source-node mm seat:'(?...))
 ;=>'(RU002)
 
+(list-source-node mm seat:'(16 ?...))
+;=>'()
+

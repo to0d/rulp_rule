@@ -1078,6 +1078,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		while (!visitStack.isEmpty()) {
 
 			IRReteNode sourceNode = visitStack.pop();
+
 			// ignore visited node
 			if (visitedNodes.contains(sourceNode)) {
 				continue;
