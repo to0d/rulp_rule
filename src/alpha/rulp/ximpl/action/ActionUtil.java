@@ -3,6 +3,7 @@ package alpha.rulp.ximpl.action;
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_IF;
 import static alpha.rulp.lang.Constant.F_LET;
+import static alpha.rulp.lang.Constant.O_QUESTION_LIST;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
 import static alpha.rulp.rule.Constant.F_FIX_STMT;
@@ -20,6 +21,7 @@ import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.ReteUtil;
+import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
@@ -145,25 +147,27 @@ public class ActionUtil {
 		case F_DEFS_S:
 		case F_FIX_STMT: {
 
-			int argSize = expr.size();
-			IRObject stmtObj = null;
+//			int argSize = expr.size();
+//			IRObject stmtObj = null;
+//
+//			switch (argSize) {
+//			case 2:
+//				stmtObj = expr.get(1);
+//				break;
+//
+//			case 3:
+//				stmtObj = expr.get(2);
+//				break;
+//
+//			default:
+//
+//			}
+//
+//			if (stmtObj != null && stmtObj.getType() == RType.LIST && ReteUtil.isActionEntry((IRList) stmtObj)) {
+//				exprList.add(expr);
+//			}
 
-			switch (argSize) {
-			case 2:
-				stmtObj = expr.get(1);
-				break;
-
-			case 3:
-				stmtObj = expr.get(2);
-				break;
-
-			default:
-
-			}
-
-			if (stmtObj != null && stmtObj.getType() == RType.LIST && ReteUtil.isActionEntry((IRList) stmtObj)) {
-				exprList.add(expr);
-			}
+			exprList.add(expr);
 
 			return;
 		}
@@ -366,8 +370,6 @@ public class ActionUtil {
 
 		IRObject e0 = expr.get(0);
 
-		e0.asString();
-
 		String factorName = null;
 		switch (e0.getType()) {
 		case ATOM:
@@ -380,16 +382,57 @@ public class ActionUtil {
 		}
 
 		switch (factorName) {
-		case F_ADD_STMT:
-		case F_DEFS_S:
-		case F_REMOVE_STMT:
-		case F_FIX_STMT:
+		case F_REMOVE_STMT: {
 			IRList stmt = RulpUtil.asList(StmtUtil.getStmt3Object(expr));
 			if (!ReteUtil.isActionEntry(stmt)) {
 				throw new RException("Invalid stmt found: " + stmt);
 			}
 
 			return stmt;
+		}
+
+		case F_ADD_STMT:
+		case F_DEFS_S:
+		case F_FIX_STMT: {
+
+			int argSize = expr.size();
+			IRObject stmtObj = null;
+			IRObject nameObj = null;
+
+			switch (argSize) {
+			case 2:
+				stmtObj = expr.get(1);
+				break;
+
+			case 3:
+				stmtObj = expr.get(2);
+				break;
+
+			case 4:
+				nameObj = expr.get(2);
+				stmtObj = expr.get(3);
+				break;
+
+			default:
+				return null;
+			}
+
+			if (stmtObj.getType() == RType.LIST && ReteUtil.isActionEntry((IRList) stmtObj)) {
+
+				if (nameObj != null) {
+					return RulpUtil.toNamedList(nameObj, stmtObj, null);
+				}
+
+				return (IRList) stmtObj;
+			}
+
+			if (nameObj != null && (nameObj.getType() == RType.STRING
+					|| (nameObj.getType() == RType.ATOM && !RulpUtil.isVarAtom(nameObj)))) {
+				return RulpFactory.createNamedList(nameObj.asString(), O_QUESTION_LIST);
+			}
+
+			break;
+		}
 
 		default:
 			break;
@@ -406,12 +449,21 @@ public class ActionUtil {
 		XTempVarBuilder tmpVarBuilder = null;
 
 		ArrayList<IRObject> newArr = null;
+		int anyPos = -1;
 
 		for (; pos < size; ++pos) {
 
 			IRObject obj = stmt.get(pos);
 
-			if (obj.getType() == RType.EXPR) {
+			if (anyPos != -1) {
+				throw new RException("invalid vary statement: " + stmt);
+			}
+
+			if (ReteUtil.isVaryArg(obj)) {
+
+				anyPos = pos;
+
+			} else if (obj.getType() == RType.EXPR) {
 
 				if (newArr == null) {
 					newArr = new ArrayList<>();

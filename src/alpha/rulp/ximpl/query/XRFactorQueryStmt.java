@@ -263,7 +263,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		if (rstExpr.getType() == RType.LIST && ReteUtil.indexOfVarArgStmt((IRList) rstExpr) != -1) {
 
 			Map<String, List<IRObject>> anyVarListMap = new HashMap<>();
-			IRList newCondList = ReteUtil.rebuildCondListAnyVar(model.getNodeGraph(), condList, anyVarListMap);
+			IRList newCondList = ReteUtil.rebuildAnyVarCondList(model.getNodeGraph(), condList, anyVarListMap);
 			if (newCondList != condList && !anyVarListMap.isEmpty()) {
 
 				Map<String, IRObject> replaceMap = new HashMap<>();

@@ -1,0 +1,4 @@
+OUT: ['(?...)]
+OUT: ['(a ?...)]
+OUT: ['(a ?_0 ?...)]
+ERR: alpha.rulp.lang.RException: invalid vary statement: '(a ?x ?... ?y)

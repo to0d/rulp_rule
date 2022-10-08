@@ -123,7 +123,16 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			switch (sourceType) {
 			case ROOT0:
+				return actionUniqStmt.size() == stmtSize && actionUniqStmt.getNamedName() == null;
+
 			case NAME0:
+
+				if (ReteUtil.isVaryStmt(actionUniqStmt)) {
+
+					return RulpUtil.isEqual(actionUniqStmt.getNamedName(), stmtName)
+							&& actionUniqStmt.size() <= stmtSize;
+				}
+
 				return actionUniqStmt.size() == stmtSize && RuleUtil.equal(actionUniqStmt.getNamedName(), stmtName);
 
 			case ALPH0:
@@ -2388,6 +2397,11 @@ public class XRNodeGraph implements IRNodeGraph {
 		counter.listSourceNodes++;
 
 		if (!ReteUtil.isCond(cond)) {
+			return Collections.emptyList();
+		}
+
+		cond = ReteUtil.rebuildAnyVarCond(this, cond, new HashMap<>(), false);
+		if (cond == null) {
 			return Collections.emptyList();
 		}
 

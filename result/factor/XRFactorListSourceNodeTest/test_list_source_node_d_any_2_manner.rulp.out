@@ -1,5 +1,19 @@
-(load (+ (file-parent ?script-path) "manners_16.rulp"))
-;=>nil
+(new model mm)
+;=>mm
+
+(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2) do 
+    (if (= ?s1 ?s2) 
+        (-> canBeCouple:'(?g1 ?g2 false)) 
+        (-> canBeCouple:'(?g1 ?g2 true))
+    )
+)
+;=>RU000
+
+      
+(add-rule mm if hobby:'(?g1 ?h) hobby:'(?g2 ?h) (!= ?g1 ?g2) canBeCouple:'(?g1 ?g2 ?v) do 
+    (-> canSitTogether:'(?g1 ?g2 ?v))
+)
+;=>RU001
 
 (defun canBeCouple (?x ?y)
     (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
@@ -64,12 +78,4 @@
 
 (list-source-node mm seat:'(?...))
 ;=>'(RU002)
-
-(add-stmt mm seat (makeList (+ ?max_guess 1) 0))
-;=>true
-
-(setq ?model-trace true)
-
-(query-stmt mm '(?...) from seat:'(16 ?...) limit 1)
-;=>&?model-trace '()
 

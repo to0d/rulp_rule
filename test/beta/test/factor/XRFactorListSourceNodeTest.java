@@ -101,4 +101,20 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("p2d");
 	}
+
+	@Test
+	void test_list_source_node_d_any_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_list_source_node_d_any_2_manner() {
+
+		_setup();
+		_run_script();
+		_statsInfo("mm");
+	}
 }

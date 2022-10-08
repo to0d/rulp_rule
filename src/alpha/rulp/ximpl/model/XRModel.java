@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -1767,7 +1766,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// n1:'(a ?...) ==> n1:'(a ?tmp_1 ?tmp_2)
 		/******************************************************/
-		condList = ReteUtil.rebuildCondListAnyVar(nodeGraph, condList, new HashMap<>());
+		condList = ReteUtil.rebuildAnyVarCondList(nodeGraph, condList, new HashMap<>());
 
 		/******************************************************/
 		// update condition list

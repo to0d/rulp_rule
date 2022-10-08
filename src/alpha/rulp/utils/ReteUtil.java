@@ -336,7 +336,12 @@ public class ReteUtil {
 
 		case ATOM:
 
+			if (ReteUtil.isVaryArg(obj)) {
+				return obj.asString();
+			}
+
 			String atomName = ((IRAtom) obj).getName();
+
 			if (varMap != null && RulpUtil.isVarName(atomName)) {
 				String newName = varMap.get(atomName);
 				if (newName == null) {
@@ -1359,12 +1364,16 @@ public class ReteUtil {
 
 		IRIterator<? extends IRObject> iter = stmt.iterator();
 		for (int stmtIndex = 0; iter.hasNext(); stmtIndex++) {
-			if (isVarArg(iter.next())) {
+			if (isVaryArg(iter.next())) {
 				return stmtIndex;
 			}
 		}
 
 		return -1;
+	}
+
+	public static boolean isVaryStmt(IRList stmt) throws RException {
+		return isReteStmt(stmt) && isVaryArg(stmt.get(stmt.size() - 1));
 	}
 
 	public static boolean isActionEntry(IRList actionEntry) throws RException {
@@ -1793,7 +1802,7 @@ public class ReteUtil {
 		return len >= STMT_MIN_LEN && len <= STMT_MAX_LEN;
 	}
 
-	public static boolean isVarArg(IRObject obj) {
+	public static boolean isVaryArg(IRObject obj) {
 		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION_LIST);
 	}
 
@@ -2009,7 +2018,76 @@ public class ReteUtil {
 		return true;
 	}
 
-	public static IRList rebuildCondListAnyVar(IRNodeGraph graph, IRList condList,
+	public static IRList rebuildAnyVarCond(IRNodeGraph graph, IRList cond, Map<String, List<IRObject>> anyVarListMap,
+			boolean force) throws RException {
+
+		int anyIndex = ReteUtil.indexOfVarArgStmt(cond);
+		if (anyIndex == -1) {
+			return cond;
+		}
+
+		String namedName = cond.getNamedName();
+		if (namedName == null) {
+			if (!force) {
+				return null;
+			}
+			throw new RException(String.format("need named for any filter: %s", cond));
+		}
+
+		if (anyIndex != (cond.size() - 1)) {
+			if (!force) {
+				return null;
+			}
+			throw new RException(String.format("invalid any filter: %s", cond));
+		}
+
+		IRReteNode namedNode = graph.findRootNode(namedName, -1);
+		if (namedNode == null) {
+			if (!force) {
+				return null;
+			}
+			throw new RException(String.format("named node not found: %s", cond));
+		}
+
+		String anyVarName = cond.get(anyIndex).asString();
+		List<IRObject> anyVarList = anyVarListMap.get(anyVarName);
+		if (anyVarList == null) {
+
+			if (namedNode.getEntryLength() < cond.size()) {
+				if (!force) {
+					return null;
+				}
+				throw new RException(
+						String.format("named node length<%d> not match: %s", namedNode.getEntryLength(), cond));
+			}
+
+			anyVarList = new ArrayList<>();
+			XTempVarBuilder tmpVarBuilder = new XTempVarBuilder(namedName + "_any");
+			for (int j = anyIndex; j < namedNode.getEntryLength(); ++j) {
+				anyVarList.add(tmpVarBuilder.next());
+			}
+
+			anyVarListMap.put(anyVarName, anyVarList);
+		}
+
+		if ((anyIndex + anyVarList.size()) != namedNode.getEntryLength()) {
+			if (!force) {
+				return null;
+			}
+			throw new RException(
+					String.format("named node length<%d> not match: %s", namedNode.getEntryLength(), cond));
+		}
+
+		ArrayList<IRObject> newObjList = new ArrayList<>();
+		for (int j = 0; j < anyIndex; ++j) {
+			newObjList.add(cond.get(j));
+		}
+
+		newObjList.addAll(anyVarList);
+		return RulpFactory.createNamedList(namedName, newObjList);
+	}
+
+	public static IRList rebuildAnyVarCondList(IRNodeGraph graph, IRList condList,
 			Map<String, List<IRObject>> anyVarListMap) throws RException {
 
 		ArrayList<IRObject> filterObjs = null;
@@ -2023,56 +2101,10 @@ public class ReteUtil {
 			boolean update = false;
 
 			if (obj.getType() == RType.LIST) {
-
 				IRList filter = RulpUtil.asList(obj);
-
-				int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
-				if (anyIndex != -1) {
-
-					String namedName = filter.getNamedName();
-					if (namedName == null) {
-						throw new RException(String.format("need named for any filter: %s", filter));
-					}
-
-					if (anyIndex != (filter.size() - 1)) {
-						throw new RException(String.format("invalid any filter: %s", filter));
-					}
-
-					IRReteNode namedNode = graph.findRootNode(namedName, -1);
-					if (namedNode == null) {
-						throw new RException(String.format("named node not found: %s", filter));
-					}
-
-					String anyVarName = filter.get(anyIndex).asString();
-					List<IRObject> anyVarList = anyVarListMap.get(anyVarName);
-					if (anyVarList == null) {
-
-						if (namedNode.getEntryLength() < filter.size()) {
-							throw new RException(String.format("named node length<%d> not match: %s",
-									namedNode.getEntryLength(), filter));
-						}
-
-						anyVarList = new ArrayList<>();
-						XTempVarBuilder tmpVarBuilder = new XTempVarBuilder(namedName + "_any");
-						for (int j = anyIndex; j < namedNode.getEntryLength(); ++j) {
-							anyVarList.add(tmpVarBuilder.next());
-						}
-
-						anyVarListMap.put(anyVarName, anyVarList);
-					}
-
-					if ((anyIndex + anyVarList.size()) != namedNode.getEntryLength()) {
-						throw new RException(String.format("named node length<%d> not match: %s",
-								namedNode.getEntryLength(), filter));
-					}
-
-					ArrayList<IRObject> newObjList = new ArrayList<>();
-					for (int j = 0; j < anyIndex; ++j) {
-						newObjList.add(filter.get(j));
-					}
-
-					newObjList.addAll(anyVarList);
-					obj = RulpFactory.createNamedList(namedName, newObjList);
+				IRList newFilter = rebuildAnyVarCond(graph, filter, anyVarListMap, true);
+				if (newFilter != filter) {
+					obj = newFilter;
 					update = true;
 				}
 			}

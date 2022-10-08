@@ -44,4 +44,13 @@ class ActionUtilTest extends RuleTestBase {
 		});
 	}
 
+	@Test
+	void test_buildRelatedStmtUniqNames_3_any() {
+
+		_setup();
+
+		_test((input) -> {
+			return _buildRelatedStmtUniqNames(input);
+		});
+	}
 }
