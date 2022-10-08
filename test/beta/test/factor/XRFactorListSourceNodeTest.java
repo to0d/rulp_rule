@@ -103,7 +103,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_list_source_node_d_any_1() {
+	void test_list_source_node_d_vary_1() {
 
 		_setup();
 		_run_script();
@@ -111,7 +111,7 @@ class XRFactorListSourceNodeTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_list_source_node_d_any_2_manner() {
+	void test_list_source_node_d_vary_2_manner() {
 
 		_setup();
 		_run_script();

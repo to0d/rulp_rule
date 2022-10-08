@@ -251,17 +251,17 @@ public class ReteUtil {
 		// '(?...) or '(?x ?...)
 		// n:'(?...) or n:'(?x ?...)
 		/******************************************************/
-		int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
-		if (anyIndex != -1) {
+		int varyIndex = ReteUtil.indexOfVaryArgStmt(filter);
+		if (varyIndex != -1) {
 
-			if (anyIndex != (filter.size() - 1)) {
+			if (varyIndex != (filter.size() - 1)) {
 				throw new RException(String.format("invalid filter: %s", filter));
 			}
 
 			ArrayList<IRObject> extendFilterObjs = new ArrayList<>();
 			XTempVarBuilder tmpVarBuilder = new XTempVarBuilder("?_vg_");
 
-			for (int i = 0; i < anyIndex; ++i) {
+			for (int i = 0; i < varyIndex; ++i) {
 				extendFilterObjs.add(filter.get(i));
 			}
 
@@ -284,7 +284,7 @@ public class ReteUtil {
 				return;
 			}
 
-			for (int i = anyIndex; i < namedNode.getEntryLength(); ++i) {
+			for (int i = varyIndex; i < namedNode.getEntryLength(); ++i) {
 				extendFilterObjs.add(tmpVarBuilder.next());
 			}
 
@@ -961,8 +961,8 @@ public class ReteUtil {
 		/******************************************************/
 		// n:'(?...) or n:'(?x ?...)
 		/******************************************************/
-		int varArgIndex = ReteUtil.indexOfVarArgStmt(filter);
-		if (varArgIndex != -1 && varArgIndex != (nodeEntryLengh - 1)) {
+		int varyIndex = ReteUtil.indexOfVaryArgStmt(filter);
+		if (varyIndex != -1 && varyIndex != (nodeEntryLengh - 1)) {
 			throw new RException(String.format("invalid named filter: %s", filter));
 		}
 
@@ -972,15 +972,17 @@ public class ReteUtil {
 		IRReteNode namedNode = graph.findRootNode(namedName, -1);
 		if (namedNode != null) {
 
-			if (varArgIndex == -1) {
+			if (varyIndex == -1) {
+
 				if (namedNode.getEntryLength() != nodeEntryLengh) {
 					throw new RException(String.format("unmatch entry length: expect=%d, actual=%d", nodeEntryLengh,
 							namedNode.getEntryLength()));
 				}
+
 			} else {
 
-				if (varArgIndex > namedNode.getEntryLength()) {
-					throw new RException(String.format("unmatch vararg entry length: vararg=%d, actual=%d", varArgIndex,
+				if (varyIndex > namedNode.getEntryLength()) {
+					throw new RException(String.format("unmatch vararg entry length: vararg=%d, actual=%d", varyIndex,
 							namedNode.getEntryLength()));
 				}
 			}
@@ -1356,7 +1358,7 @@ public class ReteUtil {
 		return varCount;
 	}
 
-	public static int indexOfVarArgStmt(IRList stmt) throws RException {
+	public static int indexOfVaryArgStmt(IRList stmt) throws RException {
 
 		if (!isReteStmt(stmt)) {
 			return -1;
@@ -1370,10 +1372,6 @@ public class ReteUtil {
 		}
 
 		return -1;
-	}
-
-	public static boolean isVaryStmt(IRList stmt) throws RException {
-		return isReteStmt(stmt) && isVaryArg(stmt.get(stmt.size() - 1));
 	}
 
 	public static boolean isActionEntry(IRList actionEntry) throws RException {
@@ -1703,10 +1701,6 @@ public class ReteUtil {
 		}
 	}
 
-//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
-//
-//	}
-
 	public static boolean isReteTreeModifierAtom(IRAtom obj) throws RException {
 
 		switch (obj.getName()) {
@@ -1717,6 +1711,10 @@ public class ReteUtil {
 			return false;
 		}
 	}
+
+//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
+//
+//	}
 
 	public static boolean isSame(IRObject a, IRObject b) {
 
@@ -1802,10 +1800,6 @@ public class ReteUtil {
 		return len >= STMT_MIN_LEN && len <= STMT_MAX_LEN;
 	}
 
-	public static boolean isVaryArg(IRObject obj) {
-		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION_LIST);
-	}
-
 	public static boolean isVarChangeExpr(IRObject obj) throws RException {
 
 		if (obj.getType() != RType.EXPR || ((IRList) obj).size() == 0) {
@@ -1855,6 +1849,14 @@ public class ReteUtil {
 		}
 
 		return false;
+	}
+
+	public static boolean isVaryArg(IRObject obj) {
+		return obj.getType() == RType.ATOM && ((IRAtom) obj).getName().equals(A_QUESTION_LIST);
+	}
+
+	public static boolean isVaryStmt(IRList stmt) throws RException {
+		return isReteStmt(stmt) && isVaryArg(stmt.get(stmt.size() - 1));
 	}
 
 	public static boolean isZetaTree(IRList reteTree, int treeSize) throws RException {
@@ -2018,27 +2020,27 @@ public class ReteUtil {
 		return true;
 	}
 
-	public static IRList rebuildAnyVarCond(IRNodeGraph graph, IRList cond, Map<String, List<IRObject>> anyVarListMap,
+	public static IRList rebuildVaryStmt(IRNodeGraph graph, IRList stmt, Map<String, List<IRObject>> anyVarListMap,
 			boolean force) throws RException {
 
-		int anyIndex = ReteUtil.indexOfVarArgStmt(cond);
+		int anyIndex = ReteUtil.indexOfVaryArgStmt(stmt);
 		if (anyIndex == -1) {
-			return cond;
+			return stmt;
 		}
 
-		String namedName = cond.getNamedName();
+		String namedName = stmt.getNamedName();
 		if (namedName == null) {
 			if (!force) {
 				return null;
 			}
-			throw new RException(String.format("need named for any filter: %s", cond));
+			throw new RException(String.format("need named for any filter: %s", stmt));
 		}
 
-		if (anyIndex != (cond.size() - 1)) {
+		if (anyIndex != (stmt.size() - 1)) {
 			if (!force) {
 				return null;
 			}
-			throw new RException(String.format("invalid any filter: %s", cond));
+			throw new RException(String.format("invalid any filter: %s", stmt));
 		}
 
 		IRReteNode namedNode = graph.findRootNode(namedName, -1);
@@ -2046,19 +2048,19 @@ public class ReteUtil {
 			if (!force) {
 				return null;
 			}
-			throw new RException(String.format("named node not found: %s", cond));
+			throw new RException(String.format("named node not found: %s", stmt));
 		}
 
-		String anyVarName = cond.get(anyIndex).asString();
+		String anyVarName = stmt.get(anyIndex).asString();
 		List<IRObject> anyVarList = anyVarListMap.get(anyVarName);
 		if (anyVarList == null) {
 
-			if (namedNode.getEntryLength() < cond.size()) {
+			if (namedNode.getEntryLength() < stmt.size()) {
 				if (!force) {
 					return null;
 				}
 				throw new RException(
-						String.format("named node length<%d> not match: %s", namedNode.getEntryLength(), cond));
+						String.format("named node length<%d> not match: %s", namedNode.getEntryLength(), stmt));
 			}
 
 			anyVarList = new ArrayList<>();
@@ -2075,20 +2077,20 @@ public class ReteUtil {
 				return null;
 			}
 			throw new RException(
-					String.format("named node length<%d> not match: %s", namedNode.getEntryLength(), cond));
+					String.format("named node length<%d> not match: %s", namedNode.getEntryLength(), stmt));
 		}
 
 		ArrayList<IRObject> newObjList = new ArrayList<>();
 		for (int j = 0; j < anyIndex; ++j) {
-			newObjList.add(cond.get(j));
+			newObjList.add(stmt.get(j));
 		}
 
 		newObjList.addAll(anyVarList);
 		return RulpFactory.createNamedList(namedName, newObjList);
 	}
 
-	public static IRList rebuildAnyVarCondList(IRNodeGraph graph, IRList condList,
-			Map<String, List<IRObject>> anyVarListMap) throws RException {
+	public static IRList rebuildVaryStmtList(IRNodeGraph graph, IRList condList,
+			Map<String, List<IRObject>> varyVarListMap) throws RException {
 
 		ArrayList<IRObject> filterObjs = null;
 
@@ -2102,7 +2104,7 @@ public class ReteUtil {
 
 			if (obj.getType() == RType.LIST) {
 				IRList filter = RulpUtil.asList(obj);
-				IRList newFilter = rebuildAnyVarCond(graph, filter, anyVarListMap, true);
+				IRList newFilter = rebuildVaryStmt(graph, filter, varyVarListMap, true);
 				if (newFilter != filter) {
 					obj = newFilter;
 					update = true;
@@ -2221,10 +2223,10 @@ public class ReteUtil {
 				IRList stmt = (IRList) cond;
 				String namedName = stmt.getNamedName();
 
-				int anyIndex = ReteUtil.indexOfVarArgStmt(stmt);
-				if (anyIndex != -1) {
+				int varyIndex = ReteUtil.indexOfVaryArgStmt(stmt);
+				if (varyIndex != -1) {
 
-					if (anyIndex != (stmt.size() - 1)) {
+					if (varyIndex != (stmt.size() - 1)) {
 						throw new RException(String.format("invalid stmt: %s", stmt));
 					}
 
@@ -2243,16 +2245,16 @@ public class ReteUtil {
 						throw new RException(String.format("namedNode not found: %s", namedName));
 					}
 
-					if (anyIndex > namedNode.getEntryLength()) {
+					if (varyIndex > namedNode.getEntryLength()) {
 						throw new RException(String.format("length<%s> invalid for namedNode: %s", stmt, namedNode));
 					}
 
 					ArrayList<IRObject> filterObjs = new ArrayList<>();
-					for (int i = 0; i < anyIndex; ++i) {
+					for (int i = 0; i < varyIndex; ++i) {
 						filterObjs.add(stmt.get(i));
 					}
 
-					for (int i = anyIndex; i < namedNode.getEntryLength(); ++i) {
+					for (int i = varyIndex; i < namedNode.getEntryLength(); ++i) {
 
 						if (vgVarBuilder == null) {
 							vgVarBuilder = new XTempVarBuilder("?_vg_");

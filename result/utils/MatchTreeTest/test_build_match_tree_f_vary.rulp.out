@@ -8,10 +8,10 @@ n1:'(?x ?...) '(?x ?y) '(?y ?z) ; input
 
 ;;---------------------------------------------------------;;
 '(?x ?...) '(?x ?y) '(?y ?z) ; input
-;err:need named for any stmt: '(?x ?...)
+;err:need named for vary stmt: '(?x ?...)
 
 
 n1:'(?... ?x) '(?x ?y) '(?y ?z) ; input
-;err:invalid any stmt: n1:'(?... ?x)
+;err:invalid vary stmt: n1:'(?... ?x)
 
 

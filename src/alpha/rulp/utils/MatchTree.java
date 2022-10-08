@@ -754,15 +754,15 @@ public class MatchTree {
 				}
 			}
 
-			int anyIndex = ReteUtil.indexOfVarArgStmt(stmt);
-			if (anyIndex != -1) {
+			int varyIndex = ReteUtil.indexOfVaryArgStmt(stmt);
+			if (varyIndex != -1) {
 
 				if (stmt.getNamedName() == null) {
-					throw new RException(String.format("need named for any stmt: %s", stmt));
+					throw new RException(String.format("need named for vary stmt: %s", stmt));
 				}
 
-				if (anyIndex != (stmt.size() - 1)) {
-					throw new RException(String.format("invalid any stmt: %s", stmt));
+				if (varyIndex != (stmt.size() - 1)) {
+					throw new RException(String.format("invalid vary stmt: %s", stmt));
 				}
 
 			}

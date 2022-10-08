@@ -920,7 +920,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		// Check whether there is any uniq constraint that match the filter
-		if (filter.getNamedName() != null && ReteUtil.indexOfVarArgStmt(filter) == -1) {
+		if (filter.getNamedName() != null && ReteUtil.indexOfVaryArgStmt(filter) == -1) {
 
 			IRReteNode namedRootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
 			if (namedRootNode == null) {
@@ -1258,17 +1258,17 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// '(?...) or '(?x ?...)
 		// n:'(?...) or n:'(?x ?...)
 		/******************************************************/
-		int anyIndex = ReteUtil.indexOfVarArgStmt(filter);
-		if (anyIndex != -1) {
+		int varyIndex = ReteUtil.indexOfVaryArgStmt(filter);
+		if (varyIndex != -1) {
 
-			if (anyIndex != (filter.size() - 1)) {
+			if (varyIndex != (filter.size() - 1)) {
 				throw new RException(String.format("invalid filter: %s", filter));
 			}
 
 			ArrayList<IRObject> extendFilterObjs = new ArrayList<>();
 			XTempVarBuilder tmpVarBuilder = new XTempVarBuilder("?_vg_");
 
-			for (int i = 0; i < anyIndex; ++i) {
+			for (int i = 0; i < varyIndex; ++i) {
 				extendFilterObjs.add(filter.get(i));
 			}
 
@@ -1338,7 +1338,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				return 0;
 			}
 
-			for (int i = anyIndex; i < namedNode.getEntryLength(); ++i) {
+			for (int i = varyIndex; i < namedNode.getEntryLength(); ++i) {
 				extendFilterObjs.add(tmpVarBuilder.next());
 			}
 
@@ -1766,7 +1766,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/******************************************************/
 		// n1:'(a ?...) ==> n1:'(a ?tmp_1 ?tmp_2)
 		/******************************************************/
-		condList = ReteUtil.rebuildAnyVarCondList(nodeGraph, condList, new HashMap<>());
+		condList = ReteUtil.rebuildVaryStmtList(nodeGraph, condList, new HashMap<>());
 
 		/******************************************************/
 		// update condition list

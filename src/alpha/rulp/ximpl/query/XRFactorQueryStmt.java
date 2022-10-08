@@ -258,22 +258,21 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		}
 
 		/********************************************/
-		// Rebuild var cond list (query-stmt m '(?...) from n3:'(?...))
+		// Rebuild vary stmt list (query-stmt m '(?...) from n3:'(?...))
 		/********************************************/
-		if (rstExpr.getType() == RType.LIST && ReteUtil.indexOfVarArgStmt((IRList) rstExpr) != -1) {
+		if (rstExpr.getType() == RType.LIST && ReteUtil.indexOfVaryArgStmt((IRList) rstExpr) != -1) {
 
-			Map<String, List<IRObject>> anyVarListMap = new HashMap<>();
-			IRList newCondList = ReteUtil.rebuildAnyVarCondList(model.getNodeGraph(), condList, anyVarListMap);
-			if (newCondList != condList && !anyVarListMap.isEmpty()) {
+			Map<String, List<IRObject>> varyVarListMap = new HashMap<>();
+			IRList newCondList = ReteUtil.rebuildVaryStmtList(model.getNodeGraph(), condList, varyVarListMap);
+			if (newCondList != condList && !varyVarListMap.isEmpty()) {
 
 				Map<String, IRObject> replaceMap = new HashMap<>();
-				for (Entry<String, List<IRObject>> e : anyVarListMap.entrySet()) {
+				for (Entry<String, List<IRObject>> e : varyVarListMap.entrySet()) {
 					replaceMap.put(e.getKey(), RulpFactory.createObjectIterator(e.getValue().iterator()));
 				}
 
 				IRObject newRstExpr = RuntimeUtil.rebuild(rstExpr, replaceMap);
 				if (newRstExpr != rstExpr) {
-
 					rstExpr = RulpUtil.asList(newRstExpr);
 					condList = newCondList;
 				}

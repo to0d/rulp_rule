@@ -206,7 +206,15 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_query_stmt_b_any() {
+	void test_query_stmt_b_vary_1() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_query_stmt_b_vary_2() {
 
 		_setup();
 		_run_script();
@@ -231,14 +239,6 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 
 	@Test
 	void test_query_stmt_d_forward() {
-
-		_setup();
-		_run_script();
-		_statsInfo("m");
-	}
-
-	@Test
-	void test_query_stmt_e_any_1() {
 
 		_setup();
 		_run_script();

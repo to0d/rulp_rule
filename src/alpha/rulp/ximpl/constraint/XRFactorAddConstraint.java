@@ -65,13 +65,14 @@ public class XRFactorAddConstraint extends AbsAtomFactorAdapter implements IRFac
 		IRReteNode node = ReteUtil.findNameNode(model.getNodeGraph(), namedList);
 		if (node == null) {
 
-			int anyIndex = ReteUtil.indexOfVarArgStmt(namedList);
-			if (anyIndex != -1) {
+			int varyIndex = ReteUtil.indexOfVaryArgStmt(namedList);
+			if (varyIndex != -1) {
 				throw new RException(String.format("Can't create var arg node: %s", namedList));
 			}
 
 			// Create node
-			node = model.getNodeGraph().createNodeRoot(namedList.getNamedName(), ReteUtil.getFilerEntryLength(namedList));
+			node = model.getNodeGraph().createNodeRoot(namedList.getNamedName(),
+					ReteUtil.getFilerEntryLength(namedList));
 			if (node == null) {
 				throw new RException(String.format("Fail to create named node: %s", namedList));
 			}

@@ -2400,7 +2400,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			return Collections.emptyList();
 		}
 
-		cond = ReteUtil.rebuildAnyVarCond(this, cond, new HashMap<>(), false);
+		cond = ReteUtil.rebuildVaryStmt(this, cond, new HashMap<>(), false);
 		if (cond == null) {
 			return Collections.emptyList();
 		}

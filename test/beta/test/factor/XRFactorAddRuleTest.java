@@ -135,7 +135,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_add_rule_7_any_1() {
+	void test_add_rule_7_vary_1() {
 
 		_setup();
 		_run_script();
@@ -143,7 +143,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_add_rule_7_any_2_err() {
+	void test_add_rule_7_vary_2_err() {
 
 		_setup();
 		_run_script();
@@ -151,7 +151,7 @@ class XRFactorAddRuleTest extends RuleTestBase {
 	}
 	
 	@Test
-	void test_add_rule_7_any_3() {
+	void test_add_rule_7_vary_3() {
 
 		_setup();
 		_run_script();

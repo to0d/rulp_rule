@@ -8,8 +8,10 @@ class XRFactorRemoveConstraintTest extends RuleTestBase {
 
 	@Test
 	void test_remove_constraint_1_any_1() {
+
 		_setup();
 		_run_script();
+
 	}
 
 	@Test

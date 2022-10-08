@@ -40,8 +40,8 @@ public class XRFactorAddNode extends AbsAtomFactorAdapter implements IRFactor, I
 		/**************************************************/
 		// Check named list
 		/**************************************************/
-		int anyIndex = ReteUtil.indexOfVarArgStmt(namedList);
-		if (anyIndex != -1) {
+		int varyIndex = ReteUtil.indexOfVaryArgStmt(namedList);
+		if (varyIndex != -1) {
 			throw new RException(String.format("Can't create var arg node: %s", namedList));
 		}
 
