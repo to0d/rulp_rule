@@ -75,5 +75,10 @@
 ;=>&?model-trace
 
 (query-stmt mm '(?...) from seat:'(16 ?...) limit 1)
-;=>'()
+;err:
+Invalid parameters: (foreach ?i from 1 to ?m do (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_any_2 ?_tmp_seat_any_3 ?_tmp_seat_any_4 ?_tmp_seat_any_5 ?_tmp_seat_any_6 ?_tmp_seat_any_7 ?_tmp_seat_any_8 ?_tmp_seat_any_9 ?_tmp_seat_any_10 ?_tmp_seat_any_11    ) (  )) )  ()))...
+at (foreach ?i from 1 to ?m do (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat... ; do-4
+at (do (foreach ?i from 1 to ?m do (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_... ; qf-RU002-5
+at (query-stmt mm '(?...) from seat:'(16 ?...) limit 1) ; main-2
+;eof
 

@@ -1859,6 +1859,10 @@ public class ReteUtil {
 		return isReteStmt(stmt) && isVaryArg(stmt.get(stmt.size() - 1));
 	}
 
+	public static boolean isAnyStmt(IRList stmt) throws RException {
+		return isReteStmt(stmt) && stmt.size() == 1 && isVaryArg(stmt.get(0));
+	}
+
 	public static boolean isZetaTree(IRList reteTree, int treeSize) throws RException {
 
 		if (treeSize <= 2 || reteTree.getType() != RType.LIST) {
@@ -1921,15 +1925,76 @@ public class ReteUtil {
 
 	public static boolean matchUniqStmt(IRList srcStmt, IRList dstStmt) throws RException {
 
+		if (!RuleUtil.equal(srcStmt.getNamedName(), dstStmt.getNamedName())) {
+			return false;
+		}
+
+		if (ReteUtil.isVaryStmt(srcStmt)) {
+
+			/****************************************/
+			// before: n1:(?...) any
+			// or
+			// before: any n1:(?...)
+			/****************************************/
+			if (ReteUtil.isAnyStmt(srcStmt) || ReteUtil.isAnyStmt(dstStmt)) {
+				return true;
+			}
+
+			/****************************************/
+			// before: n1:(?x ?...) n1:(a b c ?...)
+			// after : n1:(?x ?t1 ?t2) n1:(a b c)
+			/****************************************/
+			if (ReteUtil.isVaryStmt(dstStmt)) {
+
+				if (srcStmt.size() == dstStmt.size()) {
+
+				}
+
+			}
+			/****************************************/
+			// n1:(?x ?...) n1:(?x ?y)
+			/****************************************/
+			else {
+
+				/****************************************/
+				// before: n1:(?x ?...) n1:(a b c)
+				// after : n1:(?x ?t1 ?t2) n1:(a b c)
+				/****************************************/
+				if (srcStmt.size() < dstStmt.size()) {
+
+				}
+				/****************************************/
+				// before: n1:(?x ?...) n1:(a b)
+				// after : n1:(?x ?t1) n1:(a b)
+				/****************************************/
+				else if (srcStmt.size() == dstStmt.size()) {
+
+				}
+				/****************************************/
+				// before: n1:(?x ?y ?...) n1:(a b)
+				// after : n1:(?x ?y) n1:(a b)
+				/****************************************/
+				else if (srcStmt.size() == (dstStmt.size() + 1)) {
+
+				}
+				/****************************************/
+				// before: n1:(?x ?y ?z ?...) n1:(a b)
+				// after : false
+				/****************************************/
+				else {
+					return false;
+				}
+			}
+
+		} else if (ReteUtil.isVaryStmt(dstStmt)) {
+			return matchUniqStmt(dstStmt, srcStmt);
+		}
+
 		if (srcStmt.size() != dstStmt.size()) {
 			return false;
 		}
 
 		if (!isUniqReteStmt(srcStmt) || !isUniqReteStmt(dstStmt)) {
-			return false;
-		}
-
-		if (!RuleUtil.equal(srcStmt.getNamedName(), dstStmt.getNamedName())) {
 			return false;
 		}
 

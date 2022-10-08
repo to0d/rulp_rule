@@ -183,6 +183,28 @@ class ReteUtilTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_is_uniq_rete_stmt_1() {
+
+		_setup();
+
+		_test((input) -> {
+			return _test_isUniqReteStmt(input);
+		});
+
+	}
+
+	@Test
+	void test_is_uniq_rete_stmt_2_vary() {
+
+		_setup();
+
+		_test((input) -> {
+			return _test_isUniqReteStmt(input);
+		});
+
+	}
+	
+	@Test
 	void test_isReteStmt() {
 
 		_setup();
@@ -194,12 +216,34 @@ class ReteUtilTest extends RuleTestBase {
 	}
 
 	@Test
-	void test_isUniqReteStmt() {
+	void test_match_uniq_stmt_1() {
 
 		_setup();
 
 		_test((input) -> {
-			return _test_isUniqReteStmt(input);
+			return _test_matchUniqStmt(input);
+		});
+
+	}
+
+	@Test
+	void test_match_uniq_stmt_2_named() {
+
+		_setup();
+
+		_test((input) -> {
+			return _test_matchUniqStmt(input);
+		});
+
+	}
+
+	@Test
+	void test_match_uniq_stmt_3_vary() {
+
+		_setup();
+
+		_test((input) -> {
+			return _test_matchUniqStmt(input);
 		});
 
 	}
@@ -229,28 +273,6 @@ class ReteUtilTest extends RuleTestBase {
 		assertTrue(ReteUtil.matchReteStatus(REMOVE, 63));
 		assertTrue(ReteUtil.matchReteStatus(FIXED_, 63));
 		assertTrue(ReteUtil.matchReteStatus(TEMP__, 63));
-	}
-
-	@Test
-	void test_match_uniq_stmt_1() {
-
-		_setup();
-
-		_test((input) -> {
-			return _test_matchUniqStmt(input);
-		});
-
-	}
-
-	@Test
-	void test_match_uniq_stmt_2_named() {
-
-		_setup();
-
-		_test((input) -> {
-			return _test_matchUniqStmt(input);
-		});
-
 	}
 
 	@Test
