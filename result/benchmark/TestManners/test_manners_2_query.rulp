@@ -34,29 +34,29 @@
 
 (add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
 
-    (foreach ?i from 1 to ?m do
-        (if (= (get ?0 (- ?i 1)) ?g1) do
+    (loop for ?i from 1 to ?m do
+        (if (= (get ?0 ?i) ?g) do
             (return)
         )
     )
     
     (if (> ?m 0) do
-        (defvar ?x (get ?0 (- ?m 1)))
-        (if (not (canBeCouple ?x ?g1))
+        (defvar ?x (get ?0 ?m))
+        (if (not (canBeCouple ?x ?g))
             (return)
         )
     )
     
     (if (= (+ ?m 1) ?max_guess) do
-        (defvar ?x (get ?0 0))
-        (if (not (canBeCouple ?x ?g1))
+        (defvar ?x (get ?0 1))
+        (if (not (canBeCouple ?x ?g))
             (return)
         )
     )
-    
+
     (defvar ?arr (to-array ?0))
     (seta ?arr 0 (+ ?m 1))
-    (seta ?arr ?m ?g1)
+    (seta ?arr (+ ?m 1) ?g)
     
     (add-stmt mm seat ?arr)
 )

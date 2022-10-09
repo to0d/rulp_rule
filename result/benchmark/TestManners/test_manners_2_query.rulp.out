@@ -34,29 +34,29 @@
 
 (add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
 
-    (foreach ?i from 1 to ?m do
-        (if (= (get ?0 (- ?i 1)) ?g1) do
+    (loop for ?i from 1 to ?m do
+        (if (= (get ?0 ?i) ?g) do
             (return)
         )
     )
     
     (if (> ?m 0) do
-        (defvar ?x (get ?0 (- ?m 1)))
-        (if (not (canBeCouple ?x ?g1))
+        (defvar ?x (get ?0 ?m))
+        (if (not (canBeCouple ?x ?g))
             (return)
         )
     )
     
     (if (= (+ ?m 1) ?max_guess) do
-        (defvar ?x (get ?0 0))
-        (if (not (canBeCouple ?x ?g1))
+        (defvar ?x (get ?0 1))
+        (if (not (canBeCouple ?x ?g))
             (return)
         )
     )
-    
+
     (defvar ?arr (to-array ?0))
     (seta ?arr 0 (+ ?m 1))
-    (seta ?arr ?m ?g1)
+    (seta ?arr (+ ?m 1) ?g)
     
     (add-stmt mm seat ?arr)
 )
@@ -66,7 +66,7 @@
 ;=>'(RU002)
 
 (list-subgraph-for-query mm '(seat:'(?...)) true)
-;=>'('('(seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) (< ?_0 16)) guess:'(?_17 ?_18)) '(seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) (< ?_0 16)) (inherit '('(seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) (< ?_0 16)) guess:'(?_17 ?_18)) 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) guess:'(?_0 ?_1) seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) RU002)
+;=>'('('(seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) (< ?_0 16)) guess:'(?_17 ?_18)) '(seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) (< ?_0 16)) (inherit '('(seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) (< ?_0 16)) guess:'(?_17 ?_18)) 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17) guess:'(?_0 ?_1) seat:'(?_0 ?_1 ?_2 ?_3 ?_4 ?_5 ?_6 ?_7 ?_8 ?_9 ?_10 ?_11 ?_12 ?_13 ?_14 ?_15 ?_16) RU002)
 
 (add-stmt mm seat (makeList (+ ?max_guess 1) 0))
 ;=>true
@@ -76,9 +76,16 @@
 
 (query-stmt mm '(?...) from seat:'(16 ?...) limit 1)
 ;err:
-Invalid parameters: (foreach ?i from 1 to ?m do (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_any_2 ?_tmp_seat_any_3 ?_tmp_seat_any_4 ?_tmp_seat_any_5 ?_tmp_seat_any_6 ?_tmp_seat_any_7 ?_tmp_seat_any_8 ?_tmp_seat_any_9 ?_tmp_seat_any_10 ?_tmp_seat_any_11    ) (  )) )  ()))...
-at (foreach ?i from 1 to ?m do (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat... ; do-4
-at (do (foreach ?i from 1 to ?m do (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_... ; qf-RU002-5
+Can't query, the model is running
+at (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1) ; do-4
+at (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1)) ; do-4
+at (do (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1)) (if... ; _$fun$_canBeCouple-8
+at (canBeCouple ?x ?g) ; do-5
+at (not (canBeCouple ?x ?g)) ; do-5
+at (if (not (canBeCouple ?x ?g)) (return)) ; do-5
+at (do (defvar ?x (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_an... ; do-9
+at (if (> ?m 0) do (defvar ?x (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?... ; do-9
+at (do (loop for ?i from 1 to ?m do (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp... ; qf-RU002-10
 at (query-stmt mm '(?...) from seat:'(16 ?...) limit 1) ; main-2
 ;eof
 

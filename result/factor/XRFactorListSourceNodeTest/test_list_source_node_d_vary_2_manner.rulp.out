@@ -48,7 +48,7 @@
 
 (add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
 
-    (foreach ?i from 1 to ?m do
+    (loop for ?i from 1 to ?m do
         (if (= (get ?0 (- ?i 1)) ?g1) do
             (return)
         )

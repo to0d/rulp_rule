@@ -102,13 +102,7 @@ RU000[4]     0     EXPR  (if (= ?s1 ?s2)
                          1: ADD canBeCouple:'(?_0 ?_1 true)
 RU001[4]     0     ADD   canSitTogether:'(?0, ?1, ?2)
 RU002[17]    0     EXPR  (do
-                             (foreach
-                                 ?i
-                                 from
-                                 1
-                                 to
-                                 ?m
-                                 do
+                             (loop for ?i from 1 to ?m do
                                  (if (= (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_any_2 ?_tmp_seat_any_3 ?_tmp_seat_any_4 ?_tmp_seat_any_5 ?_tmp_seat_any_6 ?_tmp_seat_any_7 ?_tmp_seat_any_8 ?_tmp_seat_any_9 ?_tmp_seat_any_10 ?_tmp_seat_any_11 ?_tmp_seat_any_12 ?_tmp_seat_any_13 ?_tmp_seat_any_14 ?_tmp_seat_any_15) (- ?i 1)) ?g1) do
                                      (return)
                                  )
@@ -313,7 +307,7 @@ Priority        EXPR1 BETA0 BETA2  RULE
 099(default) :      1     1     1     1
 ===============================================================================================================================================================================
 
-Rule<RU002> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (foreach ?i from 1 to ?m do (if (= (get ?0 (- ?i 1)) ?g1) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 (- ?m 1))) (if (not (canBeCouple ?x ?g1)) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 0)) (if (not (canBeCouple ?x ?g1)) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr ?m ?g1) (add-stmt mm seat ?arr))
+Rule<RU002> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (loop for ?i from 1 to ?m do (if (= (get ?0 (- ?i 1)) ?g1) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 (- ?m 1))) (if (not (canBeCouple ?x ?g1)) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 0)) (if (not (canBeCouple ?x ?g1)) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr ?m ?g1) (add-stmt mm seat ?arr))
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -456,7 +450,7 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2555            0         2555
+        atom:         2556            0         2556
       string:           77            0           77
         list:          144            2          142
         expr:         1023            0         1023
