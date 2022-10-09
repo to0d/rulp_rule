@@ -1583,9 +1583,9 @@ public class ReteUtil {
 			case LONG:
 			case DOUBLE:
 			case BOOL:
-				if (stmt.getNamedName() == null && index <= 2) {
-					return false;
-				}
+//				if (stmt.getNamedName() == null && index <= 2) {
+//					return false;
+//				}
 				break;
 
 			case ATOM:
@@ -1763,13 +1763,16 @@ public class ReteUtil {
 		}
 
 		int stmtLen = stmt.size();
-		IRIterator<? extends IRObject> iter = stmt.iterator();
-
 		int varCount = 0;
+		for (int i = 0; i < stmtLen; ++i) {
 
-		while (iter.hasNext()) {
+			IRObject obj = stmt.get(i);
 
-			IRObject obj = iter.next();
+			// '(a b ?...)
+			if (ReteUtil.isVaryArg(obj)) {
+				return i == (stmtLen - 1);
+			}
+
 			if (RulpUtil.isVarAtom(obj)) {
 
 				// Only support ?0 ?1 ?2 variables, the statement should be ordered
@@ -1923,6 +1926,33 @@ public class ReteUtil {
 		return (status.getMask() & mask) > 0;
 	}
 
+	private static IRList _enlargeVaryStmt(IRList stmt, int len) throws RException {
+
+		int stmtLen = stmt.size();
+		int lastVarIndex = -1;
+
+		for (int i = stmtLen - 2; i >= 0; --i) {
+
+			IRObject obj = stmt.get(i);
+			if (RulpUtil.isVarAtom(obj)) {
+
+				// Only support ?0 ?1 ?2 variables, the statement should be ordered
+				int varIndex = _getVarUniqIndex(stmtLen, obj);
+				if (varIndex != -1) {
+					lastVarIndex = varIndex;
+					break;
+				}
+			}
+		}
+
+		List<IRObject> srcSubList = RulpUtil.subList(stmt, 0, stmt.size() - 1);
+		while (srcSubList.size() < len) {
+			srcSubList.add(RulpFactory.createAtom(getIndexVarName(++lastVarIndex)));
+		}
+
+		return RulpFactory.createList(srcSubList);
+	}
+
 	public static boolean matchUniqStmt(IRList srcStmt, IRList dstStmt) throws RException {
 
 		if (!RuleUtil.equal(srcStmt.getNamedName(), dstStmt.getNamedName())) {
@@ -1940,42 +1970,49 @@ public class ReteUtil {
 				return true;
 			}
 
-			/****************************************/
-			// before: n1:(?x ?...) n1:(a b c ?...)
-			// after : n1:(?x ?t1 ?t2) n1:(a b c)
-			/****************************************/
 			if (ReteUtil.isVaryStmt(dstStmt)) {
 
+				/****************************************/
+				// before: n1:(?0 ?...) n1:(a ?...)
+				// after : n1:(?0) n1:(a)
+				/****************************************/
 				if (srcStmt.size() == dstStmt.size()) {
 
-				}
-
-			}
-			/****************************************/
-			// n1:(?x ?...) n1:(?x ?y)
-			/****************************************/
-			else {
-
-				/****************************************/
-				// before: n1:(?x ?...) n1:(a b c)
-				// after : n1:(?x ?t1 ?t2) n1:(a b c)
-				/****************************************/
-				if (srcStmt.size() < dstStmt.size()) {
+					srcStmt = RulpFactory.createList(RulpUtil.subList(srcStmt, 0, srcStmt.size() - 1));
+					dstStmt = RulpFactory.createList(RulpUtil.subList(dstStmt, 0, dstStmt.size() - 1));
 
 				}
 				/****************************************/
-				// before: n1:(?x ?...) n1:(a b)
-				// after : n1:(?x ?t1) n1:(a b)
+				// before: n1:(?0 ?...) n1:(a b c ?...)
+				// after : n1:(?0 ?1 ?2) n1:(a b c)
 				/****************************************/
-				else if (srcStmt.size() == dstStmt.size()) {
+				else {
 
+					if (srcStmt.size() > dstStmt.size()) {
+						IRList tmpStmt = srcStmt;
+						srcStmt = dstStmt;
+						dstStmt = tmpStmt;
+					}
+
+					dstStmt = RulpFactory.createList(RulpUtil.subList(dstStmt, 0, dstStmt.size() - 1));
+					srcStmt = _enlargeVaryStmt(srcStmt, dstStmt.size());
+				}
+
+			} else {
+
+				/****************************************/
+				// before: n1:(?0 ?...) n1:(a b c)
+				// after : n1:(?0 ?1 ?2) n1:(a b c)
+				/****************************************/
+				if (srcStmt.size() <= dstStmt.size()) {
+					srcStmt = _enlargeVaryStmt(srcStmt, dstStmt.size());
 				}
 				/****************************************/
-				// before: n1:(?x ?y ?...) n1:(a b)
-				// after : n1:(?x ?y) n1:(a b)
+				// before: n1:(?0 ?1 ?...) n1:(a b)
+				// after : n1:(?0 ?1) n1:(a b)
 				/****************************************/
 				else if (srcStmt.size() == (dstStmt.size() + 1)) {
-
+					srcStmt = RulpFactory.createList(RulpUtil.subList(srcStmt, 0, srcStmt.size() - 1));
 				}
 				/****************************************/
 				// before: n1:(?x ?y ?z ?...) n1:(a b)
