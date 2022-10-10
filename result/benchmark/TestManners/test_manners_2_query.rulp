@@ -71,8 +71,8 @@
 (add-stmt mm seat (makeList (+ ?max_guess 1) 0))
 ;=>
 
-(setq ?model-trace true)
-;=>
+;;(setq ?model-trace true)
+;;=>
 
 (query-stmt mm '(?...) from seat:'(16 ?...) limit 1)
-;=>
+;err
