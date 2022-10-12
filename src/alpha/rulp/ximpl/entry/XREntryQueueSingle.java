@@ -129,6 +129,11 @@ public class XREntryQueueSingle implements IREntryQueue {
 	}
 
 	@Override
+	public int getRelocateSize() {
+		return -1;
+	}
+
+	@Override
 	public IRReteEntry getStmt(String uniqName) throws RException {
 
 		if (curEntry != null && !curEntry.isDroped() && ReteUtil.uniqName(curEntry).equals(uniqName)) {
@@ -159,6 +164,11 @@ public class XREntryQueueSingle implements IREntryQueue {
 
 	public void setEntryTable(IREntryTable entryTable) {
 		this.entryTable = entryTable;
+	}
+
+	@Override
+	public void setRelocateSize(int relocateSize) {
+
 	}
 
 	@Override

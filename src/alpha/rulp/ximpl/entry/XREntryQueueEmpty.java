@@ -73,6 +73,11 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	}
 
 	@Override
+	public int getRelocateSize() {
+		return -1;
+	}
+
+	@Override
 	public IRReteEntry getStmt(String uniqName) throws RException {
 		return null;
 	}
@@ -90,6 +95,11 @@ public class XREntryQueueEmpty implements IREntryQueue {
 	@Override
 	public void incNodeUpdateCount() {
 
+	}
+
+	@Override
+	public void setRelocateSize(int relocateSize) {
+		
 	}
 
 	@Override

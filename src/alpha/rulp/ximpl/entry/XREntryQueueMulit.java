@@ -150,9 +150,15 @@ public class XREntryQueueMulit implements IREntryQueue {
 
 	protected int queryFetchCount = 0;
 
+	protected int relocateSize = -1;
+
 	public XREntryQueueMulit(int entryLength) {
 		super();
 		this.entryLength = entryLength;
+	}
+
+	protected int _size() {
+		return entryList == null ? 0 : entryList.size();
 	}
 
 	@Override
@@ -247,6 +253,11 @@ public class XREntryQueueMulit implements IREntryQueue {
 	}
 
 	@Override
+	public int getRelocateSize() {
+		return relocateSize;
+	}
+
+	@Override
 	public IRReteEntry getStmt(String uniqName) throws RException {
 
 		if (entryList != null) {
@@ -284,8 +295,18 @@ public class XREntryQueueMulit implements IREntryQueue {
 	}
 
 	@Override
+	public void setRelocateSize(int relocateSize) throws RException {
+
+		if (relocateSize > _size()) {
+			throw new RException("invalid relocateSize:" + relocateSize);
+		}
+
+		this.relocateSize = relocateSize;
+	}
+
+	@Override
 	public int size() {
-		return entryList == null ? 0 : entryList.size();
+		return relocateSize != -1 ? relocateSize : _size();
 	}
 
 }

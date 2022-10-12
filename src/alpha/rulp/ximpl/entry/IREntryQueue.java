@@ -31,6 +31,8 @@ public interface IREntryQueue extends IREntryList, IREntryAction {
 
 	public int getRedundantCount();
 
+	public int getRelocateSize();
+
 	public IRReteEntry getStmt(String uniqName) throws RException;
 
 	public int getUpdateCount();
@@ -38,5 +40,6 @@ public interface IREntryQueue extends IREntryList, IREntryAction {
 	public void incEntryRedundant();
 
 	public void incNodeUpdateCount();
-
+	
+	public void setRelocateSize(int relocateSize) throws RException;
 }

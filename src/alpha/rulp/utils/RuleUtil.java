@@ -439,7 +439,7 @@ public class RuleUtil {
 
 		for (RelocatedStmtIndexs si : BSStmtIndexsList) {
 			if (si.relocatedStmtIndexs != null) {
-				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(-1, null);
+				 si.rootNode.getEntryQueue().setRelocateSize(-1);
 			}
 		}
 

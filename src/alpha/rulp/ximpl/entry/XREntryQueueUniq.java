@@ -27,8 +27,6 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 		}
 	}
 
-	protected int relocateSize = -1;
-
 	protected Map<String, UniqEntry> uniqEntryMap = new HashMap<>();
 
 	public XREntryQueueUniq(int entryLength) {
@@ -122,27 +120,28 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 	}
 
 	@Override
-	public void relocate(int relocatePos, List<Integer> stmtIndexs) throws RException {
+	public void relocate(int relocateStartPos, List<Integer> stmtIndexs) throws RException {
 
-		if (relocatePos == -1) {
-			relocateSize = -1;
-			return;
+		if (this.getRelocateSize() != -1) {
+			throw new RException("Duplicated relocate operation");
+		}
+
+		if (relocateStartPos == -1) {
+			throw new RException("Invalid relocateStartPos: " + relocateStartPos);
 		}
 
 		if (stmtIndexs == null || stmtIndexs.isEmpty()) {
-			relocateSize = relocatePos;
-			return;
+			throw new RException("Invalid stmtIndexs: " + stmtIndexs);
 		}
 
 		// no need relocated since all statements are used
-		if ((stmtIndexs.size() + relocatePos) == super.size()) {
-			relocateSize = -1;
+		if ((stmtIndexs.size() + relocateStartPos) == super.size()) {
 			return;
 		}
 
 		Collections.sort(stmtIndexs);
 
-		relocateSize = relocatePos;
+		int relocateSize = relocateStartPos;
 
 		for (int stmtIndex : stmtIndexs) {
 
@@ -163,10 +162,7 @@ public class XREntryQueueUniq extends XREntryQueueMulit implements IREntryQueueU
 			uniqEntryMap.get(ReteUtil.uniqName(b)).index = relocateSize;
 			relocateSize++;
 		}
-	}
-
-	@Override
-	public int size() {
-		return relocateSize != -1 ? relocateSize : super.size();
+		
+		this.setRelocateSize(relocateSize);
 	}
 }

@@ -15,4 +15,10 @@ class XRFactorExecuteRuleTest extends RuleTestBase {
 		_dumpEntryTable("m");
 	}
 
+	@Test
+	void test_exec_rule_2() {
+
+		_setup();
+		_run_script();
+	}
 }
