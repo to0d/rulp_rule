@@ -104,22 +104,6 @@ public class RuleUtil {
 
 	}
 
-	static class RelocatedStmtIndexs {
-
-		public int maxStmtIndex = -1;
-
-		public ArrayList<Integer> relocatedStmtIndexs = null;
-
-		public IRReteNode rootNode;
-
-		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
-
-		public void addIndex(int index) {
-			stmtIndexs.add(index);
-			maxStmtIndex = Math.max(maxStmtIndex, index);
-		}
-	}
-
 	static class RuleActionFactor extends AbsAtomFactorAdapter {
 
 		private IRListener3<IRList, IRRule, IRFrame> actioner;
@@ -376,19 +360,36 @@ public class RuleUtil {
 //		}
 //	}
 
+	static class RelocatedEntry {
+
+		public int maxStmtIndex = -1;
+
+		public ArrayList<Integer> relocatedStmtIndexs = null;
+
+		public IRReteNode rootNode;
+
+		public int relocatePos = -1;
+
+		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
+
+		public void addIndex(int index) {
+			stmtIndexs.add(index);
+			maxStmtIndex = Math.max(maxStmtIndex, index);
+		}
+	}
+
 	public static int executeRule(IRRule rule, List<IRList> stmts) throws RException {
 
+		final IRModel model = rule.getModel();
+		final IRNodeGraph graph = rule.getModel().getNodeGraph();
+
 		ArrayList<IRReteNode> rootNodes = new ArrayList<>();
-		ArrayList<RelocatedStmtIndexs> BSStmtIndexsList = new ArrayList<>();
+		ArrayList<RelocatedEntry> BSStmtIndexsList = new ArrayList<>();
+		Map<IRReteNode, RelocatedEntry> stmtIndexMap = new HashMap<>();
 
-//		Set<IRReteNode> allNodes = new HashSet<>(rule.getAllNodes());
-
-		Map<IRReteNode, RelocatedStmtIndexs> stmtIndexMap = new HashMap<>();
-
-		IRNodeGraph graph = rule.getModel().getNodeGraph();
-
-//		ReteUtil.
-
+		/*************************************************/
+		// Relocate stmts
+		/*************************************************/
 		for (IRList stmt : stmts) {
 
 			IRReteNode rootNode = graph.findRootNode(stmt.getNamedName(), stmt.size());
@@ -403,9 +404,9 @@ public class RuleUtil {
 			IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
 			int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(stmt));
 
-			RelocatedStmtIndexs si = stmtIndexMap.get(rootNode);
+			RelocatedEntry si = stmtIndexMap.get(rootNode);
 			if (si == null) {
-				si = new RelocatedStmtIndexs();
+				si = new RelocatedEntry();
 				si.rootNode = rootNode;
 				stmtIndexMap.put(rootNode, si);
 				BSStmtIndexsList.add(si);
@@ -414,49 +415,92 @@ public class RuleUtil {
 			si.addIndex(stmtIndex);
 		}
 
-		for (RelocatedStmtIndexs si : BSStmtIndexsList) {
+		for (RelocatedEntry se : BSStmtIndexsList) {
 
 			// Get the max visit index
-			int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(si.rootNode);
+			int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(se.rootNode, null);
 
 			// All statements are already passed to child nodes
-			if (childMaxVisitIndex > si.maxStmtIndex) {
+			if (childMaxVisitIndex > se.maxStmtIndex) {
 				continue;
 			}
 
-			for (int index : si.stmtIndexs) {
+			for (int index : se.stmtIndexs) {
 				if (index >= childMaxVisitIndex) {
-					if (si.relocatedStmtIndexs == null) {
-						si.relocatedStmtIndexs = new ArrayList<>();
+					if (se.relocatedStmtIndexs == null) {
+						se.relocatedStmtIndexs = new ArrayList<>();
 					}
-					si.relocatedStmtIndexs.add(index);
+					se.relocatedStmtIndexs.add(index);
 				}
 			}
 
-			if (si.relocatedStmtIndexs != null) {
+			if (se.relocatedStmtIndexs != null) {
 
-				BSFactory.incBscOpRelocate(si.relocatedStmtIndexs.size());
+				BSFactory.incBscOpRelocate(se.relocatedStmtIndexs.size());
 
-				int relocatePos = ((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex,
-						si.relocatedStmtIndexs);
+				se.relocatePos = ((IREntryQueueUniq) se.rootNode.getEntryQueue()).relocate(childMaxVisitIndex,
+						se.relocatedStmtIndexs);
 
-				if (relocatePos != -1) {
-					si.rootNode.getEntryQueue().setRelocateSize(relocatePos);
-				} else {
-					si.relocatedStmtIndexs = null;
+				if (se.relocatePos != -1) {
+					se.rootNode.getEntryQueue().setRelocateSize(se.relocatePos);
 				}
 			}
 		}
 
-		int rc = rule.start(-1, -1);
+		/*************************************************/
+		// Check all root nodes
+		/*************************************************/
+		ArrayList<IRReteNode> relocatedNodes = new ArrayList<>();
+		for (IRReteNode node : rule.getAllNodes()) {
 
-		for (RelocatedStmtIndexs si : BSStmtIndexsList) {
-			if (si.relocatedStmtIndexs != null) {
-				si.rootNode.getEntryQueue().setRelocateSize(-1);
+			if (!RReteType.isRootType(node.getReteType())) {
+				continue;
+			}
+
+			relocatedNodes.add(node);
+
+			RelocatedEntry se = stmtIndexMap.get(node);
+
+			if (se != null) {
+
+				if (se.relocatePos != -1) {
+					se.rootNode.getEntryQueue().setRelocateSize(se.relocatePos);
+					continue;
+				}
+
+				if (se.maxStmtIndex != -1) {
+					se.rootNode.getEntryQueue().setRelocateSize(se.maxStmtIndex);
+					continue;
+				}
+			}
+
+			se.rootNode.getEntryQueue().setRelocateSize(0);
+		}
+
+		AtomicInteger rc = new AtomicInteger(0);
+		/*************************************************/
+		// Process
+		/*************************************************/
+		try {
+
+			RuleUtil.travelReteParentNodeByPostorder(rule, (_node) -> {
+				
+				int update = model.execute(_node, -1);
+				if (update > 0) {
+					rc.incrementAndGet();
+				}
+
+				return false;
+			});
+
+		} finally {
+
+			for (IRReteNode node : relocatedNodes) {
+				node.getEntryQueue().setRelocateSize(-1);
 			}
 		}
 
-		return rc;
+		return rc.get();
 	}
 
 	public static List<IRReteNode> getAllParentNodes(IRReteNode node) throws RException {

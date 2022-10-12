@@ -947,11 +947,16 @@ public class ReteUtil {
 		}
 	}
 
-	public static int findChildMaxVisitIndex(IRReteNode node) throws RException {
+	public static int findChildMaxVisitIndex(IRReteNode node, Collection<? extends IRReteNode> nodes)
+			throws RException {
 
 		// Get the max visit index
 		int childMaxVisitIndex = -1;
 		for (IRReteNode child : node.getChildNodes()) {
+
+			if (nodes != null && !nodes.contains(child)) {
+				continue;
+			}
 
 			int parentVisitIndex = -1;
 			int parentCount = child.getParentCount();
