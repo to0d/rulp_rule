@@ -28,4 +28,12 @@ class XRFactorExecuteRuleTest extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
+	
+	@Test
+	void test_exec_rule_4_new_stmt() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

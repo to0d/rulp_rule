@@ -397,7 +397,19 @@ public class RuleUtil {
 			}
 
 			IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
-			int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(stmt));
+			String uniqName = ReteUtil.uniqName(stmt);
+
+			int stmtIndex = uniqQueue.getStmtIndex(uniqName);
+			if (stmtIndex == -1) {
+				if (!model.addStatement(stmt)) {
+					continue;
+				}
+
+				stmtIndex = uniqQueue.getStmtIndex(uniqName);
+				if (stmtIndex == -1) {
+					continue;
+				}
+			}
 
 			RelocatedEntry se = relocatedEntryMap.get(rootNode);
 			if (se == null) {
@@ -410,6 +422,9 @@ public class RuleUtil {
 			se.addIndex(stmtIndex);
 		}
 
+		/*************************************************/
+		// Check relocated position
+		/*************************************************/
 		for (RelocatedEntry se : relocatedEntryList) {
 
 			// Get the max visit index
@@ -435,10 +450,6 @@ public class RuleUtil {
 
 				se.relocatePos = ((IREntryQueueUniq) se.rootNode.getEntryQueue()).relocate(childMaxVisitIndex,
 						se.relocatedStmtIndexs);
-
-				if (se.relocatePos != -1) {
-					se.rootNode.getEntryQueue().setRelocateSize(se.relocatePos);
-				}
 			}
 		}
 

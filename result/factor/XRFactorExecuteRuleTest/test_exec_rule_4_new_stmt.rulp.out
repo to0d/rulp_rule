@@ -1,0 +1,15 @@
+(load "rule")
+;=>nil
+
+(new model m)
+(add-rule "R1" m if n1:'(?x) do (-> m n2:'(?x)))
+(add-stmt m n1:'(a))
+(add-stmt m n1:'(b))
+;=>m R1 true true
+
+(execute-rule (get-rule m "R1") '(n1:'(c)))
+;=>1
+
+(list-stmt m)
+;=>'(n1:'(c) n1:'(b) n1:'(a) n2:'(c))
+
