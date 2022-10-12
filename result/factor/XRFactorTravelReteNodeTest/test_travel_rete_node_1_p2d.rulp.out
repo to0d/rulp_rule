@@ -1,0 +1,22 @@
+(load "rule")
+;=>nil
+
+(load "note/p2d.rulp")
+;=>nil
+
+(defun f1 (?node) (println (name-of $(value-of ?node))))
+;=>f1
+
+(travel-rete-node (get-rule p2d "C4") f1)
+;=>nil
+;out:
+root3
+A00022
+A00029
+B20030
+B00031
+E10032
+C4
+
+;eof
+

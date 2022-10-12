@@ -1,0 +1,11 @@
+(load "rule")
+;=>
+
+(load "note/p2d.rulp")
+;=>
+
+(defun f1 (?node) (println (name-of $(value-of ?node))))
+;=>
+
+(travel-rete-node (get-rule p2d "C4") f1)
+;=>
