@@ -321,6 +321,7 @@ mbr=system, mbr-property='(public), mbr-attribute='(), obj=system, obj-type=fram
 mbr=to-array, mbr-property='(public), mbr-attribute='(), obj=(to-array list), obj-type=func, obj-attribute='()
 mbr=to-list, mbr-property='(public), mbr-attribute='(), obj='((to-list array) (to-list iterator) (to-list list)), obj-type=func, obj-attribute='()
 mbr=trace-rule, mbr-property='(public), mbr-attribute='(), obj=trace-rule, obj-type=factor, obj-attribute='()
+mbr=travel-rete-node, mbr-property='(public), mbr-attribute='(), obj=travel-rete-node, obj-type=factor, obj-attribute='()
 mbr=try-add-stmt, mbr-property='(public), mbr-attribute='(), obj=try-add-stmt, obj-type=factor, obj-attribute='()
 mbr=type, mbr-property='(public), mbr-attribute='(), obj=type, obj-type=atom, obj-attribute='()
 mbr=type#model, mbr-property='(public), mbr-attribute='(), obj=type#model, obj-type=atom, obj-attribute='()

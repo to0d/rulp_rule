@@ -169,6 +169,8 @@ public interface Constant {
 
 	String F_LIST_STMT_ITERATOR = "list-stmt-iterator";
 
+	String F_TRAVEL_RETE_NODE = "travel-rete-node";
+
 	String F_LIST_SUBGRAPH_FOR_QUERY = "list-subgraph-for-query";
 
 	String F_LOAD_STMT = "load-stmt";

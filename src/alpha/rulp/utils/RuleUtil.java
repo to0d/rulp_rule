@@ -381,9 +381,13 @@ public class RuleUtil {
 		ArrayList<IRReteNode> rootNodes = new ArrayList<>();
 		ArrayList<RelocatedStmtIndexs> BSStmtIndexsList = new ArrayList<>();
 
+//		Set<IRReteNode> allNodes = new HashSet<>(rule.getAllNodes());
+
 		Map<IRReteNode, RelocatedStmtIndexs> stmtIndexMap = new HashMap<>();
 
 		IRNodeGraph graph = rule.getModel().getNodeGraph();
+		
+//		ReteUtil.
 
 		for (IRList stmt : stmts) {
 
@@ -439,7 +443,7 @@ public class RuleUtil {
 
 		for (RelocatedStmtIndexs si : BSStmtIndexsList) {
 			if (si.relocatedStmtIndexs != null) {
-				 si.rootNode.getEntryQueue().setRelocateSize(-1);
+				si.rootNode.getEntryQueue().setRelocateSize(-1);
 			}
 		}
 
@@ -777,7 +781,6 @@ public class RuleUtil {
 
 				queryStack.removeLast();
 			}
-
 		}
 
 		return null;
