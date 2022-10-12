@@ -183,6 +183,33 @@ public class ReteUtil {
 			{ DEFINE, REASON, ASSUME, REMOVE, FIXED_, TEMP__, CLEAN }, // CLEAN
 	};
 
+	private static IRList _enlargeVaryStmt(IRList stmt, int len) throws RException {
+
+		int stmtLen = stmt.size();
+		int lastVarIndex = -1;
+
+		for (int i = stmtLen - 2; i >= 0; --i) {
+
+			IRObject obj = stmt.get(i);
+			if (RulpUtil.isVarAtom(obj)) {
+
+				// Only support ?0 ?1 ?2 variables, the statement should be ordered
+				int varIndex = _getVarUniqIndex(stmtLen, obj);
+				if (varIndex != -1) {
+					lastVarIndex = varIndex;
+					break;
+				}
+			}
+		}
+
+		List<IRObject> srcSubList = RulpUtil.subList(stmt, 0, stmt.size() - 1);
+		while (srcSubList.size() < len) {
+			srcSubList.add(RulpFactory.createAtom(getIndexVarName(++lastVarIndex)));
+		}
+
+		return RulpFactory.createList(srcSubList);
+	}
+
 	static int _getVarUniqIndex(int stmtLen, IRObject var) throws RException {
 
 		String varName = var.asString();
@@ -946,6 +973,10 @@ public class ReteUtil {
 		return childMaxVisitIndex;
 	}
 
+//	public static IRReteNode findDupNode(IRReteNode node) {
+//		return matchChildNode(node, RReteType.DUP, null);
+//	}
+
 	public static IRReteNode findNameNode(IRNodeGraph graph, IRList filter) throws RException {
 
 		String namedName = filter.getNamedName();
@@ -991,10 +1022,6 @@ public class ReteUtil {
 
 		return namedNode;
 	}
-
-//	public static IRReteNode findDupNode(IRReteNode node) {
-//		return matchChildNode(node, RReteType.DUP, null);
-//	}
 
 	public static List<IRReteEntry> getAllEntries(IREntryQueue queue) {
 
@@ -1399,6 +1426,10 @@ public class ReteUtil {
 		return isValidStmtLen(matchTree.size()) && ReteUtil.isEntryValueType(matchTree.get(0).getType());
 	}
 
+	public static boolean isAnyStmt(IRList stmt) throws RException {
+		return isReteStmt(stmt) && stmt.size() == 1 && isVaryArg(stmt.get(0));
+	}
+
 	public static boolean isBeta3Tree(IRList reteTree, int treeSize) throws RException {
 		return treeSize == 3 && reteTree.get(0).getType() == RType.LIST && reteTree.get(1).getType() == RType.LIST
 				&& reteTree.get(2).getType() == RType.EXPR;
@@ -1565,12 +1596,12 @@ public class ReteUtil {
 			return false;
 		}
 
-		int index = 0;
+//		int index = 0;
 		IRIterator<? extends IRObject> iter = stmt.iterator();
 
 		while (iter.hasNext()) {
 
-			++index;
+//			++index;
 
 			IRObject obj = iter.next();
 			RType type = obj.getType();
@@ -1657,6 +1688,10 @@ public class ReteUtil {
 		return true;
 	}
 
+//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
+//
+//	}
+
 	public static boolean isReteTree(IRObject tree) throws RException {
 
 		if (tree.getType() != RType.LIST) {
@@ -1711,10 +1746,6 @@ public class ReteUtil {
 			return false;
 		}
 	}
-
-//	public static boolean isReteStmtNoVar(IRList stmt) throws RException {
-//
-//	}
 
 	public static boolean isSame(IRObject a, IRObject b) {
 
@@ -1862,10 +1893,6 @@ public class ReteUtil {
 		return isReteStmt(stmt) && isVaryArg(stmt.get(stmt.size() - 1));
 	}
 
-	public static boolean isAnyStmt(IRList stmt) throws RException {
-		return isReteStmt(stmt) && stmt.size() == 1 && isVaryArg(stmt.get(0));
-	}
-
 	public static boolean isZetaTree(IRList reteTree, int treeSize) throws RException {
 
 		if (treeSize <= 2 || reteTree.getType() != RType.LIST) {
@@ -1924,33 +1951,6 @@ public class ReteUtil {
 
 	public static boolean matchReteStatus(RReteStatus status, int mask) {
 		return (status.getMask() & mask) > 0;
-	}
-
-	private static IRList _enlargeVaryStmt(IRList stmt, int len) throws RException {
-
-		int stmtLen = stmt.size();
-		int lastVarIndex = -1;
-
-		for (int i = stmtLen - 2; i >= 0; --i) {
-
-			IRObject obj = stmt.get(i);
-			if (RulpUtil.isVarAtom(obj)) {
-
-				// Only support ?0 ?1 ?2 variables, the statement should be ordered
-				int varIndex = _getVarUniqIndex(stmtLen, obj);
-				if (varIndex != -1) {
-					lastVarIndex = varIndex;
-					break;
-				}
-			}
-		}
-
-		List<IRObject> srcSubList = RulpUtil.subList(stmt, 0, stmt.size() - 1);
-		while (srcSubList.size() < len) {
-			srcSubList.add(RulpFactory.createAtom(getIndexVarName(++lastVarIndex)));
-		}
-
-		return RulpFactory.createList(srcSubList);
 	}
 
 	public static boolean matchUniqStmt(IRList srcStmt, IRList dstStmt) throws RException {

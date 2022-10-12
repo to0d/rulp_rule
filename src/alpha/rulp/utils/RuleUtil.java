@@ -386,7 +386,7 @@ public class RuleUtil {
 		Map<IRReteNode, RelocatedStmtIndexs> stmtIndexMap = new HashMap<>();
 
 		IRNodeGraph graph = rule.getModel().getNodeGraph();
-		
+
 //		ReteUtil.
 
 		for (IRList stmt : stmts) {
@@ -434,8 +434,17 @@ public class RuleUtil {
 			}
 
 			if (si.relocatedStmtIndexs != null) {
+
 				BSFactory.incBscOpRelocate(si.relocatedStmtIndexs.size());
-				((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex, si.relocatedStmtIndexs);
+
+				int relocatePos = ((IREntryQueueUniq) si.rootNode.getEntryQueue()).relocate(childMaxVisitIndex,
+						si.relocatedStmtIndexs);
+
+				if (relocatePos != -1) {
+					si.rootNode.getEntryQueue().setRelocateSize(relocatePos);
+				} else {
+					si.relocatedStmtIndexs = null;
+				}
 			}
 		}
 

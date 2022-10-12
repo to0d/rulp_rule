@@ -8,6 +8,6 @@ public interface IREntryQueueUniq extends IREntryQueue {
 
 	public int getStmtIndex(String uniqName) throws RException;
 
-	public void relocate(int relocateStartPos, List<Integer> stmtIndexs) throws RException;
+	public int relocate(int relocateStartPos, List<Integer> stmtIndexs) throws RException;
 
 }
