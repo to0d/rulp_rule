@@ -1597,9 +1597,11 @@ public class StatsUtil {
 				className = className.substring(6);
 			}
 
+			IREntryQueue queue = node.getEntryQueue();
+
 			sb.append(String.format("%-12s %-5s %-5s %-6s %-" + maxNameLen + "s %6d %5d %4d %4d %4d %3d %3d %3d %s",
 					node.getNodeName() + "[" + node.getEntryLength() + "]", "" + node.getReteType(), className,
-					"" + node.getEntryQueue().getQueueType(), node.getNamedName() == null ? "" : node.getNamedName(),
+					"" + queue.getQueueType(), node.getNamedName() == null ? "" : node.getNamedName(),
 					node.getParentCount(), node.getChildNodes().size(),
 					model.getNodeGraph().listRelatedRules(node).size(),
 					node.getInheritIndex() == null ? 0 : node.getInheritIndex().length, joinCount,
@@ -1644,6 +1646,40 @@ public class StatsUtil {
 					sb.append(String.format("%-12s '(%s)\n", "", IndexUtil.formatIndexs(info.uniqIndexs)));
 				}
 			}
+
+		}
+
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+	}
+
+	private static void _printNodeInfo8(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		boolean outputHead = false;
+
+		for (IRReteNode node : nodes) {
+
+			IREntryQueue queue = node.getEntryQueue();
+			int relocate = queue.getRelocateSize();
+			if (relocate == -1) {
+				continue;
+			}
+
+			if (!outputHead) {
+
+				sb.append("node info8:\n");
+				sb.append(SEP_LINE1);
+
+				sb.append(String.format("%-12s %8s %8s\n", "NODE[n]", "Size", "Relocate"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
+			}
+
+			sb.append(String.format("%-12s %8d %8s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					queue.size(), relocate));
 
 		}
 
@@ -1935,6 +1971,7 @@ public class StatsUtil {
 			_printNodeInfo5Action(sb, model, nodes);
 			_printNodeInfo6(sb, model, nodes);
 			_printNodeInfo7(sb, model, nodes);
+			_printNodeInfo8(sb, model, nodes);
 			_printCacheInfo(sb, model, nodes);
 		}
 
