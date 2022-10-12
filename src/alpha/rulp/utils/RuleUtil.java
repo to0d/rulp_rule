@@ -383,9 +383,8 @@ public class RuleUtil {
 		final IRModel model = rule.getModel();
 		final IRNodeGraph graph = rule.getModel().getNodeGraph();
 
-		ArrayList<IRReteNode> rootNodes = new ArrayList<>();
-		ArrayList<RelocatedEntry> BSStmtIndexsList = new ArrayList<>();
-		Map<IRReteNode, RelocatedEntry> stmtIndexMap = new HashMap<>();
+		ArrayList<RelocatedEntry> relocatedEntryList = new ArrayList<>();
+		Map<IRReteNode, RelocatedEntry> relocatedEntryMap = new HashMap<>();
 
 		/*************************************************/
 		// Relocate stmts
@@ -397,25 +396,21 @@ public class RuleUtil {
 				continue;
 			}
 
-			if (!rootNodes.contains(rootNode)) {
-				rootNodes.add(rootNode);
-			}
-
 			IREntryQueueUniq uniqQueue = ((IREntryQueueUniq) rootNode.getEntryQueue());
 			int stmtIndex = uniqQueue.getStmtIndex(ReteUtil.uniqName(stmt));
 
-			RelocatedEntry si = stmtIndexMap.get(rootNode);
-			if (si == null) {
-				si = new RelocatedEntry();
-				si.rootNode = rootNode;
-				stmtIndexMap.put(rootNode, si);
-				BSStmtIndexsList.add(si);
+			RelocatedEntry se = relocatedEntryMap.get(rootNode);
+			if (se == null) {
+				se = new RelocatedEntry();
+				se.rootNode = rootNode;
+				relocatedEntryMap.put(rootNode, se);
+				relocatedEntryList.add(se);
 			}
 
-			si.addIndex(stmtIndex);
+			se.addIndex(stmtIndex);
 		}
 
-		for (RelocatedEntry se : BSStmtIndexsList) {
+		for (RelocatedEntry se : relocatedEntryList) {
 
 			// Get the max visit index
 			int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(se.rootNode, null);
@@ -450,17 +445,16 @@ public class RuleUtil {
 		/*************************************************/
 		// Check all root nodes
 		/*************************************************/
-		ArrayList<IRReteNode> relocatedNodes = new ArrayList<>();
+		ArrayList<IRReteNode> rootNodes = new ArrayList<>();
 		for (IRReteNode node : rule.getAllNodes()) {
 
 			if (!RReteType.isRootType(node.getReteType())) {
 				continue;
 			}
 
-			relocatedNodes.add(node);
+			rootNodes.add(node);
 
-			RelocatedEntry se = stmtIndexMap.get(node);
-
+			RelocatedEntry se = relocatedEntryMap.get(node);
 			if (se != null) {
 
 				if (se.relocatePos != -1) {
@@ -469,7 +463,7 @@ public class RuleUtil {
 				}
 
 				if (se.maxStmtIndex != -1) {
-					se.rootNode.getEntryQueue().setRelocateSize(se.maxStmtIndex);
+					se.rootNode.getEntryQueue().setRelocateSize(se.maxStmtIndex + 1);
 					continue;
 				}
 			}
@@ -484,10 +478,13 @@ public class RuleUtil {
 		try {
 
 			RuleUtil.travelReteParentNodeByPostorder(rule, (_node) -> {
-				
-				int update = model.execute(_node, -1);
-				if (update > 0) {
-					rc.incrementAndGet();
+
+				if (!RReteType.isRootType(_node.getReteType())) {
+
+					int update = model.execute(_node, -1);
+					if (update > 0) {
+						rc.incrementAndGet();
+					}
 				}
 
 				return false;
@@ -495,7 +492,7 @@ public class RuleUtil {
 
 		} finally {
 
-			for (IRReteNode node : relocatedNodes) {
+			for (IRReteNode node : rootNodes) {
 				node.getEntryQueue().setRelocateSize(-1);
 			}
 		}

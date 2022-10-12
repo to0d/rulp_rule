@@ -1,0 +1,28 @@
+(load "rule")
+;=>
+
+(new model m)
+(add-rule "R1" m if n1:'(?x) do (-> m n2:'(?x)))
+(add-rule "R2" m if n1:'(?x) do (-> m n3:'(?x)))
+(add-stmt m n1:'(a))
+(add-stmt m n1:'(b))
+(add-stmt m n1:'(c))
+;=>
+
+(execute-rule (get-rule m "R1") '(n1:'(b)))
+;=>
+
+(dump-status m (+ ?script-path ".status.1.txt"))
+;=>
+
+(list-stmt m)
+;=>
+
+(execute-rule (get-rule m "R2") '(n1:'(b)))
+;=>
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>
+
+(list-stmt m)
+;=>

@@ -21,4 +21,11 @@ class XRFactorExecuteRuleTest extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
+	
+	@Test
+	void test_exec_rule_3() {
+
+		_setup();
+		_run_script();
+	}
 }

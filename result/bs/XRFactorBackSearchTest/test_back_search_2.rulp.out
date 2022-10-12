@@ -28,7 +28,7 @@
 00004     SA0001: process begin
 00004     SA0001: process end, rst=true, status=COMPLETE, child=1/1, fail-child=null
 00005     SA0001: complete begin
-00005     SA0001: execute rule: RU000, stmt=['(a p1 b)], rc=3
+00005     SA0001: execute rule: RU000, stmt=['(a p1 b)], rc=2
 00005     SA0001: has stmt, stmt='(a p2 b), rst=true
 00005     SA0001: complete end, rst=true
 00005     SA0001: route to SO0000
