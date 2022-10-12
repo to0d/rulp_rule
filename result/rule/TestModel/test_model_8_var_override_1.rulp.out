@@ -1,0 +1,30 @@
+(new model m)
+;=>m
+
+(defun f1() 
+    (return (size-of (query-stmt m ?x from n1:'(?x))))
+)
+;=>f1
+
+(defun f2(?x)
+    (println "?x=" ?x)
+    (println "?v=" (f1))
+)
+;=>f2
+
+(add-stmt m n1:'(1))
+(add-stmt m n2:'(2))
+;=>true true
+
+(f2 "a")
+;err:
+no var stmt found: [n1:'("a")]
+at (query-stmt m ?x from n1:'(?x)) ; _$fun$_f1-6
+at (size-of (query-stmt m ?x from n1:'(?x))) ; _$fun$_f1-6
+at (return (size-of (query-stmt m ?x from n1:'(?x)))) ; _$fun$_f1-6
+at (f1) ; do-5
+at (println "?v=" (f1)) ; do-5
+at (do (println "?x=" ?x) (println "?v=" (f1))) ; _$fun$_f2-4
+at (f2 "a") ; main-2
+;eof
+

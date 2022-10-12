@@ -1,0 +1,32 @@
+(new model m)
+;=>m
+
+(defun f1() (return (size-of (query-stmt m ?x from n1:'(?x)))))
+;=>f1
+
+(add-rule m if n2:'(?x) do 
+    (if (> (f1) 0)
+        (-> n3:'(?x))
+    )
+)
+;=>RU000
+
+(add-stmt m n1:'(1))
+(add-stmt m n2:'(2))
+;=>true true
+
+(list-source-node m n3:'(?x))
+;=>'(RU000)
+
+(query-stmt m ?x from n3:'(?x))
+;err:
+no var stmt found: [n1:'(2)]
+at (query-stmt m ?x from n1:'(?x)) ; _$fun$_f1-7
+at (size-of (query-stmt m ?x from n1:'(?x))) ; _$fun$_f1-7
+at (return (size-of (query-stmt m ?x from n1:'(?x)))) ; _$fun$_f1-7
+at (f1) ; qf-RU000-6
+at (> (f1) 0) ; qf-RU000-6
+at (if (> (f1) 0) (-> n3:'(?x))) ; qf-RU000-6
+at (query-stmt m ?x from n3:'(?x)) ; main-2
+;eof
+

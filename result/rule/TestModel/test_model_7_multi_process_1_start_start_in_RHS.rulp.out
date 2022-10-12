@@ -1,0 +1,16 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(3))
+(add-rule "R1" m if n1:'(?x) (> ?x 0) do 
+    (-> n1:'((- ?x 1)))
+    (start m)   
+)
+;=>true R1
+
+(start m)
+;=>10
+
+(list-stmt m)
+;=>'(n1:'(3) n1:'(2) n1:'(1) n1:'(0))
+

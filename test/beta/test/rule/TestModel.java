@@ -327,4 +327,32 @@ public class TestModel extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
+
+	@Test
+	void test_model_7_multi_process_1_start_start_in_RHS() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_model_7_multi_process_2_query_query_in_RHS() {
+
+		// Should fail
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_model_8_var_override_1() {
+
+		// Should fail
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }
