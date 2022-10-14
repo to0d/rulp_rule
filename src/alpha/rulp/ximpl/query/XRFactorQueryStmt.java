@@ -113,10 +113,13 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 		Boolean backward = null;
 
+		Set<String> varUniqNames = new HashSet<>();
+		ReteUtil.buildVarList(rstExpr, new ArrayList<>(), varUniqNames);
+
 		/********************************************/
 		// Check modifier
 		/********************************************/
-		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame)) {
+		for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame, varUniqNames)) {
 
 			switch (modifier.name) {
 

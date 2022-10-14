@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import alpha.rulp.lang.IRAtom;
 import alpha.rulp.lang.IRFrame;
@@ -301,7 +302,7 @@ public class ModifiterUtil {
 		modifierMap.put(A_DEEP_FIRST, new XModifier0(A_DEEP_FIRST));
 	}
 
-	static IRObject _compute(IRObject obj, IRFrame frame) throws RException {
+	static IRObject _compute(IRObject obj, IRFrame frame, Set<String> ignoreObjNames) throws RException {
 
 		if (obj == null) {
 			return O_Nil;
@@ -331,7 +332,12 @@ public class ModifiterUtil {
 
 		case ATOM: {
 			IRAtom atom = (IRAtom) obj;
-			IRFrameEntry entry = frame.getEntry(atom.getName());
+			String atomName = atom.getName();
+			if (ignoreObjNames != null && ignoreObjNames.contains(atomName)) {
+				return obj;
+			}
+
+			IRFrameEntry entry = frame.getEntry(atomName);
 			IRObject rst = entry == null ? obj : entry.getObject();
 
 			if (rst != null && rst.getType() == RType.VAR) {
@@ -348,7 +354,7 @@ public class ModifiterUtil {
 			ArrayList<IRObject> exprList = new ArrayList<>();
 			IRIterator<? extends IRObject> exprIt = ((IRList) obj).iterator();
 			while (exprIt.hasNext()) {
-				exprList.add(_compute(exprIt.next(), frame));
+				exprList.add(_compute(exprIt.next(), frame, ignoreObjNames));
 			}
 
 			return RulpFactory.createExpression(exprList);
@@ -363,7 +369,7 @@ public class ModifiterUtil {
 			ArrayList<IRObject> rstList = new ArrayList<>();
 			IRIterator<? extends IRObject> listIt = ((IRList) obj).iterator();
 			while (listIt.hasNext()) {
-				rstList.add(_compute(listIt.next(), frame));
+				rstList.add(_compute(listIt.next(), frame, ignoreObjNames));
 			}
 
 			return RulpUtil.toList(oldList.getNamedName(), rstList);
@@ -379,10 +385,15 @@ public class ModifiterUtil {
 
 	public static List<Modifier> parseModifiterList(IRIterator<? extends IRObject> iterator, IRFrame frame)
 			throws RException {
+		return parseModifiterList(iterator, frame, null);
+	}
+
+	public static List<Modifier> parseModifiterList(IRIterator<? extends IRObject> iterator, IRFrame frame,
+			Set<String> ignoreObjNames) throws RException {
 
 		ArrayList<IRObject> objList = new ArrayList<>();
 		while (iterator.hasNext()) {
-			objList.add(_compute(iterator.next(), frame));
+			objList.add(_compute(iterator.next(), frame, ignoreObjNames));
 		}
 
 		ModifierData list = new ModifierData();

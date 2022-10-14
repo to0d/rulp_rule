@@ -20,7 +20,7 @@
 
 (query-stmt m ?x from n3:'(?x))
 ;err:
-no var stmt found: [n1:'(2)]
+Can't query, the model is running
 at (query-stmt m ?x from n1:'(?x)) ; _$fun$_f1-7
 at (size-of (query-stmt m ?x from n1:'(?x))) ; _$fun$_f1-7
 at (return (size-of (query-stmt m ?x from n1:'(?x)))) ; _$fun$_f1-7

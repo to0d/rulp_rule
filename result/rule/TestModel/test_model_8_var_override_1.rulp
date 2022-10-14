@@ -1,14 +1,8 @@
 (new model m)
 ;=>
 
-(defun f1() 
+(defun f1(?x) 
     (return (size-of (query-stmt m ?x from n1:'(?x))))
-)
-;=>
-
-(defun f2(?x)
-    (println "?x=" ?x)
-    (println "?v=" (f1))
 )
 ;=>
 
@@ -16,7 +10,7 @@
 (add-stmt m n2:'(2))
 ;=>
 
-(f2 "a")
+(f1 "a")
 ;=>
 
 (list-stmt m)
