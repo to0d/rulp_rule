@@ -1,0 +1,38 @@
+(new model mm)
+
+(add-stmt mm guess:'(1 f))
+(add-stmt mm guess:'(2 f))
+(add-stmt mm guess:'(3 m))
+(add-stmt mm guess:'(4 m))
+
+(add-stmt mm hobby:'(1 1))
+(add-stmt mm hobby:'(1 2))
+(add-stmt mm hobby:'(2 2))
+(add-stmt mm hobby:'(3 1))
+(add-stmt mm hobby:'(4 3))
+
+
+(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2) do 
+    (if (= ?s1 ?s2) 
+        (-> canBeCouple:'(?g1 ?g2 false)) 
+        (-> canBeCouple:'(?g1 ?g2 true))
+    )
+)
+             
+(add-rule mm if hobby:'(?g1 ?h) hobby:'(?g2 ?h) (!= ?g1 ?g2) canBeCouple:'(?g1 ?g2 ?v) do 
+    (-> canSitTogether:'(?g1 ?g2 ?v))
+)
+
+(defun canBeCouple (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        return false)
+    (return (get ?rst 0))
+)
+
+(defun canSitTogether (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canSitTogether:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        return false)
+    (return (get ?rst 0))
+)

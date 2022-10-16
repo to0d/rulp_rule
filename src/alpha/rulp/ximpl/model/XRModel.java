@@ -29,10 +29,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import alpha.rulp.lang.IRClass;
@@ -152,9 +155,22 @@ public class XRModel extends AbsRInstance implements IRModel {
 			/******************************************************/
 			subGraph = model.nodeGraph.createSubGraphForQueryNode(queryNode, backward);
 
-			/********************************************/
+			/******************************************************/
+			// Ensure there is no executing node in the SubGraph
+			/******************************************************/
+			if (model._getExecuteLevel() > 0) {
+
+				Set<IRReteNode> allExecutingNodes = new HashSet<>(model.executeStack);
+				for (IRReteNode node : subGraph.getNodes()) {
+					if (allExecutingNodes.contains(node)) {
+						throw new RException("node is already on stack: " + node);
+					}
+				}
+			}
+
+			/******************************************************/
 			// Activate sub group
-			/********************************************/
+			/******************************************************/
 			subGraph.setGraphPriority(RETE_PRIORITY_QUERY + 1);
 
 			if (limit > 0) {
@@ -557,6 +573,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected final IREntryTable entryTable = new XREntryTable();
 
+	protected Stack<IRReteNode> executeStack = new Stack<>();
+
 	protected long gcCapacity = DEF_GC_CAPACITY;
 
 	protected long gcInterval = -1;
@@ -830,7 +848,9 @@ public class XRModel extends AbsRInstance implements IRModel {
 		this.processingLevel++;
 
 		try {
+
 			_run(-1);
+
 		} finally {
 			this.processingLevel--;
 			this._setRunState(RRunState.Partial);
@@ -1089,6 +1109,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return cache;
+	}
+
+	protected int _getExecuteLevel() {
+		return executeStack.size();
 	}
 
 	protected RReteStatus _getNewStmtStatus() throws RException {
@@ -1486,6 +1510,29 @@ public class XRModel extends AbsRInstance implements IRModel {
 	protected IRReteNode _nextUpdateNode() throws RException {
 		_checkActiveNode();
 		return updateQueue.pop();
+	}
+
+	protected void _popExecute(IRReteNode node) throws RException {
+
+		if (executeStack.isEmpty()) {
+			throw new RException("fail to pop empty stack: " + node);
+		}
+
+		IRReteNode top = executeStack.pop();
+		if (top != node) {
+			throw new RException("fail to pop node: " + node);
+		}
+	}
+
+	protected void _pushExecute(IRReteNode node) throws RException {
+
+		if (!executeStack.isEmpty()) {
+			if (executeStack.contains(node)) {
+				throw new RException("duplicated stack: " + node);
+			}
+		}
+
+		executeStack.push(node);
 	}
 
 	protected IRList _rebuild(IRList list) throws RException {
@@ -2024,9 +2071,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		int oldQueryMatchCount = modelCounter.getQueryMatchCount();
 		modelCounter.incNodeExecCount();
-
-		int update = node.update(limit);
 		boolean pushBack = false;
+		int update = 0;
+
+		_pushExecute(node);
+
+		try {
+			update = node.update(limit);
+		} finally {
+			_popExecute(node);
+		}
 
 		// may need more process
 		if (limit > 0 && update > 0) {
@@ -2076,9 +2130,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 					}
 
 					break;
+
 				case OutQueue:
+					// this node should be executing stack, do nothing
+					break;
 				default:
-					throw new RException("Invalid stage: " + child.getReteStage());
+					throw new RException("Invalid stage: " + child.getReteStage() + ", node=" + child);
 				}
 
 			}
@@ -2421,12 +2478,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		counter.mcQuery++;
 
-		/*****************************************************/
-		// Does not support query when running
-		/*****************************************************/
-		if (processingLevel > 0) {
-			throw new RException("Can't query, the model is running");
-		}
+//		/*****************************************************/
+//		// Does not support query when running
+//		/*****************************************************/
+//		if (processingLevel > 0) {
+//			throw new RException("Can't query, the model is running");
+//		}
 
 		new RQueryHelper(this, findNode(condList), limit, backward).query(action);
 

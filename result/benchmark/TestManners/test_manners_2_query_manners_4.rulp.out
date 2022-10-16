@@ -1,0 +1,21 @@
+(load (+ (file-parent ?script-path) "manners_4.rulp"))
+;=>nil
+
+(defun makeList ((?x int) ?y)
+    (defvar ?arr (make-array ?x))
+    (loop for ?x from 0 to (- ?x 1) do
+        (seta ?arr ?x ?y)
+    )
+    (return (to-list ?arr))
+)
+;=>makeList
+
+(setq ?model-trace true)
+;=>&?model-trace
+
+(list-subgraph-for-query mm '(canSitTogether:'(1 2 ?v)) true)
+;=>'(canSitTogether:'(1 ?_0 ?_1) canSitTogether:'(1 2 ?_0) '('(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1)) hobby:'(?_1 ?_3)) '('('(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1)) hobby:'(?_1 ?_3)) hobby:'(?_0 ?_3)) '(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1)) canSitTogether:'(?_0 ?_1 ?_2) RU001)
+
+(query-stmt mm ?v from canSitTogether:'(1 2 ?v) limit 1)
+;=>'()
+

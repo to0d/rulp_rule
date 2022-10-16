@@ -1,20 +1,4 @@
-(load (+ (file-parent ?script-path) "manners_16.rulp"))
-;=>
-
-(defun canBeCouple (?x ?y)
-    (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
-    (if (is-empty ?rst)
-        return false)
-    (return (get ?rst 0))
-)
-;=>
-
-(defun canSitTogether (?x ?y)
-    (defvar ?rst (query-stmt mm ?v from canSitTogether:'(?x ?y ?v) limit 1))
-    (if (is-empty ?rst)
-        return false)
-    (return (get ?rst 0))
-)
+(load (+ (file-parent ?script-path) "manners_4.rulp"))
 ;=>
 
 (defun makeList ((?x int) ?y)
@@ -26,7 +10,19 @@
 )
 ;=>
 
-(defconst ?max_guess 16)
+(setq ?model-trace true)
+;=>
+
+(list-subgraph-for-query mm '(canSitTogether:'(1 2 ?v)) true)
+;=>
+
+(query-stmt mm ?v from canSitTogether:'(1 2 ?v) limit 1)
+;=>'(1)
+
+(canSitTogether 1 2)
+;=>
+
+(defconst ?max_guess 4)
 ;=>
 
 (add-node mm seat:'((+ ?max_guess 1)))
@@ -42,14 +38,14 @@
     
     (if (> ?m 0) do
         (defvar ?x (get ?0 ?m))
-        (if (not (canBeCouple ?x ?g))
+        (if (not (canSitTogether ?x ?g))
             (return)
         )
     )
     
     (if (= (+ ?m 1) ?max_guess) do
         (defvar ?x (get ?0 1))
-        (if (not (canBeCouple ?x ?g))
+        (if (not (canSitTogether ?x ?g))
             (return)
         )
     )
@@ -71,8 +67,8 @@
 (add-stmt mm seat (makeList (+ ?max_guess 1) 0))
 ;=>
 
-;;(setq ?model-trace true)
+;(setq ?model-trace true)
 ;;=>
 
-(query-stmt mm '(?...) from seat:'(16 ?...) limit 1)
-;err
+(query-stmt mm '(?...) from seat:'(4 ?...) limit 1)
+;=>
