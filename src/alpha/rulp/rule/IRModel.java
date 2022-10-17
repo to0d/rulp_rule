@@ -10,7 +10,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
 import alpha.rulp.utils.OrderEntry;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.cache.IRBufferWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
@@ -86,9 +86,9 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public boolean hasStatement(IRList filter, List<OrderEntry> orderList) throws RException;
 
-	public boolean isCacheEnable();
+	public boolean isBufferEnable();
 
-	public List<? extends IRCacheWorker> listCacheWorkers();
+	public List<? extends IRBufferWorker> listCacheWorkers();
 
 	public int listStatements(IRList filter, int statusMask, int limit, boolean reverse, IREntryIteratorBuilder builder,
 			IREntryAction action) throws RException;
@@ -105,7 +105,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public int save() throws RException;
 
-	public void setModelCachePath(String cachePath) throws RException;
+	public void setModelBufferPath(String bufferPath) throws RException;
 
 	public void setNodeContext(RNodeContext nodeContext);
 

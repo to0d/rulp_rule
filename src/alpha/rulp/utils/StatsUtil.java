@@ -68,8 +68,8 @@ import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
 import alpha.rulp.ximpl.action.RActionType;
 import alpha.rulp.ximpl.bs.BSFactory;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
-import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
+import alpha.rulp.ximpl.cache.IRBufferWorker;
+import alpha.rulp.ximpl.cache.IRBufferWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.IRConstraint;
 import alpha.rulp.ximpl.entry.IFixEntry;
 import alpha.rulp.ximpl.entry.IFixEntryArray;
@@ -466,21 +466,21 @@ public class StatsUtil {
 		return node.getNodeExecCount() == 0 || node.getNodeExecCount() == node.getNodeIdleCount();
 	}
 
-	private static void _printCacheInfo(StringBuffer sb, IRModel model) throws RException {
+	private static void _printBufferInfo(StringBuffer sb, IRModel model) throws RException {
 
-		List<? extends IRCacheWorker> caches = model.listCacheWorkers();
+		List<? extends IRBufferWorker> caches = model.listCacheWorkers();
 		Collections.sort(caches, (c1, c2) -> {
 			return c1.getNode().getNodeId() - c2.getNode().getNodeId();
 		});
 
 		int loadCount = 0;
-		for (IRCacheWorker cache : caches) {
+		for (IRBufferWorker cache : caches) {
 			if (cache.getStatus() == CacheStatus.LOADED) {
 				loadCount++;
 			}
 		}
 
-		sb.append(String.format("node cache info: load=%d, total=%d, path=%s\n", loadCount, caches.size(),
+		sb.append(String.format("node buffer info: load=%d, total=%d, path=%s\n", loadCount, caches.size(),
 				model.getCachePath()));
 
 		sb.append(SEP_LINE1);
@@ -488,7 +488,7 @@ public class StatsUtil {
 				"NLast", "CStmt", "CLast", "Load", "Save", "Read", "Write", "named"));
 		sb.append(SEP_LINE2);
 
-		for (IRCacheWorker cache : caches) {
+		for (IRBufferWorker cache : caches) {
 
 			IRReteNode node = cache.getNode();
 			IREntryQueue queue = node.getEntryQueue();
@@ -502,45 +502,6 @@ public class StatsUtil {
 		}
 
 		sb.append(SEP_LINE1);
-	}
-
-	private static void _printCacheInfo(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
-
-		boolean outputHead = false;
-
-		for (IRReteNode node : nodes) {
-
-			String nodeCacheInfo = node.getCacheInfo();
-			String entryQueueCacheInfo = node.getEntryQueue().getCacheInfo();
-			String consCacheInfo = "";
-
-			int consCount = node.getConstraint1Count();
-			for (int i = 0; i < consCount; ++i) {
-				consCacheInfo = ReteUtil.combine(consCacheInfo, node.getConstraint1(i).getCacheInfo());
-			}
-
-			if (nodeCacheInfo.isEmpty() && entryQueueCacheInfo.isEmpty() && consCacheInfo.isEmpty()) {
-				continue;
-			}
-
-			if (!outputHead) {
-				sb.append("cache info:\n");
-				sb.append(SEP_LINE1);
-				sb.append(String.format("%-12s %-30s %-30s %s\n", "NODE[n]", "Node", "Queue", "Constraint"));
-				sb.append(SEP_LINE2);
-
-				outputHead = true;
-			}
-
-			sb.append(String.format("%-12s %-30s %-30s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
-					nodeCacheInfo, entryQueueCacheInfo, consCacheInfo));
-		}
-
-		if (outputHead) {
-			sb.append(SEP_LINE1);
-			sb.append("\n");
-		}
-
 	}
 
 	private static void _printEntryTable(StringBuffer sb, IRModel model, IREntryTable entryTable) throws RException {
@@ -1689,6 +1650,45 @@ public class StatsUtil {
 		}
 	}
 
+	private static void _printNodeInfo9Cache(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		boolean outputHead = false;
+
+		for (IRReteNode node : nodes) {
+
+			String nodeCacheInfo = node.getCacheInfo();
+			String entryQueueCacheInfo = node.getEntryQueue().getCacheInfo();
+			String consCacheInfo = "";
+
+			int consCount = node.getConstraint1Count();
+			for (int i = 0; i < consCount; ++i) {
+				consCacheInfo = ReteUtil.combine(consCacheInfo, node.getConstraint1(i).getCacheInfo());
+			}
+
+			if (nodeCacheInfo.isEmpty() && entryQueueCacheInfo.isEmpty() && consCacheInfo.isEmpty()) {
+				continue;
+			}
+
+			if (!outputHead) {
+				sb.append("node info9: cache info\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format("%-12s %-30s %-30s %s\n", "NODE[n]", "Node", "Queue", "Constraint"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
+			}
+
+			sb.append(String.format("%-12s %-30s %-30s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					nodeCacheInfo, entryQueueCacheInfo, consCacheInfo));
+		}
+
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+	}
+
 	private static void _printNodeSource(StringBuffer sb, IReteNodeMatrix nodeMatrix, List<IRReteNode> nodes)
 			throws RException {
 
@@ -1972,7 +1972,7 @@ public class StatsUtil {
 			_printNodeInfo6(sb, model, nodes);
 			_printNodeInfo7(sb, model, nodes);
 			_printNodeInfo8(sb, model, nodes);
-			_printCacheInfo(sb, model, nodes);
+			_printNodeInfo9Cache(sb, model, nodes);
 		}
 
 		/****************************************************/
@@ -2690,10 +2690,10 @@ public class StatsUtil {
 			sb.append("\n");
 
 			/*********************************************************************/
-			// Cache Info
+			// Buffer Info
 			/*********************************************************************/
-			if (model.isCacheEnable()) {
-				_printCacheInfo(sb, model);
+			if (model.isBufferEnable()) {
+				_printBufferInfo(sb, model);
 				sb.append("\n");
 			}
 

@@ -9,18 +9,18 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.cache.IRBufferWorker;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.XRModel.RUpdateResult;
 
-public class XRCacheWorker implements IRCacheWorker {
+public class XRBufferWorker implements IRBufferWorker {
 
-	private int cacheCacheStmtCount = 0;
+	private int bufferLastEntryId = 0;
 
-	private int cacheLastEntryId = 0;
+	private int bufferStmtCount = 0;
 
 	private int loadCount = 0;
 
@@ -38,27 +38,27 @@ public class XRCacheWorker implements IRCacheWorker {
 
 	private int writeLines = 0;
 
-	public XRCacheWorker(XRModel model, IRReteNode node) {
+	public XRBufferWorker(XRModel model, IRReteNode node) {
 		super();
 		this.model = model;
 		this.node = node;
 	}
 
 	@Override
-	public void cleanCache() throws RException {
+	public void cleanBuffer() throws RException {
 
 		if (this.isDirty()) {
-			throw new RException("Can't clean dirty cache:" + this.getNode());
+			throw new RException("Can't clean dirty buffer:" + this.getNode());
 		}
 
-		this.cacheLastEntryId = 0;
-		this.cacheCacheStmtCount = 0;
+		this.bufferLastEntryId = 0;
+		this.bufferStmtCount = 0;
 		this.status = CacheStatus.CLEAN;
 	}
 
 	@Override
 	public int getCacheLastEntryId() {
-		return cacheLastEntryId;
+		return bufferLastEntryId;
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class XRCacheWorker implements IRCacheWorker {
 
 	@Override
 	public int getStmtCount() {
-		return cacheCacheStmtCount;
+		return bufferStmtCount;
 	}
 
 	@Override
@@ -117,13 +117,13 @@ public class XRCacheWorker implements IRCacheWorker {
 				return true;
 			}
 
-			if (node.getEntryQueue().size() != cacheCacheStmtCount) {
+			if (node.getEntryQueue().size() != bufferStmtCount) {
 				return true;
 			}
 
 			IRReteEntry lastEntry = ReteUtil.getLastEntry(node.getEntryQueue());
 			int lastEntryId = lastEntry == null ? -1 : lastEntry.getEntryId();
-			if (cacheLastEntryId != lastEntryId) {
+			if (bufferLastEntryId != lastEntryId) {
 				return true;
 			}
 
@@ -159,7 +159,7 @@ public class XRCacheWorker implements IRCacheWorker {
 		IREntryQueue entryQueue = node.getEntryQueue();
 
 		boolean pushEmptyNode = (entryQueue.size() == 0);
-		int oldCacheStmtCount = this.cacheCacheStmtCount;
+		int oldCacheStmtCount = this.bufferStmtCount;
 
 		try {
 
@@ -171,7 +171,7 @@ public class XRCacheWorker implements IRCacheWorker {
 
 				if (RUpdateResult.isValidUpdate(model._addStmt(node, stmt, DEFINE))) {
 					model.cacheUpdateCount++;
-					this.cacheCacheStmtCount++;
+					this.bufferStmtCount++;
 				}
 			});
 
@@ -184,16 +184,16 @@ public class XRCacheWorker implements IRCacheWorker {
 			throw new RException(e.toString());
 		}
 
-		if (pushEmptyNode && (oldCacheStmtCount != this.cacheCacheStmtCount)) {
-			cacheLastEntryId = entryQueue.getEntryAt(entryQueue.size() - 1).getEntryId();
+		if (pushEmptyNode && (oldCacheStmtCount != this.bufferStmtCount)) {
+			bufferLastEntryId = entryQueue.getEntryAt(entryQueue.size() - 1).getEntryId();
 		} else {
-			cacheLastEntryId = -1;
+			bufferLastEntryId = -1;
 		}
 
 		this.loadCount++;
 		this.status = CacheStatus.LOADED;
 
-		return cacheCacheStmtCount;
+		return bufferStmtCount;
 	}
 
 	public int save() throws RException, IOException {
@@ -210,8 +210,8 @@ public class XRCacheWorker implements IRCacheWorker {
 		model._fireSaveNodeAction(node);
 
 		int saveLineCount = saver.save(entries);
-		this.cacheLastEntryId = lastEntryId;
-		this.cacheCacheStmtCount = queue.size();
+		this.bufferLastEntryId = lastEntryId;
+		this.bufferStmtCount = queue.size();
 		this.saveCount++;
 		this.writeLines += saveLineCount;
 		this.status = CacheStatus.LOADED;

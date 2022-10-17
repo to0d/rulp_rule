@@ -83,8 +83,8 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.action.ActionUtil;
 import alpha.rulp.ximpl.action.IAction;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
-import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
+import alpha.rulp.ximpl.cache.IRBufferWorker;
+import alpha.rulp.ximpl.cache.IRBufferWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryTable;
@@ -2154,7 +2154,7 @@ public class XRNodeGraph implements IRNodeGraph {
 					continue;
 				}
 
-				IRCacheWorker cache = node.getCacheWorker();
+				IRBufferWorker cache = node.getBufferWorker();
 				if (cache == null) {
 					continue;
 				}

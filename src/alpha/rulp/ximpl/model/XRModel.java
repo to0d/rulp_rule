@@ -68,8 +68,8 @@ import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StringUtil;
 import alpha.rulp.utils.XRRListener1Adapter;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
-import alpha.rulp.ximpl.cache.IRCacheWorker.CacheStatus;
+import alpha.rulp.ximpl.cache.IRBufferWorker;
+import alpha.rulp.ximpl.cache.IRBufferWorker.CacheStatus;
 import alpha.rulp.ximpl.cache.IRStmtLoader;
 import alpha.rulp.ximpl.cache.IRStmtSaver;
 import alpha.rulp.ximpl.cache.XRStmtFileDefaultCacher;
@@ -247,7 +247,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			/******************************************************/
 			// Update cache
 			/******************************************************/
-			if (model.isCacheEnable()) {
+			if (model.isBufferEnable()) {
 				for (SourceNode sn : RuleUtil.listSource(model, queryNode)) {
 					model._checkCache(sn.rule);
 				}
@@ -540,7 +540,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		public int count = 0;
 	}
 
-	static final String MODEL_CACHE_SUFFIX = ".mc";
+	static final String MODEL_BUFFER_SUFFIX = ".mc";
 
 	static final RRunState MODEL_SSTATE[][] = {
 
@@ -565,7 +565,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected int cacheUpdateCount = 0;
 
-	protected final LinkedList<XRCacheWorker> cacheWorkerList = new LinkedList<>();
+	protected final LinkedList<XRBufferWorker> cacheWorkerList = new LinkedList<>();
 
 	protected final ModelConstraintUtil constraintUtil;
 
@@ -587,7 +587,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected XRRListener1Adapter<IRReteNode> loadNodeListener = null;
 
-	protected String modelCachePath = null;
+	protected String modelBufferPath = null;
 
 	protected final XRRModelCounter modelCounter;
 
@@ -814,7 +814,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			return;
 		}
 
-		XRCacheWorker cache = (XRCacheWorker) node.getCacheWorker();
+		XRBufferWorker cache = (XRBufferWorker) node.getBufferWorker();
 		if (cache == null) {
 			return;
 		}
@@ -1095,16 +1095,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-	protected XRCacheWorker _getCacheWorker(IRReteNode node) throws RException {
+	protected XRBufferWorker _getCacheWorker(IRReteNode node) throws RException {
 
-		XRCacheWorker cache = (XRCacheWorker) node.getCacheWorker();
+		XRBufferWorker cache = (XRBufferWorker) node.getBufferWorker();
 		if (cache == null) {
 
-			if (modelCachePath == null) {
+			if (modelBufferPath == null) {
 				return null;
 			}
 
-			XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(modelCachePath, node);
+			XRStmtFileDefaultCacher cacher = new XRStmtFileDefaultCacher(modelBufferPath, node);
 			cache = _setNodeCache(node, cacher, cacher);
 		}
 
@@ -1682,16 +1682,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
-	protected XRCacheWorker _setNodeCache(IRReteNode node, IRStmtLoader loader, IRStmtSaver saver) throws RException {
+	protected XRBufferWorker _setNodeCache(IRReteNode node, IRStmtLoader loader, IRStmtSaver saver) throws RException {
 
 		if (loader == null && saver == null) {
 			throw new RException("null loader and saver");
 		}
 
-		XRCacheWorker cache = (XRCacheWorker) node.getCacheWorker();
+		XRBufferWorker cache = (XRBufferWorker) node.getBufferWorker();
 		if (cache == null) {
-			cache = new XRCacheWorker(this, node);
-			node.setCacheWorker(cache);
+			cache = new XRBufferWorker(this, node);
+			node.setBufferWorker(cache);
 			cacheWorkerList.add(cache);
 		}
 
@@ -2188,7 +2188,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public String getCachePath() {
-		return modelCachePath;
+		return modelBufferPath;
 	}
 
 	@Override
@@ -2443,12 +2443,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public boolean isCacheEnable() {
+	public boolean isBufferEnable() {
 		return cacheEnable;
 	}
 
 	@Override
-	public List<? extends IRCacheWorker> listCacheWorkers() {
+	public List<? extends IRBufferWorker> listCacheWorkers() {
 		return new ArrayList<>(cacheWorkerList);
 	}
 
@@ -2585,7 +2585,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			for (IRReteNode node : nodeGraph.listNodes(RReteType.ROOT0)) {
 
-				XRCacheWorker cacheWorker = _getCacheWorker((IRReteNode) node);
+				XRBufferWorker cacheWorker = _getCacheWorker((IRReteNode) node);
 				if (cacheWorker == null || cacheWorker.getSaver() == null || !cacheWorker.isDirty()) {
 					continue;
 				}
@@ -2595,7 +2595,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			for (IRReteNode node : nodeGraph.listNodes(RReteType.NAME0)) {
 
-				XRCacheWorker cacheWorker = _getCacheWorker((IRReteNode) node);
+				XRBufferWorker cacheWorker = _getCacheWorker((IRReteNode) node);
 				if (cacheWorker == null || cacheWorker.getSaver() == null || !cacheWorker.isDirty()) {
 					continue;
 				}
@@ -2621,32 +2621,32 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void setModelCachePath(String cachePath) throws RException {
+	public void setModelBufferPath(String bufferPath) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> setModelCachePath: " + cachePath);
+			System.out.println("==> setModelBufferPath: " + bufferPath);
 		}
 
 		counter.mcSetModelCachePath++;
 
-		if (this.modelCachePath != null && !this.modelCachePath.equals(cachePath)) {
+		if (this.modelBufferPath != null && !this.modelBufferPath.equals(bufferPath)) {
 			throw new RException(
-					String.format("Can't rebind cache path: old=%s, new=%s", this.modelCachePath, cachePath));
+					String.format("Can't rebind buffer path: old=%s, new=%s", this.modelBufferPath, bufferPath));
 		}
 
-		this.modelCachePath = cachePath;
+		this.modelBufferPath = bufferPath;
 		this.cacheEnable = true;
 
-		if (!FileUtil.isExistDirectory(cachePath)) {
-			if (!new File(cachePath).mkdirs()) {
-				throw new RException(String.format("Can't mkdirs: %s", cachePath));
+		if (!FileUtil.isExistDirectory(bufferPath)) {
+			if (!new File(bufferPath).mkdirs()) {
+				throw new RException(String.format("Can't mkdirs: %s", bufferPath));
 			}
 		}
 
-		for (File file : new File(modelCachePath).listFiles()) {
+		for (File file : new File(modelBufferPath).listFiles()) {
 
 			String fileName = file.getName();
-			if (!fileName.endsWith(MODEL_CACHE_SUFFIX)) {
+			if (!fileName.endsWith(MODEL_BUFFER_SUFFIX)) {
 				continue;
 			}
 
@@ -2672,11 +2672,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			IRReteNode node = nodeGraph.createNodeRoot(nodeName, stmtLen);
 			// cache has been created
-			if (node.getCacheWorker() != null) {
+			if (node.getBufferWorker() != null) {
 				continue;
 			}
 
-			XRCacheWorker cacheWorker = _getCacheWorker(node);
+			XRBufferWorker cacheWorker = _getCacheWorker(node);
 			if (node.getPriority() > 0 || node.getEntryQueue().size() > 0) {
 				int loadCount = cacheWorker.load();
 				if (loadCount > 0) {

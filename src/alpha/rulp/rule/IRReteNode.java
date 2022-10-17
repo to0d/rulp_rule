@@ -7,7 +7,7 @@ import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.utils.DeCounter;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.cache.IRBufferWorker;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -66,9 +66,9 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public int getAddEntryFailCount();
 
-	public String getCacheInfo();
+	public IRBufferWorker getBufferWorker();
 
-	public IRCacheWorker getCacheWorker();
+	public String getCacheInfo();
 
 	public List<IRReteNode> getChildNodes();
 
@@ -150,7 +150,7 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public IRConstraint1 removeConstraint(String constraintExpression);
 
-	public void setCacheWorker(IRCacheWorker cache);
+	public void setBufferWorker(IRBufferWorker cache);
 
 	public void setChildNodeUpdateMode(IRReteNode child, boolean auto) throws RException;
 

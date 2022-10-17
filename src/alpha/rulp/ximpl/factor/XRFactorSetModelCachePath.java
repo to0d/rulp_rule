@@ -32,7 +32,7 @@ public class XRFactorSetModelCachePath extends AbsAtomFactorAdapter implements I
 
 		IRModel model = RuleUtil.asModel(interpreter.compute(frame, args.get(1)));
 		String cachePath = RulpUtil.asString(interpreter.compute(frame, args.get(2))).asString();
-		model.setModelCachePath(cachePath);
+		model.setModelBufferPath(cachePath);
 		return O_Nan;
 	}
 

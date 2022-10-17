@@ -23,7 +23,7 @@ import alpha.rulp.utils.DeCounter;
 import alpha.rulp.utils.IndexUtil;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.ximpl.cache.IRCacheWorker;
+import alpha.rulp.ximpl.cache.IRBufferWorker;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.entry.IREntryQueue;
@@ -48,7 +48,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected List<IRReteNode> autoUpdateChildNodes = null;
 
-	protected IRCacheWorker cache;
+	protected IRBufferWorker cache;
 
 	protected List<IRConstraint1> constraint1List = null;
 
@@ -368,7 +368,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public IRCacheWorker getCacheWorker() {
+	public IRBufferWorker getBufferWorker() {
 		return cache;
 	}
 
@@ -714,7 +714,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
-	public void setCacheWorker(IRCacheWorker cache) {
+	public void setBufferWorker(IRBufferWorker cache) {
 		this.cache = cache;
 	}
 

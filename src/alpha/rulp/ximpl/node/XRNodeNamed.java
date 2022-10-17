@@ -18,7 +18,7 @@ public class XRNodeNamed extends XRNodeRete0 implements IRNamedNode {
 			throw new RException("not cacher found");
 		}
 
-		this.cache.cleanCache();
+		this.cache.cleanBuffer();
 
 		IREntryTable entryTable = this.getModel().getEntryTable();
 		for (IRReteEntry entry : ReteUtil.getAllEntries(this.getEntryQueue())) {
