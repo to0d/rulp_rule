@@ -8,8 +8,13 @@ canSitTogether:'(1 ?_0 ?_1)
 canSitTogether:'(1 2 ?_0)
 '('(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1)) hobby:'(?_1 ?_3))
 '('('(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1)) hobby:'(?_1 ?_3)) hobby:'(?_0 ?_3))
+'(guess:'(?_0 ?_1) guess:'(?_2 ?_3) (!= ?_0 ?_2))
 '(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1))
+guess:'(?_0 ?_1)
+hobby:'(?_0 ?_1)
+canBeCouple:'(?_0 ?_1 ?_2)
 canSitTogether:'(?_0 ?_1 ?_2)
+RU000
 RU001
 
 ;eof

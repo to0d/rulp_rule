@@ -8,8 +8,12 @@
 (add-stmt mm hobby:'(1 1))
 (add-stmt mm hobby:'(1 2))
 (add-stmt mm hobby:'(2 2))
+(add-stmt mm hobby:'(2 4))
 (add-stmt mm hobby:'(3 1))
-(add-stmt mm hobby:'(4 3))
+(add-stmt mm hobby:'(3 2))
+(add-stmt mm hobby:'(4 1))
+(add-stmt mm hobby:'(4 2))
+
 
 
 (add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2) do 
@@ -26,13 +30,15 @@
 (defun canBeCouple (?x ?y)
     (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
     (if (is-empty ?rst)
-        return false)
+        (return false)
+    )
     (return (get ?rst 0))
 )
 
 (defun canSitTogether (?x ?y)
     (defvar ?rst (query-stmt mm ?v from canSitTogether:'(?x ?y ?v) limit 1))
     (if (is-empty ?rst)
-        return false)
+        (return false)
+    )
     (return (get ?rst 0))
 )

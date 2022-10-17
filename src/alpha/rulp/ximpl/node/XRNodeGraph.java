@@ -93,6 +93,7 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
+import alpha.rulp.ximpl.node.XRNodeGraph.QBNode.QBType;
 
 public class XRNodeGraph implements IRNodeGraph {
 
@@ -1074,60 +1075,157 @@ public class XRNodeGraph implements IRNodeGraph {
 		return subGraph;
 	}
 
-	protected IRNodeSubGraph _buildSubGroupSourceBackward(IRReteNode queryNode) throws RException {
+	static class QBNode {
 
-		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
+		static enum QBType {
+			SOURCE, PARENT
+		}
 
-		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
+		public final IRReteNode node;
+
+		public QBNode(IRReteNode node, QBType type) {
+			super();
+			this.node = node;
+			this.type = type;
+		}
+
+		public final QBType type;
+
+	}
+
+	protected IRNodeSubGraph _buildSubGroupForQueryNodeBackward(IRReteNode queryNode) throws RException {
+
+//		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
 
 		/******************************************************/
 		// Build source graph
 		/******************************************************/
+		Set<IRReteNode> visitedNodes = new HashSet<>();
 		LinkedList<IRReteNode> visitStack = new LinkedList<>();
 		visitStack.add(queryNode);
-		Set<IRReteNode> visitedNodes = new HashSet<>();
+
+		Set<IRReteNode> graphNodeSet = new HashSet<>();
 
 		while (!visitStack.isEmpty()) {
 
-			IRReteNode sourceNode = visitStack.pop();
+			IRReteNode node = visitStack.pop();
 
 			// ignore visited node
-			if (visitedNodes.contains(sourceNode)) {
+			if (visitedNodes.contains(node)) {
 				continue;
 			}
-			visitedNodes.add(sourceNode);
+			visitedNodes.add(node);
 
-			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
-				continue;
+//			if (!isRootMode && RReteType.isRootType(sourceNode.getReteType())) {
+//				continue;
+//			}
+
+			boolean addToSubgraph = false;
+			boolean checkSource = false;
+			boolean checkParent = false;
+			boolean checkBind = false;
+
+			switch (node.getReteType()) {
+			case ALPH0:
+			case ALPH1:
+				addToSubgraph = true;
+				checkSource = true;
+				checkParent = false;
+				checkBind = true;
+				break;
+
+			case DUP:
+			case CONST:
+				addToSubgraph = true;
+				checkSource = false;
+				checkParent = false;
+				checkBind = false;
+				break;
+
+			case BETA0:
+			case BETA1:
+			case BETA2:
+			case BETA3:
+			case EXPR0:
+			case EXPR1:
+			case EXPR2:
+			case EXPR3:
+			case EXPR4:
+			case INHER:
+			case ZETA0:
+			case RULE:
+				addToSubgraph = true;
+				checkSource = false;
+				checkParent = true;
+				checkBind = false;
+				break;
+
+			case NAME0:
+			case ROOT0:
+				addToSubgraph = true;
+				checkSource = true;
+				checkParent = false;
+				checkBind = true;
+				break;
+
+			case VAR:
+			case WORK:
+				addToSubgraph = true;
+				checkSource = false;
+				checkParent = false;
+				checkBind = true;
+				break;
+
+			default:
+				throw new RException("unsupport node: " + node);
 			}
 
-			subGraph.addNode(sourceNode);
+			if (addToSubgraph && !graphNodeSet.contains(node)) {
+				graphNodeSet.add(node);
+			}
 
-			if (sourceNode.getParentNodes() != null) {
-				for (IRReteNode newSrcNode : sourceNode.getParentNodes()) {
-					visitStack.add(newSrcNode);
+			if (checkParent) {
+				if (node.getParentNodes() != null) {
+					for (IRReteNode parent : node.getParentNodes()) {
+						visitStack.add(parent);
+					}
 				}
 			}
 
-			for (IRReteNode newSrcNode : listBindFromNodes(sourceNode)) {
-				visitStack.add(newSrcNode);
+			if (checkSource) {
+				for (SourceNode srcNode : RuleUtil.listSource(model, node)) {
+					visitStack.add(srcNode.rule);
+				}
 			}
 
-			for (SourceNode newSrcNode : RuleUtil.listSource(model, sourceNode)) {
-				visitStack.add(newSrcNode.rule);
+			if (checkBind) {
+				for (IRReteNode bindNode : listBindFromNodes(node)) {
+					visitStack.add(bindNode);
+				}
 			}
 		}
 
-		RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+		ArrayList<IRReteNode> allSubGraphNodes = new ArrayList<>(graphNodeSet);
 
-			if (!subGraph.containNode(node)) {
-				subGraph.addNode(node);
-				visitStack.add(node);
-				visitedNodes.add(node);
-			}
+		for (IRReteNode node : new ArrayList<>(graphNodeSet)) {
+			RuleUtil.travelReteParentNodeByPostorder(node, (_node) -> {
+				if (!graphNodeSet.contains(_node)) {
+					graphNodeSet.add(_node);
+					allSubGraphNodes.add(_node);
+				}
+				return false;
+			});
+		}
 
-			return false;
+		Collections.sort(allSubGraphNodes, (n1, n2) -> {
+			return n1.getNodeId() - n2.getNodeId();
 		});
+
+		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
+		for (IRReteNode node : allSubGraphNodes) {
+			subGraph.addNode(node);
+			;
+		}
 
 		return subGraph;
 	}
@@ -1447,7 +1545,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		Map<IRReteNode, IRNodeSubGraph> _map = _subGraphForQueryBackwardMap;
 		IRNodeSubGraph subGraph = _map.get(queryNode);
 		if (subGraph == null) {
-			subGraph = _buildSubGroupSourceBackward(queryNode);
+			subGraph = _buildSubGroupForQueryNodeBackward(queryNode);
 			_map.put(queryNode, subGraph);
 		} else {
 			subGraph.incCacheCount();

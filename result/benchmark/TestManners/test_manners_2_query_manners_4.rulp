@@ -10,18 +10,6 @@
 )
 ;=>
 
-(setq ?model-trace true)
-;=>
-
-(list-subgraph-for-query mm '(canSitTogether:'(1 2 ?v)) true)
-;=>
-
-(query-stmt mm ?v from canSitTogether:'(1 2 ?v) limit 1)
-;=>'(1)
-
-(canSitTogether 1 2)
-;=>
-
 (defconst ?max_guess 4)
 ;=>
 
@@ -56,12 +44,6 @@
     
     (add-stmt mm seat ?arr)
 )
-;=>
-
-(list-source-node mm seat:'(?...))
-;=>
-
-(list-subgraph-for-query mm '(seat:'(?...)) true)
 ;=>
 
 (add-stmt mm seat (makeList (+ ?max_guess 1) 0))
