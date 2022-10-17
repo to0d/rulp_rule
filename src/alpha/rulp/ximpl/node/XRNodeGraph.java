@@ -55,6 +55,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import alpha.rulp.lang.IRExpr;
@@ -175,6 +176,17 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	}
 
+	static Map<String, IRNodeSubGraph> _toCacheMap(Map<IRReteNode, IRNodeSubGraph> map) {
+
+		Map<String, IRNodeSubGraph> newMap = new HashMap<>();
+		for (Entry<IRReteNode, IRNodeSubGraph> e : map.entrySet()) {
+			IRReteNode node = e.getKey();
+			newMap.put(node.getUniqName(), e.getValue());
+		}
+
+		return newMap;
+	}
+
 	public static boolean isSymmetricBetaNode(IRReteNode node) {
 
 		if (!RReteType.isBetaType(node.getReteType())) {
@@ -201,13 +213,13 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected Map<IRReteNode, List<IRReteNode>> _affectNodeMap = null;
 
-	protected Map<IRReteNode, IRNodeSubGraph> _constraintCheckSubGraphMap = null;
-
-	protected Map<String, IRNodeSubGraph> _ruleGroupSubGraphMap = null;
+	protected Map<IRReteNode, IRNodeSubGraph> _SubGraphForConstraintCheckhMap = null;
 
 	protected Map<IRReteNode, IRNodeSubGraph> _subGraphForQueryBackwardMap = null;
 
-	protected Map<IRReteNode, XRNodeSubGraph> _subGraphForQueryForwardMap = null;
+	protected Map<IRReteNode, IRNodeSubGraph> _subGraphForQueryForwardMap = null;
+
+	protected Map<String, IRNodeSubGraph> _SubGraphForRuleGroupMap = null;
 
 	protected int anonymousRuleIndex = 0;
 
@@ -1148,55 +1160,6 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	}
 
-//	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
-//			throws RException {
-//
-//		IRObject obj = reteTree.get(2);
-//
-//		/*****************************************************/
-//		// (var-changed ?varName ?v2) -> (var-changed ?varName ?tmp ?v2)
-//		/*****************************************************/
-//		if (RulpUtil.isVarAtom(obj)) {
-//
-//			// (var-changed ?varName ?anyVar ?tmp)
-//			List<IRObject> list = new ArrayList<>();
-//			list.add(reteTree.get(0));
-//			list.add(reteTree.get(1));
-//			list.add(tmpVarBuilder.next());
-//			list.add(reteTree.get(2));
-//
-////			InheritIndex[] inheritIndexs = new InheritIndex[2];
-////			inheritIndexs[0] = new InheritIndex(0, 0);
-////			inheritIndexs[1] = new InheritIndex(0, 2);
-//
-//			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-//
-//			AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
-//					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-//
-//			return alph0Node;
-//		}
-//
-//		/*****************************************************/
-//		// (var-changed ?varName new-value) -> (var-changed ?varName ?tmp new-value)
-//		/*****************************************************/
-//
-//		// (var-changed ?varName ?tmp1 ?tmp2)
-//		List<IRObject> list = new ArrayList<>();
-//		list.add(reteTree.get(0));
-//		list.add(reteTree.get(1));
-//		list.add(tmpVarBuilder.next());
-//		list.add(tmpVarBuilder.next());
-//
-//		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
-//
-//		AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
-//				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
-//
-//		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
-//		return alph0Node;
-//	}
-
 	protected AbsReteNode _buildVarChangeNode4(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
 			throws RException {
 
@@ -1310,6 +1273,55 @@ public class XRNodeGraph implements IRNodeGraph {
 		varNodeMap.put(var.getName(), varNode);
 		return varNode;
 	}
+
+//	protected IRReteNode _buildVarChangeNode3(String varName, IRList reteTree, XTempVarBuilder tmpVarBuilder)
+//			throws RException {
+//
+//		IRObject obj = reteTree.get(2);
+//
+//		/*****************************************************/
+//		// (var-changed ?varName ?v2) -> (var-changed ?varName ?tmp ?v2)
+//		/*****************************************************/
+//		if (RulpUtil.isVarAtom(obj)) {
+//
+//			// (var-changed ?varName ?anyVar ?tmp)
+//			List<IRObject> list = new ArrayList<>();
+//			list.add(reteTree.get(0));
+//			list.add(reteTree.get(1));
+//			list.add(tmpVarBuilder.next());
+//			list.add(reteTree.get(2));
+//
+////			InheritIndex[] inheritIndexs = new InheritIndex[2];
+////			inheritIndexs[0] = new InheritIndex(0, 0);
+////			inheritIndexs[1] = new InheritIndex(0, 2);
+//
+//			IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+//
+//			AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree),
+//					3, parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+//
+//			return alph0Node;
+//		}
+//
+//		/*****************************************************/
+//		// (var-changed ?varName new-value) -> (var-changed ?varName ?tmp new-value)
+//		/*****************************************************/
+//
+//		// (var-changed ?varName ?tmp1 ?tmp2)
+//		List<IRObject> list = new ArrayList<>();
+//		list.add(reteTree.get(0));
+//		list.add(reteTree.get(1));
+//		list.add(tmpVarBuilder.next());
+//		list.add(tmpVarBuilder.next());
+//
+//		IRReteNode parentNode = _findReteNode(RulpFactory.createExpression(list), tmpVarBuilder);
+//
+//		AbsReteNode alph0Node = RNodeFactory.createAlpha1Node(model, _getNextNodeId(), ReteUtil.uniqName(reteTree), 3,
+//				parentNode, ReteUtil._varEntry(ReteUtil.buildTreeVarList(reteTree)));
+//
+//		addConstraint(alph0Node, ConstraintFactory.cmpEntryValue(RRelationalOperator.EQ, 2, obj));
+//		return alph0Node;
+//	}
 
 	protected AbsReteNode _buildVarNode(IRList reteTree, XTempVarBuilder tmpVarBuilder) throws RException {
 
@@ -1437,6 +1449,8 @@ public class XRNodeGraph implements IRNodeGraph {
 		if (subGraph == null) {
 			subGraph = _buildSubGroupSourceBackward(queryNode);
 			_map.put(queryNode, subGraph);
+		} else {
+			subGraph.incCacheCount();
 		}
 
 		return subGraph;
@@ -1450,8 +1464,8 @@ public class XRNodeGraph implements IRNodeGraph {
 			_subGraphForQueryForwardMap = new HashMap<>();
 		}
 
-		Map<IRReteNode, XRNodeSubGraph> _map = _subGraphForQueryForwardMap;
-		XRNodeSubGraph subGraph = _map.get(queryNode);
+		Map<IRReteNode, IRNodeSubGraph> _map = _subGraphForQueryForwardMap;
+		IRNodeSubGraph subGraph = _map.get(queryNode);
 		if (subGraph == null) {
 
 			subGraph = new XRNodeSubGraph(this);
@@ -1467,6 +1481,9 @@ public class XRNodeGraph implements IRNodeGraph {
 			}
 
 			_map.put(queryNode, subGraph);
+
+		} else {
+			subGraph.incCacheCount();
 		}
 
 		return subGraph;
@@ -1510,9 +1527,9 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		_subGraphForQueryBackwardMap = null;
 		_subGraphForQueryForwardMap = null;
-		_ruleGroupSubGraphMap = null;
+		_SubGraphForRuleGroupMap = null;
 		_affectNodeMap = null;
-		_constraintCheckSubGraphMap = null;
+		_SubGraphForConstraintCheckhMap = null;
 	}
 
 	protected boolean _isUnusedNode(IRReteNode node) {
@@ -2032,14 +2049,16 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		counter.createSubGraphForConstraintCheck++;
 
-		if (_constraintCheckSubGraphMap == null) {
-			_constraintCheckSubGraphMap = new HashMap<>();
+		if (_SubGraphForConstraintCheckhMap == null) {
+			_SubGraphForConstraintCheckhMap = new HashMap<>();
 		}
 
-		IRNodeSubGraph subGraph = _constraintCheckSubGraphMap.get(rootNode);
+		IRNodeSubGraph subGraph = _SubGraphForConstraintCheckhMap.get(rootNode);
 		if (subGraph == null) {
 			subGraph = _buildSubGraphConstraintCheck(rootNode);
-			_constraintCheckSubGraphMap.put(rootNode, subGraph);
+			_SubGraphForConstraintCheckhMap.put(rootNode, subGraph);
+		} else {
+			subGraph.incCacheCount();
 		}
 
 		return subGraph;
@@ -2062,14 +2081,16 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		counter.createSubGraphForRuleGroup++;
 
-		if (_ruleGroupSubGraphMap == null) {
-			_ruleGroupSubGraphMap = new HashMap<>();
+		if (_SubGraphForRuleGroupMap == null) {
+			_SubGraphForRuleGroupMap = new HashMap<>();
 		}
 
-		IRNodeSubGraph subGraph = _ruleGroupSubGraphMap.get(ruleGroupName);
+		IRNodeSubGraph subGraph = _SubGraphForRuleGroupMap.get(ruleGroupName);
 		if (subGraph == null) {
 			subGraph = _buildSubGraphRuleGroup(ruleGroupName);
-			_ruleGroupSubGraphMap.put(ruleGroupName, subGraph);
+			_SubGraphForRuleGroupMap.put(ruleGroupName, subGraph);
+		} else {
+			subGraph.incCacheCount();
 		}
 
 		return subGraph;
@@ -2292,6 +2313,30 @@ public class XRNodeGraph implements IRNodeGraph {
 	@Override
 	public IRRule findRule(String ruleName) {
 		return ruleNodeMap.get(ruleName);
+	}
+
+	@Override
+	public Map<String, Map<String, IRNodeSubGraph>> getCachedSubGraphMap() {
+
+		Map<String, Map<String, IRNodeSubGraph>> cachedMap = new HashMap<>();
+
+		if (_SubGraphForConstraintCheckhMap != null) {
+			cachedMap.put("CCK", _toCacheMap(_SubGraphForConstraintCheckhMap));
+		}
+
+		if (_SubGraphForRuleGroupMap != null) {
+			cachedMap.put("RGP", _SubGraphForRuleGroupMap);
+		}
+
+		if (_subGraphForQueryBackwardMap != null) {
+			cachedMap.put("QBK", _toCacheMap(_subGraphForQueryBackwardMap));
+		}
+
+		if (_subGraphForQueryForwardMap != null) {
+			cachedMap.put("QFD", _toCacheMap(_subGraphForQueryForwardMap));
+		}
+
+		return cachedMap;
 	}
 
 	@Override

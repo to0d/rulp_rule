@@ -9,17 +9,21 @@ public interface IRNodeSubGraph {
 
 	public void activate() throws RException;
 
+	public void addNode(IRReteNode node) throws RException;
+
+	public boolean containNode(IRReteNode node);
+
+	public int getCacheCount();
+
 	public List<IRReteNode> getNodes();
+
+	public void incCacheCount();
 
 	public boolean isEmpty();
 
 	public void rollback() throws RException;
-
+	
 	public void setGraphPriority(int newPriority) throws RException;
-
+	
 	public void setNodePriority(IRReteNode node, int newPriority) throws RException;
-
-	public boolean containNode(IRReteNode node);
-
-	public void addNode(IRReteNode node) throws RException;
 }

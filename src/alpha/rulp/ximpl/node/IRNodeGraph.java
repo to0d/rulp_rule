@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.node;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -46,6 +47,8 @@ public interface IRNodeGraph {
 	public IRReteNode findRootNode(String name, int stmtLen) throws RException;
 
 	public IRRule findRule(String ruleName);
+
+	public Map<String, Map<String, IRNodeSubGraph>> getCachedSubGraphMap();
 
 	public List<String> getCounterKeyList();
 

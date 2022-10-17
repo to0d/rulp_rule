@@ -83,6 +83,7 @@ import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRBetaNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
+import alpha.rulp.ximpl.node.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.RUniqInfo;
@@ -1172,6 +1173,50 @@ public class StatsUtil {
 
 		for (String key : BSFactory.getCounterKeyList()) {
 			_printModelCountInfo_put(sb, key, BSFactory.getCounterValue(key));
+		}
+
+		sb.append(SEP_LINE1);
+
+		sb.append("\n");
+		sb.append("\n");
+	}
+
+	private static void _printCachedSubGraphInfo(StringBuffer sb, IRModel model) throws RException {
+
+		IRNodeGraph graph = model.getNodeGraph();
+		Map<String, Map<String, IRNodeSubGraph>> cacheMap = graph.getCachedSubGraphMap();
+		if (cacheMap.isEmpty()) {
+			return;
+		}
+
+		sb.append(String.format("Cached Subgraph info:\n"));
+		sb.append(SEP_LINE1);
+		sb.append(String.format("%-3s %3s %-60s %s\n", "MAP", "CNT", "KEY", "NOTES"));
+		sb.append(SEP_LINE2);
+
+		ArrayList<String> mapTypes = new ArrayList<>(cacheMap.keySet());
+		Collections.sort(mapTypes);
+
+		for (String key : mapTypes) {
+
+			Map<String, IRNodeSubGraph> subMap = cacheMap.get(key);
+			ArrayList<String> subKeys = new ArrayList<>(subMap.keySet());
+			Collections.sort(subKeys);
+
+			for (String subKey : subKeys) {
+
+				IRNodeSubGraph subGraph = subMap.get(subKey);
+
+				ArrayList<String> nodeNames = new ArrayList<>();
+				for (IRReteNode node : subGraph.getNodes()) {
+					nodeNames.add(node.getNodeName());
+				}
+				Collections.sort(nodeNames);
+
+				sb.append(String.format("%-3s %3s %-60s %s\n", key,
+						subGraph.getCacheCount() > 0 ? "" + subGraph.getCacheCount() : "", subKey, "" + nodeNames));
+
+			}
 		}
 
 		sb.append(SEP_LINE1);
@@ -2596,6 +2641,11 @@ public class StatsUtil {
 			// Output count info
 			/****************************************************/
 			_printModelCountInfo(sb, model);
+
+			/****************************************************/
+			// Output Cached SubGraph info
+			/****************************************************/
+			_printCachedSubGraphInfo(sb, model);
 
 			/*********************************************************************/
 			// Rule stats

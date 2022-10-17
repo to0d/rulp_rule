@@ -25,12 +25,14 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 
 		public boolean update = false;
 	}
-
+	
 	private boolean activate = false;
 
 	private Map<IRReteNode, ActivateInfo> activateMap = null;
 
 	private List<ActivateInfo> activeInfoList = new LinkedList<>();
+
+	private int cacheCount = 0;
 
 	private XRNodeGraph graph;
 
@@ -83,8 +85,18 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 	}
 
 	@Override
+	public int getCacheCount() {
+		return cacheCount;
+	}
+
+	@Override
 	public List<IRReteNode> getNodes() {
 		return subNodeList;
+	}
+
+	@Override
+	public void incCacheCount() {
+		cacheCount++;
 	}
 
 	@Override
@@ -168,4 +180,6 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 
 		info.newPriority = newPriority;
 	}
+
+ 
 }

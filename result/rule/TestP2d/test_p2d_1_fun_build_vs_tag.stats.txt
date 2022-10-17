@@ -1237,6 +1237,14 @@ graph-setNodePriority               503
 ===============================================================================================================================================================================
 
 
+Cached Subgraph info:
+===============================================================================================================================================================================
+MAP CNT KEY                                                          NOTES
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+QBK     '('(?_0 nm:hasAliasTag ?_1) '(?_0 nm:hasRelatedTag nt:$VS))  [A00002, A00003, A00011, A00012, A00016, A00018, A00022, A00026, A00034, A00037, A00045, A00048, A00060, A00062, A00063, A00066, A00083, A00086, A00089, A00110, A00115, A00129, A00130, A10006, AC1, AC3, AC4, AC6, AC8, B00013, B00019, B00038, B00053, B00055, B00058, B00064, B00084, B00087, B00090, B00104, B00111, B00116, B00131, B10106, B10113, B10119, B10125, B20027, B20035, B20046, B20105, B20112, B20118, C1, C3, C5, C6, C8, CC1, D1, E00117, E00124, E10051, E10052, E10103, R00001, RR1, RR2, RR3, RR4, T2, T3, T4, T5, T8, TA5, TG3, V00005]
+===============================================================================================================================================================================
+
+
 Rule<TV1> stats: priority=099, expr=(add-rule "TV1" p2d if (var-changed ?model-state running completed) '(?tag nm:typeOf nm:tag) (can-cast '(int float) (p2d_get_version_number ?tag)) do (defvar ?tagName) (defvar ?mainTag) (defvar ?mainTagVersion) (defvar ?pos) (setq ?tagName (to-string ?tag)) (setq ?pos (str-last-index-of ?tagName "v")) (if (not (equal ?pos -1)) (do (setq ?mainTag (to-atom (str-substr ?tagName 0 ?pos))) (setq ?mainTagVersion (to-atom (strcat (to-string ?mainTag) "-version"))) (if (has-stmt p2d '(?mainTag nm:typeOf nm:tag)) (do (-> '(?tag nm:isVersionOf ?mainTag)) (-> '(?tag nm:beDefinedByTag ?mainTagVersion)))))))
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
