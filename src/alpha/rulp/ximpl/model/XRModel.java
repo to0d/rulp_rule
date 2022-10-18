@@ -267,7 +267,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			IREntryQueue queryQueue = queryNode.getEntryQueue();
 
 			/******************************************************/
-			// Load results
+			// Load results directly
 			/******************************************************/
 			{
 
@@ -286,6 +286,20 @@ public class XRModel extends AbsRInstance implements IRModel {
 					}
 				}
 			}
+
+//			/******************************************************/
+//			// 
+//			/******************************************************/
+//			if (limit > 0 && backward) {
+//
+//				subGraph = model.nodeGraph.createSubGraphForQueryNode(queryNode, false);
+//
+////				List<IRReteNode> nodes = RuleUtil.getAllParentNodes(queryNode);
+////				Collections.sort(nodes, (n1, n2) -> {
+////					return n1.getNodeId() - n2.getNodeId();
+////				});
+//
+//			}
 
 			/******************************************************/
 			// Build SubGraph

@@ -1224,7 +1224,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		XRNodeSubGraph subGraph = new XRNodeSubGraph(this);
 		for (IRReteNode node : allSubGraphNodes) {
 			subGraph.addNode(node);
-			;
 		}
 
 		return subGraph;

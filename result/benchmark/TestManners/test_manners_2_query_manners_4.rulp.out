@@ -1,6 +1,9 @@
 (load (+ (file-parent ?script-path) "manners_4.rulp"))
 ;=>nil
 
+(load (+ (file-parent ?script-path) "manners_4_rule_1.rulp"))
+;=>nil
+
 (defun makeList ((?x int) ?y)
     (defvar ?arr (make-array ?x))
     (loop for ?x from 0 to (- ?x 1) do

@@ -1,5 +1,8 @@
 (load (+ (file-parent ?script-path) "manners_4.rulp"))
 ;=>
 
+(load (+ (file-parent ?script-path) "manners_4_rule_1.rulp"))
+;=>
+
 (print-list (list-subgraph-for-query mm '(canSitTogether:'(1 2 ?v)) true))
 ;=>
