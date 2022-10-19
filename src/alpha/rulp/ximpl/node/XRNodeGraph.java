@@ -93,7 +93,6 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.model.XRUniqObjBuilder;
-import alpha.rulp.ximpl.node.XRNodeGraph.QBNode.QBType;
 
 public class XRNodeGraph implements IRNodeGraph {
 
@@ -676,7 +675,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		if (!externalVarList.isEmpty()) {
 
 			/*********************************************************/
-			// Expr2: '(?a ?b ?c) (factor ?a ?x) - has left variable in expr
+			// Expr2: '(?a ?b ?c) (factor ?a ?x) - has LHS variable in expr
 			/*********************************************************/
 			if (externalVarList.size() != rightVarList.size()) {
 
@@ -699,7 +698,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			}
 			/*********************************************************/
-			// Expr3: '(?a ?b ?c) (factor ?x) - no left variable in expr
+			// Expr3: '(?a ?b ?c) (factor ?x) - no LHS variable in expr
 			/*********************************************************/
 			else {
 

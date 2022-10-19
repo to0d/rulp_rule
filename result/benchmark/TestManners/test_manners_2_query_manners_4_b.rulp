@@ -1,0 +1,101 @@
+(load (+ (file-parent ?script-path) "manners_4.rulp"))
+;=>
+
+(defun makeList ((?x int) ?y)
+    (defvar ?arr (make-array ?x))
+    (loop for ?x from 0 to (- ?x 1) do
+        (seta ?arr ?x ?y)
+    )
+    (return (to-list ?arr))
+)
+;=>
+
+(defun getAt ((?rst list) (?index int)) 
+    (if (is-empty ?rst)
+        (return nil)
+    )
+    (if (<= (size-of ?rst) ?index)
+        (return nil)
+    )
+    (return (get ?rst ?index))
+)
+;=>
+
+(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2) do 
+    (if (= ?s1 ?s2) 
+        (-> canBeCouple:'(?g1 ?g2 false)) 
+        (-> canBeCouple:'(?g1 ?g2 true))
+    )
+)
+;=>
+
+(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2)  do 
+    (defvar ?rst false)
+    (defvar ?rst1 (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (if (= true (getAt ?rst1 0)) do
+        (defvar ?rst2 (query-stmt mm ?h from hobby:'(?g1 ?h) hobby:'(?g2 ?h) limit 1))
+        (if (!= nil (getAt ?rst2 0)) do
+            (setq ?rst true)
+        )
+    )
+    (-> canSitTogether:'(?g1 ?g2 ?rst))
+)
+;=>
+
+(defun canSitTogether (?x ?y)
+    (if (= ?x ?y) do
+        (return false)
+    )
+    
+    (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (return (= true (getAt ?rst 0)))
+)
+;=>
+
+(print-list (list-subgraph-for-query mm '(canSitTogether:'(1 2 ?v)) true))
+;=>
+
+(defconst ?max_guess 4)
+;=>
+
+(add-node mm seat:'((+ ?max_guess 1)))
+;=>
+
+(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
+
+    (loop for ?i from 1 to ?m do
+        (if (= (get ?0 ?i) ?g) do
+            (return)
+        )
+    )
+    
+    (if (> ?m 0) do
+        (defvar ?x (get ?0 ?m))
+        (if (not (canSitTogether ?x ?g))
+            (return)
+        )
+    )
+    
+    (if (= (+ ?m 1) ?max_guess) do
+        (defvar ?x (get ?0 1))
+        (if (not (canSitTogether ?x ?g))
+            (return)
+        )
+    )
+
+    (defvar ?arr (to-array ?0))
+    (seta ?arr 0 (+ ?m 1))
+    (seta ?arr (+ ?m 1) ?g)
+    
+    (add-stmt mm seat ?arr)
+)
+;=>
+
+(add-stmt mm seat (makeList (+ ?max_guess 1) 0))
+;=>
+
+;(setq ?model-trace true)
+;;=>
+
+(query-stmt mm '(?...) from seat:'(4 ?...) limit 1)
+;=>

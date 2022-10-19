@@ -1,0 +1,107 @@
+(load (+ (file-parent ?script-path) "manners_4.rulp"))
+;=>nil
+
+(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2) do 
+    (if (= ?s1 ?s2) 
+        (-> canBeCouple:'(?g1 ?g2 false)) 
+        (-> canBeCouple:'(?g1 ?g2 true))
+    )
+)
+;=>RU000
+
+   
+(add-rule mm if hobby:'(?g1 ?h) hobby:'(?g2 ?h) (!= ?g1 ?g2) canBeCouple:'(?g1 ?g2 ?v) do 
+    (-> canSitTogether:'(?g1 ?g2 ?v))
+)
+;=>RU001
+
+(defun canBeCouple (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        (return false)
+    )
+    (return (get ?rst 0))
+)
+;=>canBeCouple
+
+(defun canSitTogether (?x ?y)
+    (defvar ?rst (query-stmt mm ?v from canSitTogether:'(?x ?y ?v) limit 1))
+    (if (is-empty ?rst)
+        (return false)
+    )
+    (return (get ?rst 0))
+)
+;=>canSitTogether
+
+(print-list (list-subgraph-for-query mm '(canSitTogether:'(1 2 ?v)) true))
+;=>nil
+;out:
+canSitTogether:'(1 ?_0 ?_1)
+canSitTogether:'(1 2 ?_0)
+'('(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1)) hobby:'(?_1 ?_3))
+'('('(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1)) hobby:'(?_1 ?_3)) hobby:'(?_0 ?_3))
+'(guess:'(?_0 ?_1) guess:'(?_2 ?_3) (!= ?_0 ?_2))
+'(canBeCouple:'(?_0 ?_1 ?_2) (!= ?_0 ?_1))
+guess:'(?_0 ?_1)
+hobby:'(?_0 ?_1)
+canBeCouple:'(?_0 ?_1 ?_2)
+canSitTogether:'(?_0 ?_1 ?_2)
+RU000
+RU001
+
+;eof
+
+(defun makeList ((?x int) ?y)
+    (defvar ?arr (make-array ?x))
+    (loop for ?x from 0 to (- ?x 1) do
+        (seta ?arr ?x ?y)
+    )
+    (return (to-list ?arr))
+)
+;=>makeList
+
+(defconst ?max_guess 4)
+;=>?max_guess
+
+(add-node mm seat:'((+ ?max_guess 1)))
+;=>true
+
+(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
+
+    (loop for ?i from 1 to ?m do
+        (if (= (get ?0 ?i) ?g) do
+            (return)
+        )
+    )
+    
+    (if (> ?m 0) do
+        (defvar ?x (get ?0 ?m))
+        (if (not (canSitTogether ?x ?g))
+            (return)
+        )
+    )
+    
+    (if (= (+ ?m 1) ?max_guess) do
+        (defvar ?x (get ?0 1))
+        (if (not (canSitTogether ?x ?g))
+            (return)
+        )
+    )
+
+    (defvar ?arr (to-array ?0))
+    (seta ?arr 0 (+ ?m 1))
+    (seta ?arr (+ ?m 1) ?g)
+    
+    (add-stmt mm seat ?arr)
+)
+;=>RU002
+
+(add-stmt mm seat (makeList (+ ?max_guess 1) 0))
+;=>true
+
+;(setq ?model-trace true)
+;;=>
+
+(query-stmt mm '(?...) from seat:'(4 ?...) limit 1)
+;=>'('(1 3 2 4))
+

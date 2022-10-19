@@ -198,7 +198,7 @@ public class OptimizeUtil {
 		}
 
 		/*********************************************************/
-		// no external var
+		// no LHS var
 		// - (has-stmt '(?a ?b ?c)), ?a ?b ?c are all external vars
 		// - (has-stmt '(a b c))
 		/*********************************************************/
@@ -256,7 +256,7 @@ public class OptimizeUtil {
 		}
 
 		/*********************************************************/
-		// all var are left vars
+		// all var are LHS vars
 		// - (?a ?b ?c) (has-stmt '(?a ?b ?c))
 		/*********************************************************/
 		if (indexCount == thisVarList.size()) {

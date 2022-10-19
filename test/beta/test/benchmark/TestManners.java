@@ -27,18 +27,18 @@ public class TestManners extends RuleTestBase {
 		_dumpEntryTable("mm");
 
 	}
-	
+ 
 	@Test
-	void test_manners_2_query_manners_4_subgraph() {
+	void test_manners_2_query_manners_4_a() {
 
 		_setup();
 		_run_script();
 		_statsInfo("mm");
 
 	}
-
+	
 	@Test
-	void test_manners_2_query_manners_4() {
+	void test_manners_2_query_manners_4_b() {
 
 		_setup();
 		_run_script();
