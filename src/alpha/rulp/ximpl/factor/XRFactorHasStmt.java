@@ -165,24 +165,41 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		/********************************************/
 		// before: (has-stmt '(?x p1 ?y))
 		// after : (has-stmt '(a p1 ?y))
-		//
 		/********************************************/
 		if (orderList == null && model.getTopExecuteNode() != null) {
 
 			IRObject oldStmtObj = useDefaultModel ? args.get(1) : args.get(2);
+
 			if (oldStmtObj != stmt && oldStmtObj.getType() == RType.LIST) {
 
-				IRList oldStmt = RulpUtil.asList(oldStmtObj);
-				if (oldStmt.size() == stmt.size()) {
+				int stmtSize = stmt.size();
+				int varCount = ReteUtil.getStmtVarCount(stmt);
+				if (varCount > 0 && varCount < stmtSize) {
 
+					IRList oldStmt = RulpUtil.asList(oldStmtObj);
+
+					if (oldStmt.size() == stmtSize) {
+
+						for (int i = 0; i < stmtSize; ++i) {
+
+							IRObject oldObj = oldStmt.get(i);
+							IRObject newObj = stmt.get(i);
+
+							if (RulpUtil.isVarAtom(oldObj) && !RulpUtil.isVarAtom(newObj)) {
+
+								OrderEntry order = new OrderEntry();
+								order.index = i;
+								order.asc = true;
+
+								if (orderList == null) {
+									orderList = new ArrayList<>();
+								}
+
+								orderList.add(order);
+							}
+						}
+					}
 				}
-
-				System.out.println();
-
-				// (defun f1 (?x)
-				// (return (has-stmt '(?x p1 ?y)))
-				// )
-
 			}
 		}
 
