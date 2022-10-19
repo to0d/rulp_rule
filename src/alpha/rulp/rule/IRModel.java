@@ -80,6 +80,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IRNodeUpdateQueue getNodeUpdateQueue();
 
+	public IRReteNode getTopExecuteNode();
+
 	public IRVar getVar(String name) throws RException;
 
 	public boolean hasStatement(IRList filter) throws RException;

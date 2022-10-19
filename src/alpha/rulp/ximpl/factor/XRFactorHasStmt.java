@@ -16,6 +16,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
@@ -67,6 +68,7 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		/**************************************************/
 		// Check model object
 		/**************************************************/
+		boolean useDefaultModel = false;
 		int argIndex = 1;
 		IRModel model = null;
 		IRObject obj = interpreter.compute(frame, args.get(argIndex));
@@ -76,6 +78,7 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 			argIndex++;
 		} else {
 			model = RuleUtil.getDefaultModel(frame);
+			useDefaultModel = true;
 			if (model == null) {
 				throw new RException("no model be specified");
 			}
@@ -158,6 +161,30 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 //
 //			return RulpFactory.createBoolean(model.hasStatement(stmt));
 //		}
+
+		/********************************************/
+		// before: (has-stmt '(?x p1 ?y))
+		// after : (has-stmt '(a p1 ?y))
+		//
+		/********************************************/
+		if (orderList == null && model.getTopExecuteNode() != null) {
+
+			IRObject oldStmtObj = useDefaultModel ? args.get(1) : args.get(2);
+			if (oldStmtObj != stmt && oldStmtObj.getType() == RType.LIST) {
+
+				IRList oldStmt = RulpUtil.asList(oldStmtObj);
+				if (oldStmt.size() == stmt.size()) {
+
+				}
+
+				System.out.println();
+
+				// (defun f1 (?x)
+				// (return (has-stmt '(?x p1 ?y)))
+				// )
+
+			}
+		}
 
 		/********************************************/
 		// create index and query

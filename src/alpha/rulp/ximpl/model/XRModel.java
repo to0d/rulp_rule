@@ -1953,6 +1953,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public IRReteNode getTopExecuteNode() {
+
+		if (executeStack.isEmpty()) {
+			return null;
+		}
+
+		return executeStack.get(executeStack.size() - 1);
+	}
+
+	@Override
 	public void addUpdateNode(IRReteNode node) throws RException {
 
 		counter.mcAddUpdateNode++;
