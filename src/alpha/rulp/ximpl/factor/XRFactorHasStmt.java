@@ -16,11 +16,11 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
-import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
+import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
@@ -171,35 +171,8 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 			IRObject oldStmtObj = useDefaultModel ? args.get(1) : args.get(2);
 
 			if (oldStmtObj != stmt && oldStmtObj.getType() == RType.LIST) {
-
-				int stmtSize = stmt.size();
-				int varCount = ReteUtil.getStmtVarCount(stmt);
-				if (varCount > 0 && varCount < stmtSize) {
-
-					IRList oldStmt = RulpUtil.asList(oldStmtObj);
-
-					if (oldStmt.size() == stmtSize) {
-
-						for (int i = 0; i < stmtSize; ++i) {
-
-							IRObject oldObj = oldStmt.get(i);
-							IRObject newObj = stmt.get(i);
-
-							if (RulpUtil.isVarAtom(oldObj) && !RulpUtil.isVarAtom(newObj)) {
-
-								OrderEntry order = new OrderEntry();
-								order.index = i;
-								order.asc = true;
-
-								if (orderList == null) {
-									orderList = new ArrayList<>();
-								}
-
-								orderList.add(order);
-							}
-						}
-					}
-				}
+				
+				orderList = OptimizeUtil.optimizeHasStmtOrderEntry(oldStmtObj, stmt);
 			}
 		}
 

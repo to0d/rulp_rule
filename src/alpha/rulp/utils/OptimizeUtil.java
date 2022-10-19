@@ -108,6 +108,8 @@ public class OptimizeUtil {
 
 	public static final String CK_OptimizeHasStmtExprCount = "OptimizeHasStmtExprCount";
 
+	public static final String CK_OptimizeHasStmtOrderEntry = "OptimizeHasStmtOrderEntry";
+
 	public static final String CK_OptimizeRuleActionIndexVarCount = "OptimizeRuleActionIndexVarCount";
 
 	public static final String CK_OptimizeRuleHasStmtCount = "OptimizeRuleHasStmtCount";
@@ -124,6 +126,8 @@ public class OptimizeUtil {
 
 	private static int OptimizeHasStmtExprCount = 0;
 
+	private static int OptimizeHasStmtOrderEntry = 0;
+
 	private static int OptimizeRuleActionIndexVarCount = 0;
 
 	private static int OptimizeRuleHasStmtCount = 0;
@@ -138,6 +142,7 @@ public class OptimizeUtil {
 		OptimizeCountKeyList.add(CK_OptimizeHasStmtExprCount);
 		OptimizeCountKeyList.add(CK_OptimizeRuleActionIndexVarCount);
 		OptimizeCountKeyList.add(CK_OptimizeRuleHasStmtCount);
+		OptimizeCountKeyList.add(CK_OptimizeHasStmtOrderEntry);
 		OptimizeCountKeyList = Collections.unmodifiableList(OptimizeCountKeyList);
 
 	}
@@ -149,58 +154,6 @@ public class OptimizeUtil {
 		case EXPR:
 		default:
 			return obj;
-		}
-	}
-
-	private static boolean _canOptimizeMatchTree(IRObject obj) throws RException {
-
-		switch (obj.getType()) {
-		case LIST:
-
-			IRList list = RulpUtil.asList(obj);
-			int size = list.size();
-			for (int i = 0; i < size; ++i) {
-				if (_canOptimizeMatchTree(list.get(i))) {
-					return true;
-				}
-			}
-
-			// '('(?0 ?1 ?2) (not-equal ?2 ?0)) -> '('(?0 ?1 ?2) (not-equal ?0 ?1))
-			if (size == 2) {
-
-				IRObject o0 = list.get(0);
-				IRObject o1 = list.get(1);
-
-				if (o0.getType() == RType.LIST && o1.getType() == RType.EXPR) {
-
-					IRExpr e1 = RulpUtil.asExpression(o1);
-
-					if (e1.size() == 3) {
-
-						String f0 = e1.get(0).asString();
-						if (f0.equals(F_NOT_EQUAL) || f0.equals(F_EQUAL)) {
-
-							String a = e1.get(1).asString();
-							String b = e1.get(2).asString();
-
-							// '(?a ?p ?b) (equal ?a ?a) -> '(?a ?p ?b)
-							// '(?a ?p ?b) (not-equal ?a ?a) -> '(?a ?p ?b) (false)
-
-							IRList l0 = RulpUtil.asList(o0);
-
-							// '(?a ?p ?b) (equal value ?a) -> '(?a ?p ?b) (equal ?a value)
-							// '(?a ?p ?b) (not-equal value ?a) -> '(?a ?p ?b) (not-equal ?a value)
-						}
-
-					}
-				}
-			}
-
-			return false;
-
-		case EXPR:
-		default:
-			return false;
 		}
 	}
 
@@ -269,6 +222,58 @@ public class OptimizeUtil {
 //
 //		return update > 0 ? expr : null;
 //	}
+
+	private static boolean _canOptimizeMatchTree(IRObject obj) throws RException {
+
+		switch (obj.getType()) {
+		case LIST:
+
+			IRList list = RulpUtil.asList(obj);
+			int size = list.size();
+			for (int i = 0; i < size; ++i) {
+				if (_canOptimizeMatchTree(list.get(i))) {
+					return true;
+				}
+			}
+
+			// '('(?0 ?1 ?2) (not-equal ?2 ?0)) -> '('(?0 ?1 ?2) (not-equal ?0 ?1))
+			if (size == 2) {
+
+				IRObject o0 = list.get(0);
+				IRObject o1 = list.get(1);
+
+				if (o0.getType() == RType.LIST && o1.getType() == RType.EXPR) {
+
+					IRExpr e1 = RulpUtil.asExpression(o1);
+
+					if (e1.size() == 3) {
+
+						String f0 = e1.get(0).asString();
+						if (f0.equals(F_NOT_EQUAL) || f0.equals(F_EQUAL)) {
+
+							String a = e1.get(1).asString();
+							String b = e1.get(2).asString();
+
+							// '(?a ?p ?b) (equal ?a ?a) -> '(?a ?p ?b)
+							// '(?a ?p ?b) (not-equal ?a ?a) -> '(?a ?p ?b) (false)
+
+							IRList l0 = RulpUtil.asList(o0);
+
+							// '(?a ?p ?b) (equal value ?a) -> '(?a ?p ?b) (equal ?a value)
+							// '(?a ?p ?b) (not-equal value ?a) -> '(?a ?p ?b) (not-equal ?a value)
+						}
+
+					}
+				}
+			}
+
+			return false;
+
+		case EXPR:
+		default:
+			return false;
+		}
+	}
 
 	private static boolean _containConstExpr(IRExpr expr) throws RException {
 
@@ -687,6 +692,9 @@ public class OptimizeUtil {
 
 		case CK_OptimizeRuleHasStmtCount:
 			return OptimizeRuleHasStmtCount;
+
+		case CK_OptimizeHasStmtOrderEntry:
+			return OptimizeHasStmtOrderEntry;
 		}
 
 		return 0;
@@ -866,51 +874,6 @@ public class OptimizeUtil {
 		return expr;
 	}
 
-	public static IRExpr optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
-
-		int size = expr.size();
-		if (size <= 1) {
-			return expr;
-		}
-
-		if (RulpUtil.isFactor(expr.get(0), F_HAS_STMT)) {
-			return _optimizeHasStmtExpr(expr, leftVarList);
-		}
-
-		ArrayList<IRObject> newList = null;
-
-		for (int i = 1; i < size; ++i) {
-
-			IRObject ex = expr.get(i);
-			if (ex != null && ex.getType() != RType.EXPR) {
-				if (newList != null) {
-					newList.add(ex);
-				}
-				continue;
-			}
-
-			IRExpr oldExpr = (IRExpr) ex;
-			IRExpr newExpr = optimizeHasStmtExpr(oldExpr, leftVarList);
-			if (newExpr == oldExpr) {
-				continue;
-			}
-
-			if (newList == null) {
-				newList = new ArrayList<>();
-				for (int j = 0; j < i; ++j) {
-					newList.add(expr.get(j));
-				}
-			}
-			newList.add(newExpr);
-		}
-
-		if (newList != null) {
-			expr = RulpFactory.createExpression(newList);
-		}
-
-		return expr;
-	}
-
 //	public static IRList _optimizeMatchTreeUnusedVar(IRList reteTree, Set<String> actionVarSet) throws RException {
 //
 //		Set<String> treeVarSet = _toVarSet(reteTree);
@@ -1014,6 +977,88 @@ public class OptimizeUtil {
 //		}
 //
 //	}
+
+	public static IRExpr optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
+
+		int size = expr.size();
+		if (size <= 1) {
+			return expr;
+		}
+
+		if (RulpUtil.isFactor(expr.get(0), F_HAS_STMT)) {
+			return _optimizeHasStmtExpr(expr, leftVarList);
+		}
+
+		ArrayList<IRObject> newList = null;
+
+		for (int i = 1; i < size; ++i) {
+
+			IRObject ex = expr.get(i);
+			if (ex != null && ex.getType() != RType.EXPR) {
+				if (newList != null) {
+					newList.add(ex);
+				}
+				continue;
+			}
+
+			IRExpr oldExpr = (IRExpr) ex;
+			IRExpr newExpr = optimizeHasStmtExpr(oldExpr, leftVarList);
+			if (newExpr == oldExpr) {
+				continue;
+			}
+
+			if (newList == null) {
+				newList = new ArrayList<>();
+				for (int j = 0; j < i; ++j) {
+					newList.add(expr.get(j));
+				}
+			}
+			newList.add(newExpr);
+		}
+
+		if (newList != null) {
+			expr = RulpFactory.createExpression(newList);
+		}
+
+		return expr;
+	}
+
+	public static List<OrderEntry> optimizeHasStmtOrderEntry(IRObject oldStmtObj, IRList stmt) throws RException {
+
+		List<OrderEntry> orderList = null;
+
+		int stmtSize = stmt.size();
+		int varCount = ReteUtil.getStmtVarCount(stmt);
+		if (varCount > 0 && varCount < stmtSize) {
+
+			IRList oldStmt = RulpUtil.asList(oldStmtObj);
+
+			if (oldStmt.size() == stmtSize) {
+
+				for (int i = 0; i < stmtSize; ++i) {
+
+					IRObject oldObj = oldStmt.get(i);
+					IRObject newObj = stmt.get(i);
+
+					if (RulpUtil.isVarAtom(oldObj) && !RulpUtil.isVarAtom(newObj)) {
+
+						OrderEntry order = new OrderEntry();
+						order.index = i;
+						order.asc = true;
+
+						if (orderList == null) {
+							orderList = new ArrayList<>();
+							OptimizeHasStmtOrderEntry++;
+						}
+
+						orderList.add(order);
+					}
+				}
+			}
+		}
+
+		return orderList;
+	}
 
 	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
 
@@ -1133,6 +1178,8 @@ public class OptimizeUtil {
 		OptimizeRuleActionIndexVarCount = 0;
 
 		OptimizeRuleHasStmtCount = 0;
+
+		OptimizeHasStmtOrderEntry = 0;
 	}
 
 	public static <T> String toString(List<T> names) {

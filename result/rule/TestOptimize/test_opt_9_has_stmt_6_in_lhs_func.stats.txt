@@ -124,6 +124,7 @@ graph-createNodeRoot                  3
 graph-createNodeRule                  1
 graph-listSourceNodes                 7
 graph-setNodePriority                 3
+OptimizeHasStmtOrderEntry             2
 ===============================================================================================================================================================================
 
 
@@ -353,7 +354,7 @@ print-list           : 17       2        3    funcList   '((print-list list) (pr
 to-valid-path        : 18       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 19       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 20       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 21       2        2    var        result\rule\TestOptimize\test_opt_9_has_stmt_6_func_var.rulp : type=string
+?script-path         : 21       2        2    var        result\rule\TestOptimize\test_opt_9_has_stmt_6_in_lhs_func.rulp : type=string
 script_out           : 22       2        2    macro      script_out          
 _ginfo               : 23       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main

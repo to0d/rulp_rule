@@ -1,0 +1,25 @@
+(new model m)
+;=>m
+
+(add-stmt m '(b p1 a))
+(add-stmt m '(a p1 c))
+;=>true true
+
+(defun f1 (?xx)
+    (return (has-stmt '(?xx p1 ?yy)))
+)
+;=>f1
+
+(add-rule m if '(?x p1 ?y) do 
+    (if (f1 ?y)
+        (-> m '(?x p2 ?x))
+    )
+)
+;=>RU000
+
+(start m)
+;=>5
+
+(list-stmt m)
+;=>'('(b p1 a) '(a p1 c) '(b p2 b))
+

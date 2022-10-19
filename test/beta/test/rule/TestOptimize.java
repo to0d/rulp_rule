@@ -213,7 +213,16 @@ public class TestOptimize extends RuleTestBase {
 	}
 	
 	@Test
-	void test_opt_9_has_stmt_6_func_var() {
+	void test_opt_9_has_stmt_6_in_lhs_func() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+	
+	@Test
+	void test_opt_9_has_stmt_7_in_rhs_func() {
 
 		_setup();
 		_run_script();
