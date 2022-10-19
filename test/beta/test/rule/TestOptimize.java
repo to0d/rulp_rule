@@ -186,7 +186,25 @@ public class TestOptimize extends RuleTestBase {
 	}
 
 	@Test
-	void test_opt_9_has_stmt_3_has_vars_create_indexs() {
+	void test_opt_9_has_stmt_3_has_vars() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_9_has_stmt_4_no_var() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+
+	}
+
+	@Test
+	void test_opt_9_has_stmt_5_all_external_var() {
 
 		_setup();
 		_run_script();

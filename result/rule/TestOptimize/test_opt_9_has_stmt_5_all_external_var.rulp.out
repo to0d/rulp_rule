@@ -1,0 +1,20 @@
+(new model m)
+;=>m
+
+(defvar ?a a)
+(defvar ?b b)
+(defvar ?c c)
+
+(add-stmt m '(a p1 c))
+(add-stmt m '(a b c))
+(add-rule m if '(?x p1 ?y) (has-stmt '(?a ?b ?c)) do 
+    (-> m '(?x p2 ?x))
+)
+;=>&?a &?b &?c true true RU000
+
+(start m)
+;=>6
+
+(list-stmt m)
+;=>'('(a p1 c) '(a b c) '(a p2 a))
+
