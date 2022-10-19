@@ -375,6 +375,7 @@ graph-createNodeRule                  3
 graph-createSubGraphForQueryNodeBackward       14
 graph-listSourceNodes               104
 graph-setNodePriority               264
+OptimizeRuleActionIndexVarCount        1
 ===============================================================================================================================================================================
 
 

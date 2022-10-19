@@ -66,6 +66,7 @@ model-listStatements                  1
 graph-addConstraint                   1
 graph-createNodeRoot                  3
 graph-listSourceNodes                 3
+OptimizeExprCount                     3
 ===============================================================================================================================================================================
 
 

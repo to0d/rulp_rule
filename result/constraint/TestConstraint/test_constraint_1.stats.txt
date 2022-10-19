@@ -177,6 +177,7 @@ graph-createSubGraphForRuleGroup        2
 graph-listSourceNodes                24
 graph-setRulePriority                 4
 graph-setNodePriority                82
+OptimizeExprCount                     1
 ===============================================================================================================================================================================
 
 

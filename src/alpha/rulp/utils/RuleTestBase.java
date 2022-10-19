@@ -148,8 +148,10 @@ public class RuleTestBase extends RulpTestBase {
 
 		XREntryTable.TRACE = false;
 		traceModel = null;
+
 		RuleUtil.reset();
 		BSFactory.reset();
+		OptimizeUtil.reset();
 	}
 
 	protected void _statsInfo(String modelName) {

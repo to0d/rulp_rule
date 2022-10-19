@@ -33,6 +33,7 @@ import static alpha.rulp.ximpl.node.RReteType.RETE_TYPE_TOTAL;
 import static alpha.rulp.ximpl.node.RReteType.ZETA0;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -101,14 +102,47 @@ public class OptimizeUtil {
 		IRRule rule;
 	}
 
-	static boolean OPT_ERO = false;
+	public static final String CK_OptimizeActionExpr = "OptimizeActionExpr";
+
+	public static final String CK_OptimizeExprCount = "OptimizeExprCount";
+
+	public static final String CK_OptimizeHasStmtExprCount = "OptimizeHasStmtExprCount";
+
+	public static final String CK_OptimizeRuleActionIndexVarCount = "OptimizeRuleActionIndexVarCount";
+
+	public static final String CK_OptimizeRuleHasStmtCount = "OptimizeRuleHasStmtCount";
+
+	private static boolean OPT_ERO = false;
 
 	public static boolean OPT_RULE_HAS_STMT = false;
+
+	private static int OptimizeActionExpr = 0;
+
+	private static List<String> OptimizeCountKeyList = new ArrayList<>();
+
+	private static int OptimizeExprCount = 0;
+
+	private static int OptimizeHasStmtExprCount = 0;
+
+	private static int OptimizeRuleActionIndexVarCount = 0;
+
+	private static int OptimizeRuleHasStmtCount = 0;
 
 	static final RReteType SHARED_RETE_TYPES[] = { ALPH0, ALPH1, EXPR0, EXPR1, EXPR2, BETA0, BETA1, BETA2, BETA3,
 			ZETA0 };
 
-	protected static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
+	static {
+
+		OptimizeCountKeyList.add(CK_OptimizeActionExpr);
+		OptimizeCountKeyList.add(CK_OptimizeExprCount);
+		OptimizeCountKeyList.add(CK_OptimizeHasStmtExprCount);
+		OptimizeCountKeyList.add(CK_OptimizeRuleActionIndexVarCount);
+		OptimizeCountKeyList.add(CK_OptimizeRuleHasStmtCount);
+		OptimizeCountKeyList = Collections.unmodifiableList(OptimizeCountKeyList);
+
+	}
+
+	private static IRObject _buildOptimizeMatchTree(IRObject obj) throws RException {
 
 		switch (obj.getType()) {
 		case LIST:
@@ -118,7 +152,7 @@ public class OptimizeUtil {
 		}
 	}
 
-	protected static boolean _canOptimizeMatchTree(IRObject obj) throws RException {
+	private static boolean _canOptimizeMatchTree(IRObject obj) throws RException {
 
 		switch (obj.getType()) {
 		case LIST:
@@ -170,7 +204,73 @@ public class OptimizeUtil {
 		}
 	}
 
-	protected static boolean _containConstExpr(IRExpr expr) throws RException {
+//	private static IRObject _optimizeExpr(IRObject obj) throws RException {
+//
+//		if (obj.getType() != RType.EXPR) {
+//			return null;
+//		}
+//
+//		IRExpr expr = (IRExpr) obj;
+//		int size = expr.size();
+//		int update = 0;
+//
+//		/*******************************************************/
+//		// Optimize child
+//		/*******************************************************/
+//		{
+//
+//			ArrayList<IRObject> optiArray = null;
+//
+//			for (int i = 0; i < size; ++i) {
+//
+//				IRObject e = expr.get(i);
+//				IRObject optiE = null;
+//
+//				if ((optiE = _optimizeExpr(e)) != null) {
+//
+//					if (optiArray == null) {
+//						optiArray = new ArrayList<>();
+//
+//						// Copy previous elements
+//						for (int j = 0; j < i - 1; ++j) {
+//							optiArray.add(expr.get(j));
+//						}
+//					}
+//
+//					optiArray.add(optiE);
+//
+//				} else {
+//
+//					if (optiArray != null) {
+//						optiArray.add(e);
+//					}
+//				}
+//			}
+//
+//			if (optiArray != null) {
+//				expr = RulpFactory.createExpression(optiArray);
+//				++update;
+//			}
+//		}
+//
+//		// (not (equal a b)) ==> (not-equal a b)
+//		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
+//
+//			ArrayList<IRObject> optiArray = new ArrayList<>();
+//			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
+//			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
+//			while (childExprIter.hasNext()) {
+//				optiArray.add(childExprIter.next());
+//			}
+//
+//			expr = RulpFactory.createExpression(optiArray);
+//			++update;
+//		}
+//
+//		return update > 0 ? expr : null;
+//	}
+
+	private static boolean _containConstExpr(IRExpr expr) throws RException {
 
 		int constCount = 0;
 
@@ -191,7 +291,30 @@ public class OptimizeUtil {
 		return constCount == (expr.size() - 1) && isConstOperatorName(expr.get(0).asString());
 	}
 
-	protected static IRExpr _optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
+	private static boolean _equal(Set<String> a, Set<String> b) throws RException {
+
+		if (a.size() != b.size()) {
+			return false;
+		}
+
+		for (String x : a) {
+			if (!b.contains(x)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private static Set<String> _join(Set<String> a, Set<String> b) throws RException {
+
+		HashSet<String> c = new HashSet<>(a);
+		c.retainAll(b);
+
+		return c;
+	}
+
+	private static IRExpr _optimizeHasStmtExpr(IRExpr expr, List<IRObject> leftVarList) throws RException {
 
 		if (!XRFactorHasStmt.isSimpleHasStmtExpr(expr)) {
 			return expr;
@@ -271,74 +394,10 @@ public class OptimizeUtil {
 			return expr;
 		}
 
+		OptimizeHasStmtExprCount++;
+
 		return RulpFactory.createExpression(newList);
 	}
-
-//	private static IRObject _optimizeExpr(IRObject obj) throws RException {
-//
-//		if (obj.getType() != RType.EXPR) {
-//			return null;
-//		}
-//
-//		IRExpr expr = (IRExpr) obj;
-//		int size = expr.size();
-//		int update = 0;
-//
-//		/*******************************************************/
-//		// Optimize child
-//		/*******************************************************/
-//		{
-//
-//			ArrayList<IRObject> optiArray = null;
-//
-//			for (int i = 0; i < size; ++i) {
-//
-//				IRObject e = expr.get(i);
-//				IRObject optiE = null;
-//
-//				if ((optiE = _optimizeExpr(e)) != null) {
-//
-//					if (optiArray == null) {
-//						optiArray = new ArrayList<>();
-//
-//						// Copy previous elements
-//						for (int j = 0; j < i - 1; ++j) {
-//							optiArray.add(expr.get(j));
-//						}
-//					}
-//
-//					optiArray.add(optiE);
-//
-//				} else {
-//
-//					if (optiArray != null) {
-//						optiArray.add(e);
-//					}
-//				}
-//			}
-//
-//			if (optiArray != null) {
-//				expr = RulpFactory.createExpression(optiArray);
-//				++update;
-//			}
-//		}
-//
-//		// (not (equal a b)) ==> (not-equal a b)
-//		if (expr.size() == 2 && matchExprFactor(expr, F_B_NOT) && matchExprFactor(expr.get(1), F_EQUAL)) {
-//
-//			ArrayList<IRObject> optiArray = new ArrayList<>();
-//			IRIterator<? extends IRObject> childExprIter = ((IRExpr) expr.get(1)).listIterator(1);
-//			optiArray.add(RulpFactory.createAtom(F_NOT_EQUAL));
-//			while (childExprIter.hasNext()) {
-//				optiArray.add(childExprIter.next());
-//			}
-//
-//			expr = RulpFactory.createExpression(optiArray);
-//			++update;
-//		}
-//
-//		return update > 0 ? expr : null;
-//	}
 
 	private static Pair<IRList, IRList> _optRuleHasStmt_1(Pair<IRList, IRList> rule, IRInterpreter interpreter,
 			IRFrame frame) throws RException {
@@ -549,8 +608,7 @@ public class OptimizeUtil {
 
 	}
 
-	protected static IRObject _rebuildConstExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame)
-			throws RException {
+	private static IRObject _rebuildConstExpr(IRExpr expr, IRInterpreter interpreter, IRFrame frame) throws RException {
 
 		if (!_containConstExpr(expr)) {
 			return expr;
@@ -600,6 +658,38 @@ public class OptimizeUtil {
 		}
 
 		return rst;
+	}
+
+	static Set<String> _toVarSet(IRList list) throws RException {
+		HashSet<String> varNames = new HashSet<>();
+		ReteUtil.buildVarList(list, new ArrayList<>(), varNames);
+		return varNames;
+	}
+
+	public static List<String> getOptimizeCountKeyList() {
+		return OptimizeCountKeyList;
+	}
+
+	public static long getOptimizeCountValue(String countkey) {
+
+		switch (countkey) {
+		case CK_OptimizeActionExpr:
+			return OptimizeActionExpr;
+
+		case CK_OptimizeExprCount:
+			return OptimizeExprCount;
+
+		case CK_OptimizeHasStmtExprCount:
+			return OptimizeHasStmtExprCount;
+
+		case CK_OptimizeRuleActionIndexVarCount:
+			return OptimizeRuleActionIndexVarCount;
+
+		case CK_OptimizeRuleHasStmtCount:
+			return OptimizeRuleHasStmtCount;
+		}
+
+		return 0;
 	}
 
 	public static int getSharedNodeCount(IRModel model) throws RException {
@@ -681,7 +771,11 @@ public class OptimizeUtil {
 	public static IRExpr optimizeActionExpr(IRExpr expr, IRModel model) throws RException {
 
 		if (OPT_ERO) {
-			expr = RulpUtil.asExpression(EROUtil.rebuild(expr, model.getInterpreter(), model.getFrame()));
+			IRExpr newExpr = RulpUtil.asExpression(EROUtil.rebuild(expr, model.getInterpreter(), model.getFrame()));
+			if (newExpr != expr) {
+				++OptimizeActionExpr;
+				expr = newExpr;
+			}
 		}
 
 		return expr;
@@ -703,6 +797,7 @@ public class OptimizeUtil {
 				}
 
 				expr = RulpFactory.createExpression(optiArray);
+				++OptimizeExprCount;
 				continue OPT;
 			}
 
@@ -714,16 +809,27 @@ public class OptimizeUtil {
 
 				switch (op) {
 				case EQ: // (= ?a ?a) ==> true
+					++OptimizeExprCount;
 					return O_True;
+
 				case GE: // (>= ?a ?a) ==> true
+					++OptimizeExprCount;
 					return O_True;
+
 				case GT: // (> ?a ?a) ==> false
+					++OptimizeExprCount;
 					return O_False;
+
 				case LE: // (<= ?a ?a) ==> true
+					++OptimizeExprCount;
 					return O_True;
+
 				case LT: // (< ?a ?a) ==> false
+					++OptimizeExprCount;
 					return O_False;
+
 				case NE:// (!= ?a ?a) ==> false
+					++OptimizeExprCount;
 					return O_False;
 
 				default:
@@ -732,6 +838,7 @@ public class OptimizeUtil {
 
 			// (op ?a (+ 1 2)) => const expression
 			if (_containConstExpr(expr)) {
+				++OptimizeExprCount;
 				IRObject rst = _rebuildConstExpr(expr, interpreter, frame);
 				if (rst.getType() == RType.EXPR) {
 					expr = (IRExpr) rst;
@@ -749,6 +856,7 @@ public class OptimizeUtil {
 				list.add(RulpFactory.createAtom(ReteUtil.varChangeOldName(expr.get(1).asString())));
 				list.add(expr.get(2));
 
+				++OptimizeExprCount;
 				expr = RulpFactory.createExpression(list);
 			}
 
@@ -801,47 +909,6 @@ public class OptimizeUtil {
 		}
 
 		return expr;
-	}
-
-	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
-
-		if (!_canOptimizeMatchTree(matchTree)) {
-			return matchTree;
-		}
-
-		return (IRList) _buildOptimizeMatchTree(matchTree);
-	}
-
-	public static IRList optimizeRuleRemoveUnusedCondition(IRList condList, IRList actionList) throws RException {
-
-//		Set<String> actionVars = new HashSet<>();
-//
-//		ReteUtil.fillVarList(actionList, actionVars);
-
-		return condList;
-	}
-
-	static boolean _equal(Set<String> a, Set<String> b) throws RException {
-
-		if (a.size() != b.size()) {
-			return false;
-		}
-
-		for (String x : a) {
-			if (!b.contains(x)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	static Set<String> _join(Set<String> a, Set<String> b) throws RException {
-
-		HashSet<String> c = new HashSet<>(a);
-		c.retainAll(b);
-
-		return c;
 	}
 
 //	public static IRList _optimizeMatchTreeUnusedVar(IRList reteTree, Set<String> actionVarSet) throws RException {
@@ -948,10 +1015,13 @@ public class OptimizeUtil {
 //
 //	}
 
-	static Set<String> _toVarSet(IRList list) throws RException {
-		HashSet<String> varNames = new HashSet<>();
-		ReteUtil.buildVarList(list, new ArrayList<>(), varNames);
-		return varNames;
+	public static IRList optimizeMatchTree(IRList matchTree) throws RException {
+
+		if (!_canOptimizeMatchTree(matchTree)) {
+			return matchTree;
+		}
+
+		return (IRList) _buildOptimizeMatchTree(matchTree);
 	}
 
 	public static IRList optimizeMatchTree(IRList matchTree, List<IRExpr> actionExprList) throws RException {
@@ -1002,6 +1072,8 @@ public class OptimizeUtil {
 			return actionList;
 		}
 
+		OptimizeRuleActionIndexVarCount++;
+
 		return RulpFactory.createList(newList);
 	}
 
@@ -1021,6 +1093,7 @@ public class OptimizeUtil {
 			Pair<IRList, IRList> rst = _optRuleHasStmt_1(rule, interpreter, frame);
 			if (rst != null) {
 				rule = rst;
+				++OptimizeRuleHasStmtCount;
 				continue;
 			}
 
@@ -1031,12 +1104,35 @@ public class OptimizeUtil {
 			rst = _optRuleHasStmt_2(rule, interpreter, frame);
 			if (rst != null) {
 				rule = rst;
+				++OptimizeRuleHasStmtCount;
 				continue;
 			}
 
 		} while (false);
 
 		return rule;
+	}
+
+	public static IRList optimizeRuleRemoveUnusedCondition(IRList condList, IRList actionList) throws RException {
+
+//		Set<String> actionVars = new HashSet<>();
+//
+//		ReteUtil.fillVarList(actionList, actionVars);
+
+		return condList;
+	}
+
+	public static void reset() {
+
+		OptimizeActionExpr = 0;
+
+		OptimizeExprCount = 0;
+
+		OptimizeHasStmtExprCount = 0;
+
+		OptimizeRuleActionIndexVarCount = 0;
+
+		OptimizeRuleHasStmtCount = 0;
 	}
 
 	public static <T> String toString(List<T> names) {

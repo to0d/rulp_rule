@@ -1174,6 +1174,10 @@ public class StatsUtil {
 		for (String key : BSFactory.getCounterKeyList()) {
 			_printModelCountInfo_put(sb, key, BSFactory.getCounterValue(key));
 		}
+		
+		for (String key : OptimizeUtil.getOptimizeCountKeyList()) {
+			_printModelCountInfo_put(sb, key, OptimizeUtil.getOptimizeCountValue(key));
+		}
 
 		sb.append(SEP_LINE1);
 

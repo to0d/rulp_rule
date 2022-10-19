@@ -120,6 +120,7 @@ graph-createNodeRoot                  1
 graph-createNodeRule                  2
 graph-listSourceNodes                17
 graph-setNodePriority                 5
+OptimizeRuleActionIndexVarCount        1
 ===============================================================================================================================================================================
 
 

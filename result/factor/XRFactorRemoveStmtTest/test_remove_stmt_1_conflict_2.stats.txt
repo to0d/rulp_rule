@@ -138,6 +138,7 @@ graph-createNodeRoot                 31
 graph-createNodeRule                  2
 graph-listSourceNodes                 7
 graph-setNodePriority                 6
+OptimizeExprCount                     1
 ===============================================================================================================================================================================
 
 
