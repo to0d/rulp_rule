@@ -216,7 +216,7 @@ public class OptimizeUtil {
 		}
 
 		/*********************************************************/
-		// Optimization: create index
+		// Optimization: has var, create index
 		// before: '(?a ?b c) '(has-stmt '(?a x ?y))
 		// after : '(?a ?b c) '(has-stmt '(?a x ?y) order by 0)
 		/*********************************************************/

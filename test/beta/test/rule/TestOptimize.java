@@ -168,7 +168,7 @@ public class TestOptimize extends RuleTestBase {
 	}
 
 	@Test
-	void test_opt_9_has_stmt_1() {
+	void test_opt_9_has_stmt_1_no_has_stmt() {
 
 		_setup();
 		_run_script();
@@ -177,7 +177,7 @@ public class TestOptimize extends RuleTestBase {
 	}
 
 	@Test
-	void test_opt_9_has_stmt_2() {
+	void test_opt_9_has_stmt_2_all_lhs_vars() {
 
 		_setup();
 		_run_script();
@@ -186,7 +186,7 @@ public class TestOptimize extends RuleTestBase {
 	}
 
 	@Test
-	void test_opt_a_has_stmt_in_rule_lhs_1() {
+	void test_opt_9_has_stmt_3_has_vars_create_indexs() {
 
 		_setup();
 		_run_script();
