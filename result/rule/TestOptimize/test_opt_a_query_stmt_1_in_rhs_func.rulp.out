@@ -1,0 +1,27 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(2))
+(add-stmt m n1:'(3))
+;=>true true
+
+(defun f1 (?xx)
+    (return (size-of (query-stmt m ?v from n2:'(?xx ?v))))
+)
+;=>f1
+
+(add-rule m if n1:'(?x) do (-> n3:'((f1 ?x))))
+;=>RU000
+
+(add-rule m if n1:'(?x) n1:'(?y) (< (+ ?x ?y) 6) do (-> n1:'((+ ?x ?y))))
+;=>RU001
+
+(add-rule m if n1:'(?x) n1:'(?y) (< ?x ?y) do (-> n2:'(?x (+ ?x ?y))))
+;=>RU002
+
+(start m)
+;=>1
+
+(list-stmt m)
+;=>'(n1:'(2) n1:'(3) n1:'(4) n1:'(5) n2:'(2 5) n2:'(2 6) n2:'(2 7) n2:'(3 7) n2:'(3 8) n2:'(4 9) n3:'(3) n3:'(2))
+
