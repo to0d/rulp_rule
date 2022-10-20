@@ -29,11 +29,13 @@
 )
 ;=>
 
-(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2)  do 
+(add-rule mm if guess:'(?g1 ?s1) guess:'(?g2 ?s2) (!= ?g1 ?g2) do 
     (defvar ?rst false)
-    (defvar ?rst1 (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (defvar ?rst1 (query-stmt mm ?v from canBeCouple:'(?g1 ?g2 ?v) limit 1))
+    ;(println "?rst1=" ?rst1)
     (if (= true (getAt ?rst1 0)) do
         (defvar ?rst2 (query-stmt mm ?h from hobby:'(?g1 ?h) hobby:'(?g2 ?h) limit 1))
+        ;(println "?rst2=" ?rst2)
         (if (!= nil (getAt ?rst2 0)) do
             (setq ?rst true)
         )
@@ -47,7 +49,7 @@
         (return false)
     )
     
-    (defvar ?rst (query-stmt mm ?v from canBeCouple:'(?x ?y ?v) limit 1))
+    (defvar ?rst (query-stmt mm ?v from canSitTogether:'(?x ?y ?v) limit 1))
     (return (= true (getAt ?rst 0)))
 )
 ;=>
