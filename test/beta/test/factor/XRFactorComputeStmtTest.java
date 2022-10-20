@@ -14,4 +14,12 @@ class XRFactorComputeStmtTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_add_compute_stmt_2_uniq() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
 }

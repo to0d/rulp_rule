@@ -19,6 +19,7 @@ import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorComputeStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
@@ -89,10 +90,35 @@ public class XRFactorComputeStmt extends AbsAtomFactorAdapter implements IRFacto
 		/********************************************/
 		// Check root, named, alpha node directly
 		/********************************************/
-		if (ReteUtil.isReteStmt(condList)) {
+		if (condList.size() == 1 && ReteUtil.isReteStmt(condList.get(0))) {
 
+			IRList cond = RulpUtil.asList(condList.get(0));
+
+			/********************************************/
+			// Locate the var index
+			/********************************************/
+			int size = cond.size();
+			int varIndex = -1;
+
+			for (int i = 0; i < size; ++i) {
+				if (RulpUtil.equal(cond.get(i), varObj)) {
+					varIndex = i;
+					break;
+				}
+			}
+
+			if (varIndex == -1) {
+				throw new RException("invalid var: " + varObj);
+			}
+
+			IRReteEntry entry = model.findReteEntry(cond);
+			if (entry != null) {
+				return entry.get(varIndex);
+			}
+
+			return O_Nil;
 		}
 
-		return O_Nil;
+		throw new RException("unsupport yet");
 	}
 }

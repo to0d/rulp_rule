@@ -3,8 +3,10 @@
 
 (add-stmt m n1:'(a 1))
 (add-stmt m n1:'(b 2))
-(add-stmt m n1:'(a 3))
-;=>true true true
+;=>true true
+
+(add-constraint m n1:'(?x ?y) (uniq on '(?x)))
+;=>true
 
 (compute-stmt m ?v from n1:'(a ?v))
 ;=>1

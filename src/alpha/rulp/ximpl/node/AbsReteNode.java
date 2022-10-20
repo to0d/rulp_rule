@@ -202,16 +202,14 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	public boolean addConstraint1(IRConstraint1 constraint) throws RException {
 
 		IRConstraint1 removeOldConstraint = null;
-		boolean isUniqConstraint = false;
+		boolean isUniqConstraint = constraint.getConstraintName().equals(A_Uniq);
 
 		/***********************************************/
 		// Check constraint list
 		/***********************************************/
 		if (getConstraint1Count() != 0) {
 
-			if (constraint.getConstraintName().equals(A_Uniq)) {
-
-				isUniqConstraint = true;
+			if (isUniqConstraint) {
 
 				/***********************************************/
 				// Check conflict uniq constraint
