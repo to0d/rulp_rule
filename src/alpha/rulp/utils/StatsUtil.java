@@ -457,6 +457,9 @@ public class StatsUtil {
 
 		case DUP:
 			return "d0";
+			
+		case FUNC:
+			return "f0";
 
 		default:
 			return "un";

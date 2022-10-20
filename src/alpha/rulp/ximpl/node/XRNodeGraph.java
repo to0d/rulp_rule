@@ -96,6 +96,24 @@ import alpha.rulp.ximpl.model.XRUniqObjBuilder;
 
 public class XRNodeGraph implements IRNodeGraph {
 
+	static class QBNode {
+
+		static enum QBType {
+			PARENT, SOURCE
+		}
+
+		public final IRReteNode node;
+
+		public final QBType type;
+
+		public QBNode(IRReteNode node, QBType type) {
+			super();
+			this.node = node;
+			this.type = type;
+		}
+
+	}
+
 	static class ReteNodeList {
 		public ArrayList<AbsReteNode> nodes = new ArrayList<>();
 	}
@@ -1074,24 +1092,6 @@ public class XRNodeGraph implements IRNodeGraph {
 		return subGraph;
 	}
 
-	static class QBNode {
-
-		static enum QBType {
-			SOURCE, PARENT
-		}
-
-		public final IRReteNode node;
-
-		public QBNode(IRReteNode node, QBType type) {
-			super();
-			this.node = node;
-			this.type = type;
-		}
-
-		public final QBType type;
-
-	}
-
 	protected IRNodeSubGraph _buildSubGroupForQueryNodeBackward(IRReteNode queryNode) throws RException {
 
 //		boolean isRootMode = RReteType.isRootType(queryNode.getReteType());
@@ -1161,6 +1161,7 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			case NAME0:
 			case ROOT0:
+			case FUNC:
 				addToSubgraph = true;
 				checkSource = true;
 				checkParent = false;

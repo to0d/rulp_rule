@@ -26,7 +26,8 @@ public enum RReteType {
 	INDEX(19), //
 	INHER(20), // inherit
 	OR0(21), //
-	DUP(22); //
+	DUP(22), //
+	FUNC(23);
 
 	static final int RRT_ROOT0 = 0;
 	static final int RRT_NAME0 = 1;
@@ -51,11 +52,12 @@ public enum RReteType {
 	static final int RRT_INHER = 20;
 	static final int RRT_OR0 = 21;
 	static final int RRT_DUP = 22;
+	static final int RRT_FUNC = 23;
 
 	public static final RReteType ALL_RETE_TYPE[] = { ROOT0, NAME0, VAR, CONST, ALPH0, ALPH1, ALPH2, EXPR0, EXPR1,
-			EXPR2, EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, ZETA0, RULE, WORK, INDEX, INHER, OR0, DUP };
+			EXPR2, EXPR3, EXPR4, BETA0, BETA1, BETA2, BETA3, ZETA0, RULE, WORK, INDEX, INHER, OR0, DUP, FUNC };
 
-	public static final int RETE_TYPE_TOTAL = 23;
+	public static final int RETE_TYPE_TOTAL = 24;
 
 	public static boolean isAlphaType(RReteType type) {
 
@@ -140,6 +142,9 @@ public enum RReteType {
 
 		case RRT_DUP:
 			return DUP;
+			
+		case RRT_FUNC:
+			return FUNC;
 
 		default:
 			throw new RException("invalid unknown RRT value: " + tv);

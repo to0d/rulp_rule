@@ -404,6 +404,7 @@ mbr=RRT_EXPR1, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=cons
 mbr=RRT_EXPR2, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_EXPR3, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_EXPR4, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
+mbr=RRT_FUNC, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_INDEX, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_INHER, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
 mbr=RRT_NAME, mbr-property='(public), mbr-attribute='(), obj=nil, obj-type=constant, obj-attribute='()
