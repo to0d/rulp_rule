@@ -1,0 +1,11 @@
+(new model m)
+;=>
+
+(add-node-func m n1:'(?x (+ ?x 1)))
+;=>
+
+(compute-stmt m ?v from n1:'(1 ?v))
+;=>
+
+(compute-stmt m ?v from n1:'(2 ?v))
+;=>

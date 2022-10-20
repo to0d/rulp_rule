@@ -22,4 +22,11 @@ class XRFactorComputeStmtTest extends RuleTestBase {
 		_statsInfo("m");
 	}
 
+	@Test
+	void test_add_compute_stmt_3_func() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
 }

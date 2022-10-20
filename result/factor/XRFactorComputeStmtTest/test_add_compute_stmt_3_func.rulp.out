@@ -1,0 +1,12 @@
+(new model m)
+;=>m
+
+(add-node-func m n1:'(?x (+ ?x 1)))
+;=>true
+
+(compute-stmt m ?v from n1:'(1 ?v))
+;=>2
+
+(compute-stmt m ?v from n1:'(2 ?v))
+;=>3
+

@@ -85,6 +85,7 @@ import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.entry.REntryQueueType;
 import alpha.rulp.ximpl.entry.XREntryQueueOrder;
 import alpha.rulp.ximpl.entry.XREntryTable;
+import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.IRNodeUpdateQueue;
@@ -986,16 +987,43 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Check whether there is any uniq constraint that match the filter
 		if (filter.getNamedName() != null && ReteUtil.indexOfVaryArgStmt(filter) == -1) {
 
-			IRReteNode namedRootNode = _getRootNode(filter.getNamedName(), filter.size(), false);
-			if (namedRootNode == null) {
+			IRNamedNode namedNode = (IRNamedNode) _getRootNode(filter.getNamedName(), filter.size(), false);
+			if (namedNode == null) {
 				return new Pair<>(false, null);
 			}
 
-			for (IRConstraint1Uniq uniqCons : namedRootNode.listUniqConstraints()) {
+			// Check func node firstly
+			IRConstraint1Uniq funcUniq = namedNode.getFuncUniqConstraint();
+			if (funcUniq != null) {
 
-				String uniqName = uniqCons.getUniqString(filter);
+				String uniqName = funcUniq.getUniqString(filter);
+				if (uniqName != null) {
+
+					IRReteEntry entry = funcUniq.getReteEntry(uniqName);
+					if (entry == null) {
+
+						IRList stmt = namedNode.computeFuncEntry(filter);
+						if (stmt != null) {
+							IREntryQueue queue = namedNode.getEntryQueue();
+							int oldSize = queue.size();
+							if (namedNode.getModel().addStatement(stmt) && queue.size() > oldSize) {
+								entry = queue.getEntryAt(oldSize);
+							}
+						}
+					}
+
+					return new Pair<>(true, entry);
+				}
+			}
+
+			for (IRConstraint1Uniq uniqCons : namedNode.listUniqConstraints()) {
+
+				if (uniqCons == funcUniq) {
+					continue;
+				}
 
 				// constraint match
+				String uniqName = uniqCons.getUniqString(filter);
 				if (uniqName != null) {
 					return new Pair<>(true, uniqCons.getReteEntry(uniqName));
 				}
