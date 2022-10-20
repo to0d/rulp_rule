@@ -240,6 +240,7 @@ mbr=add-constraint, mbr-property='(public), mbr-attribute='(), obj=add-constrain
 mbr=add-index, mbr-property='(public), mbr-attribute='(), obj=add-index, obj-type=factor, obj-attribute='()
 mbr=add-lazy-stmt, mbr-property='(public), mbr-attribute='(), obj=add-lazy-stmt, obj-type=factor, obj-attribute='()
 mbr=add-node, mbr-property='(public), mbr-attribute='(), obj=add-node, obj-type=factor, obj-attribute='()
+mbr=add-node-func, mbr-property='(public), mbr-attribute='(), obj=add-node-func, obj-type=factor, obj-attribute='()
 mbr=add-rule, mbr-property='(public), mbr-attribute='(), obj=add-rule, obj-type=factor, obj-attribute='()
 mbr=add-stmt, mbr-property='(public), mbr-attribute='(), obj=add-stmt, obj-type=factor, obj-attribute='()
 mbr=add_cst_constraint_max, mbr-property='(public), mbr-attribute='(), obj=(add_cst_constraint_max type#model string nil int), obj-type=func, obj-attribute='()

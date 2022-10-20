@@ -2765,4 +2765,10 @@ public class XRNodeGraph implements IRNodeGraph {
 		}
 	}
 
+	@Override
+	public IRReteNode createNodeFunc(IRList funcList) throws RException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

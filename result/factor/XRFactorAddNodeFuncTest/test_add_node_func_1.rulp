@@ -1,0 +1,11 @@
+(new model m)
+;=>
+
+(add-node-func m n1:'(?x (+ ?x 1)))
+;=>
+
+(add-node-func m n2:'(?x ?y (+ ?x ?y)))
+;=>
+
+(add-node-func m n3:'(?x ?y (+ ?x ?y) ?z))
+;=>

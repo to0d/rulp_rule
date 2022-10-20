@@ -1,0 +1,11 @@
+(new model m)
+;=>m
+
+(add-node-func m n1:'(?x (+ ?x 1)))
+;err:
+Invalid op types: ?x 1
+at (+ ?x 1) ; main-2
+at n1:'(?x (+ ?x 1)) ; main-2
+at (add-node-func m n1:'(?x (+ ?x 1))) ; main-2
+;eof
+
