@@ -108,7 +108,7 @@ public class BSUtil {
 		if (ReteUtil.isReteStmtNoVar(tree)) {
 
 			// Check root node for root statement
-			if (model.hasStatement(tree)) {
+			if (model.findReteEntry(tree) != null) {
 				return RulpFactory.createList(tree);
 			}
 		}

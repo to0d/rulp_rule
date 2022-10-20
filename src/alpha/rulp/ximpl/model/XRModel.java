@@ -1156,7 +1156,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return node;
 	}
 
-	protected boolean _hasAnyStatement() throws RException {
+	protected IRReteEntry _hasAnyStatement() throws RException {
 
 		for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
 			_checkCache(rootNode);
@@ -1165,14 +1165,24 @@ public class XRModel extends AbsRInstance implements IRModel {
 			int nullCount = rootEntryCounter.getEntryNullCount();
 			int dropCount = rootEntryCounter.getEntryCount(REMOVE);
 			if (totalCount > nullCount - dropCount) {
-				return true;
+
+				IREntryQueue queue = rootNode.getEntryQueue();
+				int size = queue.size();
+				for (int i = 0; i < size; ++i) {
+
+					IRReteEntry entry = queue.getEntryAt(i);
+					if (entry != null && !entry.isDroped()) {
+						return entry;
+					}
+
+				}
 			}
 		}
 
-		return false;
+		return null;
 	}
 
-	protected boolean _hasCacheStatement(IRList filter) throws RException {
+	protected IRReteEntry _getCacheStatement(IRList filter) throws RException {
 
 		String uniqName = ReteUtil.uniqName(filter);
 		IRReteEntry cacheEntry = hasEntryCacheMap.get(uniqName);
@@ -1180,11 +1190,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 			if (cacheEntry.isDroped()) {
 				hasEntryCacheMap.remove(uniqName);
 			} else {
-				return true;
+				return cacheEntry;
 			}
 		}
 
-		return false;
+		return null;
 	}
 
 	protected boolean _hasUpdateNode() throws RException {
@@ -2354,10 +2364,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public boolean hasStatement(IRList filter) throws RException {
+	public IRReteEntry findReteEntry(IRList filter) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> hasStatement: " + filter);
+			System.out.println("==> findReteEntry: " + filter);
 		}
 
 		counter.mcHasStatement1++;
@@ -2370,30 +2380,40 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Find uniq statement
 		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
 		if (rst.getKey()) {
-			return rst.getValue() != null;
+			return rst.getValue();
 		}
 
 		// Check cache statement
-		if (_hasCacheStatement(filter)) {
+		IRReteEntry cacheEntry = _getCacheStatement(filter);
+		if (cacheEntry != null) {
 			++counter.hasStmtHitCount;
-			return true;
+			return cacheEntry;
 		}
 
-		return _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), (entry) -> {
-			_addCacheStatement(entry);
+		IRReteEntry findEntries[] = new IRReteEntry[1];
+
+		int count = _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), (_entry) -> {
+//			_addCacheStatement(_entry);
+			findEntries[0] = _entry;
 			return true;
-		}) > 0;
+		});
+
+		if (count == 0) {
+			return null;
+		}
+
+		return findEntries[0];
 	}
 
 	@Override
-	public boolean hasStatement(IRList filter, List<OrderEntry> orderList) throws RException {
+	public IRReteEntry findReteEntry(IRList filter, List<OrderEntry> orderList) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> hasStatement: " + filter + ", order=" + orderList);
+			System.out.println("==> findReteEntry: " + filter + ", order=" + orderList);
 		}
 
 		if (orderList == null || orderList.isEmpty()) {
-			return hasStatement(filter);
+			return findReteEntry(filter);
 		}
 
 		counter.mcHasStatement2++;
@@ -2406,22 +2426,23 @@ public class XRModel extends AbsRInstance implements IRModel {
 		// Find uniq statement
 		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
 		if (rst.getKey()) {
-			return rst.getValue() != null;
+			return rst.getValue();
 		}
 
 		// Check cache statement
-		if (_hasCacheStatement(filter)) {
+		IRReteEntry cacheEntry = _getCacheStatement(filter);
+		if (cacheEntry != null) {
 			++counter.hasStmtHitCount;
-			return true;
+			return cacheEntry;
 		}
 
 		IRReteEntry entry = _findIndexStatement(filter, orderList);
 		if (entry == null) {
-			return false;
+			return null;
 		}
 
 		_addCacheStatement(entry);
-		return true;
+		return entry;
 	}
 
 	@Override

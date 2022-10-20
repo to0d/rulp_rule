@@ -77,7 +77,7 @@ public abstract class AbsBSEngine implements IRBSEngine {
 	@Override
 	public boolean hasStmt(IRBSNode node, IRList stmt) throws RException {
 
-		boolean rc = model.hasStatement(stmt);
+		boolean rc = model.findReteEntry(stmt) != null;
 		if (trace) {
 			trace_outln(node, "has stmt, stmt=" + stmt + ", rst=" + rc);
 		}

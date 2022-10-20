@@ -62,6 +62,10 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public IRReteNode findNode(IRList condList) throws RException;
 
+	public IRReteEntry findReteEntry(IRList filter) throws RException;
+
+	public IRReteEntry findReteEntry(IRList filter, List<OrderEntry> orderList) throws RException;
+
 	public boolean fixStatement(IRList stmt) throws RException;
 
 	public String getCachePath();
@@ -83,10 +87,6 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public IRReteNode getTopExecuteNode();
 
 	public IRVar getVar(String name) throws RException;
-
-	public boolean hasStatement(IRList filter) throws RException;
-
-	public boolean hasStatement(IRList filter, List<OrderEntry> orderList) throws RException;
 
 	public boolean isBufferEnable();
 

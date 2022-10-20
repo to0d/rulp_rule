@@ -26,6 +26,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
@@ -171,7 +172,7 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 			IRObject oldStmtObj = useDefaultModel ? args.get(1) : args.get(2);
 
 			if (oldStmtObj != stmt && oldStmtObj.getType() == RType.LIST) {
-				
+
 				orderList = OptimizeUtil.optimizeHasStmtOrderEntry(oldStmtObj, stmt);
 			}
 		}
@@ -179,11 +180,14 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		/********************************************/
 		// create index and query
 		/********************************************/
+		IRReteEntry entry = null;
 		if (orderList != null && ReteUtil.supportIndexStmt(stmt)) {
-			return RulpFactory.createBoolean(model.hasStatement(stmt, orderList));
+			entry = model.findReteEntry(stmt, orderList);
+		} else {
+			entry = model.findReteEntry(stmt);
 		}
 
-		return RulpFactory.createBoolean(model.hasStatement(stmt));
+		return RulpFactory.createBoolean(entry != null && !entry.isDroped());
 	}
 
 }
