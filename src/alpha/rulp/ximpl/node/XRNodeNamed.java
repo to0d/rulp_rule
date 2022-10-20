@@ -16,14 +16,42 @@ import alpha.rulp.ximpl.entry.IRReteEntry;
 
 public class XRNodeNamed extends XRNodeRete0 implements IRNamedNode {
 
+	protected IRVar[] _funcEntryVars;
+
 	protected IRObject[] funcEntry;
 
 	protected IRConstraint1Uniq funcUniqConstraint;
 
-	protected IRVar[] _funcEntryVars;
-
 	public XRNodeNamed(String instanceName) {
 		super(instanceName);
+	}
+
+	@Override
+	protected IRFrame _createNodeFrame() throws RException {
+
+		IRFrame namedFrame = super._createNodeFrame();
+
+		/***********************************************************/
+		// Create var for func entry
+		/***********************************************************/
+		if (funcEntry != null) {
+
+			int len = this.getEntryLength();
+			_funcEntryVars = new IRVar[len];
+			for (int i = 0; i < len; ++i) {
+				IRObject obj = funcEntry[i];
+				if (RulpUtil.isVarAtom(obj)) {
+					_funcEntryVars[i] = RulpUtil.addVar(namedFrame, RulpUtil.asAtom(obj).getName());
+				}
+			}
+
+			/***********************************************************/
+			// Set default model
+			/***********************************************************/
+			RuleUtil.setDefaultModel(namedFrame, this.getModel());
+		}
+
+		return namedFrame;
 	}
 
 	@Override
@@ -86,34 +114,6 @@ public class XRNodeNamed extends XRNodeRete0 implements IRNamedNode {
 		}
 
 		return RulpFactory.createNamedList(instanceName, elements);
-	}
-
-	@Override
-	protected IRFrame _createNodeFrame() throws RException {
-
-		IRFrame namedFrame = super._createNodeFrame();
-
-		/***********************************************************/
-		// Create var for func entry
-		/***********************************************************/
-		if (funcEntry != null) {
-
-			int len = this.getEntryLength();
-			_funcEntryVars = new IRVar[len];
-			for (int i = 0; i < len; ++i) {
-				IRObject obj = funcEntry[i];
-				if (RulpUtil.isVarAtom(obj)) {
-					_funcEntryVars[i] = RulpUtil.addVar(namedFrame, RulpUtil.asAtom(obj).getName());
-				}
-			}
-
-			/***********************************************************/
-			// Set default model
-			/***********************************************************/
-			RuleUtil.setDefaultModel(namedFrame, this.getModel());
-		}
-
-		return namedFrame;
 	}
 
 	@Override

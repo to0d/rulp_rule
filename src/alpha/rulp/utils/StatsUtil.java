@@ -82,6 +82,7 @@ import alpha.rulp.ximpl.entry.XREntryQueueAction;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.AbsReteNode;
 import alpha.rulp.ximpl.node.IRBetaNode;
+import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeSubGraph;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
@@ -457,7 +458,7 @@ public class StatsUtil {
 
 		case DUP:
 			return "d0";
-			
+
 		case FUNC:
 			return "f0";
 
@@ -1177,7 +1178,7 @@ public class StatsUtil {
 		for (String key : BSFactory.getCounterKeyList()) {
 			_printModelCountInfo_put(sb, key, BSFactory.getCounterValue(key));
 		}
-		
+
 		for (String key : OptimizeUtil.getOptimizeCountKeyList()) {
 			_printModelCountInfo_put(sb, key, OptimizeUtil.getOptimizeCountValue(key));
 		}
@@ -1741,6 +1742,44 @@ public class StatsUtil {
 
 	}
 
+	private static void _printNodeInfo10FuncEntry(StringBuffer sb, IRModel model, List<IRReteNode> nodes)
+			throws RException {
+
+		boolean outputHead = false;
+
+		for (IRReteNode node : nodes) {
+
+			if (node.getReteType() != RReteType.NAME0) {
+				continue;
+			}
+
+			IRNamedNode named = (IRNamedNode) node;
+			if (named.getFuncEntry() == null) {
+				continue;
+			}
+
+			if (!outputHead) {
+				sb.append("node info10: func entry info\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format("%-12s %-40s %s\n", "NODE[n]", "Constraint", "Entry"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
+			}
+
+			String funcEntryStr = toList(named.getFuncEntry()).toString();
+
+			sb.append(String.format("%-12s %-40s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					"" + named.getFuncUniqConstraint(), funcEntryStr));
+		}
+
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+	}
+
 	private static void _printNodeSource(StringBuffer sb, IReteNodeMatrix nodeMatrix, List<IRReteNode> nodes)
 			throws RException {
 
@@ -2025,6 +2064,7 @@ public class StatsUtil {
 			_printNodeInfo7(sb, model, nodes);
 			_printNodeInfo8(sb, model, nodes);
 			_printNodeInfo9Cache(sb, model, nodes);
+			_printNodeInfo10FuncEntry(sb, model, nodes);
 		}
 
 		/****************************************************/
