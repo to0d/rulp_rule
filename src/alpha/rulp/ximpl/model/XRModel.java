@@ -887,6 +887,32 @@ public class XRModel extends AbsRInstance implements IRModel {
 		super._delete();
 	}
 
+	protected IRReteEntry _findAnyReteEntry() throws RException {
+
+		for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
+			_checkCache(rootNode);
+			IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
+			int totalCount = rootEntryCounter.getEntryTotalCount();
+			int nullCount = rootEntryCounter.getEntryNullCount();
+			int dropCount = rootEntryCounter.getEntryCount(REMOVE);
+			if (totalCount > nullCount - dropCount) {
+
+				IREntryQueue queue = rootNode.getEntryQueue();
+				int size = queue.size();
+				for (int i = 0; i < size; ++i) {
+
+					IRReteEntry entry = queue.getEntryAt(i);
+					if (entry != null && !entry.isDroped()) {
+						return entry;
+					}
+
+				}
+			}
+		}
+
+		return null;
+	}
+
 	protected IRReteEntry _findIndexStatement(IRList stmt, List<OrderEntry> orderList) throws RException {
 
 		List<IRObject> newStmtArr = RulpUtil.toArray(stmt);
@@ -946,6 +972,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 		return oldEntry;
 	}
 
+//	protected IRReteNode _getRootNode(String namedName, int stmtLen) throws RException {
+//		 nodeGraph.createNodeRoot(namedName, stmtLen);
+//	}
+
 	protected Pair<Boolean, IRReteEntry> _findUniqStatement(IRList filter) throws RException {
 
 		// Check root node for root statement
@@ -974,10 +1004,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		return new Pair<>(false, null);
 	}
-
-//	protected IRReteNode _getRootNode(String namedName, int stmtLen) throws RException {
-//		 nodeGraph.createNodeRoot(namedName, stmtLen);
-//	}
 
 	protected void _fireLoadNodeAction(IRReteNode node) throws RException {
 
@@ -1111,6 +1137,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	}
 
+	protected IRReteEntry _getCacheStatement(IRList filter) throws RException {
+
+		String uniqName = ReteUtil.uniqName(filter);
+		IRReteEntry cacheEntry = hasEntryCacheMap.get(uniqName);
+		if (cacheEntry != null) {
+			if (cacheEntry.isDroped()) {
+				hasEntryCacheMap.remove(uniqName);
+			} else {
+				return cacheEntry;
+			}
+		}
+
+		return null;
+	}
+
 	protected XRBufferWorker _getCacheWorker(IRReteNode node) throws RException {
 
 		XRBufferWorker cache = (XRBufferWorker) node.getBufferWorker();
@@ -1154,47 +1195,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return node;
-	}
-
-	protected IRReteEntry _hasAnyStatement() throws RException {
-
-		for (IRReteNode rootNode : nodeGraph.listNodes(RReteType.ROOT0)) {
-			_checkCache(rootNode);
-			IREntryCounter rootEntryCounter = rootNode.getEntryQueue().getEntryCounter();
-			int totalCount = rootEntryCounter.getEntryTotalCount();
-			int nullCount = rootEntryCounter.getEntryNullCount();
-			int dropCount = rootEntryCounter.getEntryCount(REMOVE);
-			if (totalCount > nullCount - dropCount) {
-
-				IREntryQueue queue = rootNode.getEntryQueue();
-				int size = queue.size();
-				for (int i = 0; i < size; ++i) {
-
-					IRReteEntry entry = queue.getEntryAt(i);
-					if (entry != null && !entry.isDroped()) {
-						return entry;
-					}
-
-				}
-			}
-		}
-
-		return null;
-	}
-
-	protected IRReteEntry _getCacheStatement(IRList filter) throws RException {
-
-		String uniqName = ReteUtil.uniqName(filter);
-		IRReteEntry cacheEntry = hasEntryCacheMap.get(uniqName);
-		if (cacheEntry != null) {
-			if (cacheEntry.isDroped()) {
-				hasEntryCacheMap.remove(uniqName);
-			} else {
-				return cacheEntry;
-			}
-		}
-
-		return null;
 	}
 
 	protected boolean _hasUpdateNode() throws RException {
@@ -1965,16 +1965,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public IRReteNode getTopExecuteNode() {
-
-		if (executeStack.isEmpty()) {
-			return null;
-		}
-
-		return executeStack.get(executeStack.size() - 1);
-	}
-
-	@Override
 	public void addUpdateNode(IRReteNode node) throws RException {
 
 		counter.mcAddUpdateNode++;
@@ -2203,6 +2193,87 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public IRReteEntry findReteEntry(IRList filter) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> findReteEntry: " + filter);
+		}
+
+		counter.mcFindReteEntry1++;
+
+		// Has any stmt
+		if (filter == null) {
+			return _findAnyReteEntry();
+		}
+
+		// Find uniq statement
+		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
+		if (rst.getKey()) {
+			return rst.getValue();
+		}
+
+		// Check cache statement
+		IRReteEntry cacheEntry = _getCacheStatement(filter);
+		if (cacheEntry != null) {
+			++counter.hasStmtHitCount;
+			return cacheEntry;
+		}
+
+		IRReteEntry findEntries[] = new IRReteEntry[1];
+
+		int count = _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), (_entry) -> {
+			findEntries[0] = _entry;
+			return true;
+		});
+
+		if (count == 0) {
+			return null;
+		}
+
+		return findEntries[0];
+	}
+
+	@Override
+	public IRReteEntry findReteEntry(IRList filter, List<OrderEntry> orderList) throws RException {
+
+		if (RuleUtil.isModelTrace()) {
+			System.out.println("==> findReteEntry: " + filter + ", order=" + orderList);
+		}
+
+		if (orderList == null || orderList.isEmpty()) {
+			return findReteEntry(filter);
+		}
+
+		counter.mcFindReteEntry2++;
+
+		// Has any stmt
+		if (filter == null) {
+			return _findAnyReteEntry();
+		}
+
+		// Find uniq statement
+		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
+		if (rst.getKey()) {
+			return rst.getValue();
+		}
+
+		// Check cache statement
+		IRReteEntry cacheEntry = _getCacheStatement(filter);
+		if (cacheEntry != null) {
+			++counter.hasStmtHitCount;
+			return cacheEntry;
+		}
+
+		IRReteEntry entry = _findIndexStatement(filter, orderList);
+		if (entry == null) {
+			return null;
+		}
+
+		_addCacheStatement(entry);
+		return entry;
+	}
+
+	@Override
 	public boolean fixStatement(IRList stmt) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
@@ -2298,6 +2369,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public IRReteNode getTopExecuteNode() {
+
+		if (executeStack.isEmpty()) {
+			return null;
+		}
+
+		return executeStack.get(executeStack.size() - 1);
+	}
+
+	@Override
 	public IRVar getVar(String varName) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
@@ -2361,88 +2442,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		default:
 			throw new RException("unknown state: " + getRunState());
 		}
-	}
-
-	@Override
-	public IRReteEntry findReteEntry(IRList filter) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> findReteEntry: " + filter);
-		}
-
-		counter.mcHasStatement1++;
-
-		// Has any stmt
-		if (filter == null) {
-			return _hasAnyStatement();
-		}
-
-		// Find uniq statement
-		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
-		if (rst.getKey()) {
-			return rst.getValue();
-		}
-
-		// Check cache statement
-		IRReteEntry cacheEntry = _getCacheStatement(filter);
-		if (cacheEntry != null) {
-			++counter.hasStmtHitCount;
-			return cacheEntry;
-		}
-
-		IRReteEntry findEntries[] = new IRReteEntry[1];
-
-		int count = _listStatements(filter, 0, 1, false, REntryFactory.defaultBuilder(), (_entry) -> {
-//			_addCacheStatement(_entry);
-			findEntries[0] = _entry;
-			return true;
-		});
-
-		if (count == 0) {
-			return null;
-		}
-
-		return findEntries[0];
-	}
-
-	@Override
-	public IRReteEntry findReteEntry(IRList filter, List<OrderEntry> orderList) throws RException {
-
-		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> findReteEntry: " + filter + ", order=" + orderList);
-		}
-
-		if (orderList == null || orderList.isEmpty()) {
-			return findReteEntry(filter);
-		}
-
-		counter.mcHasStatement2++;
-
-		// Has any stmt
-		if (filter == null) {
-			return _hasAnyStatement();
-		}
-
-		// Find uniq statement
-		Pair<Boolean, IRReteEntry> rst = _findUniqStatement(filter);
-		if (rst.getKey()) {
-			return rst.getValue();
-		}
-
-		// Check cache statement
-		IRReteEntry cacheEntry = _getCacheStatement(filter);
-		if (cacheEntry != null) {
-			++counter.hasStmtHitCount;
-			return cacheEntry;
-		}
-
-		IRReteEntry entry = _findIndexStatement(filter, orderList);
-		if (entry == null) {
-			return null;
-		}
-
-		_addCacheStatement(entry);
-		return entry;
 	}
 
 	@Override

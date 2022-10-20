@@ -98,7 +98,7 @@ model-addRule                         1
 model-addStatement                    3
 model-addUpdateNode                   3
 model-execute                         8
-model-hasStatement-1                  1
+model-findReteEntry-1                 1
 model-listStatements                  1
 model-start                           1
 graph-addConstraint                   1

@@ -1210,7 +1210,7 @@ model-addStatement                  203
 model-addUpdateNode                 247
 model-execute                       360
 model-getVar                          1
-model-hasStatement-1                  6
+model-findReteEntry-1                 6
 model-listStatements                  3
 model-start                           1
 graph-addConstraint                  48

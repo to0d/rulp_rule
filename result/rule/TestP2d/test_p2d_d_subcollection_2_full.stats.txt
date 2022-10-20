@@ -1210,7 +1210,7 @@ model-addStatement                  415
 model-addUpdateNode                 317
 model-execute                       487
 model-getVar                          1
-model-hasStatement-1                 60
+model-findReteEntry-1                60
 model-listStatements                  2
 model-removeStatement                 4
 model-start                           1

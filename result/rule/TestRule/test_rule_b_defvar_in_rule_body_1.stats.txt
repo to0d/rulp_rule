@@ -140,7 +140,7 @@ model-addRule                         1
 model-addStatement                    8
 model-addUpdateNode                   8
 model-execute                         9
-model-hasStatement-1                  2
+model-findReteEntry-1                 2
 model-listStatements                  1
 model-start                           1
 graph-addConstraint                   4

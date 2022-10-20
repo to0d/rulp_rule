@@ -105,7 +105,7 @@ model-has-stmt-cache                  2
 model-addStatement                    8
 model-addUpdateNode                  11
 model-execute                        10
-model-hasStatement-2                  3
+model-findReteEntry-2                 3
 model-query                           1
 graph-addConstraint                   4
 graph-createNodeByTree                4

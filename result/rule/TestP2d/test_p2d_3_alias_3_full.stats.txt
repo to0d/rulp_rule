@@ -1195,7 +1195,7 @@ model-addStatement                  189
 model-addUpdateNode                 243
 model-execute                       278
 model-getVar                          1
-model-hasStatement-1                  4
+model-findReteEntry-1                 4
 model-start                           1
 graph-addConstraint                  47
 graph-createNodeRoot                217

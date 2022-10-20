@@ -82,7 +82,7 @@ name                              count
 model-addStatement                    5
 model-addUpdateNode                   5
 model-execute                         3
-model-hasStatement-1                  1
+model-findReteEntry-1                 1
 graph-addConstraint                   2
 graph-createNodeByTree                1
 graph-createNodeRoot                  5

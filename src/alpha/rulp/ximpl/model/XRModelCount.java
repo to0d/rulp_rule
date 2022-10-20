@@ -30,6 +30,10 @@ public class XRModelCount {
 
 	public static final String CK_EXEC = "model-execute";
 
+	public static final String CK_FIND_RETE_ENTRY_1 = "model-findReteEntry-1";
+
+	public static final String CK_FIND_RETE_ENTRY_2 = "model-findReteEntry-2";
+
 	public static final String CK_FIX_STMT = "model-fixStatement";
 
 	public static final String CK_GC_COUNT = "model-gc-count";
@@ -39,10 +43,6 @@ public class XRModelCount {
 	public static final String CK_GET_VAR = "model-getVar";
 
 	public static final String CK_HALT = "model-halt";
-
-	public static final String CK_HAS_STMT_1 = "model-hasStatement-1";
-
-	public static final String CK_HAS_STMT_2 = "model-hasStatement-2";
 
 	public static final String CK_HAS_STMT_CACHE = "model-has-stmt-cache";
 
@@ -91,8 +91,8 @@ public class XRModelCount {
 		modelCountKeyList.add(CK_EXEC);
 		modelCountKeyList.add(CK_GET_VAR);
 		modelCountKeyList.add(CK_HALT);
-		modelCountKeyList.add(CK_HAS_STMT_1);
-		modelCountKeyList.add(CK_HAS_STMT_2);
+		modelCountKeyList.add(CK_FIND_RETE_ENTRY_1);
+		modelCountKeyList.add(CK_FIND_RETE_ENTRY_2);
 		modelCountKeyList.add(CK_LIST_STMT);
 		modelCountKeyList.add(CK_QUERY);
 		modelCountKeyList.add(CK_QUERY_ITERATOR);
@@ -142,15 +142,15 @@ public class XRModelCount {
 
 	public long mcExecute = 0;
 
+	public long mcFindReteEntry1 = 0;
+
+	public long mcFindReteEntry2 = 0;
+
 	public long mcFixStatement = 0;
 
 	public long mcGetVar = 0;
 
 	public long mcHalt = 0;
-
-	public long mcHasStatement1 = 0;
-
-	public long mcHasStatement2 = 0;
 
 	public long mcListStatements = 0;
 
@@ -228,11 +228,11 @@ public class XRModelCount {
 		case CK_HALT:
 			return mcHalt;
 
-		case CK_HAS_STMT_1:
-			return mcHasStatement1;
+		case CK_FIND_RETE_ENTRY_1:
+			return mcFindReteEntry1;
 
-		case CK_HAS_STMT_2:
-			return mcHasStatement2;
+		case CK_FIND_RETE_ENTRY_2:
+			return mcFindReteEntry2;
 
 		case CK_LIST_STMT:
 			return mcListStatements;
