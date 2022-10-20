@@ -1161,7 +1161,6 @@ public class XRNodeGraph implements IRNodeGraph {
 
 			case NAME0:
 			case ROOT0:
-			case FUNC:
 				addToSubgraph = true;
 				checkSource = true;
 				checkParent = false;

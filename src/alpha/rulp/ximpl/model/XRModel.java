@@ -1108,7 +1108,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			case ROOT0:
 			case NAME0:
-			case FUNC:
 				smtGcCount += gcCount;
 				break;
 
