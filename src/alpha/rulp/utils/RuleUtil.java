@@ -37,14 +37,18 @@ import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener3;
 import alpha.rulp.runtime.IRParser;
 import alpha.rulp.ximpl.bs.BSFactory;
+import alpha.rulp.ximpl.constraint.ConstraintFactory;
+import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
 import alpha.rulp.ximpl.entry.IREntryQueueUniq;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.node.IRBetaNode;
+import alpha.rulp.ximpl.node.IRNamedNode;
 import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.RReteType;
 import alpha.rulp.ximpl.node.SourceNode;
+import alpha.rulp.ximpl.node.XRNodeNamed;
 
 public class RuleUtil {
 
@@ -104,6 +108,24 @@ public class RuleUtil {
 
 	}
 
+	static class RelocatedEntry {
+
+		public int maxStmtIndex = -1;
+
+		public ArrayList<Integer> relocatedStmtIndexs = null;
+
+		public int relocatePos = -1;
+
+		public IRReteNode rootNode;
+
+		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
+
+		public void addIndex(int index) {
+			stmtIndexs.add(index);
+			maxStmtIndex = Math.max(maxStmtIndex, index);
+		}
+	}
+
 	static class RuleActionFactor extends AbsAtomFactorAdapter {
 
 		private IRListener3<IRList, IRRule, IRFrame> actioner;
@@ -160,6 +182,108 @@ public class RuleUtil {
 	static IRParser parser = null;
 
 	static StaticVar varTraceModel = new StaticVar(A_M_TRACE, O_False);
+
+	public static IRNamedNode addNodeFunc(IRModel model, IRList funcExprList) throws RException {
+
+		/**************************************************/
+		// Check node
+		/**************************************************/
+		String namedName = funcExprList.getNamedName();
+		if (namedName == null) {
+			throw new RException(String.format("need named name: %s", funcExprList));
+		}
+
+		int entryLen = funcExprList.size();
+
+		IRNamedNode node = (IRNamedNode) model.getNodeGraph().findRootNode(namedName, -1);
+		if (node != null) {
+
+			if (node.getEntryLength() != entryLen) {
+				throw new RException(
+						String.format("entry lengh not match: actual=%d, expect=%s", node.getEntryLength(), entryLen));
+			}
+
+			if (node.getFuncEntry() != null) {
+				throw new RException(String.format("func entry already exist in node: %s", node));
+			}
+		}
+
+		/**************************************************/
+		// Check func entry
+		/**************************************************/
+		IRObject[] funcEntry = new IRObject[entryLen];
+		Set<String> nodeVarNames = new HashSet<>();
+
+		for (int i = 0; i < entryLen; ++i) {
+
+			IRObject obj = funcExprList.get(i);
+			if (RulpUtil.isVarAtom(obj)) {
+
+				String varName = obj.asString();
+				if (nodeVarNames.contains(varName)) {
+					throw new RException(String.format("duplicate var name: %s", obj));
+				}
+
+				nodeVarNames.add(varName);
+
+				funcEntry[i] = obj;
+
+			} else if (obj.getType() == RType.EXPR) {
+
+				funcEntry[i] = obj;
+
+			} else {
+				throw new RException(String.format("unsupport object: %s", obj));
+			}
+		}
+
+		int varCount = nodeVarNames.size();
+		if (varCount == 0) {
+			throw new RException(String.format("no var found: %s", funcExprList));
+		}
+
+		if (varCount == entryLen) {
+			throw new RException(String.format("no expr found: %s", funcExprList));
+		}
+
+		/**************************************************/
+		// Create uniq index
+		/**************************************************/
+		int[] columnIndexs = new int[varCount];
+		{
+			int idx = 0;
+			for (int i = 0; i < entryLen; ++i) {
+				if (funcEntry[i].getType() == RType.ATOM) {
+					columnIndexs[idx++] = i;
+				}
+			}
+		}
+
+		/**************************************************/
+		// Create node if not exist
+		/**************************************************/
+		if (node == null) {
+			node = (IRNamedNode) model.getNodeGraph().createNodeRoot(namedName, entryLen);
+			if (node == null) {
+				throw new RException(String.format("Fail to create named node: %s, len=%d", namedName, entryLen));
+			}
+		}
+
+		/**************************************************/
+		// Create uniq index
+		/**************************************************/
+		XRNodeNamed implNode = (XRNodeNamed) node;
+		IRConstraint1Uniq cons = ConstraintFactory.uniq(columnIndexs);
+		implNode.setFuncUniqConstraint(cons);
+		model.getNodeGraph().addConstraint(implNode, cons);
+
+		/**************************************************/
+		// Update func entry
+		/**************************************************/
+		implNode.setFuncEntry(funcEntry);
+		
+		return implNode;
+	}
 
 	public static IRRule addRule(IRModel model, String ruleName, String condExpr,
 			IRListener3<IRList, IRRule, IRFrame> actioner) throws RException {
@@ -293,27 +417,6 @@ public class RuleUtil {
 		return (IRRule) obj;
 	}
 
-	public static IRVar createModelVar(IRModel model, String varName, IRObject value) throws RException {
-
-		IRVar var = RulpFactory.createVar(varName);
-		if (value != null) {
-			var.setValue(value);
-		}
-
-		RulpUtil.setMember(model, varName, var);
-
-		return var;
-	}
-
-	public static boolean equal(String a, String b) throws RException {
-
-		if (a == null) {
-			return b == null;
-		}
-
-		return b != null && a.equals(b);
-	}
-
 //	public static List<IRObject> compute(IRModel model, String input) throws RException {
 //
 //		IRInterpreter interpreter = model.getInterpreter();
@@ -360,22 +463,25 @@ public class RuleUtil {
 //		}
 //	}
 
-	static class RelocatedEntry {
+	public static IRVar createModelVar(IRModel model, String varName, IRObject value) throws RException {
 
-		public int maxStmtIndex = -1;
-
-		public ArrayList<Integer> relocatedStmtIndexs = null;
-
-		public IRReteNode rootNode;
-
-		public int relocatePos = -1;
-
-		public ArrayList<Integer> stmtIndexs = new ArrayList<>();
-
-		public void addIndex(int index) {
-			stmtIndexs.add(index);
-			maxStmtIndex = Math.max(maxStmtIndex, index);
+		IRVar var = RulpFactory.createVar(varName);
+		if (value != null) {
+			var.setValue(value);
 		}
+
+		RulpUtil.setMember(model, varName, var);
+
+		return var;
+	}
+
+	public static boolean equal(String a, String b) throws RException {
+
+		if (a == null) {
+			return b == null;
+		}
+
+		return b != null && a.equals(b);
 	}
 
 	public static int executeRule(IRRule rule, List<IRList> stmts) throws RException {
@@ -511,21 +617,6 @@ public class RuleUtil {
 		return rc.get();
 	}
 
-	public static List<IRReteNode> getAllParentNodes(IRReteNode node) throws RException {
-
-		List<IRReteNode> nodes = new ArrayList<>();
-
-		RuleUtil.travelReteParentNodeByPostorder(node, (_node) -> {
-			if (!nodes.contains(_node)) {
-				nodes.add(_node);
-			}
-
-			return false;
-		});
-
-		return nodes;
-	}
-
 //	public static int getNodeMaxPriority(IRModel model) {
 //
 //		int maxPriority = -1;
@@ -544,6 +635,21 @@ public class RuleUtil {
 //
 //		return maxPriority;
 //	}
+
+	public static List<IRReteNode> getAllParentNodes(IRReteNode node) throws RException {
+
+		List<IRReteNode> nodes = new ArrayList<>();
+
+		RuleUtil.travelReteParentNodeByPostorder(node, (_node) -> {
+			if (!nodes.contains(_node)) {
+				nodes.add(_node);
+			}
+
+			return false;
+		});
+
+		return nodes;
+	}
 
 	public static IRModel getDefaultModel(IRFrame frame) throws RException {
 
@@ -602,10 +708,6 @@ public class RuleUtil {
 		varTraceModel.init(frame);
 	}
 
-	public static void invokeRule(IRModel model, String ruleName) throws RException {
-		model.getNodeGraph().findRule(ruleName).start(-1, -1);
-	}
-
 //	public static Collection<SourceNode> listMatchCondition(IRList stmt, IRRule rule) throws RException {
 //
 //		if (!ReteUtil.isReteStmtNoVar(stmt)) {
@@ -618,6 +720,10 @@ public class RuleUtil {
 //		return null;
 //
 //	}
+
+	public static void invokeRule(IRModel model, String ruleName) throws RException {
+		model.getNodeGraph().findRule(ruleName).start(-1, -1);
+	}
 
 	public static boolean isModelTrace() throws RException {
 		return varTraceModel.getBoolValue();

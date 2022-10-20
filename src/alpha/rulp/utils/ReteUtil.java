@@ -1299,7 +1299,7 @@ public class ReteUtil {
 
 		case DUP:
 			return String.format("D0%04d", nodeId);
-			
+
 		case FUNC:
 			return String.format("F0%04d", nodeId);
 

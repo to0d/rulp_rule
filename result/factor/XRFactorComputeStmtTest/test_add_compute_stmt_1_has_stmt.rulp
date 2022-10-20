@@ -1,0 +1,13 @@
+(new model m)
+;=>
+
+(add-stmt m n1:'(a 1))
+(add-stmt m n1:'(b 2))
+(add-stmt m n1:'(a 3))
+;=>
+
+(compute-stmt m ?v from n1:'(a ?v))
+;=>
+
+(compute-stmt m ?v from n1:'(b ?v))
+;=>

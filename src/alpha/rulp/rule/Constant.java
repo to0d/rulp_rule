@@ -128,6 +128,8 @@ public interface Constant {
 	String F_ADD_NODE = "add-node";
 	
 	String F_ADD_NODE_FUNC = "add-node-func";
+	
+	String F_COMPUTE_STMT = "compute-stmt";
 
 	String F_ADD_RULE = "add-rule";
 

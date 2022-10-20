@@ -252,6 +252,7 @@ mbr=assumed, mbr-property='(public), mbr-attribute='(), obj=assumed, obj-type=at
 mbr=back-search, mbr-property='(public), mbr-attribute='(), obj=back-search, obj-type=factor, obj-attribute='()
 mbr=cmp, mbr-property='(public), mbr-attribute='(), obj=(cmp nil nil), obj-type=func, obj-attribute='()
 mbr=completed, mbr-property='(public), mbr-attribute='(), obj=completed, obj-type=atom, obj-attribute='()
+mbr=compute-stmt, mbr-property='(public), mbr-attribute='(), obj=compute-stmt, obj-type=factor, obj-attribute='()
 mbr=defined, mbr-property='(public), mbr-attribute='(), obj=defined, obj-type=atom, obj-attribute='()
 mbr=dump-entry-info, mbr-property='(public), mbr-attribute='(), obj=dump-entry-info, obj-type=factor, obj-attribute='()
 mbr=dump-node-info, mbr-property='(public), mbr-attribute='(), obj=dump-node-info, obj-type=factor, obj-attribute='()
