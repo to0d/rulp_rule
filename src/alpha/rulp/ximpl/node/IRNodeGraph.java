@@ -27,8 +27,6 @@ public interface IRNodeGraph {
 
 	public IRReteNode createNodeRoot(String name, int stmtLen) throws RException;
 
-	public IRReteNode createNodeFunc(IRList funcList) throws RException;
-
 	public IRReteNode createNodeRule(String ruleName, IRList condList, IRList actionList, int priority)
 			throws RException;
 

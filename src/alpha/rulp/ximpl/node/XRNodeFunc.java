@@ -6,13 +6,13 @@ import alpha.rulp.ximpl.constraint.IRConstraint1Uniq;
 
 public class XRNodeFunc extends XRNodeNamed implements IRFuncNode {
 
-	protected IRExpr[] funcEntry;
-
-	protected IRConstraint1Uniq funcUniqConstraint;
-
 	public XRNodeFunc(String instanceName) {
 		super(instanceName);
 	}
+
+	protected IRExpr[] funcEntry;
+
+	protected IRConstraint1Uniq funcUniqConstraint;
 
 	@Override
 	public IRExpr[] getFuncEntry() {

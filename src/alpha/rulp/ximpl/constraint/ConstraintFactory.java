@@ -484,7 +484,7 @@ public class ConstraintFactory {
 		return new XRConstraint1Type(columnIndex, columnType);
 	}
 
-	public static IRConstraint1 uniq(int... columnIndexs) throws RException {
+	public static IRConstraint1Uniq uniq(int... columnIndexs) throws RException {
 
 		int size = columnIndexs.length;
 
