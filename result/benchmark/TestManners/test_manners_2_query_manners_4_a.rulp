@@ -71,11 +71,12 @@
             (return)
         )
     )
-
+    
     (defvar ?arr (to-array ?0))
     (seta ?arr 0 (+ ?m 1))
     (seta ?arr (+ ?m 1) ?g)
     
+    (println "Test: " ?arr)
     (add-stmt mm seat ?arr)
 )
 ;=>

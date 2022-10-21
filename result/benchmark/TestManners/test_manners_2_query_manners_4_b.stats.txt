@@ -324,6 +324,7 @@ RU002[6]     0     EXPR  (do
                              (defvar ?arr (to-array seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_any_2 ?_tmp_seat_any_3)))
                              (seta ?arr 0 (+ ?m 1))
                              (seta ?arr (+ ?m 1) ?g)
+                             (println "Test: " ?arr)
                              (add-stmt mm seat ?arr)
                          )
                          0: ADD seat:'(?...)
@@ -613,7 +614,7 @@ Priority        BETA3  RULE INHER
 099(default) :      1     1     1
 ===============================================================================================================================================================================
 
-Rule<RU002> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (loop for ?i from 1 to ?m do (if (= (get ?0 ?i) ?g) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 ?m)) (if (not (canSitTogether ?x ?g)) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 1)) (if (not (canSitTogether ?x ?g)) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr (+ ?m 1) ?g) (add-stmt mm seat ?arr))
+Rule<RU002> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (loop for ?i from 1 to ?m do (if (= (get ?0 ?i) ?g) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 ?m)) (if (not (canSitTogether ?x ?g)) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 1)) (if (not (canSitTogether ?x ?g)) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr (+ ?m 1) ?g) (println "Test: " ?arr) (add-stmt mm seat ?arr))
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -750,20 +751,20 @@ Node<RU000> frame:id=16, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), s
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 87       16       6    instance   model@mm            
-?g1                  : 88       16       1    var        4 : type=int        
-?s1                  : 89       16       1    var        m : type=atom       
-?g2                  : 90       16       1    var        3 : type=int        
-?s2                  : 91       16       1    var        m : type=atom       
+default_model        : 95       16       6    instance   model@mm            
+?g1                  : 96       16       1    var        4 : type=int        
+?s1                  : 97       16       1    var        m : type=atom       
+?g2                  : 98       16       1    var        3 : type=int        
+?s2                  : 99       16       1    var        m : type=atom       
 ==========================================================================================================================
 
 Node<RU001> frame:id=12, name=NF-RU001, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU001
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 80       12       6    instance   model@mm            
-?g1                  : 81       12       1    var        4 : type=int        
-?g2                  : 82       12       1    var        3 : type=int        
+default_model        : 88       12       6    instance   model@mm            
+?g1                  : 89       12       1    var        4 : type=int        
+?g2                  : 90       12       1    var        3 : type=int        
 ==========================================================================================================================
 
 Node<RU002> frame:id=7, name=NF-RU002, lvl=4, ref=1/2, entry=7, pid=3(model), subject=NF-RU002
@@ -867,13 +868,13 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     3111
-      func:      583
+    factor:     3139
+      func:      611
 ==========================================================================================================================
 
-Callable stats info: callId=257, row=46, column=33(8), value-max=638, value-unit=2^x
+Callable stats info: callId=257, row=47, column=33(8), value-max=638, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333343333549 max=3386, unit=3^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333343333549 max=3442, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    638    0 return                                                         X
     root   factor    460    0 if                                                             X
@@ -899,12 +900,13 @@ Callable stats info: callId=257, row=46, column=33(8), value-max=638, value-unit
     root   factor     44    0 not                                                            7
     main     func     44    1 (canSitTogether nil nil)                                       7
     root   factor     40    0 >                                                              7
+    root   factor     35    0 print                                                         46
     root   factor     29    0 make-array                                                     6
   system     func     28    1 (to-array list)                                                6
+  system funcList     28    1 println                                                        6
     root   factor     28    0 add-list-to-array                                              6
     root   factor      8    0 setq                                                           4
     root   factor      8    0 !=                                                             4
-    root   factor      7    0 print                                                         4 
     root   factor      7    0 alias                          4                           1    
     root   factor      5    0 defmacro                                                     4  
     root   factor      4    0 make-list                                               3       
@@ -927,21 +929,21 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3075            0         3075
-      string:           88            0           88
+        atom:         3077            0         3077
+      string:           89            0           89
         list:         1143          283          860
-        expr:         1691          583         1108
+        expr:         1720          611         1109
        array:           29           29            0
-         var:         1668         1634           34
+         var:         1724         1690           34
     constant:            1            0            1
         func:           90            0           90
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
-       frame:         1259         1255            4
+       frame:         1287         1283            4
     iterator:            1            0            1
  interpreter:            1            0
-  frameEntry:         2145            0
+  frameEntry:         2201            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -1023,20 +1025,20 @@ id=12, name=NF-RU001, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-RU001
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 80       12       6    instance   model@mm            
-?g1                  : 81       12       1    var        4 : type=int        
-?g2                  : 82       12       1    var        3 : type=int        
+default_model        : 88       12       6    instance   model@mm            
+?g1                  : 89       12       1    var        4 : type=int        
+?g2                  : 90       12       1    var        3 : type=int        
 ==========================================================================================================================
 
 id=16, name=NF-RU000, lvl=4, ref=1/2, entry=5, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 87       16       6    instance   model@mm            
-?g1                  : 88       16       1    var        4 : type=int        
-?s1                  : 89       16       1    var        m : type=atom       
-?g2                  : 90       16       1    var        3 : type=int        
-?s2                  : 91       16       1    var        m : type=atom       
+default_model        : 95       16       6    instance   model@mm            
+?g1                  : 96       16       1    var        4 : type=int        
+?s1                  : 97       16       1    var        m : type=atom       
+?g2                  : 98       16       1    var        3 : type=int        
+?s2                  : 99       16       1    var        m : type=atom       
 ==========================================================================================================================
 
 Root var list: total=7
