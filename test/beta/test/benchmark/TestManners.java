@@ -45,4 +45,13 @@ public class TestManners extends RuleTestBase {
 		_statsInfo("mm");
 
 	}
+	
+	@Test
+	void test_manners_2_query_manners_4_c_func_entry() {
+
+		_setup();
+		_run_script();
+		_statsInfo("mm");
+
+	}
 }
