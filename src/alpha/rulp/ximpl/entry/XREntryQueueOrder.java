@@ -53,7 +53,7 @@ public class XREntryQueueOrder implements IREntryQueue {
 				return;
 			}
 
-			IRIterator<IRList> it = queue.entryList.iterator();
+			IRIterator<IRReteEntry> it = queue.entryList.iterator();
 			while (it.hasNext()) {
 
 				IRReteEntry entry = (IRReteEntry) it.next();
@@ -149,7 +149,9 @@ public class XREntryQueueOrder implements IREntryQueue {
 
 	protected final int entryLength;
 
-	protected OrderList<IRList> entryList = null;
+	protected OrderList<IRList, IRReteEntry> entryList = new OrderList<>((e1, e2) -> {
+		return _compare(e1, e2);
+	});
 
 	protected int entryRedundant = 0;
 
@@ -184,12 +186,6 @@ public class XREntryQueueOrder implements IREntryQueue {
 			throw new RException("invalid entry: " + entry);
 		}
 
-		if (entryList == null) {
-			entryList = new OrderList<>((e1, e2) -> {
-				return _compare(e1, e2);
-			});
-		}
-
 		entryList.add(entry);
 		++nodeUpdateCount;
 		return true;
@@ -200,19 +196,20 @@ public class XREntryQueueOrder implements IREntryQueue {
 		entryList = null;
 	}
 
-	public IRReteEntry find(IRList stmt) throws RException {
-
-		if (entryList == null) {
-			return null;
-		}
-
-		IRIterator<IRList> it = entryList.iterator(stmt);
-		return it.hasNext() ? (IRReteEntry) it.next() : null;
-	}
-
 	@Override
 	public int doGC() {
 		return 0;
+	}
+
+	public IRIterator<IRReteEntry> iterator(IRList stmt) {
+		return entryList.iterator(stmt);
+	}
+
+	public IRReteEntry find(IRList stmt) throws RException {
+
+		IRIterator<IRReteEntry> it = entryList.iterator(stmt);
+
+		return it.hasNext() ? it.next() : null;
 	}
 
 	@Override

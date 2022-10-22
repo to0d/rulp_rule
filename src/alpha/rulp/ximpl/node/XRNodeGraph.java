@@ -1153,6 +1153,7 @@ public class XRNodeGraph implements IRNodeGraph {
 			case INHER:
 			case ZETA0:
 			case RULE:
+			case INDEX:
 				addToSubgraph = true;
 				checkSource = false;
 				checkParent = true;
@@ -1904,6 +1905,10 @@ public class XRNodeGraph implements IRNodeGraph {
 		case ROOT0:
 		case NAME0:
 		case ALPH0:
+		case BETA0:
+		case BETA1:
+		case BETA2:
+		case BETA3:
 			break;
 
 		default:

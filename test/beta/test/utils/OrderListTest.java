@@ -15,7 +15,7 @@ import alpha.rulp.utils.RulpUtil;
 
 class OrderListTest extends RuleTestBase {
 
-	static void _add(OrderList<IRList> list, String key, int value) {
+	static void _add(OrderList<IRList, IRList> list, String key, int value) {
 		try {
 			list.add(RulpFactory.createList(RulpFactory.createAtom(key), RulpFactory.createInteger(value)));
 		} catch (RException e) {
@@ -24,9 +24,18 @@ class OrderListTest extends RuleTestBase {
 		}
 	}
 
-	static OrderList<IRList> _makeList() {
+	static void _add(OrderList<IRList, IRList> list, int key, int value) {
+		try {
+			list.add(RulpFactory.createList(RulpFactory.createInteger(key), RulpFactory.createInteger(value)));
+		} catch (RException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
 
-		OrderList<IRList> list = new OrderList<>((e1, e2) -> {
+	static OrderList<IRList, IRList> _makeList() {
+
+		OrderList<IRList, IRList> list = new OrderList<>((e1, e2) -> {
 			try {
 				return RulpUtil.compare(e1.get(0), e2.get(0));
 			} catch (RException e) {
@@ -54,7 +63,7 @@ class OrderListTest extends RuleTestBase {
 		return sb.toString().trim();
 	}
 
-	static String _toList(OrderList<IRList> list) {
+	static String _toList(OrderList<IRList, IRList> list) {
 
 		StringBuffer sb = new StringBuffer();
 
@@ -71,7 +80,7 @@ class OrderListTest extends RuleTestBase {
 		return sb.toString().trim();
 	}
 
-	static String _toList(OrderList<IRList> list, String key) {
+	static String _toList(OrderList<IRList, IRList> list, String key) {
 
 		StringBuffer sb = new StringBuffer();
 
@@ -89,12 +98,30 @@ class OrderListTest extends RuleTestBase {
 		return sb.toString().trim();
 	}
 
+	static String _toList(OrderList<IRList, IRList> list, int key) {
+
+		StringBuffer sb = new StringBuffer();
+
+		try {
+			IRIterator<IRList> it = list
+					.iterator(RulpFactory.createList(RulpFactory.createInteger(key), RulpFactory.createInteger(0)));
+			while (it.hasNext()) {
+				sb.append(" " + it.next());
+			}
+		} catch (RException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+
+		return sb.toString().trim();
+	}
+
 	@Test
 	void test_order_list_1() {
 
 		_setup();
 
-		OrderList<IRList> list = _makeList();
+		OrderList<IRList, IRList> list = _makeList();
 
 		_add(list, "a", 1);
 		_add(list, "c", 1);
@@ -106,11 +133,27 @@ class OrderListTest extends RuleTestBase {
 	}
 
 	@Test
+	void test_order_list_5() {
+
+		_setup();
+
+		OrderList<IRList, IRList> list = _makeList();
+
+		_add(list, 2, 3);
+		_add(list, 2, 5);
+		_add(list, 2, 4);
+		_add(list, 3, 2);
+
+		assertEquals(4, list.size());
+		assertEquals("'(2 3) '(2 5) '(2 4)", _toList(list, 2));
+	}
+
+	@Test
 	void test_order_list_2_stable_sorting() {
 
 		_setup();
 
-		OrderList<IRList> list = _makeList();
+		OrderList<IRList, IRList> list = _makeList();
 
 		_add(list, "a", 1);
 		_add(list, "c", 2);
@@ -126,7 +169,7 @@ class OrderListTest extends RuleTestBase {
 
 		_setup();
 
-		OrderList<IRList> list = _makeList();
+		OrderList<IRList, IRList> list = _makeList();
 
 		_add(list, "a", 1);
 		_add(list, "c", 2);
@@ -143,7 +186,7 @@ class OrderListTest extends RuleTestBase {
 
 		_setup();
 
-		OrderList<IRList> list = _makeList();
+		OrderList<IRList, IRList> list = _makeList();
 
 		_add(list, "a", 1);
 		_add(list, "c", 2);

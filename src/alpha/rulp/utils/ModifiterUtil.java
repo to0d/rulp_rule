@@ -49,7 +49,12 @@ public class ModifiterUtil {
 	public static class Modifier {
 
 		public String name;
+
 		public IRObject obj;
+
+		public int fromIndex = -1;
+
+		public int endIndex = -1;
 
 		public String toString() {
 			return String.format("(%s %s)", name, "" + obj);
@@ -286,6 +291,7 @@ public class ModifiterUtil {
 	static Map<String, IModifier> modifierMap = new HashMap<>();
 
 	static {
+
 		modifierMap.put(A_FROM, new XModifier2(A_FROM, RType.LIST, RType.EXPR));
 		modifierMap.put(A_Where, new XModifier2(A_Where, RType.LIST, RType.EXPR));
 		modifierMap.put(A_DO, new XModifier2(A_DO, RType.EXPR));
@@ -300,6 +306,7 @@ public class ModifiterUtil {
 		modifierMap.put(A_Backward, new XModifier0(A_Backward));
 		modifierMap.put(A_Explain, new XModifier0(A_Explain));
 		modifierMap.put(A_DEEP_FIRST, new XModifier0(A_DEEP_FIRST));
+
 	}
 
 	static IRObject _compute(IRObject obj, IRFrame frame, Set<String> ignoreObjNames) throws RException {
@@ -404,6 +411,8 @@ public class ModifiterUtil {
 
 		while (list.fromIndex < list.list.size()) {
 
+			int fromIndex = list.fromIndex;
+
 			IRObject obj = list.list.get(list.fromIndex++);
 			if (obj.getType() != RType.ATOM && obj.getType() != RType.FACTOR) {
 				throw new RException("unsupport modifier: " + obj);
@@ -414,7 +423,11 @@ public class ModifiterUtil {
 				throw new RException("unsupport modifier: " + obj);
 			}
 
-			mdata.add(modifiter.process(list));
+			Modifier mod = modifiter.process(list);
+			mod.fromIndex = fromIndex;
+			mod.endIndex = list.fromIndex;
+
+			mdata.add(mod);
 		}
 
 		return mdata;

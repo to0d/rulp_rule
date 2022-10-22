@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 import alpha.rulp.runtime.IRIterator;
 
-public class OrderList<T> {
+public class OrderList<K, T extends K> {
 
 	private class XIterator implements IRIterator<T> {
 
@@ -18,9 +18,9 @@ public class OrderList<T> {
 
 		private int lastUpdate = -1;
 
-		private T obj = null;
+		private K obj = null;
 
-		public XIterator(XOrderEntry<T> entry, T obj) {
+		public XIterator(XOrderEntry<T> entry, K obj) {
 			super();
 			this.entry = entry;
 			this.obj = obj;
@@ -37,7 +37,7 @@ public class OrderList<T> {
 				// Find first element
 				if (lastEntry == null) {
 
-					entry = _find(obj);
+					entry = _findFirst(obj);
 
 				} else {
 
@@ -101,22 +101,22 @@ public class OrderList<T> {
 
 	private int build = 0;
 
-	private Comparator<? super T> comparator;
+	private Comparator<? super K> comparator;
 
 	private ArrayList<XOrderEntry<T>> objList = new ArrayList<>();
 
 	private int update = 0;
 
-	public OrderList(Comparator<? super T> comparator) {
+	public OrderList(Comparator<? super K> comparator) {
 		super();
 		this.comparator = comparator;
 	}
 
-	private int _compare(T o1, T o2) {
+	private int _compare(K o1, K o2) {
 		return comparator.compare(o1, o2);
 	}
 
-	private XOrderEntry<T> _find(T obj) {
+	private XOrderEntry<T> _findAny(K obj) {
 
 		int len = size();
 		if (len == 0) {
@@ -166,6 +166,24 @@ public class OrderList<T> {
 		return null;
 	}
 
+	private XOrderEntry<T> _findFirst(K obj) {
+
+		XOrderEntry<T> entry = _findAny(obj);
+		if (entry != null) {
+
+			while (entry.index > 0) {
+				XOrderEntry<T> prevousEntry = objList.get(entry.index - 1);
+				if (_compare(prevousEntry.obj, obj) == 0) {
+					entry = prevousEntry;
+				} else {
+					break;
+				}
+			}
+		}
+
+		return entry;
+	}
+
 	private void _rebuild() {
 
 		if (update == build) {
@@ -204,11 +222,11 @@ public class OrderList<T> {
 		return new XIterator(entry, null);
 	}
 
-	public IRIterator<T> iterator(T obj) {
+	public IRIterator<T> iterator(K obj) {
 
 		_rebuild();
 
-		return new XIterator(_find(obj), obj);
+		return new XIterator(_findFirst(obj), obj);
 	}
 
 	public int size() {

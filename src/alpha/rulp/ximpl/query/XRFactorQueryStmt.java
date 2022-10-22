@@ -32,6 +32,7 @@ import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
+import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RuleUtil;
@@ -116,6 +117,8 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		Set<String> varUniqNames = new HashSet<>();
 		ReteUtil.buildVarList(rstExpr, new ArrayList<>(), varUniqNames);
 
+		Modifier fromModifier = null;
+
 		/********************************************/
 		// Check modifier
 		/********************************************/
@@ -126,6 +129,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			// from '(a b c) (factor)
 			case A_FROM:
 				condList = RulpUtil.asList(modifier.obj);
+				fromModifier = modifier;
 				break;
 
 			case A_Where:
@@ -321,6 +325,90 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			}
 		}
 
+		/********************************************/
+		// (query-stmt '(?x p1 ?y) when '(?x a))
+		/********************************************/
+		Map<String, IRObject> whenVarMap = null;
+
+		if (model.getTopExecuteNode() != null && fromModifier != null) {
+
+			int fromIndex = fromModifier.fromIndex + 1 + argIndex;
+			int endIndex = fromModifier.endIndex + argIndex;
+
+			if ((endIndex - fromIndex) == condList.size()) {
+
+				ArrayList<IRObject> newList = null;
+				Map<String, IRObject> varMap = new HashMap<>();
+
+				NEXT: for (int i = fromIndex, j = 0; i < endIndex; ++i, ++j) {
+
+					IRObject oldObj = args.get(i);
+					IRObject newObj = condList.get(j);
+
+					if (ReteUtil.isReteStmt(oldObj) && ReteUtil.isReteStmt(newObj) && !RulpUtil.equal(oldObj, newObj)) {
+
+						IRList oldStmt = RulpUtil.asList(oldObj);
+						IRList newStmt = RulpUtil.asList(newObj);
+
+						List<OrderEntry> indexOrders = OptimizeUtil.optimizeHasStmtOrderEntry(oldStmt, newStmt);
+						if (indexOrders != null) {
+
+							List<IRObject> newStmtList = RulpUtil.toArray(newStmt);
+
+							for (OrderEntry indexOrder : indexOrders) {
+
+								int index = indexOrder.index;
+
+								IRObject oldVarObj = oldStmt.get(index);
+								IRObject newValObj = newStmtList.get(index);
+
+								String varName = oldVarObj.asString();
+								IRObject preValObj = varMap.get(varName);
+
+								if (preValObj == null) {
+									varMap.put(varName, newValObj);
+
+								} else {
+
+									if (!RulpUtil.equal(preValObj, newValObj)) {
+										throw new RException(String.format("unmatch val: pre=%s, new=%s",
+												"" + preValObj, "" + newValObj));
+									}
+								}
+
+								newStmtList.set(index, oldVarObj);
+							}
+
+							IRList new2Stmt = RulpFactory.createNamedList(newStmt.getNamedName(), newStmtList);
+
+							if (newList == null) {
+								newList = new ArrayList<>();
+							}
+
+							newList.add(new2Stmt);
+							continue NEXT;
+						}
+
+					} // if (ReteUtil.
+
+					if (newList != null) {
+						newList.add(newObj);
+					}
+
+				} // for (int i
+
+				if (newList != null) {
+					condList = RulpFactory.createList(newList);
+					whenVarMap = varMap;
+				}
+			}
+
+//			IRObject oldStmtObj = useDefaultModel ? args.get(1) : args.get(2);
+//			if (oldStmtObj != stmt && oldStmtObj.getType() == RType.LIST) {
+//				orderList = OptimizeUtil.optimizeHasStmtOrderEntry(oldStmtObj, stmt);
+//			}
+		}
+
 		try {
 
 			/********************************************/
@@ -331,7 +419,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				subGraph.activate();
 			}
 
-			model.query(resultQueue, condList, limit, backward);
+			model.query(resultQueue, condList, whenVarMap, limit, backward);
 
 			return RulpFactory.createList(resultQueue.getResultList());
 
@@ -347,4 +435,5 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			resultQueue.close();
 		}
 	}
+
 }

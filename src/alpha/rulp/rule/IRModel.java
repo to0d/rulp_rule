@@ -1,6 +1,7 @@
 package alpha.rulp.rule;
 
 import java.util.List;
+import java.util.Map;
 
 import alpha.rulp.lang.IRInstance;
 import alpha.rulp.lang.IRList;
@@ -95,7 +96,8 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 	public int listStatements(IRList filter, int statusMask, int limit, boolean reverse, IREntryIteratorBuilder builder,
 			IREntryAction action) throws RException;
 
-	public void query(IREntryAction result, IRList condList, int limit, boolean backward) throws RException;
+	public void query(IREntryAction result, IRList condList, Map<String, IRObject> whereVarMap, int limit,
+			boolean backward) throws RException;
 
 	public IRIterator<IRReteEntry> query(IRList condList, int limit, boolean backward) throws RException;
 

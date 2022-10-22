@@ -99,6 +99,81 @@ import alpha.rulp.ximpl.rclass.AbsRInstance;
 
 public class XRModel extends AbsRInstance implements IRModel {
 
+	static class RQueryIndexHelper extends RQueryHelper {
+
+		public RQueryIndexHelper(XRModel model, IRReteNode queryNode, int limit, boolean backward) {
+			super(model, queryNode, limit, backward);
+		}
+
+		public void query(IREntryAction action, IRList matchStmt) throws RException {
+
+			prepare();
+
+			int resultCount = 0;
+
+			XREntryQueueOrder queryQueue = (XREntryQueueOrder) queryNode.getEntryQueue();
+			IRIterator<IRReteEntry> queryIt = queryQueue.iterator(matchStmt);
+
+			/******************************************************/
+			// Load results directly
+			/******************************************************/
+			while (queryIt.hasNext()) {
+
+				IRReteEntry entry = queryIt.next();
+				if (!action.addEntry(entry)) {
+					continue;
+				}
+
+				resultCount++;
+
+				// limit <= 0 means query all
+				if (limit > 0 && resultCount >= limit) {
+					return;
+				}
+			}
+
+			/******************************************************/
+			// Build SubGraph
+			/******************************************************/
+			buildSubGraph();
+
+			/******************************************************/
+			// Activate SubGraph
+			/******************************************************/
+			activateSubGraph();
+
+			/******************************************************/
+			// Search
+			/******************************************************/
+			try {
+
+				while ((limit <= 0 || limit > resultCount) && hasNext(limit - resultCount)) {
+
+					while (queryIt.hasNext()) {
+
+						IRReteEntry entry = queryIt.next();
+						if (!action.addEntry(entry)) {
+							continue;
+						}
+
+						resultCount++;
+
+						// limit <= 0 means query all
+						if (limit > 0 && resultCount >= limit) {
+							return;
+						}
+					}
+
+				}
+
+				return;
+
+			} finally {
+				rollback();
+			}
+		}
+	}
+
 	static class RQueryHelper {
 
 		protected boolean activate = false;
@@ -2543,10 +2618,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void query(IREntryAction action, IRList condList, int limit, boolean backward) throws RException {
+	public void query(IREntryAction action, IRList condList, Map<String, IRObject> whereVarMap, int limit,
+			boolean backward) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
-			System.out.println("==> query: cond=" + condList + ", limit=" + limit + ", backward=" + backward);
+			System.out.println("==> query: cond=" + condList + ", where=" + whereVarMap + ", limit=" + limit
+					+ ", backward=" + backward);
 		}
 
 		counter.mcQuery++;
@@ -2558,7 +2635,47 @@ public class XRModel extends AbsRInstance implements IRModel {
 //			throw new RException("Can't query, the model is running");
 //		}
 
-		new RQueryHelper(this, findNode(condList), limit, backward).query(action);
+		if (whereVarMap == null) {
+
+			new RQueryHelper(this, findNode(condList), limit, backward).query(action);
+
+		} else {
+
+			IRObject[] varEntry = ReteUtil.buildVarEntry(this, condList);
+
+			List<OrderEntry> orderList = new ArrayList<>();
+			ArrayList<IRObject> matchStmtList = new ArrayList<>();
+
+			NEXT: for (int i = 0; i < varEntry.length; ++i) {
+
+				IRObject varObj = varEntry[i];
+				if (varObj != null) {
+					IRObject val = whereVarMap.get(varObj.asString());
+					if (val != null) {
+						matchStmtList.add(val);
+						OrderEntry orderEntry = new OrderEntry();
+						orderEntry.index = i;
+						orderEntry.asc = true;
+						orderList.add(orderEntry);
+						continue NEXT;
+					}
+				}
+
+				matchStmtList.add(O_Nil);
+			}
+
+			if (orderList.isEmpty()) {
+				throw new RException("order not found");
+			}
+
+			IRReteNode node = findNode(condList);
+			IRNodeGraph graph = getNodeGraph();
+			IRReteNode indexNode = graph.createNodeIndex(node, orderList);
+
+			IRList matchStmt = RulpFactory.createList(matchStmtList);
+
+			new RQueryIndexHelper(this, indexNode, limit, backward).query(action, matchStmt);
+		}
 
 		_gc(false);
 	}
