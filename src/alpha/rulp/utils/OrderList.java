@@ -10,15 +10,15 @@ public class OrderList<T> {
 
 	private class XIterator implements IRIterator<T> {
 
+		private boolean ended = false;
+
 		private XOrderEntry<T> entry = null;
 
 		private XOrderEntry<T> lastEntry = null;
 
-		private T obj = null;
-
 		private int lastUpdate = -1;
 
-		private boolean ended = false;
+		private T obj = null;
 
 		public XIterator(XOrderEntry<T> entry, T obj) {
 			super();
@@ -99,13 +99,13 @@ public class OrderList<T> {
 		}
 	}
 
+	private int build = 0;
+
 	private Comparator<? super T> comparator;
 
 	private ArrayList<XOrderEntry<T>> objList = new ArrayList<>();
 
 	private int update = 0;
-
-	private int build = 0;
 
 	public OrderList(Comparator<? super T> comparator) {
 		super();
