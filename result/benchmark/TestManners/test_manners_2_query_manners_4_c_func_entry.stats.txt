@@ -2,9 +2,10 @@ Model<mm> stats info:
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0        53      0     0     13     40      0     0     0     0     0      0      0     5    5      1     5     0    0       12     53      0    0    0    0   99      0     146
-ALPH0         0      0     0      0      8      0     0     0     0     0      0      0     1    1      1     5     0    0       29      8      0    1    1    0    0      0       1
+NAME0        65      0     0     13     52      0     0     0     0     0      0      0     5    5      1     6     0    0       24     65      0    0    0    0   99      0     190
+ALPH0         0      0     0      8      8      0     0     0     0     0      0      0     5    5      1    13     4    0       61     16      0    1    1    0    0      0      25
 EXPR0         0      0     0      1     20      0     0     0     0     0      0      0     1    1      0     4     0    0       21     21      0    1    1   99   99      0      21
+BETA0         6      0     0      0      6      0     0     0     0     0      0      0     4    4      0     8     4    0       16      6      0    2    2    0    0      0       8
 BETA3        84      0     0      0     84      0     0     0     0     0      0      0     1    1      0     4     0    0        0     84      0    2    2   99   99      0      84
 RULE          0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     5     1    0        0     84      0    4    4   99   99      0       0
 INHER        84      0     0      0     84      0     0     0     0     0      0      0     1    1      0     5     1    0        0     84      0    3    3   99   99      0      84
@@ -15,12 +16,20 @@ node info:
 NODE[n]      Create Delete  Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 N00001[2]         4      0      0      4      0      0      0      0     0     0   0/0      0      4      0    1    0           0   0  99   0     1 InActive            
-N00002[2]         8      0      0      8      0      0      0      0     0     0   0/0      0      8      0    0    0      *    0   0   0   0     0 InActive            
+N00002[2]         8      0      0      8      0      0      0      0     0     0   0/0      0      8      0    1    0           0   0   0   0     4 InActive            
 N00003[3]        12      0      0      0     12      0      0      0     0     0   0/0     12     12      0    0    0      *    0   0   0   0     0 InActive            
-N00004[3]         0      0      0      0      0      0      0      0     0     0   0/0      0      0      0    0    0      *    0   0   0   0     0 InActive            
+N00004[3]        12      0      0      0     12      0      0      0     0     0   0/0     12     12      0    0    0      *    0   0   0   0     0 InActive            
 N00005[5]        29      0      0      1     28      0      0      0     0     0   0/0      0     29      0    4    0           0   0  99   1     2 InActive            
 A00010[5]         0      0      0      0      8      0      0      0     0     0   0/0     29      8      0    5    0           0   1   0   1     1  InQueue          29
+A00011[2]         0      0      0      2      0      0      0      0     0     0   0/0      8      2      0    2    1           0   1   0   0     2   Active           8
+A00012[2]         0      0      0      2      0      0      0      0     0     0   0/0      8      2      0    2    1           0   1   0   0     2   Active           8
+A00014[2]         0      0      0      2      0      0      0      0     0     0   0/0      8      2      0    2    1           0   1   0   0     2   Active           8
+A00016[2]         0      0      0      2      0      0      0      0     0     0   0/0      8      2      0    2    1           0   1   0   0     2   Active           8
 E00006[5]         0      0      0      1     20      0      0      0     0     0   0/0     21     21      0    4    0           0   1  99   0     1  InQueue          21
+B00013[1]         2      0      0      0      2      0      0      0     0     0   0/0      4      2      0    2    1           0   2   0   0     2 InActive         2/2
+B00015[1]         2      0      0      0      2      0      0      0     0     0   0/0      4      2      0    2    1           0   2   0   0     2 InActive         2/2
+B00017[1]         1      0      0      0      1      0      0      0     0     0   0/0      4      1      0    2    1           0   2   0   0     2 InActive         2/2
+B00018[1]         1      0      0      0      1      0      0      0     0     0   0/0      4      1      0    2    1           0   2   0   0     2 InActive         2/2
 B30007[7]        84      0      0      0     84      0      0      0     0     0   0/0      0     84      0    4    0           0   2  99   0     2 InActive        21/4
 RU000[6]          0      0      0      0      0      0      0      0     0     0   0/0      0     84      0    5    1           0   4  99   0     0 InActive          84
 I10008[6]        84      0      0      0     84      0      0      0     0     0   0/0      0     84      0    5    1           0   3  99   0     1 InActive          84
@@ -31,9 +40,22 @@ node info2:
 NODE[n]       Parent         Child                                Rule                           Inherit                        Join
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 N00001[2]                    [B30007]                             [RU000]
+N00002[2]                    [A00011, A00012, A00014, A00016]
 N00005[5]                    [E00006, A00010]                     [RU000]
 A00010[5]     [N00005]
+A00011[2]     [N00002]       [B00013, B00015]
+A00012[2]     [N00002]       [B00013, B00017]
+A00014[2]     [N00002]       [B00015, B00018]
+A00016[2]     [N00002]       [B00017, B00018]
 E00006[5]     [N00005]       [B30007]                             [RU000]
+B00013[1]     [A00011,                                                                           [0/1]                          [join(1/1)]
+               A00012]
+B00015[1]     [A00011,                                                                           [0/1]                          [join(1/1)]
+               A00014]
+B00017[1]     [A00016,                                                                           [0/1]                          [join(1/1)]
+               A00012]
+B00018[1]     [A00016,                                                                           [0/1]                          [join(1/1)]
+               A00014]
 B30007[7]     [E00006,       [I10008]                             [RU000]                        [0/0, 0/1, 0/2, 0/3, 0/4,      []
                N00001]                                                                            1/0, 1/1]
 RU000[6]      [I10008]
@@ -50,7 +72,15 @@ N00003[3]    canBeCouple:'(?_0 ?_1 ?_2)
 N00004[3]    canSitTogether:'(?_0 ?_1 ?_2)
 N00005[5]    seat:'(?_0 ?_1 ?_2 ?_3 ?_4)
 A00010[5]    seat:'(4 ?_0 ?_1 ?_2 ?_3)
+A00011[2]    hobby:'(1 ?_0)
+A00012[2]    hobby:'(3 ?_0)
+A00014[2]    hobby:'(4 ?_0)
+A00016[2]    hobby:'(2 ?_0)
 E00006[5]    '(seat:'(?_0 ?_1 ?_2 ?_3 ?_4) (< ?_0 4))
+B00013[1]    '(hobby:'(1 ?_0) hobby:'(3 ?_0))
+B00015[1]    '(hobby:'(1 ?_0) hobby:'(4 ?_0))
+B00017[1]    '(hobby:'(2 ?_0) hobby:'(3 ?_0))
+B00018[1]    '(hobby:'(2 ?_0) hobby:'(4 ?_0))
 B30007[7]    '('(seat:'(?_0 ?_1 ?_2 ?_3 ?_4) (< ?_0 4)) guess:'(?_5 ?_6))
 RU000[6]     RU000
 I10008[6]    (inherit '('(seat:'(?_0 ?_1 ?_2 ?_3 ?_4) (< ?_0 4)) guess:'(?_5 ?_6)) 0 1 2 3 4 5)
@@ -64,10 +94,18 @@ N00001[2]        0     0
                  4     0  C1:(uniq on '(?0))
 N00003[3]       12     0
                 12     0  C1:(uniq on '(?0 ?1))
-N00004[3]        0     0
-                 0     0  C1:(uniq on '(?0 ?1))
+N00004[3]       12     0
+                12     0  C1:(uniq on '(?0 ?1))
 A00010[5]       29    21
                 29    21  C1:(cmp-entry-value = ?0 4)
+A00011[2]        8     6
+                 8     6  C1:(cmp-entry-value = ?0 1)
+A00012[2]        8     6
+                 8     6  C1:(cmp-entry-value = ?0 3)
+A00014[2]        8     6
+                 8     6  C1:(cmp-entry-value = ?0 4)
+A00016[2]        8     6
+                 8     6  C1:(cmp-entry-value = ?0 2)
 E00006[5]       21     0
                 21     0  C1:(cmp-entry-value < ?0 4)
 ===============================================================================================================================================================================
@@ -84,13 +122,13 @@ RU000[6]     0     EXPR  (do
                              )
                              (if (> ?m 0) do
                                  (defvar ?x (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_any_2 ?_tmp_seat_any_3) ?m))
-                                 (if (not (compute-stmt mm ?v from canBeCouple:'(?x ?g ?v)))
+                                 (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v)))
                                      (return)
                                  )
                              )
                              (if (= (+ ?m 1) ?max_guess) do
                                  (defvar ?x (get seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_any_2 ?_tmp_seat_any_3) 1))
-                                 (if (not (compute-stmt mm ?v from canBeCouple:'(?x ?g ?v)))
+                                 (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v)))
                                      (return)
                                  )
                              )
@@ -108,12 +146,20 @@ node info6:
 NODE[n]      Type  Class Queue  Named          Parent Child Rule Inhe Join  C1  C2 Pri VarEntry
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 N00001[2]    NAME0 Named MULTI  guess               0     1    1    0    0   1   0  99 [null, null]
-N00002[2]    NAME0 Named UNIQ   hobby               0     0    0    0    0   0   0   0 [null, null]
+N00002[2]    NAME0 Named UNIQ   hobby               0     4    0    0    0   0   0   0 [null, null]
 N00003[3]    NAME0 Named MULTI  canBeCouple         0     0    0    0    0   1   0   0 [null, null, null]
 N00004[3]    NAME0 Named MULTI  canSitTogether      0     0    0    0    0   1   0   0 [null, null, null]
 N00005[5]    NAME0 Named UNIQ   seat                0     2    1    0    0   0   0  99 [null, null, null, null, null]
 A00010[5]    ALPH0 Rete1 MULTI  seat                1     0    0    0    0   1   0   0 [null, ?_tmp_seat_any_0, ?_tmp_seat_any_1, ?_tmp_seat_any_2, ?_tmp_seat_any_3]
+A00011[2]    ALPH0 Rete1 MULTI  hobby               1     2    0    0    0   1   0   0 [null, ?h]
+A00012[2]    ALPH0 Rete1 MULTI  hobby               1     2    0    0    0   1   0   0 [null, ?h]
+A00014[2]    ALPH0 Rete1 MULTI  hobby               1     2    0    0    0   1   0   0 [null, ?h]
+A00016[2]    ALPH0 Rete1 MULTI  hobby               1     2    0    0    0   1   0   0 [null, ?h]
 E00006[5]    EXPR0 Rete1 MULTI                      1     1    1    0    0   1   0  99 [?m, ?_tmp_seat_any_0, ?_tmp_seat_any_1, ?_tmp_seat_any_2, ?_tmp_seat_any_3]
+B00013[1]    BETA0 Beta0 MULTI                      2     0    0    1    1   0   0   0 [?h]
+B00015[1]    BETA0 Beta0 MULTI                      2     0    0    1    1   0   0   0 [?h]
+B00017[1]    BETA0 Beta0 MULTI                      2     0    0    1    1   0   0   0 [?h]
+B00018[1]    BETA0 Beta0 MULTI                      2     0    0    1    1   0   0   0 [?h]
 B30007[7]    BETA3 Beta3 MULTI                      2     1    1    7    0   0   0  99 [?m, ?_tmp_seat_any_0, ?_tmp_seat_any_1, ?_tmp_seat_any_2, ?_tmp_seat_any_3, ?g, ?s]
 RU000[6]     RULE  Rule0 ACTION                     1     0    0    0    0   0   0  99 [?m, ?_tmp_seat_any_0, ?_tmp_seat_any_1, ?_tmp_seat_any_2, ?_tmp_seat_any_3, ?g]
 I10008[6]    INHER Inher MULTI                      1     1    1    0    0   0   0  99 [?m, ?_tmp_seat_any_0, ?_tmp_seat_any_1, ?_tmp_seat_any_2, ?_tmp_seat_any_3, ?g]
@@ -129,6 +175,10 @@ N00003[3]    '(?0 ?1)
 N00004[3]    '(?0 ?1)
 N00005[5]    '(?0 ?1 ?2 ?3 ?4)
 A00010[5]    '(?1 ?2 ?3 ?4)
+A00011[2]    '(?1)
+A00012[2]    '(?1)
+A00014[2]    '(?1)
+A00016[2]    '(?1)
 E00006[5]    '(?0 ?1 ?2 ?3 ?4)
 ===============================================================================================================================================================================
 
@@ -139,6 +189,7 @@ NODE[n]      Node                           Queue                          Const
 N00001[2]                                                                  uniqEntryMap: size=4
 N00002[2]                                   uniqEntryMap: size=8           
 N00003[3]                                                                  uniqEntryMap: size=12
+N00004[3]                                                                  uniqEntryMap: size=12
 N00005[5]                                   uniqEntryMap: size=29          
 I10008[6]    uniqEntryMap: size=84                                         
 ===============================================================================================================================================================================
@@ -153,10 +204,10 @@ N00004[3]    (uniq on '(?0 ?1))                       [?g1, ?g2, (canSitTogether
 
 priority info:
 ===============================================================================================================================================================================
-Priority        NAME0 ALPH0 EXPR0 BETA3  RULE INHER
+Priority        NAME0 ALPH0 EXPR0 BETA0 BETA3  RULE INHER
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-099(default) :      2           1     1     1     1
-000(inactive):      3     1                        
+099(default) :      2           1           1     1     1
+000(inactive):      3     5           4                  
 ===============================================================================================================================================================================
 
 node source info:
@@ -175,18 +226,18 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addConstraint                   1
 model-addRule                         1
-model-addStatement                   53
-model-addUpdateNode                  61
-model-execute                        28
-model-findReteEntry-1                68
-model-query                           1
-graph-addConstraint                   5
-graph-createNodeByTree                1
-graph-createNodeRoot                 56
+model-addStatement                   65
+model-addUpdateNode                  89
+model-execute                        45
+model-findReteEntry-1                80
+model-query                           9
+graph-addConstraint                   9
+graph-createNodeByTree                9
+graph-createNodeRoot                 68
 graph-createNodeRule                  1
-graph-createSubGraphForQueryNodeBackward        1
-graph-listSourceNodes                26
-graph-setNodePriority                20
+graph-createSubGraphForQueryNodeBackward        5
+graph-listSourceNodes                46
+graph-setNodePriority                92
 OptimizeRuleActionIndexVarCount        1
 ===============================================================================================================================================================================
 
@@ -195,11 +246,11 @@ Cached Subgraph info:
 ===============================================================================================================================================================================
 MAP CNT KEY                                                          NOTES
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-QBK     seat:'(4 ?_0 ?_1 ?_2 ?_3)                                    [A00010, B30007, E00006, I10008, N00001, N00005, RU000]
+QBK     '(hobby:'(2 ?_0) hobby:'(4 ?_0))                             [A00014, A00016, B00018, N00002]
 ===============================================================================================================================================================================
 
 
-Rule<RU000> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (loop for ?i from 1 to ?m do (if (= (get ?0 ?i) ?g) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 ?m)) (if (not (compute-stmt mm ?v from canBeCouple:'(?x ?g ?v))) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 1)) (if (not (compute-stmt mm ?v from canBeCouple:'(?x ?g ?v))) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr (+ ?m 1) ?g) (println "Test: " ?arr) (add-stmt mm seat ?arr))
+Rule<RU000> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (loop for ?i from 1 to ?m do (if (= (get ?0 ?i) ?g) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 ?m)) (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v))) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 1)) (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v))) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr (+ ?m 1) ?g) (println "Test: " ?arr) (add-stmt mm seat ?arr))
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -239,49 +290,56 @@ Model<mm> share index:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ALPH0                                                                                                                                                                            
 EXPR0                          0      0                                                       0            0                   0      0           0    0    0    0              0
+BETA0                                                                                                                                                                            
 BETA3      0                          0                                                       0            0                          0           0    0    0    0              0
  RULE                                                                                         0            0     0                    0           0    0    0    0               
 INHER      0                          0                                                       0            0     0                    0           0    0    0    0              0
 ===============================================================================================================================================================================
 
 MatchCount: BETA0 BETA2 BETA3
+B00013[1]            4
+B00015[1]            4
+B00017[1]            4
+B00018[1]            4
 B30007[7]            0
 
 Entry Table:
 	    ETA: total-action=0, new-action=0, max-size=0, capacity=256, expend=0
-	  Entry: count=221, stmt=53
+	  Entry: count=239, stmt=65
 ===============================================================================================================================================================================
-Entry Bit Map: total=221, max-id=221, create=221, removed=0, group-size=10, group-count=23
+Entry Bit Map: total=239, max-id=239, create=239, removed=0, group-size=10, group-count=24
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-......................1 [221]
+.......................9 [239]
 ===============================================================================================================================================================================
-Length Array: min=2, max=7
+Length Array: min=1, max=7
+Entry[0001]= 6
 Entry[0002]= 12, guess(4), hobby(8)
-Entry[0003]= 12, canBeCouple(12)
+Entry[0003]= 24, canBeCouple(12), canSitTogether(12)
 Entry[0005]= 29, seat(29)
 Entry[0006]= 84
 Entry[0007]= 84
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Length Array:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Length:   NAME0   BETA3    RULE   INHER
-     2:      12       0       0       0
-     3:       0       0      12       0
-     5:       1       0      28       0
-     6:       0       0       0      84
-     7:       0      84       0       0
- total:      13      84      40      84
+Length:   NAME0   BETA0   BETA3    RULE   INHER
+     1:       0       6       0       0       0
+     2:      12       0       0       0       0
+     3:       0       0       0      24       0
+     5:       1       0       0      28       0
+     6:       0       0       0       0      84
+     7:       0       0      84       0       0
+ total:      13       6      84      52      84
 ===============================================================================================================================================================================
 Ref Array:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-RefCount: unRefer   NAME0   BETA3    RULE   INHER
+RefCount: unRefer   NAME0   BETA0   BETA3    RULE   INHER
        0:       0
-       1:       0      13      84      40      84
-   total:       0      13      84      40      84
+       1:       0      13       6      84      52      84
+   total:       0      13       6      84      52      84
 ===============================================================================================================================================================================
-Ref Bit Map: total=221, max-id=221, create=221, removed=0, group-size=10, group-count=23
+Ref Bit Map: total=239, max-id=239, create=239, removed=0, group-size=10, group-count=24
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-......................1 [221]
+.......................9 [239]
 ===============================================================================================================================================================================
 Child Count:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -296,24 +354,26 @@ Child Count:
        4: entry=seat:'(1 4 0 0 0), status=reason
        4: entry=seat:'(2 1 3 0 0), status=reason
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-           Entry[2]  Entry[3]  Entry[5]  Entry[6]  Entry[7]
- 0 -  0:         8        12         8        52         0
- 1 -  1:         0         0         0        24        84
- 2 -  2:         0         0         0         8         0
- 4 -  4:         0         0        21         0         0
-21 - 21:         4         0         0         0         0
-  total:        12        12        29        84        84
+           Entry[1]  Entry[2]  Entry[3]  Entry[5]  Entry[6]  Entry[7]
+ 0 -  0:         6         1        24         8        52         0
+ 1 -  1:         0         2         0         0        20        84
+ 2 -  2:         0         5         0         0         4         0
+ 3 -  3:         0         0         0         0         8         0
+ 4 -  4:         0         0         0        21         0         0
+21 - 21:         0         4         0         0         0         0
+  total:         6        12        24        29        84        84
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-           NAME0   BETA3    RULE   INHER
- 0 -  0:       8       0      20      52
- 1 -  1:       0      84       0      24
- 2 -  2:       0       0       0       8
- 4 -  4:       1       0      20       0
-21 - 21:       4       0       0       0
-  total:      13      84      40      84
+           NAME0   BETA0   BETA3    RULE   INHER
+ 0 -  0:       1       6       0      32      52
+ 1 -  1:       2       0      84       0      20
+ 2 -  2:       5       0       0       0       4
+ 3 -  3:       0       0       0       0       8
+ 4 -  4:       1       0       0      20       0
+21 - 21:       4       0       0       0       0
+  total:      13       6      84      52      84
 ===============================================================================================================================================================================
 
-Model<mm> frame:id=3, name=model, lvl=3, ref=2/4, entry=1, pid=2(main), subject=model
+Model<mm> frame:id=3, name=model, lvl=3, ref=2/5, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -333,17 +393,26 @@ default_model        : 43       7        4    instance   model@mm
 ?g                   : 49       7        1    var        4 : type=int        
 ==========================================================================================================================
 
-node update info: model-exec-count=28, row=7, column=29(1), value-max=1, value-unit=1^x
+node update info: model-exec-count=45, row=16, column=46(1), value-max=1, value-unit=1^x
 ===============================================================================================================================================================================
-NODE[n]   Update Exec Idle ..11..1111.11111.11111.111111 max=1, unit=1^x
+NODE[n]   Update Exec Idle ..11..1111.111.111..11..11...2.11.11111.111111 max=2, unit=2^x
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-N00005[5]    4    4    0          1     1     1     1 
-E00006[5]    4    4    0    1       1     1     1     
-B30007[7]    4    4    0       1     1     1     1    
-RU000[6]     4    5    1         1     1     1     1  
-I10008[6]    4    5    1        1     1     1     1   
-N00001[2]    1    1    0   1                          
-A00010[5]    1    5    0                             1
+N00005[5]    4    4    0          1                      1     1     1 
+E00006[5]    4    4    0    1       1                      1     1     
+B30007[7]    4    4    0       1     1                      1     1    
+RU000[6]     4    5    1         1                    1       1     1  
+I10008[6]    4    5    1        1     1                      1     1   
+N00001[2]    1    1    0   1                                           
+N00002[2]    1    1    0                                1              
+A00010[5]    1    5    0                                              1
+A00011[2]    1    2    1                1                              
+A00012[2]    1    2    1                 1                             
+A00014[2]    1    2    1                     1                         
+A00016[2]    1    2    1                         1                     
+B00013[1]    1    2    1                  1                            
+B00015[1]    1    2    1                      1                        
+B00017[1]    1    2    1                          1                    
+B00018[1]    1    2    1                              1                
 ===============================================================================================================================================================================
 
 
@@ -354,10 +423,10 @@ Total runtime info:
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
            Interpreter call id:      258
-    Interpreter call level/max:        0       12
-               Frame max level:        9
-                  Frame max id:       12
-           Frame free id count:        7
+    Interpreter call level/max:        0       20
+               Frame max level:       10
+                  Frame max id:       16
+           Frame free id count:       11
 ==========================================================================================================================
 
 Optimize info:
@@ -374,28 +443,28 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1976
-      func:      258
+    factor:     2188
+      func:      310
 ==========================================================================================================================
 
-Callable stats info: callId=258, row=40, column=33(8), value-max=286, value-unit=2^x
+Callable stats info: callId=258, row=48, column=33(8), value-max=338, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333343333538 max=1935, unit=3^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333343333539 max=2199, unit=3^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    286    0 return                                                         X
-    root   factor    268    0 if                                                             X
-    root   factor    188    0 get-of-list                                                    9
-  system funcList    188    1 get                                                            9
-    root   factor    184    0 =                                                              9
+    root   factor    338    0 return                                                         X
+    root   factor    308    0 if                                                             X
+    root   factor    196    0 get-of-list                                                    9
+  system funcList    196    1 get                                                            9
+    root   factor    196    0 =                                                              9
     root   factor    178    0 add-attribute                  144444444444444444444441         
-    root   factor    141    0 do                                                             9
-    root   factor    102    0 defvar                                                  3    1 8
+    root   factor    161    0 do                                                             9
+    root   factor    110    0 defvar                                                  3    1 8
     root   factor     87    0 +                                                            118
     root   factor     85    0 loop                                                           8
+  system   factor     80    0 compute-stmt                                                   8
     root   factor     74    0 defun                                                 443443463 
-  system   factor     68    0 compute-stmt                                                   8
     root   factor     61    0 seta                                                           7
-    root   factor     44    0 not                                                            7
+    root   factor     56    0 not                                                            7
   system   factor     41    0 add-stmt                                                     5 6
     root   factor     40    0 >                                                              7
     root   factor     29    0 make-array                                                     6
@@ -403,8 +472,17 @@ Callable stats info: callId=258, row=40, column=33(8), value-max=286, value-unit
   system funcList     28    1 println                                                        6
     root   factor     28    0 print                                                          6
     root   factor     28    0 add-list-to-array                                              6
+    root   factor     20    0 !=                                                             6
+    root   factor     16    0 size-of-list                                                   5
+    main     func     12    1 (canSitTogether nil nil)                                       5
     main     func     12    1 (canBeCouple nil nil)                                          5
-    root   factor     12    0 !=                                                             5
+  system   factor      9    0 query-stmt                                                     5
+  system funcList      8    1 size-of                                                        4
+    main funcList      8    2 is-empty                                                       4
+    main     func      8    1 (getAt list int)                                               4
+    root   factor      8    0 equal_def                                                      4
+  system funcList      8    1 equal                                                          4
+    root   factor      8    0 <=                                                             4
     root   factor      7    0 alias                          4                           1    
     root   factor      5    0 defmacro                                                     4  
     root   factor      4    0 make-list                                               3       
@@ -412,7 +490,6 @@ Callable stats info: callId=258, row=40, column=33(8), value-max=286, value-unit
     root   factor      2    0 load                                                         2  
   system   factor      2    0 add-node-func                                                 2 
   system funcList      1    1 to-list                                                        1
-  system   factor      1    0 query-stmt                                                     1
     root   factor      1    0 new                                                          1  
     main     func      1    1 (makeList int nil)                                             1
     root   factor      1    0 file-parent                                                  1  
@@ -428,21 +505,23 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2553            0         2553
+        atom:         2690            0         2690
+       float:            2            0            2
+      double:            2            0            2
       string:           82            0           82
-        list:          560          218          342
-        expr:         1351          258         1093
+        list:          710          226          484
+        expr:         1403          310         1093
        array:           29           29            0
-         var:          869          841           28
+         var:         1033         1005           28
     constant:            1            0            1
         func:           91            0           91
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
-       frame:          732          730            2
+       frame:          824          822            2
     iterator:            1            0            1
  interpreter:            1            0
-  frameEntry:         1292            0
+  frameEntry:         1476            0
       lambda:            0            0
 ==========================================================================================================================
 
@@ -501,7 +580,7 @@ canSitTogether       : 29       2        1    func       (canSitTogether nil nil
 ==========================================================================================================================
 
 
-id=3, name=model, lvl=3, ref=2/4, entry=1, pid=2(main), subject=model
+id=3, name=model, lvl=3, ref=2/5, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -544,7 +623,7 @@ Global frame tree:
 
 Global Subject list:
 
-name=mm, string=model@mm, lvl=1, ref=4/6, parent=model, final=false, mbrs=7, frame=null
+name=mm, string=model@mm, lvl=1, ref=4/7, parent=model, final=false, mbrs=7, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------

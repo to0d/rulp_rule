@@ -51,7 +51,8 @@
     )
 
     (defvar ?rst (query-stmt mm ?h from hobby:'(?g1 ?h) hobby:'(?g2 ?h) limit 1))
-    (return (!= nil (getAt ?rst2 0)))
+
+    (return (!= nil (getAt ?rst 0)))
 )
 ;=>
 
@@ -74,14 +75,14 @@
     
     (if (> ?m 0) do
         (defvar ?x (get ?0 ?m))
-        (if (not (compute-stmt mm ?v from canBeCouple:'(?x ?g ?v)))
+        (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v)))
             (return)
         )
     )
     
     (if (= (+ ?m 1) ?max_guess) do
         (defvar ?x (get ?0 1))
-        (if (not (compute-stmt mm ?v from canBeCouple:'(?x ?g ?v)))
+        (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v)))
             (return)
         )
     )
