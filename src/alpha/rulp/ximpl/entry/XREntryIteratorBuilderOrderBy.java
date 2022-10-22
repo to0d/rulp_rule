@@ -1,16 +1,16 @@
 package alpha.rulp.ximpl.entry;
 
-import java.util.Iterator;
 import java.util.List;
 
 import alpha.rulp.lang.RException;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.HeapStack;
 import alpha.rulp.utils.OrderEntry;
 import alpha.rulp.utils.ReteUtil;
 
 public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 
-	static class EntryQueueOrderByIterator implements Iterator<IRReteEntry> {
+	static class EntryQueueOrderByIterator implements IRIterator<IRReteEntry> {
 
 		private HeapStack<IRReteEntry> heapStack;
 
@@ -38,7 +38,7 @@ public class XREntryIteratorBuilderOrderBy implements IREntryIteratorBuilder {
 	}
 
 	@Override
-	public Iterator<IRReteEntry> makeIterator(IREntryList list) {
+	public IRIterator<IRReteEntry> makeIterator(IREntryList list) throws RException {
 
 		HeapStack<IRReteEntry> heapStack = new HeapStack<>((e1, e2) -> {
 

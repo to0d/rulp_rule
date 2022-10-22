@@ -1,10 +1,11 @@
 package alpha.rulp.ximpl.entry;
 
-import java.util.Iterator;
+import alpha.rulp.lang.RException;
+import alpha.rulp.runtime.IRIterator;
 
 public class XREntryIteratorBuilderReverse implements IREntryIteratorBuilder {
 
-	static class EntryQueueReverseIterator implements Iterator<IRReteEntry> {
+	static class EntryQueueReverseIterator implements IRIterator<IRReteEntry> {
 
 		private int index;
 
@@ -22,13 +23,13 @@ public class XREntryIteratorBuilderReverse implements IREntryIteratorBuilder {
 		}
 
 		@Override
-		public IRReteEntry next() {
+		public IRReteEntry next() throws RException {
 			return list.getEntryAt(--index);
 		}
 	}
 
 	@Override
-	public Iterator<IRReteEntry> makeIterator(IREntryList list) {
+	public IRIterator<IRReteEntry> makeIterator(IREntryList list) {
 		return new EntryQueueReverseIterator(list);
 	}
 

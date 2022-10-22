@@ -168,11 +168,8 @@ public class XRFactorHasStmt extends AbsAtomFactorAdapter implements IRFactor, I
 		// after : (has-stmt '(a p1 ?y))
 		/********************************************/
 		if (orderList == null && model.getTopExecuteNode() != null) {
-
 			IRObject oldStmtObj = useDefaultModel ? args.get(1) : args.get(2);
-
 			if (oldStmtObj != stmt && oldStmtObj.getType() == RType.LIST) {
-
 				orderList = OptimizeUtil.optimizeHasStmtOrderEntry(oldStmtObj, stmt);
 			}
 		}

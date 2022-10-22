@@ -1,5 +1,7 @@
 package alpha.rulp.rule;
 
+import alpha.rulp.lang.RException;
+
 public interface IRModelCounter {
 
 	public IRModel getModel();
@@ -18,6 +20,6 @@ public interface IRModelCounter {
 
 	public int getStateChangeCount();
 
-	public int getStatementCount();
+	public int getStatementCount() throws RException;
 
 }

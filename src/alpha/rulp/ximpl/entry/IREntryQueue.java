@@ -21,7 +21,7 @@ public interface IREntryQueue extends IREntryList, IREntryAction {
 
 	public String getCacheInfo();
 
-	public IREntryCounter getEntryCounter();
+	public IREntryCounter getEntryCounter() throws RException;
 
 	public int getEntryLength();
 

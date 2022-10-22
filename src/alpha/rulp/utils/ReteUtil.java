@@ -1028,7 +1028,7 @@ public class ReteUtil {
 		return namedNode;
 	}
 
-	public static List<IRReteEntry> getAllEntries(IREntryQueue queue) {
+	public static List<IRReteEntry> getAllEntries(IREntryQueue queue) throws RException {
 
 		int size = queue.size();
 
@@ -1181,7 +1181,7 @@ public class ReteUtil {
 		return INDEX_VAR_PRE + index;
 	}
 
-	public static IRReteEntry getLastEntry(IREntryQueue queue) {
+	public static IRReteEntry getLastEntry(IREntryQueue queue) throws RException {
 
 		int size = queue.size();
 		for (int i = size - 1; i >= 0; --i) {

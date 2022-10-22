@@ -90,7 +90,7 @@ public class XRConstraint1OrderBy extends AbsRConstraint1 implements IRConstrain
 		return true;
 	}
 
-	protected IRReteEntry _getLastEntry() {
+	protected IRReteEntry _getLastEntry() throws RException {
 
 		if (lastEntry != null && lastEntry.isDroped()) {
 			lastEntry = null;

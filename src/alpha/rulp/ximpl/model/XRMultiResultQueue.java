@@ -3,7 +3,6 @@ package alpha.rulp.ximpl.model;
 import static alpha.rulp.lang.Constant.A_QUESTION_LIST;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import alpha.rulp.lang.IRExpr;
@@ -14,6 +13,7 @@ import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRContext;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
 import alpha.rulp.ximpl.entry.IREntryIteratorBuilder;
@@ -196,7 +196,7 @@ public class XRMultiResultQueue implements IRResultQueue, IRContext {
 
 		if (orderCacheList != null) {
 
-			Iterator<IRReteEntry> it = orderBuilder.makeIterator(orderCacheList);
+			IRIterator<IRReteEntry> it = orderBuilder.makeIterator(orderCacheList);
 			while (it.hasNext()) {
 				if (orderLimit != -1 && rstList.size() >= orderLimit) {
 					break;

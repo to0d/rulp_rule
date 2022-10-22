@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.rule.RReteStatus.REMOVE;
 
+import alpha.rulp.lang.RException;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRModelCounter;
 import alpha.rulp.rule.IRReteNode;
@@ -85,7 +86,7 @@ public class XRRModelCounter implements IRModelCounter {
 	}
 
 	@Override
-	public int getStatementCount() {
+	public int getStatementCount() throws RException {
 
 		int totalCount = 0;
 

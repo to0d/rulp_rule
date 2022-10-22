@@ -1247,7 +1247,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			_checkCache(rootNode);
 
-			Iterator<IRReteEntry> it = builder.makeIterator(rootNode.getEntryQueue());
+			IRIterator<IRReteEntry> it = builder.makeIterator(rootNode.getEntryQueue());
 
 			while (it.hasNext()) {
 
@@ -1498,7 +1498,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		IREntryQueue matchedNodeQueue = matchedNode.getEntryQueue();
-		Iterator<IRReteEntry> it = builder.makeIterator(matchedNodeQueue);
+		IRIterator<IRReteEntry> it = builder.makeIterator(matchedNodeQueue);
 
 		boolean completed = false;
 
