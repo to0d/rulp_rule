@@ -2,7 +2,7 @@
 ;=>m
 
 (add-rule m if '(?x p ?y) '(?y p ?z) do (println (+ "R1: " ?x ", " ?z)))
-(add-rule m if '(?a p ?b) '(?b p ?c) do (println (+ "R1: " ?c ", " ?a)))
+(add-rule m if '(?a p ?b) '(?b p ?c) do (println (+ "R2: " ?c ", " ?a)))
 (add-stmt m '(a p b))
 (add-stmt m '(b p c))
 ;=>RU000 RU001 true true
@@ -11,7 +11,7 @@
 ;=>6
 ;out:
 R1: a, c
-R1: c, a
+R2: c, a
 
 ;eof
 

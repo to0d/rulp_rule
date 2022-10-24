@@ -58,6 +58,32 @@ public abstract class XRNodeRete2 extends AbsReteNode implements IRBetaNode {
 
 		int leftParentEntryCount = parentNodes[0].getEntryQueue().size();
 		int rightParentEntryCount = parentNodes[1].getEntryQueue().size();
+
+		if (limit == -1) {
+			return _update_no_primary(limit, leftParentEntryCount, rightParentEntryCount);
+		}
+
+		int maxAddParentCount = Math.max(leftParentEntryCount - lastLeftEntryCount,
+				rightParentEntryCount - lastRightEntryCount);
+
+		int testLeftParentEntryCount = lastLeftEntryCount;
+		int testRightParentEntryCount = lastRightEntryCount;
+
+		int updateCount = 0;
+
+		for (int i = 0; i < maxAddParentCount && updateCount < limit; ++i) {
+
+			testLeftParentEntryCount = Math.min(testLeftParentEntryCount + 1, leftParentEntryCount);
+			testRightParentEntryCount = Math.min(testRightParentEntryCount + 1, rightParentEntryCount);
+			updateCount += _update_no_primary(limit, testLeftParentEntryCount, testRightParentEntryCount);
+		}
+
+		return updateCount;
+
+	}
+
+	protected int _update_no_primary(int limit, int leftParentEntryCount, int rightParentEntryCount) throws RException {
+
 		int updateCount = 0;
 
 		/*****************************************************/

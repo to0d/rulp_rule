@@ -2729,6 +2729,10 @@ public class XRNodeGraph implements IRNodeGraph {
 		counter.setNodePriority++;
 
 		node.setPriority(newPriority);
+		int modePriority = model.getPriority();
+		if (newPriority >= modePriority && oldPriority < modePriority && node.getReteStage() == RReteStage.InQueue) {
+			model.getNodeUpdateQueue().push(node, true);
+		}
 
 		// need do this? - 2022/09/19
 		// if (node.getReteStage() == RReteStage.InQueue) {

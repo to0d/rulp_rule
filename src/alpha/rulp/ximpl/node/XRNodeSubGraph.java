@@ -25,7 +25,7 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 
 		public boolean update = false;
 	}
-	
+
 	private boolean activate = false;
 
 	private Map<IRReteNode, ActivateInfo> activateMap = null;
@@ -62,9 +62,10 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 			graph.setNodePriority(info.node, info.newPriority);
 			info.update = true;
 
-			if (info.newPriority >= graph.model.getPriority()) {
+			if (info.newPriority >= graph.model.getPriority() && info.node.getReteStage() != RReteStage.InQueue) {
 				graph.model.addUpdateNode(info.node);
 			}
+
 		}
 
 		activate = true;
@@ -181,5 +182,4 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 		info.newPriority = newPriority;
 	}
 
- 
 }

@@ -136,9 +136,13 @@ public class XRNodeUpdateQueue implements IRNodeUpdateQueue {
 	}
 
 	@Override
-	public void push(IRReteNode node) throws RException {
+	public void push(IRReteNode node, boolean force) throws RException {
 
-		if (node.getReteStage() == RReteStage.InQueue) {
+//		if (force && node.getNodeName().equals("RU000")) {
+//			System.out.println();
+//		}
+
+		if (!force && node.getReteStage() == RReteStage.InQueue) {
 			return;
 		}
 

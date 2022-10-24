@@ -2295,6 +2295,7 @@ public class ReteUtil {
 	public static boolean supportUpdateIncrementally(IRReteNode node) {
 		switch (node.getReteType()) {
 		case ZETA0:
+		case BETA3:
 			return true;
 
 		default:

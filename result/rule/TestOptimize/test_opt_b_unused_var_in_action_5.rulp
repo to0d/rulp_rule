@@ -2,7 +2,7 @@
 ;=>
 
 (add-rule m if '(?x p ?y) '(?y p ?z) do (println (+ "R1: " ?x ", " ?z)))
-(add-rule m if '(?a p ?b) '(?b p ?c) do (println (+ "R1: " ?c ", " ?a)))
+(add-rule m if '(?a p ?b) '(?b p ?c) do (println (+ "R2: " ?c ", " ?a)))
 (add-stmt m '(a p b))
 (add-stmt m '(b p c))
 ;=>

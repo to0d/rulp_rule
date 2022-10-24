@@ -11,7 +11,7 @@ public interface IRNodeUpdateQueue {
 
 	public IRReteNode pop() throws RException;
 
-	public void push(IRReteNode node) throws RException;
+	public void push(IRReteNode node, boolean force) throws RException;
 
 	public void updateNodePriority(IRReteNode node, int oldPriority, int newPriority) throws RException;
 }

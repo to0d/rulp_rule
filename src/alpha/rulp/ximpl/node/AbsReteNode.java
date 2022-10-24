@@ -785,6 +785,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	@Override
 	public void setReteStage(RReteStage reteStage) {
+
+//		if ("N00005".equals(this.getNodeName())) {
+//			System.out.println();
+//		}
+
 		this.reteStage = reteStage;
 	}
 
