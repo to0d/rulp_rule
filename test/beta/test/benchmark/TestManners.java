@@ -52,6 +52,7 @@ public class TestManners extends RuleTestBase {
 		_setup();
 		_run_script();
 		_statsInfo("mm");
+		_dumpEntryTable("mm");
 
 	}
 }

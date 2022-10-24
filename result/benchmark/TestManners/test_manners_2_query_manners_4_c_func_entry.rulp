@@ -65,8 +65,14 @@
 (add-node mm seat:'((+ ?max_guess 1)))
 ;=>
 
+(defvar ?idx 0)
+;=>
+
 (add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
 
+    (println "" ?idx ": " ?0 " " ?1)
+    (++ ?idx)
+    
     (loop for ?i from 1 to ?m do
         (if (= (get ?0 ?i) ?g) do
             (return)
@@ -90,8 +96,6 @@
     (defvar ?arr (to-array ?0))
     (seta ?arr 0 (+ ?m 1))
     (seta ?arr (+ ?m 1) ?g)
-    
-    (println "Test: " ?arr)
     
     (add-stmt mm seat ?arr)
 )
