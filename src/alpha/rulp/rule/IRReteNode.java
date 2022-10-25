@@ -140,6 +140,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public void incNodeMatchCount();
 
+	public boolean isAutoGC();
+
 	public boolean isNodeFresh();
 
 	public List<IRConstraint1Uniq> listUniqConstraints();
@@ -149,6 +151,10 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 	public void removeChildNode(IRReteNode child);
 
 	public IRConstraint1 removeConstraint(String constraintExpression);
+
+	public void resetAutoGCBeginPos();
+
+	public void setAutoGC(boolean autoGc);
 
 	public void setBufferWorker(IRBufferWorker cache);
 

@@ -115,12 +115,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		protected IRNodeSubGraph subGraph;
 
-		public RQueryHelper(XRModel model, IRReteNode queryNode, int limit, boolean backward) {
+		protected boolean gc;
+
+		public RQueryHelper(XRModel model, IRReteNode queryNode, int limit, boolean backward, boolean gc) {
 			super();
 			this.model = model;
 			this.queryNode = queryNode;
 			this.limit = limit;
 			this.backward = backward;
+			this.gc = gc;
 		}
 
 		public void activateSubGraph() throws RException {
@@ -372,8 +375,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	static class RQueryIndexHelper extends RQueryHelper {
 
-		public RQueryIndexHelper(XRModel model, IRReteNode queryNode, int limit, boolean backward) {
-			super(model, queryNode, limit, backward);
+		public RQueryIndexHelper(XRModel model, IRReteNode queryNode, int limit, boolean backward, boolean gc) {
+			super(model, queryNode, limit, backward, gc);
 		}
 
 		public void query(IREntryAction action, IRList matchStmt) throws RException {
@@ -2684,11 +2687,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	@Override
 	public void query(IREntryAction action, IRList condList, Map<String, IRObject> whereVarMap, int limit,
-			boolean backward) throws RException {
+			boolean backward, boolean gc) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> query: cond=" + condList + ", where=" + whereVarMap + ", limit=" + limit
-					+ ", backward=" + backward);
+					+ ", backward=" + backward + ", gc=" + gc);
 		}
 
 		counter.mcQuery++;
@@ -2702,7 +2705,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 		if (whereVarMap == null) {
 
-			new RQueryHelper(this, findNode(condList), limit, backward).query(action);
+			new RQueryHelper(this, findNode(condList), limit, backward, gc).query(action);
 
 		} else {
 
@@ -2739,7 +2742,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			IRList matchStmt = RulpFactory.createList(matchStmtList);
 
-			new RQueryIndexHelper(this, indexNode, limit, backward).query(action, matchStmt);
+			new RQueryIndexHelper(this, indexNode, limit, backward, gc).query(action, matchStmt);
 		}
 
 		_gc(false);
@@ -2761,7 +2764,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 			throw new RException("Can't query, the model is running");
 		}
 
-		return new RQueryIterator(new RQueryHelper(this, findNode(condList), limit, backward));
+		return new RQueryIterator(new RQueryHelper(this, findNode(condList), limit, backward, false));
 	}
 
 	@Override

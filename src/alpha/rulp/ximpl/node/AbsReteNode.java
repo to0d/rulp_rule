@@ -46,6 +46,10 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected List<IRReteNode> allChildNodes = null;
 
+	protected boolean autoGC = false;
+
+	protected int autoGCBeginPos = 0;
+
 	protected List<IRReteNode> autoUpdateChildNodes = null;
 
 	protected IRBufferWorker cache;
@@ -361,13 +365,13 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return addEntryFailCount;
 	}
 
-	public String getCacheInfo() {
-		return "";
-	}
-
 	@Override
 	public IRBufferWorker getBufferWorker() {
 		return cache;
+	}
+
+	public String getCacheInfo() {
+		return "";
 	}
 
 	@Override
@@ -614,6 +618,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
+	public boolean isAutoGC() {
+		return autoGC;
+	}
+
+	@Override
 	public boolean isDeleted() {
 		return false;
 	}
@@ -655,25 +664,6 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		return _uniqInfoList;
 	}
 
-//	public void removeChild(IRReteNode child) {
-//
-//		if (allChildNodes != null) {
-//			allChildNodes.remove(child);
-//
-//			if (allChildNodes.isEmpty()) {
-//				allChildNodes = null;
-//			}
-//		}
-//
-//		if (autoUpdateChildNodes != null) {
-//			autoUpdateChildNodes.remove(child);
-//
-//			if (autoUpdateChildNodes.isEmpty()) {
-//				autoUpdateChildNodes = null;
-//			}
-//		}
-//	}
-
 	@Override
 	public void removeChildNode(IRReteNode child) {
 
@@ -709,6 +699,35 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		return constraint;
+	}
+
+//	public void removeChild(IRReteNode child) {
+//
+//		if (allChildNodes != null) {
+//			allChildNodes.remove(child);
+//
+//			if (allChildNodes.isEmpty()) {
+//				allChildNodes = null;
+//			}
+//		}
+//
+//		if (autoUpdateChildNodes != null) {
+//			autoUpdateChildNodes.remove(child);
+//
+//			if (autoUpdateChildNodes.isEmpty()) {
+//				autoUpdateChildNodes = null;
+//			}
+//		}
+//	}
+
+	@Override
+	public void resetAutoGCBeginPos() {
+		this.autoGCBeginPos = 0;
+	}
+
+	@Override
+	public void setAutoGC(boolean autoGC) {
+		this.autoGC = autoGC;
 	}
 
 	@Override

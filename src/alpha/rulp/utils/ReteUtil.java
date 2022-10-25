@@ -929,6 +929,30 @@ public class ReteUtil {
 		return new XRMultiResultQueue(model.getInterpreter(), queryFrame, rstExpr, vars);
 	}
 
+	public static void enableAutoGC(IRReteNode node) {
+
+		switch (node.getReteType()) {
+		case ALPH0:
+		case ALPH2:
+		case BETA0:
+		case BETA1:
+		case BETA2:
+		case BETA3:
+		case EXPR0:
+		case EXPR1:
+		case EXPR2:
+		case EXPR3:
+		case EXPR4:
+		case INHER:
+		case ZETA0:
+			node.setAutoGC(true);
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	public static void fillVarList(IRList stmt, Collection<String> varList) throws RException {
 
 		IRIterator<? extends IRObject> iter = ((IRList) stmt).iterator();

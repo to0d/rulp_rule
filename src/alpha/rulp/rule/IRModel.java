@@ -97,7 +97,7 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 			IREntryAction action) throws RException;
 
 	public void query(IREntryAction result, IRList condList, Map<String, IRObject> whereVarMap, int limit,
-			boolean backward) throws RException;
+			boolean backward, boolean gc) throws RException;
 
 	public IRIterator<IRReteEntry> query(IRList condList, int limit, boolean backward) throws RException;
 

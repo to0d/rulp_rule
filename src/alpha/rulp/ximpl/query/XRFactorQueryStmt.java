@@ -3,11 +3,13 @@ package alpha.rulp.ximpl.query;
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.F_INIT;
+import static alpha.rulp.lang.Constant.F_UNINIT;
 import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_Backward;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Forward;
+import static alpha.rulp.rule.Constant.A_GC;
 import static alpha.rulp.rule.Constant.A_Limit;
 import static alpha.rulp.rule.Constant.A_Order_by;
 import static alpha.rulp.rule.Constant.A_Reverse;
@@ -55,6 +57,15 @@ import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeSubGraph;
 
 public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
+
+	static IRFrame _newInitFrame(IRModel model, IRFrame frame) throws RException {
+
+		IRFrame initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
+		RulpUtil.incRef(initFrame);
+		RuleUtil.setDefaultModel(initFrame, model);
+
+		return initFrame;
+	}
 
 	public XRFactorQueryStmt(String factorName) {
 		super(factorName);
@@ -290,6 +301,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 			nodeListener = (_node) -> {
 				newInitNodes.add(_node);
+				ReteUtil.enableAutoGC(_node);
 			};
 
 			nodeGraph.addNewNodeListener(nodeListener);
@@ -472,7 +484,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				subGraph.activate();
 			}
 
-			model.query(resultQueue, condList, whenVarMap, limit, backward);
+			model.query(resultQueue, condList, whenVarMap, limit, backward, gc);
 
 			return RulpFactory.createList(resultQueue.getResultList());
 
@@ -530,15 +542,6 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				RulpUtil.decRef(initFrame);
 			}
 		}
-	}
-
-	static IRFrame _newInitFrame(IRModel model, IRFrame frame) throws RException {
-
-		IRFrame initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
-		RulpUtil.incRef(initFrame);
-		RuleUtil.setDefaultModel(initFrame, model);
-
-		return initFrame;
 	}
 
 }
