@@ -1333,14 +1333,7 @@ public class StatsUtil {
 	private static void _printNodeInfo1(StringBuffer sb, IRModel model, List<IRReteNode> nodes, boolean printRoot)
 			throws RException {
 
-		sb.append("\nnode info:\n");
-		sb.append(SEP_LINE1);
-		sb.append(String.format(
-				"%-12s %6s %6s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %5s %8s %11s\n",
-				"NODE[n]", "Create", "Delete", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp", "Null",
-				"Bind", "Match", "Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri", "Src", "Use",
-				"Stage", "PVisit"));
-		sb.append(SEP_LINE2);
+		boolean outputHead = false;
 
 		IRNodeGraph graph = model.getNodeGraph();
 
@@ -1349,6 +1342,20 @@ public class StatsUtil {
 
 			if (!printRoot && RReteType.isRootType(node.getReteType())) {
 				continue;
+			}
+
+			if (!outputHead) {
+
+				sb.append("node info:\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format(
+						"%-12s %6s %6s %6s %6s %6s %6s %6s %6s %5s %5s %5s %6s %6s %6s %4s %4s %6s %4s %3s %3s %3s %5s %8s %11s\n",
+						"NODE[n]", "Create", "Delete", "Fixed", "Define", "Reason", "Assume", "Drop", "Remove", "Temp",
+						"Null", "Bind", "Match", "Update", "Redunt", "Exec", "Idle", "Waste", "Fail", "Lvl", "Pri",
+						"Src", "Use", "Stage", "PVisit"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
 			}
 
 			String parentVisitIndex = "";
@@ -1388,8 +1395,12 @@ public class StatsUtil {
 			sb.append("\n");
 		}
 
-		sb.append(SEP_LINE1);
-		sb.append("\n");
+		if (outputHead) {
+
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
 	}
 
 	private static void _printNodeInfo2(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
@@ -1478,9 +1489,12 @@ public class StatsUtil {
 
 	private static void _printNodeInfo3(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
 
+		if (nodes.isEmpty()) {
+			return;
+		}
+
 		sb.append("node info3:\n");
 		sb.append(SEP_LINE1);
-
 		sb.append(String.format("%-12s %s\n", "NODE[n]", "UniqName"));
 		sb.append(SEP_LINE2);
 
@@ -1565,6 +1579,10 @@ public class StatsUtil {
 	}
 
 	private static void _printNodeInfo6(StringBuffer sb, IRModel model, List<IRReteNode> nodes) throws RException {
+
+		if (nodes.isEmpty()) {
+			return;
+		}
 
 		sb.append("node info6:\n");
 		sb.append(SEP_LINE1);
@@ -1895,6 +1913,10 @@ public class StatsUtil {
 	private static void _printPriorityInfo(StringBuffer sb, IRModel model, List<IRReteNode> nodes, boolean printRoot)
 			throws RException {
 
+		if (nodes.isEmpty()) {
+			return;
+		}
+
 		Map<Integer, Map<RReteType, Integer>> priorityMap = new HashMap<>();
 		ArrayList<Integer> priorityList = new ArrayList<>();
 		Set<RReteType> typeSet = new HashSet<>();
@@ -2039,6 +2061,7 @@ public class StatsUtil {
 			}
 
 			sb.append(SEP_LINE1);
+			sb.append("\n");
 		}
 
 		/****************************************************/

@@ -17,6 +17,10 @@ import alpha.rulp.ximpl.model.IReteNodeMatrix;
 
 public interface IRNodeGraph {
 
+	public void addNewNodeListener(IRNewNodeListener listener) throws RException;
+	
+	public void removeNewNodeListener(IRNewNodeListener listener) throws RException;
+
 	public boolean addConstraint(IRReteNode node, IRConstraint1 constraint) throws RException;
 
 	public void bindNode(IRReteNode fromNode, IRReteNode toNode) throws RException;

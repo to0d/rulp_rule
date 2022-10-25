@@ -1,8 +1,9 @@
 package alpha.rulp.ximpl.query;
 
-import static alpha.rulp.lang.Constant.*;
+import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
+import static alpha.rulp.lang.Constant.F_INIT;
 import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_Backward;
 import static alpha.rulp.rule.Constant.A_Desc;
@@ -13,6 +14,7 @@ import static alpha.rulp.rule.Constant.A_Reverse;
 import static alpha.rulp.rule.Constant.A_Where;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +30,7 @@ import alpha.rulp.lang.IRObject;
 import alpha.rulp.lang.RException;
 import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
+import alpha.rulp.rule.IRReteNode;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
@@ -47,6 +50,8 @@ import alpha.rulp.ximpl.entry.IRResultQueue;
 import alpha.rulp.ximpl.entry.REntryFactory;
 import alpha.rulp.ximpl.factor.AbsAtomFactorAdapter;
 import alpha.rulp.ximpl.model.IRuleFactor;
+import alpha.rulp.ximpl.node.IRNewNodeListener;
+import alpha.rulp.ximpl.node.IRNodeGraph;
 import alpha.rulp.ximpl.node.IRNodeSubGraph;
 
 public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor, IRuleFactor {
@@ -262,12 +267,14 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			backward = true;
 		}
 
+		IRNodeGraph nodeGraph = model.getNodeGraph();
+
 		/********************************************/
 		// Run as rule group
 		/********************************************/
 		IRNodeSubGraph subGraph = null;
 		if (ruleGroupName != null) {
-			subGraph = model.getNodeGraph().createSubGraphForRuleGroup(ruleGroupName);
+			subGraph = nodeGraph.createSubGraphForRuleGroup(ruleGroupName);
 		}
 
 		/********************************************/
@@ -276,7 +283,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		if (rstExpr.getType() == RType.LIST && ReteUtil.indexOfVaryArgStmt((IRList) rstExpr) != -1) {
 
 			Map<String, List<IRObject>> varyVarListMap = new HashMap<>();
-			IRList newCondList = ReteUtil.rebuildVaryStmtList(model.getNodeGraph(), condList, varyVarListMap);
+			IRList newCondList = ReteUtil.rebuildVaryStmtList(nodeGraph, condList, varyVarListMap);
 			if (newCondList != condList && !varyVarListMap.isEmpty()) {
 
 				Map<String, IRObject> replaceMap = new HashMap<>();
@@ -415,6 +422,8 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 //			}
 		}
 
+		ArrayList<IRReteNode> newInitNodes = null;
+
 		try {
 
 			/********************************************/
@@ -433,10 +442,27 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				IRFrame initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
 				RuleUtil.setDefaultModel(initFrame, model);
 
-				IRIterator<? extends IRObject> it = initList.iterator();
-				while (it.hasNext()) {
-					IRObject obj = it.next();
-					interpreter.compute(initFrame, obj);
+				ArrayList<IRReteNode> newNodes = new ArrayList<>();
+				IRNewNodeListener listener = (_node) -> {
+					newNodes.add(_node);
+				};
+
+				nodeGraph.addNewNodeListener(listener);
+
+				try {
+
+					IRIterator<? extends IRObject> it = initList.iterator();
+					while (it.hasNext()) {
+						IRObject obj = it.next();
+						interpreter.compute(initFrame, obj);
+					}
+
+				} finally {
+					nodeGraph.removeNewNodeListener(listener);
+				}
+
+				if (!newNodes.isEmpty()) {
+					newInitNodes = newNodes;
 				}
 			}
 
@@ -454,6 +480,20 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			}
 
 			resultQueue.close();
+
+			if (newInitNodes != null) {
+
+				/********************************************/
+				// Remove node in reverse order due to node dependence
+				/********************************************/
+				Collections.sort(newInitNodes, (n1, n2) -> {
+					return n2.getNodeId() - n1.getNodeId();
+				});
+
+				for (IRReteNode node : newInitNodes) {
+					nodeGraph.removeNode(node);
+				}
+			}
 		}
 	}
 
