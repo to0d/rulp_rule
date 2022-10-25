@@ -127,6 +127,7 @@ model-addStatementListener            1
 model-addUpdateNode                   3
 model-execute                        17
 model-start                           1
+model-maxStackExecute                 2
 graph-addConstraint                   3
 graph-createNodeByTree                1
 graph-createNodeRoot                  5

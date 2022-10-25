@@ -143,6 +143,8 @@ model-execute                        24
 model-listStatements                  1
 model-query                           2
 model-start                           1
+model-maxStackNodeContext             2
+model-maxStackExecute                 2
 graph-addConstraint                   2
 graph-createNodeByTree                2
 graph-createNodeIndex                 2

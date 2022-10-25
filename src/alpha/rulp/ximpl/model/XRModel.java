@@ -1686,6 +1686,11 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		executeStack.push(node);
+
+		int deep = executeStack.size();
+		if (deep > 1 && deep > counter.mcMaxStackDeepExecute) {
+			counter.mcMaxStackDeepExecute = deep;
+		}
 	}
 
 	protected IRList _rebuild(IRList list) throws RException {
@@ -1887,6 +1892,15 @@ public class XRModel extends AbsRInstance implements IRModel {
 				modelStatsVar.setValue(RRunState.toObject(newState));
 			}
 		}
+	}
+
+	protected RNodeContext _topContext() {
+
+		if (nodeContextStack.isEmpty()) {
+			return null;
+		}
+
+		return nodeContextStack.get(nodeContextStack.size() - 1);
 	}
 
 	protected int _update(IRReteNode updateNode) throws RException {
@@ -2644,6 +2658,31 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
+	public void popNodeContext(RNodeContext nodeContext) throws RException {
+
+		if (nodeContextStack.isEmpty()) {
+			throw new RException("fail to pop empty stack: " + nodeContext.currentNode);
+		}
+
+		RNodeContext top = nodeContextStack.pop();
+		if (top != nodeContext) {
+			throw new RException("fail to pop node: " + nodeContext.currentNode);
+		}
+
+	}
+
+	@Override
+	public void pushNodeContext(RNodeContext nodeContext) {
+
+		nodeContextStack.push(nodeContext);
+
+		int deep = nodeContextStack.size();
+		if (deep > 1 && deep > counter.mcMaxStackDeepNodeContext) {
+			counter.mcMaxStackDeepNodeContext = deep;
+		}
+	}
+
+	@Override
 	public void query(IREntryAction action, IRList condList, Map<String, IRObject> whereVarMap, int limit,
 			boolean backward) throws RException {
 
@@ -3011,33 +3050,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return false;
-	}
-
-	protected RNodeContext _topContext() {
-
-		if (nodeContextStack.isEmpty()) {
-			return null;
-		}
-
-		return nodeContextStack.get(nodeContextStack.size() - 1);
-	}
-
-	@Override
-	public void pushNodeContext(RNodeContext nodeContext) {
-		nodeContextStack.push(nodeContext);
-	}
-
-	@Override
-	public void popNodeContext(RNodeContext nodeContext) throws RException {
-
-		if (nodeContextStack.isEmpty()) {
-			throw new RException("fail to pop empty stack: " + nodeContext.currentNode);
-		}
-
-		RNodeContext top = nodeContextStack.pop();
-		if (top != nodeContext) {
-			throw new RException("fail to pop node: " + nodeContext.currentNode);
-		}
 	}
 
 }

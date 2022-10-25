@@ -1261,6 +1261,7 @@ model-findReteEntry-2                 1
 model-query                           1
 model-removeStatement                 2
 model-start                           1
+model-maxStackExecute                 2
 graph-addConstraint                  50
 graph-createNodeByTree                2
 graph-createNodeIndex                 1

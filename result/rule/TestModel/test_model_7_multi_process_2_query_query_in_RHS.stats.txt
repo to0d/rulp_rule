@@ -99,6 +99,7 @@ model-addUpdateNode                   7
 model-execute                         6
 model-listStatements                  1
 model-query                           2
+model-maxStackExecute                 2
 graph-createNodeByTree                2
 graph-createNodeRoot                  5
 graph-createNodeRule                  1

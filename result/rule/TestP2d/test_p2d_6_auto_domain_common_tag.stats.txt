@@ -1263,6 +1263,7 @@ model-findReteEntry-1                 9
 model-findReteEntry-2                 1
 model-listStatements                  1
 model-start                           1
+model-maxStackExecute                 2
 graph-addConstraint                  49
 graph-createNodeByTree                2
 graph-createNodeIndex                 1

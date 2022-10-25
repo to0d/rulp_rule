@@ -188,6 +188,8 @@ model-addUpdateNode                  54
 model-execute                        42
 model-findReteEntry-1                42
 model-query                           7
+model-maxStackNodeContext             2
+model-maxStackExecute                 2
 graph-addConstraint                   5
 graph-createNodeByTree                7
 graph-createNodeIndex                 6

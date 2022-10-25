@@ -50,6 +50,10 @@ public class XRModelCount {
 
 	public static final String CK_LIST_STMT = "model-listStatements";
 
+	public static final String CK_MAX_STACK_EXECUTE = "model-maxStackExecute";
+
+	public static final String CK_MAX_STACK_NODE_CONTEXT = "model-maxStackNodeContext";
+
 	public static final String CK_QUERY = "model-query";
 
 	public static final String CK_QUERY_ITERATOR = "model-query-iterator";
@@ -104,6 +108,8 @@ public class XRModelCount {
 		modelCountKeyList.add(CK_SET_NODE_SAVER);
 		modelCountKeyList.add(CK_START);
 		modelCountKeyList.add(CK_TRY_ADD_STMT);
+		modelCountKeyList.add(CK_MAX_STACK_NODE_CONTEXT);
+		modelCountKeyList.add(CK_MAX_STACK_EXECUTE);
 
 		modelCountKeyList = Collections.unmodifiableList(modelCountKeyList);
 	}
@@ -153,6 +159,10 @@ public class XRModelCount {
 	public long mcHalt = 0;
 
 	public long mcListStatements = 0;
+
+	public long mcMaxStackDeepExecute = 0;
+
+	public long mcMaxStackDeepNodeContext = 0;
 
 	public long mcQuery = 0;
 
@@ -266,6 +276,12 @@ public class XRModelCount {
 
 		case CK_TRY_ADD_STMT:
 			return mcTryAddStatement;
+
+		case CK_MAX_STACK_NODE_CONTEXT:
+			return mcMaxStackDeepNodeContext;
+
+		case CK_MAX_STACK_EXECUTE:
+			return mcMaxStackDeepExecute;
 
 		}
 

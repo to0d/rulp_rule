@@ -110,6 +110,7 @@ model-addUpdateNode                   9
 model-execute                         7
 model-listStatements                  1
 model-query                           2
+model-maxStackExecute                 2
 graph-addConstraint                   1
 graph-createNodeByTree                2
 graph-createNodeRoot                  5
