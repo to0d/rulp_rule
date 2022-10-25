@@ -166,8 +166,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
-	
+
 	@Test
 	void test_query_stmt_8_limit_2_zeta_b() {
 
@@ -176,7 +175,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_statsInfo("m");
 		_dumpEntryTable("m");
 	}
-	
+
 	@Test
 	void test_query_stmt_8_limit_3_fast_return() {
 
@@ -244,13 +243,14 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_query_stmt_e_init_1() {
 
 		_setup();
 		_run_script();
 		_statsInfo("m");
-
+		_dumpEntryTable("m");
 	}
+
 }
