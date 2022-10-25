@@ -88,6 +88,7 @@ import alpha.rulp.ximpl.cache.IRBufferWorker;
 import alpha.rulp.ximpl.cache.IRBufferWorker.CacheStatus;
 import alpha.rulp.ximpl.constraint.ConstraintFactory;
 import alpha.rulp.ximpl.constraint.IRConstraint1;
+import alpha.rulp.ximpl.entry.IREntryQueue;
 import alpha.rulp.ximpl.entry.IREntryTable;
 import alpha.rulp.ximpl.entry.IRReteEntry;
 import alpha.rulp.ximpl.entry.REntryQueueType;
@@ -1728,27 +1729,21 @@ public class XRNodeGraph implements IRNodeGraph {
 
 	protected void _removeNode(AbsReteNode node) throws RException {
 
+		IREntryQueue queue = node.getEntryQueue();
+
 		// update gc cache count before removed
 		{
 			counter.gcRemoveNodeCount++;
 
-			gcRemoveNodeCountArray[EntryDefinedCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryCount(DEFINE);
-			gcRemoveNodeCountArray[EntryFixedCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryCount(FIXED_);
-			gcRemoveNodeCountArray[EntryAssumeCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryCount(ASSUME);
-			gcRemoveNodeCountArray[EntryReasonCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryCount(REASON);
-			gcRemoveNodeCountArray[EntryDropCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryCount(null);
-			gcRemoveNodeCountArray[EntryRemoveCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryCount(REMOVE);
-			gcRemoveNodeCountArray[EntryTempCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryCount(TEMP__);
-			gcRemoveNodeCountArray[EntryNullCount.getIndex()] += node.getEntryQueue().getEntryCounter()
-					.getEntryNullCount();
-			gcRemoveNodeCountArray[RedundantCount.getIndex()] += node.getEntryQueue().getRedundantCount();
+			gcRemoveNodeCountArray[EntryDefinedCount.getIndex()] += queue.getEntryCounter().getEntryCount(DEFINE);
+			gcRemoveNodeCountArray[EntryFixedCount.getIndex()] += queue.getEntryCounter().getEntryCount(FIXED_);
+			gcRemoveNodeCountArray[EntryAssumeCount.getIndex()] += queue.getEntryCounter().getEntryCount(ASSUME);
+			gcRemoveNodeCountArray[EntryReasonCount.getIndex()] += queue.getEntryCounter().getEntryCount(REASON);
+			gcRemoveNodeCountArray[EntryDropCount.getIndex()] += queue.getEntryCounter().getEntryCount(null);
+			gcRemoveNodeCountArray[EntryRemoveCount.getIndex()] += queue.getEntryCounter().getEntryCount(REMOVE);
+			gcRemoveNodeCountArray[EntryTempCount.getIndex()] += queue.getEntryCounter().getEntryCount(TEMP__);
+			gcRemoveNodeCountArray[EntryNullCount.getIndex()] += queue.getEntryCounter().getEntryNullCount();
+			gcRemoveNodeCountArray[RedundantCount.getIndex()] += queue.getRedundantCount();
 			gcRemoveNodeCountArray[NodeBindFromCount.getIndex()] += model.getNodeGraph().listBindFromNodes(node).size();
 			gcRemoveNodeCountArray[NodeBindToCount.getIndex()] += model.getNodeGraph().listBindToNodes(node).size();
 			gcRemoveNodeCountArray[NodeExistCount.getIndex()] += 1;
@@ -1756,9 +1751,9 @@ public class XRNodeGraph implements IRNodeGraph {
 			gcRemoveNodeCountArray[MatchCount.getIndex()] += node.getNodeMatchCount();
 			gcRemoveNodeCountArray[ExecCount.getIndex()] += node.getNodeExecCount();
 			gcRemoveNodeCountArray[IdleCount.getIndex()] += node.getNodeIdleCount();
-			gcRemoveNodeCountArray[UpdateCount.getIndex()] += node.getEntryQueue().getUpdateCount();
+			gcRemoveNodeCountArray[UpdateCount.getIndex()] += queue.getUpdateCount();
 			gcRemoveNodeCountArray[FailedCount.getIndex()] += node.getNodeFailedCount();
-			gcRemoveNodeCountArray[QueryFetch.getIndex()] += node.getEntryQueue().getQueryFetchCount();
+			gcRemoveNodeCountArray[QueryFetch.getIndex()] += queue.getQueryFetchCount();
 			gcRemoveNodeCountArray[QueryMatch.getIndex()] += node.getQueryMatchCount();
 			gcRemoveNodeCountArray[QueryMatch.getIndex()] = Math.min(gcRemoveNodeCountArray[QueryMatch.getIndex()],
 					node.getReteLevel());
@@ -1771,11 +1766,6 @@ public class XRNodeGraph implements IRNodeGraph {
 			gcRemoveNodeCountArray[EntryCreateCount.getIndex()] += node.getEntryCreateCount();
 			gcRemoveNodeCountArray[EntryDeleteCount.getIndex()] += node.getEntryDeleteCount();
 		}
-
-		/******************************************************/
-		// Remove all rete entries
-		/******************************************************/
-		
 
 		/******************************************************/
 		//
@@ -1791,6 +1781,21 @@ public class XRNodeGraph implements IRNodeGraph {
 			break;
 		}
 
+		/******************************************************/
+		// Remove all rete entries
+		/******************************************************/
+		IREntryTable entryTable = this.model.getEntryTable();
+		int size = queue.size();
+		while (size > 0) {
+			IRReteEntry enry = queue.getEntryAt(--size);
+			if (enry != null && !enry.isDeleted()) {
+				entryTable.deleteEntryReference(enry, node);
+			}
+		}
+
+		/******************************************************/
+		//
+		/******************************************************/
 		this.nodeListArray[reteType.getIndex()].nodes.remove(node);
 		this.nodeUniqNameMap.remove(node.getUniqName());
 		this.nodeInfoArray.set(node.getNodeId(), null);
