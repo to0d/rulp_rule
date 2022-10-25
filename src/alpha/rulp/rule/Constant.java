@@ -84,6 +84,8 @@ public interface Constant {
 	String A_Reasoned = "reasoned";
 
 	String A_Removed = "removed";
+	
+	String A_GC = "gc";
 
 	String A_RETE_TYPE = "rete-type";
 

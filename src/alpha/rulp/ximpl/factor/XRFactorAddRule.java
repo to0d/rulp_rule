@@ -92,7 +92,7 @@ public class XRFactorAddRule extends AbsAtomFactorAdapter implements IRuleFactor
 			ArrayList<IRObject> condObjs = new ArrayList<>();
 			while (argIndex < size) {
 				IRObject cond = args.get(argIndex++);
-				if (RulpUtil.isAtom(cond, A_DO)) {
+				if (RulpUtil.isFactor(cond, A_DO)) {
 					break;
 				}
 				condObjs.add(cond);

@@ -5,7 +5,7 @@ import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.rule.Constant.A_Asc;
-import static alpha.rulp.rule.Constant.A_Backward;
+import static alpha.rulp.rule.Constant.*;
 import static alpha.rulp.rule.Constant.A_Desc;
 import static alpha.rulp.rule.Constant.A_Forward;
 import static alpha.rulp.rule.Constant.A_Limit;
@@ -126,6 +126,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		ReteUtil.buildVarList(rstExpr, new ArrayList<>(), varUniqNames);
 
 		Modifier fromModifier = null;
+		boolean gc = false;
 
 		/********************************************/
 		// Check modifier
@@ -263,6 +264,10 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				uninitList = RulpUtil.asList(modifier.obj);
 				break;
 
+			case A_GC:
+				gc = true;
+				break;
+
 			default:
 				throw new RException("unsupport modifier: " + modifier.name);
 			}
@@ -273,38 +278,34 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		}
 
 		IRNodeGraph nodeGraph = model.getNodeGraph();
-		ArrayList<IRReteNode> newInitNodes = null;
 		IRFrame initFrame = null;
+
+		/********************************************/
+		// Add node listener for GC
+		/********************************************/
+		IRNewNodeListener nodeListener = null;
+		ArrayList<IRReteNode> newInitNodes = new ArrayList<>();
+
+		if (gc) {
+
+			nodeListener = (_node) -> {
+				newInitNodes.add(_node);
+			};
+
+			nodeGraph.addNewNodeListener(nodeListener);
+		}
 
 		/********************************************/
 		// Run init expr list
 		/********************************************/
 		if (initList != null) {
 
-			initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
-			RuleUtil.setDefaultModel(initFrame, model);
+			initFrame = _newInitFrame(model, frame);
 
-			ArrayList<IRReteNode> newNodes = new ArrayList<>();
-			IRNewNodeListener listener = (_node) -> {
-				newNodes.add(_node);
-			};
-
-			nodeGraph.addNewNodeListener(listener);
-
-			try {
-
-				IRIterator<? extends IRObject> it = initList.iterator();
-				while (it.hasNext()) {
-					IRObject obj = it.next();
-					interpreter.compute(initFrame, obj);
-				}
-
-			} finally {
-				nodeGraph.removeNewNodeListener(listener);
-			}
-
-			if (!newNodes.isEmpty()) {
-				newInitNodes = newNodes;
+			IRIterator<? extends IRObject> it = initList.iterator();
+			while (it.hasNext()) {
+				IRObject obj = it.next();
+				interpreter.compute(initFrame, obj);
 			}
 		}
 
@@ -492,8 +493,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			if (uninitList != null) {
 
 				if (initFrame == null) {
-					initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
-					RuleUtil.setDefaultModel(initFrame, model);
+					initFrame = _newInitFrame(model, frame);
 				}
 
 				IRIterator<? extends IRObject> it = uninitList.iterator();
@@ -506,17 +506,39 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			/********************************************/
 			// Remove node in reverse order due to node dependence
 			/********************************************/
-			if (newInitNodes != null) {
+			if (gc) {
 
-				Collections.sort(newInitNodes, (n1, n2) -> {
-					return n2.getNodeId() - n1.getNodeId();
-				});
+				nodeGraph.removeNewNodeListener(nodeListener);
 
-				for (IRReteNode node : newInitNodes) {
-					nodeGraph.removeNode(node);
+				if (!newInitNodes.isEmpty()) {
+
+					Collections.sort(newInitNodes, (n1, n2) -> {
+						return n2.getNodeId() - n1.getNodeId();
+					});
+
+					for (IRReteNode node : newInitNodes) {
+						nodeGraph.removeNode(node);
+					}
 				}
 			}
+
+			/********************************************/
+			// Release init frame
+			/********************************************/
+			if (initFrame != null) {
+				initFrame.release();
+				RulpUtil.decRef(initFrame);
+			}
 		}
+	}
+
+	static IRFrame _newInitFrame(IRModel model, IRFrame frame) throws RException {
+
+		IRFrame initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
+		RulpUtil.incRef(initFrame);
+		RuleUtil.setDefaultModel(initFrame, model);
+
+		return initFrame;
 	}
 
 }

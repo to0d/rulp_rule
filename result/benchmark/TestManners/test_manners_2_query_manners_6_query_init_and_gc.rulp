@@ -1,0 +1,123 @@
+(load (+ (file-parent ?script-path) "manners_4.rulp"))
+;=>
+
+(defun makeList ((?x int) ?y)
+    (defvar ?arr (make-array ?x))
+    (loop for ?x from 0 to (- ?x 1) do
+        (seta ?arr ?x ?y)
+    )
+    (return (to-list ?arr))
+)
+;=>
+
+(defun getAt ((?rst list) (?index int)) 
+    (if (is-empty ?rst)
+        (return nil)
+    )
+    (if (<= (size-of ?rst) ?index)
+        (return nil)
+    )
+    (return (get ?rst ?index))
+)
+;=>
+
+(add-constraint mm guess:'(?x ?y) (uniq on '(?x)))
+;=>
+
+(defun canBeCouple (?g1 ?g2)
+    
+    (if (= ?g1 ?g2) do
+        (return false)
+    )
+
+    (defvar ?s1 (compute-stmt mm ?v from guess:'(?g1 ?v)))
+    (defvar ?s2 (compute-stmt mm ?v from guess:'(?g2 ?v)))
+    
+    (return (!= ?s1 ?s2))
+)
+;=>
+
+(add-node-func mm canBeCouple:'(?g1 ?g2 (canBeCouple ?g1 ?g2)))
+;=>
+
+(defun canSitTogether (?g1 ?g2)
+
+    (if (= ?g1 ?g2) do
+        (return false)
+    )
+
+    (if (not (compute-stmt mm ?v from canBeCouple:'(?g1 ?g2 ?v)))
+        (return false)
+    )
+
+    (defvar ?rst (query-stmt mm ?h from hobby:'(?g1 ?h) hobby:'(?g2 ?h) limit 1))
+
+    (return (!= nil (getAt ?rst 0)))
+)
+;=>
+
+(add-node-func mm canSitTogether:'(?g1 ?g2 (canSitTogether ?g1 ?g2)))
+;=>
+
+(defconst ?max_guess 4)
+;=>
+
+(defvar ?idx 0)
+;=>
+ 
+(defun _query_init ()
+
+    (add-node mm seat:'((+ ?max_guess 1)))
+    (add-stmt mm seat (makeList (+ ?max_guess 1) 0))
+
+
+    (add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do 
+
+        (println "" ?idx ": " ?0 " " ?1)
+        (++ ?idx)
+        
+        (loop for ?i from 1 to ?m do
+            (if (= (get ?0 ?i) ?g) do
+                (return)
+            )
+        )
+        
+        (if (> ?m 0) do
+            (defvar ?x (get ?0 ?m))
+            (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v)))
+                (return)
+            )
+        )
+        
+        (if (= (+ ?m 1) ?max_guess) do
+            (defvar ?x (get ?0 1))
+            (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v)))
+                (return)
+            )
+        )
+
+        (defvar ?arr (to-array ?0))
+        (seta ?arr 0 (+ ?m 1))
+        (seta ?arr (+ ?m 1) ?g)
+        
+        (add-stmt mm seat ?arr)
+    )
+)
+;=>
+
+;(setq ?model-trace true)
+;;=>
+
+(query-stmt mm '(?...) from seat:'(4 ?...) limit 1
+    init  (_query_init)
+    ~init (dump-status mm (+ ?script-path ".status.1.txt"))
+          (dump-entry-info mm (+ ?script-path ".entry.1.txt"))
+    gc
+)
+;=>
+
+(dump-status mm (+ ?script-path ".status.2.txt"))
+;=>
+
+(dump-entry-info mm (+ ?script-path ".entry.2.txt"))
+;=>

@@ -565,7 +565,11 @@ public class XREntryTable implements IREntryTable {
 			XRReteEntry parentEntry = ref.parentEntrys[i];
 			if (parentEntry != null) {
 
-				if (!_isFix(parentEntry)) {
+				if (!_isFix(parentEntry) && parentEntry.childReferenceList != null) {
+
+//					if (parentEntry.childReferenceList == null) {
+//						System.out.println();
+//					}
 
 					Iterator<XRReference> it = parentEntry.childReferenceList.iterator();
 					while (it.hasNext()) {
@@ -772,7 +776,8 @@ public class XREntryTable implements IREntryTable {
 		}
 
 		if (find == 0) {
-			throw new RException("no ref found");
+//			throw new RException("no ref found: " + entry);
+			return;
 		}
 
 		if (xEntry.referenceList == null || xEntry.referenceList.isEmpty()) {

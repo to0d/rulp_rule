@@ -67,7 +67,7 @@ public class TestManners extends RuleTestBase {
 	}
 
 	@Test
-	void test_manners_2_query_manners_6_query_auto_gc() {
+	void test_manners_2_query_manners_6_query_init_and_gc() {
 
 		_setup();
 		_run_script();

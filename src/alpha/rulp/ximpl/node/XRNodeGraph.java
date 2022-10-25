@@ -1784,12 +1784,14 @@ public class XRNodeGraph implements IRNodeGraph {
 		/******************************************************/
 		// Remove all rete entries
 		/******************************************************/
-		IREntryTable entryTable = this.model.getEntryTable();
-		int size = queue.size();
-		while (size > 0) {
-			IRReteEntry enry = queue.getEntryAt(--size);
-			if (enry != null && !enry.isDeleted()) {
-				entryTable.deleteEntryReference(enry, node);
+		if (queue.getQueueType() != REntryQueueType.ORDER) {
+			IREntryTable entryTable = this.model.getEntryTable();
+			int size = queue.size();
+			while (size > 0) {
+				IRReteEntry enry = queue.getEntryAt(--size);
+				if (enry != null && !enry.isDeleted()) {
+					entryTable.deleteEntryReference(enry, node);
+				}
 			}
 		}
 
@@ -2683,7 +2685,7 @@ public class XRNodeGraph implements IRNodeGraph {
 	}
 
 	@Override
-	public boolean removeNode(IRReteNode node) throws RException {
+	public void removeNode(IRReteNode node) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
 			System.out.println("==> removeNode: " + node);
@@ -2691,38 +2693,28 @@ public class XRNodeGraph implements IRNodeGraph {
 
 		counter.removeNode++;
 
+//		/********************************************/
+//		// Check node type
+//		/********************************************/
+//		switch (node.getReteType()) {
+//		case ROOT0:
+//			return false;
+//		default:
+//			break;
+//		}
+
 		/********************************************/
-		// Check node type
+		// Check node stage
 		/********************************************/
-		switch (node.getReteType()) {
-		case ROOT0:
-			return false;
-		default:
-			break;
+		if (node.getReteStage() == RReteStage.Removed) {
+			return;
 		}
 
 		/********************************************/
 		// Check node children
 		/********************************************/
 		if (!node.getChildNodes().isEmpty()) {
-			return false;
-		}
-
-		/********************************************/
-		// Check node stage
-		/********************************************/
-		switch (node.getReteStage()) {
-		case Active:
-		case InQueue:
-			return false;
-
-		case Removed:
-			return true;
-
-		case InActive:
-		case OutQueue:
-		default:
-			break;
+			throw new RException("fail to remove parent node: " + node);
 		}
 
 		/********************************************/
@@ -2747,7 +2739,7 @@ public class XRNodeGraph implements IRNodeGraph {
 		// remove node from related node
 		/********************************************/
 
-		return false;
+		node.setReteStage(RReteStage.Removed);
 	}
 
 	public void setGcMaxCacheNodeCount(int gcMaxCacheNodeCount) {
