@@ -345,6 +345,15 @@ public class TestModel extends RuleTestBase {
 	}
 
 	@Test
+	void test_model_7_multi_process_3_query_in_lhs() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+		_dumpEntryTable("m");
+	}
+	
+	@Test
 	void test_model_8_var_override_1() {
 
 		_setup();

@@ -1,0 +1,25 @@
+(new model m)
+;=>
+
+(defun f1() 
+    (defvar ?c (size-of (query-stmt m ?xx from n1:'(?xx))))
+    (println "c=" ?c)
+    (return ?c)
+)
+;=>
+
+(add-rule m if n2:'(?x) (> (f1) 0) do (-> n3:'(?x)))
+;=>
+
+(add-stmt m n1:'(a))
+(add-stmt m n2:'(b))
+;=>
+
+;(setq ?model-trace true)
+;;=>
+
+(query-stmt m ?y from n3:'(?y))
+;=>
+
+(list-stmt m)
+;=>

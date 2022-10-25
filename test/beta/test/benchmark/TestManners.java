@@ -55,4 +55,24 @@ public class TestManners extends RuleTestBase {
 		_dumpEntryTable("mm");
 
 	}
+	
+	@Test
+	void test_manners_2_query_manners_5_c_func_entry_and_fix_stmt() {
+
+		_setup();
+		_run_script();
+		_statsInfo("mm");
+		_dumpEntryTable("mm");
+
+	}
+	
+//	@Test
+//	void test_manners_2_query_manners_6_query_auto_gc() {
+//
+//		_setup();
+//		_run_script();
+//		_statsInfo("mm");
+//		_dumpEntryTable("mm");
+//
+//	}
 }

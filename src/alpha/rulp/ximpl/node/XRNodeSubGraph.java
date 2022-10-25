@@ -23,6 +23,8 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 
 		public int oldPriority = RETE_PRIORITY_DEAD;
 
+		public RReteStage oldStage;
+
 		public boolean update = false;
 	}
 
@@ -59,6 +61,8 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 			}
 
 			info.oldPriority = info.node.getPriority();
+			info.oldStage = info.node.getReteStage();
+
 			graph.setNodePriority(info.node, info.newPriority);
 			info.update = true;
 
@@ -121,7 +125,13 @@ public class XRNodeSubGraph implements IRNodeSubGraph {
 			}
 
 			if (info.node.getPriority() != info.oldPriority) {
+
 				graph.setNodePriority(info.node, info.oldPriority);
+
+				if (info.oldPriority >= graph.model.getPriority() && info.oldStage == RReteStage.InQueue) {
+					graph.model.addUpdateNode(info.node);
+				}
+
 				info.oldPriority = RETE_PRIORITY_DEAD;
 			}
 

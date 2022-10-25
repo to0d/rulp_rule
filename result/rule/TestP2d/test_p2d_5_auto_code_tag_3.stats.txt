@@ -1253,7 +1253,7 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addRule                        41
 model-addStatement                  267
-model-addUpdateNode                 395
+model-addUpdateNode                 396
 model-execute                       838
 model-getVar                          1
 model-findReteEntry-1                23
