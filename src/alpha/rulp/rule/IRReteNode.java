@@ -64,6 +64,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 
 	public int doGC();
 
+	public void doGCEntry() throws RException;
+
 	public int getAddEntryFailCount();
 
 	public IRBufferWorker getBufferWorker();

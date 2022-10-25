@@ -223,6 +223,13 @@ public class XRModel extends AbsRInstance implements IRModel {
 							}
 						}
 
+						/*******************************************/
+						// Auto remove unused entry to save space
+						/*******************************************/
+						if (gc && node.isAutoGC()) {
+							node.doGCEntry();
+						}
+
 						int update = model.execute(node, execLimit);
 
 						if (node == queryNode && update > 0) {

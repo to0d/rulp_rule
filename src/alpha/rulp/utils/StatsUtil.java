@@ -1795,6 +1795,40 @@ public class StatsUtil {
 
 	}
 
+	private static void _printNodeInfo11GCEntryInfo(StringBuffer sb, IRModel model, List<IRReteNode> nodes)
+			throws RException {
+
+		boolean outputHead = false;
+
+		for (IRReteNode node : nodes) {
+
+			if (!node.isAutoGC()) {
+				continue;
+			}
+
+			AbsReteNode absNode = (AbsReteNode) node;
+
+			if (!outputHead) {
+				sb.append("node info11: gc entry info\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format("%-12s %6s %6s %6s\n", "NODE[n]", "Delete", "Scan", "Reset"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
+			}
+
+			sb.append(String.format("%-12s %6d %6d %6d\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					absNode.getGcEntryDeleteCount(), absNode.getGcEntryScanCount(),
+					absNode.getGcEntryBeginPosSetCount()));
+		}
+
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+	}
+
 	private static void _printNodeSource(StringBuffer sb, IReteNodeMatrix nodeMatrix, List<IRReteNode> nodes)
 			throws RException {
 
@@ -2085,6 +2119,7 @@ public class StatsUtil {
 			_printNodeInfo8(sb, model, nodes);
 			_printNodeInfo9Cache(sb, model, nodes);
 			_printNodeInfo10FuncEntry(sb, model, nodes);
+			_printNodeInfo11GCEntryInfo(sb, model, nodes);
 		}
 
 		/****************************************************/

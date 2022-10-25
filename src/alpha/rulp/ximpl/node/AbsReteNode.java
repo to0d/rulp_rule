@@ -70,6 +70,12 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 
 	protected DeCounter execCounter = new DeCounter(MAX_EXEC_COUNTER_SIZE);
 
+	protected int gcEntryBeginPosSetCount = 0;
+
+	protected int gcEntryDeleteCount = 0;
+
+	protected int gcEntryScanCount = 0;
+
 	protected IGraphInfo graphInfo;
 
 	protected InheritIndex inheritIndexs[];
@@ -356,6 +362,39 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	}
 
 	@Override
+	public void doGCEntry() throws RException {
+
+		int entrySize = entryQueue.size();
+		if (autoGCBeginPos >= entrySize) {
+			return;
+		}
+
+		int updateCount = 0;
+
+		int childMaxVisitIndex = ReteUtil.findChildMaxVisitIndex(this, null);
+		while (autoGCBeginPos < childMaxVisitIndex) {
+
+			IRReteEntry entry = entryQueue.getEntryAt(autoGCBeginPos++);
+			if (entry != null && !entry.isDroped() && entry.getChildCount() == 0) {
+				entryTable.deleteEntryReference(entry, this);
+				++updateCount;
+			}
+
+			++gcEntryScanCount;
+		}
+
+		if (updateCount > 0) {
+			for (IRReteNode parent : getParentNodes()) {
+				if (parent.isAutoGC()) {
+					parent.resetAutoGCBeginPos();
+				}
+			}
+		}
+
+		gcEntryDeleteCount += updateCount;
+	}
+
+	@Override
 	public IRFrame findFrame() {
 		return this.nodeFrame;
 	}
@@ -433,6 +472,18 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 		}
 
 		return nodeFrame;
+	}
+
+	public int getGcEntryBeginPosSetCount() {
+		return gcEntryBeginPosSetCount;
+	}
+
+	public int getGcEntryDeleteCount() {
+		return gcEntryDeleteCount;
+	}
+
+	public int getGcEntryScanCount() {
+		return gcEntryScanCount;
 	}
 
 	@Override
@@ -723,6 +774,7 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public void resetAutoGCBeginPos() {
 		this.autoGCBeginPos = 0;
+		++gcEntryBeginPosSetCount;
 	}
 
 	@Override
