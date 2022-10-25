@@ -1079,14 +1079,22 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 					IRReteEntry entry = funcUniq.getReteEntry(uniqName);
 					if (entry == null) {
-
 						IRList stmt = namedNode.computeFuncEntry(filter);
 						if (stmt != null) {
-							IREntryQueue queue = namedNode.getEntryQueue();
-							int oldSize = queue.size();
-							if (namedNode.getModel().addStatement(stmt) && queue.size() > oldSize) {
-								entry = queue.getEntryAt(oldSize);
+
+							pushNodeContext(null);
+
+							try {
+								IREntryQueue queue = namedNode.getEntryQueue();
+								int oldSize = queue.size();
+								if (namedNode.getModel().addStatement(stmt) && queue.size() > oldSize) {
+									entry = queue.getEntryAt(oldSize);
+								}
+
+							} finally {
+								popNodeContext(null);
 							}
+
 						}
 					}
 

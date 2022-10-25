@@ -713,9 +713,9 @@ public class XREntryTable implements IREntryTable {
 		entry.setStmt(isStmt);
 		entryFixArray.addEntry(entry);
 
-		if (entry.getEntryId() == 19) {
-			System.out.println();
-		}
+//		if (entry.getEntryId() == 19) {
+//			System.out.println();
+//		}
 
 		return entry;
 	}
