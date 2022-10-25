@@ -1,6 +1,16 @@
 (new model m)
 ;=>m
 
-(query-stmt m ?n from n1:'(?n) init (-> n1:'(1)) (-> n1:'(2)))
+(query-stmt m ?n from n1:'(?n) 
+    init (-> n1:'(1)) (-> n1:'(2))
+    ~init (dump-status m (+ ?script-path ".status.1.txt"))
+          (dump-entry-info m (+ ?script-path ".entry.1.txt"))
+)
 ;=>'(1 2)
+
+(dump-status m (+ ?script-path ".status.2.txt"))
+;=>nil
+
+(dump-entry-info m (+ ?script-path ".entry.2.txt"))
+;=>nil
 

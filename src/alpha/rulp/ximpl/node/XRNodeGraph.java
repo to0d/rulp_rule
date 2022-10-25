@@ -1772,10 +1772,17 @@ public class XRNodeGraph implements IRNodeGraph {
 			gcRemoveNodeCountArray[EntryDeleteCount.getIndex()] += node.getEntryDeleteCount();
 		}
 
+		/******************************************************/
+		// Remove all rete entries
+		/******************************************************/
+		
+
+		/******************************************************/
+		//
+		/******************************************************/
 		RReteType reteType = node.getReteType();
 
 		switch (reteType) {
-
 		case RULE:
 			this.ruleNodeMap.remove(((XRNodeRule0) node).getRuleName());
 			break;

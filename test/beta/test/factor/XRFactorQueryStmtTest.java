@@ -248,9 +248,7 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 	void test_query_stmt_e_init_1() {
 
 		_setup();
-		_run_script();
-		_statsInfo("m");
-		_dumpEntryTable("m");
+		_run_script(); 
 	}
 
 }

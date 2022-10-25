@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.query;
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
-import static alpha.rulp.lang.Constant.F_INIT;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.rule.Constant.A_Asc;
 import static alpha.rulp.rule.Constant.A_Backward;
 import static alpha.rulp.rule.Constant.A_Desc;
@@ -114,6 +114,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		IRList whereList = null;
 		IRList doList = null;
 		IRList initList = null;
+		IRList uninitList = null;
 		int limit = -1; // 0: all, -1: default
 
 		IREntryIteratorBuilder orderBuilder = null;
@@ -256,6 +257,10 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 			case F_INIT:
 				initList = RulpUtil.asList(modifier.obj);
+				break;
+
+			case F_UNINIT:
+				uninitList = RulpUtil.asList(modifier.obj);
 				break;
 
 			default:
@@ -423,6 +428,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		}
 
 		ArrayList<IRReteNode> newInitNodes = null;
+		IRFrame initFrame = null;
 
 		try {
 
@@ -439,7 +445,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			/********************************************/
 			if (initList != null) {
 
-				IRFrame initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
+				initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
 				RuleUtil.setDefaultModel(initFrame, model);
 
 				ArrayList<IRReteNode> newNodes = new ArrayList<>();
@@ -481,11 +487,27 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 			resultQueue.close();
 
+			/********************************************/
+			//
+			/********************************************/
+			if (uninitList != null) {
+
+				if (initFrame == null) {
+					initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
+				}
+
+				IRIterator<? extends IRObject> it = uninitList.iterator();
+				while (it.hasNext()) {
+					IRObject obj = it.next();
+					interpreter.compute(initFrame, obj);
+				}
+			}
+
+			/********************************************/
+			// Remove node in reverse order due to node dependence
+			/********************************************/
 			if (newInitNodes != null) {
 
-				/********************************************/
-				// Remove node in reverse order due to node dependence
-				/********************************************/
 				Collections.sort(newInitNodes, (n1, n2) -> {
 					return n2.getNodeId() - n1.getNodeId();
 				});
