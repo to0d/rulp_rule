@@ -126,16 +126,16 @@ public interface Constant {
 	String F_ADD_LAZY_STMT = "add-lazy-stmt";
 
 	String F_ADD_NODE = "add-node";
-	
+
 	String F_ADD_NODE_FUNC = "add-node-func";
-	
-	String F_COMPUTE_STMT = "compute-stmt";
 
 	String F_ADD_RULE = "add-rule";
 
 	String F_ADD_STMT = "add-stmt";
 
 	String F_ASSUME_STMT = "assume-stmt";
+
+	String F_COMPUTE_STMT = "compute-stmt";
 
 	String F_CREATE = "create";
 
@@ -172,8 +172,6 @@ public interface Constant {
 	String F_LIST_STMT = "list-stmt";
 
 	String F_LIST_STMT_ITERATOR = "list-stmt-iterator";
-
-	String F_TRAVEL_RETE_NODE = "travel-rete-node";
 
 	String F_LIST_SUBGRAPH_FOR_QUERY = "list-subgraph-for-query";
 
@@ -229,13 +227,15 @@ public interface Constant {
 
 	String F_START = "start";
 
+	String F_STATE_OF = "state-of";
+
 //	String F_UPDATE_STMT = "update-stmt";
 
-	String F_STATE_OF = "state-of";
+	String F_TRACE_RULE = "trace-rule";
 
 //	String F_TRY_ADD_STMT = "try-add-stmt";
 
-	String F_TRACE_RULE = "trace-rule";
+	String F_TRAVEL_RETE_NODE = "travel-rete-node";
 
 	String F_TRY_ADD_STMT = "try-add-stmt";
 

@@ -1,7 +1,7 @@
 package alpha.rulp.utils;
 
 import static alpha.rulp.lang.Constant.A_By;
-import static alpha.rulp.lang.Constant.A_DO;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.O_Nil;
 import static alpha.rulp.rule.Constant.A_Asc;
@@ -306,6 +306,7 @@ public class ModifiterUtil {
 		modifierMap.put(A_Backward, new XModifier0(A_Backward));
 		modifierMap.put(A_Explain, new XModifier0(A_Explain));
 		modifierMap.put(A_DEEP_FIRST, new XModifier0(A_DEEP_FIRST));
+		modifierMap.put(F_INIT, new XModifier2(F_INIT, RType.EXPR));
 
 	}
 

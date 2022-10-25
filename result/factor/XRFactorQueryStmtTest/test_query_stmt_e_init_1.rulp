@@ -1,0 +1,5 @@
+(new model m)
+;=>
+
+(query-stmt m ?n from n1:'(?n) init (-> n1:'(1)) (-> n1:'(2)))
+;=>

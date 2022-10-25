@@ -1,6 +1,6 @@
 package alpha.rulp.ximpl.query;
 
-import static alpha.rulp.lang.Constant.A_DO;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.lang.Constant.A_FROM;
 import static alpha.rulp.lang.Constant.A_NIL;
 import static alpha.rulp.rule.Constant.A_Asc;
@@ -30,6 +30,7 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.runtime.IRFactor;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.OptimizeUtil;
@@ -107,6 +108,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		IRList condList = null;
 		IRList whereList = null;
 		IRList doList = null;
+		IRList initList = null;
 		int limit = -1; // 0: all, -1: default
 
 		IREntryIteratorBuilder orderBuilder = null;
@@ -245,6 +247,10 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 				}
 
 				backward = true;
+				break;
+
+			case F_INIT:
+				initList = RulpUtil.asList(modifier.obj);
 				break;
 
 			default:
@@ -417,6 +423,21 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			if (subGraph != null) {
 				subGraph.setGraphPriority(model.getPriority());
 				subGraph.activate();
+			}
+
+			/********************************************/
+			// Run init expr list
+			/********************************************/
+			if (initList != null) {
+
+				IRFrame initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
+				RuleUtil.setDefaultModel(initFrame, model);
+
+				IRIterator<? extends IRObject> it = initList.iterator();
+				while (it.hasNext()) {
+					IRObject obj = it.next();
+					interpreter.compute(initFrame, obj);
+				}
 			}
 
 			model.query(resultQueue, condList, whenVarMap, limit, backward);
