@@ -273,6 +273,40 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 		}
 
 		IRNodeGraph nodeGraph = model.getNodeGraph();
+		ArrayList<IRReteNode> newInitNodes = null;
+		IRFrame initFrame = null;
+
+		/********************************************/
+		// Run init expr list
+		/********************************************/
+		if (initList != null) {
+
+			initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
+			RuleUtil.setDefaultModel(initFrame, model);
+
+			ArrayList<IRReteNode> newNodes = new ArrayList<>();
+			IRNewNodeListener listener = (_node) -> {
+				newNodes.add(_node);
+			};
+
+			nodeGraph.addNewNodeListener(listener);
+
+			try {
+
+				IRIterator<? extends IRObject> it = initList.iterator();
+				while (it.hasNext()) {
+					IRObject obj = it.next();
+					interpreter.compute(initFrame, obj);
+				}
+
+			} finally {
+				nodeGraph.removeNewNodeListener(listener);
+			}
+
+			if (!newNodes.isEmpty()) {
+				newInitNodes = newNodes;
+			}
+		}
 
 		/********************************************/
 		// Run as rule group
@@ -427,9 +461,6 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 //			}
 		}
 
-		ArrayList<IRReteNode> newInitNodes = null;
-		IRFrame initFrame = null;
-
 		try {
 
 			/********************************************/
@@ -438,38 +469,6 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 			if (subGraph != null) {
 				subGraph.setGraphPriority(model.getPriority());
 				subGraph.activate();
-			}
-
-			/********************************************/
-			// Run init expr list
-			/********************************************/
-			if (initList != null) {
-
-				initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
-				RuleUtil.setDefaultModel(initFrame, model);
-
-				ArrayList<IRReteNode> newNodes = new ArrayList<>();
-				IRNewNodeListener listener = (_node) -> {
-					newNodes.add(_node);
-				};
-
-				nodeGraph.addNewNodeListener(listener);
-
-				try {
-
-					IRIterator<? extends IRObject> it = initList.iterator();
-					while (it.hasNext()) {
-						IRObject obj = it.next();
-						interpreter.compute(initFrame, obj);
-					}
-
-				} finally {
-					nodeGraph.removeNewNodeListener(listener);
-				}
-
-				if (!newNodes.isEmpty()) {
-					newInitNodes = newNodes;
-				}
 			}
 
 			model.query(resultQueue, condList, whenVarMap, limit, backward);
@@ -494,6 +493,7 @@ public class XRFactorQueryStmt extends AbsAtomFactorAdapter implements IRFactor,
 
 				if (initFrame == null) {
 					initFrame = RulpFactory.createFrame(frame, "NF-QUERY-INIT");
+					RuleUtil.setDefaultModel(initFrame, model);
 				}
 
 				IRIterator<? extends IRObject> it = uninitList.iterator();

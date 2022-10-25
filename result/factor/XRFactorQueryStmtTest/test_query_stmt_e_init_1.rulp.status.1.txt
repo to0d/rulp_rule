@@ -241,11 +241,11 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 24       3        5    instance   model@m             
 ==========================================================================================================================
 
-id=5, name=NF-QUERY-INIT, lvl=3, ref=0/0, entry=1, pid=2(main), subject=NF-QUERY-INIT
+id=4, name=NF-QUERY-INIT, lvl=3, ref=0/0, entry=1, pid=2(main), subject=NF-QUERY-INIT
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 28       5        5    instance   model@m             
+default_model        : 26       4        5    instance   model@m             
 ==========================================================================================================================
 
 Root var list: total=7
@@ -267,7 +267,7 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(model): id=3, lvl=3, subject=model
-            ->FRAME(NF-QUERY-INIT): id=5, lvl=3, subject=NF-QUERY-INIT
+            ->FRAME(NF-QUERY-INIT): id=4, lvl=3, subject=NF-QUERY-INIT
 
 Global Subject list:
 

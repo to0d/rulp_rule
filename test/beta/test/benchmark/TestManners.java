@@ -27,7 +27,7 @@ public class TestManners extends RuleTestBase {
 		_dumpEntryTable("mm");
 
 	}
- 
+
 	@Test
 	void test_manners_2_query_manners_4_a() {
 
@@ -36,7 +36,7 @@ public class TestManners extends RuleTestBase {
 		_statsInfo("mm");
 
 	}
-	
+
 	@Test
 	void test_manners_2_query_manners_4_b() {
 
@@ -45,7 +45,7 @@ public class TestManners extends RuleTestBase {
 		_statsInfo("mm");
 
 	}
-	
+
 	@Test
 	void test_manners_2_query_manners_4_c_func_entry() {
 
@@ -55,7 +55,7 @@ public class TestManners extends RuleTestBase {
 		_dumpEntryTable("mm");
 
 	}
-	
+
 	@Test
 	void test_manners_2_query_manners_5_c_func_entry_and_fix_stmt() {
 
@@ -65,14 +65,11 @@ public class TestManners extends RuleTestBase {
 		_dumpEntryTable("mm");
 
 	}
-	
-//	@Test
-//	void test_manners_2_query_manners_6_query_auto_gc() {
-//
-//		_setup();
-//		_run_script();
-//		_statsInfo("mm");
-//		_dumpEntryTable("mm");
-//
-//	}
+
+	@Test
+	void test_manners_2_query_manners_6_query_auto_gc() {
+
+		_setup();
+		_run_script();
+	}
 }
