@@ -74,7 +74,7 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 
 			// Update running context
 			context.currentEntry = entry;
-			model.setNodeContext(context);
+			model.pushNodeContext(context);
 
 			for (IAction action : actionStmtList) {
 
@@ -87,14 +87,13 @@ public class XREntryQueueAction extends XREntryQueueEmpty implements IREntryQueu
 
 		} catch (RReturn r) {
 
-		}
-		finally {
+		} finally {
 
 			// Update running count from context
 			entryRedundant += context.tryAddStmt - context.actualAddStmt;
 
 			// remove running context
-			model.setNodeContext(null);
+			model.popNodeContext(context);
 			context.currentEntry = null;
 
 			// clean frame

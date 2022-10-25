@@ -111,7 +111,9 @@ public interface IRModel extends IRInstance, IRRunnable, IRContext {
 
 	public void setModelBufferPath(String bufferPath) throws RException;
 
-	public void setNodeContext(RNodeContext nodeContext);
+	public void pushNodeContext(RNodeContext nodeContext);
+
+	public void popNodeContext(RNodeContext nodeContext) throws RException;
 
 	public void setNodeLoader(IRReteNode node, IRStmtLoader loader) throws RException;
 

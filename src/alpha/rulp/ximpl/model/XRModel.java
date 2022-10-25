@@ -695,7 +695,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected boolean needRestart = false;
 
-	protected RNodeContext nodeContext = null;
+	protected Stack<RNodeContext> nodeContextStack = new Stack<>();
 
 	protected final XRNodeGraph nodeGraph;
 
@@ -735,20 +735,21 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		IRReteNode rootNode = _getRootNode(stmt.getNamedName(), stmt.size(), true);
-
+		RNodeContext topContext = _topContext();
 		int oldSize = 0;
-		if (this.nodeContext != null) {
-			this.nodeContext.tryAddStmt++;
+
+		if (topContext != null) {
+			topContext.tryAddStmt++;
 			oldSize = rootNode.getEntryQueue().size();
 		}
 
 		RUpdateResult rst = _addStmt(rootNode, stmt, toStatus);
 
 		// new stmt added
-		if (rst == RUpdateResult.NEW && this.nodeContext != null) {
+		if (rst == RUpdateResult.NEW && topContext != null) {
 			int newSize = rootNode.getEntryQueue().size();
 			if (newSize > oldSize) {
-				this.nodeContext.actualAddStmt++;
+				topContext.actualAddStmt++;
 			}
 		}
 
@@ -774,6 +775,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		if (entryQueue.getQueueType() == REntryQueueType.UNIQ) {
 			oldEntry = ReteUtil.getStmt(rootNode, stmt);
 		}
+
+		RNodeContext topContext = _topContext();
 
 		/*******************************************************/
 		// Insert entry
@@ -803,7 +806,7 @@ public class XRModel extends AbsRInstance implements IRModel {
 				rootNode.incEntryDeleteCount();
 				IRConstraint1 failedConstraint1 = rootNode.getLastFailedConstraint1();
 				if (failedConstraint1 != null) {
-					if (nodeContext == null || this.assuemeStatmentLevel > 0) {
+					if (topContext == null || this.assuemeStatmentLevel > 0) {
 						throw new RConstraintConflict(String.format("Unable to add entry<%s> due to constraint<%s>",
 								newEntry, failedConstraint1), rootNode, newEntry, failedConstraint1);
 					}
@@ -815,8 +818,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			/*******************************************************/
 			// Add reference
 			/*******************************************************/
-			if (nodeContext != null) {
-				entryTable.addReference(newEntry, nodeContext.currentNode, nodeContext.currentEntry);
+			if (topContext != null) {
+				entryTable.addReference(newEntry, topContext.currentNode, topContext.currentEntry);
 			} else {
 				entryTable.addReference(newEntry, rootNode);
 			}
@@ -841,8 +844,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 			/*******************************************************/
 			// Add reference
 			/*******************************************************/
-			if (finalStatus != REMOVE && finalStatus != TEMP__ && nodeContext != null) {
-				entryTable.addReference(oldEntry, nodeContext.currentNode, nodeContext.currentEntry);
+			if (finalStatus != REMOVE && finalStatus != TEMP__ && topContext != null) {
+				entryTable.addReference(oldEntry, topContext.currentNode, topContext.currentEntry);
 			}
 
 			return RUpdateResult.NOCHANGE;
@@ -874,8 +877,8 @@ public class XRModel extends AbsRInstance implements IRModel {
 		/*******************************************************/
 		// Add reference
 		/*******************************************************/
-		if (finalStatus != REMOVE && finalStatus != TEMP__ && nodeContext != null) {
-			entryTable.addReference(oldEntry, nodeContext.currentNode, nodeContext.currentEntry);
+		if (finalStatus != REMOVE && finalStatus != TEMP__ && topContext != null) {
+			entryTable.addReference(oldEntry, topContext.currentNode, topContext.currentEntry);
 		}
 
 		return RUpdateResult.CHANGE;
@@ -1276,11 +1279,12 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 	protected RReteStatus _getNewStmtStatus() throws RException {
 
-		if (nodeContext == null) {
+		RNodeContext topContext = _topContext();
+		if (topContext == null) {
 			return DEFINE;
 		}
 
-		return ReteUtil.getChildStatus(nodeContext.currentEntry);
+		return ReteUtil.getChildStatus(topContext.currentEntry);
 	}
 
 	protected IRReteNode _getRootNode(String namedName, int stmtLen, boolean create) throws RException {
@@ -2891,11 +2895,6 @@ public class XRModel extends AbsRInstance implements IRModel {
 	}
 
 	@Override
-	public void setNodeContext(RNodeContext nodeContext) {
-		this.nodeContext = nodeContext;
-	}
-
-	@Override
 	public void setNodeLoader(IRReteNode node, IRStmtLoader loader) throws RException {
 
 		if (RuleUtil.isModelTrace()) {
@@ -3004,6 +3003,33 @@ public class XRModel extends AbsRInstance implements IRModel {
 		}
 
 		return false;
+	}
+
+	protected RNodeContext _topContext() {
+
+		if (nodeContextStack.isEmpty()) {
+			return null;
+		}
+
+		return nodeContextStack.get(nodeContextStack.size() - 1);
+	}
+
+	@Override
+	public void pushNodeContext(RNodeContext nodeContext) {
+		nodeContextStack.push(nodeContext);
+	}
+
+	@Override
+	public void popNodeContext(RNodeContext nodeContext) throws RException {
+
+		if (nodeContextStack.isEmpty()) {
+			throw new RException("fail to pop empty stack: " + nodeContext.currentNode);
+		}
+
+		RNodeContext top = nodeContextStack.pop();
+		if (top != nodeContext) {
+			throw new RException("fail to pop node: " + nodeContext.currentNode);
+		}
 	}
 
 }
