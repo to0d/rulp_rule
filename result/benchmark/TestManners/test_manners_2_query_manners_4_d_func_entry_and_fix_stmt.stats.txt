@@ -2,11 +2,11 @@ Model<mm> stats info:
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-NAME0        44      0     0     31     13      0     0     0     0     0      0      0     5    5      1     9     0    0       18     44      0    0    0    0   99      0     145
-ALPH0         0      0     0      0      1      0     0     0     0     0      0      0     1    1      1     9     1    0       14      1      0    1    1    0    0      0       1
-EXPR0         0      0     0      1     12      0     0     0     0     0      0      0     1    1      0     7     0    0       13     13      0    1    1   99   99      0      33
+NAME0        44      0    14     30      0      0     0     0    14     0      0      0     5    5      1     9     0    0       18     44      0    0    0    0   99      0     145
+ALPH0         0      0     1      0      0      0     0     0     1     0      0      0     1    1      1     9     1    0       14      1      0    1    1    0    0      0       1
+EXPR0         0      0    13      0      0      0     0     0    13     0      0      0     1    1      0     7     0    0       13     13      0    1    1   99   99      0      13
 BETA0        26      0     0      0     26      0     0     0     0     0      0      0     1    1      0     1     0    0       64     26      0    1    1    0    0      0      26
-BETA3        28      0     0      0     16      0    12     0     0     0      0      0     1    1      0     7     0    0        0     28      0    2    2   99   99      0      52
+BETA3        28      0     0      0     28      0     0     0     0     0      0      0     1    1      0     7     0    0        0     28      0    2    2   99   99      0      28
 RULE          0      0     0      0      0      0     0     0     0     0      0      0     1    1      0     8     1    0        0     28      0    3    3   99   99      0       0
 INDEX         0      0     0      0     26      0     0     0     0     0      0      0     1    1      0     1     0    0        0     26      0    2    2    0    0      0       0
 ===============================================================================================================================================================================
@@ -19,11 +19,11 @@ N00001[2]         4      0      0      4      0      0      0      0     0     0
 N00002[2]         8      0      0      8      0      0      0      0     0     0   0/0      0      8      0    0    0      *    0   0   0   0     2 OutQueue            
 N00003[3]         9      0      0      9      0      0      0      0     0     0   0/0      9      9      0    0    0      *    0   0   0   0     0 InActive            
 N00004[3]         9      0      0      9      0      0      0      0     0     0   0/0      9      9      0    0    0      *    0   0   0   0     0 InActive            
-N00005[5]        14      0      0      1     13      0      0      0     0     0   0/0      0     14      0    8    0           0   0  99   1     2 InActive            
-A00009[5]         0      0      0      0      1      0      0      0     0     0   0/0     14      1      0    9    1           0   1   0   1     1  InQueue          14
-E00006[5]         0      0      0      1     12      0      0      0     0     0   0/0     13     13      0    7    0           0   1  99   0     1  InQueue          13
+N00005[5]        14      0     14      0      0      0      0      0    14     0   0/0      0     14      0    8    0           0   0  99   1     2  InQueue            
+A00009[5]         0      0      1      0      0      0      0      0     1     0   0/0     14      1      0    9    1           0   1   0   1     1  InQueue          14
+E00006[5]         0      0     13      0      0      0      0      0    13     0   0/0     13     13      0    7    0           0   1  99   0     1  InQueue          13
 B00010[3]        26      0      0      0     26      0      0      0     0     0   0/0     64     26      0    1    0           0   1   0   0     6 InActive         8/8
-B30007[7]        28      0      0      0     16      0     12      0     0     0   0/0      0     28      0    7    0           0   2  99   0     1  InQueue         7/4
+B30007[7]        28      0      0      0     28      0      0      0     0     0   0/0      0     28      0    7    0           0   2  99   0     1  InQueue         7/4
 RU000[7]          0      0      0      0      0      0      0      0     0     0   0/0      0     28      0    8    1           0   3  99   0     0 InActive          28
 I00011[3]         0      0      0      0     26      0      0      0     0     0   0/0      0     26      0    1    0           0   2   0   0     0 OutQueue          26
 ===============================================================================================================================================================================
@@ -105,7 +105,7 @@ RU000[7]     0     EXPR  (do
                              (defvar ?arr (to-array seat:'(?m ?_tmp_seat_any_0 ?_tmp_seat_any_1 ?_tmp_seat_any_2 ?_tmp_seat_any_3)))
                              (seta ?arr 0 (+ ?m 1))
                              (seta ?arr (+ ?m 1) ?g)
-                             (add-stmt mm seat ?arr)
+                             (fix-stmt mm seat ?arr)
                          )
                          0: ADD seat:'(?...)
 ===============================================================================================================================================================================
@@ -159,16 +159,6 @@ N00003[3]    (uniq on '(?0 ?1))                       [?g1, ?g2, (canBeCouple ?g
 N00004[3]    (uniq on '(?0 ?1))                       [?g1, ?g2, (canSitTogether ?g1 ?g2)]
 ===============================================================================================================================================================================
 
-node info11: gc entry info
-===============================================================================================================================================================================
-NODE[n]      Delete   Scan  Reset
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-A00009[5]         0      0      0
-E00006[5]         0     20      5
-B00010[3]         0      0      0
-B30007[7]        12     24      0
-===============================================================================================================================================================================
-
 priority info:
 ===============================================================================================================================================================================
 Priority        NAME0 ALPH0 EXPR0 BETA0 BETA3  RULE INDEX
@@ -193,8 +183,8 @@ name                              count
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 model-addConstraint                   1
 model-addRule                         1
-model-addStatement                   44
-model-addUpdateNode                  55
+model-addStatement                   30
+model-addUpdateNode                  54
 model-execute                        42
 model-findReteEntry-1                42
 model-query                           7
@@ -221,12 +211,12 @@ QBK     (index '(hobby:'(?_0 ?_1) hobby:'(?_2 ?_1)) order by 0 asc order by 2 as
 ===============================================================================================================================================================================
 
 
-Rule<RU000> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (println "" ?idx ": " ?0 " " ?1) (++ ?idx) (loop for ?i from 1 to ?m do (if (= (get ?0 ?i) ?g) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 ?m)) (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v))) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 1)) (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v))) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr (+ ?m 1) ?g) (add-stmt mm seat ?arr))
+Rule<RU000> stats: priority=099, expr=(add-rule mm if seat:'(?m ?...) guess:'(?g ?s) (< ?m ?max_guess) do (println "" ?idx ": " ?0 " " ?1) (++ ?idx) (loop for ?i from 1 to ?m do (if (= (get ?0 ?i) ?g) do (return))) (if (> ?m 0) do (defvar ?x (get ?0 ?m)) (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v))) (return))) (if (= (+ ?m 1) ?max_guess) do (defvar ?x (get ?0 1)) (if (not (compute-stmt mm ?v from canSitTogether:'(?x ?g ?v))) (return))) (defvar ?arr (to-array ?0)) (seta ?arr 0 (+ ?m 1)) (seta ?arr (+ ?m 1) ?g) (fix-stmt mm seat ?arr))
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-EXPR0         0      0     0      1     12      0     0     0     0     0      0      0    1      0     7     0    0       13     13      0    1    1   99   99      0      33
-BETA3        28      0     0      0     16      0    12     0     0     0      0      0    1      0     7     0    0        0     28      0    2    2   99   99      0      52
+EXPR0         0      0    13      0      0      0     0     0    13     0      0      0    1      0     7     0    0       13     13      0    1    1   99   99      0      13
+BETA3        28      0     0      0     28      0     0     0     0     0      0      0    1      0     7     0    0        0     28      0    2    2   99   99      0      28
 RULE          0      0     0      0      0      0     0     0     0     0      0      0    1      0     8     1    0        0     28      0    3    3   99   99      0       0
 ===============================================================================================================================================================================
 
@@ -234,8 +224,8 @@ node info:
 ===============================================================================================================================================================================
 NODE[n]      Create Delete  Fixed Define Reason Assume   Drop Remove  Temp  Null  Bind  Match Update Redunt Exec Idle  Waste Fail Lvl Pri Src   Use    Stage      PVisit
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-E00006[5]         0      0      0      1     12      0      0      0     0     0   0/0     13     13      0    7    0           0   1  99   0     1  InQueue          13
-B30007[7]        28      0      0      0     16      0     12      0     0     0   0/0      0     28      0    7    0           0   2  99   0     1  InQueue         7/4
+E00006[5]         0      0     13      0      0      0      0      0    13     0   0/0     13     13      0    7    0           0   1  99   0     1  InQueue          13
+B30007[7]        28      0      0      0     28      0      0      0     0     0   0/0      0     28      0    7    0           0   2  99   0     1  InQueue         7/4
 RU000[7]          0      0      0      0      0      0      0      0     0     0   0/0      0     28      0    8    1           0   3  99   0     0 InActive          28
 ===============================================================================================================================================================================
 
@@ -258,9 +248,9 @@ Model<mm> share index:
  NODE Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Total Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ALPH0                                                                                                                                                                            
-EXPR0                          0      0                                                       0            0                   0      0           0    0    0    0              0
+EXPR0                   0                                      0                              0            0                   0      0           0    0    0    0              0
 BETA0                                                                                                                                                                            
-BETA3      0                          0            0                                          0            0                          0           0    0    0    0              0
+BETA3      0                          0                                                       0            0                          0           0    0    0    0              0
  RULE                                                                                         0            0     0                    0           0    0    0    0               
 INDEX                                                                                                                                                                            
 ===============================================================================================================================================================================
@@ -270,18 +260,18 @@ B00010[3]           64
 B30007[7]            0
 
 Entry Table:
-	    ETA: total-action=24, new-action=0, max-size=2, capacity=256, expend=0
-	  Entry: count=86, stmt=44
+	    ETA: total-action=0, new-action=0, max-size=0, capacity=256, expend=0
+	  Entry: count=98, stmt=44
 ===============================================================================================================================================================================
-Entry Bit Map: total=86, max-id=86, create=98, removed=12, group-size=10, group-count=9
+Entry Bit Map: total=98, max-id=98, create=98, removed=0, group-size=10, group-count=10
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-........6 [86]
+.........8 [98]
 ===============================================================================================================================================================================
 Length Array: min=2, max=7
 Entry[0002]= 12, guess(4), hobby(8)
 Entry[0003]= 44, canBeCouple(9), canSitTogether(9)
 Entry[0005]= 14, seat(14)
-Entry[0007]= 16
+Entry[0007]= 28
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Length Array:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -289,19 +279,19 @@ Length:   NAME0   BETA0   BETA3    RULE
      2:      12       0       0       0
      3:      18      26       0       0
      5:       1       0       0      13
-     7:       0       0      16       0
- total:      31      26      16      13
+     7:       0       0      28       0
+ total:      31      26      28      13
 ===============================================================================================================================================================================
 Ref Array:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 RefCount: unRefer   NAME0   BETA0   BETA3    RULE
        0:       0
-       1:       0      31      26      16      13
-   total:       0      31      26      16      13
+       1:       0      31      26      28      13
+   total:       0      31      26      28      13
 ===============================================================================================================================================================================
-Ref Bit Map: total=86, max-id=86, create=98, removed=12, group-size=10, group-count=9
+Ref Bit Map: total=98, max-id=98, create=98, removed=0, group-size=10, group-count=10
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-........6 [86]
+.........8 [98]
 ===============================================================================================================================================================================
 Child Count:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -309,51 +299,51 @@ Child Count:
        8: entry=hobby:'(2 2), status=define
        8: entry=hobby:'(3 2), status=define
        8: entry=hobby:'(4 2), status=define
+       7: entry=guess:'(1 f), status=define
+       7: entry=guess:'(2 f), status=define
+       7: entry=guess:'(3 m), status=define
+       7: entry=guess:'(4 m), status=define
        6: entry=hobby:'(1 1), status=define
        6: entry=hobby:'(3 1), status=define
-       6: entry=hobby:'(4 1), status=define
-       4: entry=guess:'(1 f), status=define
-       4: entry=guess:'(2 f), status=define
-       4: entry=guess:'(3 m), status=define
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
            Entry[2]  Entry[3]  Entry[5]  Entry[7]
- 0 -  0:         0        44         7         3
- 1 -  1:         0         0         2        13
- 2 -  2:         1         0         3         0
- 4 -  4:         4         0         2         0
+ 0 -  0:         0        44        14        15
+ 1 -  1:         0         0         0        13
+ 2 -  2:         1         0         0         0
  6 -  6:         3         0         0         0
+ 7 -  7:         4         0         0         0
  8 -  8:         4         0         0         0
-  total:        12        44        14        16
+  total:        12        44        14        28
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
            NAME0   BETA0   BETA3    RULE
- 0 -  0:      18      26       3       7
- 1 -  1:       0       0      13       2
- 2 -  2:       1       0       0       3
- 4 -  4:       5       0       0       1
+ 0 -  0:      19      26      15      13
+ 1 -  1:       0       0      13       0
+ 2 -  2:       1       0       0       0
  6 -  6:       3       0       0       0
+ 7 -  7:       4       0       0       0
  8 -  8:       4       0       0       0
-  total:      31      26      16      13
+  total:      31      26      28      13
 ===============================================================================================================================================================================
 
 Model<mm> frame:id=3, name=model, lvl=3, ref=2/5, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 24       3        7    instance   model@mm            
+default_model        : 24       3        4    instance   model@mm            
 ==========================================================================================================================
 
-Node<RU000> frame:id=10, name=NF-RU000, lvl=4, ref=1/2, entry=8, pid=3(model), subject=NF-RU000
+Node<RU000> frame:id=7, name=NF-RU000, lvl=4, ref=1/2, entry=8, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 46       10       7    instance   model@mm            
-?m                   : 47       10       1    var        3 : type=int        
-?_tmp_seat_any_0     : 48       10       1    var        2 : type=int        
-?_tmp_seat_any_1     : 49       10       1    var        3 : type=int        
-?_tmp_seat_any_2     : 50       10       1    var        1 : type=int        
-?_tmp_seat_any_3     : 51       10       1    var        0 : type=int        
-?g                   : 52       10       1    var        4 : type=int        
-?s                   : 53       10       1    var        m : type=atom       
+default_model        : 44       7        4    instance   model@mm            
+?m                   : 45       7        1    var        3 : type=int        
+?_tmp_seat_any_0     : 46       7        1    var        2 : type=int        
+?_tmp_seat_any_1     : 47       7        1    var        3 : type=int        
+?_tmp_seat_any_2     : 48       7        1    var        1 : type=int        
+?_tmp_seat_any_3     : 49       7        1    var        0 : type=int        
+?g                   : 50       7        1    var        4 : type=int        
+?s                   : 51       7        1    var        m : type=atom       
 ==========================================================================================================================
 
 node update info: model-exec-count=42, row=8, column=43(1), value-max=1, value-unit=1^x
@@ -377,10 +367,10 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      257
-    Interpreter call level/max:        2       20
+           Interpreter call id:      259
+    Interpreter call level/max:        0       20
                Frame max level:       10
-                  Frame max id:       17
+                  Frame max id:       16
            Frame free id count:       11
 ==========================================================================================================================
 
@@ -398,23 +388,23 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1153
-      func:      142
+    factor:     1149
+      func:      141
      macro:       28
 ==========================================================================================================================
 
-Callable stats info: callId=257, row=52, column=33(8), value-max=128, value-unit=2^x
+Callable stats info: callId=259, row=51, column=33(8), value-max=128, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333343333538 max=1025, unit=3^x
+   Frame    RType  Count  Ref Object                         44444444444444444444444445444475X max=1019, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                  144444444444444444444441         
     root   factor    128    0 return                                                         8
     root   factor    120    0 if                                                             8
-    root   factor     75    0 defun                                                 4434434631
-    root   factor     71    0 +                                                            1 8
-    root   factor     69    0 do                                                             8
+    root   factor     74    0 defun                                                 443443463 
+    root   factor     70    0 +                                                            118
+    root   factor     68    0 do                                                             8
     root   factor     66    0 =                                                              8
-    root   factor     59    0 defvar                                                  3    117
+    root   factor     59    0 defvar                                                  3    1 7
     root   factor     56    0 get-of-list                                                    7
   system funcList     56    1 get                                                            7
   system   factor     42    0 compute-stmt                                                   7
@@ -424,14 +414,15 @@ Callable stats info: callId=257, row=52, column=33(8), value-max=128, value-unit
   system funcList     28    1 println                                                        6
     root   factor     28    0 print                                                          6
     main    macro     28    2 ++                                                             6
-  system   factor     26    0 add-stmt                                                     5 5
     root   factor     24    0 not                                                            6
     root   factor     18    0 >                                                              6
     root   factor     15    0 !=                                                             5
     root   factor     14    0 make-array                                                     5
+  system   factor     14    0 fix-stmt                                                       5
   system     func     13    1 (to-array list)                                                5
     root   factor     13    0 add-list-to-array                                              5
     root   factor     12    0 size-of-list                                                   5
+  system   factor     12    0 add-stmt                                                     5  
     main     func      9    1 (canSitTogether nil nil)                                       5
     main     func      9    1 (canBeCouple nil nil)                                          5
   system   factor      7    0 query-stmt                                                     4
@@ -451,13 +442,11 @@ Callable stats info: callId=257, row=52, column=33(8), value-max=128, value-unit
     root   factor      1    0 new                                                          1  
     main     func      1    1 (makeList int nil)                                             1
     root   factor      1    0 file-parent                                                  1  
-  system   factor      1    0 dump-status                                                    1
     root   factor      1    0 defconst                                                      1 
   system   factor      1    0 add-rule                                                       1
-  system   factor      1    0 add-node                                                       1
+  system   factor      1    0 add-node                                                      1 
   system   factor      1    0 add-constraint                                                1 
     root   factor      1    0 add-array-to-list                                              1
-    main     func      1    2 (_query_init)                                                  1
     root   factor      1    0 -                                                              1
 ==========================================================================================================================
 
@@ -465,33 +454,33 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2545            0         2545
-      string:           86            0           86
-        list:          484          126          358
-        expr:         1272          141         1131
+        atom:         2530            0         2530
+      string:           83            0           83
+        list:          482          127          355
+        expr:         1260          141         1119
        array:           14           14            0
-         var:          597          568           29
+         var:          597          567           30
     constant:            1            0            1
-        func:           92            0           92
+        func:           91            0           91
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
-       frame:          336          333            3
+       frame:          333          331            2
     iterator:            1            0            1
  interpreter:            1            0
-  frameEntry:          978            0
+  frameEntry:          976            0
       lambda:            0            0
 ==========================================================================================================================
 
-Global frame list: total=3
+Global frame list: total=2
 
-id=2, name=main, lvl=2, ref=3/3, entry=31, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/3, entry=31, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
 root                 : 1        2        0    frame      frame@root          
 system               : 2        2        0    frame      frame@system        
-main                 : 3        2        3    frame      frame@main          
+main                 : 3        2        2    frame      frame@main          
 --                   : 4        2        2    macro      --                  
 ++                   : 5        2        2    macro      ++                  
 inc                  : 6        2        2    macro      inc                 
@@ -523,19 +512,19 @@ print-list           : 17       2        3    funcList   '((print-list list) (pr
 to-valid-path        : 18       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 19       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 20       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 21       2        2    var        result\benchmark\TestManners\test_manners_2_query_manners_6_query_init_and_gc.rulp : type=string
+?script-path         : 21       2        2    var        result\benchmark\TestManners\test_manners_2_query_manners_4_d_func_entry_and_fix_stmt.rulp : type=string
 script_out           : 22       2        2    macro      script_out          
 _ginfo               : 23       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
-mm                   : 25       2        7    instance   model@mm            
+mm                   : 25       2        4    instance   model@mm            
 makeList             : 26       2        1    func       (makeList int nil) : frame=frame@main
 getAt                : 27       2        1    func       (getAt list int) : frame=frame@main
 canBeCouple          : 28       2        1    func       (canBeCouple nil nil) : frame=frame@main
 canSitTogether       : 29       2        1    func       (canSitTogether nil nil) : frame=frame@main
 ?max_guess           : 30       2        1    constant   ?max_guess:"4"      
 ?idx                 : 31       2        1    var        28 : type=int       
-_query_init          : 32       2        2    func       (_query_init) : frame=frame@main
+?rv                  : 38       2        1    var        '(0 0 0 0 0) : type=list
 ==========================================================================================================================
 
 
@@ -543,28 +532,21 @@ id=3, name=model, lvl=3, ref=2/5, entry=1, pid=2(main), subject=model
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 24       3        7    instance   model@mm            
+default_model        : 24       3        4    instance   model@mm            
 ==========================================================================================================================
 
-id=4, name=NF-QUERY-INIT, lvl=3, ref=1/2, entry=1, pid=2(main), subject=NF-QUERY-INIT
+id=7, name=NF-RU000, lvl=4, ref=1/2, entry=8, pid=3(model), subject=NF-RU000
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-default_model        : 33       4        7    instance   model@mm            
-==========================================================================================================================
-
-id=10, name=NF-RU000, lvl=4, ref=1/2, entry=8, pid=3(model), subject=NF-RU000
-==========================================================================================================================
-Name(alias)          : EntryId  FrameId  Ref  Type       Value               
---------------------------------------------------------------------------------------------------------------------------
-default_model        : 46       10       7    instance   model@mm            
-?m                   : 47       10       1    var        3 : type=int        
-?_tmp_seat_any_0     : 48       10       1    var        2 : type=int        
-?_tmp_seat_any_1     : 49       10       1    var        3 : type=int        
-?_tmp_seat_any_2     : 50       10       1    var        1 : type=int        
-?_tmp_seat_any_3     : 51       10       1    var        0 : type=int        
-?g                   : 52       10       1    var        4 : type=int        
-?s                   : 53       10       1    var        m : type=atom       
+default_model        : 44       7        4    instance   model@mm            
+?m                   : 45       7        1    var        3 : type=int        
+?_tmp_seat_any_0     : 46       7        1    var        2 : type=int        
+?_tmp_seat_any_1     : 47       7        1    var        3 : type=int        
+?_tmp_seat_any_2     : 48       7        1    var        1 : type=int        
+?_tmp_seat_any_3     : 49       7        1    var        0 : type=int        
+?g                   : 50       7        1    var        4 : type=int        
+?s                   : 51       7        1    var        m : type=atom       
 ==========================================================================================================================
 
 Root var list: total=7
@@ -586,12 +568,11 @@ Global frame tree:
     ->FRAME(system): id=1, lvl=1, subject=system
         ->FRAME(main): id=2, lvl=2, subject=main
             ->FRAME(model): id=3, lvl=3, subject=model
-                ->FRAME(NF-RU000): id=10, lvl=4, subject=NF-RU000
-            ->FRAME(NF-QUERY-INIT): id=4, lvl=3, subject=NF-QUERY-INIT
+                ->FRAME(NF-RU000): id=7, lvl=4, subject=NF-RU000
 
 Global Subject list:
 
-name=mm, string=model@mm, lvl=1, ref=7/10, parent=model, final=false, mbrs=7, frame=null
+name=mm, string=model@mm, lvl=1, ref=4/7, parent=model, final=false, mbrs=7, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
 --------------------------------------------------------------------------------------------------------------------------
@@ -601,9 +582,8 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
-this                           : DEFAULT                      0    7    instance   model@mm
+this                           : DEFAULT                      0    4    instance   model@mm
 ==========================================================================================================================
 
 
 
-stmt=44, rule=1, match=0, fetch=257, exec=42, idle=9, state=1/6, max-queue=8, uniq-obj=11, entry-cnt=86, entry-maxid=86, waste-node=3, waste-match=0

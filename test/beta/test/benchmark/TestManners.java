@@ -57,7 +57,7 @@ public class TestManners extends RuleTestBase {
 	}
 
 	@Test
-	void test_manners_2_query_manners_5_c_func_entry_and_fix_stmt() {
+	void test_manners_2_query_manners_4_d_func_entry_and_fix_stmt() {
 
 		_setup();
 		_run_script();
@@ -67,7 +67,7 @@ public class TestManners extends RuleTestBase {
 	}
 
 	@Test
-	void test_manners_2_query_manners_6_query_init_and_gc() {
+	void test_manners_2_query_manners_4_e_query_init_and_gc() {
 
 		_setup();
 		_run_script();
