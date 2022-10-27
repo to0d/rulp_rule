@@ -3,7 +3,7 @@ package alpha.rulp.ximpl.action;
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_IF;
 import static alpha.rulp.lang.Constant.F_LET;
-import static alpha.rulp.lang.Constant.O_QUESTION_LIST;
+import static alpha.rulp.lang.Constant.*;
 import static alpha.rulp.rule.Constant.F_ADD_STMT;
 import static alpha.rulp.rule.Constant.F_DEFS_S;
 import static alpha.rulp.rule.Constant.F_FIX_STMT;
@@ -24,6 +24,7 @@ import alpha.rulp.utils.ReteUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
 import alpha.rulp.utils.StmtUtil;
+import alpha.rulp.ximpl.control.XRFactorLoop;
 import alpha.rulp.ximpl.node.XTempVarBuilder;
 
 public class ActionUtil {
@@ -176,9 +177,22 @@ public class ActionUtil {
 		case F_IF:
 		case F_LET:
 
+		{
 			IRIterator<? extends IRObject> it = expr.listIterator(1);
 			while (it.hasNext()) {
 				_buildRelatedStmtExprList(it.next(), exprList);
+			}
+
+		}
+			return;
+
+		case F_LOOP:
+
+			if (XRFactorLoop.isLoop2(expr)) {
+				IRIterator<? extends IRObject> it = XRFactorLoop.getLoop2DoList(expr);
+				while (it.hasNext()) {
+					_buildRelatedStmtExprList(it.next(), exprList);
+				}
 			}
 
 			return;

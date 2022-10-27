@@ -1,0 +1,23 @@
+(new model m)
+;=>m
+
+(defvar ?var 1)
+;=>&?var
+
+(add-rule "R1" m if '(?x p1 c1) do 
+    (loop for ?i from 0 to (- ?max_guess 0) do
+        (add-stmt '(?x p2 aa))
+        (-> '(?x p3 bb))
+    )
+)
+;=>R1
+
+(list-source-node m '(?a ?b ?c))
+;=>'(R1)
+
+(list-source-node m '(?a p2 ?c))
+;=>'(R1)
+
+(list-source-node m '(?a p3 ?c))
+;=>'(R1)
+

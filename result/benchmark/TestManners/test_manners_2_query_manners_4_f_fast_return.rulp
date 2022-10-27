@@ -1,0 +1,165 @@
+(load (+ (file-parent ?script-path) "manners_4.rulp"))
+;=>
+
+(defun makeList ((?x int) ?y)
+    (defvar ?arr (make-array ?x))
+    (loop for ?x from 0 to (- ?x 1) do
+        (seta ?arr ?x ?y)
+    )
+    (return (to-list ?arr))
+)
+;=>
+
+(defun getAt ((?rst list) (?index int)) 
+    (if (is-empty ?rst)
+        (return nil)
+    )
+    (if (<= (size-of ?rst) ?index)
+        (return nil)
+    )
+    (return (get ?rst ?index))
+)
+;=>
+
+(add-constraint mm guess:'(?x ?y) (uniq on '(?x)))
+;=>
+
+(defun canBeCouple (?g1 ?g2)
+    
+    (if (= ?g1 ?g2) do
+        (return false)
+    )
+
+    (defvar ?s1 (compute-stmt mm ?v from guess:'(?g1 ?v)))
+    (defvar ?s2 (compute-stmt mm ?v from guess:'(?g2 ?v)))
+    
+    (return (!= ?s1 ?s2))
+)
+;=>
+
+(add-node-func mm canBeCouple:'(?g1 ?g2 (canBeCouple ?g1 ?g2)))
+;=>
+
+(defun canSitTogether (?g1 ?g2)
+
+    (if (= ?g1 ?g2) do
+        (return false)
+    )
+
+    (if (not (compute-stmt mm ?v from canBeCouple:'(?g1 ?g2 ?v)))
+        (return false)
+    )
+
+    (defvar ?rst (query-stmt mm ?h from hobby:'(?g1 ?h) hobby:'(?g2 ?h) limit 1))
+
+    (return (!= nil (getAt ?rst 0)))
+)
+;=>
+
+(add-node-func mm canSitTogether:'(?g1 ?g2 (canSitTogether ?g1 ?g2)))
+;=>
+
+(defvar ?all_guesses (query-stmt mm ?g from guess:'(?g ?s)))
+;=>
+
+(println ?all_guesses)
+;=>
+
+(defconst ?max_guess (size-of ?all_guesses))
+;=>
+
+(defvar ?idx 0)
+;=>
+
+(defun canSeat (?list ?pos ?gindex)
+
+    (if (= ?pos 0) do
+        (return true)
+    )
+
+    (loop for ?i from 1 to ?pos do
+        (if (= (get ?list ?i) ?gindex) do
+            (return false)
+        )
+    )
+    
+    (defvar ?g (get ?all_guesses ?gindex))    
+    (defvar ?pre (get ?all_guesses (get ?list ?pos)))    
+    (if (not (compute-stmt mm ?v from canSitTogether:'(?pre ?g ?v)))
+        (return false)
+    )    
+    
+    (if (= (+ ?pos 1) ?max_guess) do
+        (defvar ?first (get ?all_guesses (get ?list 1)))
+        (if (not (compute-stmt mm ?v from canSitTogether:'(?first ?g ?v)))
+            (return false)
+        )
+    )
+    
+    (return true)
+)
+ 
+(defun _query_init ()
+
+    (add-node mm seat:'((+ ?max_guess 1)))
+    (add-stmt mm seat (makeList (+ ?max_guess 1) 0))
+
+    ; deep search
+    (add-rule mm if seat:'(?m ?...) (< ?m ?max_guess) do 
+        (++ ?idx)        
+        (loop for ?i from 0 to (- ?max_guess 1) do                     
+            (if (canSeat ?0 ?m ?i) do            
+                (defvar ?arr (to-array ?0))
+                (seta ?arr 0 (+ ?m 1))
+                (seta ?arr (+ ?m 1) ?i)                
+                (add-stmt mm seat ?arr)  
+                (println "" ?idx ": deep," ?0 " -> " ?arr)
+                (return)            
+            )
+        )
+        
+        (println "" ?idx ": deep," ?0 " -> none")
+    )
+    
+    ; width search
+    (add-rule mm if seat:'(?m ?...) (> ?m 0) (< ?m ?max_guess) do 
+
+        (++ ?idx)        
+        
+        (defvar ?gindex (get ?0 ?m))
+        (if (= ?gindex (- ?max_guess 0)) do
+            (println "" ?idx ": deep," ?0 ", back")
+            (return)
+        )
+        
+        (loop for ?i from (+ ?gindex 1) to (- ?max_guess 1) do
+            (if (canSeat ?0 (- ?m 1) ?i) do            
+                (defvar ?arr (to-array ?0))
+                (seta ?arr ?m ?i)                
+                (add-stmt mm seat ?arr) 
+                (println "" ?idx ": width," ?0 " -> " ?arr)               
+                (return)            
+            )
+        )
+        
+        (println "" ?idx ": deep," ?0 " -> none")
+    )
+)
+;=>
+
+;(setq ?model-trace true)
+;;=>
+
+(query-stmt mm '(?...) from seat:'(4 ?...) limit 1
+    init  (_query_init)
+    ~init (dump-status mm (+ ?script-path ".status.1.txt"))
+          (dump-entry-info mm (+ ?script-path ".entry.1.txt"))
+    gc
+)
+;=>
+
+(dump-status mm (+ ?script-path ".status.2.txt"))
+;=>
+
+(dump-entry-info mm (+ ?script-path ".entry.2.txt"))
+;=>

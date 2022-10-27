@@ -51,8 +51,12 @@ node info5: action
 ===============================================================================================================================================================================
 NODE[n]      Index Type  Action
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-R1[3]        0     ADD   '(?0, p2, aa)
-             1     ADD   '(?0, p3, bb)
+R1[3]        0     EXPR  (if (> ?var 0) do
+                             (add-stmt '(?x p2 aa))
+                             (-> '(?x p3 bb))
+                         )
+                         0: ADD '(?_0 p2 aa)
+                         1: ADD '(?_0 p3 bb)
 ===============================================================================================================================================================================
 
 node info6:
@@ -88,7 +92,7 @@ node source info:
 NODE[n]         Rule            Length Description
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 R00001(ROOT0) :                 3      '(?_0 ?_1 ?_2)
-             0: R1              3      A(2/2)=[0, 1]
+             0: R1              3      A(1/1)=[0]
 ===============================================================================================================================================================================
 
 model count info:
@@ -104,7 +108,7 @@ graph-setNodePriority                 3
 ===============================================================================================================================================================================
 
 
-Rule<R1> stats: priority=099, expr=(add-rule "R1" m if '(?x p1 c1) do (add-stmt '(?x p2 aa)) (-> '(?x p3 bb)))
+Rule<R1> stats: priority=099, expr=(add-rule "R1" m if '(?x p1 c1) do (if (> ?var 0) do (add-stmt '(?x p2 aa)) (-> '(?x p3 bb))))
 ===============================================================================================================================================================================
 NODE    Create Delete Fixed Define Reason Assume  Drop Remove  Temp  Null BindFr BindTo Node Source  Exec  Idle Fail    Match Update Redunt MinL MaxL MinP MaxP QMatch  QFetch
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -185,7 +189,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      250
+           Interpreter call id:      251
     Interpreter call level/max:        0        3
                Frame max level:        2
                   Frame max id:        4
@@ -206,48 +210,48 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      278
+    factor:      279
 ==========================================================================================================================
 
-Callable stats info: callId=250, row=11, column=63(4), value-max=21, value-unit=2^x
+Callable stats info: callId=251, row=11, column=63(4), value-max=21, value-unit=2^x
 ==========================================================================================================================
    Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333333633 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
     root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
     root   factor     70    0 defun                                                                        3333 33333223362 
     root   factor      7    0 alias                          33                                                       1     
-    root   factor      5    0 defvar                                                                           3         1  
+    root   factor      6    0 defvar                                                                           3         11 
     root   factor      5    0 defmacro                                                                                   4  
     root   factor      4    0 make-list                                                                        3            
   system   factor      3    0 list-source-node                                                                             3
     root   factor      3    0 deftemplate                                                                            21     
     root   factor      1    0 new                                                                                         1 
     root   factor      1    0 load                                                                                       1  
-  system   factor      1    0 add-rule                                                                                    1 
+  system   factor      1    0 add-rule                                                                                     1
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2177            0         2177
+        atom:         2182            0         2182
       string:           78            0           78
         list:          109            3          106
-        expr:          918            0          918
-         var:           21            0           21
+        expr:          920            0          920
+         var:           22            0           22
         func:           87            0           87
     template:            1            0            1
        macro:            5            0            5
       member:           18            0           18
        frame:            1            0            1
  interpreter:            1            0
-  frameEntry:          344            0
+  frameEntry:          345            0
       lambda:            0            0
 ==========================================================================================================================
 
 Global frame list: total=1
 
-id=2, name=main, lvl=2, ref=2/2, entry=24, pid=1(system), subject=main
+id=2, name=main, lvl=2, ref=2/2, entry=25, pid=1(system), subject=main
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
@@ -285,12 +289,13 @@ print-list           : 17       2        3    funcList   '((print-list list) (pr
 to-valid-path        : 18       2        2    func       (to-valid-path string) : frame=frame@main
 day-is-bigger-than   : 19       2        2    func       (day-is-bigger-than string string) : frame=frame@main
 day-is-smaller-than  : 20       2        2    func       (day-is-smaller-than string string) : frame=frame@main
-?script-path         : 21       2        2    var        result\factor\XRFactorListSourceNodeTest\test_list_source_node_6_in_do_expr.rulp : type=string
+?script-path         : 21       2        2    var        result\factor\XRFactorListSourceNodeTest\test_list_source_node_6_2_in_if_expr.rulp : type=string
 script_out           : 22       2        2    macro      script_out          
 _ginfo               : 23       2        2    funcList   '((_ginfo string) (_ginfo)) : frame=null, type=list
                                          2    func       (_ginfo) : frame=frame@main
                                          1    func       (_ginfo string) : frame=frame@main
 m                    : 25       2        2    instance   model@m             
+?var                 : 26       2        1    var        1 : type=int        
 ==========================================================================================================================
 
 
