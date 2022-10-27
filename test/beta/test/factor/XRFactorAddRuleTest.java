@@ -149,9 +149,17 @@ class XRFactorAddRuleTest extends RuleTestBase {
 		_run_script();
 		_statsInfo("m");
 	}
-	
+
 	@Test
 	void test_add_rule_7_vary_3() {
+
+		_setup();
+		_run_script();
+		_statsInfo("m");
+	}
+
+	@Test
+	void test_add_rule_8_high_priority() {
 
 		_setup();
 		_run_script();

@@ -397,15 +397,26 @@ public class ModifiterUtil {
 
 	public static List<Modifier> parseModifiterList(IRIterator<? extends IRObject> iterator, IRFrame frame)
 			throws RException {
-		return parseModifiterList(iterator, frame, null);
+		return parseModifiterList(iterator, frame, null, true);
 	}
 
 	public static List<Modifier> parseModifiterList(IRIterator<? extends IRObject> iterator, IRFrame frame,
 			Set<String> ignoreObjNames) throws RException {
+		return parseModifiterList(iterator, frame, ignoreObjNames, true);
+	}
+
+	public static List<Modifier> parseModifiterList(IRIterator<? extends IRObject> iterator, IRFrame frame,
+			Set<String> ignoreObjNames, boolean compute) throws RException {
 
 		ArrayList<IRObject> objList = new ArrayList<>();
 		while (iterator.hasNext()) {
-			objList.add(_compute(iterator.next(), frame, ignoreObjNames));
+
+			IRObject obj = iterator.next();
+			if (compute) {
+				obj = _compute(obj, frame, ignoreObjNames);
+			}
+
+			objList.add(obj);
 		}
 
 		ModifierData list = new ModifierData();

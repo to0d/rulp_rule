@@ -1829,6 +1829,37 @@ public class StatsUtil {
 
 	}
 
+	private static void _printNodeInfo12NodeAttr(StringBuffer sb, IRModel model, List<IRReteNode> nodes)
+			throws RException {
+
+		boolean outputHead = false;
+
+		for (IRReteNode node : nodes) {
+
+			if (AttrUtil.getAttributeKeyList(node).isEmpty()) {
+				continue;
+			}
+
+			if (!outputHead) {
+				sb.append("node info12: node attr info\n");
+				sb.append(SEP_LINE1);
+				sb.append(String.format("%-12s %s\n", "NODE[n]", "attribute"));
+				sb.append(SEP_LINE2);
+
+				outputHead = true;
+			}
+
+			sb.append(String.format("%-12s %s\n", node.getNodeName() + "[" + node.getEntryLength() + "]",
+					RulpUtil.formatAttribute(node)));
+		}
+
+		if (outputHead) {
+			sb.append(SEP_LINE1);
+			sb.append("\n");
+		}
+
+	}
+
 	private static void _printNodeSource(StringBuffer sb, IReteNodeMatrix nodeMatrix, List<IRReteNode> nodes)
 			throws RException {
 
@@ -2120,6 +2151,7 @@ public class StatsUtil {
 			_printNodeInfo9Cache(sb, model, nodes);
 			_printNodeInfo10FuncEntry(sb, model, nodes);
 			_printNodeInfo11GCEntryInfo(sb, model, nodes);
+			_printNodeInfo12NodeAttr(sb, model, nodes);
 		}
 
 		/****************************************************/

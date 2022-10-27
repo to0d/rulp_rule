@@ -184,12 +184,14 @@ public class XRModel extends AbsRInstance implements IRModel {
 				// Lower priority for nodes that can run incrementally and parallelly
 				/********************************************/
 				for (IRReteNode node : subGraph.getNodes()) {
+					
 					if (ReteUtil.supportUpdateIncrementally(node)) {
 						subGraph.setNodePriority(node, RETE_PRIORITY_QUERY);
 					}
 				}
 
 				RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
+					
 					if (!ReteUtil.supportUpdateIncrementally(node) && !RReteType.isRootType(node.getReteType())) {
 						subGraph.setNodePriority(node, RETE_PRIORITY_QUERY + 2);
 					}

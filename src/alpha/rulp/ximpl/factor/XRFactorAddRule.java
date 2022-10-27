@@ -2,6 +2,7 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_IF;
+import static alpha.rulp.rule.Constant.*;
 
 import java.util.ArrayList;
 
@@ -14,9 +15,12 @@ import alpha.rulp.lang.RType;
 import alpha.rulp.rule.IRModel;
 import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
+import alpha.rulp.utils.AttrUtil;
+import alpha.rulp.utils.ModifiterUtil;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorAddRule extends AbsAtomFactorAdapter implements IRuleFactor {
@@ -91,15 +95,34 @@ public class XRFactorAddRule extends AbsAtomFactorAdapter implements IRuleFactor
 			/**************************************************/
 			ArrayList<IRObject> condObjs = new ArrayList<>();
 			while (argIndex < size) {
-				IRObject cond = args.get(argIndex++);
+				IRObject cond = args.get(argIndex);
 				if (RulpUtil.isFactor(cond, A_DO)) {
 					break;
 				}
 				condObjs.add(cond);
+				argIndex++;
 			}
 
 			IRList condList = RulpFactory.createExpression(condObjs);
-			IRList actionList = RulpFactory.createList(args.listIterator(argIndex));
+			IRList actionList = null;
+			/********************************************/
+			// Check modifier
+			/********************************************/
+			for (Modifier modifier : ModifiterUtil.parseModifiterList(args.listIterator(argIndex), frame, null,
+					false)) {
+				switch (modifier.name) {
+				case A_DO:
+					actionList = RulpUtil.asList(modifier.obj);
+					break;
+
+				default:
+					throw new RException("unsupport modifier: " + modifier.name);
+				}
+			}
+
+			/**************************************************/
+			// Create rule
+			/**************************************************/
 			IRRule rule = model.addRule(ruleName, condList, actionList);
 			rule.setRuleDecription(RulpUtil.toString(args));
 
@@ -109,6 +132,17 @@ public class XRFactorAddRule extends AbsAtomFactorAdapter implements IRuleFactor
 			if (ruleGroupName != null) {
 				RuleUtil.addRuleToGroup(model, rule, ruleGroupName);
 				model.getNodeGraph().setRulePriority(rule, 0);
+			}
+
+			/**************************************************/
+			// Update attribute list
+			/**************************************************/
+			for (String attr : AttrUtil.getAttributeKeyList(args)) {
+				switch (attr) {
+				case A_HIGH_PRIORITY:
+					AttrUtil.addAttribute(rule, attr);
+					break;
+				}
 			}
 
 			return rule;

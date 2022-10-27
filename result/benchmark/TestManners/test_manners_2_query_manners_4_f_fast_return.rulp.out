@@ -124,7 +124,7 @@
         
         (println "" ?idx ": deep," ?0 " -> none")
     )
-    
+
     ; width search
     (add-rule mm if seat:'(?m ?...) (> ?m 0) (< ?m ?max_guess) do 
 

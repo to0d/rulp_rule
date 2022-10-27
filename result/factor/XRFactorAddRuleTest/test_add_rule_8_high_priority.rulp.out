@@ -1,0 +1,6 @@
+(new model m)
+;=>m
+
+(add-rule m if '(?x p2 ?y) do (-> m '(?y p2 ?x)))[high-priority]
+;=>RU000
+

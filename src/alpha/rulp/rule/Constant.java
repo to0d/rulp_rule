@@ -38,7 +38,7 @@ public interface Constant {
 	String A_Dup = "dup";
 
 	String A_ENTRY = "entry";
-
+	
 	String A_ENTRY_LEN = "entry-len";
 
 	String A_ENTRY_ORDER = "entry-order";
@@ -49,7 +49,11 @@ public interface Constant {
 
 	String A_Forward = "forward";
 
+	String A_GC = "gc";
+
 	String A_Halting = "halting";
+
+	String A_HIGH_PRIORITY = "high-priority";
 
 	String A_Index = "index";
 
@@ -82,10 +86,8 @@ public interface Constant {
 	String A_Priority = "priority";
 
 	String A_Reasoned = "reasoned";
-
-	String A_Removed = "removed";
 	
-	String A_GC = "gc";
+	String A_Removed = "removed";
 
 	String A_RETE_TYPE = "rete-type";
 
