@@ -1,11 +1,13 @@
 package alpha.rulp.ximpl.model;
 
 import static alpha.rulp.lang.Constant.O_Nil;
+import static alpha.rulp.rule.Constant.A_HIGH_PRIORITY;
 import static alpha.rulp.rule.Constant.A_MODEL;
 import static alpha.rulp.rule.Constant.DEF_GC_CAPACITY;
 import static alpha.rulp.rule.Constant.DEF_GC_INACTIVE_LEAF;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_DEFAULT;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_MAXIMUM;
+import static alpha.rulp.rule.Constant.RETE_PRIORITY_PARTIAL_MAX;
 import static alpha.rulp.rule.Constant.RETE_PRIORITY_QUERY;
 import static alpha.rulp.rule.Constant.V_M_CST_INIT;
 import static alpha.rulp.rule.Constant.V_M_GC_CAPACITY;
@@ -39,7 +41,6 @@ import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import alpha.rulp.lang.IRClass;
-import alpha.rulp.lang.IRError;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
@@ -59,6 +60,7 @@ import alpha.rulp.rule.RRunState;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.runtime.IRIterator;
 import alpha.rulp.runtime.IRListener1;
+import alpha.rulp.utils.AttrUtil;
 import alpha.rulp.utils.FileUtil;
 import alpha.rulp.utils.OptimizeUtil;
 import alpha.rulp.utils.OrderEntry;
@@ -184,16 +186,16 @@ public class XRModel extends AbsRInstance implements IRModel {
 				// Lower priority for nodes that can run incrementally and parallelly
 				/********************************************/
 				for (IRReteNode node : subGraph.getNodes()) {
-					
+
 					if (ReteUtil.supportUpdateIncrementally(node)) {
 						subGraph.setNodePriority(node, RETE_PRIORITY_QUERY);
 					}
 				}
 
-				RuleUtil.travelReteParentNodeByPostorder(queryNode, (node) -> {
-					
-					if (!ReteUtil.supportUpdateIncrementally(node) && !RReteType.isRootType(node.getReteType())) {
-						subGraph.setNodePriority(node, RETE_PRIORITY_QUERY + 2);
+				RuleUtil.travelReteParentNodeByPostorder(queryNode, (_node) -> {
+
+					if (!ReteUtil.supportUpdateIncrementally(_node) && !RReteType.isRootType(_node.getReteType())) {
+						subGraph.setNodePriority(_node, RETE_PRIORITY_QUERY + 2);
 					}
 
 					return false;
@@ -201,6 +203,26 @@ public class XRModel extends AbsRInstance implements IRModel {
 
 			}
 
+			/********************************************/
+			// Increase [high-priority] node
+			/********************************************/
+			for (IRReteNode node : subGraph.getNodes()) {
+
+				if (AttrUtil.containAttribute(node, A_HIGH_PRIORITY)) {
+
+					RuleUtil.travelReteParentNodeByPostorder(node, (_node) -> {
+
+						if (subGraph.containNode(_node)) {
+							int pri = subGraph.getNewPriority(_node);
+							if (pri < RETE_PRIORITY_PARTIAL_MAX) {
+								subGraph.setNodePriority(_node, pri + 1);
+							}
+						}
+
+						return false;
+					});
+				}
+			}
 		}
 
 		public boolean hasNext(int maxLimit) throws RException {

@@ -1,0 +1,18 @@
+(new model m)
+;=>m
+
+(add-stmt m n1:'(0))
+;=>true
+
+(add-rule m if n1:'(?x) (< ?x 3) do (-> n1:'((+ ?x 1))))[high-priority]
+;=>RU000
+
+(add-rule m if n1:'(?x) (> ?x -3) do (-> n1:'((- ?x 1))))
+;=>RU001
+
+;(setq ?model-trace true)
+;;=>
+
+(query-stmt m ?x from n1:'(?x))
+;=>'(0 1 2 3 -1 -2 -3)
+

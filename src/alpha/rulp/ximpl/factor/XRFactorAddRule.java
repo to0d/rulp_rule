@@ -2,7 +2,7 @@ package alpha.rulp.ximpl.factor;
 
 import static alpha.rulp.lang.Constant.A_DO;
 import static alpha.rulp.lang.Constant.F_IF;
-import static alpha.rulp.rule.Constant.*;
+import static alpha.rulp.rule.Constant.A_HIGH_PRIORITY;
 
 import java.util.ArrayList;
 
@@ -17,10 +17,10 @@ import alpha.rulp.rule.IRRule;
 import alpha.rulp.runtime.IRInterpreter;
 import alpha.rulp.utils.AttrUtil;
 import alpha.rulp.utils.ModifiterUtil;
+import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.utils.RuleUtil;
 import alpha.rulp.utils.RulpFactory;
 import alpha.rulp.utils.RulpUtil;
-import alpha.rulp.utils.ModifiterUtil.Modifier;
 import alpha.rulp.ximpl.model.IRuleFactor;
 
 public class XRFactorAddRule extends AbsAtomFactorAdapter implements IRuleFactor {

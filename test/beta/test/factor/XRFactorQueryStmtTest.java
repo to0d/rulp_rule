@@ -265,4 +265,20 @@ class XRFactorQueryStmtTest extends RuleTestBase {
 		_run_script(); 
 		_statsInfo("m");
 	}
+	
+	@Test
+	void test_query_stmt_g_rule_order_1() {
+
+		_setup();
+		_run_script(); 
+		_statsInfo("m");
+	}
+	
+	@Test
+	void test_query_stmt_g_rule_order_2_high_priority() {
+
+		_setup();
+		_run_script(); 
+		_statsInfo("m");
+	}
 }

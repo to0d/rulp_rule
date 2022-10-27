@@ -2,7 +2,6 @@ package alpha.rulp.rule;
 
 import java.util.List;
 
-import alpha.rulp.lang.IRError;
 import alpha.rulp.lang.IRExpr;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRVar;

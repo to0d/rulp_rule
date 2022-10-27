@@ -72,11 +72,12 @@ public class TestManners extends RuleTestBase {
 		_setup();
 		_run_script();
 	}
-	
+
 	@Test
 	void test_manners_2_query_manners_4_f_fast_return() {
 
 		_setup();
 		_run_script();
 	}
+
 }

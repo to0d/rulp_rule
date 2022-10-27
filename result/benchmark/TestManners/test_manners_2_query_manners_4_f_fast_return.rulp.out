@@ -123,7 +123,7 @@
         )
         
         (println "" ?idx ": deep," ?0 " -> none")
-    )
+    )[high-priority]
 
     ; width search
     (add-rule mm if seat:'(?m ?...) (> ?m 0) (< ?m ?max_guess) do 
@@ -132,7 +132,7 @@
         
         (defvar ?gindex (get ?0 ?m))
         (if (= ?gindex (- ?max_guess 0)) do
-            (println "" ?idx ": deep," ?0 ", back")
+            (println "" ?idx ": width," ?0 ", back")
             (return)
         )
         
@@ -146,7 +146,7 @@
             )
         )
         
-        (println "" ?idx ": deep," ?0 " -> none")
+        (println "" ?idx ": width," ?0 " -> none")
     )
 )
 ;=>canSeat _query_init
@@ -164,13 +164,8 @@
 ;out:
 1: deep,seat:'(0 0 0 0 0) -> {1,0,0,0,0}
 2: deep,seat:'(1 0 0 0 0) -> {2,0,2,0,0}
-3: width,seat:'(1 0 0 0 0) -> {1,1,0,0,0}
-4: deep,seat:'(2 0 2 0 0) -> {3,0,2,1,0}
-5: deep,seat:'(1 1 0 0 0) -> {2,1,2,0,0}
-6: width,seat:'(2 0 2 0 0) -> {2,0,3,0,0}
-7: width,seat:'(1 1 0 0 0) -> {1,2,0,0,0}
-8: deep,seat:'(3 0 2 1 0) -> {4,0,2,1,3}
-9: deep,seat:'(2 1 2 0 0) -> {3,1,2,0,0}
+3: deep,seat:'(2 0 2 0 0) -> {3,0,2,1,0}
+4: deep,seat:'(3 0 2 1 0) -> {4,0,2,1,3}
 
 ;eof
 

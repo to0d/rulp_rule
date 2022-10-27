@@ -1,0 +1,14 @@
+(new model m)
+;=>
+
+(add-stmt m n1:'(0))
+;=>
+
+(add-rule m if n1:'(?x) (< ?x 3) do (-> n1:'((+ ?x 1))))
+;=>
+
+(add-rule m if n1:'(?x) (> ?x -3) do (-> n1:'((- ?x 1))))
+;=>
+
+(query-stmt m ?x from n1:'(?x))
+;=>

@@ -119,7 +119,7 @@
         )
         
         (println "" ?idx ": deep," ?0 " -> none")
-    )
+    )[high-priority]
 
     ; width search
     (add-rule mm if seat:'(?m ?...) (> ?m 0) (< ?m ?max_guess) do 
@@ -128,7 +128,7 @@
         
         (defvar ?gindex (get ?0 ?m))
         (if (= ?gindex (- ?max_guess 0)) do
-            (println "" ?idx ": deep," ?0 ", back")
+            (println "" ?idx ": width," ?0 ", back")
             (return)
         )
         
@@ -142,7 +142,7 @@
             )
         )
         
-        (println "" ?idx ": deep," ?0 " -> none")
+        (println "" ?idx ": width," ?0 " -> none")
     )
 )
 ;=>

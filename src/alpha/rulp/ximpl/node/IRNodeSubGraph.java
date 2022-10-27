@@ -15,6 +15,8 @@ public interface IRNodeSubGraph {
 
 	public int getCacheCount();
 
+	public int getNewPriority(IRReteNode node);
+
 	public List<IRReteNode> getNodes();
 
 	public void incCacheCount();
@@ -22,8 +24,8 @@ public interface IRNodeSubGraph {
 	public boolean isEmpty();
 
 	public void rollback() throws RException;
-	
+
 	public void setGraphPriority(int newPriority) throws RException;
-	
+
 	public void setNodePriority(IRReteNode node, int newPriority) throws RException;
 }

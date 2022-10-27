@@ -11,7 +11,7 @@ public class TestPrintMannerData {
 	public static void main(String[] args) throws IOException {
 
 		TestSearchMannerTree.TRACE = false;
-		String path = "C:\\data\\rs\\benchmark\\ops5-benchmark-suite\\manners\\manners_4.dat";
+		String path = "C:\\data\\rs\\benchmark\\ops5-benchmark-suite\\manners\\manners_300.dat";
 
 		GuessData gd = MannerUtil.loadGuessData(path);
 
