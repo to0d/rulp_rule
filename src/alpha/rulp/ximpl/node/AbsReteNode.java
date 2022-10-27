@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import alpha.rulp.lang.IRError;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -79,6 +80,8 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	protected IGraphInfo graphInfo;
 
 	protected InheritIndex inheritIndexs[];
+
+	protected IRError lastError;
 
 	protected IRConstraint1 lastFailedConstraint1 = null;
 
@@ -499,6 +502,11 @@ public abstract class AbsReteNode extends AbsRInstance implements IRReteNode {
 	@Override
 	public IRInterpreter getInterpreter() {
 		return this.getModel().getInterpreter();
+	}
+
+	@Override
+	public IRError getLastError() {
+		return lastError;
 	}
 
 	@Override

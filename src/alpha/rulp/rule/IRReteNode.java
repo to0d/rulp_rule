@@ -2,6 +2,7 @@ package alpha.rulp.rule;
 
 import java.util.List;
 
+import alpha.rulp.lang.IRError;
 import alpha.rulp.lang.IRInstance;
 import alpha.rulp.lang.IRList;
 import alpha.rulp.lang.IRObject;
@@ -91,6 +92,8 @@ public interface IRReteNode extends IRRunnable, IRInstance, IRContext {
 	public IGraphInfo getGraphInfo();
 
 	public InheritIndex[] getInheritIndex();
+
+	public IRError getLastError();
 
 	public IRConstraint1 getLastFailedConstraint1();
 

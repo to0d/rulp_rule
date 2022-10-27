@@ -103,8 +103,6 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 
 	protected List<IRReteNode> allReteNodes = new LinkedList<>();
 
-	protected IRError lastError;
-
 	protected IRReteEntry lastValueEntry;
 
 	protected LinkedList<IRList> matchStmtList = new LinkedList<>();
@@ -323,11 +321,6 @@ public class XRNodeRule0 extends XRNodeRete1 implements IRRule {
 				return XRNodeRule0.this.getEntryQueue().getUpdateCount();
 			}
 		};
-	}
-
-	@Override
-	public IRError getLastError() {
-		return lastError;
 	}
 
 	@Override

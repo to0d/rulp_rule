@@ -25,8 +25,6 @@ public interface IRRule extends IRReteNode, IRRunnable {
 
 	public IRRuleCounter getCounter();
 
-	public IRError getLastError();
-
 	public IRList getLastValues();
 
 	public IRModel getModel();

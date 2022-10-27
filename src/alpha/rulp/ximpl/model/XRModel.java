@@ -39,6 +39,7 @@ import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import alpha.rulp.lang.IRClass;
+import alpha.rulp.lang.IRError;
 import alpha.rulp.lang.IRFrame;
 import alpha.rulp.lang.IRFrameEntry;
 import alpha.rulp.lang.IRList;
@@ -231,6 +232,10 @@ public class XRModel extends AbsRInstance implements IRModel {
 						}
 
 						int update = model.execute(node, execLimit);
+						if (node.getRunState() == RRunState.Failed) {
+							throw new RException(
+									String.format("node <%s> failed, msg=%s", node.getNodeName(), node.getLastError()));
+						}
 
 						if (node == queryNode && update > 0) {
 							return true;

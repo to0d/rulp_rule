@@ -1,0 +1,19 @@
+(new model m)
+;=>
+
+(add-rule m if n1:'(?x) (< ?x 5) do 
+
+    (if (> ?x 0)
+        (throw e1 (+ "too big, ?x=" ?x))
+    )
+
+    (-> m n1:'((+ ?x 1)))
+)
+;=>
+
+(add-stmt m n1:'(0))
+;=>
+
+(query-stmt m ?x from n1:'(?x))
+;err
+
