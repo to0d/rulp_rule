@@ -131,6 +131,7 @@ public class OrderList<K, T extends K> {
 
 		int low = 0;
 		int high = len - 1;
+
 		while (low <= high) {
 
 			if ((low + 1) >= high) {
