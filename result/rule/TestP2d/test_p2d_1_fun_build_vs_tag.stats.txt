@@ -2768,7 +2768,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      256
+           Interpreter call id:      257
     Interpreter call level/max:        0       15
                Frame max level:       10
                   Frame max id:       19
@@ -2789,53 +2789,53 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1248
+    factor:     1249
       func:      163
      macro:        6
 ==========================================================================================================================
 
-Callable stats info: callId=256, row=68, column=33(8), value-max=154, value-unit=2^x
+Callable stats info: callId=257, row=68, column=33(8), value-max=136, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         4444444444444444444444444544449X1 max=929, unit=2^x
+   Frame    RType  Count  Ref Object                         4444444444444444444444444544449X8 max=831, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                  144444444444444444444441         
-    root   factor    156    0 return                                                       29 
-    root   factor    110    0 defvar                                                  3    18 
+    root   factor    178    0 add-attribute                   44444444444444444444442         
+    root   factor    156    0 return                                                       296
+    root   factor    110    0 defvar                                                  3    185
     root   factor    103    0 defun                                                 44344347  
-    root   factor     61    0 if                                                            7 
+    root   factor     61    0 if                                                            74
     root   factor     58    0 defconst                                                     7  
-    root   factor     51    0 +                                                             7 
-    root   factor     49    0 to-string                                                     7 
-    root   factor     47    0 do                                                            7 
+    root   factor     51    0 +                                                             73
+    root   factor     49    0 to-string                                                     74
+    root   factor     47    0 do                                                            74
   system   factor     41    0 add-rule                                                     7  
-    root   factor     34    0 str-index-of                                                  7 
-    root   factor     34    0 equal_def                                                     7 
-  system funcList     34    1 equal                                                         7 
-    root   factor     33    0 str-length                                                   26 
-  system funcList     33    1 length-of                                                    26 
-    root   factor     31    0 str-substr                                                    6 
+    root   factor     34    0 str-index-of                                                  64
+    root   factor     34    0 equal_def                                                     64
+  system funcList     34    1 equal                                                         64
+    root   factor     33    0 str-length                                                   263
+  system funcList     33    1 length-of                                                    263
+    root   factor     31    0 str-substr                                                    63
   system   factor     28    0 fix-stmt                                                     6  
-    main     func     25    2 (p2d_get_uri_name nil)                                        6 
+    main     func     25    2 (p2d_get_uri_name nil)                                        63
     root   factor     24    0 load                                                         6  
     root   factor     22    0 setq                                                          6 
-  system   factor     14    0 add-stmt                                                     15 
+  system   factor     14    0 add-stmt                                                      5 
     root   factor     10    0 uniq                                                          5 
-    root   factor      9    0 str-last-index-of                                             5 
-    root   factor      9    0 str-end-with                                                  5 
-    main     func      9    2 (p2d_get_version_number nil)                                  5 
-    main     func      9    2 (p2d_get_suffix nil string)                                   5 
+    root   factor      9    0 str-last-index-of                                             42
+    root   factor      9    0 str-end-with                                                  42
+    main     func      9    2 (p2d_get_version_number nil)                                  42
+    main     func      9    2 (p2d_get_suffix nil string)                                   42
     root   factor      9    0 loop                                                          5 
     root   factor      9    0 defmacro                                                     5  
-    root   factor      9    0 can-cast                                                      5 
-    root   factor      9    0 >                                                             5 
+    root   factor      9    0 can-cast                                                      42
+    root   factor      9    0 >                                                             42
     root   factor      8    0 to-atom                                                       4 
     main     func      8    2 (p2d_as_tag nil)                                              4 
+    root   factor      8    0 alias                          4                           1    
     root   factor      7    0 str-start-with                                                4 
     root   factor      7    0 size-of-list                                                  4 
     main funcList      7    3 size-of                                                       4 
     main     func      7    2 (p2d_get_vs_tag_list string)                                  4 
     root   factor      7    0 not                                                           4 
-    root   factor      7    0 alias                          4                           1    
     root   factor      7    0 <                                                             4 
     root   factor      6    0 continue                                                      4 
     root   factor      6    0 =                                                             4 
@@ -2848,7 +2848,7 @@ Callable stats info: callId=256, row=68, column=33(8), value-max=154, value-unit
     root   factor      4    0 ::                                                            3 
     main funcList      3    2 to-list                                                       3 
     root   factor      3    0 str-split                                                     3 
-  system   factor      3    0 query-stmt                                                    21
+  system   factor      3    0 query-stmt                                                    12
     main     func      3    2 (p2d_get_vs_tag_key list)                                     3 
     main   member      3    1 map::_map_get                                                 3 
     root   factor      3    0 load-class                                                   3  
@@ -2872,11 +2872,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         7655            0         7655
+        atom:         7658            0         7658
          int:            2            0            2
       string:          294            0          294
         list:         1889           14         1875
-        expr:         2225          159         2066
+        expr:         2226          159         2067
        array:            2            0            2
          var:          422          383           39
     constant:           58            0           58

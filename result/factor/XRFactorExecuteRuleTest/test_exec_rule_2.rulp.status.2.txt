@@ -208,7 +208,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      256
+           Interpreter call id:      257
     Interpreter call level/max:        1        9
                Frame max level:        5
                   Frame max id:        7
@@ -229,37 +229,37 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      368
+    factor:      369
       func:        6
 ==========================================================================================================================
 
-Callable stats info: callId=256, row=26, column=33(8), value-max=48, value-unit=2^x
+Callable stats info: callId=257, row=26, column=33(8), value-max=48, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         444444444444444444444444454444872 max=96, unit=2^x
+   Frame    RType  Count  Ref Object                         444444444444444444444444454444865 max=96, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                  144444444444444444444441         
+    root   factor    178    0 add-attribute                   44444444444444444444442         
     root   factor     81    0 defun                                                 44344347  
     root   factor     48    0 defconst                                                     7  
     root   factor      8    0 defmacro                                                     4  
-    root   factor      7    0 defvar                                                  3    12 
-    root   factor      7    0 alias                          4                           1    
-    root   factor      6    0 return                                                        4 
+    root   factor      8    0 alias                          4                           1    
+    root   factor      7    0 defvar                                                  3    111
+    root   factor      6    0 return                                                        33
     root   factor      4    0 make-list                                               3       
     root   factor      3    0 load                                                         3  
     root   factor      3    0 deftemplate                                                3    
   system   factor      3    0 add-stmt                                                      3 
-    root   factor      2    0 size-of-list                                                  2 
-  system funcList      2    1 size-of                                                       2 
-  system   factor      2    0 rete-node-of                                                  2 
-    main     func      2    2 (get-rule type#model string)                                  2 
-    root   factor      2    0 get-of-list                                                   2 
-  system funcList      2    1 get                                                           2 
-  system   factor      2    0 execute-rule                                                  2 
+    root   factor      2    0 size-of-list                                                  11
+  system funcList      2    1 size-of                                                       11
+  system   factor      2    0 rete-node-of                                                  11
+    main     func      2    2 (get-rule type#model string)                                  11
+    root   factor      2    0 get-of-list                                                   11
+  system funcList      2    1 get                                                           11
+  system   factor      2    0 execute-rule                                                  11
   system   factor      2    0 dump-status                                                   11
-    root   factor      2    0 do                                                            2 
-    root   factor      2    0 case                                                          2 
+    root   factor      2    0 do                                                            11
+    root   factor      2    0 case                                                          11
     root   factor      2    0 +                                                             11
-    root   factor      1    0 new                                                          1  
+    root   factor      1    0 new                                                           1 
     root   factor      1    0 load-class                                                   1  
   system   factor      1    0 list-stmt                                                     1 
   system   factor      1    0 add-rule                                                      1 
@@ -269,11 +269,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2467            0         2467
+        atom:         2470            0         2470
          int:            2            0            2
       string:           98            0           98
         list:          111            3          108
-        expr:         1133            6         1127
+        expr:         1134            6         1128
          var:           36           14           22
     constant:           48            0           48
         func:           98            0           98

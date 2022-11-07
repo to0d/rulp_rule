@@ -227,7 +227,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      248
+           Interpreter call id:      249
     Interpreter call level/max:        0        7
                Frame max level:        7
                   Frame max id:        8
@@ -248,24 +248,24 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      257
+    factor:      258
       func:        1
 ==========================================================================================================================
 
-Callable stats info: callId=248, row=18, column=63(4), value-max=4, value-unit=2^x
+Callable stats info: callId=249, row=18, column=63(4), value-max=4, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333333351 max=10, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334433333333352 max=10, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
-    root   factor     48    0 defun                                                                        3333 3333322331  
-    root   factor      7    0 alias                          33                                                       1     
-    root   factor      4    0 make-list                                                                        3            
-    root   factor      4    0 defvar                                                                           3            
-    root   factor      3    0 deftemplate                                                                            21     
+    root   factor    178    0 add-attribute                    333333333333333333333333333333333333333333332                
+    root   factor     48    0 defun                                                                        233313333331332  
+    root   factor      8    0 alias                          33                                                       1     
+    root   factor      4    0 make-list                                                                        31           
+    root   factor      4    0 defvar                                                                           31           
+    root   factor      3    0 deftemplate                                                                            12     
   system   factor      2    0 list-stmt                                                                                   11
-  system   factor      2    0 add-stmt                                                                                   11 
+  system   factor      2    0 add-stmt                                                                                    2 
     root   factor      1    0 throw                                                                                       1 
-  system   factor      1    0 state-of                                                                                    1 
+  system   factor      1    0 state-of                                                                                     1
   system   factor      1    0 start                                                                                       1 
     root   factor      1    0 return                                                                                      1 
     root   factor      1    0 new                                                                                        1  
@@ -280,10 +280,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         1553            0         1553
+        atom:         1556            0         1556
       string:           53            0           53
         list:           90            2           88
-        expr:          592            1          591
+        expr:          593            1          592
          var:           25            3           22
         func:           59            0           59
     template:            1            0            1

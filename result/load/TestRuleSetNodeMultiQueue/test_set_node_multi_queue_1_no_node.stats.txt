@@ -98,7 +98,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      250
+           Interpreter call id:      251
     Interpreter call level/max:        0       16
                Frame max level:       10
                   Frame max id:       12
@@ -119,33 +119,33 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      410
+    factor:      411
       func:       15
 ==========================================================================================================================
 
-Callable stats info: callId=250, row=33, column=63(4), value-max=48, value-unit=2^x
+Callable stats info: callId=251, row=33, column=63(4), value-max=48, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334333333333688 max=86, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334433333333688 max=87, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                
-    root   factor     81    0 defun                                                                        3333 33333223365 
+    root   factor    178    0 add-attribute                    333333333333333333333333333333333333333333332                
+    root   factor     81    0 defun                                                                        2333133333313365 
     root   factor     48    0 defconst                                                                                    7 
     root   factor     15    0 return                                                                                       5
-    root   factor     13    0 defvar                                                                           3         1 4
-    root   factor      8    0 defmacro                                                                                   43 
+    root   factor     13    0 defvar                                                                           31        1 4
+    root   factor      8    0 defmacro                                                                                   33 
+    root   factor      8    0 alias                          33                                                       1     
     root   factor      7    0 if                                                                                           4
     root   factor      7    0 do                                                                                           4
-    root   factor      7    0 alias                          33                                                       1     
     root   factor      5    0 size-of-list                                                                                 4
   system funcList      5    1 size-of                                                                                      4
     root   factor      4    0 value-of                                                                                     3
   system   factor      4    0 rete-node-of                                                                                 3
-    root   factor      4    0 make-list                                                                        3            
+    root   factor      4    0 make-list                                                                        31           
     main     func      4    2 (get-named-rete-node type#mode                                                               3
     root   factor      4    0 case                                                                                         3
     root   factor      4    0 =                                                                                            3
     root   factor      3    0 load                                                                                       12 
-    root   factor      3    0 deftemplate                                                                            21     
+    root   factor      3    0 deftemplate                                                                            12     
     main     func      2    2 (set-node-multi-queue type#mod                                                               2
   system   factor      2    0 rete-queue-type-of                                                                           2
     root   factor      2    0 name-of                                                                                      2
@@ -156,7 +156,7 @@ Callable stats info: callId=250, row=33, column=63(4), value-max=48, value-unit=
   system   factor      1    0 set-node-queue-type                                                                          1
     main     func      1    2 (rete-type-of nil)                                                                           1
     root   factor      1    0 not                                                                                          1
-    root   factor      1    0 new                                                                                         1 
+    root   factor      1    0 new                                                                                          1
     root   factor      1    0 load-class                                                                                  1 
     main     func      1    2 (entry-length-of nil)                                                                        1
   system   factor      1    0 add-node                                                                                     1
@@ -166,11 +166,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2418            0         2418
+        atom:         2421            0         2421
          int:            2            0            2
       string:           95            0           95
         list:           67            2           65
-        expr:         1137           15         1122
+        expr:         1138           15         1123
          var:           60           38           22
     constant:           48            0           48
         func:           98            0           98

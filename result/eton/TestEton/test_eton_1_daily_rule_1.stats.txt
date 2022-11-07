@@ -466,8 +466,8 @@ Node<E00005> frame:id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model),
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 161      13       1    var        2022-10-31 : type=string
-?3                   : 162      13       1    var        2022-10-31 : type=string
+?0                   : 161      13       1    var        2022-11-07 : type=string
+?3                   : 162      13       1    var        2022-11-07 : type=string
 ?rv                  : 165      13       1    var        false : type=bool   
 ==========================================================================================================================
 
@@ -475,8 +475,8 @@ Node<E00010> frame:id=12, name=NF-E00010, lvl=4, ref=1/2, entry=3, pid=3(model),
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 174      12       1    var        2022-10-31 : type=string
-?3                   : 175      12       1    var        2022-10-31 : type=string
+?0                   : 174      12       1    var        2022-11-07 : type=string
+?3                   : 175      12       1    var        2022-11-07 : type=string
 ?rv                  : 178      12       1    var        false : type=bool   
 ==========================================================================================================================
 
@@ -487,7 +487,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 179      14       6    instance   model@em            
 ?task                : 180      14       1    var        task1 : type=string 
 ?arg0                : 181      14       1    var        value0 : type=string
-?day1                : 182      14       1    var        2022-10-31 : type=string
+?day1                : 182      14       1    var        2022-11-07 : type=string
 ==========================================================================================================================
 
 node update info: model-exec-count=40, row=13, column=29(1), value-max=1, value-unit=1^x
@@ -516,7 +516,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      253
+           Interpreter call id:      254
     Interpreter call level/max:        0       13
                Frame max level:        8
                   Frame max id:       17
@@ -537,55 +537,55 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      503
+    factor:      504
       func:       29
      macro:       11
 ==========================================================================================================================
 
-Callable stats info: callId=253, row=59, column=64(4), value-max=48, value-unit=2^x
+Callable stats info: callId=254, row=59, column=64(4), value-max=48, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333336957 max=194, unit=2^x
+   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333344333333336888 max=117, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
-    root   factor     96    0 defun                                                                        3333 333332233661 
+    root   factor    178    0 add-attribute                    333333333333333333333333333333333333333333332                 
+    root   factor     96    0 defun                                                                        23331333333133661 
     root   factor     48    0 defconst                                                                                    7  
-    root   factor     22    0 return                                                                                      524
-    root   factor     18    0 defvar                                                                           3         14 4
-    root   factor     16    0 do                                                                                          523
-    root   factor      9    0 defmacro                                                                                   43  
+    root   factor     22    0 return                                                                                       54
+    root   factor     18    0 defvar                                                                           31        1244
+    root   factor     16    0 do                                                                                           53
+    root   factor      9    0 defmacro                                                                                   331 
+    root   factor      8    0 alias                          33                                                       1      
     root   factor      7    0 load                                                                                       14  
-    root   factor      7    0 alias                          33                                                       1      
     root   factor      6    0 trace                                                                                        23
-    root   factor      6    0 size-of-list                                                                                4 1
-  system funcList      6    1 size-of                                                                                     4 1
-    root   factor      6    0 setq                                                                                        4 1
-    root   factor      6    0 if                                                                                          1 4
-    root   factor      6    0 -                                                                                           4 1
-  system   factor      5    0 set-priority                                                                                4  
-  system   factor      5    0 rete-node-of                                                                                4  
-    main     func      5    2 (get-rule type#model string)                                                                4  
-    root   factor      5    0 get-of-list                                                                                 4  
-  system funcList      5    1 get                                                                                         4  
-    root   factor      5    0 case                                                                                        4  
-  system   factor      5    0 add-rule                                                                                    4  
-    main    macro      5    1 _eton_priority_                                                                             4  
-    main    macro      5    2 --                                                                                          4  
-    root   factor      4    0 make-list                                                                        3             
+    root   factor      6    0 size-of-list                                                                                 41
+  system funcList      6    1 size-of                                                                                      41
+    root   factor      6    0 setq                                                                                         41
+    root   factor      6    0 if                                                                                           14
+    root   factor      6    0 -                                                                                            41
+  system   factor      5    0 set-priority                                                                                 4 
+  system   factor      5    0 rete-node-of                                                                                 4 
+    main     func      5    2 (get-rule type#model string)                                                                 4 
+    root   factor      5    0 get-of-list                                                                                  4 
+  system funcList      5    1 get                                                                                          4 
+    root   factor      5    0 case                                                                                         4 
+  system   factor      5    0 add-rule                                                                                     4 
+    main    macro      5    1 _eton_priority_                                                                              4 
+    main    macro      5    2 --                                                                                           4 
+    root   factor      4    0 make-list                                                                        31            
     root   factor      4    0 day-number                                                                                    3
   system   factor      4    0 add-stmt                                                                                     22
   system   factor      3    0 remove-stmt                                                                                   3
-    main     func      3    2 (eton_model)                                                                                 21
-    root   factor      3    0 deftemplate                                                                            21      
+    main     func      3    2 (eton_model)                                                                                 12
+    root   factor      3    0 deftemplate                                                                            12      
     root   factor      3    0 =                                                                                             3
-    root   factor      3    0 !=                                                                                          1 2
+    root   factor      3    0 !=                                                                                           12
   system   factor      2    0 state-of                                                                                      2
   system   factor      2    0 start                                                                                         2
   system   factor      2    0 query-stmt                                                                                    2
-  system   factor      2    0 list-stmt                                                                                    11
+  system   factor      2    0 list-stmt                                                                                     2
     main     func      2    2 (day-is-bigger-than string str                                                                2
     root   factor      2    0 >                                                                                             2
-    root   factor      2    0 +                                                                                           1 1
-  system   factor      1    0 set-default-model                                                                           1  
+    root   factor      2    0 +                                                                                            11
+  system   factor      1    0 set-default-model                                                                            1 
     main     func      1    2 (register_task_function type#m                                                               1 
     main     func      1    2 (process-eton)                                                                                1
   system funcList      1    1 println                                                                                       1
@@ -594,15 +594,15 @@ Callable stats info: callId=253, row=59, column=64(4), value-max=48, value-unit=
     root   factor      1    0 new                                                                                         1  
     root   factor      1    0 loop                                                                                          1
     root   factor      1    0 load-class                                                                                  1  
-    root   factor      1    0 lambda                                                                                      1  
-    main     func      1    2 (init_eton_model string)                                                                    1  
+    root   factor      1    0 lambda                                                                                       1 
+    main     func      1    2 (init_eton_model string)                                                                     1 
     main     func      1    3 (fun1 nil)                                                                                    1
     root   factor      1    0 date                                                                                          1
     root   factor      1    0 break                                                                                         1
-    root   factor      1    0 and                                                                                         1  
+    root   factor      1    0 and                                                                                          1 
     main     func      1    2 (add_working_task string nil)                                                                 1
     main     func      1    2 (add_daily_task string nil)                                                                  1 
-  system   factor      1    0 add-constraint                                                                              1  
+  system   factor      1    0 add-constraint                                                                               1 
     main     func      1    3 (__inc_process_count__)                                                                       1
     main    macro      1    2 ++                                                                                            1
 ==========================================================================================================================
@@ -611,11 +611,11 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         3091            0         3091
+        atom:         3094            0         3094
          int:           12            0           12
       string:          133            0          133
         list:          200            7          193
-        expr:         1439           25         1414
+        expr:         1440           25         1415
          var:          104           68           36
     constant:           48            0           48
         func:          116            0          116
@@ -788,8 +788,8 @@ id=12, name=NF-E00010, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00010
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 174      12       1    var        2022-10-31 : type=string
-?3                   : 175      12       1    var        2022-10-31 : type=string
+?0                   : 174      12       1    var        2022-11-07 : type=string
+?3                   : 175      12       1    var        2022-11-07 : type=string
 ?rv                  : 178      12       1    var        false : type=bool   
 ==========================================================================================================================
 
@@ -797,8 +797,8 @@ id=13, name=NF-E00005, lvl=4, ref=1/2, entry=3, pid=3(model), subject=NF-E00005
 ==========================================================================================================================
 Name(alias)          : EntryId  FrameId  Ref  Type       Value               
 --------------------------------------------------------------------------------------------------------------------------
-?0                   : 161      13       1    var        2022-10-31 : type=string
-?3                   : 162      13       1    var        2022-10-31 : type=string
+?0                   : 161      13       1    var        2022-11-07 : type=string
+?3                   : 162      13       1    var        2022-11-07 : type=string
 ?rv                  : 165      13       1    var        false : type=bool   
 ==========================================================================================================================
 
@@ -809,7 +809,7 @@ Name(alias)          : EntryId  FrameId  Ref  Type       Value
 default_model        : 179      14       6    instance   model@em            
 ?task                : 180      14       1    var        task1 : type=string 
 ?arg0                : 181      14       1    var        value0 : type=string
-?day1                : 182      14       1    var        2022-10-31 : type=string
+?day1                : 182      14       1    var        2022-11-07 : type=string
 ==========================================================================================================================
 
 Root var list: total=7

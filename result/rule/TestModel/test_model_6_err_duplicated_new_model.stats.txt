@@ -53,7 +53,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      247
+           Interpreter call id:      248
     Interpreter call level/max:        0        3
                Frame max level:        2
                   Frame max id:        5
@@ -74,32 +74,32 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:      275
+    factor:      276
 ==========================================================================================================================
 
-Callable stats info: callId=247, row=9, column=62(4), value-max=21, value-unit=2^x
+Callable stats info: callId=248, row=9, column=63(4), value-max=22, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333433333333363 max=28, unit=2^x
+   Frame    RType  Count  Ref Object                         333333333333333333333333333333333333333333333333334433333333631 max=28, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331               
-    root   factor     70    0 defun                                                                        3333 33333223362
-    root   factor      7    0 alias                          33                                                       1    
-    root   factor      5    0 defvar                                                                           3         1 
-    root   factor      5    0 defmacro                                                                                   4 
-    root   factor      4    0 make-list                                                                        3           
-    root   factor      3    0 deftemplate                                                                            21    
-    root   factor      2    0 new                                                                                         2
-    root   factor      1    0 load                                                                                       1 
+    root   factor    178    0 add-attribute                    333333333333333333333333333333333333333333332                
+    root   factor     70    0 defun                                                                        2333133333313362 
+    root   factor      8    0 alias                          33                                                       1     
+    root   factor      5    0 defvar                                                                           31        1  
+    root   factor      5    0 defmacro                                                                                   31 
+    root   factor      4    0 make-list                                                                        31           
+    root   factor      3    0 deftemplate                                                                            12     
+    root   factor      2    0 new                                                                                         11
+    root   factor      1    0 load                                                                                       1  
 ==========================================================================================================================
 
 Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2021            0         2021
+        atom:         2024            0         2024
       string:           77            0           77
         list:           58            0           58
-        expr:          911            0          911
+        expr:          912            0          912
          var:           27            0           27
         func:           87            0           87
     template:            1            0            1
@@ -197,19 +197,6 @@ Global frame tree:
 
 Global Subject list:
 
-name=m, string=model@m, lvl=1, ref=1/1, parent=model, final=false, mbrs=7, frame=null
-==========================================================================================================================
-Name                           : Access  Final Static Inherit Prop Ref  Type       Value
---------------------------------------------------------------------------------------------------------------------------
-?cst-init                      : DEFAULT                      0    1    var        false : type=bool
-?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
-?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
-?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
-?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
-?model-state                   : DEFAULT                      0    1    var        completed : type=atom
-this                           : DEFAULT                      0    1    instance   model@m
-==========================================================================================================================
-
 name=m, string=model@m, lvl=1, ref=2/4, parent=model, final=false, mbrs=7, frame=null
 ==========================================================================================================================
 Name                           : Access  Final Static Inherit Prop Ref  Type       Value
@@ -221,6 +208,19 @@ Name                           : Access  Final Static Inherit Prop Ref  Type    
 ?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
 ?model-state                   : DEFAULT                      0    1    var        completed : type=atom
 this                           : DEFAULT                      0    2    instance   model@m
+==========================================================================================================================
+
+name=m, string=model@m, lvl=1, ref=1/1, parent=model, final=false, mbrs=7, frame=null
+==========================================================================================================================
+Name                           : Access  Final Static Inherit Prop Ref  Type       Value
+--------------------------------------------------------------------------------------------------------------------------
+?cst-init                      : DEFAULT                      0    1    var        false : type=bool
+?model-gc-capacity             : DEFAULT                      0    1    var        2048L : type=long
+?model-gc-inactive-leaf        : DEFAULT                      0    1    var        30L : type=long
+?model-gc-interval             : DEFAULT                      0    1    var        -1L : type=long
+?model-gc-max-cache-node       : DEFAULT                      0    1    var        -1L : type=long
+?model-state                   : DEFAULT                      0    1    var        completed : type=atom
+this                           : DEFAULT                      0    1    instance   model@m
 ==========================================================================================================================
 
 

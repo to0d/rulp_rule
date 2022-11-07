@@ -426,7 +426,7 @@ Total runtime info:
 ==========================================================================================================================
                           Name:     info
 --------------------------------------------------------------------------------------------------------------------------
-           Interpreter call id:      252
+           Interpreter call id:      253
     Interpreter call level/max:        0        9
                Frame max level:        6
                   Frame max id:        9
@@ -447,25 +447,25 @@ Expression compute count:
 ==========================================================================================================================
      RType:    Count
 --------------------------------------------------------------------------------------------------------------------------
-    factor:     1094
+    factor:     1095
       func:       12
 ==========================================================================================================================
 
-Callable stats info: callId=252, row=26, column=64(4), value-max=299, value-unit=2^x
+Callable stats info: callId=253, row=26, column=64(4), value-max=242, value-unit=2^x
 ==========================================================================================================================
-   Frame    RType  Count  Ref Object                         3333333333333333333333333333333333333333333333333343333333336X65 max=788, unit=2^x
+   Frame    RType  Count  Ref Object                         33333333333333333333333333333333333333333333333333443333333368X5 max=752, unit=2^x
 --------------------------------------------------------------------------------------------------------------------------
-  system   factor    299    0 add-stmt                                                                                    X  
-    root   factor    243    0 if                                                                                          921
-    root   factor    240    0 =                                                                                           9  
-    root   factor    178    0 add-attribute                   1333333333333333333333333333333333333333333331                 
-    root   factor     72    0 defun                                                                        3333 333332233622 
+  system   factor    299    0 add-stmt                                                                                    79 
+    root   factor    243    0 if                                                                                           91
+    root   factor    240    0 =                                                                                            9 
+    root   factor    178    0 add-attribute                    333333333333333333333333333333333333333333332                 
+    root   factor     72    0 defun                                                                        233313333331336211
     root   factor     12    0 return                                                                                       43
-    root   factor      8    0 defvar                                                                           3         1 21
-    root   factor      7    0 alias                          33                                                       1      
-    root   factor      5    0 defmacro                                                                                   4   
-  system   factor      4    0 query-stmt                                                                                  121
-    root   factor      4    0 make-list                                                                        3             
+    root   factor      8    0 defvar                                                                           31        1 21
+    root   factor      8    0 alias                          33                                                       1      
+    root   factor      5    0 defmacro                                                                                   31  
+  system   factor      4    0 query-stmt                                                                                   31
+    root   factor      4    0 make-list                                                                        31            
     root   factor      3    0 size-of-list                                                                                 21
     main funcList      3    2 is-empty                                                                                     21
     root   factor      3    0 get-of-list                                                                                  21
@@ -473,7 +473,7 @@ Callable stats info: callId=252, row=26, column=64(4), value-max=299, value-unit
     root   factor      3    0 equal_def                                                                                    21
   system funcList      3    1 equal                                                                                        21
     root   factor      3    0 do                                                                                           21
-    root   factor      3    0 deftemplate                                                                            21      
+    root   factor      3    0 deftemplate                                                                            12      
     root   factor      2    0 load                                                                                       11  
     main     func      2    1 (canBeCouple nil nil)                                                                        2 
   system   factor      2    0 add-rule                                                                                    2  
@@ -487,10 +487,10 @@ Object create count:
 ==========================================================================================================================
        RType:       Create       Delete        Exist
 --------------------------------------------------------------------------------------------------------------------------
-        atom:         2446            0         2446
+        atom:         2449            0         2449
       string:           81            0           81
         list:         1066            4         1062
-        expr:         1026           12         1014
+        expr:         1027           12         1015
          var:           60           34           26
         func:           89            0           89
     template:            1            0            1
