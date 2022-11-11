@@ -56,7 +56,6 @@ import alpha.rulp.ximpl.factor.XRFactorHasStmt;
 import alpha.rulp.ximpl.model.IReteNodeMatrix;
 import alpha.rulp.ximpl.node.IRReteNodeCounter;
 import alpha.rulp.ximpl.node.RReteType;
-import alpha.rulp.ximpl.optimize.EROUtil;
 import alpha.rulp.ximpl.optimize.OptUtil;
 
 public class OptimizeUtil {
@@ -779,11 +778,11 @@ public class OptimizeUtil {
 	public static IRExpr optimizeActionExpr(IRExpr expr, IRModel model) throws RException {
 
 		if (OPT_ERO) {
-			IRExpr newExpr = RulpUtil.asExpression(EROUtil.rebuild(expr, model.getInterpreter(), model.getFrame()));
-			if (newExpr != expr) {
-				++OptimizeActionExpr;
-				expr = newExpr;
-			}
+//			IRExpr newExpr = RulpUtil.asExpression(EROUtil.rebuild(expr, model.getInterpreter(), model.getFrame()));
+//			if (newExpr != expr) {
+//				++OptimizeActionExpr;
+//				expr = newExpr;
+//			}
 		}
 
 		return expr;
